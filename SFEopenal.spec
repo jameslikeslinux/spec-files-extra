@@ -77,8 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 cd %{src_name}-%{version}
 cd build
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}
+export DESTDIR=$RPM_BUILD_ROOT
 make install
-mv ./sfw_stage/* $RPM_BUILD_ROOT/%{_prefix}
+#mv ./sfw_stage/* $RPM_BUILD_ROOT/%{_prefix}
 #rm $RPM_BUILD_ROOT/%{_libdir}/lib*.*a
 
 %clean
@@ -98,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jan 17 2011 - Thomas Wagner
+- add env var DESTDIR, remove mv ./sfw_stage/*
 * Fri Oct 29 2010 - Thomas Wagner
 - bump to 1.12.854
 - new Download Source
