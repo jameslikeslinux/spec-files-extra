@@ -1,20 +1,20 @@
---- MPlayer-1.0rc3/stream/stream_cddb.c	Sun Feb  1 14:42:27 2009
-+++ MPlayer-1.0rc3-patch/stream/stream_cddb.c	Mon May 31 19:38:45 2010
-@@ -42,7 +42,7 @@
+--- MPlayer-1.0rc4/stream/stream_cddb.c	Sun Jan 30 13:01:16 2011
++++ MPlayer-1.0rc4-patch/stream/stream_cddb.c	Sun Jan 30 13:00:11 2011
+@@ -56,7 +56,7 @@
  
  #if defined(__linux__)
- 	#include <linux/cdrom.h>
+ #include <linux/cdrom.h>
 -#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
 +#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || (defined(__sun) && defined(__SVR4))
- 	#include <sys/cdio.h>
+ #include <sys/cdio.h>
  #elif defined(__MINGW32__) || defined(__CYGWIN__)
-         #include <ddk/ntddcdrm.h>
-@@ -101,7 +101,7 @@
- 		return drive;
- 	}
- 	
+ #include <ddk/ntddcdrm.h>
+@@ -207,7 +207,7 @@
+         return drive;
+     }
+ 
 -#if defined(__linux__) || defined(__bsdi__)
 +#if defined(__linux__) || defined(__bsdi__) || (defined (__sun) && defined (__SVR4))
- 	{
- 	struct cdrom_tochdr tochdr;
- 	ioctl(drive, CDROMREADTOCHDR, &tochdr);
+     {
+         struct cdrom_tochdr tochdr;
+         ioctl(drive, CDROMREADTOCHDR, &tochdr);

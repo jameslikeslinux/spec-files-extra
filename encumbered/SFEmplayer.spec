@@ -34,8 +34,8 @@
 
 Name:		SFEmplayer
 Summary:	mplayer - The Movie Player
-Version:	1.0.0.0.3
-%define tarball_version 1.0rc3
+Version:	1.0.0.0.4
+%define tarball_version 1.0rc4
 URL:		http://www.mplayerhq.hu/
 Source:		http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{tarball_version}.tar.bz2
 Source3:	http://www.mplayerhq.hu/MPlayer/skins/Blue-1.7.tar.bz2
@@ -43,11 +43,8 @@ Source4:	http://www.mplayerhq.hu/MPlayer/skins/Abyss-1.7.tar.bz2
 Source5:	http://www.mplayerhq.hu/MPlayer/skins/neutron-1.5.tar.bz2
 Source6:	http://www.mplayerhq.hu/MPlayer/skins/proton-1.2.tar.bz2
 Patch1:		mplayer-01-cddb.diff
-Patch4:		mplayer-04-cabac-asm.diff
 Patch11:	mplayer-11-cpudetect.diff
 Patch12:	mplayer-12-realplayer.diff
-Patch30:	mplayer-30-configure.diff
-Patch31:	mplayer-31-rdynamic.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{tarball_version}-build
 
@@ -138,11 +135,8 @@ BuildRequires: SFElibschroedinger-devel
 %prep
 %setup -q -n MPlayer-%tarball_version
 %patch1 -p1
-%patch4 -p1
 %patch11 -p1
 %patch12 -p1
-%patch30 -p1
-%patch31 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -152,15 +146,13 @@ fi
 
 %if %debug_build
 dbgflag=--enable-debug
-#export CFLAGS="-g -D__hidden=\"\" -I%{_includedir}"
 export CFLAGS="-g -D__hidden=\"\""
 %else
 dbgflag=--disable-debug
-#export CFLAGS="-O2 -D__hidden=\"\" -I%{_includedir}"
-export CFLAGS="-O3 -D__hidden=\"\" -std=gnu99"
+export CFLAGS="-O3 -fomit-frame-pointer -D__hidden=\"\" -std=gnu99"
 %endif
 
-export LDFLAGS="-L%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir} -liconv" 
+export LDFLAGS="-L%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir} -liconv"
 %if %use_gcc4
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
@@ -182,7 +174,6 @@ bash ./configure			\
             --codecsdir=%{_libdir}/mplayer/codecs \
             --enable-live		\
             --enable-network		\
-	    --enable-rpath		\
             --enable-largefiles		\
 	    --enable-crash-debug	\
             --enable-dynamic-plugins	\
@@ -190,6 +181,8 @@ bash ./configure			\
             --enable-runtime-cpudetection	\
 %endif
             --disable-xvr100		\
+            --disable-crash-debug	\
+            --disable-dvdread-internal	\
 	    $dbgflag
 
 make -j$CPUS
@@ -232,6 +225,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Sun Jan 30 2011 - Milan Jurik
+- bump to 1.0rc4, remove unneeded patches
 * Thu Jun 03 2010 - Milan Jurik
 - SFElibschroedinger as optional
 * Mon May 31 2010 - Milan Jurik

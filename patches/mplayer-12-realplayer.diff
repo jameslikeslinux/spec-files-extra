@@ -1,11 +1,11 @@
---- MPlayer-1.0rc3/configure	Mon May 31 19:59:46 2010
-+++ MPlayer-1.0rc3-patch/configure	Mon May 31 20:05:21 2010
-@@ -6661,7 +6661,7 @@
+--- mplayer/configure.orig	Sat Nov  6 14:34:12 2010
++++ mplayer/configure	Sat Nov  6 14:37:22 2010
+@@ -6708,7 +6708,7 @@
    _real=no
-   _res_comment="dynamic loader support needed"
+   res_comment="dynamic loader support needed"
    if test "$_dl" = yes || test "$_win32dll" = yes &&
--     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32) ; then
-+     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32 || sunos) ; then
+-     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32 || os2) ; then
++     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32 || os2 || sunos) ; then
      _real=yes
    fi
  fi
