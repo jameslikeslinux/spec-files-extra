@@ -1,3 +1,7 @@
+2011-01-30  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEopenal.spec: fix install errors (DESTDIR, mv /sfw_stage)
+
 2011-01-29 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEqt4.spec: enforce libpng 1.4
