@@ -5,21 +5,22 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 %define srcname ncmpcpp
 
 Name:		SFEncmpcpp
 Summary:	ncurses based mpd client
 URL:		http://unkart.ovh.org/ncmpcpp
 Vendor:		Andrzej Rybczak <electricityispower.gmail.com>
-Version:	0.5.5
+Version:	0.5.6
 License:	GPLv2
-Source:		http://unkart.ovh.org/%srcname/%{srcname}-%{version}.tar.bz2
+Source:		http://unkart.ovh.org/%srcname/%srcname-%version.tar.bz2
 
 %include default-depend.inc
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
-BuildRequires:	SUNWgmake
-BuildRequires:	SUNWgcc
 BuildRequires:	SUNWncurses-devel
 Requires:	SUNWncurses
 BuildRequires:	SFElibmpdclient-devel
@@ -35,16 +36,27 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
-export CFLAGS="%gcc_optflags"
+export CFLAGS="%optflags"
 
-# configure doesn't find libpthread with Sun Studio 
-export CC=gcc
-export CXX=g++
-export CXXFLAGS="%gcc_cxx_optflags -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
+# Get compile errors with CC
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
+export CXXFLAGS="%cxx_optflags -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
 export LIBS=-lsocket
-export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib"
-./configure --prefix=%_prefix
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
+# Very strangely, without "--without-taglib" link errors are produced
+# even if taglib is not installed
+./configure --prefix=%_prefix \
+            --without-taglib
 
+# line 90 of /usr/gnu/bin/ncursesw5-config inserts a ":" 
+# in the lib options
+sed 's|-R :/usr/gnu/lib ||' Makefile > Makefile.fixed
+mv Makefile.fixed Makefile
+cd src
+sed 's|-R :/usr/gnu/lib ||' Makefile > Makefile.fixed
+mv Makefile.fixed Makefile
+cd ..
 
 gmake -j$CPUS
 
@@ -67,5 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jan 30 2011 - Alex Viskovatoff
+- Update to 0.5.6
 * Thu Oct 21 2010 - Alex Viskovatoff
 - Initial spec

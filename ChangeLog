@@ -1,3 +1,11 @@
+2011-02-01  Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* SFEqt47-gpp.spec: fork spec off SFEqt47.spec
+	* SFElyx.spec: initial spec
+	* SFEdjvulibre.spec: initial spec
+	* SFEdjview.spec: initial spec
+	* SFEncmpcpp.spec: update to 0.5.6
+
 2011-01-30  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEopenal.spec: fix install errors (DESTDIR, mv /sfw_stage)

@@ -101,6 +101,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Jan 27 2011 - Alex Viskovatoff
-- Accommodate to Qt being in /usr/stdcxx
+- Accommodate to Qt being in /usr/stdcxx; define QMAKESPEC and QTDIR
 * Sat Dec 11 2010 - Alex Viskovatoff
 - Initial spec
