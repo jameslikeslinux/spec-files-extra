@@ -10,7 +10,7 @@
 Name:			SFEsip
 Summary:		Python binding creator for C++ libraries
 License:		Riverbank
-Version:		4.11.2
+Version:		4.12.1
 Source:			http://www.riverbankcomputing.co.uk/static/Downloads/sip4/sip-%{version}.tar.gz
 URL:			http://www.riverbankcomputing.co.uk/software/sip/
 Group:			Development/Languages/Python
@@ -54,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages/*
 
 %changelog
+* Tue Feb 01 2011 - Alex Viskovatoff
+- bump to 4.12.1, so the tarball downloads
 * Sat Nov 06 2010 - Milan Jurik
 - bump to 4.11.2
 * Sat Mar 29 2008 - laca@sun.com

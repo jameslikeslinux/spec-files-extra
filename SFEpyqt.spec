@@ -10,7 +10,7 @@
 Name:			SFEpyqt
 Summary:		Python interface to Qt
 License:		GPL
-Version:		4.8.1
+Version:		4.8.3
 Source:			http://www.riverbankcomputing.co.uk/static/Downloads/PyQt4/PyQt-x11-gpl-%{version}.tar.gz
 URL:			http://www.riverbankcomputing.co.uk/software/pyqt
 Group:			Development/Languages/Python
@@ -58,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/sip
 
 %changelog
+* Tue Feb 01 2011 - Alex Viskovatoff
+- bump to 4.8.3, so the tarball downloads
 * Sun Nov 07 2010 - Milan Jurik
 - bump to 4.8.1 (qt4 support)
 * Sat Mar 29 2008 - laca@sun.com

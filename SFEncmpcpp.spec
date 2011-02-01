@@ -21,6 +21,8 @@ Source:		http://unkart.ovh.org/%srcname/%srcname-%version.tar.bz2
 %include default-depend.inc
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+BuildReqires:	SFEgcc
+Requires:	SFEgccruntime
 BuildRequires:	SUNWncurses-devel
 Requires:	SUNWncurses
 BuildRequires:	SFElibmpdclient-devel
@@ -79,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 01 2011 - Alex Viskovatoff
+- Add missing dependencies
 * Sun Jan 30 2011 - Alex Viskovatoff
 - Update to 0.5.6
 * Thu Oct 21 2010 - Alex Viskovatoff
