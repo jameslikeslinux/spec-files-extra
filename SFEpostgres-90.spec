@@ -13,6 +13,8 @@
 %define tarball_version  9.0.2
 %define major_version	 9.0
 
+%define _basedir         %{_prefix}/%{major_version}
+
 Name:                    SFEpostgres-90
 IPS_package_name:        database/postgres-90
 Summary:	         PostgreSQL client tools
@@ -26,10 +28,9 @@ Source3:		 postgres-90-auth_attr
 Source4:		 postgres-90-prof_attr
 Source5:		 postgres-90-exec_attr
 Source6:		 postgres-90-user_attr
-#Patch1:			 %{name}-01-kohju.diff
 Distribution:            OpenSolaris
 Vendor:		         OpenSolaris Community
-SUNW_Basedir:            /
+SUNW_Basedir:            %{_basedir}
 SUNW_Copyright:          %{name}.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
@@ -103,6 +104,9 @@ Summary: PostgreSQL documentation and man pages
 %package -n postgres-90-server
 IPS_package_name: service/database/postgres-90
 Summary: PostgreSQL database server
+
+%define _basedir         /
+SUNW_Basedir:            %{_basedir}
 
 Requires: library/libxslt
 Requires: library/libxml2
@@ -293,7 +297,7 @@ rm -f $RPM_BUILD_ROOT%{_prefix}/%{major_version}/lib/amd64/libecpg_compat.a
 # make symbolic link
 
 cd $RPM_BUILD_ROOT/%{_prefix}/%{major_version}/bin/
-ln -s amd64 64
+[ -r 64 ] || ln -s amd64 64
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -305,13 +309,13 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/64
-%dir %attr (0755, root, sys) /usr/share
+#%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs/LC_MESSAGES
@@ -431,14 +435,14 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-library
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
 %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/64
-%dir %attr (0755, root, sys) /usr/share
+#%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs
@@ -469,7 +473,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_CN/LC_MESSAGES
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW/LC_MESSAGES
-
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man/man5
 %attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/libecpg.so.6.2
@@ -538,15 +541,15 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-languages
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/share
-%dir %attr (0755, root, sys) /usr/share
+#%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
@@ -597,15 +600,12 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0444, root, bin) %{_prefix}/%{major_version}/share/unknown.pltcl
 
 
-
-
-
 %files -n postgres-90-developer
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/include
@@ -660,7 +660,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/makefiles
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/test
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/test/regress
-%dir %attr (0755, root, sys) /usr/share
+#%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
@@ -688,12 +688,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta/LC_MESSAGES
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
-#%attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/version.h
-#%attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/utils/flatfiles.h
-#%attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/config/mkinstalldirs
-#%attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/pgxs/config/mkinstalldirs
-#%attr (0644, root, bin) %{_prefix}/%{major_version}/include/informix/esql/sqlda.h
-#%attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/catalog/pg_listener.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/tablespace.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/trigger.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/typecmds.h
@@ -1219,9 +1213,9 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-documentation
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/doc
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/doc/html
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man
@@ -2654,7 +2648,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/euc2004_sjis2004.so
 %attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/plpython2.so
 %attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/libpqwalreceiver.so
-
 %attr (0644, root, other) %{_prefix}/%{major_version}/share/locale/cs/LC_MESSAGES/initdb-%{major_version}.mo
 %attr (0644, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES/initdb-%{major_version}.mo
 %attr (0644, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES/pg_controldata-%{major_version}.mo
@@ -2753,9 +2746,9 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-contrib
 %defattr (-, root, bin)
 
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
+#%dir %attr (0755, root, sys) /usr
+#%dir %attr (0755, root, bin) %{_prefix}
+#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
@@ -2926,5 +2919,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/bin/amd64/vacuumlo
 
 %changelog
+* Tue Feb  1 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- Fix some problems.
 * Tue Jan 25 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Initial Revision
