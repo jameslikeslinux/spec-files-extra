@@ -70,8 +70,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT/usr/var
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{src_name}/*.*a
-install -d 0755 %{buildroot}%/var/svc/manifest/system/filesystem
-install -m 0644 %{SOURCE1} %{buildroot}%/var/svc/manifest/system/filesystem
+install -d 0755 %{buildroot}%{_localstatedir}/svc/manifest/system/filesystem
+install -m 0644 %{SOURCE1} %{buildroot}%{_localstatedir}/svc/manifest/system/filesystem
+
+rm -fr %{buildroot}%{_localstatedir}/run
 
 # no section 8
 install -d 0755 %{buildroot}%{_datadir}/man/man1m
@@ -110,10 +112,11 @@ rm -rf $RPM_BUILD_ROOT
 %files root
 %defattr (-, root, sys)
 %{_sysconfdir}
-%dir %attr (0775, nobody, nobody) %{_localstatedir}/run/c-icap
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/system/filesystem/c-icap.xml
 
 %changelog
+* Wed Feb 02 2011 - Milan Jurik
+- /var/run is under core system control
 * Wed Dec 29 2010 - Milan Jurik
 - bump to 0.1.4
 * Sun Apr 25 2010 - Milan Jurik

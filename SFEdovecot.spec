@@ -82,8 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 #rm -rf $RPM_BUILD_ROOT/usr/include
 
-mkdir -p ${RPM_BUILD_ROOT}/%{_localstatedir}/run/%{src_name}
-
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp dovecot.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
@@ -114,12 +112,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/%{src_name}/*
 %defattr (-, root, sys)
 %dir %attr (0755, root, sys) %{_localstatedir}
-%dir %attr (0755, root, sys) %{_localstatedir}/run
-%dir %attr (0755, root, sys) %{_localstatedir}/run/%{src_name}
 %class(manifest) %attr(0444, root, sys)/var/svc/manifest/site/dovecot.xml
 
 
 %changelog
+* Wed Feb 02 2011 - Milan Jurik
+- /var/run is under core system control
 * Wed Nov 17 2010 - Knut Anders Hatlen
 - bump to 1.2.16
 * Tue Oct 12 2010 - Knut Anders Hatlen
