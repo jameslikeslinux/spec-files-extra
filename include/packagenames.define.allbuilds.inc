@@ -1,6 +1,9 @@
 # place defines to match older packages here - this include file is the first of a series
 # 
 
+##TODO## list
+#see below, handle /var/sadm/pkg/SUNWruby18r /var/sadm/pkg/SUNWruby18u
+
 # there are very old build out there, we might not need
 # to write special logic for builds older then build 81
 # at least we should have logic for build 111 (or 101)
@@ -67,7 +70,101 @@
 
 %define pnm_buildrequires_library_security_openssl	SUNWopenssl-includes
 %define pnm_requires_library_security_openssl		SUNWopenssl-libraries
+
+##TODO##
+#/var/sadm/pkg/SUNWruby18r
+#/var/sadm/pkg/SUNWruby18u
+
 %endif
+
+#note: for simple cases don't open another separate include file
+#packagenames.define-133.inc or packagenames.define-specialcases-133.inc
+#just do it here instead.
+#package names in sync with SXCE and os20nn but got incorporated into other
+#packages, examples. SUNWhea SUNWsfwhea
+
+#pre/including nnn: SUNWhea    -> past nnn replacement is
+#NOTE: superseeding the previous definitions SUNWsfwhea
+%if %( expr %{osbuild} '>=' 133 )
+%define pnm_buildrequires_SUNWhea	    system/header
+%define pnm_requires_SUNWhea		    system/header
+%define pnm_buildrequires_system_header	    system/header
+%define pnm_requires_system_header	    system/header
+%else
+#NOTE: this section might be superseeded by lower build numbers 
+%define pnm_buildrequires_SUNWhea		SUNWhea
+%define pnm_requires_SUNWhea	 		SUNWhea
+#this might be overwritten again by builds below 130
+%define pnm_buildrequires_system_header		SUNWhea
+%define pnm_requires_system_header		SUNWhea
+%endif
+
+#pre/including 130: SUNWsfwhea -> past 130 replacement is system/header
+##TODO## please verify build numbers and intended replacement packagename
+%if %( expr %{osbuild} '>=' 130 )
+%define pnm_buildrequires_SUNWsfwhea	    system/header
+%define pnm_requires_SUNWsfwhea		    system/header
+%define pnm_buildrequires_system_header	    system/header
+%define pnm_requires_system_header	    system/header
+%else
+#NOTE: including SUNWhea too
+%define pnm_buildrequires_SUNWhea		SUNWsfwhea
+%define pnm_requires_SUNWhea	 		SUNWsfwhea
+%define pnm_buildrequires_SUNWsfwhea		SUNWsfwhea
+%define pnm_requires_SUNWsfwhea	 		SUNWsfwhea
+%define pnm_buildrequires_system_header		SUNWsfwhea
+%define pnm_requires_system_header		SUNWsfwhea
+%endif
+
+
+#SPECIAL CASE: SFE package was replacved with a SUNW package - one day this will
+#be migrated to translation table in an exteral file
+#with one build number the SUNWsane-backend was added, so SFEsane-backends was deleted (oh!)
+#just replace the SFEsane-backends starting with that build-number with the SUNWsane-backend
+#or the package-rename-project's new name
+#http://opensolaris.org/jive/thread.jspa?threadID=62982  -->> snv90 introduced SUNWsane-backend
+
+#default: nothing to do for the SUNW variants, pkg / IPS knows about 
+#the SUNWsane-backend replacement image/scanner/xsane/sane-backends
+%define pnm_buildrequires_SFEsane_backend_devel		SUNWsane-backend-devel
+%define pnm_requires_SFEsane_backend	 		SUNWsane-backend
+%define pnm_buildrequires_SUNWsane_backend_devel		SUNWsane-backend-devel
+%define pnm_requires_SUNWsane_backend	 		SUNWsane-backend
+%define pnm_buildrequires_image_scanner_xsane_sane_backends	SUNWsane-backend-devel
+%define pnm_requires_image_scanner_xsane_sane_backends 		SUNWsane-backend
+
+#we need SFE version on very old builds
+%if %( expr %{osbuild} '<=' 90 )
+%define pnm_buildrequires_SFEsane_backend_devel		SFEsane-backend-devel
+%define pnm_requires_SFEsane_backend	 		SFEsane-backend
+%define pnm_buildrequires_SUNWsane_backend_devel	SFEsane-backend-devel
+%define pnm_requires_SUNWsane_backend	 		SFEsane-backend
+%define pnm_buildrequires_image_scanner_xsane_sane_backends	SFEsane-backend-devel
+%define pnm_requires_image_scanner_xsane_sane_backends 		SFEsane-backend
+%endif
+
+#SUNWfftw3 was added with build 107
+#http://wikis.sun.com/display/OSOLInstall/Build+107
+#pkgs know about the renaming, so just handle a switch to SFEfftw3 in case
+#the osbuild is too old
+
+#defaults for all builds >= 107 - let pkg find the rest
+%define pnm_buildrequires_SFEfftw3		SUNWfftw3
+%define pnm_requires_SFEfftw3			SUNWfftw3
+%define pnm_buildrequires_SUNWfftw3		SUNWfftw3
+%define pnm_requires_SUNWfftw3	 		SUNWfftw3
+%define pnm_buildrequires_library_fftw_3	SUNWfftw3
+%define pnm_requires_library_fftw_3	 	SUNWfftw3
+
+%if %( expr %{osbuild} '<' 107 )
+%define pnm_buildrequires_SFEfftw3		SFEfftw3
+%define pnm_requires_SFEfftw3	 		SFEfftw3
+%define pnm_buildrequires_SUNWfftw3		SFEfftw3
+%define pnm_requires_SUNWfftw3	 		SFEfftw3
+%define pnm_buildrequires_library_fftw_3	SFEfftw3
+%define pnm_requires_library_fftw_3	 	SFEfftw3
+%endif
+
 
 #very special case Solaris 10
 ##TODO## for a future version
@@ -75,5 +172,10 @@
 
 
 %changelog
+* WEd Feb 02 2011 - Thomas Wagner
+- handle SUNWsfehea and SFEhea - system/header (>= 130, >= 133) (perl modules)
+- handle SFEsane-backend | SUNWsane-backend (>= 90) make pnm*SUNWsane-backend 
+  require SFEsane-backend below 90 (would need undelete of SFEsane-backend.spec)
+- handle SFEfftw3 | SUNWfftw3 (>= 107)
 * Sat Jun 12 2010 - Thomas Wagner
 - initial include file
