@@ -129,6 +129,8 @@ done
 find $RPM_BUILD_ROOT%{_prefix} -type f -name "*.a" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT%{_prefix} -type f -name "*.la" -exec rm -f {} ';'
 
+rmdir $RPM_BUILD_ROOT%{_localstatedir}/run
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -155,7 +157,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_sysconfdir}
 %{_sysconfdir}/%{src_name}.conf
 %dir %attr (0755, root, sys) %{_localstatedir}
-%dir %attr (0755, root, sys) %{_localstatedir}/run
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/%{src_name}.xml
 
 %files devel
@@ -165,6 +166,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 02 2011 - Milan Jurik
+- /var/run is under core system control
 * Wed Jan 26 2011 - Milan Jurik
 - fix modules path and run path
 - add mod_facl and mod_tls to loadable pre-compiled binaries

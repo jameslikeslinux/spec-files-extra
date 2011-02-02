@@ -2,6 +2,8 @@
 
 	* SFEdovecot.spec: /var/run is under core system control
 	* SFEc-icap.spec: /var/run is under core system control
+	* SFEasterisk.spec: /var/run is under core system control
+	* SFEproftpd.spec:/var/run is under core system control
 
 2011-02-01  Alex Viskovatoff <viskovatoff@imap.cc>
 

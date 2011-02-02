@@ -77,7 +77,7 @@ done
 
 # run dir is swap
 rmdir $RPM_BUILD_ROOT%{_localstatedir}/run/%{src_name}
-
+rmdir $RPM_BUILD_ROOT%{_localstatedir}/run
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -99,7 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 %dir %attr (0755, root, bin) %{_localstatedir}/spool
 %{_localstatedir}/spool/*
-%dir %attr (0755, root, sys) %{_localstatedir}/run
 %dir %attr (0755, root, sys) %{_localstatedir}/log
 %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
@@ -107,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 02 2011 - Milan Jurik
+- /var/run is under core system control
 * Mon Jan 24 2011 - Milan Jurik
 - bump to 1.8.2.2
 * Wed Jan 05 2011 - Milan Jurik 
