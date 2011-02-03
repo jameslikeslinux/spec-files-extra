@@ -11,7 +11,7 @@
 %define _prefix %{_basedir}/gnu
 
 Name:			SFEcpio
-Version:		2.7
+Version:		2.9
 Summary:		GNU cpio
 Source:			ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
 SUNW_BaseDir:		%{_basedir}
@@ -77,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb  3 2011 - Thomas Wagner
+- bump to 2.9 (compile failes with up to version 2.11, needs patches - volunteers?)
 * Sun Oct 14 2007 - laca@sun.com
 - add l10n subpkg
 * Mon Apr 16 2007 - Thomas Wagner
