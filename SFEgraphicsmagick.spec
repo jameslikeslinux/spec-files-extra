@@ -9,6 +9,7 @@
 # includes module(s): imagemagick
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                   SFEgraphicsmagick
 Summary:                GraphicsMagick - Image Manipulation Utilities and Libraries
@@ -26,8 +27,8 @@ BuildRequires:		SUNWdcraw
 Requires:		SUNWdcraw
 BuildRequires:		SUNWgnome-img-editor-devel
 Requires:		SUNWgnome-img-editor
-BuildRequires:		SUNWsane-backend
-Requires:		SUNWsane-backend
+BuildRequires:		%{pnm_buildrequires_SUNWsane_backend_devel}
+Requires:		%{pnm_requires_SUNWsane_backend}
 
 %package devel
 Summary:                 %{summary} - development files
@@ -100,6 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Feb  3 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsane_backend}
+  Requires to %{pnm_requires_SUNWsane_backend}
+  %include packagenamemacros.inc
 * Sun Nov 07 2010 - Milan Jurik
 - bump to 1.3.12, add Jasper to deps, disable PerlMagic because build is broken
 * Tue Nov 17 2009 - bfriesen@simple.dallas.tx.us

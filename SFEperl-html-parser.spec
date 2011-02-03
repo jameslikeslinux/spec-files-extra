@@ -9,6 +9,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define html_parser_version 3.61
 %define perl_version 5.8.4
@@ -24,7 +25,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Requires:                SUNWperl584core
 Requires:		 SFEperl-html-tagset
 BuildRequires:           SUNWperl584core
-BuildRequires:           SUNWsfwhea
+BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -75,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Feb  1 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamemacros.inc
 * Sun Jul 19 2009 - matt@greenviolet.net
 - Bumped to version 3.61
 * Sat Aug 17 2008 - rafael.alfaro@gmail.com

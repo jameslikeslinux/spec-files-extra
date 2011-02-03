@@ -4,6 +4,7 @@
 # includes module(s): sane-frontends
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFEsane-frontends
 Summary:                 SANE - Scanner Access Now Easy - frontends
@@ -12,8 +13,8 @@ Source:			 http://alioth.debian.org/frs/download.php/1140/sane-frontends-%{versi
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SFEsane-backends
-BuildRequires: SFEsane-backends-devel
+BuildRequires:		%{pnm_buildrequires_SUNWsane_backend_devel}
+Requires:		%{pnm_requires_SUNWsane_backend}
 
 %prep
 %setup -q -n sane-frontends-%version
@@ -55,5 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Tue Feb  1 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsane_backend_devel}
+  Requires to %{pnm_requires_SUNWsane_backend}
+  %include packagenamemacros.inc
 * Sun Nov  5 2006 - laca@sun.com
 - Create

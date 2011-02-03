@@ -4,8 +4,9 @@
 # includes module(s): libmusicbrainz3
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
-%define SFEfftw   %(/usr/bin/pkginfo -q SFEfftw && echo 1 || echo 0)
+#replaced by packagenamemacros %define SFEfftw   %(/usr/bin/pkginfo -q SFEfftw && echo 1 || echo 0)
 
 Name:		SFElibofa
 Summary:	library for accesing MusicBrainz servers
@@ -18,13 +19,15 @@ Patch3:         libofa-03-missinghdrs.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
-%if %SFEfftw
-Requires: SFEfftw
-BuildRequires: SFEfftw-devel
-%else
-BuildRequires:	SUNWfftw3
-Requires:	SUNWfftw3
-%endif
+#replaced by packagenamemacros %if %SFEfftw
+#replaced by packagenamemacros Requires: SFEfftw
+#replaced by packagenamemacros BuildRequires: SFEfftw-devel
+#replaced by packagenamemacros %else
+#replaced by packagenamemacros BuildRequires:	SUNWfftw3
+#replaced by packagenamemacros Requires:	SUNWfftw3
+#replaced by packagenamemacros %endif
+BuildRequires:	%{pnm_buildrequires_SUNWfftw3}
+Requires:	%{pnm_requires_SUNWfftw3}
 
 %prep
 %setup -q -n libofa-%version
@@ -66,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Tue Feb  3 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWfftw3}
+  Requires to %{pnm_requires_SUNWfftw3}
+  %include packagenamemacros.inc
 * Wed Apr  7 2010 - Miroslav Osladil <mira@osladil.cz>
 - updated source url to Google Code
 * Sat Jun 13 2009 - Milan Jurik

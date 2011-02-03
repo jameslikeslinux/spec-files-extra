@@ -14,6 +14,8 @@
 %define perl_version 5.8.4
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 Name:                    SFEperl-%{module_package_name}
 Summary:                 %{module_name}-%{module_version} PERL module
 Version:                 %{perl_version}.%{module_version}
@@ -22,7 +24,7 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Requires:                SUNWperl584core
 BuildRequires:           SUNWperl584core
-BuildRequires:           SUNWsfwhea
+BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -76,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb  1 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamemacros.inc
 * Thr Apr 30 2009 - Thomas Wagner
 - bump version to 2.56
 * Wed Nov 28 2007 - Thomas Wagner

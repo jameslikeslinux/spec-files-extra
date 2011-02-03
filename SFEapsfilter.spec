@@ -13,6 +13,7 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                SFEapsfilter
 Summary:             Flexible magic filter for printing under Unix environment
@@ -22,8 +23,8 @@ Source:              http://www.apsfilter.org/download/apsfilter-%{version}.tar.
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:       SUNWsndm
-Requires:            SUNWsndm
+BuildRequires:       %{pnm_buildrequires_SUNWsndm}
+Requires:            %{pnm_requires_SUNWsndm}
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -80,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/*
 
 %changelog
+* Mon Jan 31 2011 - Thomas Wagner
+- use for (Build)Requires %{pnm_requires_SUNWsndm}/%{pnm_buildrequires_SUNWsndm}, %include packagenamemacros.inc
 * Sun May 09 2010 - Milan Jurik
 - added missing build dependency
 * Fri Oct 13 2006 - laca@sun.com

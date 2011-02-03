@@ -20,6 +20,8 @@
 %define perl_version 5.8.4
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 Name:                    SFEperl-%{module_package_name}
 Summary:                 %{module_name}-%{module_version} PERL module
 Version:                 %{perl_version}.%{module_version}
@@ -28,7 +30,7 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Requires:                SUNWperl584core
 BuildRequires:           SUNWperl584core
-BuildRequires:           SUNWsfwhea
+BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 Requires:                SFEperl-compress-zlib
 Requires:                SFEperl-html-parser
 Requires:                SFEperl-uri
@@ -110,6 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb  1 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamemacros.inc
 * Sun Jul 19 2009 - matt@greenviolet.net
 - bumped verion to 5.829
 - Added missing Requires
