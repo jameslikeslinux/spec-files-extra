@@ -18,7 +18,6 @@
 %define pythonver 2.6
 
 Name:           SFEcodeina
-IPS_package_name: codec/install/codeina
 Meta(info.classification): %{classification_prefix}:Applications/Sound and Video
 Summary:        Codec Installer
 License:        GPL v3
@@ -152,6 +151,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 03 2011 - Milan Jurik
+- remove IPS name because of collision with solaris/consolidation/gnome/gnome-incorporation
 * Tue Nov 02 2010 - brian.cameron@oracle.com
 - New spec file with version 0.10.6.
 
