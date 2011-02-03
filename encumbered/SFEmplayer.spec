@@ -183,6 +183,7 @@ bash ./configure			\
             --disable-xvr100		\
             --disable-crash-debug	\
             --disable-dvdread-internal	\
+            --disable-esd		\
 	    $dbgflag
 
 make -j$CPUS
@@ -225,6 +226,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Feb 03 2011 - Milan Jurik
+- ESD is obsolete and source of problems, disabled
 * Sun Jan 30 2011 - Milan Jurik
 - bump to 1.0rc4, remove unneeded patches
 * Thu Jun 03 2010 - Milan Jurik

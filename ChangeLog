@@ -1,3 +1,8 @@
+2011-02-03 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFEmplayer.spec: ESD disabled
+	* SFEbdb.spec: fix docdir group
+
 2011-02-02 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEdovecot.spec: /var/run is under core system control

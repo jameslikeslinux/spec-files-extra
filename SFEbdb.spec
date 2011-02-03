@@ -64,10 +64,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, bin) %{_datadir}/doc
-%{_datadir}/doc/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 
 %changelog
+* Thu Feb 03 2011 - Milan Jurik
+- fix docdir group
 * Fri Jan 29 2010 - brian.cameron@sun.com
 - Bump to 4.8.26.
 * Thr Apr 30 2009 - Thomas Wagner
