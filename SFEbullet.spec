@@ -8,6 +8,8 @@
 %define src_name	bullet
 %define src_url		http://bullet.googlecode.com/files
 
+%define SFEfreeglut  %(/usr/bin/pkginfo -q SFEfreeglut && echo 1 || echo 0)
+
 Name:                   SFEbullet
 Summary:                Bullet Physics Library
 Version:                2.76
@@ -17,8 +19,13 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}b-build
 %include default-depend.inc
 BuildRequires: SFEjam
+%if %SFEfreeglut
 BuildRequires: SFEfreeglut-devel
 Requires: SFEfreeglut
+%else
+BuildRequires: x11/library/freeglut
+Requires: x11/library/freeglut
+%endif
 BuildRequires: SUNWcmake
 
 %prep
@@ -63,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Feb 03 2011 - Milan Jurik
+- SFEfreeglut as optinal
 * May 2010 - Gilles DAuphin
 - bump release
 * Mar 2010 - Gilles Dauphin

@@ -7,6 +7,9 @@
 	* encumbered/SFEmplayer.spec: ESD disabled
 	* SFEbdb.spec: fix docdir group
 	* SFEwebalizer.spec: archived, Solaris has one also
+	* SFEsdl-mixer.spec: SFE vs. SUNW libmikmod detection
+	* SFEbullet.spec: SFEfreeglut as optional
+	* SFEflightgear.spec: SFEfreeglut as optional
 
 2011-02-02 Milan Jurik <sfnet@xylab.cz>
 

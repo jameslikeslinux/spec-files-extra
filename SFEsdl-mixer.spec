@@ -18,6 +18,7 @@
 %use sdl = sdl-mixer.spec
 
 %define SFEsdl	%(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
+%define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
 
 Name:			%{sdl.name}
 Summary: 		%{sdl.summary}
@@ -34,8 +35,13 @@ Requires: SFEsdl
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
 %endif
+%if %SFElibmikmod
 BuildRequires: SFElibmikmod-devel
 Requires: SFElibmikmod
+%else
+BuildRequires: SUNWlibmikmod-devel
+Requires: SUNWlibmikmod
+%endif
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac-devel
@@ -123,6 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Feb 03 2011 - Milan Jurik
+- SFE vs. SUNW libmikmod detection
 * Sun May 16 2010 - Milan Jurik
 - added libmikmod for MOD support
 * Thu Apr 08 2010 - Milan Jurik

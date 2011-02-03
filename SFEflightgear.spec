@@ -17,6 +17,8 @@
 # faire un package pour installer modele son et scene.
 # ftp://ftp.flightgear.org/pub/fgfs/Shared/fgfs-base-1.0.0.tar.bz2
 
+%define SFEfreeglut  %(/usr/bin/pkginfo -q SFEfreeglut && echo 1 || echo 0)
+
 Name:                   SFEFlightGear
 Summary:                Flight Simulator for 'true' airplane
 Version:                1.0.0
@@ -30,8 +32,13 @@ Requires:		SFEopenal
 BuildRequires:		SFEfreealut-devel
 Requires:		SFEfreealut
 # Take care: needed freeglut-2.6.0-rc1
+%if %SFEfreeglut
 BuildRequires:		SFEfreeglut-devel
 Requires:		SFEfreeglut
+%else
+BuildRequires:		x11/library/freeglut
+Requires:		x11/library/freeglut
+%endif
 BuildRequires:		SFESimGear-devel
 Requires:		SFESimGear
 # TODO: somethings i don't understand
@@ -88,6 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 #%{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Feb 03 2011 - Milan Jurik
+- SFEfreeglut as optinal
 * Mar 2010 - Gilles Dauphin
 - search includedir in /usr/SFE (exemple)
 - that's where I install freeglut
