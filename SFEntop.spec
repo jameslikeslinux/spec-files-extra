@@ -7,9 +7,10 @@
 # TODO fix sctp support
 
 %include Solaris.inc
-
 %define cc_is_gcc 1
 %include base.inc
+
+%include packagenamemacros.inc
 
 %define SFErrdtool	%(/usr/bin/pkginfo -q SFErrdtool && echo 1 || echo 0)
 
@@ -46,7 +47,7 @@ Requires: %name-root
 BuildRequires: SUNWgzip
 BuildRequires: SUNWgawk
 BuildRequires: SUNWgsed
-BuildRequires: SUNWscp
+BuildRequires: %{pnm_buildrequires_compatibility_ucb}
 BuildRequires: SUNWperl584usr
 Requires: SUNWperl584usr
 
@@ -129,6 +130,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/*
 
 %changelog
+* Tue Jan 11 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_compatibility_ucb}
+  Requires to %{pnm_requires_compatibility_ucb}
+  %include packagenamemacros.inc
 * Fri May 28 2010 - Milan Jurik
 - update to 3.3.10
 * Sat Mar 31 2007 - Thomas Wagner
