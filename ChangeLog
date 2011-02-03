@@ -6,6 +6,7 @@
 
 	* encumbered/SFEmplayer.spec: ESD disabled
 	* SFEbdb.spec: fix docdir group
+	* SFEwebalizer.spec: archived, Solaris has one also
 
 2011-02-02 Milan Jurik <sfnet@xylab.cz>
 
