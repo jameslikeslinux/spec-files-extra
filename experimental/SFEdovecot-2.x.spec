@@ -5,15 +5,14 @@
 
 # NOTE: READ THE WIKI page for SFEdovecot.spec : http://pkgbuild.wiki.sourceforge.net/SFEdovecot.spec
 
-##TODO## %action to create dovecot userid on IPS 
-##TODO## check if adding pam settings is necessary (by one-time SMF service)
-##TODO## add convenient helper for generating a default configuration file, by default with SSL enabled
-##TODO## add convenient helper for generating SSL-certificates, make one-time SMF service calling that helper on request
-
 %define src_name dovecot
 # maybe set to nullstring outside release-candidates (example: 1.1/rc  or just 1.1)
 #%define downloadversion	 1.1/rc
 %define downloadversion	 2.0
+%define  daemonuser  dovecot
+%define  daemonuid   111
+%define  daemongroup other
+%define  daemongid   1
 
 %include Solaris.inc
 Name:                    SFEdovecot
@@ -67,7 +66,7 @@ export CFLAGS="%optflags"
             --libexecdir=%{_libexecdir}         \
             --with-moduledir=%{_libexecdir}/%{src_name}/modules \
             --datadir=%{_datadir}	\
-            --sysconfdir=%{_sysconfdir}/%{src_name} \
+            --sysconfdir=%{_sysconfdir} \
             --enable-shared		\
             --with-rundir=%{_localstatedir}/run/%{src_name} \
             --enable-header-install \
@@ -82,8 +81,6 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 #rm -rf $RPM_BUILD_ROOT/usr/include
 
-mkdir -p ${RPM_BUILD_ROOT}/%{_localstatedir}/run/%{src_name}
-
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp dovecot.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
@@ -91,6 +88,29 @@ cp dovecot.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+
+#IPS
+##TODO## is is possible to predefine the numeric GID and UID?
+%actions
+group groupname="%{daemongroup}"
+user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" password=NP group="%{daemongroup}"
+
+#SVR4 (e.g. Solaris 10, SXCE)
+#must run immediately to create the needed userid and groupid to be assigned to the files
+#NOTE: if given GID or UID is already engaged, the next free ID is chosen automaticly
+%pre root
+( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
+  echo 'retval=0';
+  echo 'getent group %{daemongroup} || groupadd -g %{daemongid} %{daemongroup} ';
+  echo 'getent passwd %{daemonuser} || useradd -d /etc/raddb -g %{daemongroup} -s /bin/false  -u %{daemonuid} %{daemonuser}';
+  echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
+
+#%postun root
+#( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
+#  echo 'getent passwd %{daemonuser} && userdel %{daemonuser}';
+#  echo 'getent group %{daemongroup} && groupdel %{daemongroup}';
+#  echo 'exit 0' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
 
 %files
 %defattr(-, root, bin)
@@ -121,12 +141,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/%{src_name}/*
 %defattr (-, root, sys)
 %dir %attr (0755, root, sys) %{_localstatedir}
-%dir %attr (0755, root, sys) %{_localstatedir}/run
-%dir %attr (0755, root, sys) %{_localstatedir}/run/%{src_name}
 %class(manifest) %attr(0444, root, sys)/var/svc/manifest/site/dovecot.xml
 
 
 %changelog
+* Thr Feb 03 2011 - Thomas Wagner
+- /var/run is under core system control, removed from spec and to be created at runtime
+- add %action and %pre to create dovecot userid
+- adjust --sysconfdir=%{_sysconfdir}, subdirectory dovecot by configure
 * Tue Dec 14 2010 - Thomas Wagner
 - bump to 2.0.8 and svn copy to experimental
 - fix %files (bindir, mandir, aclocal)
