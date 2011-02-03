@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 ##TODO## is is possible to predefine the numeric GID and UID?
 %actions
 group groupname="%{daemongroup}"
-user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" password=NP group="%{daemongroup}"
+user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{daemonuid} password=NP group="%{daemongroup}"
 
 #SVR4 (e.g. Solaris 10, SXCE)
 #must run immediately to create the needed userid and groupid to be assigned to the files
@@ -149,6 +149,7 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" password
 - /var/run is under core system control, removed from spec and to be created at runtime
 - add %action and %pre to create dovecot userid
 - adjust --sysconfdir=%{_sysconfdir}, subdirectory dovecot by configure
+- extra commit: set %action uid to predefine numeric userid. See man -a pkg
 * Tue Dec 14 2010 - Thomas Wagner
 - bump to 2.0.8 and svn copy to experimental
 - fix %files (bindir, mandir, aclocal)
