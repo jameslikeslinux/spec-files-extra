@@ -1,3 +1,7 @@
+2011-02-03 TAKI,Yasushi <taki@justplayer.com>
+	
+	* SFElv.spec: initial spec
+	
 2011-02-03 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEmplayer.spec: ESD disabled
