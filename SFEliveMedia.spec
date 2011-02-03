@@ -16,6 +16,9 @@
 %define version %( /bin/echo %{src_version} | sed -e 's,\.0,.,' | sed -e 's,\.0,.,' )
 ##TODO## eventually build fallback solution like this: if three wget retries fail, look at SOURCES/live*tar.gz and use these numbers, volunteers welcome. To refresh one would have to just enable internet connection. To eliminate version jumps, create switch --disable-livemedia-download.
 
+##TODO## improvement: change letters to numbers. e.g. 1.2.3a -> 1.2.3,1  (b -> .2, c -> .3)
+#for now just cut out all char [A-z]
+IPS_component_version: $( echo %{version} | sed -e s'/[A-z]//' )
 
 Name:                    SFEliveMedia
 Summary:                 liveMedia - live555 Streaming Media
@@ -59,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Thr Feb  3 2011 - Thomas Wagner
+- remove letters from version number for IPS_component_version
 * Mar 2010 - Gilles Dauphin
 - sed 2 times for version for ips compat versioning.
 - install possible in /usr/SFE
