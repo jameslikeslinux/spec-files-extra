@@ -4,11 +4,12 @@
 # includes module(s): libdvbpsi
 #
 %include Solaris.inc
+%define srcname libdvbpsi
 
 Name:                    SFElibdvbpsi
 Summary:                 libdvbpsi  - a simple library designed for decoding and generation of MPEG TS and DVB PSI tables
-Version:                 0.1.5
-Source:                  http://download.videolan.org/pub/libdvbpsi/%{version}/libdvbpsi4-%{version}.tar.bz2
+Version:                 0.1.7
+Source:                  http://download.videolan.org/pub/%srcname/%version/%srcname-%version.tar.bz2
 Patch1:			 libdvbpsi-01-configure.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -21,7 +22,7 @@ SUNW_BaseDir:            %{_basedir}
 Requires: %name
 
 %prep
-%setup -q -n libdvbpsi4-%version
+%setup -q -n %srcname-%version
 %patch1 -p1
 
 %build
@@ -30,13 +31,15 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export CFLAGS="%optflags"
+export LIBS=-lxnet
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export MSGFMT="/usr/bin/msgfmt"
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir}
+            --sysconfdir=%{_sysconfdir}      \
+            --enable-release
 
 make -j$CPUS 
 
@@ -57,8 +60,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*.so*
+%dir %attr (0755, root, other) %_libdir/pkgconfig
+%_libdir/pkgconfig/*
+
 
 %changelog
+* Wed Feb 02 2011 - Alex Viskovatoff
+- update to 0.1.7; use configure --enable-release
 * Mon Jun 12 2006 - laca@sun.com
 - renamed to SFElibdvbpsi
 - changed to root:bin to follow other JDS pkgs.

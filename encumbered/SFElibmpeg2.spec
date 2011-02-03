@@ -4,13 +4,15 @@
 # includes module(s): libmpeg2
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
-%define src_name mpeg2dec
+%define src_name libmpeg2
 %define	src_url	http://libmpeg2.sourceforge.net/files
 
 Name:                SFElibmpeg2
 Summary:             MPEG2 Decoder library
-Version:             0.4.1
+Version:             0.5.1
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -33,13 +35,9 @@ fi
 
 export CC=gcc
 export CPPFLAGS="-I/usr/X11/include"
-export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
+export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/X11/lib -R/usr/X11/lib"
 
-libtoolize --copy --force
-aclocal 
-autoheader
-autoconf -f
 ./configure --prefix=%{_prefix}		\
             --bindir=%{_bindir}		\
             --libdir=%{_libdir}		\
@@ -76,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Feb 02 2011 - Alex Viskovatoff
+- Update to 0.5.1
+- Don't call autoconf explicitly: that breaks the build
+- Use cc_is_gcc and %optflags
 * Thu Nov 22 2007 - daymobrew@users.sourceforge.net
 - Change build flags and remove unnecessary autofoo calls.
 * Sat Jul 14 2007 - dougs@truemail.co.th

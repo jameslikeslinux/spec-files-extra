@@ -1,7 +1,13 @@
+2011-02-03  Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* encumbered/SFElibmpeg2.spec: update to 0.5.1; use %optflags
+	* encumbered/SFElibdvbpsi.spec: update to 0.1.7;
+	  use configure --enable-release
+
 2011-02-03 TAKI,Yasushi <taki@justplayer.com>
-	
+
 	* SFElv.spec: initial spec
-	
+
 2011-02-03 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEmplayer.spec: ESD disabled
