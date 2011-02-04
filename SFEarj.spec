@@ -5,6 +5,9 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
+
 
 %define src_name	arj
 %define src_url		http://downloads.sourceforge.net
@@ -48,13 +51,21 @@ autoconf
             --mandir=%{_mandir} \
             --libdir=%{_libdir}
 cd ..
+gmake prepare RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %build
-CC=gcc CXX=g++ make 
+
+export CFLAGS="%optflags"
+export LDFLAGS="%_ldflags"
+
+(CC=gcc CXX=g++ gmake ; /usr/bin/echo)
+#check if arj executable got created, probably others still missing
+#problem is: "Patch" not found by proram postproc
+[ -x ./solaris2.11/en/rs/arj/arj ] 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+gmake install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -73,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*
 
 %changelog
+* Fri Feb  4 2011 - Thomas Wagner
+- very dirty hack. program postproc complains about "Patch" not found. packetize anways.
+  probably we need this source instead: http://arj.sourceforge.net/files/arjs_310
 * Sun Oct 14 2007 - laca@sun.com
 - fix _datadir permissions
 * Sat Aug 11 2007 - ananth@sun.com
