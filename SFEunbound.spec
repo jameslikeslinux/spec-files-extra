@@ -20,6 +20,8 @@ BuildRequires: SUNWopenssl-include
 Requires: SUNWopenssl-libraries
 BuildRequires: SUNWlexpt
 Requires: SUNWlexpt
+BuildRequires: SFEldns-devel
+Requires: SFEldns
 
 %description
 Unbound is a validating, recursive, and caching DNS resolver.
@@ -128,6 +130,8 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Fri Feb 04 2011 - Milan Jurik
+- fix deps
 * Mon Jan 24 2011 - Milan Jurik
 - bump to 1.4.8
 * Mon Nov 08 2010 - Milan Jurik
