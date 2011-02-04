@@ -1,3 +1,7 @@
+2011-02-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEaaphoto.spec: bump to 0.41
+
 2011-02-03  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* encumbered/SFElibmpeg2.spec: update to 0.5.1; use %optflags

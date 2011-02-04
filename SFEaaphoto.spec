@@ -9,7 +9,7 @@
 
 Name:		SFEaaphoto
 Summary:	Auto Adjust Photo, automatic color correction of photos
-Version:	0.40
+Version:	0.41
 Group:		Graphics
 URL:		http://log69.com/aaphoto.html
 License:	GPLv3
@@ -58,5 +58,7 @@ rm -rf %{buildroot}
 %{_bindir}
 
 %changelog
+* Fri Feb 04 2011 - Milan Jurik
+- bump to 0.41
 * Sun Dec 26 2010 - Milan Jurik
 - Initial spec file
