@@ -1,3 +1,7 @@
+2011-02-05 TAKI,Yasushi <taki@justplayer.com>
+
+	* SFEimage-metadata-jpeg.spec: initial spec
+
 2011-02-04 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEaaphoto.spec: bump to 0.41
