@@ -62,3 +62,5 @@ rm -rf $RPM_BUILD_ROOT
 #%{_bindir}/*
 
 %changelog
+* Sat Feb  5 2011 - TAKI,Yasushi <taki@justplayer.com>
+- Initial spec file
