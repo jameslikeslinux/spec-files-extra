@@ -12,9 +12,10 @@
 
 Name:                   SFEbullet
 Summary:                Bullet Physics Library
-Version:                2.76
+Version:                2.77
 URL:			http://code.google.com/p/bullet/
 Source:                 %{src_url}/%{src_name}-%{version}.tgz
+Patch1:                 bullet-01-gcc.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}b-build
 %include default-depend.inc
@@ -30,7 +31,7 @@ BuildRequires: SUNWcmake
 
 %prep
 %setup -q -n %{src_name}-%{version}
-#find . -type f -exec dos2unix {} {} \;
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -47,19 +48,12 @@ export CFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
 export CXXFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
 export LDFLAGS="-R%{_libdir} -L%{_libdir} -lX11 "
 
-mkdir -p BUILD
-cd BUILD
-
-cmake -DCMAKE_LIBRARY_PATH="/opt/SFE/lib:/usr/lib" -DCMAKE_INCLUDE_PATH="/opt/SFE/include:/usr/include" -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 -DGLUT_INCLUDE_DIR="%{_prefix}/X11/include" -DGLUT_LIBRARIES="-L%{_libdir} -R%{_libdir} -lglut" -DGLUT_glut_LIBRARY="/opt/SFE/lib/libglut.so" -DBUILD_EXTRAS="off" -DBUILD_DEMOS=off -DBUILD_BULLET_MAYA_DYNAMICA_PLUGIN=off -DINSTALL_LIBS="on" .. -G "Unix Makefiles"
-
-make VERBOSE=1
+./autogen.sh
+./configure --prefix=%{_prefix} --enable-shared --disable-static --disable-demos
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd BUILD
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}
-make install
-mv ./sfw_stage/* $RPM_BUILD_ROOT/%{_prefix}
+make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,9 +61,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %{_includedir}
-%{_libdir}/lib*.a
+%{_libdir}
 
 %changelog
+* Sat Feb 05 2011 - Milan Jurik
+- bump to 2.77
+- avoid cmake, build extras and dynamic libs
 * Thu Feb 03 2011 - Milan Jurik
 - SFEfreeglut as optinal
 * May 2010 - Gilles DAuphin

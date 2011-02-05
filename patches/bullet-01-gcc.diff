@@ -1,0 +1,10 @@
+--- bullet-2.77/Extras/glui/algebra3.h	2010-03-06 16:23:36.000000000 +0100
++++ bullet-2.77-patch/Extras/glui/algebra3.h	2011-02-05 14:48:28.965359767 +0100
+@@ -98,7 +98,6 @@
+ enum {VX, VY, VZ, VW};           // axes
+ enum {PA, PB, PC, PD};           // planes
+ enum {RED, GREEN, BLUE, ALPHA};  // colors
+-enum {KA, KD, KS, ES};           // phong coefficients
+ 
+ /****************************************************************
+  *                                                              *
