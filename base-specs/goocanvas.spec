@@ -11,13 +11,13 @@
 Name:           goocanvas
 License:        LGPL
 Group:          System/Libraries
-Version:        0.15
+Version:        1.0.0
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
 URL:            http://sourceforge.net/projects/goocanvas
 Summary:        A Cairo Canvas Widget for GTK+
-Source:         http://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.bz2
+Source:         http://download.gnome.org/sources/%{name}/1.0/%{name}-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  autoconf >= 2.50
 BuildRequires:  automake >= 1:1.7
@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Feb 05 2011 - Milan Jurik
+- bump to 1.0.0
 * Wed Sep 23 2009 - brian.cameron@sun.com
 - Bump to 0.15.
 * Fri Apr 24 2009 - brian.cameron@sun.com

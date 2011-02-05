@@ -25,11 +25,10 @@ BuildRequires:  SUNWgnome-base-libs-devel
 
 %if %(expr %{osbuild} '>=' 134)
 Requires:	data/docbook
-BuildRequires:	developer/documentation-tool/gtk-doc
 %else
-BuildRequires:	SUNWgtk-doc
 BuildRequires:	SUNWgnome-xml
 %endif
+BuildRequires: SUNWgtk-doc
 
 %package devel
 Summary:        %{summary} - development files

@@ -2,6 +2,7 @@
 
 	* SFEasciidoc.spec: bump to 8.6.3
 	* SFEbullet.spec: bump to 2.77, build extras and dynamic libs
+	* base-specs/goocanvas.spec: bump to 1.0.0
 
 2011-02-05 TAKI,Yasushi <taki@justplayer.com>
 
