@@ -6,15 +6,17 @@
 # Owner: halton
 #
 %define src_name vobject
-%define python_version 2.4
+%define python_version 2.6
 
 %include Solaris.inc
+
+%define src_version 0.8.1c
 
 Name:                SFEpython-vobject
 URL:                 http://vobject.skyhouseconsulting.com/
 Summary:             vobject - a Python iCalendar library
-Version:             0.7.1
-Source:              http://vobject.skyhouseconsulting.com/%{src_name}-%{version}.tar.gz
+Version:             0.8.1.0.3
+Source:              http://vobject.skyhouseconsulting.com/%{src_name}-%{src_version}.tar.gz
 Patch1:		     python-vobject-01-ez_setup.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -23,10 +25,10 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 Requires: SUNWPython
 Requires: SFEpython-dateutil
 BuildRequires: SUNWPython-devel
-BuildRequires: SUNWpython-setuptools
+BuildRequires: SUNWpython26-setuptools
 
 %prep
-%setup -q -n %{src_name}-%version
+%setup -q -n %{src_name}-%{src_version}
 %patch1 -p0
 
 %build
@@ -53,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Sat Feb 05 2011 - Milan Jurik
+- bump to 0.8.1c
 * Tue Aug 26 2008 - halton.huo@sun.com
 - Bump to 0.7.1
 * Mon Mar 17 2008 - jijun.yu@sun.com

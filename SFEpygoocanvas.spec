@@ -6,9 +6,11 @@
 # Owner: halton
 #
 %define src_name pygoocanvas
-%define python_version 2.4
+%define python_version 2.6
 
 %include Solaris.inc
+
+%define osbuild %(uname -v | sed -e 's/[A-z_]//g')
 
 Name:                SFEpygoocanvas
 URL:                 http://developer.berlios.de/projects/pygoocanvas/
@@ -20,14 +22,18 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SUNWPython-devel
-BuildRequires: SUNWgnome-python-libs-devel
+BuildRequires: SUNWgnome-python26-libs-devel
 BuildRequires: SFEgoocanvas-devel
 Requires: SUNWPython
-Requires: SUNWgnome-python-libs
+Requires: SUNWgnome-python26-libs
 Requires: SFEgoocanvas
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgtk-doc
-BuildRequires: SUNWgnome-xml
+%if %(expr %{osbuild} '>=' 134)
+Requires:       data/docbook
+%else
+BuildRequires:  SUNWgnome-xml
+%endif
 
 %package devel
 Summary:                 %{summary} - development files
@@ -84,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Feb 05 2011 - Milan Jurik
+- use python2.6
 * Thu May 13 2010 - Milan Jurik
 - added build dependency
 * Mon Jun 15 2009 - halton.huo@sun.com
