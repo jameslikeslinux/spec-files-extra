@@ -29,6 +29,7 @@
 %define with_x264 %(pkginfo -q SFElibx264 && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
 %define with_schroedinger %(pkginfo -q SFElibschroedinger && echo 1 || echo 0)
+%define with_faac %(pkginfo -q SFEfaac && echo 1 || echo 0)
 
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
@@ -105,6 +106,8 @@ Requires: SFEladspa
 BuildRequires: SFEladspa-devel
 Requires: SFElibmad
 BuildRequires: SFElibmad-devel
+Requires: SFElibdvdread
+BuildRequires: SFElibdvdread-devel
 %if %with_openal
 Requires: SFEopenal
 BuildRequires: SFEopenal-devel
@@ -125,6 +128,10 @@ BuildRequires: SFEgiflib-devel
 %if %with_schroedinger
 Requires: SFElibschroedinger
 BuildRequires: SFElibschroedinger-devel
+%endif
+%if %with_faac
+Requires: SFEfaac
+BuildRequires: SFEfaac-devel
 %endif
 
 %define x11	/usr/openwin
@@ -226,6 +233,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Sun Feb 06 2011 - Milan Jurik
+- use system libdvdread, faac as optional
 * Thu Feb 03 2011 - Milan Jurik
 - ESD is obsolete and source of problems, disabled
 * Sun Jan 30 2011 - Milan Jurik
