@@ -60,6 +60,8 @@ BuildRequires: SUNWbzip
 Requires: SUNWbzip
 Requires: SFEffmpeg
 BuildRequires: SFEffmpeg-devel
+Requires: SFEorc
+BuildRequires: SFEorc-devel
 ##### for gst-plugins-ugly #####
 Requires: SFEliba52
 BuildRequires: SFEliba52-devel
@@ -79,6 +81,8 @@ Requires: SFElibmpeg2
 BuildRequires: SFElibmpeg2-devel
 Requires: SFElibx264
 BuildRequires: SFElibx264-devel
+Requires: SFEtwolame
+BuildRequires: SFEtwolame-devel
 ##### for gst-plugins-bad #####
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
@@ -129,6 +133,10 @@ Requires: SFEsoundtouch
 BuildRequires: SFEsoundtouch-devel
 Requires: SFElibschroedinger
 BuildRequires: SFElibschroedinger-devel
+Requires: SFEfaac
+BuildRequires: SFEfaac-devel
+Requires: SFEtimidity
+BuildRequires: SFEtimidity
 
 %ifarch sparc
 %define arch_opt --enable-mlib
@@ -256,6 +264,8 @@ rm -rf $RPM_BUILD_ROOT
 %if %{!?_without_gtk_doc:1}%{?_without_gtk_doc:0}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gtk-doc
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*.pc
 %endif
 
 %if %build_l10n
@@ -266,6 +276,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Feb 06 2011 - Milan Jurik
+- add new plugins
 * Thu Jun 10 2010 Albert Lee <trisk@opensolaris.org>
 - Use %{_libdir}/$ISALIST to select optimised dependencies
 - Use libmms

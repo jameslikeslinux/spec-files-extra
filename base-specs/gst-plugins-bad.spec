@@ -6,15 +6,9 @@
 # package are under the same license as the package itself.
 #
 
-%define gst_0_10_27 %(pkg-config --atleast-version=0.10.27 gstreamer-0.10 && echo 1 || echo 0)
-
 Name:           gst-plugins-bad
 License:        GPL
-%if %gst_0_10_27
 Version:        0.10.19
-%else
-Version:        0.10.17
-%endif
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -25,15 +19,7 @@ Source:         http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins
 Patch1:         gst-plugins-bad-01-gettext.diff
 Patch2:         gst-plugins-bad-02-gstapexraop.diff
 Patch3:         gst-plugins-bad-03-xvidmain.diff
-%if %gst_0_10_27
-%else
-Patch4:         gst-plugins-bad-04-equal.diff
-%endif
 Patch5:         gst-plugins-bad-05-xsi_shell.diff
-%if %gst_0_10_27
-%else
-Patch6:         gst-plugins-bad-06-apexsink.diff
-%endif
 Patch7:         gst-plugins-bad-07-videomeasure.diff
 Patch8:         gst-plugins-bad-08-gstdoc-scangobj.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
@@ -55,15 +41,7 @@ plug-ins.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%if %gst_0_10_27
-%else
-%patch4 -p1
-%endif
 %patch5 -p1
-%if %gst_0_10_27
-%else
-%patch6 -p1
-%endif
 %patch8 -p1
 
 %build
@@ -86,7 +64,6 @@ bash ./configure \
 %else
   --disable-amrwb \
 %endif
-  --disable-bayer \
   --disable-dccp \
   --disable-festival \
   --disable-freeze \
@@ -94,17 +71,9 @@ bash ./configure \
   --disable-mve \
   --disable-nsf \
   --disable-nuvdemux \
-  --disable-oss4 \
   --disable-pcapparse \
-  --disable-rawparse \
-  --disable-selector \
-  --disable-subenc \
   --disable-scaletempo \
-  --disable-speed \
-  --disable-stereo \
-  --disable-tta \
   --disable-videomeasure \
-  --disable-vmnc \
   --disable-quicktime \
   --disable-vcd \
   --disable-alsa \
@@ -116,10 +85,8 @@ bash ./configure \
   --disable-dirac \
   --disable-divx \
   --disable-metadata \
-  --disable-faac \
   --disable-fbdev \
   --disable-gsm \
-  --disable-ivorbis \
   --disable-jack \
   --disable-jp2k \
   --disable-lv2 \
@@ -130,19 +97,17 @@ bash ./configure \
   --disable-mythtv \
   --disable-nas \
   --disable-neon \
-  --disable-timidity \
   --disable-theoradec \
   --disable-rsvg \
   --disable-spc \
   --disable-gme \
   --disable-swfdec \
   --disable-dvb \
-  --disable-oss4 \
   --disable-selector \
   --disable-zbar \
+  --disable-wildmidi    \
   %{gtk_doc_option}	\
-  --enable-external \
-  --disable-shave
+  --enable-external
 
 # FIXME: hack: stop the build from looping
 touch po/stamp-it
@@ -197,6 +162,8 @@ GStreamer support libraries header files.
 %{_datadir}/gtk-doc
 
 %changelog
+* Sun Feb 06 2011 - Milan Jurik
+- clean up of patching, enabling new modules
 * Fri Jun 18 2010 - brian.cameron@oracle.com
 - Add patch gst-plugins-bad-08-gstdoc-scangobj.diff.
 * Sat Jun 12 2010 - Albert Lee <trisk@opensolaris.org>

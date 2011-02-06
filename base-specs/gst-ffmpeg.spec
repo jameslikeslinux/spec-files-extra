@@ -9,7 +9,7 @@
 #
 Name:           gst-ffmpeg
 License:        LGPL
-Version:        0.10.10
+Version:        0.10.11
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -17,7 +17,6 @@ Group:          Libraries/Multimedia
 Summary:        GStreamer Streaming-media framework plug-ins - FFmpeg.
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-%{version}.tar.bz2
-Patch1:         gst-ffmpeg-01-codecmap.diff
 Patch3:         gst-ffmpeg-03-xvidmain.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 Docdir:         %{_defaultdocdir}/doc
@@ -35,21 +34,17 @@ plug-ins.
 
 %prep
 %setup -n gst-ffmpeg-%{version} -q
-%patch1 -p1
 %patch3 -p1
 
 %build
-#CC=/usr/sfw/bin/gcc ; export CC ; \
-#CFLAGS="%gcc_optflags -fno-rename-registers -fno-PIC -UPIC -mpreferred-stack-boundary=4"; export CFLAGS ; \
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
 CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
-glib-gettextize -f
-aclocal -I ./common/m4 $ACLOCAL_FLAGS
-intltoolize --copy --force --automake
-autoheader
-autoconf
-automake -a -c -f
 CONFIG_SHELL=/bin/bash \
 bash ./configure \
   --prefix=%{_prefix}	\
@@ -60,15 +55,7 @@ bash ./configure \
   --with-system-ffmpeg  \
   --disable-shave
 
-# FIXME: hack: stop the build from looping
-touch po/stamp-it
-
-if [ "$SMP" != "" ]; then
-  (make "MAKE=make -k -j $SMP"; exit 0)
-  make 
-else
-  make
-fi
+make -j$CPUS
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ]
@@ -113,6 +100,8 @@ GStreamer support libraries header files.
 %{_datadir}/gtk-doc
 
 %changelog
+* Sun Feb 06 2011 - Milan Jurik
+- bump to 0.10.11
 * Thu Jun 10 2010 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.10.10
 - Add patch1
