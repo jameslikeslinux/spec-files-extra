@@ -16,7 +16,7 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SFEchmlib
-Requires: SUNWgnome-python-extras
+Requires: SUNWgnome-python26-extras
 Requires: SFEpychm
 
 %package root
