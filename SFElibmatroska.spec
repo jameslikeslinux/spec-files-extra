@@ -15,14 +15,13 @@ Group:		System Environment/Libraries
 URL:		http://www.matroska.org
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
 Version:	1.1.0
-Source:		http://dl.matroska.org/downloads/%srcname/%{srcname}-%{version}.tar.bz2
+Source:		http://dl.matroska.org/downloads/%srcname/%srcname-%version.tar.bz2
 Patch1:		libmatroska-01-makefile.diff
 
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:	SUNWgmake
 BuildRequires:	SUNWlibstdcxx4
 Requires:	SUNWlibstdcxx4
 BuildRequires:	SFElibebml-devel
@@ -44,7 +43,7 @@ SUNW_BaseDir:	%{_basedir}
 Requires: %name
 
 %prep
-%setup -q -n libmatroska-%version
+%setup -q -n %srcname-%version
 %patch1 -p1
 
 %build

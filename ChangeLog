@@ -1,4 +1,4 @@
-2011-02-03  Alex Viskovatoff <viskovatoff@imap.cc>
+2011-02-05  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFEmkvtoolnix.spec: update to 4.5.0
 	* SFElibebml.spec: update to 1.2.0
@@ -99,7 +99,7 @@
 
 2010-01-24  Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEboost-stdcxx.spec: use patches from kde-solaris;
+	* SFEboost-stdcxx.spec: use patches from KDE Solaris;
 	  add compilation flags to make all targets build
 
 2011-01-24 Milan Jurik <sfnet@xylab.cz>
@@ -212,7 +212,7 @@
 
 	* SFEpianobar.spec: initial spec
 	* base-specs/pianobar.spec: initial spec
-	* patches/pianobar-01-defs.diff, 
+	* patches/pianobar-01-defs.diff,
 	  patches/pianobar-02-lsocket.diff: added
 
 2010-12-16 Milan Jurik <sfnet@xylab.cz>
@@ -223,8 +223,8 @@
 
 2010-12-14  Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEarora: added
-	* SFEkchmviewer: added
+	* SFEarora: initial spec
+	* SFEkchmviewer: initial spec
 
 2010-12-10  Alex Viskovatoff <viskovatoff@imap.cc>
 
@@ -233,7 +233,7 @@
 
 2010-12-08  Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEsakura: added
+	* SFEsakura: initial spec
 
 2010-12-07  Brian Cameron  <brian.cameron@oracle.com>
 
@@ -456,23 +456,23 @@
 2010-10-30  Thomas Wagner  <tom68@users.sourceforge.net>
 
 	* SFElibschroedinger.spec: relocate %description down to no longer
-	  catch statements, this repairs dependency on SFEorc 
+	  catch statements, this repairs dependency on SFEorc
 	  (pkgtool --autodeps buildorder ... )
 	* include/osdistro.inc: add oi147
 	* include/packagenamemacros.inc and sub includes: add package name
 	  resolving macros. for demo *read* the spec files
-	  base-specs/package*spec 
+	  base-specs/package*spec
 
 2010-10-29  Thomas Wagner  <tom68@users.sourceforge.net>
 
-	* SFEopenal.spec:  bump to 1.12.854, new Download Source, 
+	* SFEopenal.spec:  bump to 1.12.854, new Download Source,
 	  remove patch1 openal-new-01.diff
 	* SFElibschroedinger.spec base-specs/schroedinger.spec: change
-	  configure shell to real bash, rename BuildRequires to SFEorc-devel. 
-	  NOTE: dependency resolving  by pkgbuild --autodeps or build-order 
-	  doesn't work for unknown reason. For now you *must* run 
+	  configure shell to real bash, rename BuildRequires to SFEorc-devel.
+	  NOTE: dependency resolving  by pkgbuild --autodeps or build-order
+	  doesn't work for unknown reason. For now you *must* run
 	  pkgbuild build SFEorc SFElibschroedinger   in that order
-	* SFEnasm.spec: cleaned up / adjusted BuildRequires to match various 
+	* SFEnasm.spec: cleaned up / adjusted BuildRequires to match various
 	  osbuilds and IPS/SVR4
 	* SFEorc.spec base-specs/orc.spec: make (Build)Requires dependend of
 	  the osbuild version, use real bash for configure
@@ -493,7 +493,7 @@
 
 2010-10-24  Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEncmpcpp.spec: Added
+	* SFEncmpcpp.spec: initial spec
 	* SFEeasytag.spec: Avoid running autoconf, which breaks
 	  build.  Patch configure instead of configure.in.
 
@@ -556,7 +556,7 @@
 
 	* SFEqt4.spec: update to 4.5.3; use stdcxx by default
 	* patches/qt4-01-libpng.diff: added: qt4 uses obsolete libpng names
-	* SFEsmplayer.spec: added
+	* SFEsmplayer.spec: initial spec
 
 2010-10-17  James Choi  <jchoi42@pha.jhu.edu>
 
@@ -586,10 +586,10 @@
 
 2010-10-15  Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEhunspell.spec: Added
-	* SFExournal.spec: Added
-	* base-specs/ncursesw.spec: Bump to 5.7.
-	* SFEvorbis-tools.spec: Bump to 1.4.0
+	* SFEhunspell.spec: inital spec
+	* SFExournal.spec: initial spec
+	* base-specs/ncursesw.spec: bump to 5.7.
+	* SFEvorbis-tools.spec: bump to 1.4.0
 
 2010-10-13  Smin Jin  <yun-tong.jin@oracle.com>
 

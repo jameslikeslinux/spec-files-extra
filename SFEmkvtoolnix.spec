@@ -4,9 +4,6 @@
 # includes module: mkvtoolnix
 #
 
-# SFEboost-stdcxx is used instead of SFEboost because the filesystem
-# library is apparently broken when it is linked against stlport4.
-
 # TODO: Get mmg (the GUI front end) to build
 
 %include Solaris.inc
@@ -19,21 +16,19 @@ URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
 Version:	4.5.0
 License:	GPLv2
-Source:		http://www.bunkus.org/videotools/%srcname/sources/%{srcname}-%{version}.tar.bz2
+Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
 Patch5:		mkvtoolnix-05-terminal.diff
 
-SUNW_BaseDir:	%{_basedir}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%_basedir
+BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 %if %with_SUNWruby
 BuildRequires: SUNWruby18r
 %endif
 
-BuildRequires: SFElibebml-devel
-Requires: SFElibebml
 BuildRequires: SFElibmatroska-devel
 Requires: SFElibmatroska
 BuildRequires: SFEboost-stdcxx-devel
@@ -57,11 +52,12 @@ MKVToolnix consists of the tools mkvmerge, mkvinfo, mkvextract, and mkvpropedit.
 
 %if %build_l10n
 %package l10n
-Summary:        %{summary} - l10n files
-SUNW_BaseDir:   %{_basedir}
+Summary:        %summary - l10n files
+SUNW_BaseDir:   %_basedir
 %include default-depend.inc
-Requires:       %{name}
+Requires:       %name
 %endif
+
 
 %prep
 %setup -q -n %srcname-%version
@@ -70,6 +66,7 @@ Requires:       %{name}
 %patch5 -p1
 sed 's/-Wall -Wno-comment //' Rakefile > Rakefile.new
 mv Rakefile.new Rakefile
+
 
 %build
 
@@ -87,6 +84,7 @@ CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 --with-extra-includes=/usr/stdcxx/include --with-boost-libdir=/usr/stdcxx/lib
 ./drake -j$CPUS
 
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -97,7 +95,6 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_docdir/%srcname/guide/zh_CN
 %endif
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Feb  5 2011 - Alex Viskovatoff
 - Update to 4.5.0, adding one patch and removing one no longer needed
 * Thu Jan 27 2011 - Alex Viskovatoff
-- Go back to using -library=stdcxx4
+- Go back to using -library=stdcxx4 because SS 12u1 does indeed understand it
 * Sun Nov 21 2010 - Alex Viskovatoff
 - Update to 4.4.0, with two patches no longer required
 - Accommodate to stdcxx libs and headers residing in /usr/stdcxx

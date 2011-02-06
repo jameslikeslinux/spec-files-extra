@@ -6,7 +6,7 @@ diff -u libebml-1.0.0/ebml-orig/EbmlBinary.h libebml-1.0.0/ebml/EbmlBinary.h
  
  #include <cstring>
 +#if defined(__SUNPRO_CC)
-+using namespace std;
++#include <string.h>
 +#endif
  
  #include "EbmlTypes.h"

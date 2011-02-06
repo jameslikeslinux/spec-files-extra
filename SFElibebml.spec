@@ -15,7 +15,7 @@ Group:		System Environment/Libraries
 URL:		http://ebml.sourceforge.net
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
 Version:	1.2.0
-Source:		http://dl.matroska.org/downloads/%srcname/%{srcname}-%{version}.tar.bz2
+Source:		http://dl.matroska.org/downloads/%srcname/%srcname-%version.tar.bz2
 Patch1:		libebml-01-makefile.diff
 Patch2:		libebml-02-headers.diff
 Patch3:		libebml-03-ebmlbinary.diff
@@ -37,7 +37,7 @@ SUNW_BaseDir:	%{_basedir}
 Requires: %name
 
 %prep
-%setup -q -n libebml-%version
+%setup -q -n %srcname-%version
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
