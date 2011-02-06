@@ -11,6 +11,7 @@
 
 %define cc_is_gcc 1
 %include base.inc
+%include packagenamemacros.inc
 
 %use handbrake = handbrake.spec
 
@@ -31,14 +32,26 @@ Requires: SFEffmpeg
 Requires: SFElibmp4v2
 Requires: SFElibdvdnav
 Requires: SFElibiconv
-Requires: SFESFElibmikmod
 Requires: SFElibschroedinger
 BuildRequires: SFEgcc
 BuildRequires: SFEffmpeg-devel
 BuildRequires: SFElibx264-devel
 BuildRequires: SFElibao-devel
 BuildRequires: SFElibiconv-devel
+# TODO: migrate SFE/SUNW detection to packagenamemacros.inc format
+#BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
+#Requires:       %{pnm_requires_SUNWlibmikmod}
+%define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
+%if %SFElibmikmod
+BuildRequires: SFElibmikmod-devel
+Requires: SFElibmikmod
+%else
+BuildRequires: SUNWlibmikmod-devel
+Requires: SUNWlibmikmod
+%endif
 # TODO: more dependencies?
+
+
 
 %prep
 rm -rf %name-%version
@@ -49,7 +62,7 @@ mkdir %name-%version
 export CC='gcc'
 export CXX=g++
 export CFLAGS="%gcc_optflags -Os -Xlinker -i"
-export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir} -lsocket -lnsl %_ldflags %{xorg_lib_path} -L/usr/gnu/lib -R/usr/gnu/lib -L%{_libdir} -R%{_libdir}i -m64"
+export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir} -lsocket -lnsl -liconv %_ldflags %{xorg_lib_path} -L/usr/gnu/lib -R/usr/gnu/lib -L%{_libdir} -R%{_libdir} -m64"
 export CXXFLAGS="%gcc_cxx_optflags"
 export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
 %handbrake.build -d %name-%version
@@ -65,9 +78,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_bindir}
-%{_bindir}/HandBrakeCLI
+#%{_bindir}/HandBrakeCLI
+%{_bindir}/*
+%{_bindir}/somecrap
 
 
 %changelog
+* Sat Feb 05 2011 - jchoi42@pha.jhu.edu
+- fix dependencies, fix ldflags, add smart libmikmod detection
 * Wed Dec 16 2010 - jchoi42@pha.jhu.edu
 - initial spec
