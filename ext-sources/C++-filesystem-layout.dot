@@ -1,0 +1,37 @@
+digraph G {
+	node [shape=plaintext,fontsize="10pt"]
+	edge [dir=none]
+	usr [label="/usr"]
+	usr -> bin
+	usr -> lib
+	lib -> gpp [color=gray]
+	gpp -> gpp_v1 [color=gray]
+	usr -> stdcxx [minlen=2]
+	stdcxx -> sx_bin
+	stdcxx -> sx_lib -> sx_gpp
+	sx_gpp -> gpp_v2
+	sx_gpp -> gpp_v3
+	stdcxx -> sx_include
+	stdcxx -> sx_share
+	usr -> include
+	usr -> stlport4 [color=gray]
+	usr -> share
+	stlport4 -> st4_bin [color=gray]
+	stlport4 -> st4_lib [color=gray]
+	stlport4 -> st4_include [color=gray]
+	stlport4 -> st4_share [color=gray]
+	sx_gpp [label="g++"]
+	gpp [label="g++",fontcolor=dimgray]
+	gpp_v1 [label="3.4.3",fontcolor=dimgray]
+	gpp_v2 [label="4.4.5"]
+	gpp_v3 [label="4.5.2"]
+	sx_bin [label="bin"]
+	sx_lib [label="lib"]
+	sx_include [label="include"]
+	sx_share [label="share"]
+	stlport4 [fontcolor=dimgray]
+	st4_bin [label="bin"] [fontcolor=dimgray]
+	st4_lib [label="lib"] [fontcolor=dimgray]
+	st4_include [label="include"] [fontcolor=dimgray]
+	st4_share [label="share"] [fontcolor=dimgray]
+}

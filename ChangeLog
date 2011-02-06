@@ -1,3 +1,13 @@
+2011-02-03  Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* SFEmkvtoolnix.spec: update to 4.5.0
+	* SFElibebml.spec: update to 1.2.0
+	* SFElibmatroska.spec: bump to 1.1.0
+	* SFEhunspell.spec: update to 1.2.14
+	* SFExz.spec: bump to 5.0.1
+	* ext-sources/C++-filesystem-layout.dot: add source file for
+	  C++ libraries file system layout diagram
+
 2011-02-05 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEasciidoc.spec: bump to 8.6.3

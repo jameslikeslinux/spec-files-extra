@@ -17,14 +17,12 @@ Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	4.4.0
+Version:	4.5.0
 License:	GPLv2
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%{srcname}-%{version}.tar.bz2
-# Based on https://build.opensuse.org/package/view_file?file=mkvtoolnix-4.3.0-guide_install.patch&package=mkvtoolnix&project=multimedia%3Aapps&srcmd5=6156e051db15cd8c196f83e4877192df#
-# Also removes GNU compiler warning flags
-Patch2:		mkvtoolnix-02-guide-install.diff
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
+Patch5:		mkvtoolnix-05-terminal.diff
 
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -67,9 +65,11 @@ Requires:       %{name}
 
 %prep
 %setup -q -n %srcname-%version
-%patch2 -p0
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+sed 's/-Wall -Wno-comment //' Rakefile > Rakefile.new
+mv Rakefile.new Rakefile
 
 %build
 
@@ -120,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Feb  5 2011 - Alex Viskovatoff
+- Update to 4.5.0, adding one patch and removing one no longer needed
 * Thu Jan 27 2011 - Alex Viskovatoff
 - Go back to using -library=stdcxx4
 * Sun Nov 21 2010 - Alex Viskovatoff

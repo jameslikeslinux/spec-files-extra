@@ -14,7 +14,7 @@ Summary:	Matroska Video Container
 Group:		System Environment/Libraries
 URL:		http://www.matroska.org
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	1.0.0
+Version:	1.1.0
 Source:		http://dl.matroska.org/downloads/%srcname/%{srcname}-%{version}.tar.bz2
 Patch1:		libmatroska-01-makefile.diff
 
@@ -80,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sat Feb  5 2011 - Alex Viskovatoff
+- Bump to 1.1.0
 * Thu Jan 27 2011 - Alex Viskovatoff
 - Go back to using -library=stdcxx4
 * Tue Nov 23 2010 - Alex Viskovatoff

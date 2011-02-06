@@ -14,10 +14,11 @@ Summary:	Extensible Binary Meta Language
 Group:		System Environment/Libraries
 URL:		http://ebml.sourceforge.net
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	1.0.0
+Version:	1.2.0
 Source:		http://dl.matroska.org/downloads/%srcname/%{srcname}-%{version}.tar.bz2
 Patch1:		libebml-01-makefile.diff
 Patch2:		libebml-02-headers.diff
+Patch3:		libebml-03-ebmlbinary.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -39,6 +40,7 @@ Requires: %name
 %setup -q -n libebml-%version
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -72,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sat Feb  5 2011 - Alex Viskovatoff
+- Update to 1.2.0, adding one patch
 * Thu Jan 27 2011 - Alex Viskovatoff
 - Go back to using -library=stdcxx4
 * Tue Nov 23 2010 - Alex Viskovatoff

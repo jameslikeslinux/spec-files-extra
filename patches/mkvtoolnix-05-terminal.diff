@@ -1,0 +1,12 @@
+--- mkvtoolnix-4.5.0/src/common/terminal.cpp.orig	Mon Jan 31 15:34:09 2011
++++ mkvtoolnix-4.5.0/src/common/terminal.cpp	Sat Feb  5 17:23:14 2011
+@@ -11,6 +11,9 @@
+    Written by Moritz Bunkus <moritz@bunkus.org>.
+ */
+ 
++#include <unistd.h>
++#include <stropts.h>
++
+ #include "common/os.h"
+ 
+ #if defined(HAVE_TIOCGWINSZ)

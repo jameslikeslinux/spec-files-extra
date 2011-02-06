@@ -45,7 +45,7 @@ Name:		SFEhunspell
 Summary:	Spell checker
 URL:		http://hunspell.sourceforge.net
 Vendor:		László Németh
-Version:	1.2.12
+Version:	1.2.14
 License:	MPL 1.1/GPL 2.0/LGPL 2.1
 Source:		http://downloads.sourceforge.net/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch1:		hunspell-01-dict-path.diff
@@ -118,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Feb  4 2011 - Alex Viskovatoff
+- Update to 1.2.14
 * Wed Nov 10 2010 - Alex Viskovatoff
 - add another missing build dep; do not package static lib
 - add patch to make Hunspell find dictionaries without depending on DICPATH

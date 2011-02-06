@@ -1,12 +1,12 @@
---- mkvtoolnix-4.3.0/src/mpegparser/MPEGVideoBuffer.cpp.orig	Sat Sep  4 16:04:59 2010
-+++ mkvtoolnix-4.3.0/src/mpegparser/MPEGVideoBuffer.cpp	Fri Oct  1 15:43:56 2010
-@@ -23,6 +23,9 @@
+--- mkvtoolnix-4.5.0/src/mpegparser/MPEGVideoBuffer.cpp.orig	Mon Jan 31 15:34:09 2011
++++ mkvtoolnix-4.5.0/src/mpegparser/MPEGVideoBuffer.cpp	Sat Feb  5 18:55:33 2011
+@@ -22,6 +22,9 @@
+ 
  #include "MPEGVideoBuffer.h"
  #include <cstring>
- #include <stddef.h>
 +#if defined(__SUNPRO_CC)
-+using namespace std;
++#include <string.h>
 +#endif
+ #include <stddef.h>
  
  MPEG2SequenceHeader::MPEG2SequenceHeader() {
-   memset(this, 0, sizeof(*this));
