@@ -18,14 +18,7 @@
 %include base.inc
 
 
-%define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
-%define with_ladspa %(pkginfo -q SFEladspa && echo 1 || echo 0)
 %define with_openal %(pkginfo -q SFEopenal && echo 1 || echo 0)
-%define with_mad %(pkginfo -q SFElibmad && echo 1 || echo 0)
-%define with_lame %(pkginfo -q SFElame && echo 1 || echo 0)
-%define with_twolame %(pkginfo -q SFEtwolame && echo 1 || echo 0)
-%define with_mpcdec %(pkginfo -q SFElibmpcdec && echo 1 || echo 0)
-%define with_xvid %(pkginfo -q SFExvid && echo 1 || echo 0)
 %define with_x264 %(pkginfo -q SFElibx264 && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
 %define with_schroedinger %(pkginfo -q SFElibschroedinger && echo 1 || echo 0)
@@ -84,7 +77,7 @@ Requires: SUNWlibm
 Requires: SFEliveMedia
 Requires: SFElibcdio
 BuildRequires: SFElibcdio-devel
-
+BuildRequires: SUNWaudh
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
@@ -106,16 +99,26 @@ Requires: SFEladspa
 BuildRequires: SFEladspa-devel
 Requires: SFElibmad
 BuildRequires: SFElibmad-devel
+Requires: SFEliba52
+BuildRequires: SFEliba52-devel
+Requires: SFElibdvdcss
+BuildRequires: SFElibdvdcss-devel
 Requires: SFElibdvdread
 BuildRequires: SFElibdvdread-devel
+Requires: SFElibdvdnav
+BuildRequires: SFElibdvdnav-devel
+Requires: SFElibgsm
+BuildRequires: SFElibgsm-devel
+Requires: SFEopencore-amr 
+BuildRequires: SFEopencore-amr-devel
+Requires: SFEopenjpeg
+BuildRequires: SFEopenjpeg-devel
 %if %with_openal
 Requires: SFEopenal
 BuildRequires: SFEopenal-devel
 %endif
-%if %with_xvid
 Requires: SFExvid
 BuildRequires: SFExvid-devel
-%endif
 BuildRequires: SUNWgawk
 %if %with_x264
 Requires: SFElibx264
@@ -133,6 +136,7 @@ BuildRequires: SFElibschroedinger-devel
 Requires: SFEfaac
 BuildRequires: SFEfaac-devel
 %endif
+Requires: SUNWunrar
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
@@ -235,6 +239,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Feb 06 2011 - Milan Jurik
 - use system libdvdread, faac as optional
+- clean up dependencies
 * Thu Feb 03 2011 - Milan Jurik
 - ESD is obsolete and source of problems, disabled
 * Sun Jan 30 2011 - Milan Jurik

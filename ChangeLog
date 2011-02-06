@@ -1,6 +1,7 @@
 2011-02-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtransmageddon.spec: initial spec
+	* encumbered/SFEmplayer.spec: clean up dependencies
 
 2011-02-05  Alex Viskovatoff <viskovatoff@imap.cc>
 
