@@ -6,7 +6,7 @@
 # Owner: halton
 #
 %define src_name pygoocanvas
-%define python_version 2.6
+%define python_version 2.4
 
 %include Solaris.inc
 
@@ -22,10 +22,10 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SUNWPython-devel
-BuildRequires: SUNWgnome-python26-libs-devel
+BuildRequires: SUNWgnome-python-libs-devel
 BuildRequires: SFEgoocanvas-devel
 Requires: SUNWPython
-Requires: SUNWgnome-python26-libs
+Requires: SUNWgnome-python-libs
 Requires: SFEgoocanvas
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgtk-doc
@@ -90,8 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sat Feb 05 2011 - Milan Jurik
-- use python2.6
 * Thu May 13 2010 - Milan Jurik
 - added build dependency
 * Mon Jun 15 2009 - halton.huo@sun.com
