@@ -21,6 +21,7 @@ BuildRequires:           SUNWcairo-devel
 BuildRequires:           SUNWgtk-doc
 BuildRequires:           SUNWvala-devel
 Requires:                SUNWvala
+BuildRequires:           SUNWgnome-xml-share
 
 %include default-depend.inc
 
