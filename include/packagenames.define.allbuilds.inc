@@ -135,6 +135,7 @@
 
 #we need SFE version on very old builds
 %if %( expr %{osbuild} '<=' 90 )
+#running an old build or Solaris 10
 %define pnm_buildrequires_SFEsane_backend_devel		SFEsane-backend-devel
 %define pnm_requires_SFEsane_backend	 		SFEsane-backend
 %define pnm_buildrequires_SUNWsane_backend_devel	SFEsane-backend-devel
@@ -148,7 +149,7 @@
 #pkgs know about the renaming, so just handle a switch to SFEfftw3 in case
 #the osbuild is too old
 
-#defaults for all builds >= 107 - let pkg find the rest
+#defaults for all builds >= 107 - let pkg do the names translation if needed
 %define pnm_buildrequires_SFEfftw3		SUNWfftw3
 %define pnm_requires_SFEfftw3			SUNWfftw3
 %define pnm_buildrequires_SUNWfftw3		SUNWfftw3
@@ -157,6 +158,7 @@
 %define pnm_requires_library_fftw_3	 	SUNWfftw3
 
 %if %( expr %{osbuild} '<' 107 )
+#running an old build or Solaris 10
 %define pnm_buildrequires_SFEfftw3		SFEfftw3
 %define pnm_requires_SFEfftw3	 		SFEfftw3
 %define pnm_buildrequires_SUNWfftw3		SFEfftw3
@@ -166,14 +168,38 @@
 %endif
 
 
+#http://mail.opensolaris.org/pipermail/opensolaris-announce/2008-October.txt
+#repo additions, SUNWlibmikmod
+
+#defaults for all builds >= 99 - let pkg do the names translation if needed
+%define pnm_buildrequires_SFElibmikmod		SUNWlibmikmod
+%define pnm_requires_SFElibmikmod		SUNWlibmikmod
+%define pnm_buildrequires_SUNWlibmikmod		SUNWlibmikmod
+%define pnm_requires_SUNWlibmikmod		SUNWlibmikmod
+
+%if %( expr %{osbuild} '<' 99 )
+#running an old build or Solaris 10
+%define pnm_buildrequires_SFElibmikmod		SFElibmikmod
+%define pnm_requires_SFElibmikmod	 	SFElibmikmod
+%define pnm_buildrequires_SUNWlibmikmod		SFElibmikmod
+%define pnm_requires_SUNWlibmikmod	 	SFElibmikmod
+%endif
+
+
+
+
+
+
 #very special case Solaris 10
 ##TODO## for a future version
 
 
 
 %changelog
-* WEd Feb 02 2011 - Thomas Wagner
-- handle SUNWsfehea and SFEhea - system/header (>= 130, >= 133) (perl modules)
+* Sun Feb  7 2011 - Thomas Wagner
+- handle SFElibmodmod and SUNWlibmikmod (>=90)
+* Wed Feb  2 2011 - Thomas Wagner
+- handle SUNWsfehea and SUNWhea - system/header (>= 130, >= 133) (perl modules)
 - handle SFEsane-backend | SUNWsane-backend (>= 90) make pnm*SUNWsane-backend 
   require SFEsane-backend below 90 (would need undelete of SFEsane-backend.spec)
 - handle SFEfftw3 | SUNWfftw3 (>= 107)
