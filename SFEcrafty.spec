@@ -5,45 +5,42 @@
 #
 %include Solaris.inc
 
-Name:                    SFEcrafty
-Summary:                 Crafty chess engine  
-Version:                 23.2
-Source:                  http://www.craftychess.com/crafty-%{version}.zip
-URL: 			 http://www.craftychess.com/
-#SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-
+Name:		SFEcrafty
+Summary:	Crafty chess engine  
+Version:	23.4
+Group:		Amusements/Games
+URL:		http://www.craftychess.com/
+Source:		http://www.craftychess.com/crafty-%{version}.zip
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-Requires: SUNWcsu
-
 %prep
-%setup -q -n crafty-%version 
-
+%setup -q -n crafty-%version
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`                                                   
-if test "x$CPUS" = "x" -o $CPUS = 0; then                                                                     
-    CPUS=1                                                                                                    
-fi                                                                                                            
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
 
-make -j $CPUS solaris-gcc                      
+make -j $CPUS solaris-gcc
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-mv $RPM_BUILD_DIR/crafty-%version/crafty $RPM_BUILD_ROOT/%{_bindir}
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/%{_bindir}
+mv crafty %{buildroot}/%{_bindir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, sys) %{_prefix}
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
+%{_bindir}
 
 %changelog
+* Mon Feb 07 2011 - Milan Jurik
+- bump to 23.4
 * May 2010 - Gilles Dauphin
 - %files update, move to %_bindir
 * Sun May 09 2010 - Milan Jurik
