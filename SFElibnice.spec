@@ -39,6 +39,7 @@ Requires: SUNWgnome-media
 BuildRequires: SUNWgtk-doc
 BuildRequires: SUNWglib2-devel
 BuildRequires: SUNWgnome-media-devel
+BuildRequires: SUNWgtk-doc
 
 %package devel
 Summary:                 %{summary} - development files
@@ -119,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Feb 07 2011 - Milan Jurik
+- fix build dep
 * Tue Sep 21 2010 - Albert Lee <trisk@opensolaris.org>
 - Fix %files, %install, and dependencies
 * Mon Sep 20 2010 - Albert Lee <trisk@opensolaris.org>
