@@ -4,13 +4,24 @@
 # includes module(s): GNU gcc
 #
 
+##NOTE## This spec file is an interim solution regarding the path layout on disk
+##       expect relocation to /usr/gcc/4.5/ and symlinks provided from /usr/gnu 
+##       into to that location (provided by the latest installed or "pkg fix"ed gcc-45 
+##NOTE## most likely the package name will change to SFEgcc-43 and another empty
+##       package SFEgcc will be created always requiring the latest SFEgcc-<major><minor>
+##NOTE## If you experience problems with that version bump, please drop us a note
+##NOTE## you will need the symlink rename and need 
+##       pkg uninstall SFEgccruntime and SFEgcc to get this spec build successfully.
+
+
+# check for /usr/gnu/bin/cc an bail out
+%define compat_link_usr_gnu_bin_cc %( test -r /usr/gnu/bin/cc && echo 1 || echo 0 )
+
 # to more widely test if this change causes regressions, by default off:
 # want this? compile with: --with-handle_pragma_pack_push_pop
 %define with_handle_pragma_pack_push_pop %{?_with_handle_pragma_pack_push_pop:1}%{?!_with_handle_pragma_pack_push_pop:0}
 
 %include Solaris.inc
-#%define cc_is_gcc 1
-#%define _gpp /usr/sfw/bin/g++
 %include usr-gnu.inc
 %include base.inc
 
@@ -23,13 +34,63 @@
 %endif
 
 
-%define SUNWbinutils    %(/usr/bin/pkginfo -q SUNWbinutils && echo 1 || echo 0)
-%define SFEgmp          %(/usr/bin/pkginfo -q SUNWgnu-mp && echo 0 || echo 1)
-%define SFEmpfr         %(/usr/bin/pkginfo -q SUNWgnu-mpfr && echo 0 || echo 1)
+#default to SUNWbinutils
+##TODO## if necessary add osbuild numbers to decide SUNW/SFE version
+%define SUNWbinutils    %(/usr/bin/pkginfo -q SUNWbinutils 2>/dev/null && echo 1 || echo 0)
+%define SFEbinutils     %(/usr/bin/pkginfo -q SFEbinutils  2>/dev/null && echo 1 || echo 0)
+#see below, older builds then 126 have too old gmp / mpfr to gcc version around 4.4.4
+%define SFEgmp          %(/usr/bin/pkginfo -q SFEgmp  2>/dev/null  && echo 1 || echo 0)
+%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+
+# force using SFEbinutils
+#if SFEbinutils is not present, force it by the commandline switch --with_SFEbinutils
+%define with_SFEbinutils %{?_with_SFEbinutils:1}%{?!_with_SFEbinutils:0}
+%if %with_SFEbinutils
+%define SFEbinutils 1
+%define SUNWbinutils 0
+%endif
+
+# force using gmp | mpfr
+#if SFEgmp is not present, force them as required by the commandline switch --with_SFEgmp
+%define with_SFEgmp %{?_with_SFEgmp:1}%{?!_with_SFEgmp:0}
+#if build is lower then 126 then force it (update to gmp see CR 6863696)
+%if %(expr %{osbuild} '<' 126)
+%define with_SFEgmp 1
+%endif
+
+%if %with_SFEgmp
+%define SFEgmp 1
+%endif
+
+#if SFEgmp is not present, force them as required by the commandline switch --with_SFEmpfr
+%define with_SFEmpfr %{?_with_SFEmpfr:1}%{?!_with_SFEmpfr:0}
+#if build is lower then 126 then force it (update to gmp see CR 6863684)
+%if %(expr %{osbuild} '<' 126)
+%define with_SFEmpfr 1
+%endif
+
+%if %with_SFEmpfr
+%define SFEmpfr 1
+%endif
+
+#if SFElibmpc is not present, force them as required by the commandline switch --with-SFElibmpc
+#future OS versins might include a libmpc, leave code commented until then
+%define with_SFElibmpc %{?_with_SFElibmpc:1}%{?!_with_SFElibmpc:0}
+#parked #if build is lower then 126 then force it (update to gmp see CR 6863684)
+#parked %if %(expr %{osbuild} '<' 126)
+#for *now* require SFElibmpc in any case
+%define with_SFElibmpc 1
+#parked %endif
+
+%if %with_SFElibmpc
+%define SFElibmpc 1
+%endif
+
+
 
 Name:                SFEgccruntime
 Summary:             GNU gcc runtime libraries required by applications
-Version:             4.3.3
+Version:             4.5.2
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -47,7 +108,8 @@ BuildRequires: SUNWbash
 %if %SFEgmp
 BuildRequires: SFEgmp-devel
 Requires: SFEgmp
-%define SFEgmpbasedir %(pkgparam SFEgmp BASEDIR)
+#workaround on IPS which is wrong with BASEdir as "/" -> then assume /usr/gnu
+%define SFEgmpbasedir %(pkgparam SFEgmp BASEDIR 2>/dev/null | sed -e 's+^/$+/usr/gnu+')
 %else
 BuildRequires: SUNWgnu-mp
 Requires: SUNWgnu-mp
@@ -56,20 +118,29 @@ Requires: SUNWgnu-mp
 %if %SFEmpfr
 BuildRequires: SFEmpfr-devel
 Requires: SFEmpfr
-%define SFEmpfrbasedir %(pkgparam SFEmpfr BASEDIR)
+#workaround on IPS which is wrong with BASEdir as "/" -> then assume /usr/gnu
+%define SFEmpfrbasedir %(pkgparam SFEmpfr BASEDIR 2>/dev/null | sed -e 's+^/$+/usr/gnu+')
 %else
 BuildRequires: SUNWgnu-mpfr
 Requires: SUNWgnu-mpfr
 %endif
 
-#chicken-egg-problem
-#also add configure switch below
-%if %SUNWbinutils
-BuildRequires: SUNWbinutils
-Requires: SUNWbinutils
+%if %SFElibmpc
+BuildRequires: SFElibmpc-devel
+Requires: SFElibmpc
+#workaround on IPS which is wrong with BASEdir as "/" -> then assume /usr/gnu
+%define SFElibmpcbasedir %(pkgparam SFElibmpc BASEDIR 2>/dev/null | sed -e 's+^/$+/usr/gnu+')
 %else
+#BuildRequires: empty
+#Requires: empty
+%endif
+
+%if %SFEbinutils
 BuildRequires: SFEbinutils
 Requires: SFEbinutils
+%else
+BuildRequires: SUNWbinutils
+Requires: SUNWbinutils
 %endif
 
 Requires: SUNWpostrun
@@ -97,13 +168,14 @@ BuildRequires: SUNWgnu-mpfr
 Requires: SUNWgnu-mpfr
 %endif
 
-%if %SUNWbinutils
-BuildRequires: SUNWbinutils
-Requires: SUNWbinutils
+%if %SFElibmpc
+BuildRequires: SFElibmpc-devel
+Requires: SFElibmpc
 %else
-BuildRequires: SFEbinutils
-Requires: SFEbinutils
+#BuildRequires: SUNWthis-package-not-availbale
+#Requires: SUNWthis-package-not-availbale
 %endif
+
 Requires: SUNWpostrun
 
 
@@ -116,11 +188,28 @@ Requires:                %{name}
 %endif
 
 %prep
+%if %{compat_link_usr_gnu_bin_cc}
+echo ""
+echo ""
+echo ""
+echo "bailing out (%name). Consider renaming this link /usr/gnu/bin/cc to gcc by"
+echo "    pfexec mv /usr/gnu/bin/cc /usr/gnu/bin/gcc"
+echo ""
+echo "or on recent builds, use:"
+echo "    sudo mv /usr/gnu/bin/cc /usr/gnu/bin/gcc"
+echo ""
+echo "I don't know if creating that symlink was a good idea."
+echo ""
+echo ""
+echo ""
+exit 1
+%endif
+
 %setup -q -c -n %{name}-%version
 mkdir gcc
 #with 4.3.3 in new directory libjava/classpath/
 cd gcc-%{version}/libjava/classpath/
-%patch1 -p1
+#%patch1 -p1
 cd ../../..
 cd gcc-%{version}
 %if %with_handle_pragma_pack_push_pop
@@ -134,6 +223,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+#perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash -x," `find . -type f -name configure -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+#perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash -x," `find . -type f -name configure -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+
 cd gcc
 
 %if %build_l10n
@@ -144,20 +236,35 @@ nlsopt=-disable-nls
 
 %define ld_options      -zignore -zcombreloc -Bdirect -i
 
-export CONFIG_SHELL=/usr/bin/bash
+export CC=gcc
+export CXX=g++
+#export CONFIG_SHELL=/usr/bin/bash
+export CONFIG_SHELL=/usr/bin/ksh
 export CPP="cc -E -Xs"
 export CFLAGS="-O"
 # for stage2 and stage3 GCC
-export BOOT_CFLAGS="%gcc_optflags -Os -Xlinker -i %gcc_picflags"
+#export BOOT_CFLAGS="%gcc_optflags -Os -Xlinker -i %gcc_picflags"
+#-m64 and i586 mutually exclusive
+export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags"
 # for target libraries (built with bootstrapped GCC)
-export CFLAGS_FOR_TARGET="%gcc_optflags -O2 -Xlinker -i %gcc_picflags"
+#export CFLAGS_FOR_TARGET="%gcc_optflags -O2 -Xlinker -i %gcc_picflags"
+#-m64 and i586 mutually exclusive
+export CFLAGS_FOR_TARGET="-O2 -Xlinker -i %gcc_picflags"
 export LDFLAGS="%_ldflags %gnu_lib_path"
 export LD_OPTIONS="%ld_options %gnu_lib_path"
+#export LD_LIBRARY_PATH="%gnu_lib_path"
 
 %define build_gcc_with_gnu_ld 0
+#saw problems. 134 did compile, OI147 stopped with probably linker errors
+##TODO## research which osbuild started to fail, adjust the number below
+%if %(expr %{osbuild} '>=' 146)
+%define build_gcc_with_gnu_ld 1
+%endif
+
 %if %build_gcc_with_gnu_ld
 export LD="/usr/gnu/bin/ld"
 %endif
+
 
 ../gcc-%{version}/configure			\
 	--prefix=%{_prefix}			\
@@ -177,7 +284,7 @@ export LD="/usr/gnu/bin/ld"
 	--with-ld=/usr/gnu/bin/ld		\
 	--with-gnu-ld				\
 %else
-	--with-ld=/usr/ccs/bin/ld		\
+	--with-ld=`which ld-wrapper`     \
 	--without-gnu-ld			\
 %endif
 	--enable-languages=c,c++,fortran,objc	\
@@ -193,6 +300,11 @@ export LD="/usr/gnu/bin/ld"
 	--with-mpfr=%{SFEmpfrbasedir}           \
 %else
         --with-mpfr_include=/usr/include/mpfr \
+%endif
+%if %SFElibmpc
+	--with-mpfr=%{SFElibmpcbasedir}           \
+%else
+        --with-mpc_include=/usr/include \
 %endif
 	$nlsopt
 
@@ -279,6 +391,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_includedir}
 
+%dir %attr (0755, root, sys) %{_datadir}/gcc-%{version}
+%dir %attr (0755, root, sys) %{_datadir}/gcc-%{version}/python
+%dir %attr (0755, root, sys) %{_datadir}/gcc-%{version}/python/libstdcxx
+%dir %attr (0755, root, sys) %{_datadir}/gcc-%{version}/python/libstdcxx/v6
+%{_datadir}/gcc-%{version}/python/libstdcxx/v6/printers.py
+%{_datadir}/gcc-%{version}/python/libstdcxx/v6/__init__.py
+%{_datadir}/gcc-%{version}/python/libstdcxx/__init__.py
 
 %if %build_l10n
 %files -n SFEgcc-l10n
@@ -289,6 +408,38 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb 08 2011 - Thomas Wagner
+- interim solution for very old gcc-4.3.3, derived from experimental/SFEgcc-4.5.2.spec
+* Sun Jan 30 2011 - Thomas Wagner
+- bump to 4.5.2
+* Sat Oct 23 2010 - Thomas Wagner
+- bump to 4.5.1
+- require SFEgmp / SFEmpfr (new version) for builds below 126. may add
+  upper limit later if OS contains required version as SUNWgnu-mp / SUNWgnu-mpfr
+- finetune BASEDIR detection (SVR4 works, IPS lacks BASEDIR -> emulate)
+- merge new logic for (Build)Requires from SFEgcc version 4.4.4 to 4.5.0 spec file
+- start with osbuild >= 146 to use gnu ld for linking (build_gcc_with_gnu_ld)
+  because looks like linker error
+- collect python files from directory based on gcc %version
+- make spec bailout if the symlink /usr/gnu/bin/cc exists
+- add (Build)Requires SFElibmpc.spec  (SFEMpc might retire, naming)
+- add new python files to %files
+- add experimental --with-SFEbinutils to force using more fresh SFEbinutils
+- don't hard-code ld-wrapper location, use instead `which ld-wrapper`
+* Mon Jul 28 2010 - Thomas Wagner
+- bump to 4.5.0
+* Wed Aug 18 2010 - Thomas Wagner
+- try with defaults to SUNWbinutils SUNWgnu-mp SUNWgnu-mpfr
+  this might break gcc compile on older osbuild versions
+- stop and exit 1 if the link /usr/gnu/bin/cc exists. Give user hint to 
+  remove this problematic symlink of gcc to cc
+- search ld-wrapper from PATH (e.g. /opt/jdsbld/bin or /opt/dtbld/bin)
+- workaround IPS bug that ever prints BASEdir as "/" even if it presents 
+  "/usr/gnu" to have configure find SFEgmp and SFEmpfr in case it should 
+* Sun Jun  6 2010 - Thomas Wagner
+- bump to 4.4.4
+- add switches to force SFEgmp and SFEmpfr
+- experimenting with gcc related CFLAGS/LDFLAGS
 * Fri Feb 05 2010 - Albert Lee <trisk@opensolaris.org>
 - Fix bootstrap compiler options
 * Sun Aug 09 2009 - Thomas Wagner
