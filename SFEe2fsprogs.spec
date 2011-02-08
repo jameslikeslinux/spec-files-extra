@@ -14,13 +14,14 @@
 Name:                SFEe2fsprogs
 License:             GPL
 Summary:             Ext2 Filesystems Utilities
-Version:             1.41.12
+Version:             1.41.14
 URL:                 http://e2fsprogs.sourceforge.net/
 Source:              %{sf_download}/e2fsprogs/e2fsprogs-%{version}.tar.gz
 Group:               System/Utilities
 Source1:             ext2fs.pc
 Patch1:              e2fsprogs-01-rpathlink.diff
 Patch2:              e2fsprogs-02-siocgifhwaddr.diff
+Patch3:              e2fsprogs-03-direct.diff
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -48,6 +49,7 @@ Requires:                %{name}
 %setup -q -n e2fsprogs-%version
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 
@@ -161,11 +163,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
-%dir %attr (0755, root, bin) %{_sbindir}
-%{_sbindir}/*
-%dir %attr (0755, root, bin) %{_datadir}
+%{_bindir}
+%{_sbindir}
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/*
 %dir %attr (0755, root, bin) %{_infodir}
@@ -183,20 +183,21 @@ rm -rf $RPM_BUILD_ROOT
 %if %build_l10n
 %files l10n
 %defattr (-, root, other)
-%dir %attr (0755, root, bin) %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/locale
 %{_datadir}/locale/*
 %endif
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
+%{_includedir}
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Feb 08 2011 - Milan Jurik
+- bump to 1.41.14, replace O_DIRECT with Solaris specific code
 * Sun Aug 08 2010 - Milan Jurik
 - bump to 1.41.12
 * Sun Mar 28 2010 - Milan Jurik

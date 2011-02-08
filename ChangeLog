@@ -1,6 +1,7 @@
 2011-02-08 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEstellarium.spec: initial spec
+	* SFEe2fsprogs.spec: bump to 1.41.14, replace O_DIRECT
 
 2011-02-07 Milan Jurik <sfnet@xylab.cz>
 

@@ -1,0 +1,20 @@
+--- e2fsprogs-1.41.14/lib/ext2fs/unix_io.c	2010-12-22 16:49:20.000000000 +0100
++++ e2fsprogs-1.41.14-patch/lib/ext2fs/unix_io.c	2011-02-08 07:38:01.204825180 +0100
+@@ -464,7 +464,7 @@
+ 	if (flags & IO_FLAG_EXCLUSIVE)
+ 		open_flags |= O_EXCL;
+ 	if (flags & IO_FLAG_DIRECT_IO)
+-		open_flags |= O_DIRECT;
++		open_flags |= O_DSYNC;
+ 	data->flags = flags;
+ 
+ #ifdef HAVE_OPEN64
+@@ -477,6 +477,8 @@
+ 		goto cleanup;
+ 	}
+ 
++	(void) directio(data->dev, DIRECTIO_ON);
++
+ #ifdef BLKSSZGET
+ 	if (flags & IO_FLAG_DIRECT_IO) {
+ 		if (ioctl(data->dev, BLKSSZGET, &data->align) != 0)
