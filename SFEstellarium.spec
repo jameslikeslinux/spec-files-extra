@@ -64,7 +64,7 @@ export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldef
 mkdir -p builds/unix
 cd builds/unix
 
-cmake -DCMAKE_BUILD_TYPE=Release ../..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
 make VERBOSE=1 -j$CPUS
 cd ../..
 convert -size 32x32 data/icon.bmp stellarium.png
