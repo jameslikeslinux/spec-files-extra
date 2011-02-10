@@ -18,6 +18,16 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+BuildRequires: SUNWaudh
+BuildRequires: SUNWgnome-common-devel
+Requires: SFElibosip2
+BuildRequires: SFElibosip2-devel
+
+%package devel
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires: %name
 
 %prep
 %setup -q -n libeXosip2-%{version}
@@ -48,6 +58,9 @@ rm -rf %{buildroot}
 %defattr (-, root, bin)
 %{_bindir}
 %{_libdir}
+
+%files devel
+%defattr (-, root, bin)
 %{_includedir}
 
 %changelog

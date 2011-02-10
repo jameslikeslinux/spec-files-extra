@@ -19,6 +19,13 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 
+%package devel
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires: %name
+
+
 %prep
 %setup -q -n libosip2-%{version}
 
@@ -47,11 +54,14 @@ rm -rf %{buildroot}
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/*.so*
+%dir %attr (0755, root, sys) %{_datadir}
+%{_mandir}
+
+%files devel
+%defattr (-, root, bin)
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*pc
 %{_includedir}
-%dir %attr (0755, root, sys) %{_datadir}
-%{_mandir}
 
 %changelog
 * Thu Feb 10 2011 - Milan Jurik
