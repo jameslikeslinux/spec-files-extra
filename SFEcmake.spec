@@ -43,6 +43,10 @@ export CXXFLAGS="%cxx_optflags"
 	    --libdir=%{_libdir}	\
 	    --mandir=/share/man
 
+#If Ext2 Filesystem headers are present and found, compile errors occur
+#disable this: HAVE_EXT2FS_EXT2_FS_H:INTERNAL=1
+sed -i -e 's/^HAVE_EXT2FS_EXT2_FS_H:INTERNAL=.*/HAVE_EXT2FS_EXT2_FS_H:INTERNAL=/' CMakeCache.txt 
+
 make -j$CPUS
 
 %install
@@ -62,6 +66,9 @@ rm -rf %{buildroot}
 %{_docdir}/*
 
 %changelog
+* Thu Feb 10 2011 - Thomas Wagner
+- fix compile errors on (all) distros if configure thinks that EXT2 is present
+  (archive_write_disk.c", line 2237: warning: implicit function declaration: _IOR)
 * Thu Feb 10 2011 - Milan Jurik
 - reintroducing and bump to 2.8.3
 * Thu Oct 20 2008 - jedy.wang@sun.com
