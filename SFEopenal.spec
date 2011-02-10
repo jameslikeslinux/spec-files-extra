@@ -27,6 +27,7 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SFEcmake
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
 BuildRequires: SUNWaudh
@@ -99,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Feb 11 2011 - Thomas Wagner
+- BuildRequire SFEcmake (avoid /usr/bin/cmake with ./sfw_stage in it)
 * Mon Jan 17 2011 - Thomas Wagner
 - add env var DESTDIR, remove mv ./sfw_stage/*
 * Fri Oct 29 2010 - Thomas Wagner
