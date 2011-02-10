@@ -1,3 +1,9 @@
+2011-02-11  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* SFEcmake.spec: fix compile errors (configure thinks that EXT2 is present:
+                         archive_write_disk.c: .* _IOR)
+        * SFEopenal.spec: BuildRequire SFEcmake (avoid /usr/bin/cmake with ./sfw_stage in it)
+
 2011-02-10 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEcmake.spec: reintroducing and bump to 2.8.3
