@@ -1,3 +1,7 @@
+2011-02-10 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcmake.spec: reintroducing and bump to 2.8.3
+
 2011-02-08  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEgcc.spec: bump to 4.5.2, interim spec, read notes on top of SFEgcc.spec

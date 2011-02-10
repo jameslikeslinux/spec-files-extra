@@ -7,19 +7,20 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
-# Owner: halton
-#
-
 
 %include Solaris.inc
 
-Name:                    SFEcmake
-Summary:                 Cross platform make system
-Version:                 2.6.2
-Source:                  http://www.cmake.org/files/v2.6/cmake-%{version}.tar.gz
-URL:                     http://www.cmake.org
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+# Avoid conflict with SUNWcmake
+%define _prefix %{_basedir}/gnu
+
+Name:		SFEcmake
+Summary:	Cross platform make system
+Version:	2.8.3
+Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
+URL:		http://www.cmake.org
+Group:		Development/Tools
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires:               SUNWlibC
@@ -38,35 +39,31 @@ export CXXFLAGS="%cxx_optflags"
 
 ./configure --prefix=%{_prefix} \
 	    --bindir=%{_bindir}	\
+	    --docdir=/share/doc \
 	    --libdir=%{_libdir}	\
-	    --mandir=%{_mandir}
+	    --mandir=/share/man
+
 make -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
-# Whoops how did the manpages get there!!!
-(
-    cd $RPM_BUILD_ROOT/usr/usr
-    find share | cpio -pdm ..
-    cd .. && rm -rf usr
-    mv doc share
-)
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
+%{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/cmake-*
 %{_mandir}
-%defattr (-, root, other)
-%{_datadir}/doc
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 
 %changelog
+* Thu Feb 10 2011 - Milan Jurik
+- reintroducing and bump to 2.8.3
 * Thu Oct 20 2008 - jedy.wang@sun.com
 - Bump to 2.6.2
 * Mon Aug 11 2008 - nonsea@users.sourceforge.net
