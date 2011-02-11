@@ -42,9 +42,6 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
-for i in stage/lib/*.a; do
-  cp $i $RPM_BUILD_ROOT%{_libdir}
-done
 for i in stage/lib/*.so; do
   NAME=`basename $i`
   cp $i $RPM_BUILD_ROOT%{_libdir}/$NAME.%{version}
@@ -76,8 +73,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/lib*.a
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/boost
 %dir %attr (0755, root, sys) %{_datadir}
@@ -85,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Fri Jan 11 2011 - Milan Jurik
+- do not deliver static libs
 * Wed Dec 02 2009 - Albert Lee <trisk@opensolaris.org>
 - Re-add SUNWicud
 * Mon Oct 12 2009 - jchoi42@pha.jhu.edu
