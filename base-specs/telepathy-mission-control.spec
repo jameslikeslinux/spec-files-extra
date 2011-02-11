@@ -12,17 +12,12 @@
 Name:     telepathy-mission-control
 License:  GPL
 Group:    Applications/Internet
-Version:  5.6.0
+Version:  5.7.1
 Release:  1
 Distribution: Java Desktop System
 Vendor:    Sun Microsystems, Inc.
 Summary:   Control the launching of connection managers and clients
-Source:    http://dl.sourceforge.net/mission-control/%{name}-%{version}.tar.gz
-
-# date:2010-09-29 owner:jefftsai bugid:30447 type:bug
-Patch1:   telepathy-mission-control-01-void.diff
-# date:2010-09-29 owner:jefftsai bugid:30448 type:bug
-Patch2:   telepathy-mission-control-02-account-storage.diff
+Source:    http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.gz
 
 URL:         http://mission-control.sourceforge.net/
 BuildRoot:   %{_tmppath}/%{name}-%{version}-build
@@ -47,8 +42,8 @@ Requires:     %name = %version
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
+#%patch1 -p1
+#%patch2 -p1
 
 %build
 %ifos linux
@@ -99,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_includedir}/mission-control
 
 %changelog
+* Fri Feb 11 2011 - Milan Jurik
+- bump to 5.7.1, remove upstream patches
 * Wed Sep 29 2010 - jeff.cai@oracle.com
 - Bump to 5.6.0
 - Add patch -01-void to fix bug #30447
