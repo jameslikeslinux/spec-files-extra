@@ -25,6 +25,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-base-libs-devel
+Requires: SFEfarsight2
+BuildRequires: SFEfarsight2-devel
 
 %package devel
 Summary:                 %{summary} - development files

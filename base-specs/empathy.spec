@@ -52,8 +52,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-CFLAGS="$RPM_OPT_FLAGS"                   \
-./configure   --prefix=%{_prefix}          \
+CFLAGS="%{optflags}"                      \
+LDFLAGS="%{_ldflags} -lnsl -lsocket"      \
+./configure   --prefix=%{_prefix}         \
               --mandir=%{_mandir}         \
               --libdir=%{_libdir}         \
               --libexecdir=%{_libexecdir} \

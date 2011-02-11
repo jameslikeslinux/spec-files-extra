@@ -26,6 +26,7 @@ Requires:            SFElibtelepathy
 Requires:            SFEmission-control
 Requires:            SFEfarsight2
 Requires:            SFEtelepathy-farsight
+Requires:            SUNWnautilus-sendto
 BuildRequires:       SFEtelepathy-glib
 BuildRequires:       SFEtelepathy-glib-devel
 BuildRequires:       SFElibtelepathy
@@ -34,6 +35,7 @@ BuildRequires:       SFEmission-control
 BuildRequires:       SFEmission-control-devel
 BuildRequires:       SFEfarsight2-devel
 BuildRequires:       SFEtelepathy-farsight-devel
+BuildRequires:       SUNWnautilus-sendto-devel
 
 %package root
 Summary:             %{summary} - / filesystem
@@ -149,6 +151,7 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %dir %attr (0755, root, bin) %{_datadir}/telepathy
 %dir %attr (0755, root, bin) %{_datadir}/telepathy/clients
 %{_datadir}/telepathy/clients/*
+%{_libdir}
 
 %files root
 %defattr(-, root, sys)
