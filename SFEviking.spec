@@ -9,7 +9,7 @@ Name:		SFEviking
 License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
-Version:	1.0.2
+Version:	1.1
 URL:		viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
 Patch1:		viking-01-return.diff
@@ -88,5 +88,7 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 11 2011 - Milan Jurik
+- bump to 1.1
 * Sat Jan 15 2011 - Milan Jurik
 - initial spec
