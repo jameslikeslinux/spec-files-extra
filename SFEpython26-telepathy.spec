@@ -16,10 +16,10 @@ Source:                  http://telepathy.freedesktop.org/releases/telepathy-pyt
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Requires:                SUNWPython26
-Requires:                SUNWlibtelepathy
+Requires:                SFElibtelepathy
 BuildRequires:           SUNWPython26-devel
 BuildRequires:           SUNWPython-devel
-BuildRequires:           SUNWlibtelepathy
+BuildRequires:           SFElibtelepathy
 
 %include default-depend.inc
 

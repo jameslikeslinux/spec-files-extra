@@ -1,5 +1,5 @@
 #
-# spec file for packages SUNWlibtelepathy
+# spec file for packages SFElibtelepathy
 #
 # includes module(s): libtelepathy
 #
@@ -18,21 +18,21 @@
 %include base.inc
 %use libtelepathy= libtelepathy.spec
 
-Name:                    SUNWlibtelepathy
+Name:                    SFElibtelepathy
 Summary:                 A GLib library to ease writing Telepathy clients in glib
 Version:                 %{libtelepathy.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires:            SUNWtelepathy-glib
-BuildRequires:       SUNWtelepathy-glib-devel
+Requires:            SFEtelepathy-glib
+BuildRequires:       SFEtelepathy-glib-devel
 
 %package root
 Summary:                 %{summary} - / filesystem
 SUNW_BaseDir:            /
 %include default-depend.inc
-Requires:            SUNWtelepathy-glib
+Requires:            SFEtelepathy-glib
 
 %package devel
 Summary:                 %{summary} - development files

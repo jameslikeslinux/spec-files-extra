@@ -27,7 +27,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWdbus-bindings
 Requires: SUNWgnome-base-libs
-Requires: SUNWtelepathy-glib
+Requires: SFEtelepathy-glib
 Requires: SUNWfontconfig
 Requires: SUNWfreetype2
 Requires: SUNWgnome-config
@@ -50,7 +50,7 @@ Requires: SUNWfirefox
 
 BuildRequires: SUNWdbus-bindings-devel
 BuildRequires: SUNWgnome-config-devel
-BuildRequires: SUNWtelepathy-glib-devel
+BuildRequires: SFEtelepathy-glib-devel
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-vfs-devel
 BuildRequires: SUNWgnome-component-devel

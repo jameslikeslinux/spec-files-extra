@@ -1,5 +1,5 @@
 #
-# spec file for packages SUNWmission-control
+# spec file for packages SFEmission-control
 #
 # includes module(s): mission-control
 #
@@ -12,7 +12,7 @@
 
 %use mission_control = telepathy-mission-control.spec
 
-Name:                SUNWmission-control
+Name:                SFEmission-control
 Summary:             A telepathy mission control component
 Version:             %{mission_control.version}
 SUNW_BaseDir:        %{_basedir}
@@ -20,16 +20,16 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-BuildRequires:       SUNWtelepathy-glib
-BuildRequires:       SUNWtelepathy-glib-devel
-BuildRequires:       SUNWlibtelepathy
-BuildRequires:       SUNWlibtelepathy-devel
+BuildRequires:       SFEtelepathy-glib
+BuildRequires:       SFEtelepathy-glib-devel
+BuildRequires:       SFElibtelepathy
+BuildRequires:       SFElibtelepathy-devel
 
 %package root
 Summary:                 %{summary} - / filesystem
 SUNW_BaseDir:            /
 %include default-depend.inc
-Requires:            SUNWtelepathy-glib
+Requires:            SFEtelepathy-glib
 
 %package devel
 Summary:                 %{summary} - development files

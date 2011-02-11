@@ -21,17 +21,17 @@ SUNW_Copyright:      %{name}.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires:            SUNWtelepathy-glib
-Requires:            SUNWlibtelepathy
-Requires:            SUNWmission-control
+Requires:            SFEtelepathy-glib
+Requires:            SFElibtelepathy
+Requires:            SFEmission-control
 Requires:            SFEfarsight2
 Requires:            SFEtelepathy-farsight
-BuildRequires:       SUNWtelepathy-glib
-BuildRequires:       SUNWtelepathy-glib-devel
-BuildRequires:       SUNWlibtelepathy
-BuildRequires:       SUNWlibtelepathy-devel
-BuildRequires:       SUNWmission-control
-BuildRequires:       SUNWmission-control-devel
+BuildRequires:       SFEtelepathy-glib
+BuildRequires:       SFEtelepathy-glib-devel
+BuildRequires:       SFElibtelepathy
+BuildRequires:       SFElibtelepathy-devel
+BuildRequires:       SFEmission-control
+BuildRequires:       SFEmission-control-devel
 BuildRequires:       SFEfarsight2-devel
 BuildRequires:       SFEtelepathy-farsight-devel
 

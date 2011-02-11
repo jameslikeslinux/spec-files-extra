@@ -1,5 +1,5 @@
 #
-# spec file for packages SUNWtelepathy-glib
+# spec file for packages SFEtelepathy-glib
 #
 # includes module(s): telepathy-glib
 #
@@ -18,7 +18,7 @@
 %include base.inc
 %use telepathy_glib = telepathy-glib.spec
 
-Name:                    SUNWtelepathy-glib
+Name:                    SFEtelepathy-glib
 Summary:                 A GLib-based helper library for clients and connection managers
 Version:                 %{telepathy_glib.version}
 SUNW_BaseDir:            %{_basedir}
