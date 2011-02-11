@@ -39,7 +39,7 @@ BuildRequires:       SFEtelepathy-farsight-devel
 Summary:             %{summary} - / filesystem
 SUNW_BaseDir:        /
 %include default-depend.inc
-Requires:            SUNWtelepathy-glib
+Requires:            SFEtelepathy-glib
 
 %package devel
 Summary:             %{summary} - development files
