@@ -1,3 +1,7 @@
+2011-02-12  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEdrupal7.spec: initial spec
+
 2011-02-11 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEboost.spec: do not deliver static libs
