@@ -7,7 +7,7 @@
 Name:           farsight2
 License:        GPL
 Group:          Applications/Internet
-Version:        0.0.21
+Version:        0.0.24
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Oracle, Inc.
@@ -45,7 +45,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-CFLAGS="$RPM_OPT_FLAGS"			        \
+export CFLAGS="%optflags -DBSD_COMP"
+export LDFLAGS="%_ldflags -lsocket -lnsl"
+if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
+  export CFLAGS="-m64 $CFLAGS"
+  export CXXFLAGS="-m64 $CXXFLAGS"
+  export LDFLAGS="-m64 $LDFLAGS"
+fi
+
 ./configure --prefix=%{_prefix}         \
             --mandir=%{_mandir}         \
             --libdir=%{_libdir} \
@@ -70,5 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- bump to 0.0.24, fix multiarch build
 * Fri Oct 08 2010 - jeff.cai@oracle.com
 - created

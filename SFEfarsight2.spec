@@ -23,7 +23,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-base-libs-devel
-BuildRequires: SFElibnice
+Requires: SFElibnice
+BuildRequires: SFElibnice-devel
 
 %package devel
 Summary:                 %{summary} - development files
@@ -42,9 +43,6 @@ mkdir -p %name-%version/%base_arch
 %farsight2.prep -d %name-%version/%base_arch
 
 %build
-export CFLAGS="%optflags -DBSD_COMP"
-export LDFLAGS="%_ldflags -lsocket -lnsl"
-export RPM_OPT_FLAGS="$CFLAGS"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 
 %ifarch amd64 sparcv9
@@ -82,8 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gstreamer-0.10/lib*.so*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/doc
-%dir %attr (0755, root, bin) %{_datadir}/gtk-doc
-%{_datadir}/gtk-doc/*
+%{_datadir}/gtk-doc
+%{_datadir}/farsight2
 
 %files devel
 %defattr (-, root, bin)
@@ -98,5 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python2.6/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- bump to 0.0.24, fix multiarch build
 * Fri Oct 08 2010 - jeff.cai@oracle.com
 - created
