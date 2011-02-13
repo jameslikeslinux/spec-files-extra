@@ -155,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 %files root
 %defattr (-, root, sys)
 %dir %attr (0755, root, sys) %{_sysconfdir}
-%{_sysconfdir}/%{src_name}.conf
+%config(noreplace) %{_sysconfdir}/%{src_name}.conf
 %dir %attr (0755, root, sys) %{_localstatedir}
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/%{src_name}.xml
 
@@ -166,6 +166,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- proftpd.conf is volatile
 * Wed Feb 02 2011 - Milan Jurik
 - /var/run is under core system control
 * Wed Jan 26 2011 - Milan Jurik

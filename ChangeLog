@@ -9,6 +9,7 @@
 	* SFElibtelepathy.spec: fix multiarch build
 	* SFEtelepathy-farsight.spec: fix multiarch build
 	* SFEtelepathy-gabble.spec: disable multiarch build
+	* SFEproftpd.conf: proftpd.conf is volatile
 
 2011-02-12  Thomas Wagner  <tom68@users.sourceforge.net>
 
