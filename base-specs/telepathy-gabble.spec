@@ -42,7 +42,18 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-CFLAGS="$RPM_OPT_FLAGS"			        \
+export CFLAGS="%{optflags} -I/usr/gnu/include -DBSD_COMP"
+export CXXFLAGS="%{cxx_optflags} -I/usr/gnu/include"
+export LDFLAGS="%{_ldflags} %{gnu_lib_path} -lsocket -lresolv -lnsl"
+
+if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
+  export CFLAGS="-m64 $CFLAGS"
+  export CXXFLAGS="-m64 $CXXFLAGS"
+  export LDFLAGS="-m64 $LDFLAGS"
+fi
+
+
+
 ./configure --prefix=%{_prefix}         \
             --mandir=%{_mandir}         \
             --libexecdir=%{_libexecdir} \
@@ -67,5 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- disable multiarch build
 * Fri Oct 08 2010 - jeff.cai@oracle.com
 - created, version 0.10.3
