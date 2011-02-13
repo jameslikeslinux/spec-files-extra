@@ -25,8 +25,11 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+BuildRequires: SUNWgnome-common-devel
 Requires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-base-libs-devel
+Requires: SUNWgobject-introspection
+BuildRequires: SUNWgobject-introspection-devel
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -51,9 +54,6 @@ mkdir -p %name-%version/%base_arch
 %telepathy_glib.prep -d %name-%version/%base_arch
 
 %build
-export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
-export RPM_OPT_FLAGS="$CFLAGS"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 
 %ifarch amd64 sparcv9
@@ -83,8 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 %ifarch amd64 sparcv9
 %{_libdir}/%{_arch64}/lib*.so*
+%{_libdir}/%{_arch64}/gir*
 %endif
 %{_libdir}/lib*.so*
+%{_libdir}/gir*
+%{_datadir}/gir*
 %{_datadir}/gtk-doc/*/*/*
 %doc(bzip2) -d %{base_arch}/telepathy-glib-%{telepathy_glib.version} COPYING 
 %doc(bzip2) -d %{base_arch}/telepathy-glib-%{telepathy_glib.version} NEWS
@@ -106,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, bin) %{_includedir}/telepathy-1.0/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- fix multiarch build
 * Oct 9 2010 - jeff.cai@oracle.com
 - Not ship /usr/lib/gir-repository
 * Thu Mar 12 2009 - elaine.xiong@sun.com

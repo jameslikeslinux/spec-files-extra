@@ -52,7 +52,16 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-CFLAGS="$RPM_OPT_FLAGS"			            \
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+export LDFLAGS="%{_ldflags}"
+
+if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
+  export CFLAGS="-m64 $CFLAGS"
+  export CXXFLAGS="-m64 $CXXFLAGS"
+  export LDFLAGS="-m64 $LDFLAGS"
+fi
+
 ./configure --prefix=%{_prefix}        \
             --mandir=%{_mandir}         \
             --libdir=%{_libdir}         \
@@ -85,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_includedir}/telepathy-1.0/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- fix multiarch build
 * Oct 09 2010 - jeff.cai@oracle.com
 - Bump to 0.13.1
 * Sat Aug 07 2010 - brian.cameron@oracle.com
