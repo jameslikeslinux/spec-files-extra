@@ -6,6 +6,7 @@
 	* SFEtelepathy-glib.spec: fix multiarch build
 	* base-specs/libnice.spec: bump to 0.1.0
 	* SFEfarsight2.spec: bump to 0.0.24, fix multiarch build
+	* SFElibtelepathy.spec: fix multiarch build
 
 2011-02-12  Thomas Wagner  <tom68@users.sourceforge.net>
 

@@ -52,9 +52,6 @@ mkdir -p %name-%version/%base_arch
 
 
 %build
-export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
-export RPM_OPT_FLAGS="$CFLAGS"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 
 %ifarch amd64 sparcv9
@@ -103,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_includedir}/telepathy-1.0/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- fix multiarch build
 * Oct 09 2010 - jeff.cai@oracle.com
 - Add support for 64 bit.
 * Thu Mar 12 2009 - elaine.xiong@sun.com

@@ -52,12 +52,15 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-CFLAGS="$RPM_OPT_FLAGS"			           \
-libtoolize --force
-aclocal $ACLOCAL_FLAGS -I m4
-autoheader
-automake -a -c -f
-autoconf
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+export LDFLAGS="%{_ldflags}"
+
+if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
+  export CFLAGS="-m64 $CFLAGS"
+  export CXXFLAGS="-m64 $CXXFLAGS"
+  export LDFLAGS="-m64 $LDFLAGS"
+fi
 ./configure --prefix=%{_prefix}        \
             --mandir=%{_mandir}         \
             --libdir=%{_libdir}         \
@@ -86,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_includedir}/telepathy-1.0/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- fix multiarch build
 * Thu Mar 12 2009 - elaine.xiong@sun.com
 - Move from spec-files/trunk.
 * Wed Nov 05 2008 - rick.ju@sun.com
