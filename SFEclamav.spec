@@ -9,7 +9,7 @@
 
 Name:                SFEclamav
 Summary:             Unix Anti-virus scanner
-Version:             0.96.5
+Version:             0.97
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
 Group:               System/Utilities
@@ -109,6 +109,8 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- bump to 0.97
 * Tue Nov 30 2010 - Milan Jurik
 - bump to 0.96.5
 * Fri Sep 24 2010 - Milan Jurik
