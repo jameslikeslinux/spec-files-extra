@@ -8,9 +8,8 @@
 
 Name:                SFEcyrus-sasl
 Summary:             Simple Authentication and Security Layer library
-Version:             2.1.22
+Version:             2.1.23
 Source:              ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/cyrus-sasl-%{version}.tar.gz
-Patch1:              cyrus-sasl-01.diff
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -25,7 +24,6 @@ BuildRequires: SFElibntlm-devel
 
 %prep
 %setup -q -n cyrus-sasl-%{version}
-%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -81,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- bump to 2.1.23
 * Fri Oct 24 2008 - jedy.wang@sun.com
 - Fixes plugindir problem.
 * Fri Jun 06 2008 - river@wikimedia.org
