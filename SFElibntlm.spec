@@ -10,7 +10,7 @@
 
 Name:                SFElibntlm
 Summary:             Microsoft's NTLM authentication library
-Version:             0.3.9
+Version:             1.2
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -34,10 +34,6 @@ fi
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
-aclocal -I m4
-libtoolize --copy --force 
-automake -a -f
-autoconf -f 
 ./configure --prefix=%{_prefix}			\
             --bindir=%{_bindir}			\
             --libdir=%{_libdir}			\
@@ -45,7 +41,6 @@ autoconf -f
             --includedir=%{_includedir} 	\
             --mandir=%{_mandir}			\
 	    --infodir=%{_infodir}		\
-	    --disable-rpath			\
 	    --disable-static			\
 	    --enable-shared
 
@@ -72,5 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- bump to 1.2
 * Fri Jul 27 2007 - dougs@truemail.co.th
 - Initial spec
