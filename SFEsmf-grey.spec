@@ -90,7 +90,7 @@ user ftpuser=false gcos-field="smfs Reserved UID" username="smfs" password=NP gr
 %dir %attr (0755, root, sys) %{_sysconfdir}
 %dir %attr (0755, root, mail) %{_sysconfdir}/mail
 %dir %attr (0755, root, sys) %{_sysconfdir}/mail/smfs
-%{_sysconfdir}/mail/smfs/smf-grey.conf
+%config(noreplace) %{_sysconfdir}/mail/smfs/smf-grey.conf
 /lib/svc/method/smf-grey
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
@@ -104,5 +104,7 @@ user ftpuser=false gcos-field="smfs Reserved UID" username="smfs" password=NP gr
 
 
 %changelog
+* Sun Feb 13 2011 - Milan Jurik
+- conf file is volatile
 * Thu Jun 03 2010 - Milan Jurik
 - Initial version
