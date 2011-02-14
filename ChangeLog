@@ -1,3 +1,7 @@
+2011-02-14  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEdrupal7.spec: more permissions in apache config needed
+
 2011-02-13 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibntlm.spec: bump to 1.2
