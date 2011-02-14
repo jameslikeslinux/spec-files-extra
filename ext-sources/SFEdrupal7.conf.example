@@ -8,12 +8,14 @@
 
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    DocumentRoot "/var/drupal7/"
+    #DocumentRoot "/var/drupal7/"
+    DocumentRoot "/var/drupal/"
     ServerName drupal7
     ServerAlias drupal7.yourdomain.com
-    <Directory /var/drupal7>
-        Options MultiViews Indexes FollowSymLinks SymlinksIfOwnerMatch Includes ExecCGI
-        AllowOverride FileInfo AuthConfig Indexes
+    #<Directory /var/drupal7>
+    <Directory /var/drupal>
+        Options MultiViews Indexes FollowSymLinks Includes ExecCGI
+        AllowOverride All
         Order allow,deny
         Allow from all
     </Directory>
