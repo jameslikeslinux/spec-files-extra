@@ -38,7 +38,9 @@ BuildRequires: library/libxslt
 BuildRequires: library/libxml2
 BuildRequires: library/security/openssl
 BuildRequires: library/zlib
-BuildRequires: library/readline
+#BuildRequires: library/readline
+#BuildRequires: library/ncurses
+BuildRequires: library/editline
 BuildRequires: system/library
 BuildRequires: system/library/security/gss
 BuildRequires: system/library/math
@@ -53,7 +55,9 @@ Requires: system/library
 Requires: library/security/openssl
 Requires: system/library/math
 Requires: system/library/security/gss
-Requires: library/readline
+#Requires: library/readline
+#Requires: library/ncurses
+Requires: library/editline
 
 # OpenSolaris IPS Package Manifest Fields
 Meta(info.upstream):	 	PostgreSQL Global Development Group
@@ -149,10 +153,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
-export CC=cc
-
 cd %{tarball_name}-%{tarball_version}
 %ifarch sparc
 %define target sparc-sun-solaris
@@ -163,9 +163,10 @@ cd %{tarball_name}-%{tarball_version}
 export CCAS=/usr/bin/cc
 export CCASFLAGS=
 export CC=cc
-export CFLAGS="-i -xO4 -xspace -xstrconst -fast -xregs=no%frameptr -xc99=none -xCC"
-
-LD_OPTIONS="-R/usr/sfw/lib -L/usr/sfw/lib" ; export LD_OPTIONS
+# export CFLAGS="%optflags"
+export CFLAGS="-i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -lncurses"
+export LD_OPTIONS="-R/usr/sfw/lib:/usr/gnu/lib -L/usr/sfw/lib:/usr/gnu/lib"
 
 ./configure --prefix=%{_prefix}/%{major_version} \
             --exec-prefix=%{_prefix}/%{major_version} \
@@ -194,16 +195,18 @@ LD_OPTIONS="-R/usr/sfw/lib -L/usr/sfw/lib" ; export LD_OPTIONS
             --with-gssapi \
             --enable-thread-safety \
             --enable-dtrace \
-            --with-includes=/usr/include:/usr/sfw/include:/usr/sfw/include \
+            --with-includes=/usr/include:/usr/sfw/include:/usr/sfw/include:/usr/gnu/include \
             --with-tclconfig=/usr/lib \
-            --with-libs=/usr/lib:/usr/sfw/lib
+            --with-libs=/usr/lib:/usr/sfw/lib:/usr/gnu/lib
 
 gmake -j$CPUS world
 
 %ifarch amd64 sparcv9
 cd ../%{tarball_name}-%{tarball_version}-64
-export CFLAGS="-Xa -i -xO4 -xspace -xstrconst -m64 -fast -Kpic -xregs=no%frameptr"
-export LD_OPTIONS="-R/usr/sfw/lib/%{_arch64} -L/usr/sfw/lib/%{_arch64}"
+
+export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib/%{_arch64} -R/usr/gnu/lib/%{_arch64} -lncurses"
+export LD_OPTIONS="-R/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64} -L/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64}"
 
 ./configure --prefix=%{_prefix}/%{major_version} \
             --exec-prefix=%{_prefix}/%{major_version} \
@@ -231,9 +234,9 @@ export LD_OPTIONS="-R/usr/sfw/lib/%{_arch64} -L/usr/sfw/lib/%{_arch64}"
             --with-gssapi \
             --enable-thread-safety \
             --enable-dtrace \
-            --with-includes=/usr/include:/usr/sfw/include:/usr/sfw/include \
+            --with-includes=/usr/include:/usr/sfw/include:/usr/sfw/include:/usr/gnu/include \
             --with-tclconfig=/usr/lib \
-            --with-libs=/usr/lib/%{_arch64}:/usr/sfw/lib/%{_arch64}
+            --with-libs=/usr/lib/%{_arch64}:/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64}
 
 gmake -j$CPUS world
 
@@ -1657,6 +1660,9 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/bin/amd64/vacuumlo
 
 %changelog
+* Wed Feb 16 17:16:29 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- support editline.
+- fixed readline problems of psql command.
 * Fri Feb  4 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Support 9.0.3
 * Tue Feb  1 JST 2011 TAKI, Yasushi <taki@justplayer.com>
