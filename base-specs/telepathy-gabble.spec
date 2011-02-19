@@ -18,6 +18,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Docdir:         %{_defaultdocdir}/telepathy-gabble
 # date:2010-10-12 owner:jefftsai type:bug
 Patch1:         telepathy-gabble-01-compatible.diff
+# jingleinfo security bug
+Patch10:	telepathy-gabble-10-jingleinfo.diff
 
 Autoreqprov: on
 Prereq:      /sbin/ldconfig
@@ -29,6 +31,7 @@ calling and file transfer with Jabber/XMPP and Google Talk interoperability.
 %prep
 %setup -q
 %patch1 -p1
+%patch10 -p1
 
 %build
 %ifos linux
@@ -78,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sat Feb 19 2011 - Milan Jurik
+- fix jingleinfo security bug
 * Sun Feb 13 2011 - Milan Jurik
 - disable multiarch build
 * Fri Oct 08 2010 - jeff.cai@oracle.com
