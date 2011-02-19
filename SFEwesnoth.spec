@@ -108,6 +108,7 @@ rm -Rf $RPM_BUILD_ROOT
 %defattr (0755, root, bin)
 %dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/*
+%dir %attr (0755, root, sys) %{_datadir}
 %defattr (-, root, other)
 %dir %attr (0755, root, other) %{wesnoth_datadir}
 %{wesnoth_datadir}/*

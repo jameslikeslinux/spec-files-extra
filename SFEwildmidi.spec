@@ -23,7 +23,6 @@ BuildRequires: SUNWaudh
 
 %package devel
 Summary:	%{summary} - development files
-SUNW_BaseDir:	/
 %include default-depend.inc
 Requires: %{name}
 
