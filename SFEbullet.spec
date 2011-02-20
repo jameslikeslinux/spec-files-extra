@@ -55,13 +55,17 @@ export LDFLAGS="-R%{_libdir} -L%{_libdir} -lX11 "
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
+find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
 %{_includedir}
-%{_libdir}
+%{_libdir}/*so*
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
 
 %changelog
 * Sat Feb 05 2011 - Milan Jurik
