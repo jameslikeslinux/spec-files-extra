@@ -8,7 +8,6 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %define src_name	gtkglext
 %define src_version	1.2.0
-%define pkg_release	1
 
 # %{_topdir} is by default set to RPM_BUILD_ROOT
 # Default path for RPM_BUILD_ROOT is /var/tmp/pkgbuild-{username}
@@ -26,13 +25,11 @@ SUNW_BaseDir:	%{_basedir}
 Name:         	SFE%{src_name}
 Summary:      	GtkGLExt is an OpenGL extension to GTK+ 2.0 or later
 Version:      	%{src_version}
-Release:      	%{pkg_release}
 License:      	LGPL
-#Group:          
+Group:          System/Libraries
 Source:         %{sf_download}/gtkglext/%{src_name}-%{version}.tar.bz2
-Vendor:       	http://gtkglext.sourceforge.net
 URL:            http://gtkglext.sourceforge.net
-Packager:     	Shivakumar GN
+Patch1:		gtkglext-01-modern.diff
 BuildRoot:		%{_tmppath}/%{src_name}-%{version}-build
 
 #Requires:      
@@ -46,13 +43,17 @@ GtkGLExt is an OpenGL extension to GTK+ 2.0 or later
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %prep 
 %setup -q -n %{src_name}-%{version}
-./configure --prefix=%{_prefix}
+%patch1 -p1
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 # Build-Section 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %build
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{_ldflags}"
+
+./configure --prefix=%{_prefix}
 make
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -91,6 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 20 2011 - Milan Jurik
+- fix linking error with the latest GTK+
 * Sun Oct 14 2007 - laca@sun.com
 - rename to SFEgtkglext
 - fix packaging

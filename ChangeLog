@@ -1,3 +1,7 @@
+2011-02-20 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgtkglext.spec: fix linking error with the latest GTK+
+
 2011-02-19 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtelepathy-gabble.spec: fix jingleinfo security bug
