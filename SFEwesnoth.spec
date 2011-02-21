@@ -9,12 +9,12 @@
 %define wesnoth_datadir %{_datadir}/wesnoth
 
 # Relative path on prefix 
-%define pythonlibdir lib/python2.4/site-packages/wesnoth
+%define pythonlibdir lib/python2.6/site-packages/wesnoth
 %define abs_pythonlibdir %{_basedir}/%{pythonlibdir}
 
 %define src_version 1.6.5
 
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
+%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
 Name:                    	SFEwesnoth
 Summary:                 	Battle for Wesnoth is a fantasy turn-based strategy game
@@ -25,6 +25,7 @@ Meta(info.upstream):            David White
 Meta(info.repository_url):      http://svn.gna.org/svn/wesnoth 
 Meta(pkg.detailed_url):         http://www.wesnoth.org
 Meta(info.maintainer):		Petr Sobotka sobotkap@gmail.com
+SUNW_BaseDir:			%{_basedir}
 SUNW_Copyright:			wesnoth.copyright
 Source:                  	%{sf_download}/wesnoth/wesnoth-%{src_version}.tar.bz2
 Patch2:			        wesnoth-02-fixusleep.diff
@@ -38,12 +39,12 @@ Patch10:		        wesnoth-10-fixstd.diff
 
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SUNWlibsdl
-BuildRequires: SUNWlibsdl-devel
-Requires: SUNWlibsdl
-%else
+%if %SFEsdl
 BuildRequires: SFEsdl-devel
 Requires: SFEsdl
+%else
+BuildRequires: SUNWlibsdl-devel
+Requires: SUNWlibsdl
 %endif
 BuildRequires:		SFEsdl-mixer-devel
 BuildRequires:		SFEsdl-ttf-devel
@@ -57,12 +58,7 @@ Requires:	        SFEsdl-ttf
 Requires:	        SFEsdl-net
 Requires:	        SFEsdl-image
 Requires:   	        SFEboost
-Requires:	        SUNWPython
-SUNW_BaseDir:     /
-
-#%package server
-#Summary:					Deamon to run Wesnoth game server
-#Requires:					SFEboost
+Requires:	        SUNWPython26
 
 %prep
 %setup -q -n wesnoth-%{src_version}
@@ -87,7 +83,7 @@ scons -j $CPUS default_targets=wesnoth prefix=%{_basedir} 	\
 	python_site_packages_dir=%{pythonlibdir}
 
 %install
-rm -Rf $RPM_BUILD_ROOT/*
+rm -rf %{buildroot}
 
 scons install prefix=%{_basedir} python_site_packages_dir=%{pythonlibdir} \
 	mandir=%{_mandir} destdir=$RPM_BUILD_ROOT
@@ -96,38 +92,26 @@ scons install-pytools prefix=%{_basedir} 		\
 	python_site_packages_dir=%{pythonlibdir} destdir=$RPM_BUILD_ROOT
 
 %clean
-rm -Rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
-%defattr (-, root, other)
-%dir %attr (0755, root, sys) %{_basedir}
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/wesnoth
-%{_bindir}/wml*
-%{_bindir}/wesnoth_addon_manager
-%defattr (0755, root, bin)
-%dir %attr (0755, root, bin) %{_mandir}
-%{_mandir}/*
+%defattr (-, root, bin)
+%{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%defattr (-, root, other)
-%dir %attr (0755, root, other) %{wesnoth_datadir}
-%{wesnoth_datadir}/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/wesnoth
+%{_mandir}
+%{wesnoth_datadir}
 %dir %attr (0755, root, other) %{_datadir}/icons
 %{_datadir}/icons/*
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%dir %attr (0755, root, other) %{_docdir}
-%dir %attr (0755, root, other) %{_docdir}/wesnoth
-%{_docdir}/wesnoth/*
 %dir %attr (0755, root, other) %{abs_pythonlibdir}
 %{abs_pythonlibdir}/*
 
-#%files server
-#%dir %attr (0755, root, bin) %{_bindir}
-#%{_bindir}/wesnothd
-#%dir %attr (0750, root, other) /var/run/wesnothd
-
 %changelog
+* Mon Feb 21 2011 - Milan Jurik
+- fix packaging
 * Sat Sep 12 2009 - Petr Sobotka sobotkap@gmail.com
 - Bump to version 1.6.5
 * Fri Aug 07 2009 - Petr Sobotka sobotkap@gmail.com
