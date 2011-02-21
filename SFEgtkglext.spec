@@ -19,9 +19,6 @@
 SUNW_ProdVers:	%{src_version}
 SUNW_BaseDir:	%{_basedir}
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-# Tag definitions
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:         	SFE%{src_name}
 Summary:      	GtkGLExt is an OpenGL extension to GTK+ 2.0 or later
 Version:      	%{src_version}
@@ -30,35 +27,26 @@ Group:          System/Libraries
 Source:         %{sf_download}/gtkglext/%{src_name}-%{version}.tar.bz2
 URL:            http://gtkglext.sourceforge.net
 Patch1:		gtkglext-01-modern.diff
-BuildRoot:		%{_tmppath}/%{src_name}-%{version}-build
-
-#Requires:      
-#BuildRequires: 
+BuildRoot:	%{_tmppath}/%{src_name}-%{version}-build
+%include default-depend.inc
 
 %description
 GtkGLExt is an OpenGL extension to GTK+ 2.0 or later
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-# Prep-Section 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+%package devel
+Summary:	%{summary} - development files
+%include default-depend.inc
+
 %prep 
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-# Build-Section 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %build
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix}
 make
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-# Install-Section 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -69,29 +57,26 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# File permissions, ownership information. Note the difference between 
-# bin(_bindir),share(_datadir) & share/applications
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %files
-%files
-%defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
+%defattr(-, root, bin)
+%{_libdir}/lib*.so*
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/gtk-doc/html/gtkglext
 
+%files devel
+%defattr(-, root, bin)
+%{_includedir}
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
-%{_libdir}/lib*.so*
 %{_libdir}/gtkglext-1.0/include
-
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/aclocal
 %{_datadir}/aclocal/*
-%{_datadir}/gtk-doc/html/gtkglext
-
 
 %changelog
+* Mon Feb 21 2011 - Milan Jurik
+- fix packaging and linking error
 * Sun Feb 20 2011 - Milan Jurik
 - fix linking error with the latest GTK+
 * Sun Oct 14 2007 - laca@sun.com
