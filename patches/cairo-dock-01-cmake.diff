@@ -1,0 +1,10 @@
+--- cairo-dock-2.2.0-4/CMakeLists.txt	2010-10-02 00:41:55.000000000 +0200
++++ cairo-dock-2.2.0-4-patch/CMakeLists.txt	2011-02-20 14:49:31.423779175 +0100
+@@ -12,7 +12,6 @@
+ project ("cairo-dock")
+ set (VERSION "2.2.0-4")
+ 
+-add_definitions (-std=c99 -Wstrict-prototypes -Wextra -Wwrite-strings -Wuninitialized -Werror-implicit-function-declaration) #-Wunreachable-code -Wno-unused-parameter -Wall 
+ if (NOT ${CMAKE_BUILD_TYPE})
+ 	add_definitions (-O3)
+ endif()

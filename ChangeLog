@@ -1,3 +1,8 @@
+2011-02-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcairo-dock.spec: update to 2.2.0-4
+	* SFEcairo-dock-plugins.spec: initial spec
+
 2011-02-20 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgtkglext.spec: fix linking error with the latest GTK+

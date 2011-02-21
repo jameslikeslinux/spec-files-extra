@@ -1,23 +1,24 @@
 #
-# spec file for package SFEcairo-dock
-# Mon premier package, soyez indulgent...
-# Gilles Dauphin
+# spec file for package SFEcairo-dock-plugins
+#
+# This file and all modifications and additions to the pristine
+# package are under the same license as the package itself.
 #
 
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
 
-%define	src_name	cairo-dock
+%define	src_name	cairo-dock-plugins
 %define ver_major	2.2.0
 %define ver_minor	4
 
-Name:           SFEcairo-dock
-Summary:        cairo-dock
+Name:           SFEcairo-dock-plugins
+Summary:        cairo-dock plugins
 Version:        %{ver_major}.%{ver_minor}
-Source:		http://launchpad.net/%{src_name}-core/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
-URL:		glx-dock.org
-Patch1:		cairo-dock-01-cmake.diff
+Source:		http://launchpad.net/%{src_name}/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
+Patch1:		cairo-dock-plugins-01-cmake.diff
+Patch2:		cairo-dock-plugins-02-solaris.diff
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include	default-depend.inc
@@ -30,28 +31,33 @@ BuildRequires: 	SUNWdbus-devel
 BuildRequires: 	SUNWgnome-base-libs-devel
 BuildRequires: 	SUNWgnome-wm-devel
 BuildRequires: 	SUNWcompiz
+BuildRequires:	SFEcmake
+Requires:	SFEcairo-dock
+BuildRequires:	SFEcairo-dock-devel
 Requires:	SFEgtkglext
 BuildRequires:	SFEgtkglext-devel
-BuildRequires:	SFEcmake
+Requires:	SUNWlibxklavier
+BuildRequires:	SUNWlibxklavier-devel
+Requires:	SFElibetpan
+BuildRequires:	SFElibetpan-devel
+Requires:	SUNWlibexif
+BuildRequires:	SUNWlibexif-devel
+Requires:	SFEwebkitgtk
+BuildRequires:	SFEwebkitgtk-devel
 
-
-%package devel
-Summary:		 %summary - developer files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires:		 %name
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:        %{name}
+Requires:	%{name}
 %endif
 
 %prep
 %setup -q -n %{src_name}-%{ver_major}-%{ver_minor}
 %patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -87,21 +93,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
-%{_bindir}
-%{_libdir}/*.so*
+%{_libdir}
 %dir %attr(0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/applications
-%{_datadir}/applications/*
 %{_datadir}/cairo-dock
-%dir %attr (0755, root, other) %{_datadir}/pixmaps
-%{_datadir}/pixmaps/*
-%{_mandir}
-
-%files devel
-%defattr (-, root, bin)
-%{_includedir}
-%dir %attr (0755, root, other) %{_libdir}/pkgconfig
-%{_libdir}/pkgconfig/*
 
 %if %build_l10n
 %files l10n
@@ -112,8 +106,4 @@ rm -rf %{buildroot}
 
 %changelog
 * Mon Feb 21 2011 - Milan Jurik
-- update to 2.2.0-4
-* Aug 04 2009 - Gilles Dauphin ( Gilles POINT Dauphin A enst POINT fr)
-- require CBEgettext , SUNWgnu-gettext is not enough.
-* April 22 2008 - Gilles Dauphin ( Gilles POINT Dauphin A enst POINT fr)
 - Initial spec
