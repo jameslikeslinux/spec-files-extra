@@ -13,6 +13,8 @@
 %define ver_major	2.2.0
 %define ver_minor	4
 
+%define SUNWlibxklavier %(/usr/bin/pkginfo -q SUNWlibxklavier && echo 1 || echo 0)
+
 Name:           SFEcairo-dock-plugins
 Summary:        cairo-dock plugins
 Version:        %{ver_major}.%{ver_minor}
@@ -36,8 +38,10 @@ Requires:	SFEcairo-dock
 BuildRequires:	SFEcairo-dock-devel
 Requires:	SFEgtkglext
 BuildRequires:	SFEgtkglext-devel
+%if %SUNWlibxklavier
 Requires:	SUNWlibxklavier
 BuildRequires:	SUNWlibxklavier-devel
+%endif
 Requires:	SFElibetpan
 BuildRequires:	SFElibetpan-devel
 Requires:	SUNWlibexif
