@@ -18,7 +18,7 @@
 Name:           SFEcairo-dock-plugins
 Summary:        cairo-dock plugins
 Version:        %{ver_major}.%{ver_minor}
-Source:		http://launchpad.net/%{src_name}/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
+Source:		http://launchpad.net/cairo-dock-plug-ins/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
 Patch1:		cairo-dock-plugins-01-cmake.diff
 Patch2:		cairo-dock-plugins-02-solaris.diff
 SUNW_BaseDir:   %{_basedir}
