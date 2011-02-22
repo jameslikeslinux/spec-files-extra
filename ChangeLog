@@ -1,3 +1,7 @@
+2011-02-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEtelepathy-salut.spec: initial spec
+
 2011-02-21 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEcairo-dock.spec: update to 2.2.0-4

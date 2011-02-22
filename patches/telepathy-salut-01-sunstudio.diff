@@ -1,0 +1,22 @@
+--- telepathy-salut-0.4.0/lib/gibber/gibber-xmpp-stanza.h	2010-08-04 11:47:50.000000000 +0200
++++ /export/home/jurikm/Projekty/telepathy-salut-0.4.0/lib/gibber/gibber-xmpp-stanza.h	2011-02-22 23:30:47.975382792 +0100
+@@ -110,7 +110,7 @@
+ 
+ GibberXmppStanza * gibber_xmpp_stanza_build (GibberStanzaType type,
+     GibberStanzaSubType sub_type, const gchar *from, const gchar *to,
+-    guint spec, ...);
++    GibberBuildTag spec, ...);
+ 
+ void gibber_xmpp_stanza_get_type_info (GibberXmppStanza *stanza,
+     GibberStanzaType *type, GibberStanzaSubType *sub_type);
+--- telepathy-salut-0.4.0/lib/gibber/gibber-transport.c	2010-08-04 11:47:50.000000000 +0200
++++ /export/home/jurikm/Projekty/telepathy-salut-0.4.0/lib/gibber/gibber-transport.c	2011-02-22 23:31:19.797279873 +0100
+@@ -232,7 +232,7 @@
+ gibber_transport_disconnect (GibberTransport *transport)
+ {
+   GibberTransportClass *cls = GIBBER_TRANSPORT_GET_CLASS (transport);
+-  return cls->disconnect (transport);
++  cls->disconnect (transport);
+ }
+ 
+ void
