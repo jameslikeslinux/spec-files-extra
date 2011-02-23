@@ -103,10 +103,12 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
-%attr (-, root, other) %{_datadir}/locale
+%{_datadir}/locale
 %endif
 
 %changelog
+* Wed Feb 23 2011 - Milan Jurik
+- fix packaging
 * May 30 2010 - Thomas Wagner
 - build workaround to build this package according to the group set on the
   building machine's directory /usr/gnu/share/doc/, reason behind is
