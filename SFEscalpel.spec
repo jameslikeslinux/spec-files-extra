@@ -9,6 +9,7 @@ Name:                    SFEscalpel
 Summary:                 scalpel - A Frugal, High Performance File Carver
 URL:                     http://www.digitalforensicssolutions.com/Scalpel/
 Version:                 1.60
+License:                 GPLv2
 Source:                  http://www.digitalforensicssolutions.com/Scalpel/%{src_name}-%{version}.tar.gz
 Patch1:                  scalpel-01-add-SOLARIS-add-timersub.diff
 
@@ -46,17 +47,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
+%{_bindir}
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/*
-%dir %attr(0755, root, bin) %{_mandir}/man1
-%{_mandir}/man1/*
-
+%{_mandir}
 
 
 %changelog
+* Wed Feb 23 2011 - Milan Jurik
+- fix packaging (doc is not part of tarball)
 * Sun May 18 2008  - Thomas Wagner
 - Initial spec

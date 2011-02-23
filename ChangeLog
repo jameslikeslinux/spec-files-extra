@@ -1,6 +1,7 @@
 2011-02-23 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtelepathy-salut.spec: initial spec
+	* SFEscalpel.spec: fix packaging
 
 2011-02-21 Milan Jurik <sfnet@xylab.cz>
 
