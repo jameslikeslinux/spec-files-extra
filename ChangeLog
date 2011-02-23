@@ -3,6 +3,7 @@
 	* SFEtelepathy-salut.spec: initial spec
 	* SFEscalpel.spec: fix packaging
 	* SFEforemost.spec: initial spec
+	* SFEprtpci.spec: fix packaging
 
 2011-02-21 Milan Jurik <sfnet@xylab.cz>
 

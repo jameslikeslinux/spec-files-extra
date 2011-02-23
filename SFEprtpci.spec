@@ -17,14 +17,18 @@ URL:                 http://blogs.sun.com/dmick/entry/prtpci_digest_and_display_
 Source:              http://playground.sun.com/pub/dmick/prtpci.tar.Z
 Source1:             http://pciids.sourceforge.net/pci.ids
 
-SUNW_BaseDir:        /
+SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 %include perl-depend.inc
 Requires: SUNWcsr
 
+%package root
+Summary:        %{name} - / filesystem
+SUNW_BaseDir:   /
+%include default-depend.inc
+
 %prep
-cd ${RPM_BUILD_DIR}
 rm -rf prtpci
 mkdir prtpci
 cd prtpci
@@ -42,8 +46,6 @@ mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/pciids
 
 cp prtpci ${RPM_BUILD_ROOT}%{_bindir}
 chmod 0755 ${RPM_BUILD_ROOT}%{_bindir}/prtpci
-(cd ${RPM_BUILD_ROOT}%{_bindir}
-    ln -s prtpci lspci)
 cp pciids/* ${RPM_BUILD_ROOT}%{_sysconfdir}/pciids
 cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/pciids/pci.ids
 
@@ -52,12 +54,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, sys) %{_prefix}
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
+%{_bindir}
+
+%files root
+%defattr (-, root, sys)
 %dir %attr (0755, root, sys) %{_sysconfdir}
 %{_sysconfdir}/*
 
 %changelog
+* Wed Feb 23 2011 - Milan Jurik
+- fix packaging
 * Mon Feb 04 2008 - moinak.ghosh@sun.com
 - Initial spec.
