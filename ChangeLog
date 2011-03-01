@@ -4,6 +4,7 @@
 	* SFElibmpc.spec: start proper multiarch
 	* SFEgcc.spec: move to /usr/gcc/4.5
 	* SFElensfun.spec: fix header for Sun Studio
+	* SFEufraw.spec: bump to 0.18
 
 2011-02-23 Milan Jurik <sfnet@xylab.cz>
 

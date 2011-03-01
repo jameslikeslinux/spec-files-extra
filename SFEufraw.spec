@@ -3,41 +3,20 @@
 #
 # includes module(s): ufraw
 #
-# works: snv104 / pkgbuild 1.3.91 / Sun Ceres C 5.10 SunOS_i386 2008/10/22 / gcc 4.2.3
-
-
-##TODO## look for "application" directory is left empty - missing BuildRequire diabling an extension?
-##TODO## look for 64-bit build (might need reactivation of 64-bit SFElcms/other libs (in Nevada only older 32-bit version inluded)
-##TODO## check if SunStudio might be used <<<--- any volunteers? feel free!
-##TODO## check if gcc 4.2.3 is needed (C++)
-##TODO## fix (Build-)Requirements (tiff, png, jpeg, ...)
-##TODO## add more options:
-#configure: ====================== summary =====================
-#configure: build GIMP plug-in: yes
-#configure: build CinePaint plug-in: no
-#configure: EXIF support using exiv2: no
-#configure: JPEG support: yes
-#configure: PNG support: yes
-#configure: FITS support: no
-#configure: TIFF support: yes
-#configure: gzip compressed raw support: yes
-#configure: bzip2 compressed raw support: yes
-#configure: Scrolling in preview using GtkImageView: no
-#configure: Lens defects correction via lensfun: no
-
 
 %include Solaris.inc
-%define cc_is_gcc 1
-%define _gpp g++
-%include base.inc
+%include stdcxx.inc
 
-Name:                    SFEufraw
-Summary:                 Ufraw - Raw Photo Converter
-Version:                 0.16
-Source:                  %{sf_download}/ufraw/ufraw-%{version}.tar.gz
-URL:                     http://ufraw.sourceforge.net/
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEufraw
+Summary:	Ufraw - Raw Photo Converter
+Group:		Graphics
+Version:	0.18
+Source:		%{sf_download}/ufraw/ufraw-%{version}.tar.gz
+Patch1:		ufraw-01-openmp.diff
+Patch2:		ufraw-02-sunstudio.diff
+URL:		http://ufraw.sourceforge.net/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 #BuildRequires: SUNWlcms-devel
 BuildRequires: SUNWlcms
@@ -69,6 +48,8 @@ BuildRequires: SUNWesu
 # pod2man:
 BuildRequires: SUNWperl584usr
 BuildRequires: SUNWgnome-common-devel
+Requires: SUNWlibstdcxx4
+BuildRequires: SUNWlibstdcxx4
 
 %if %build_l10n
 %package l10n
@@ -83,33 +64,31 @@ Requires:                %{name}
 touch NEWS
 touch AUTHORS
 for f in *.[ch]; do dos2unix -ascii $f $f; done
+%patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
-export CC=gcc
-export CXX=g++
 export PKG_CONFIG_PATH="%{_libdir}/pkgconfig"
 export LDFLAGS="%_ldflags  -L/usr/sfw/lib -R/usr/sfw/lib  -L/usr/gnu/lib -R/usr/gnu/lib"
 export POD2MAN=/usr/perl5/bin/pod2man
 
-%if %cc_is_gcc
-export CFLAGS="%gcc_optflags -DSOLARIS"
-export CXXFLAGS="%gcc_cxx_optflags"
-%else
 export CXX="${CXX} -norunpath"
 export CFLAGS="%optflags -DSOLARIS"
-export CXXFLAGS="%cxx_optflags"
-%endif
+export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
+export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldefs"
 
+./configure --prefix=%{_prefix}	\
+	--enable-extras		\
+	--enable-contrast	\
+	--mandir=%{_mandir}	\
+	--bindir=%{_bindir}	\
+	--libdir=%{_libdir}	\
+	--includedir=%{_includedir}
 
-autoconf
-./configure --prefix=%{_prefix} --enable-extras --with-libexif \
-	--mandir=%{_mandir} --bindir=%{_bindir}         \
-            --libdir=%{_libdir}         \
-            --includedir=%{_includedir}
 make -j$CPUS
 
 %install
@@ -151,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Mar 01 2011 - Milan Jurik
+- bump to 0.18
 * 18 May 2010 - Gilles Dauphin
 - check where is gtkimageview
 * Tue Mar 30 2010 - Milan Jurik

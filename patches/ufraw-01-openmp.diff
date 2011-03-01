@@ -1,0 +1,11 @@
+--- ufraw-0.18/dcraw_indi.c	2011-03-01 21:50:39.854171585 +0100
++++ ufraw-0.18-patch/dcraw_indi.c	2011-03-01 21:59:19.260154418 +0100
+@@ -135,7 +135,7 @@
+ #ifdef _OPENMP
+ #pragma omp parallel for				\
+   default(none)						\
+-  shared(nc,image,size)					\
++  shared(nc,image,size,noise)					\
+   private(c,i,hpass,lev,lpass,row,col,thold,fimg,temp)
+ #endif
+     FORC(nc) {			/* denoise R,G1,B,G3 individually */

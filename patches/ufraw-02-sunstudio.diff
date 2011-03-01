@@ -1,0 +1,31 @@
+--- ufraw-0.18/ufraw_exiv2.cc	2011-03-01 22:10:22.587859793 +0100
++++ ufraw-0.18-patch/ufraw_exiv2.cc	2011-03-01 22:09:59.365670823 +0100
+@@ -143,7 +143,7 @@
+         Exiv2::ExifParser::encode(blob, Exiv2::bigEndian, exifData);
+         uf->inputExifBufLen = blob.size();
+         uf->inputExifBuf = g_new(unsigned char, uf->inputExifBufLen);
+-        memcpy(uf->inputExifBuf, &blob[0], blob.size());
++        std::memcpy(uf->inputExifBuf, &blob[0], blob.size());
+         ufraw_message(UFRAW_SET_LOG, "EXIF data read using exiv2, buflen %d\n",
+                       uf->inputExifBufLen);
+         g_strlcpy(uf->conf->exifSource, EXV_PACKAGE_STRING, max_name);
+@@ -271,7 +271,7 @@
+         exifData.erase(pos);
+ 
+     /* Write appropriate color space tag if using sRGB output */
+-    if (!strcmp(uf->developer->profileFile[out_profile], ""))
++    if (!std::strcmp(uf->developer->profileFile[out_profile], ""))
+         exifData["Exif.Photo.ColorSpace"] = uint16_t(1); /* sRGB */
+ 
+     /* Add "UFRaw" and version used to output file as processing software. */
+@@ -321,8 +321,8 @@
+         }
+         uf->outputExifBufLen = size + sizeof(ExifHeader);
+         uf->outputExifBuf = g_new(unsigned char, uf->outputExifBufLen);
+-        memcpy(uf->outputExifBuf, ExifHeader, sizeof(ExifHeader));
+-        memcpy(uf->outputExifBuf + sizeof(ExifHeader), &blob[0], blob.size());
++        std::memcpy(uf->outputExifBuf, ExifHeader, sizeof(ExifHeader));
++        std::memcpy(uf->outputExifBuf + sizeof(ExifHeader), &blob[0], blob.size());
+         std::cerr.rdbuf(savecerr);
+         ufraw_message(UFRAW_SET_LOG, "%s\n", stderror.str().c_str());
+ 
