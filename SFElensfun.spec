@@ -14,6 +14,7 @@ License:	LGPLv3
 Group:		System Environment/Libraries
 URL:		http://lensfun.berlios.de/
 Source:		http://download.berlios.de/%{src_name}/%{src_name}-%{version}.tar.bz2
+Patch1:		lensfun-01-sunstudio.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -39,6 +40,7 @@ Requires: SUNWgnome-common-devel
 
 %prep
 %setup -q -n %{src_name}-%{version} 
+%patch1 -p1
 
 %build
 # hack to make configure script and linking happy
@@ -92,5 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/lensfun.pc
 
 %changelog
+* Tue Mar 01 2011 - Milan Jurik
+- fix header for Sun Studio
 * Thu Jul 15 2010 - Milan Jurik
 - Initial spec based on Fedora

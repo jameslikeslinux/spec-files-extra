@@ -3,6 +3,7 @@
 	* SFEpython26-django.spec: bump to 1.2.5
 	* SFElibmpc.spec: start proper multiarch
 	* SFEgcc.spec: move to /usr/gcc/4.5
+	* SFElensfun.spec: fix header for Sun Studio
 
 2011-02-23 Milan Jurik <sfnet@xylab.cz>
 
