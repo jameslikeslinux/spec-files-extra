@@ -8,7 +8,7 @@
 %define python_version  2.6
 
 Name:		SFEpython26-django
-Version:	1.2.4
+Version:	1.2.5
 Summary:	A high-level Python Web framework that enables Rapid Development
 License:	BSD
 Group:		Development/Languages/Python
@@ -45,6 +45,8 @@ rm -rf %{buildroot}
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
+* Tue Mar 01 2011 - Milan Jurik
+- bump to 1.2.5
 * Mon Feb 07 2011 - Milan Jurik
 - move to python 2.6, bump to 1.2.4
 * Sat Sep  3 2007 - Ananth Shrinivas <ananth@sun.com>

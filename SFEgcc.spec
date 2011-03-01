@@ -14,16 +14,14 @@
 ##       pkg uninstall SFEgccruntime and SFEgcc to get this spec build successfully.
 
 
-# check for /usr/gnu/bin/cc an bail out
-%define compat_link_usr_gnu_bin_cc %( test -r /usr/gnu/bin/cc && echo 1 || echo 0 )
-
 # to more widely test if this change causes regressions, by default off:
 # want this? compile with: --with-handle_pragma_pack_push_pop
 %define with_handle_pragma_pack_push_pop %{?_with_handle_pragma_pack_push_pop:1}%{?!_with_handle_pragma_pack_push_pop:0}
 
 %include Solaris.inc
-%include usr-gnu.inc
 %include base.inc
+
+%define osbuild %(uname -v | sed -e 's/[A-z_]//g')
 
 ##TODO## should include/arch64.inc consider setting _arch64 that way?
 #        gcc builds 64-bit libs/binaries even on 32-bit CPUs/Kernels (e.g. ATOM CPU)
@@ -86,6 +84,8 @@
 %define SFElibmpc 1
 %endif
 
+%define _prefix /usr/gcc/4.5
+%define _infodir %{_prefix}/info
 
 
 Name:                SFEgccruntime
@@ -188,23 +188,6 @@ Requires:                %{name}
 %endif
 
 %prep
-%if %{compat_link_usr_gnu_bin_cc}
-echo ""
-echo ""
-echo ""
-echo "bailing out (%name). Consider renaming this link /usr/gnu/bin/cc to gcc by"
-echo "    pfexec mv /usr/gnu/bin/cc /usr/gnu/bin/gcc"
-echo ""
-echo "or on recent builds, use:"
-echo "    sudo mv /usr/gnu/bin/cc /usr/gnu/bin/gcc"
-echo ""
-echo "I don't know if creating that symlink was a good idea."
-echo ""
-echo ""
-echo ""
-exit 1
-%endif
-
 %setup -q -c -n %{name}-%version
 mkdir gcc
 #with 4.3.3 in new directory libjava/classpath/
@@ -254,12 +237,15 @@ export LDFLAGS="%_ldflags %gnu_lib_path"
 export LD_OPTIONS="%ld_options %gnu_lib_path"
 #export LD_LIBRARY_PATH="%gnu_lib_path"
 
+# For pod2man
+export PATH="$PATH:/usr/perl5/bin"
+
 %define build_gcc_with_gnu_ld 0
 #saw problems. 134 did compile, OI147 stopped with probably linker errors
 ##TODO## research which osbuild started to fail, adjust the number below
-%if %(expr %{osbuild} '>=' 146)
-%define build_gcc_with_gnu_ld 1
-%endif
+#%if %(expr %{osbuild} '>=' 146)
+#%define build_gcc_with_gnu_ld 1
+#%endif
 
 %if %build_gcc_with_gnu_ld
 export LD="/usr/gnu/bin/ld"
@@ -294,17 +280,17 @@ export LD="/usr/gnu/bin/ld"
 %if %SFEgmp
 	--with-gmp=%{SFEgmpbasedir}             \
 %else
-        --with-gmp_include=/usr/include/gmp \
+        --with-gmp_include=%{_basedir}/include/gmp \
 %endif
 %if %SFEmpfr
 	--with-mpfr=%{SFEmpfrbasedir}           \
 %else
-        --with-mpfr_include=/usr/include/mpfr \
+        --with-mpfr_include=%{_basedir}/include/mpfr \
 %endif
 %if %SFElibmpc
-	--with-mpfr=%{SFElibmpcbasedir}           \
+	--with-mpc=%{SFElibmpcbasedir}           \
 %else
-        --with-mpc_include=/usr/include \
+        --with-mpc_include=%{_basedir}/include	\
 %endif
 	$nlsopt
 
@@ -380,9 +366,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*.1
 %dir %attr (0755, root, bin) %{_mandir}/man7
 %{_mandir}/man7/*.7
-%dir %attr(0755, root, sys) %{_std_datadir}
-%dir %attr(0755, root, bin) %{_infodir}
-%{_infodir}/*
+%{_infodir}
 %ifarch amd64 sparcv9 i386
 %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.a
@@ -408,6 +392,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Mar 01 2011 - Milan Jurik
+- move to /usr/gcc/4.5
 * Tue Feb 08 2011 - Thomas Wagner
 - interim solution for very old gcc-4.3.3, derived from experimental/SFEgcc-4.5.2.spec
 * Sun Jan 30 2011 - Thomas Wagner
