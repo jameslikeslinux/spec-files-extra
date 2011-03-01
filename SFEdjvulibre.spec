@@ -4,6 +4,7 @@
 # includes module: djvulibre
 #
 
+%define _basedir /usr/stdcxx
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
@@ -51,13 +52,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+# The developers of djvulibre recommend using gcc, so don't even try CC
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -L/usr/gnu/lib -R/usr/gnu/lib"
 export LDFLAGS="%_ldflags"
 
-./configure --prefix=%_prefix
+./configure --prefix=%_prefix --libdir=%_cxx_libdir
 
 make -j$CPUS
 
@@ -65,7 +67,7 @@ make -j$CPUS
 rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
-rm $RPM_BUILD_ROOT%_libdir/*.la
+rm $RPM_BUILD_ROOT%_cxx_libdir/*.la
 
 %if %build_l10n
 %else
@@ -81,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %_bindir/*
 %dir %attr (0755, root, bin) %_libdir
-%_libdir/lib*.so*
+%_cxx_libdir/lib*.so*
 %dir %attr (-, root, sys) %_datadir
 %_datadir/djvu
 %_mandir/man1
@@ -91,8 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %_includedir
 %dir %attr (0755, root, other) %_includedir/libdjvu
 %_includedir/libdjvu/*
-%dir %attr (0755, root, other) %_libdir/pkgconfig
-%_libdir/pkgconfig/ddjvuapi.pc
+%dir %attr (0755, root, other) %_cxx_libdir/pkgconfig
+%_cxx_libdir/pkgconfig/ddjvuapi.pc
 
 %if %build_l10n
 %files l10n
@@ -106,5 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb  8 2011 - Alex Viskovatoff
+- Use /usr/stdcxx as basedir
 * Mon Jan 31 2011 - Alex Viskovatoff
 - Initial spec

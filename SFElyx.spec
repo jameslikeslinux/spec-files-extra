@@ -4,6 +4,15 @@
 # includes module: lyx
 #
 
+# To be able to typeset LyX documents, you need to have TeX installed.
+# Since SFEtexlive.spec is not currently maintained, it is probably best
+# to install TeX Live using its own native installer.  See
+#   http://www.tug.org/texlive/acquire-netinstall.html.
+# You need to make sure that the various TeX executables are in your PATH.
+# The TeX Live installer gives you the option of creatingg symbolic links
+# to them automatically; creating symbolic links of TeX executables to
+# a directory in your PATH is probably the best way of making LyX find them.
+
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
@@ -29,6 +38,7 @@ BuildRequires:	SFEboost-stdcxx-devel
 
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
+Requires:	SFElibiconv
 
 %if %build_l10n
 %package l10n
@@ -51,14 +61,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # The LyX code is really nasty to Sun Studio
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -L/usr/gnu/lib -R/usr/gnu/lib"
-export LDFLAGS="%_ldflags -L/usr/lib/g++/%_gpp_version -R/usr/lib/g++/%_gpp_version"
+export CXXFLAGS="%cxx_optflags -pthreads -L/usr/gnu/lib -R/usr/gnu/lib"
+export LDFLAGS="%_ldflags -pthreads -L/usr/stdcxx/lib/g++/%_gpp_version -R/usr/stdcxx/lib/g++/%_gpp_version"
 
 ./configure --prefix=%_prefix \
-  --with-qt4-dir=/usr/stdcxx --with-qt4-libraries=/usr/lib/g++/%_gpp_version
+  --with-qt4-dir=/usr/stdcxx --with-qt4-libraries=/usr/stdcxx/lib/g++/%_gpp_version
 
 make -j$CPUS
 
@@ -95,5 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb  8 2011 - Alex Viskovatoff
+- Adapt to Qt gcc libs now being in /usr/stdcxx
 * Sun Jan 30 2011 - Alex Viskovatoff
 - Initial spec

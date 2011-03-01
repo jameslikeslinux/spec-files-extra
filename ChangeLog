@@ -1,3 +1,11 @@
+2011-03-01 Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* experimental/SFEqt47-gpp.spec: use /usr/stdcxx as basedir
+	* experimental/SFEqt47.spec: patch the solaris-gpp qmake.conf
+	* SFElyx.spec: adapt to gcc-built libs now being in /usr/stdcxx
+	* SFEdjview.spec: adapt to gcc-built libs now being in /usr/stdcxx
+	* SFEdjvulibre.spec: use /usr/stdcxx as basedir
+
 2011-03-01 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEpython26-django.spec: bump to 1.2.5

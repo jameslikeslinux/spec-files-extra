@@ -6,6 +6,8 @@
 
 # NOTE: If you don't have the patched pkgtool, build with
 # pkgtool build --patches=patches/qt47 experimental/SFEqt47.spec
+# Instructions for obtaining the patch can be found here:
+# https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=Patches_for_pkgbuild
 
 # NOTE: This spec makes use of patches which are hard-coded to enable features
 # of the Intel Nehalem processor, specifically, the SSE 4.2 instruction set.
@@ -97,7 +99,8 @@ Patch36:	     qt47/qt-4.7.1-webkit-jscore-munmap.diff
 Patch37:	     qt47/qt-4.7.1-webkit-jsc-wts-systemalloc.diff
 Patch38:	     qt47/qt-4.7.1-mathextras.diff
 Patch39: 	     qt47/qt-4.7.1-qiconvcodec.diff
-Patch40:	     qt47/qt-471-shm.diff 
+Patch40:	     qt47/qt-471-shm.diff
+Patch41:	     qt47/solaris-g++-qmake-conf.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
@@ -180,6 +183,7 @@ export LDFLAGS="%_ldflags -library=stdcxx4"
 # 4.7.0 runs into trouble with phonon, so don't build that.
 
 # Assume i386 CPU is not higher than Pentium
+# This can be changed locally if your CPU is newer
 echo yes | ./configure -prefix %{_prefix} \
            -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 \
            -platform solaris-cc \
@@ -224,6 +228,8 @@ mkdir solaris-cc-stdcxx
 cd solaris-cc-stdcxx
 install %SOURCE1 .
 cp -p ../solaris-cc-stlport/qplatformdefs.h .
+cd ..
+%patch41 -p0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -254,6 +260,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Tue Mar  1 2011 - Alex Viskovatoff
+- Patch /usr/stdcxx/share/qt/mkspecs/solaris-g++/qmake.conf
 * Fri Jan 28 2011 - Alex Viskovatoff
 - Change optimization flags in share/qt/mkspecs/solaris-cc/qmake.conf
 * Thu Jan 27 2011 - Alex Viskovatoff

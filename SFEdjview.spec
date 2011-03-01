@@ -8,6 +8,7 @@
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
+%define  _cxx_libdir /usr/stdcxx/lib/g++/%_gpp_version
 %define srcname djview4
 
 Name:		SFEdjview
@@ -41,17 +42,18 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -L/usr/gnu/lib -R/usr/gnu/lib"
-export LDFLAGS="%_ldflags -L/usr/lib/g++/%_gpp_version -R/usr/lib/g++/%_gpp_version"
+export CXXFLAGS="%cxx_optflags -pthreads -L%_cxx_libdir"
+export LDFLAGS="%_ldflags -pthreads -L%_cxx_libdir -L/usr/gnu/lib -R%_cxx_libdir:/usr/gnu/lib"
 export QMAKE=/usr/stdcxx/bin/qmake
 export QMAKESPEC=solaris-g++
 export QTDIR=/usr/stdcxx
+export PKG_CONFIG_PATH="%_cxx_libdir/pkgconfig"
 
-./configure --prefix=%_prefix \
-  --with-qt4-dir=/usr/stdcxx --with-qt4-libraries=/usr/lib/g++/%_gpp_version
+./configure --prefix=%_prefix
+#  --with-qt4-dir=/usr/stdcxx --with-qt4-libraries=%_cxx_libdir
 
 make -j$CPUS
 
@@ -78,5 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb  8 2011 - Alex Viskovatoff
+- Adapt to Qt gcc libs now being in /usr/stdcxx
 * Mon Jan 31 2011 - Alex Viskovatoff
 - Initial spec

@@ -5,8 +5,11 @@
 
 # This spec is not intended to provide as much Qt functionality as
 # SFEqt47.spec.  Its present purpose is merely to allow LyX to build
-# and run on Solaris.
+# and run on Solaris.  Thus none of the patches used by SFEqt47.spec
+# are included.  In the future, one could see which of those patches
+# would be useful here.
 
+%define _basedir /usr/stdcxx
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
@@ -18,7 +21,7 @@ Summary:             Cross-platform development framework/toolkit
 URL:                 http://trolltech.com/products/qt
 License:             LGPLv2
 Version:             4.7.1
-Source:              ftp://ftp.trolltech.com/qt/source/%{srcname}-%{version}.tar.gz
+Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -40,7 +43,7 @@ Requires: SFEqt47
 # Requires: %name
 
 %prep
-%setup -q -n %{srcname}-%version
+%setup -q -n %srcname-%version
 
 
 %build
@@ -53,13 +56,15 @@ export CC=gcc
 export CXX=g++
 export LD=/usr/gnu/bin/ld
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14"
-export LDFLAGS="%_ldflags"
+export CXXFLAGS="%cxx_optflags -pthreads -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14"
+export LDFLAGS="%_ldflags -pthreads"
+#export LIBS="-lpthread -lrt"
+export LIBS="-pthread"
 
 # Assume i386 CPU is not higher than Pentium
 # This can be changed locally if your CPU is newer
 echo yes | ./configure -prefix %{_prefix} \
-           -no-sse -no-sse2 -no-ssse3 -no-sse4.1 -no-sse4.2 \
+           -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 \
            -platform solaris-g++ \
            -opensource \
            -docdir %{_docdir}/qt \
@@ -93,30 +98,32 @@ rm ${RPM_BUILD_ROOT}%{_cxx_libdir}/lib*a
 # remove files included in SUNWqt47-devel:
 rm -r $RPM_BUILD_ROOT%_datadir
 rm -rf $RPM_BUILD_ROOT%_includedir
-rm -r ${RPM_BUILD_ROOT}%_bindir
+rm -r $RPM_BUILD_ROOT%_bindir
 
 # Eliminate QML imports stuff for now:
 # Who is Nokia to create a new subdirectory in /usr?
-rm -r ${RPM_BUILD_ROOT}%_prefix/imports
+rm -r $RPM_BUILD_ROOT%_prefix/imports
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*.so*
-%{_cxx_libdir}/lib*.prl
-%dir %attr (0755, root, bin) %{_cxx_libdir}/qt
-%{_cxx_libdir}/qt/*
+%dir %attr (0755, root, bin) %_cxx_libdir
+%_cxx_libdir/lib*.so*
+%_cxx_libdir/lib*.prl
+%dir %attr (0755, root, bin) %_cxx_libdir/qt
+%_cxx_libdir/qt/*
 
 #%files devel
 #%defattr (-, root, bin)
 #%dir %attr (0755, root, bin) %dir %{_cxx_libdir} 
-%dir %attr (0755, root, other) %{_cxx_libdir}/pkgconfig 
-%{_cxx_libdir}/pkgconfig/*
+%dir %attr (0755, root, other) %_cxx_libdir/pkgconfig 
+%_cxx_libdir/pkgconfig/*
 
 %changelog
+* Feb  8 2011 - Alex Viskovatoff
+- Use /usr/stdcxx as basedir; use -pthreads
 * Jan 30 2011 - Alex Viskovatoff
 - Do not bother with a separate devel SVr4 package, as it is only 50 K
 * Nov 30 2010 - Alex Viskovatoff
