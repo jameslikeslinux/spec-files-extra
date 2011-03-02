@@ -1,3 +1,7 @@
+2011-03-02 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgcc.spec: fix NLS build, need to fix linker for g++ still
+
 2011-03-01 Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* experimental/SFEqt47-gpp.spec: use /usr/stdcxx as basedir

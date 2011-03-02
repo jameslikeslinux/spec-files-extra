@@ -212,7 +212,7 @@ fi
 cd gcc
 
 %if %build_l10n
-nlsopt=-enable-nls
+nlsopt='--with-libiconv-prefix=/usr/gnu -enable-nls'
 %else
 nlsopt=-disable-nls
 %endif
@@ -392,6 +392,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Mar 02 2011 - Milan Jurik
+- fix NLS build, need to fix linker for g++ still
 * Tue Mar 01 2011 - Milan Jurik
 - move to /usr/gcc/4.5
 * Tue Feb 08 2011 - Thomas Wagner
