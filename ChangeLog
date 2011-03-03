@@ -1,3 +1,8 @@
+2011-03-03 Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* SFEqt4.spec: remove support for stdcxx, since the spec no longer
+	  builds against that
+
 2011-03-02 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgcc.spec: fix NLS build, need to fix linker for g++ still

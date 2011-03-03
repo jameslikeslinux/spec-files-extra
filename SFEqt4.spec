@@ -3,13 +3,7 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-# NOTE: If you want Qt4 to link against stlport4 instead of stdcxx
-# (the Apache Standard C++ Library), compile with
-# pkgtool --with-stlport build <specfile>
-%define use_stdcxx %{?_with_stlport:0}%{?!_with_stlport:1}
-
-# NOTE: Use of stdcxx requires Solaris Studio 12.1 or newer, because of the
-# spec's use of the -library=stdcxx4 option.
+# NOTE: If you want to build Qt against stdcxx, use SFEqt47.spec
 
 %include Solaris.inc
 %include osdistro.inc
@@ -27,9 +21,6 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-%if %use_stdcxx
-Requires: SUNWlibstdcxx4
-%endif
 #FIXME: Requires: SUNWxorg-mesa
 # Guarantee X/freetype environment concisely (hopefully):
 Requires: SUNWGtku
@@ -58,13 +49,8 @@ fi
 ##TODO## check build flags if they better be jds cbe default and make sure they are honored by configure
 export CFLAGS="%optflags"
 
-%if %use_stdcxx
-export CXXFLAGS="%cxx_optflags -library=stdcxx4"
-export LDFLAGS="%_ldflags -library=stdcxx4"
-%else
 export CXXFLAGS="%cxx_optflags -library=stlport4"
 export LDFLAGS="%_ldflags -library=stlport4"
-%endif
 
 # STL support does not work with stdcxx4
 # "stltest.cpp", line 145: Error: Could not find a match for std::distance<std::_ForwardIterator, std::_Distance>(DummyIterator<int>, DummyIterator<int>) needed in main().
@@ -81,7 +67,6 @@ echo yes | ./configure -v -prefix %{_prefix} \
            -nomake demos \
            -nomake examples
 
-# configure says: "Qt is now configured for building. Just run 'gmake'."
 gmake -j$CPUS
 
 %install
@@ -121,6 +106,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Thu Mar  3 2011 - Alex Viskovatoff
+- Since Milan Jurik indicates in a comment that this spec currently does not
+  build using stdcxx, remove the option to build using stdcxx: if you want that,
+  use SFEqt47.spec instead, which was forked from this spec
 * Sat Jan 29 2011 - Milan Jurik
 - enforce libpng 1.4
 * Thu Jan 20 2011 - Milan Jurik
