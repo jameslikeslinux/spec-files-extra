@@ -86,7 +86,7 @@
 
 %define _prefix /usr/gcc/4.5
 %define _infodir %{_prefix}/info
-
+%define _gnu_libdir %{_basedir}/gnu/lib
 
 Name:                SFEgccruntime
 Summary:             GNU gcc runtime libraries required by applications
@@ -97,6 +97,7 @@ Patch1:              gcc-01-libtool-rpath.diff
 Patch2:              gcc-02-handle_pragma_pack_push_pop.diff
 %else
 %endif
+Patch3:              gcc-03-gnulib.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -199,6 +200,7 @@ cd gcc-%{version}
 %patch2 -p1
 %else
 %endif
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -313,6 +315,49 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
 
+mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}
+cd $RPM_BUILD_ROOT%{_gnu_libdir}
+ln -s ../../gcc/4.5/lib/libgcc_s.so.1
+ln -s ../../gcc/4.5/lib/libgcc_s.so
+ln -s ../../gcc/4.5/lib/libgfortran.so.3
+ln -s ../../gcc/4.5/lib/libgfortran.so
+ln -s ../../gcc/4.5/lib/libgomp.so.1
+ln -s ../../gcc/4.5/lib/libgomp.so
+ln -s ../../gcc/4.5/lib/libobjc_gc.so.2
+ln -s ../../gcc/4.5/lib/libobjc_gc.so
+ln -s ../../gcc/4.5/lib/libobjc.so.2
+ln -s ../../gcc/4.5/lib/libobjc.so
+ln -s ../../gcc/4.5/lib/libssp.so.0
+ln -s ../../gcc/4.5/lib/libssp.so
+ln -s ../../gcc/4.5/lib/libstdc++.so.6
+ln -s ../../gcc/4.5/lib/libstdc++.so
+%ifarch amd64 sparcv9
+mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
+cd $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so.1
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so.3
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so.1
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so
+#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so.2
+#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so.2
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so.0
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so.6
+ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
+%endif
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
+%ifarch amd64 sparcv9
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{_arch64}/lib*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{_arch64}/lib*.la
+%endif
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -348,6 +393,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/lib*.so*
 %{_libdir}/%{_arch64}/lib*.spec
 %endif
+%{_gnu_libdir}
 
 
 %files -n SFEgcc
@@ -357,8 +403,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/lib*.a
-%{_libdir}/lib*.la
 %{_libdir}/gcc
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
@@ -367,12 +411,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_mandir}/man7
 %{_mandir}/man7/*.7
 %{_infodir}
-%ifarch amd64 sparcv9 i386
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
-%{_libdir}/%{_arch64}/lib*.a
-%{_libdir}/%{_arch64}/lib*.la
-%endif
-%defattr (-, root, bin)
 %{_includedir}
 
 %dir %attr (0755, root, sys) %{_datadir}/gcc-%{version}
@@ -392,6 +430,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Mar 04 2011 - Milan Jurik
+- RUNPATH enforced to contain /usr/gnu/lib, libs symlinked to /usr/gnu/lib
 * Wed Mar 02 2011 - Milan Jurik
 - fix NLS build, need to fix linker for g++ still
 * Tue Mar 01 2011 - Milan Jurik

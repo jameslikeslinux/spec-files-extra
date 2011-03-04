@@ -1,0 +1,60 @@
+--- gcc-4.5.2/gcc/config/sol2.h	2010-04-16 15:33:58.000000000 +0200
++++ gcc-4.5.2/gcc/config/sol2.h	2011-03-04 20:41:27.986156059 +0100
+@@ -156,12 +156,12 @@
+    %{YP,*} \
+    %{R*} \
+    %{compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,%R/usr/ucblib:%R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/usr/lib} \
+-             %{!p:%{!pg:-Y P,%R/usr/ucblib:%R/usr/ccs/lib:%R/usr/lib}}} \
+-             -R %R/usr/ucblib} \
++     %{!YP,*:%{p|pg:-Y P,%R/usr/ucblib:%R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib -R %R/usr/ucblib:%R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib} \
++             %{!p:%{!pg:-Y P,%R/usr/ucblib:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib -R %R/usr/ucblib:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib}}} \
++             } \
+    %{!compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,%R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/usr/lib} \
+-             %{!p:%{!pg:-Y P,%R/usr/ccs/lib:%R/usr/lib}}}}"
++     %{!YP,*:%{p|pg:-Y P,%R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib -R %R/usr/ccs/lib/libp:%R/usr/lib/libp:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib} \
++             %{!p:%{!pg:-Y P,%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib -R %R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib}}}}"
+ 
+ #undef LINK_ARCH32_SPEC
+ #define LINK_ARCH32_SPEC LINK_ARCH32_SPEC_BASE
+--- gcc-4.5.2/gcc/config/i386/sol2-10.h	2010-07-14 10:47:54.000000000 +0200
++++ gcc-4.5.2/gcc/config/i386/sol2-10.h	2011-03-04 20:49:56.627091764 +0100
+@@ -109,12 +109,12 @@
+    %{YP,*} \
+    %{R*} \
+    %{compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,/usr/ucblib/64:/usr/lib/libp/64:/lib/64:/usr/lib/64} \
+-             %{!p:%{!pg:-Y P,/usr/ucblib/64:/lib:/usr/lib/64}}} \
+-             -R /usr/ucblib/64} \
++     %{!YP,*:%{p|pg:-Y P,%R/usr/ucblib/amd64:%R/usr/lib/libp/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64 -R %R/usr/ucblib/amd64:%R/usr/lib/libp/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64} \
++             %{!p:%{!pg:-Y P,%R/usr/ucblib/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64 -R %R/usr/ucblib/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64}}} \
++             } \
+    %{!compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,/usr/lib/libp/64:/lib/64:/usr/lib/64} \
+-             %{!p:%{!pg:-Y P,/lib/64:/usr/lib/64}}}}"
++     %{!YP,*:%{p|pg:-Y P,%R/usr/lib/libp/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64 -R %R/usr/lib/libp/amd64:%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64} \
++             %{!p:%{!pg:-Y P,%R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64 -R %R/lib/amd64:%R/usr/lib/amd64:%R/usr/gnu/lib/amd64}}}}"
+ 
+ #undef LINK_ARCH64_SPEC
+ #define LINK_ARCH64_SPEC LINK_ARCH64_SPEC_BASE
+--- gcc-4.5.2/gcc/config/sparc/sol2-bi.h	2010-04-02 21:54:46.000000000 +0200
++++ gcc-4.5.2/gcc/config/sparc/sol2-bi.h	2011-03-04 20:47:36.202790986 +0100
+@@ -195,12 +195,12 @@
+    %{YP,*} \
+    %{R*} \
+    %{compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,%R/usr/ucblib/sparcv9:%R/usr/lib/libp/sparcv9:%R/usr/lib/sparcv9} \
+-       %{!p:%{!pg:-Y P,%R/usr/ucblib/sparcv9:%R/usr/lib/sparcv9}}} \
+-     -R %R/usr/ucblib/sparcv9} \
++     %{!YP,*:%{p|pg:-Y P,%R/usr/ucblib/sparcv9:%R/usr/lib/libp/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9 -R %R/usr/ucblib/sparcv9:%R/usr/lib/libp/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9} \
++       %{!p:%{!pg:-Y P,%R/usr/ucblib/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9 -R %R/usr/ucblib/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9}}} \
++     } \
+    %{!compat-bsd: \
+-     %{!YP,*:%{p|pg:-Y P,%R/usr/lib/libp/sparcv9:%R/usr/lib/sparcv9} \
+-       %{!p:%{!pg:-Y P,%R/usr/lib/sparcv9}}}}"
++     %{!YP,*:%{p|pg:-Y P,%R/usr/lib/libp/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9 -R %R/usr/lib/libp/sparcv9:%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9} \
++       %{!p:%{!pg:-Y P,%R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9 -R %R/lib/sparcv9:%R/usr/lib/sparcv9:%R/usr/gnu/lib/sparcv9}}}}"
+ 
+ #define LINK_ARCH64_SPEC LINK_ARCH64_SPEC_BASE
+ 
