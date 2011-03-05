@@ -75,7 +75,7 @@ DOC="$RPM_BUILD_ROOT"%{_docdir}/nasm
 mkdir -p "$DOC"
 mkdir -p "$DOC"/rdoff
 make INSTALLROOT="$RPM_BUILD_ROOT" \
-        docdir=%{docdir}/nasm \
+        docdir=%{_docdir}/nasm \
         install_everything
 cp AUTHORS CHANGES LICENSE README TODO doc/*.doc "$DOC"
 cp rdoff/README "$DOC"/rdoff
