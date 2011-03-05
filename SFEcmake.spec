@@ -39,7 +39,7 @@ export CXXFLAGS="%cxx_optflags"
 
 ./configure --prefix=%{_prefix} \
 	    --bindir=%{_bindir}	\
-	    --docdir=/share/doc \
+	    --docdir=/share/doc/cmake \
 	    --libdir=%{_libdir}	\
 	    --mandir=/share/man
 
@@ -63,11 +63,11 @@ rm -rf %{buildroot}
 %{_datadir}/cmake-*
 %{_mandir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/*
+%{_docdir}/cmake
 
 %changelog
 * Sat Mar  5 2011 - Alex Viskovatoff
-- bump to 2.8.4
+- bump to 2.8.4; install documentation files in cmake's own directory
 * Thu Feb 10 2011 - Thomas Wagner
 - fix compile errors on (all) distros if configure thinks that EXT2 is present
   (archive_write_disk.c", line 2237: warning: implicit function declaration: _IOR)

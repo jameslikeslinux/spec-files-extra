@@ -1,6 +1,6 @@
 2011-03-05 Alex Viskovatoff <viskovatoff@imap.cc>
 
-	* SFEcmake.spec: bump to 2.8.4
+	* SFEcmake.spec: bump to 2.8.4; install doc files in own directory
 
 2011-03-05 Milan Jurik <sfnet@xylab.cz>
 
