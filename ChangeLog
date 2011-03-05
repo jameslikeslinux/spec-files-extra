@@ -2,6 +2,7 @@
 
 	* SFEusbmodeswitch.spec: bump to 1.1.7
 	* SFElibev.spec: bump to 4.04
+	* SFElibglew.spec: bump to 1.5.8
 
 2011-03-04 Milan Jurik <sfnet@xylab.cz>
 
