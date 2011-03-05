@@ -61,11 +61,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-, root, bin)
-%doc Changes README
 %{_bindir}
 %{_prefix}/perl5
 %dir %attr(0755, root, sys) %{_datadir}
-%dir %attr(0755, root, other) %{_docdir}
 %{_mandir}
 
 
