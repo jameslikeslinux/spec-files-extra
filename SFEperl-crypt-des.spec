@@ -13,6 +13,7 @@
 Name:                    SFEperl-crypt-des
 Summary:                 %{source_name}-%{tarball_version} PERL Module
 Version:                 %{perl_version}.%{tarball_version}
+IPS_component_version:   2.5
 Source:                  http://www.cpan.org/modules/by-module/Crypt/%{source_name}-%{tarball_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
