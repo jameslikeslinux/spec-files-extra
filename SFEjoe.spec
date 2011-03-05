@@ -5,16 +5,16 @@
 
 %include Solaris.inc
 
-Name:                SFEjoe
-Summary:             Full feature editor reminiscent of WordStar and Turbo-C
-Version:             3.5
-Source:              %{sf_download}/joe-editor/joe-%{version}.tar.gz
-
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEjoe
+Summary:	Full feature editor reminiscent of WordStar and Turbo-C
+Version:	3.7
+URL:		http://joe-editor.sourceforge.net/
+Source:		%{sf_download}/joe-editor/joe-%{version}.tar.gz
+License:	GPLv2
+Group:		Applications
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
-# Requires:
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -51,10 +51,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
+%{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
+%{_mandir}
+%{_datadir}/joe
 
 %files root
 %defattr (-, root, sys)
@@ -62,6 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/*
 
 %changelog
-* 
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 3.7 
 * Fri Sep 15 2006 - Eric Boutilier
 - Initial spec
