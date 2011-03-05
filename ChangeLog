@@ -5,6 +5,7 @@
 	* SFElibglew.spec: bump to 1.5.8
 	* SFEnasm.spec: bump to 2.09.06
 	* SFEjoe.spec: bump to 3.7
+	* SFEnodejs.spec: bump to 0.4.2, use internal libev
 
 2011-03-04 Milan Jurik <sfnet@xylab.cz>
 

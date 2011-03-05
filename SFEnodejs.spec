@@ -7,16 +7,16 @@
 # package are under the same license as the package itself.
 #
 %include Solaris.inc
-
-%define	src_version 0.2.6
+%define cc_is_gcc 1
+%include base.inc
 
 Summary:	Asynchronous JavaScript Engine  
 Name:		SFEnodejs  
-Version:	0.2.6
+Version:	0.4.2
 License:	BSD  
 Group:		Libraries  
 URL:		http://nodejs.org/  
-Source:		http://nodejs.org/dist/node-v%{src_version}.tar.gz  
+Source:		http://nodejs.org/dist/node-v%{version}.tar.gz  
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
@@ -45,7 +45,7 @@ Group:		Development/Libraries
 Development headers for nodejs.  
 
 %prep  
-%setup -q -n node-v%{src_version}  
+%setup -q -n node-v%{version}  
 
 %build  
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -55,11 +55,11 @@ fi
 
 export CC=gcc
 export CXX=g++
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix} \
-	--shared-cares \
-	--shared-libev \
-	--shared-libev-includes=/usr/include/libev
+	--shared-cares
 
 make -j$CPUS
 
@@ -73,20 +73,23 @@ rm -rf $RPM_BUILD_ROOT
 %files  
 %defattr(-, root, bin)
 %doc AUTHORS ChangeLog LICENSE
-%{_bindir}/node
-%{_bindir}/node-repl
+%{_bindir}
 %{_libdir}/node
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_mandir}/man1/node.1
+%{_mandir}
 
 %files devel  
 %defattr(-, root, bin)  
 %{_bindir}/node-waf
 %{_includedir}/node  
 %{_libdir}/node/wafadmin/  
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
 
 %changelog  
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 0.4.2, use internal libev
 * Wed Jan 05 2011 - Milan Jurik
 - bump to 0.2.6
 * Sun Nov 28 2010 - Milan Jurik
