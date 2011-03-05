@@ -6,11 +6,11 @@
 %include Solaris.inc
 %include osdistro.inc
 
-%define src_version 2.09.04
+%define src_version 2.09.06
 
 Name:                SFEnasm
 Summary:             Portable, modular 80x86 assembler
-Version:             2.9.4
+Version:             2.9.6
 URL:                 http://www.nasm.us/
 Source:              http://www.nasm.us/pub/nasm/releasebuilds/%{src_version}/nasm-%{src_version}.tar.bz2
 License:             2-BSD
@@ -99,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/nasm/*
 
 %changelog
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 2.09.06
 * Tue Nov 30 2010 - Milan Jurik
 - bump to 2.09.04
 * Fri Oct 29 2010 - Thomas Wagner
