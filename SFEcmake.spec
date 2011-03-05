@@ -15,7 +15,7 @@
 
 Name:		SFEcmake
 Summary:	Cross platform make system
-Version:	2.8.3
+Version:	2.8.4
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 URL:		http://www.cmake.org
 Group:		Development/Tools
@@ -66,6 +66,8 @@ rm -rf %{buildroot}
 %{_docdir}/*
 
 %changelog
+* Sat Mar  5 2011 - Alex Viskovatoff
+- bump to 2.8.4
 * Thu Feb 10 2011 - Thomas Wagner
 - fix compile errors on (all) distros if configure thinks that EXT2 is present
   (archive_write_disk.c", line 2237: warning: implicit function declaration: _IOR)
