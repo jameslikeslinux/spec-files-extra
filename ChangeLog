@@ -1,3 +1,7 @@
+2011-03-05 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEusbmodeswitch.spec: bump to 1.1.7
+
 2011-03-04 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgcc.spec: RUNPATH enforced to contain /usr/gnu/lib, libs symlinked
