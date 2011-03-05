@@ -6,10 +6,10 @@
 %include Solaris.inc
 
 %define	src_name libev
-%define	src_version 4.01
+%define	src_version 4.04
 
 Name:		SFElibev
-Version:	4.0.0.1
+Version:	4.0.0.4
 Summary:	High-performance event loop/event model with lots of features
 Group:		System Environment/Libraries
 License:	BSD or GPLv2+
@@ -84,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 4.04
 * Fri Nov 12 2010 - Milan Jurik
 - bump to 4.01
 * Thu Sep 07 2010 - Milan Jurik
