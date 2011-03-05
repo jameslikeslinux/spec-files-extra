@@ -21,8 +21,6 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 
-BuildRequires:	SFElibev-devel  
-Requires:	SFElibev
 BuildRequires:	SFEc-ares-devel
 Requires:	SFEc-ares
 Requires:	SUNWgccruntime
