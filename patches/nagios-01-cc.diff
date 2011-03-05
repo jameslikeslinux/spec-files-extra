@@ -1,0 +1,11 @@
+--- nagios-3.2.3/module/Makefile.in	2007-12-15 00:02:24.000000000 +0100
++++ /export/home/jurikm/Projekty/nagios-3.2.3/module/Makefile.in	2011-03-05 13:37:47.773141988 +0100
+@@ -28,7 +28,7 @@
+ all:	helloworld.o
+ 
+ helloworld.o: helloworld.c
+-	$(CC) $(MOD_CFLAGS) $(CFLAGS) -o helloworld.o helloworld.c $(MOD_LDFLAGS) $(LDFLAGS) $(LIBS)
++	$(CC) $(MOD_CFLAGS) $(CFLAGS) -c -o helloworld.o helloworld.c $(MOD_LDFLAGS) $(LDFLAGS) $(LIBS)
+ 
+ clean:
+ 	rm -f helloworld.o
