@@ -4,7 +4,7 @@
 # includes module(s): Digest-SHA1
 #
 
-%define module_version 2.12
+%define module_version 2.13
 %define module_name Digest-SHA1
 %define module_name_major Digest
 %define module_package_name digest-sha1
@@ -72,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 2.13
 * Tue Mar 02 2010 - matt@greenviolet.net
 - Bump version to 2.12
 - Removed dependency on obsolete SUNSsfwhea

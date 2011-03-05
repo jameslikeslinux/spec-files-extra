@@ -6,6 +6,7 @@
 	* SFEnasm.spec: bump to 2.09.06
 	* SFEjoe.spec: bump to 3.7
 	* SFEnodejs.spec: bump to 0.4.2, use internal libev
+	* SFEperl-digest-sha1.spec: bump to 2.13
 
 2011-03-04 Milan Jurik <sfnet@xylab.cz>
 
