@@ -1,3 +1,8 @@
+2011-03-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnagios.spec: fix config issues
+	* SFEnagios-plugins.spec: fix Solaris build
+
 2011-03-06 James Choi <jchoi42@pha.jhu.edu>
 
 	* encumbered/SFEhandbrake.spec: use packagenamemacros.inc for smart

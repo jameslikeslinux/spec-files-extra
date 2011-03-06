@@ -15,6 +15,7 @@ Group:		Applications/System
 License:	GPLv2
 URL:		http://www.nagios.org/
 Source:		%{sf_download}/nagios/nagios-%{version}.tar.gz
+Source1:	nagios.xml
 Patch1:		nagios-01-cc.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:   %{_basedir}
@@ -124,8 +125,23 @@ install -d -m 0755 %{buildroot}%{_sysconfdir}/nagios/private
 install -d -m 0755 %{buildroot}%{_libdir}/nagios/plugins/eventhandlers
 install -d -m 0775 %{buildroot}%{_includedir}/nagios
 install -D -m 0644 include/locations.h %{buildroot}%{_includedir}/nagios/locations.h
-
 install -d -m 0755 %{buildroot}%{_localstatedir}/spool/nagios
+
+install -m 0644 sample-config/cgi.cfg %{buildroot}%{_sysconfdir}/nagios/cgi.cfg
+install -m 0644 sample-config/mrtg.cfg %{buildroot}%{_sysconfdir}/nagios/mrtg.cfg
+install -m 0644 sample-config/nagios.cfg %{buildroot}%{_sysconfdir}/nagios/nagios.cfg
+install -m 0644 sample-config/resource.cfg %{buildroot}%{_sysconfdir}/nagios/resource.cfg
+install -m 0644 sample-config/template-object/commands.cfg  %{buildroot}%{_sysconfdir}/nagios/objects/commands.cfg
+install -m 0644 sample-config/template-object/contacts.cfg %{buildroot}%{_sysconfdir}/nagios/objects/contacts.cfg
+install -m 0644 sample-config/template-object/localhost.cfg %{buildroot}%{_sysconfdir}/nagios/objects/localhost.cfg
+install -m 0644 sample-config/template-object/printer.cfg %{buildroot}%{_sysconfdir}/nagios/objects/printer.cfg
+install -m 0644 sample-config/template-object/switch.cfg %{buildroot}%{_sysconfdir}/nagios/objects/switch.cfg
+install -m 0644 sample-config/template-object/templates.cfg %{buildroot}%{_sysconfdir}/nagios/objects/templates.cfg
+install -m 0644 sample-config/template-object/timeperiods.cfg %{buildroot}%{_sysconfdir}/nagios/objects/timeperiods.cfg
+install -m 0644 sample-config/template-object/windows.cfg %{buildroot}%{_sysconfdir}/nagios/objects/windows.cfg
+
+install -d 0755 %{buildroot}%/var/svc/manifest/site
+install -m 0644 %{SOURCE1} %{buildroot}%/var/svc/manifest/site
 
 %clean
 rm -rf %{buildroot}
@@ -145,8 +161,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 %actions
 group groupname="nagios"
-user ftpuser=false gcos-field="Unbound Reserved UID" username="nagios" password=NP group="nagios"
-
+user ftpuser=false gcos-field="Nagios Reserved UID" username="nagios" password=NP group="nagios"
+# need to add user webservd to nagios group
 
 %files
 %defattr(-, root, bin)
@@ -159,7 +175,7 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="nagios" password=
 %{_datadir}/nagios/html/[^d]*
 %{_datadir}/nagios/html/[^m]*
 %{_datadir}/nagios/html/[^s]*
-%attr(0640, root, bin) %config(noreplace) %{_datadir}/nagios/html/config.inc.php
+%attr(0644, root, bin) %config(noreplace) %{_datadir}/nagios/html/config.inc.php
 %dir %attr (0755, root, bin) %{_sbindir}
 %{_sbindir}/*
 %{_libdir}/nagios/cgi-bin/*cgi
@@ -173,21 +189,29 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="nagios" password=
 %dir %attr(0755, root, bin) %{_sysconfdir}/apache2/2.2
 %dir %attr(0755, root, bin) %{_sysconfdir}/apache2/2.2/conf.d
 %config(noreplace) %{_sysconfdir}/apache2/2.2/conf.d/nagios.conf
-%dir %attr(0750, root,nagios) %{_sysconfdir}/nagios/private
-%dir %attr(0750, root,nagios) %{_sysconfdir}/nagios/objects
+%dir %attr(0750, root, nagios) %{_sysconfdir}/nagios
+%config(noreplace) %{_sysconfdir}/nagios/*cfg
+%dir %attr(0750, root, nagios) %{_sysconfdir}/nagios/objects
+%config(noreplace) %{_sysconfdir}/nagios/objects/*cfg
+%dir %attr(0750, root, nagios) %{_sysconfdir}/nagios/private
 %dir %attr(0755, root, bin) %{_localstatedir}/spool
-%dir %attr(0755,nagios,nagios) %{_localstatedir}/spool/nagios
-%dir %attr(0750,nagios,nagios) %{_localstatedir}/log/nagios
-%dir %attr(0750,nagios,nagios) %{_localstatedir}/log/nagios/archives
-%dir %attr(2775,nagios,nagios) %{_localstatedir}/log/nagios/rw
-%dir %attr(0750,nagios,nagios) %{_localstatedir}/log/nagios/spool/
-%dir %attr(0750,nagios,nagios) %{_localstatedir}/log/nagios/spool/checkresults
+%dir %attr(0755, nagios, nagios) %{_localstatedir}/spool/nagios
+%dir %attr(0750, nagios, nagios) %{_localstatedir}/log/nagios
+%dir %attr(0750, nagios, nagios) %{_localstatedir}/log/nagios/archives
+%dir %attr(2775, nagios, nagios) %{_localstatedir}/log/nagios/rw
+%dir %attr(0750, nagios, nagios) %{_localstatedir}/log/nagios/spool/
+%dir %attr(0750, nagios,nagios) %{_localstatedir}/log/nagios/spool/checkresults
+%dir %attr (0755, root, sys) %{_localstatedir}/svc
+%dir %attr (0755, root, sys) %{_localstatedir}/svc/manifest
+%dir %attr (0755, root, sys) %{_localstatedir}/svc/manifest/site
+%class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/nagios.xml
 
 %files devel
 %defattr(-, root, bin)
 %{_includedir}/nagios
 
-
 %changelog
-* Sat mar 05 2011 - Milan Jurik
+* Sun Mar 06 2011 - Milan Jurik
+- fix config issues
+* Sat Mar 05 2011 - Milan Jurik
 - initial spec based on Fedora

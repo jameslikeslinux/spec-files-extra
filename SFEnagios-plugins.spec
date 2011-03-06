@@ -48,8 +48,12 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+%ifarch sparcv9
+export CFLAGS="-I/usr/include/kerberosv5"
+%else
 export CFLAGS="%{optflags} -I/usr/include/kerberosv5"
 export LDFLAGS="%{_ldflags}"
+%endif
 
 ./configure \
 	--with-cgiurl=/nagios/cgi-bin \
@@ -75,5 +79,7 @@ rm -rf %{buildroot}
 %{_libdir}
 
 %changelog
-* Sat mar 05 2011 - Milan Jurik
+* Sun Mar 06 2011 - Milan Jurik
+- fix Solaris build
+* Sat Mar 05 2011 - Milan Jurik
 - initial spec
