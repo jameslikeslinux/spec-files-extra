@@ -38,17 +38,10 @@ BuildRequires: SFEffmpeg-devel
 BuildRequires: SFElibx264-devel
 BuildRequires: SFElibao-devel
 BuildRequires: SFElibiconv-devel
-# TODO: migrate SFE/SUNW detection to packagenamemacros.inc format
-#BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
-#Requires:       %{pnm_requires_SUNWlibmikmod}
-%define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
-%if %SFElibmikmod
-BuildRequires: SFElibmikmod-devel
-Requires: SFElibmikmod
-%else
-BuildRequires: SUNWlibmikmod-devel
-Requires: SUNWlibmikmod
-%endif
+
+Requires:       %{pnm_requires_SUNWlibmikmod}
+BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod}
+
 # TODO: more dependencies?
 
 
@@ -84,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 25 2011 - jchoi42@pha.jhu.edu
+- migrate SFE/SUNW detection to packagenamemacros.inc format
 * Sat Feb 05 2011 - jchoi42@pha.jhu.edu
 - fix dependencies, fix ldflags, add smart libmikmod detection
 * Wed Dec 16 2010 - jchoi42@pha.jhu.edu

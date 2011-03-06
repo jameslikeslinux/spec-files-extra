@@ -7,12 +7,15 @@
 
 %define	src_name libgeotiff
 %define	src_url	ftp://ftp.remotesensing.org/pub/geotiff/%{src_name}
+#%define fullrevision 1.3.0RC2
+%define fullrevision 1.3.0
 
 Name:                SFElibgeotiff
 Summary:             library for writing GeoTIFF information tags of tiff files
-Version:             1.2.4
-Source:              %{src_url}/%{src_name}-%{version}.tar.gz
-Patch1:		     libgeotiff-01-shared.diff
+Version:             1.3.0
+#Source:              %{src_url}/%{src_name}-%{version}.tar.gz
+Source:              %{src_url}/%{src_name}-%{fullrevision}.tar.gz
+#Patch1:		     libgeotiff-01-shared.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -31,7 +34,7 @@ Requires: %name
 
 %prep
 %setup -q -n %{src_name}-%version
-%patch1 -p1
+#%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -78,5 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Thu Feb 24 2011 - jchoi42@pha.jhu.edu
+- Bump to 1.3.0 RC2. Update patches.
 * Sun Jul 29 2007 - dougs@truemail.co.th
 - Initial spec
