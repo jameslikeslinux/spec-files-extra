@@ -46,7 +46,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export PATH=$PATH:/usr/stdcxx/bin
+export PATH=/usr/stdcxx/bin:$PATH
 export QMAKESPEC=solaris-cc-stdcxx
 export QTDIR=/usr/stdcxx
 qmake PREFIX=$RPM_BUILD_ROOT%_basedir

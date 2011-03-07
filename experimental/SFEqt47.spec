@@ -180,7 +180,6 @@ export LDFLAGS="%_ldflags -library=stdcxx4"
 
 
 # 4.6.3 runs into trouble with examples, so disable examples and demos.
-# 4.7.0 runs into trouble with phonon, so don't build that.
 
 # Assume i386 CPU is not higher than Pentium
 # This can be changed locally if your CPU is newer
@@ -195,8 +194,6 @@ echo yes | ./configure -prefix %{_prefix} \
            -translationdir %{_datadir}/qt/translations \
            -nomake examples \
            -nomake demos \
-           -no-phonon \
-           -no-phonon-backend \
            -no-exceptions \
            -sysconfdir %{_sysconfdir}
 
@@ -260,6 +257,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Mar  6 2011 - Alex Viskovatoff
+- Enable Phonon, since it builds now
 * Tue Mar  1 2011 - Alex Viskovatoff
 - Patch /usr/stdcxx/share/qt/mkspecs/solaris-g++/qmake.conf
 * Fri Jan 28 2011 - Alex Viskovatoff

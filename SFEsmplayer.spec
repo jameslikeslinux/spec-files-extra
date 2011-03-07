@@ -39,7 +39,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export LIBS=-lz
-export PATH=$PATH:/usr/stdcxx/bin
+export PATH=/usr/stdcxx/bin:$PATH
 export QMAKESPEC=solaris-cc-stdcxx
 export QTDIR=/usr/stdcxx
 gmake -j$CPUS PREFIX=%_basedir
