@@ -20,8 +20,8 @@ Group:          Network
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 %include default-depend.inc
-BuildRequires:  bdb
-Requires:       bdb
+BuildRequires:  SFEbdb
+Requires:       SFEbdb
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_Basedir:   /
 %define _sysconfdir /etc
@@ -58,6 +58,7 @@ export CFLAGS="%optflags -xc99=all "
             --with-spooldir=%{_localstatedir}/spool/netatalk  \
             --disable-ddp                        \
             --with-pam \
+            --with-bdb/=usr/gnu \
             --enable-nfsv4acls
 
 make
@@ -149,7 +150,10 @@ rm -rf %name-%version
 
 
 %changelog
-* Di Jun 29 2010 -  Michal Bielicki cypromis@opensolaris.org
+* Sat Mar 12 2011 - Thomas Wagner
+- clean up SourceJucier dependencies: (Build)Requires  s/bdb/SFEbdb/
+- add --with-bdb=/usr/gnu
+* Tue Jun 29 2010 -  Michal Bielicki cypromis@opensolaris.org
 - bumped up version to 2.1.2
 - fixed some missing included
 - fixed files
