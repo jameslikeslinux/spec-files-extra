@@ -71,6 +71,8 @@ rm -rf $RPM_BUILD_ROOT
   MANDIR=$RPM_BUILD_ROOT%{_mandir}
 
 install -D -m 755 distrib/initscripts/rc.atalk.sysv $RPM_BUILD_ROOT%{_sysconfdir}/init.d/netatalk
+
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/spool/netatalk
 rm -rf $RPM_BUILD_ROOT/var/tmp
 rm -rf $RPM_BUILD_ROOT/usr/lib/security
 
@@ -151,6 +153,8 @@ rm -rf %name-%version
 
 %changelog
 * Sat Mar 12 2011 - Thomas Wagner
+- mkdir -p spool directory (packaging error)
+- remove typo in --with-bdb
 - clean up SourceJucier dependencies: (Build)Requires  s/bdb/SFEbdb/
 - add --with-bdb=/usr/gnu
 * Tue Jun 29 2010 -  Michal Bielicki cypromis@opensolaris.org
