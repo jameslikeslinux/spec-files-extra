@@ -2,6 +2,7 @@
 
 	* SFErakudo-perl.spec: initial spec
 	* SFEparrot.spec: initial spec
+	* SFExchat.spec: initial spec
 	* SFEstellarium.spec: use SFEcmake
 
 2011-03-12  Thomas Wagner  <tom68@users.sourceforge.net>
