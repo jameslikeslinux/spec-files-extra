@@ -58,7 +58,7 @@ export CFLAGS="%optflags -xc99=all "
             --with-spooldir=%{_localstatedir}/spool/netatalk  \
             --disable-ddp                        \
             --with-pam \
-            --with-bdb/=usr/gnu \
+            --with-bdb=/usr/gnu \
             --enable-nfsv4acls
 
 make
