@@ -16,8 +16,12 @@
 ##TODO## think on usr-gnu.inc define infodir inside /usr/gnu/share to avoid conflicts
 %define _infodir	%{_datadir}/info
 
-%define SFEgmp	%(/usr/bin/pkginfo -q SFEgmp && echo 1 || echo 0)
-%define SFEmpfr	%(/usr/bin/pkginfo -q SFEmpfr && echo 1 || echo 0)
+##TODO## move to packagenamemacros.inc to specify which osbuild supplies
+#suffiently *fresh* library versions of gmp and mpfr
+#%define SFEgmp	%(/usr/bin/pkginfo -q SFEgmp && echo 1 || echo 0)
+%define SFEgmp	1
+#%define SFEmpfr	%(/usr/bin/pkginfo -q SFEmpfr && echo 1 || echo 0)
+%define SFEmpfr	1
 
 Name:		SFElibmpc
 Summary:	%{libmpc.summary}
@@ -126,6 +130,10 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Sat Mar 12 2011 - Thomas Wagner
+- make SFEgmp and SFEmpfr a hard requirement to overide autodetect 
+  (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with --autodeps)
+  for primary use as gcc4 supporting lib
 * Tue Mar 01 2011 - Milan Jurik
 - start proper multiarch
 * Sat Oct 23 2010 - Thomas Wagner

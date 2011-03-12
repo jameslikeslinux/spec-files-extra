@@ -1,3 +1,8 @@
+2011-03-12  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFElibmpc.spec: make SFEgmp and SFEmpfr a hard requirement to overide 
+          autodetect (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with --autodeps)
+
 2011-03-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEnagios.spec: fix config issues
