@@ -18,9 +18,6 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SUNWgmake
-BuildRequires: SUNWgnu-coreutils
-BuildRequires: SUNWgtar
 BuildRequires: SFEqt47-devel
 BuildRequires: SFEchmlib
 
@@ -41,7 +38,8 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
-export PATH=$PATH:/usr/stdcxx/bin
+
+export PATH=/usr/stdcxx/bin:$PATH
 export QMAKESPEC=solaris-cc-stdcxx
 export QTDIR=/usr/stdcxx
 
@@ -64,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 12 2011 - Alex Viskovatoff
+- Place /usr/stdcxx/bin at front of PATH
 * Fri Jan 28 2011 - Alex Viskovatoff
 - Accommodate to Qt being in /usr/stdcxx
 * Mon Jan 24 2011 - Alex Viskovatoff

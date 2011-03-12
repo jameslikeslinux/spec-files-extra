@@ -25,11 +25,9 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires: SFEsdl-mixer-devel
 Requires: SFEsdl-mixer
 BuildRequires: SUNWimagick
-BuildRequires: SUNWcmake
+BuildRequires: SFEcmake
 BuildRequires: SFEqt4-devel
 Requires: SFEqt4
-BuildRequires: SFEboost-devel
-Requires: SFEboost
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -72,11 +70,7 @@ convert -size 32x32 data/icon.bmp stellarium.png
 %install
 rm -rf %{buildroot}
 cd builds/unix
-#non-SUNWcmake
-#make install DESTDIR=%{buildroot} INSTALL="%{_bindir}/ginstall -c -p"
-mkdir -p %{buildroot}%{_prefix}
-make install INSTALL="%{_bindir}/ginstall -c -p"
-cp -r sfw_stage/* %{buildroot}%{_prefix}
+make install DESTDIR=%{buildroot} INSTALL="%{_bindir}/ginstall -c -p"
 cd ../..
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/
@@ -108,5 +102,7 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Mar  7 2011 - Alex Viskovatoff
+- use SFEcmake; boost is not a dependency
 * Tue Feb 08 2011 - Milan Jurik
 - initial spec
