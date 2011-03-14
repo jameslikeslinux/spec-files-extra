@@ -10,8 +10,9 @@
 ##NOTE## most likely the package name will change to SFEgcc-43 and another empty
 ##       package SFEgcc will be created always requiring the latest SFEgcc-<major><minor>
 ##NOTE## If you experience problems with that version bump, please drop us a note
-##NOTE## you will need the symlink rename and need 
-##       pkg uninstall SFEgccruntime and SFEgcc to get this spec build successfully.
+##NOTE## you will need "pkg uninstall SFEgccruntime and SFEgcc" *before* you can
+#        to get this spec build successfully. Reason: older runtime-libs interfere
+#        with building this eventually incompatible, newer gcc runtime from this spec
 
 
 # to more widely test if this change causes regressions, by default off:
@@ -315,6 +316,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
 
+#link runtime libs, for compatibility
+#note: links only "basename_of_lib", then "major"-number version libs
+#leaves out "minor" and "micro" version libs, they are normally not
+#to be linked by userland binaries (runtime linking, see output of "ldd binaryname")
 mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}
 cd $RPM_BUILD_ROOT%{_gnu_libdir}
 ln -s ../../gcc/4.5/lib/libgcc_s.so.1
@@ -331,6 +336,7 @@ ln -s ../../gcc/4.5/lib/libssp.so.0
 ln -s ../../gcc/4.5/lib/libssp.so
 ln -s ../../gcc/4.5/lib/libstdc++.so.6
 ln -s ../../gcc/4.5/lib/libstdc++.so
+#link arch runtime libs for compatibility
 %ifarch amd64 sparcv9
 mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
 cd $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
@@ -349,6 +355,43 @@ ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so
 ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so.6
 ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
 %endif
+
+#link binaries into usual place the former SFEgcc used and 
+#a lot of spec files still use and are as well the recommended
+#paths to specify just what the "default" SFEgcc 4-series
+#compiler is called from. Note: binaries built that way *may*
+#point to libraries found in a compiler major.minor specific
+#directory in /usr/gcc/<majornumber>.<minornumber> 
+#This is in preparation for eventually getting a meta-level
+#package SFEgcc (contains symlinks only into /usr/gcc/<majornumber>.<minornumber>,
+#and is the package Requirement written in customer spec files.
+#below that SFEgcc packages, a SFEgcc-452 exists with the real compiler in it
+
+#NOTE: the os-distro delivers the "SFW" version of gcc 3.x.x
+#and therefore does deliver links into /usr/gnu/bin:
+#/usr/gnu/bin/cc    ->    ../../sfw/bin/gcc     (stays)
+#/usr/gnu/bin/cpp   ->    ../../sfw/bin/cpp     (stays, interferes with us)
+#we do exclude "cpp" from this SFEgcc.spec for that reason!
+
+#link binaries, enables CC=/usr/gnu/bin/gcc CXX=/usr/gnu/bin/g++ 
+#to get SFEgcc.spec version 4.x compiler in use without specifying
+#the exact SFEgcc compiler version number, just use the most recent 4.x.x
+mkdir -p $RPM_BUILD_ROOT%{_gnu_bindir}
+cd $RPM_BUILD_ROOT%{_gnu_bindir}
+ln -s ../../gcc/4.5/bin/c++
+# leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/4.5/bin/cpp
+ln -s ../../gcc/4.5/bin/g++
+ln -s ../../gcc/4.5/bin/gcc
+ln -s ../../gcc/4.5/bin/gccbug
+ln -s ../../gcc/4.5/bin/gcov
+ln -s ../../gcc/4.5/bin/gfortran
+#most likely not needed are those, you can specify in your spec file
+#/usr/gcc/4.5/bin/i386-pc-solaris2.11-* if you really want
+#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-c++
+#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-g++
+#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc
+#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc-4.5.2
+#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gfortran
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
@@ -430,6 +473,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Mar 12 2011 - Thomas Wagner
+- make symlinks to get SFEgcc.spec version 4.x.x to have the gcc 4.x.x
+  default compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++ 
+  and /usr/gnu/bin/gfortran ...
 * Fri Mar 04 2011 - Milan Jurik
 - RUNPATH enforced to contain /usr/gnu/lib, libs symlinked to /usr/gnu/lib
 * Wed Mar 02 2011 - Milan Jurik
