@@ -1,0 +1,11 @@
+diff -urN weechat-0.3.3.orig/src/plugins/scripts/ruby/weechat-ruby.c weechat-0.3.3/src/plugins/scripts/ruby/weechat-ruby.c
+--- weechat-0.3.3.orig/src/plugins/scripts/ruby/weechat-ruby.c	2010-06-21 12:33:42.000000000 +0200
++++ weechat-0.3.3/src/plugins/scripts/ruby/weechat-ruby.c	2010-11-08 16:33:02.000000000 +0100
+@@ -32,6 +32,7 @@
+ #include <stdarg.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#include <time.h>
+ 
+ #include "../../weechat-plugin.h"
+ #include "../script.h"

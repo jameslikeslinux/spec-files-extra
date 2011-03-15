@@ -1,5 +1,13 @@
+2011-03-14 Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* experimental/SFEgcc-46.spec: new spec forked off earlier version
+	  of SFEgcc.spec, without the /usr/gnu/bin symlinks
+	* SFEweechat.spec: initial spec
+	* SFEtmux.spec: initial spec
+	* SFElibevent.spec: use %optflags
+
 2011-03-14  Thomas Wagner  <tom68@users.sourceforge.net>
-   
+
         * SFEgcc.spec: make symlinks to have the gcc 4.x.x default
           compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++
           and /usr/gnu/bin/gfortran

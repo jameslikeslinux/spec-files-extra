@@ -1,0 +1,97 @@
+--- src/core/wee-command.c.orig	2011-01-16 16:12:43.000000000 +0100
++++ src/core/wee-command.c	2011-01-16 16:13:34.000000000 +0100
+@@ -3898,11 +3898,8 @@
+         if (translated_string)
+         {
+             snprintf (string, sizeof (string),
+-                      "WeeChat %s [%s %s %s]",
+-                      PACKAGE_VERSION,
+-                      _("compiled on"),
+-                      __DATE__,
+-                      __TIME__);
++                      "WeeChat %s",
++                      PACKAGE_VERSION);
+             input_data (buffer, string);
+             if (weechat_upgrade_count > 0)
+             {
+@@ -3918,11 +3915,8 @@
+         else
+         {
+             snprintf (string, sizeof (string),
+-                      "WeeChat %s [%s %s %s]",
+-                      PACKAGE_VERSION,
+-                      "compiled on",
+-                      __DATE__,
+-                      __TIME__);
++                      "WeeChat %s",
++                      PACKAGE_VERSION);
+             input_data (buffer, string);
+             if (weechat_upgrade_count > 0)
+             {
+@@ -3938,14 +3932,9 @@
+     }
+     else
+     {
+-        gui_chat_printf (NULL, "%sWeeChat %s %s[%s%s %s %s%s]",
++        gui_chat_printf (NULL, "%sWeeChat %s %s",
+                          GUI_COLOR(GUI_COLOR_CHAT_BUFFER),
+                          PACKAGE_VERSION,
+-                         GUI_COLOR(GUI_COLOR_CHAT_DELIMITERS),
+-                         GUI_COLOR(GUI_COLOR_CHAT_VALUE),
+-                         _("compiled on"),
+-                         __DATE__,
+-                         __TIME__,
+                          GUI_COLOR(GUI_COLOR_CHAT_DELIMITERS));
+         if (weechat_upgrade_count > 0)
+         {
+--- src/core/wee-log.c.orig	2011-01-16 16:12:05.000000000 +0100
++++ src/core/wee-log.c	2011-01-16 16:12:22.000000000 +0100
+@@ -114,8 +114,6 @@
+                                 "with another home using \"--dir\" command line option.\n"));
+         exit (1);
+     }
+-    log_printf ("%s (%s %s %s)",
+-                PACKAGE_STRING, _("compiled on"), __DATE__, __TIME__);
+ }
+ 
+ /*
+--- src/core/wee-backtrace.c.orig	2011-01-16 16:13:39.000000000 +0100
++++ src/core/wee-backtrace.c	2011-01-16 16:13:49.000000000 +0100
+@@ -161,8 +161,8 @@
+ #endif
+ 
+     weechat_backtrace_printf ("======= WeeChat backtrace =======");
+-    weechat_backtrace_printf ("(written by %s, compiled on %s %s)",
+-                              PACKAGE_STRING, __DATE__, __TIME__);
++    weechat_backtrace_printf ("(written by %s)",
++                              PACKAGE_STRING);
+ 
+ #ifdef HAVE_BACKTRACE
+     trace_size = backtrace (trace, BACKTRACE_MAX);
+--- src/core/weechat.c.orig	2011-01-16 16:12:27.000000000 +0100
++++ src/core/weechat.c	2011-01-16 16:12:38.000000000 +0100
+@@ -113,11 +113,11 @@
+     string_iconv_fprintf (stdout, "\n");
+     string_iconv_fprintf (stdout,
+                           /* TRANSLATORS: "%s %s" after "compiled on" is date and time */
+-                          _("WeeChat %s Copyright %s, compiled on %s %s\n"
++                          _("WeeChat %s Copyright %s\n"
+                             "Developed by Sebastien Helleu <flashcode@flashtux.org> "
+                             "- %s"),
+                           PACKAGE_VERSION, WEECHAT_COPYRIGHT_DATE,
+-                          __DATE__, __TIME__, WEECHAT_WEBSITE);
++                          WEECHAT_WEBSITE);
+     string_iconv_fprintf (stdout, "\n");
+ }
+ 
+--- src/plugins/plugin-api.c.orig	2011-01-16 16:13:55.000000000 +0100
++++ src/plugins/plugin-api.c	2011-01-16 16:14:16.000000000 +0100
+@@ -287,7 +287,7 @@
+     }
+     else if (string_strcasecmp (info_name, "date") == 0)
+     {
+-        return __DATE__;
++        return "";
+     }
+     else if (string_strcasecmp (info_name, "dir_separator") == 0)
+     {

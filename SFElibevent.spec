@@ -4,6 +4,7 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%define _pkg_docdir %_docdir/libevent
 
 Name:                SFElibevent
 Summary:             An event notification library for event-driven network servers.
@@ -26,14 +27,12 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-#export CC=/usr/sfw/bin/gcc
-#export CXX=/usr/sfw/bin/g++
-#export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
-export CFLAGS="-xO4"
+export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
 ./configure --prefix=%{_prefix}  \
-            --mandir=%{_mandir}
+            --mandir=%{_mandir}  \
+            --disable-static
 
 make -j$CPUS
 
@@ -42,13 +41,13 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm ${RPM_BUILD_ROOT}%{_libdir}/libevent*.la
-rm ${RPM_BUILD_ROOT}%{_libdir}/libevent*.a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%doc README ChangeLog
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/event_rpcgen.py
 %dir %attr (0755, root, bin) %{_libdir}
@@ -61,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Mar 14 2011 - Alex Viskovatoff
+- use %optflags
 * Mon Jan 10 2011 - Thomas Wagner
 - new download URL, original site currently down
 * Wed May 13 2010 - Milan Jurik

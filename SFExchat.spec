@@ -8,7 +8,7 @@
 %define srcname xchat
 
 Name:		SFE%srcname
-Summary:	A multiplatform IRC client using GTK+
+Summary:	Multiplatform IRC client using GTK+
 URL:		http://xchat.org/
 Vendor:		Peter Železný <zed@xchat.org>
 Version:	2.8.8
@@ -20,11 +20,13 @@ BuildRoot:	%_tmppath/%name-%version-build
 
 # NOTE: There are probably other dependencies: feel free to add them.
 # Probably it would be easiest to require something that pulls the usual
-# OpenSolaris Gnome stuff in
+# OpenSolaris Gnome stuff in.
 BuildRequires:	SUNWgtk2-devel
 BuildRequires:	SUNWdbus-devel
 Requires:	SUNWgtk2
 Requires:	SUNWdbus
+# desktop/irc/xchat is currently at 2.8.6, although IPS says it's 0.5.11
+Conflicts:	SUNWxchat
 
 Requires: %name-root
 %package root
