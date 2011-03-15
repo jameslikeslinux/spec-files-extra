@@ -12,7 +12,7 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 %define  radiususer  freerad
-%define  raidusuid   110
+%define  radiusuid   110
 %define  radiusgroup freerad
 %define  radiusgid   128
 
@@ -163,10 +163,9 @@ rm -rf $RPM_BUILD_ROOT
 %iclass renamenew -f i.renamenew
 
 #IPS
-##TODO## is is possible to predefine the numeric GID and UID?
 %actions
-group groupname="%{radiusgroup}"
-user ftpuser=false gcos-field="freeradius" username="%{radiususer}" password=NP group="%{radiusgroup}"
+group groupname="%{radiusgroup}" gid="%{radiusgid}"
+user ftpuser=false gcos-field="freeradius" username="%{radiususer}" uid="%{radiusuid}" password=NP group="%{radiusgroup}"
 
 
 #SVR4 (e.g. Solaris 10, SXCE)
@@ -176,7 +175,7 @@ user ftpuser=false gcos-field="freeradius" username="%{radiususer}" password=NP 
 ( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
   echo 'retval=0';
   echo 'getent group %{radiusgroup} || groupadd -g %{radiusgid} %{radiusgroup} ';
-  echo 'getent passwd %{radiususer} || useradd -d /etc/raddb -g %{radiusgroup} -s /bin/false  -u %{raidusuid} %{radiususer}';
+  echo 'getent passwd %{radiususer} || useradd -d /etc/raddb -g %{radiusgroup} -s /bin/false  -u %{radiusuid} %{radiususer}';
   echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
 
 #%postun root
@@ -258,6 +257,9 @@ user ftpuser=false gcos-field="freeradius" username="%{radiususer}" password=NP 
 
 
 %changelog
+* Tue Mar 15 2011 - Thomas Wagner
+- add missing predefined numeric gid="%{daemongid}" and uid="%{radiusuid} to %actions
+- typo: s/raidusuid/radiusuid/
 * Tue Jan 18 2011 - Thomas Wagner
 - tweaked drivers/rlm_sql_mysql/Makefile and Make.inc to not catch the wrong
   mysql /usr/sfw/lib/libmysqlclient_r.so.12 from sfw
