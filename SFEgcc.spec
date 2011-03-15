@@ -87,6 +87,7 @@
 
 %define _prefix /usr/gcc/4.5
 %define _infodir %{_prefix}/info
+%define _gnu_bindir %{_basedir}/gnu/bin
 %define _gnu_libdir %{_basedir}/gnu/lib
 
 Name:                SFEgccruntime
@@ -473,6 +474,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Mar 15 2011 - Thomas Wagner
+- add missing %define _gnu_bindir %{_basedir}/gnu/bin
 * Sat Mar 12 2011 - Thomas Wagner
 - make symlinks to get SFEgcc.spec version 4.x.x to have the gcc 4.x.x
   default compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++ 
