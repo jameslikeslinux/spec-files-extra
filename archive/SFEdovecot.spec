@@ -5,23 +5,22 @@
 
 # NOTE: READ THE WIKI page for SFEdovecot.spec : http://pkgbuild.wiki.sourceforge.net/SFEdovecot.spec
 
+##TODO## %action to create dovecot userid on IPS 
+##TODO## check if adding pam settings is necessary (by one-time SMF service)
+##TODO## add convenient helper for generating a default configuration file, by default with SSL enabled
+##TODO## add convenient helper for generating SSL-certificates, make one-time SMF service calling that helper on request
+
 %define src_name dovecot
 # maybe set to nullstring outside release-candidates (example: 1.1/rc  or just 1.1)
 #%define downloadversion	 1.1/rc
-%define downloadversion	 2.0
-%define  daemonuser  dovecot
-%define  daemonuid   111
-%define  daemongroup other
-%define  daemongid   1
+%define downloadversion	 1.2
 
 %include Solaris.inc
-%include packagenamemacros.inc
-
 Name:                    SFEdovecot
 Summary:                 dovecot - A Maildir based pop3/imap email daemon
 URL:                     http://www.dovecot.org
 #note: see downloadversion above
-Version:                 2.0.11
+Version:                 1.2.16
 Source:                  http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
 Source2:		dovecot.xml
 
@@ -30,9 +29,9 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWzlib
-BuildRequires: %{pnm_buildrequires_SUNWopenssl_include}
+BuildRequires: SUNWopenssl-include
 Requires: SUNWzlib
-Requires: %{pnm_requires_SUNWopenssl_libraries}
+Requires: SUNWopenssl-libraries
 
 %include default-depend.inc
 
@@ -68,7 +67,7 @@ export CFLAGS="%optflags"
             --libexecdir=%{_libexecdir}         \
             --with-moduledir=%{_libexecdir}/%{src_name}/modules \
             --datadir=%{_datadir}	\
-            --sysconfdir=%{_sysconfdir} \
+            --sysconfdir=%{_sysconfdir}/%{src_name} \
             --enable-shared		\
             --with-rundir=%{_localstatedir}/run/%{src_name} \
             --enable-header-install \
@@ -91,34 +90,9 @@ cp dovecot.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
-#IPS
-##TODO## is is possible to predefine the numeric GID and UID?
-%actions
-group groupname="%{daemongroup}" gid="%{daemongid}"
-user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{daemonuid} password=NP group="%{daemongroup}"
-
-#SVR4 (e.g. Solaris 10, SXCE)
-#must run immediately to create the needed userid and groupid to be assigned to the files
-#NOTE: if given GID or UID is already engaged, the next free ID is chosen automaticly
-%pre root
-( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
-  echo 'retval=0';
-  echo 'getent group %{daemongroup} || groupadd -g %{daemongid} %{daemongroup} ';
-  echo 'getent passwd %{daemonuser} || useradd -d /etc/raddb -g %{daemongroup} -s /bin/false  -u %{daemonuid} %{daemonuser}';
-  echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
-
-#%postun root
-#( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
-#  echo 'getent passwd %{daemonuser} && userdel %{daemonuser}';
-#  echo 'getent group %{daemongroup} && groupdel %{daemongroup}';
-#  echo 'exit 0' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
-
 %files
 %defattr(-, root, bin)
 %doc README ChangeLog COPYING INSTALL NEWS AUTHORS TODO 
-%dir %attr (0755,root,bin) %{_bindir}
-%{_bindir}/*
 %dir %attr (0755,root,bin) %{_sbindir}
 %{_sbindir}/*
 %dir %attr (0755,root,bin) %{_libdir}
@@ -128,11 +102,6 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/%{src_name}/*
-%dir %attr(0755, root, bin) %{_mandir}
-%dir %attr(0755, root, bin) %{_mandir}/*
-%{_mandir}/*/*
-%dir %attr (0755, root, other) %{_datadir}/aclocal
-%{_datadir}/aclocal/*
 
 
 
@@ -147,19 +116,8 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
-* Tue Mar 15 2011 - Thomas Wagner
-- bump to 2.0.11
-- add missing predefined numeric gid="%{daemongid}" to %actions
-* Mon Feb 28 2011 - Thomas Wagner
-- bump to 2.0.9
-* Thr Feb 03 2011 - Thomas Wagner
-- /var/run is under core system control, removed from spec and to be created at runtime
-- add %action and %pre to create dovecot userid
-- adjust --sysconfdir=%{_sysconfdir}, subdirectory dovecot by configure
-- extra commit: set %action uid to predefine numeric userid. See man -a pkg
-* Tue Dec 14 2010 - Thomas Wagner
-- bump to 2.0.8 and svn copy to experimental
-- fix %files (bindir, mandir, aclocal)
+* Wed Feb 02 2011 - Milan Jurik
+- /var/run is under core system control
 * Wed Nov 17 2010 - Knut Anders Hatlen
 - bump to 1.2.16
 * Tue Oct 12 2010 - Knut Anders Hatlen
