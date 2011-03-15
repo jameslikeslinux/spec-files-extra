@@ -15,11 +15,13 @@
 %define  daemongid   1
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 Name:                    SFEdovecot
 Summary:                 dovecot - A Maildir based pop3/imap email daemon
 URL:                     http://www.dovecot.org
 #note: see downloadversion above
-Version:                 2.0.8
+Version:                 2.0.11
 Source:                  http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
 Source2:		dovecot.xml
 
@@ -28,9 +30,9 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWzlib
-BuildRequires: SUNWopenssl-include
+BuildRequires: %{pnm_buildrequires_SUNWopenssl_include}
 Requires: SUNWzlib
-Requires: SUNWopenssl-libraries
+Requires: %{pnm_requires_SUNWopenssl_libraries}
 
 %include default-depend.inc
 
@@ -93,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 #IPS
 ##TODO## is is possible to predefine the numeric GID and UID?
 %actions
-group groupname="%{daemongroup}"
+group groupname="%{daemongroup}" gid="%{daemongid}"
 user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{daemonuid} password=NP group="%{daemongroup}"
 
 #SVR4 (e.g. Solaris 10, SXCE)
@@ -145,6 +147,11 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Tue Mar 15 2011 - Thomas Wagner
+- bump to 2.0.11
+- add missing predefined numeric gid="%{daemongid}" to %actions
+* Mon Feb 28 2011 - Thomas Wagner
+- bump to 2.0.9
 * Thr Feb 03 2011 - Thomas Wagner
 - /var/run is under core system control, removed from spec and to be created at runtime
 - add %action and %pre to create dovecot userid
