@@ -233,6 +233,10 @@ perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec gr
 
 
 %build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+  CPUS=1
+fi
 
 #./configure --prefix=%{_prefix}  \
 #            --mandir=%{_mandir}   \
@@ -362,7 +366,7 @@ unset CCARGS AUXLIBS
 # -Wno-comment needed due to large number of warnings on RHEL5
 # suggestion by Eric Hoeve <eric@ehoeve.com>
 #make DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS -Wno-comment"
-make DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
+make -j$CPUS DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
 
 
 %install
@@ -683,6 +687,16 @@ rm -rf $RPM_BUILD_ROOT
 #	useradd -g postman -u 183 -d / -s /bin/false -M postman
 
 
+
+
+
+#IPS
+%actions
+group groupname="%{rundropgroup}" gid="%{rundropgroupid}"
+group groupname="%{rungroup}" gid="%{rungroupid}"
+user ftpuser=false gcos-field="Postfix user" username="%{runuser}" uid="%{runuserid}" password=NP group="%{runusergroup}" home-dir="%{_localstatedir}/spool/postfix" login-shell="/bin/true" group-list="mail"
+
+
 # sorry for duplication of these scripts, but someone in the chain pkgtool/pkgbuild/packagetools doesn't install
 #in the right order (first SFEpostfix-root, second SFEpostfix)
 #so we *try* to create userid/groupid before actually placing files on the disk which wanna be owned by these new IDs
@@ -859,6 +873,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %changelog
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
+- add %actions to create users and groups (including predefined numeric uid/gid)
+- add parallel build
 * Sat Feb  5 2011 - Thomas Wagner
 - bump to 2.8.0
 - retire use of official postfix rpm, do not longer fetch/make postfix.spec make-postfix.spec
