@@ -81,9 +81,9 @@
 # 
 # an estimate is done to tell which distro release is present
 #NEWRELEASE add to the table
-# os2008.11    os2009.06    os2009.11    os2010.03    os2010.05
+# os2008.11    os2009.06    os2009.11    os2010.03    os2010.05  os2010.11
 # corresponds to:
-# os200811     os200906     os200911     os201003     os201005
+# os200811     os200906     os200911     os201003     os201005   os201011
 
 #numbers for each major distro release are stored in %os2nnnversion
 
@@ -91,6 +91,7 @@
 #set defaults to null - reverse order to catch youngest distro first 
 #and then used to skip the other detection rules for older releases
 #NEWRELEASE add to the table
+%define os201010 0
 %define os201005 0
 #never apperared: (this variable might go away some day)
 %define os201003 0
@@ -142,6 +143,8 @@
 
 
 
+#note: build 160 (2010.11++) does read "Oracle Solaris 11 Express snv_160 X86"
+#note: build 151a 2010.11 does read "Oracle Solaris 11 Express snv_156 X86"
 #note: build 140 does read "Solaris Next Development"
 #note: build 134 does read "OpenSolaris Development"
 #below probably release of 2010.05 (was 2010.03 or whatever name)
@@ -170,6 +173,31 @@
 %else
 %endif
 ##END
+
+
+##START build 151 and up, detect "Oracle Solaris 11 Express snv_151a X86" aka 2010.11 as os201011
+#NOTE: we try to set a resonable release number in %osdistrelnumber
+# name as well, they should behave similar. Remaining issues to be fixed
+# in consuming spec file!
+%if %{osdet299999}
+%if %( expr %{osbuild} '>=' 151 )
+%if %( egrep 'Oracle Solaris 11 Express' /etc/release > /dev/null && echo 1 || echo 0 )
+#we are on an IPS based OS distro
+%define os2nnn   1
+#below: subject to change!
+%define os201011 1
+%define osdistrelnumber 201011
+%define osdistrelname   "os2010.11"
+#this was the last check, skip all others
+%define osdet299999 0
+%else
+%endif
+%else
+%endif
+%else
+%endif
+##END
+
 
 ##START build 134 and up, os2010.05 as os201005
 %if %{osdet299999}
@@ -239,6 +267,8 @@
 
 
 %changelog
+* Wed Mar 16 2011 - Thomas Wagner
+- add Oracle Solaris 11 Express to the mix
 * Sat Oct 20 2010 - Thomas Wagner
 - add OI 147 to the mix
 * May 31 2010 - Thomas Wagner

@@ -35,14 +35,23 @@
 #starting with build ??? and build 133/134 
 #openssl is always a special case since sub packages got combined
 #below: our target system is an IPS based OS2008/OS2009/OS2010 
+#         *before the big package renaming party*
+##TODO## check osbuilds 129 .. 135 to be fully covered! Else run
+# pkgtool --interactive prep base-specs/packagenamemacros.spec
+# and mail us the output
+#note name aliasing the package on build say "< 133" should work
 %if %{os2nnn}
 %define pnm_buildrequires_SUNWopenssl			SUNWopenssl
+%define pnm_buildrequires_SUNWopenssl_include           SUNWopenssl
+#handy alias based on typo
 %define pnm_buildrequires_SUNWopenssl_includes		SUNWopenssl
 %define pnm_buildrequires_SUNWopenssl_commands		SUNWopenssl
 %define pnm_buildrequires_SUNWopenssl_libraries		SUNWopenssl
 %define pnm_buildrequires_SUNWopensslr			SUNWopenssl
 
 %define pnm_requires_SUNWopenssl			SUNWopenssl
+%define pnm_requires_SUNWopenssl_include		SUNWopenssl
+#handy alias based on typo
 %define pnm_requires_SUNWopenssl_includes		SUNWopenssl
 %define pnm_requires_SUNWopenssl_commands		SUNWopenssl
 %define pnm_requires_SUNWopenssl_libraries		SUNWopenssl
@@ -55,8 +64,47 @@
 %define pnm_requires_library_security_openssl		SUNWopenssl
 %endif
 
+#IPS has a problem: pkg info SUNWopenssl says *not installed* but at the same
+#time pkg info openssl (or library/security/openssl) says installed.
+#this is problematic, since based on the SUNWopenssl alias name it is still
+#tobe seen as *installed* - every package prerequisite check by the old
+#compatibilty/alias name *is* *failing* then
+#below: our target system is an IPS based OS2010++ ... incl. Oracle Solaris 11 Express
+#         *AFTER the big package renaming party*
+#note: target is "openssl" which is understood by 133/134++ releases as installed
+#and still works with early opensolaris builds as well
+%if %{os2nnn}
+##TODO## Re-visit this buildnumber, was this 133 or 134 ? (pkg info SUNWopenssl says not installed)
+%if %( expr %{osbuild} '>=' 133 )
+%define pnm_buildrequires_SUNWopenssl			library/security/openssl
+%define pnm_buildrequires_SUNWopenssl_include           library/security/openssl
+#handy alias based on typo
+%define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
+%define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
+%define pnm_buildrequires_SUNWopenssl_commands		library/security/openssl
+%define pnm_buildrequires_SUNWopenssl_libraries		library/security/openssl
+%define pnm_buildrequires_SUNWopensslr			library/security/openssl
 
-#separate packages for the various openssl pieces (libs, inlude, commands, ...)
+%define pnm_requires_SUNWopenssl			library/security/openssl
+%define pnm_requires_SUNWopenssl_include		library/security/openssl
+#handy alias based on typo
+%define pnm_requires_SUNWopenssl_includes		library/security/openssl
+%define pnm_requires_SUNWopenssl_commands		library/security/openssl
+%define pnm_requires_SUNWopenssl_libraries		library/security/openssl
+%define pnm_requires_SUNWopensslr			library/security/openssl
+
+%define pnm_buildrequires_openssl			library/security/openssl
+%define pnm_requires_openssl				library/security/openssl
+
+%define pnm_buildrequires_library_security_openssl	library/security/openssl
+%define pnm_requires_library_security_openssl		library/security/openssl
+#os20nn
+%endif
+#>=130
+%endif
+#END two closing endif
+
+#separate packages for the various openssl pieces (libs, incclude, commands, ...)
 #note: for running the build on SXCE we do *not* have the big bang package
 #      rename project, so we have to define the target package names on SXCE
 #below: our target system is an older build SolarisExpress (up to including 130)
@@ -196,6 +244,11 @@
 
 
 %changelog
+* Wed Mar 16 2011 - Thomas Wagner
+- improve/add support for pkg info SUNWopenssl reported as not installed (but renamed)
+* Mon Feb 28 2011 - Thomas Wagner
+- add alias ending on "s" helping with easy typos:
+  pnm_buildrequires_SUNWopenssl_include / pnm_buildrequires_SUNWopenssl_includes (note the "s" at the end)
 * Sun Feb  7 2011 - Thomas Wagner
 - handle SFElibmodmod and SUNWlibmikmod (>=90)
 * Wed Feb  2 2011 - Thomas Wagner

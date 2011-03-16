@@ -40,11 +40,6 @@
 # more complicated combinations should be handled in the spec files itself, to make
 # this include file not too complex.
 
-# first including a general file with definitions, then ascend on the  build numbers 
-# if hughe renameing actions or changes took place
-
-%include packagenames.define.allbuilds.inc
-
 # next list all build versions ascending (build version)
 # BIG NOTE: OS distribution specific cases (SVR4/SXCE and IPS, but not S10) are 
 # handled *inside* the blocks' includes # this is to make this only decide on build numbers!
@@ -80,3 +75,15 @@
 %include packagenames.define-specialcases-134.inc
 #>=133
 %endif
+
+
+# finally including a general file with definitions, to overwrite possible
+# special cases (and eventually overriding content which got defined above)
+
+%include packagenames.define.allbuilds.inc
+
+%changelog
+* Wed Mar 16 2011 - Thomas Wagner
+- add missing changelog
+- change include order to include packagenames.define.allbuilds.inc at the 
+  very end, instead at the top
