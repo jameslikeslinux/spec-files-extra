@@ -1,6 +1,7 @@
 2011-03-16 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEjflex.spec: import to SFE
+	* SFEmtr.spec: bump to 0.80
 
 2011-03-14 Alex Viskovatoff <viskovatoff@imap.cc>
 

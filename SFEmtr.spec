@@ -9,7 +9,7 @@
 
 Name:                SFEmtr
 Summary:             Ping/Traceroute network diagnostic tool w/ GTK support
-Version:             0.72
+Version:             0.80
 Source:              ftp://www.BitWizard.nl/mtr/mtr-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -60,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Wed Mar 16 2011 - Milan Jurik
+- bump to 0.80
 * Wed Mar 16 2011 - Thomas Wagner
 - linker error unresolved wattr_on wattr_off - use SUNWncurses, add to *FLAGS %{gnu_lib_path} and -lncurses
 - (Build)Requires SUNWncurses
