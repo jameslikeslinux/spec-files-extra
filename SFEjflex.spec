@@ -70,8 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %{_bindir}
-%{_jardir}
 %dir %attr (0755,root,sys) %{_datadir}
+%dir %attr (0755,root,sys) %{_datadir}/lib
+%{_jardir}
 %dir %attr (0755,root,other) %{_docdir}
 %{_docdir}/jflex
 
