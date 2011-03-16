@@ -15,6 +15,9 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SUNWncurses
+Requires: SUNWncurses
+
 %prep
 %setup -q -n mtr-%version
 
@@ -24,11 +27,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/sfw/bin/gcc
+export CC=gcc
 # Must omit "-Wl,-zignore" or else GTK support won't work. 
 # I'm not sure why though...
-export LDFLAGS="-Wl,-zcombreloc -Wl,-Bdirect"
-export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
+export LDFLAGS="-Wl,-zcombreloc -Wl,-Bdirect %{gnu_lib_path} -lncurses"
+export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer %{gnu_lib_path}"
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}
@@ -57,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Wed Mar 16 2011 - Thomas Wagner
+- linker error unresolved wattr_on wattr_off - use SUNWncurses, add to *FLAGS %{gnu_lib_path} and -lncurses
+- (Build)Requires SUNWncurses
 * Mon Mar 19 2007 - dougs@truemail.co.th
 - Fixed -fno-omit-frame-pointer flag
 * Fri Jan 12 2007 - Eric Boutilier
