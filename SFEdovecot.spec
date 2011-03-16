@@ -30,8 +30,17 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWzlib
-BuildRequires: %{pnm_buildrequires_SUNWopenssl_include}
 Requires: SUNWzlib
+BuildRequires: SUNWbzip
+Requires: SUNWbzip
+BuildRequires: SUNWlexpt
+Requires: SUNWlexpt
+BuildRequires: SUNWgnu-idn
+Requires: SUNWgnu-idn
+BuildRequires: SUNWcurl
+Requires: SUNWcurl
+#help Solaris 10 and SVR4 Nevada to workaround multiple package renames
+BuildRequires: %{pnm_buildrequires_SUNWopenssl_include}
 Requires: %{pnm_requires_SUNWopenssl_libraries}
 
 %include default-depend.inc
@@ -147,9 +156,12 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Wed Mar 16 2011 - Thomas Wagner
+- add dependencies (Build)Requires SUNWbzip SUNWlexpt SUNWgnu-idn SUNWcurl
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.0.11
 - add missing predefined numeric gid="%{daemongid}" to %actions
+- use packagenammacros.inc for (Build)Requires SUNWopenssl*
 * Mon Feb 28 2011 - Thomas Wagner
 - bump to 2.0.9
 * Thr Feb 03 2011 - Thomas Wagner
