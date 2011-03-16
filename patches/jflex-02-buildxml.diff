@@ -1,0 +1,11 @@
+--- src/build.xml	Wed May 28 10:45:28 2008
++++ src/build.xml	Tue Apr 28 16:06:53 2009
+@@ -60,7 +60,7 @@
+   <target name="cbuild" depends="libclean,compile,jar" 
+           description="recompile and pack all classes"/> 
+ 
+-  <target name="compile" depends="jflex,cup"
++  <target name="compile"
+           description="compile all classes">
+     <javac srcdir="." 
+            destdir="../lib" 

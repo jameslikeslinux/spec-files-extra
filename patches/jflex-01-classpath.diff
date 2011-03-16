@@ -1,0 +1,12 @@
+--- bin/jflex	Tue May 20 07:15:27 2008
++++ bin/jflex	Mon Apr 27 17:35:13 2009
+@@ -42,8 +42,8 @@
+ 
+ # --------------------------------------------------------------------
+ 
++CLASSPATH=/usr/share/lib/java/JFlex.jar:${CLASSPATH}
+ export CLASSPATH
+-CLASSPATH=$JFLEX_HOME/lib/JFlex.jar
+ 
+ $JAVA JFlex.Main $@
+ 

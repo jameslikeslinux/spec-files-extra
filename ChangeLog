@@ -1,3 +1,7 @@
+2011-03-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEjflex.spec: import to SFE
+
 2011-03-14 Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* experimental/SFEgcc-46.spec: new spec forked off earlier version
