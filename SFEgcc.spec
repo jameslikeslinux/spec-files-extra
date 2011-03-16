@@ -446,6 +446,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/man
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
+%dir %attr (0755, root, bin) %{_gnu_bindir}
+%{_gnu_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/gcc
 %dir %attr (0755, root, sys) %{_datadir}
@@ -474,6 +476,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Weg Mar 16 2011 - Thomas Wagner
+- symlinks did not go into package, added %{_gnu_bindir}/* to %files SFEgcc 
 * Tue Mar 15 2011 - Thomas Wagner
 - add missing %define _gnu_bindir %{_basedir}/gnu/bin
 * Sat Mar 12 2011 - Thomas Wagner
