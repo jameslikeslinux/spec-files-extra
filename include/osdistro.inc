@@ -91,7 +91,7 @@
 #set defaults to null - reverse order to catch youngest distro first 
 #and then used to skip the other detection rules for older releases
 #NEWRELEASE add to the table
-%define os201010 0
+%define os201011 0
 %define os201005 0
 #never apperared: (this variable might go away some day)
 %define os201003 0
