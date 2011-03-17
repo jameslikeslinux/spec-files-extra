@@ -38,8 +38,14 @@
 %define SUNWbinutils    %(/usr/bin/pkginfo -q SUNWbinutils 2>/dev/null && echo 1 || echo 0)
 %define SFEbinutils     %(/usr/bin/pkginfo -q SFEbinutils  2>/dev/null && echo 1 || echo 0)
 #see below, older builds then 126 have too old gmp / mpfr to gcc version around 4.4.4
-%define SFEgmp          %(/usr/bin/pkginfo -q SFEgmp  2>/dev/null  && echo 1 || echo 0)
-%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+#%define SFEgmp          %(/usr/bin/pkginfo -q SFEgmp  2>/dev/null  && echo 1 || echo 0)
+##TODO## to be replaced by packagenamemacros, selecting SFEgmp on specific osbuilds where
+#it is too old for fresh gcc builds
+%define SFEgmp          1
+#%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+##TODO## to be replaced by packagenamemacros, selecting SFEmpfr on specific osbuilds where
+#it is too old for fresh gcc builds
+%define SFEmpfr         1
 
 # force using SFEbinutils
 #if SFEbinutils is not present, force it by the commandline switch --with_SFEbinutils
@@ -476,7 +482,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Weg Mar 16 2011 - Thomas Wagner
+* Thu Mar 17 2011 - Thomas Wagner
+- temporarily force SFEgmp SFEmpfr to have pkgtool --autodeps working in correct build-order
+* Wed Mar 16 2011 - Thomas Wagner
 - symlinks did not go into package, added %{_gnu_bindir}/* to %files SFEgcc 
 * Tue Mar 15 2011 - Thomas Wagner
 - add missing %define _gnu_bindir %{_basedir}/gnu/bin
