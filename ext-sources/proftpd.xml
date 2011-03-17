@@ -54,11 +54,6 @@ This program is free software; you can redistribute it and/ormodify it under the
 		<service_fmri value='svc:/system/filesystem/local' />
 	</dependency>
 
-	<dependent name='dovecot_multi-user-server' grouping='optional_all'
-			restart_on='none'>
-		<service_fmri value='svc:/milestone/multi-user-server' />
-	</dependent>
-
  <!--
           START  METHOD
       -->
@@ -97,7 +92,7 @@ This program is free software; you can redistribute it and/ormodify it under the
         </loctext>      
       </common_name>
       <documentation>
-                <doc_link name='dovecot'
+                <doc_link name='proftpd'
                     uri='file://usr/proftpd/share/doc/' />
       </documentation>
     </template>
