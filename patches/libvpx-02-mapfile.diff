@@ -1,0 +1,13 @@
+--- libvpx-v0.9.6/build/make/Makefile	2011-03-04 21:40:37.000000000 +0100
++++ libvpx-v0.9.6-patch/build/make/Makefile	2011-03-17 21:53:07.826411401 +0100
+@@ -224,8 +224,8 @@
+ 	$(if $(quiet),@echo "    [LD] $$@")
+ 	$(qexec)$$(LD) -shared $$(LDFLAGS) \
+             -Wl,--no-undefined -Wl,-soname,$$(SONAME) \
+-            -Wl,--version-script,$$(SO_VERSION_SCRIPT) -o $$@ \
+-            $$(filter %.o,$$?) $$(extralibs)
++            -Wl,-M $$(SO_VERSION_SCRIPT) -o $$@ \
++            $$(filter %.o,$$?) -lc $$(extralibs)
+ endef
+ 
+ define lipo_lib_template
