@@ -42,6 +42,8 @@ BuildRequires: SFElibiconv-devel
 Requires:       %{pnm_requires_SUNWlibmikmod}
 BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod}
 
+BuildRequires:	SUNWaudh
+
 # TODO: more dependencies?
 
 
@@ -73,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_bindir}
 #%{_bindir}/HandBrakeCLI
 %{_bindir}/*
-%{_bindir}/somecrap
+#%{_bindir}/somecrap
 
 
 %changelog
