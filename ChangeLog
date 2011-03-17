@@ -1,3 +1,7 @@
+2011-03-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibvpx.spec: initial spec
+
 2011-03-16 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEjflex.spec: import to SFE
