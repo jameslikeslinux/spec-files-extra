@@ -1,0 +1,22 @@
+--- emacs-23.3/src/config.in.orig	Tue Jan 11 21:26:28 2011
++++ emacs-23.3/src/config.in	Thu Mar 17 18:31:15 2011
+@@ -1036,7 +1036,8 @@
+    and compiles only on the specified platforms.   For others,
+    it probably doesn't make sense to try.  */
+ 
+-#if defined __FreeBSD__ || defined __NetBSD__ || defined __linux__
++#if defined __FreeBSD__ || defined __NetBSD__ || defined __linux__ \
++  || (defined __SVR4 && defined __sun)
+ #ifdef HAVE_MACHINE_SOUNDCARD_H
+ #define HAVE_SOUND 1
+ #endif
+@@ -1049,7 +1050,8 @@
+ #ifdef HAVE_ALSA
+ #define HAVE_SOUND 1
+ #endif
+-#endif /* __FreeBSD__ || __NetBSD__ || __linux__  */
++#endif /* __FreeBSD__ || __NetBSD__ || __linux__ 
++  || (defined __SVR4 && defined __sun) */
+ 
+ /* If using GNU, then support inline function declarations. */
+ /* Don't try to switch on inline handling as detected by AC_C_INLINE

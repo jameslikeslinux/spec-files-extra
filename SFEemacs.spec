@@ -7,9 +7,10 @@
 
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
-Version:                 23.2
-%define emacs_version    23.2
+Version:                 23.3
+%define emacs_version    23.3
 Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%{emacs_version}.tar.bz2
+Patch1:                  emacs-01-sound.diff
 URL:                     http://www.gnu.org/software/emacs/emacs.html
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -18,6 +19,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %define _with_gtk 1
 
 BuildRequires: SUNWgnome-common-devel
+BuildRequires: SFEalsa-lib-devel
 Requires: SUNWTiff
 Requires: SUNWpng
 Requires: SUNWjpg
@@ -25,11 +27,13 @@ Requires: SUNWlibms
 Requires: SUNWzlib
 Requires: SUNWperl584core
 Requires: SUNWtexi
-Requires: SUNWdbus                                                                                                                                                        
+Requires: SUNWdbus
+Requires: SFEalsa-lib
+Requires: SFEalsa-plugins
 Requires: %{name}-root
 %if %{?_with_gtk:1}%{?!_with_gtk}
 %define toolkit gtk
-Requires: SUNWgtk2                                                                                                                                                                 
+Requires: SUNWgtk2
 Requires: SUNWglib2
 Requires: SUNWcairo
 %else
@@ -48,6 +52,7 @@ SUNW_BaseDir:            /
 
 %prep
 %setup -q -n emacs-%version
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -63,7 +68,6 @@ export PERL=/usr/perl5/bin/perl
             --libexecdir=%{_libexecdir}      \
             --infodir=%{_infodir}            \
             --sysconfdir=%{_sysconfdir}      \
-            --without-sound                  \
             --localstatedir=%{_localstatedir}   \
             --with-gif=yes \
             --with-x-toolkit=%toolkit \
@@ -134,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Thu Mar 17 2011 - Alex Viskovatoff
+- Bump to 23.3; reenable sound support
 * Wed Sep 15 2010 - knut.hatlen@oracle.com
 - Add missing dependencies.
 * Mon Jul 19 2010 - markwright@internode.on.net
