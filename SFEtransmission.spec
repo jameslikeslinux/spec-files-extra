@@ -6,7 +6,7 @@
 
 Name:                    SFEtransmission
 Summary:                 Transmission - GTK and console BitTorrent client
-Version:                 1.61
+Version:                 2.22
 Source:                  http://download.m0k.org/transmission/files/transmission-%{version}.tar.bz2
 URL:                     http://transmission.m0k.org/
 SUNW_BaseDir:            %{_basedir}
@@ -16,11 +16,13 @@ BuildRequires: SUNWgtk2-devel
 BuildRequires: SUNWopenssl-include
 BuildRequires: SUNWgnome-panel-devel
 BuildRequires: SUNWdbus-glib-devel
+BuildRequires: SFElibevent2
 Requires: SUNWgtk2
 Requires: SUNWgnome-panel
 Requires: SUNWdbus-glib
 Requires: SUNWopenssl-libraries
 Requires: SUNWcurl
+Requires: SFElibevent2
 %if %option_with_gnu_iconv
 Requires: SUNWgnu-libiconv
 Requires: SUNWgnu-gettext
@@ -64,10 +66,6 @@ make -j$CPUS
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
-
-#mkdir -p $RPM_BUILD_ROOT%{_prefix}/sfw/share/zsh
-#mv $RPM_BUILD_ROOT%{_datadir}/zsh/* $RPM_BUILD_ROOT%{_prefix}/sfw/share/zsh 
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/zsh
 
 %if %build_l10n
 %else
@@ -120,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Mar 18 2011 - Alex Viskovatoff
+- Reintroduce and update to 2.22
 * Fri May 22 2009 - elaine.xiong@sun.com
 - Bump to 1.61. Remove upstream patches.
 * Wed Jun 25 2008 - darren.kenny@sun.com

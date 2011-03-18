@@ -1,3 +1,8 @@
+2011-03-18  Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* SFEtransmission.spec: reintroduce and update to 2.22
+	* SFElibevent2.spec: initial spec forked off SFElibevent.spec
+
 2011-03-18 Milan Jurik <sfnet@xylab.cz>
 
 	* include/base.inc: move minimal x86 CPU to pentium_pro/i686
@@ -5,7 +10,7 @@
 	* include/arch64.inc: move minimal SPARC CPU to UltraSPARC
 	* base-specs/libvpx.spec: fix x86 multiarch
 
-2011-03-17 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-17  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFEemacs.spec: bump to 23.3; reenable sound support
 
@@ -18,7 +23,7 @@
 	* SFEjflex.spec: import to SFE
 	* SFEmtr.spec: bump to 0.80
 
-2011-03-14 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-14  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* experimental/SFEgcc-46.spec: new spec forked off earlier version
 	  of SFEgcc.spec, without the /usr/gnu/bin symlinks
@@ -32,7 +37,7 @@
           compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++
           and /usr/gnu/bin/gfortran
 
-2011-03-12 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-12  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFErakudo-perl.spec: initial spec
 	* SFEparrot.spec: initial spec
@@ -56,7 +61,7 @@
 	* SFEgdal.spec: bump to 1.8.0; clean up spec
 	* SFElibgeotiff.spec: bump to 1.3.0.2; depreciate patches
 
-2011-03-05 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-05  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFEcmake.spec: bump to 2.8.4; install doc files in own directory
 
@@ -78,7 +83,7 @@
 	* SFEgcc.spec: RUNPATH enforced to contain /usr/gnu/lib, libs symlinked
 	  to /usr/gnu/lib
 
-2011-03-03 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-03  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFEqt4.spec: remove support for stdcxx, since the spec no longer
 	  builds against that
@@ -87,7 +92,7 @@
 
 	* SFEgcc.spec: fix NLS build, need to fix linker for g++ still
 
-2011-03-01 Alex Viskovatoff <viskovatoff@imap.cc>
+2011-03-01  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* experimental/SFEqt47-gpp.spec: use /usr/stdcxx as basedir
 	* experimental/SFEqt47.spec: patch the solaris-gpp qmake.conf
