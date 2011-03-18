@@ -20,12 +20,12 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-%ifarch amd64
-%define _target x86_64-solaris-gcc
-%endif
+%define archis64 %( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} && echo 1 || echo 0 )
 
-%ifarch i386
+%if %archis64
 %define _target x86_64-solaris-gcc
+%else
+%define _target x86-solaris-gcc
 %endif
 
 %ifarch sparc
@@ -49,5 +49,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Mar 18 2011 - Milan Jurik
+- fix x86 multiarch
 * Thu Mar 17 2011 - Milan Jurik
 - initial spec

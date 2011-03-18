@@ -3,6 +3,7 @@
 	* include/base.inc: move minimal x86 CPU to pentium_pro/i686
 	* include/base.inc: move minimal SPARC CPU to UltraSPARC
 	* include/arch64.inc: move minimal SPARC CPU to UltraSPARC
+	* base-specs/libvpx.spec: fix x86 multiarch
 
 2011-03-17 Alex Viskovatoff <viskovatoff@imap.cc>
 
