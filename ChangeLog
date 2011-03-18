@@ -1,6 +1,8 @@
 2011-03-18 Milan Jurik <sfnet@xylab.cz>
 
-	* include/base.inc: move minimal CPU to pentium_pro/i686
+	* include/base.inc: move minimal x86 CPU to pentium_pro/i686
+	* include/base.inc: move minimal SPARC CPU to UltraSPARC
+	* include/arch64.inc: move minimal SPARC CPU to UltraSPARC
 
 2011-03-17 Alex Viskovatoff <viskovatoff@imap.cc>
 

@@ -42,8 +42,8 @@
 %endif
 
 %ifarch sparc
-%define suncc_optflags           -i %_cc_opt_level -xstrconst -xarch=v8a -mr
-%define suncc_cxx_optflags       -i %_cxx_opt_level -xarch=v8a -mr -norunpath
+%define suncc_optflags           -i %_cc_opt_level -xstrconst -xarch=v8plusa -mr
+%define suncc_cxx_optflags       -i %_cxx_opt_level -xarch=v8plusa -mr -norunpath
 %endif
 
 %ifarch i386
@@ -91,7 +91,8 @@
 
 # ChangeLog:
 # 2011-03-18  Milan Jurik
-# - move minimal CPU to pentium_pro/i686
+# - move minimal x86 CPU to pentium_pro/i686
+# - move minimal SPARC CPU to UltraSPARC
 # 2008-05-09  Laszlo (Laca) Peter  <laca@sun.com>
 # - use %_gpp instead of g++ when checking the version of g++
 # 2008-02-17  Laszlo (Laca) Peter  <laca@sun.com>
