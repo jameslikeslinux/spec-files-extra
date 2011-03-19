@@ -3,6 +3,7 @@
 
 ##TODO## list
 #see below, handle /var/sadm/pkg/SUNWruby18r /var/sadm/pkg/SUNWruby18u
+#SUNWwgetu and SUNWwgetr (Solaris 10, Nevada SVR4) -> SUNWwget on IPS
 
 # there are very old build out there, we might not need
 # to write special logic for builds older then build 81
@@ -40,6 +41,7 @@
 # pkgtool --interactive prep base-specs/packagenamemacros.spec
 # and mail us the output
 #note name aliasing the package on build say "< 133" should work
+#cases os2nnn
 %if %{os2nnn}
 %define pnm_buildrequires_SUNWopenssl			SUNWopenssl
 %define pnm_buildrequires_SUNWopenssl_include           SUNWopenssl
@@ -62,7 +64,16 @@
 
 %define pnm_buildrequires_library_security_openssl	SUNWopenssl
 %define pnm_requires_library_security_openssl		SUNWopenssl
+
+#SUNWwgetu/SUNWwgetr/SUNWwget
+%define pnm_buildrequires_SUNWwgetu			SUNWwget
+%define pnm_requires_SUNWwgetu				SUNWwget
+%define pnm_buildrequires_SUNWwgetr			SUNWwget
+%define pnm_requires_SUNWwgetr				SUNWwget
+%define pnm_buildrequires_SUNWwget			SUNWwget
+%define pnm_requires_SUNWwget				SUNWwget
 %endif
+#END os2nnn
 
 #IPS has a problem: pkg info SUNWopenssl says *not installed* but at the same
 #time pkg info openssl (or library/security/openssl) says installed.
@@ -73,6 +84,9 @@
 #         *AFTER the big package renaming party*
 #note: target is "openssl" which is understood by 133/134++ releases as installed
 #and still works with early opensolaris builds as well
+##TODO## this is accumulative (see above %if %{os2nnn} w/o osbuild detection
+
+#cases >=133 AND os2nnn
 %if %{os2nnn}
 ##TODO## Re-visit this buildnumber, was this 133 or 134 ? (pkg info SUNWopenssl says not installed)
 %if %( expr %{osbuild} '>=' 133 )
@@ -98,11 +112,20 @@
 
 %define pnm_buildrequires_library_security_openssl	library/security/openssl
 %define pnm_requires_library_security_openssl		library/security/openssl
-#os20nn
+
+
+%define pnm_buildrequires_library_python_2_python_gnome_libs_26	library/python-2/python-gnome-libs-26
+%define pnm_requires_library_python_2_python_gnome_libs_26	library/python-2/python-gnome-libs-26
+%define pnm_buildrequires_SUNWgnome_python26_libs_devel	library/python-2/python-gnome-libs-26
+%define pnm_requires_SUNWgnome_python26_libs_devel	library/python-2/python-gnome-libs-26
+%define pnm_buildrequires_SUNWgnome_python26_libs	library/python-2/python-gnome-libs-26
+%define pnm_requires_SUNWgnome_python26_libs		library/python-2/python-gnome-libs-26
+
+#os2nnn
 %endif
 #>=130
 %endif
-#END two closing endif
+#END >=133 AND os2nnn    note: two closing endif
 
 #separate packages for the various openssl pieces (libs, incclude, commands, ...)
 #note: for running the build on SXCE we do *not* have the big bang package
@@ -119,43 +142,79 @@
 %define pnm_buildrequires_library_security_openssl	SUNWopenssl-includes
 %define pnm_requires_library_security_openssl		SUNWopenssl-libraries
 
+%define pnm_buildrequires_SUNWopenssl_includes		SUNWopenssl-includes
+%define pnm_requires_SUNWopenssl_includes		SUNWopenssl-includes
+%define pnm_buildrequires_SUNWopenssl_libraries		SUNWopenssl-libraries
+%define pnm_requires_SUNWopenssl_libraries		SUNWopenssl-libraries
+
 ##TODO##
 #/var/sadm/pkg/SUNWruby18r
 #/var/sadm/pkg/SUNWruby18u
 
+#SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget
+%define pnm_buildrequires_web_wget			SUNWwgetu
+%define pnm_requires_web_wget				SUNWwgetu
+%define pnm_buildrequires_wget				SUNWwgetu
+%define pnm_requires_wget				SUNWwgetu
+%define pnm_buildrequires_SUNWwget			SUNWwgetu
+%define pnm_requires_SUNWwget				SUNWwgetu
+%define pnm_buildrequires_SUNWwgetu			SUNWwgetu
+%define pnm_requires_SUNWwgetu				SUNWwgetu
+%define pnm_buildrequires_SUNWwgetr			SUNWwgetr
+%define pnm_requires_SUNWwgetr				SUNWwgetr
+
+#SUNWghostscriptu/SUNWghostscriptr/SUNWghostscript -> use always SUNWghostscriptu on SXCE
+#ghostscript and print/filter/ghostscript
+%define pnm_buildrequires_print_filter_ghostscript	SUNWghostscriptu
+%define pnm_requires_print_filter_ghostscript		SUNWghostscriptu
+%define pnm_buildrequires_ghostscript			SUNWghostscriptu
+%define pnm_requires_ghostscript			SUNWghostscriptu
+#never existed SUNWghostscript_devel
+%define pnm_buildrequires_SUNWghostscript		SUNWghostscriptu
+%define pnm_requires_SUNWghostscript			SUNWghostscriptu
+%define pnm_buildrequires_SUNWghostscriptr		SUNWghostscriptr
+%define pnm_requires_SUNWghostscriptr			SUNWghostscriptr
+%define pnm_buildrequires_SUNWghostscriptu		SUNWghostscriptu
+%define pnm_requires_SUNWghostscriptu			SUNWghostscriptu
 %endif
+#END SXCE
 
 #note: for simple cases don't open another separate include file
 #packagenames.define-133.inc or packagenames.define-specialcases-133.inc
 #just do it here instead.
-#package names in sync with SXCE and os20nn but got incorporated into other
+#package names in sync with SXCE and os2nnn but got incorporated into other
 #packages, examples. SUNWhea SUNWsfwhea
 
 #pre/including nnn: SUNWhea    -> past nnn replacement is
 #NOTE: superseeding the previous definitions SUNWsfwhea
-%if %( expr %{osbuild} '>=' 133 )
+#cases >=133
 %define pnm_buildrequires_SUNWhea	    system/header
 %define pnm_requires_SUNWhea		    system/header
 %define pnm_buildrequires_system_header	    system/header
 %define pnm_requires_system_header	    system/header
-%else
+#>=133
+
 #NOTE: this section might be superseeded by lower build numbers 
+#cases <133
+%if %( expr %{osbuild} '<' 133 )
 %define pnm_buildrequires_SUNWhea		SUNWhea
 %define pnm_requires_SUNWhea	 		SUNWhea
 #this might be overwritten again by builds below 130
 %define pnm_buildrequires_system_header		SUNWhea
 %define pnm_requires_system_header		SUNWhea
 %endif
+#END <133
 
 #pre/including 130: SUNWsfwhea -> past 130 replacement is system/header
 ##TODO## please verify build numbers and intended replacement packagename
-%if %( expr %{osbuild} '>=' 130 )
 %define pnm_buildrequires_SUNWsfwhea	    system/header
 %define pnm_requires_SUNWsfwhea		    system/header
 %define pnm_buildrequires_system_header	    system/header
 %define pnm_requires_system_header	    system/header
-%else
+
 #NOTE: including SUNWhea too
+#cases <130
+%if %( expr %{osbuild} '<' 130 )
 %define pnm_buildrequires_SUNWhea		SUNWsfwhea
 %define pnm_requires_SUNWhea	 		SUNWsfwhea
 %define pnm_buildrequires_SUNWsfwhea		SUNWsfwhea
@@ -163,6 +222,7 @@
 %define pnm_buildrequires_system_header		SUNWsfwhea
 %define pnm_requires_system_header		SUNWsfwhea
 %endif
+#END <130
 
 
 #SPECIAL CASE: SFE package was replacved with a SUNW package - one day this will
@@ -174,12 +234,14 @@
 
 #default: nothing to do for the SUNW variants, pkg / IPS knows about 
 #the SUNWsane-backend replacement image/scanner/xsane/sane-backends
+#cases >91
 %define pnm_buildrequires_SFEsane_backend_devel		SUNWsane-backend-devel
 %define pnm_requires_SFEsane_backend	 		SUNWsane-backend
 %define pnm_buildrequires_SUNWsane_backend_devel		SUNWsane-backend-devel
 %define pnm_requires_SUNWsane_backend	 		SUNWsane-backend
 %define pnm_buildrequires_image_scanner_xsane_sane_backends	SUNWsane-backend-devel
 %define pnm_requires_image_scanner_xsane_sane_backends 		SUNWsane-backend
+#>91
 
 #we need SFE version on very old builds
 %if %( expr %{osbuild} '<=' 90 )
@@ -191,6 +253,7 @@
 %define pnm_buildrequires_image_scanner_xsane_sane_backends	SFEsane-backend-devel
 %define pnm_requires_image_scanner_xsane_sane_backends 		SFEsane-backend
 %endif
+#END <=90
 
 #SUNWfftw3 was added with build 107
 #http://wikis.sun.com/display/OSOLInstall/Build+107
@@ -198,12 +261,14 @@
 #the osbuild is too old
 
 #defaults for all builds >= 107 - let pkg do the names translation if needed
+#cases >=107
 %define pnm_buildrequires_SFEfftw3		SUNWfftw3
 %define pnm_requires_SFEfftw3			SUNWfftw3
 %define pnm_buildrequires_SUNWfftw3		SUNWfftw3
 %define pnm_requires_SUNWfftw3	 		SUNWfftw3
 %define pnm_buildrequires_library_fftw_3	SUNWfftw3
 %define pnm_requires_library_fftw_3	 	SUNWfftw3
+#>=107
 
 %if %( expr %{osbuild} '<' 107 )
 #running an old build or Solaris 10
@@ -214,6 +279,7 @@
 %define pnm_buildrequires_library_fftw_3	SFEfftw3
 %define pnm_requires_library_fftw_3	 	SFEfftw3
 %endif
+#END <107
 
 
 #http://mail.opensolaris.org/pipermail/opensolaris-announce/2008-October.txt
@@ -232,18 +298,63 @@
 %define pnm_buildrequires_SUNWlibmikmod		SFElibmikmod
 %define pnm_requires_SUNWlibmikmod	 	SFElibmikmod
 %endif
+#END <99
+
+#defaults for all builds >= 116 - let pkg do the names translation if needed
+%define pnm_buildrequires_SFEgdbm		SUNWgnu-dbm
+%define pnm_requires_SFEgdbm			SUNWgnu-dbm
+%define pnm_buildrequires_SUNWgnu_dbm		SUNWgnu-dbm
+%define pnm_requires_SUNWgnu_dbm		SUNWgnu-dbm
+
+%if %( expr %{osbuild} '<' 116 )
+#running an old build or Solaris 10
+%define pnm_buildrequires_SFEgdbm		SFEgdbm
+%define pnm_requires_SFEgdbm		 	SFEgdbm
+%define pnm_buildrequires_SUNWgnu_dbm		SFEgdbm
+%define pnm_requires_SUNWgnu_dbm	 	SFEgdbm
+%endif
+#END <116
 
 
+#packages no longer available, we could bail out or just require a core package
+#to continue for now, we just set a already existing package name, the spec file 
+#might fail compiling or have reduced functionality then -> up to the individual
+#spec file maintainer how to solve that
 
+#cases >=156
+%if %( expr %{osbuild} '>=' 156 )
+#https://defect.opensolaris.org/bz/attachment.cgi?id=4441
+#(the attachment link from above is in: https://defect.opensolaris.org/bz/show_bug.cgi?id=17668)
+%define pnm_buildrequires_library_python_2_python_pigment_26	SUNWcs
+%define pnm_requires_library_python_2_python_pigment_26		SUNWcs
+%define pnm_buildrequires_SUNWlibpigment			SUNWcs
+%define pnm_buildrequires_SUNWlibpigment_devel			SUNWcs
+%define pnm_buildrequires_SUNWlibpigment_python26		SUNWcs
+%define pnm_buildrequires_SUNWlibpigment_python26_devel		SUNWcs
+%define pnm_requires_SUNWlibpigment				SUNWcs
+%define pnm_requires_SUNWlibpigment_devel			SUNWcs
+%define pnm_requires_SUNWlibpigment_python26			SUNWcs
+%define pnm_requires_SUNWlibpigment_python26_devel		SUNWcs
 
+%endif
+#END >=156
 
-
-#very special case Solaris 10
+#place very special cases here, for instance in Solaris 10
 ##TODO## for a future version
 
 
 
 %changelog
+* Sat Mar 19 2011 - Thomas Wagner
+- make endifs pretty commented
+- reduce "else" code paths by negating %if clauses (new build numbers have less %if clauses)
+* Fri Mar 18 2011 - Thomas Wagner
+- make libpigment a dummy because obsoleted/removed (>=156)
+* Thr Mar 17 2011 - Thomas Wagner
+- handle SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget
+- handle SUNWghostscriptu/SUNWghostscriptr/SUNWghostscript ghostscript print/filter/ghostscript
+- handle more cases of SUNWopenssl* (still incomplete)
+- handle SFEgdbm or SUNWgnu-dbm (>=116)
 * Wed Mar 16 2011 - Thomas Wagner
 - improve/add support for pkg info SUNWopenssl reported as not installed (but renamed)
 * Mon Feb 28 2011 - Thomas Wagner
