@@ -8,6 +8,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 # use the --with-svn-code option to use svn co instead of the stable tarball
 %define svn_url https://netpbm.svn.sourceforge.net/svnroot/netpbm/advanced
 
@@ -57,8 +58,8 @@ Requires: SUNWlibC
 Requires:       FOSSghostscript
 %else
 BuildRequires:  SUNWgnu-coreutils
-BuildRequires:  SUNWwgetu
-Requires: SUNWghostscriptu
+BuildRequires:  %{pnm_buildrequires_SUNWwget}
+Requires:       %{pnm_requires_SUNWghostscript}
 %endif
 
 # OpenSolaris IPS Manifest Fields
@@ -211,6 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWwget}
+- change Requires to %{pnm_requires_SUNWghostscript}
 * Wed Nov 17 2010 - Milan Jurik
 - bump to 10.35.77, fix wget download break
 * Mon July 19 2010 - markwright@internode.on.net
