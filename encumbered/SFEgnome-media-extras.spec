@@ -84,6 +84,8 @@ BuildRequires: SFElibx264-devel
 Requires: SFEtwolame
 BuildRequires: SFEtwolame-devel
 ##### for gst-plugins-bad #####
+BuildRequires: SFElibvpx-devel
+Requires: SFElibvpx
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
@@ -143,7 +145,7 @@ BuildRequires: SFEtimidity
 BuildRequires: SUNWmlib
 Requires: SUNWmlib
 %else
-%define arch_opt --disable-mlib --disable-mmx --disable-mmx2
+%define arch_opt --disable-mlib
 %endif
 %if %with_hal
 Requires: SUNWhal
@@ -276,6 +278,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Mar 19 2011 - Milan Jurik
+- add VP8 plugin support
 * Sun Feb 06 2011 - Milan Jurik
 - add new plugins
 * Thu Jun 10 2010 Albert Lee <trisk@opensolaris.org>

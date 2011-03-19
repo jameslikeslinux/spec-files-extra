@@ -52,8 +52,7 @@ bash ./configure \
   --mandir=%{_mandir}   \
   %{arch_opt}	\
   %{gtk_doc_option}	\
-  --with-system-ffmpeg  \
-  --disable-shave
+  --with-system-ffmpeg
 
 make -j$CPUS
 
