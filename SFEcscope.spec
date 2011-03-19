@@ -4,6 +4,8 @@
 # includes module(s): cscope
 #
 %include Solaris.inc
+%include usr-gnu.inc
+%include base.inc
 
 %define tarball_version 15.7a
 Name:                    SFEcscope
@@ -15,7 +17,7 @@ URL:                     http://cscope.sourceforge.net/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildConflicts:      SPROsslnk
+# BuildConflicts:      SPROsslnk
 BuildRequires:       SUNWbison
 BuildRequires:       SUNWncurses-devel
 Requires:            SUNWncurses
@@ -54,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Thu Mar 17 2011 - Thomas Wagner
+- move to /usr/gnu to avoid conflicts with sunstudio12u1 (/usr/bin/cscope and manpage)
 * Wed Nov 18 2009 - halton.huo@sun.com
 - Use tarball_version for 15.7a
 - Replace SUNWgnu-emacs with SUNWtoo
