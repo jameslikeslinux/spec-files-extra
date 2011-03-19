@@ -4,6 +4,7 @@
 # includes module(s): genshi
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define src_url         http://ftp.edgewall.com/pub/genshi
 %define src_name        Genshi
@@ -18,9 +19,9 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires: SUNWgnome-python26-libs
+BuildRequires: %{pnm_buildrequires_SUNWgnome_python26_libs}
 Requires: SUNWPython26
-BuildRequires: SUNWgnome-python26-libs-devel
+BuildRequires: %{pnm_buildrequires_SUNWgnome_python26_libs_devel}
 BuildRequires: SUNWPython26-devel
 
 
@@ -51,6 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
+* Fri Mar 18 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWlibpigment_python26_devel}
 * Thu Jun 24 2010 - Thomas Wagner
 - initial spec was `svn copied' from SFEpython-genshi.spec
 - make use the python2.6 version, adjust (Build)Requires and python26 binary
