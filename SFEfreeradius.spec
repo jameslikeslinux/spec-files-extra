@@ -51,14 +51,14 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWkrbu
 BuildRequires: SUNWopenssl-include
-BuildRequires: SUNWgnu-dbm
+BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
 #BuildRequires: %{pnm_buildrequires_SUNWmysql_base_devel}
 %define PERLpath /usr/perl5/bin/perl
 BuildRequires: SUNWperl584core
 BuildRequires: SUNWltdl
 Requires: SUNWkrbu
 Requires: SUNWopenssl-libraries
-Requires: SUNWgnu-dbm
+Requires: %{pnm_requires_SUNWgnu_dbm}
 #Requires: %{pnm_requires_SUNWmysql_base}
 Requires: SUNWperl584core
 Requires: SUNWltdl
@@ -257,6 +257,8 @@ user ftpuser=false gcos-field="freeradius" username="%{radiususer}" uid="%{radiu
 
 
 %changelog
+* Tue Mar 17 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWgnu_dbm}
 * Tue Mar 15 2011 - Thomas Wagner
 - add missing predefined numeric gid="%{daemongid}" and uid="%{radiusuid} to %actions
 - typo: s/raidusuid/radiusuid/
