@@ -3,7 +3,6 @@
 
 ##TODO## list
 #see below, handle /var/sadm/pkg/SUNWruby18r /var/sadm/pkg/SUNWruby18u
-#SUNWwgetu and SUNWwgetr (Solaris 10, Nevada SVR4) -> SUNWwget on IPS
 
 # there are very old build out there, we might not need
 # to write special logic for builds older then build 81
@@ -65,7 +64,11 @@
 %define pnm_buildrequires_library_security_openssl	SUNWopenssl
 %define pnm_requires_library_security_openssl		SUNWopenssl
 
-#SUNWwgetu/SUNWwgetr/SUNWwget
+#SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget
+%define pnm_buildrequires_web_wget			SUNWwget
+%define pnm_requires_web_wget				SUNWwget
+%define pnm_buildrequires_wget				SUNWwget
+%define pnm_requires_wget				SUNWwget
 %define pnm_buildrequires_SUNWwgetu			SUNWwget
 %define pnm_requires_SUNWwgetu				SUNWwget
 %define pnm_buildrequires_SUNWwgetr			SUNWwget
@@ -120,6 +123,19 @@
 %define pnm_requires_SUNWgnome_python26_libs_devel	library/python-2/python-gnome-libs-26
 %define pnm_buildrequires_SUNWgnome_python26_libs	library/python-2/python-gnome-libs-26
 %define pnm_requires_SUNWgnome_python26_libs		library/python-2/python-gnome-libs-26
+
+
+#SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget
+%define pnm_buildrequires_web_wget			web/wget
+%define pnm_requires_web_wget				web/wget
+%define pnm_buildrequires_wget				web/wget
+%define pnm_requires_wget				web/wget
+%define pnm_buildrequires_SUNWwgetu			web/wget
+%define pnm_requires_SUNWwgetu				web/wget
+%define pnm_buildrequires_SUNWwgetr			web/wget
+%define pnm_requires_SUNWwgetr				web/wget
+%define pnm_buildrequires_SUNWwget			web/wget
+%define pnm_requires_SUNWwget				web/wget
 
 #os2nnn
 %endif
@@ -346,6 +362,7 @@
 
 %changelog
 * Sat Mar 19 2011 - Thomas Wagner
+- handle more cases SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget (>=133)
 - make endifs pretty commented
 - reduce "else" code paths by negating %if clauses (new build numbers have less %if clauses)
 * Fri Mar 18 2011 - Thomas Wagner
