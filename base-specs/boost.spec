@@ -9,8 +9,8 @@
 #
 
 %define        major      1
-%define        minor      44
-%define        patchlevel 0
+%define        minor      46
+%define        patchlevel 1
 %define        ver_boost  %{major}_%{minor}_%{patchlevel}
 
 %{!?boost_with_mt: %define boost_with_mt 0}
@@ -40,9 +40,6 @@ BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 %setup -q -n %{name}_%{major}_%{minor}_%{patchlevel}
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch6 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -52,55 +49,23 @@ fi
 
 BOOST_ROOT=`pwd`
 %if %cc_is_gcc
-TOOLSET=gcc
 export CC=gcc
 export CXX=g++
 export CXXFLAGS="%gcc_cxx_optflags"
 export LDFLAGS="%_ldflags"
 %else
-TOOLSET=sun
 export CXXFLAGS="%cxx_optflags -library=stlport4 -staticlib=stlport4 -norunpath -features=tmplife -features=tmplrefstatic"
 export LDFLAGS="%_ldflags -library=stlport4 -staticlib=stlport4"
 %endif
 
-PYTHON_VERSION=`python -c 'import platform; print platform.python_version()' | cut -d '.' -f1-2`
-PYTHON_ROOT=`python -c "import sys; print sys.prefix"`
-
-# Overwrite user-config.jam
-cat > user-config.jam <<EOF
-# Compiler configuration
-import toolset : using ;
-%if %cc_is_gcc
-using $TOOLSET : : $CXX : <cxxflags>"$CXXFLAGS" <linkflags>"$LDFLAGS" <linker-type>sun ;
-%else
-using $TOOLSET : : $CXX : <cxxflags>"$CXXFLAGS" <linkflags>"$LDFLAGS" ;
-%endif
-
-# Python configuration
-using python : $PYTHON_VERSION : $PYTHON_ROOT ;
-EOF
-
-# Build bjam
-cd "tools/jam/src" && ./build.sh "$TOOLSET"
-cd $BOOST_ROOT
-
-%if %boost_with_mt
-BOOST_BJAM_LAYOUT="--layout=tagged"
-%else
-BOOST_BJAM_LAYOUT="--layout=system"
-%endif
-
 # Do not build with ICU if building with GCC since ICU is built with SunStudio.
 %if %cc_is_gcc
-BOOST_BJAM_ICU_PATH=""
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --without-icu 
 %else
-BOOST_BJAM_ICU_PATH="-sICU_PATH=/usr"
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu --without-libraries=graph
 %endif
 
-# Build Boost
-BJAM=`find tools/jam/src -name bjam -a -type f`
-$BJAM --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
-  $BOOST_BJAM_ICU_PATH $BOOST_BJAM_LAYOUT --user-config=user-config.jam \
+./bjam --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
   release stage
 
 %install
@@ -109,6 +74,8 @@ $BJAM --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Mar 19 2011 - Milan Jurik
+- bump to 1.46.1 but disable graph lib for Sun Studio build
 * Thu Aug 26 2010 - Brian Cameron <brian.cameron@oracle.com
 - Bump to 1.44.
 * Wed Aug 04 2010 - Brian Cameron <brian.cameron@oracle.com>
