@@ -6,6 +6,7 @@
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 #%define src_version 2009.07.09
 #extract example: 2009.07.09
@@ -15,6 +16,17 @@
 #version example: 2009.7.9
 %define version %( /bin/echo %{src_version} | sed -e 's,\.0,.,' | sed -e 's,\.0,.,' )
 ##TODO## eventually build fallback solution like this: if three wget retries fail, look at SOURCES/live*tar.gz and use these numbers, volunteers welcome. To refresh one would have to just enable internet connection. To eliminate version jumps, create switch --disable-livemedia-download.
+
+#step 1 of 2 (done): set version to be defined, simply 0.0.0downloadfailed (avoid rpm syntax error)
+#check contents, eventuall above wget failed. Set version to 0.0.0downloadfailed in case the 
+#format isn't [0-9]{4}.[0-9]{1,2}.[0-9]{1,2} (e.g. 2007.11.03)
+#we could as well use whatever liveMedia version is as tarball in $SOURCES ##TODO##
+#but then we would miss updated version because silently the old version would be used
+%define version %( echo %{version} | egrep "^[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}$" || echo "0.0.0downloadfailed" )
+
+##TODO## step 2 of 2 (open): eventualls just use version stored in local SOURCES
+#but with the disadvantage that future version update do not popup by outdated
+#download links (would fail download then)
 
 ##TODO## improvement: change letters to numbers. e.g. 1.2.3a -> 1.2.3,1  (b -> .2, c -> .3)
 #for now just cut out all char [A-z]
@@ -30,7 +42,7 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{src_version}-build
 %include default-depend.inc
 
-BuildRequires: SUNWwgetu
+BuildRequires: %{pnm_buildrequires_SUNWwget}
 BuildRequires: SUNWxcu4
 
 %prep
@@ -62,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWwget}
 * Thr Feb  3 2011 - Thomas Wagner
 - remove letters from version number for IPS_component_version
 * Mar 2010 - Gilles Dauphin
