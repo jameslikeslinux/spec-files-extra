@@ -22,7 +22,7 @@
 #format isn't [0-9]{4}.[0-9]{1,2}.[0-9]{1,2} (e.g. 2007.11.03)
 #we could as well use whatever liveMedia version is as tarball in $SOURCES ##TODO##
 #but then we would miss updated version because silently the old version would be used
-%define version %( echo %{version} | egrep "^[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}$" || echo "0.0.0downloadfailed" )
+%define version_detected %( /usr/bin/echo %{version} | egrep "^[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}$" || echo "0.0.0downloadfailed" )
 
 ##TODO## step 2 of 2 (open): eventualls just use version stored in local SOURCES
 #but with the disadvantage that future version update do not popup by outdated
@@ -34,7 +34,7 @@ IPS_component_version: $( echo %{version} | sed -e s'/[A-z]//' )
 
 Name:                    SFEliveMedia
 Summary:                 liveMedia - live555 Streaming Media
-Version:                 %{version}
+Version:                 %{version_detected}
 Source:                  http://www.live555.com/liveMedia/public/live.%{src_version}.tar.gz
 Patch1:                  liveMedia-01-SOLARIS-macro.diff
 Patch2:                  liveMedia-02-config.diff
