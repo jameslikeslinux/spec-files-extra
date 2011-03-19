@@ -244,12 +244,17 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_localstatedir}/%{sname}/html
 %attr (0644, root, bin) %{_localstatedir}/%{sname}/html/*
 %dir %attr (0755, %{nginxuser}, %{nginxgroup}) %{_localstatedir}/%{sname}/logs
-%dir %attr (0755, root, bin) %{methodpath}
-%attr (0644, root, bin) %{methodpath}/*
-%dir %attr (0755, root, sys) %{manifestpath}
-%class(manifest) %attr (0644, root, bin) %{manifestpath}/*
+%dir %attr (0755, root, bin) /lib
+%dir %attr (0755, root, bin) /lib/svc
+%dir %attr (0755, root, bin) /lib/svc/method
+%attr (0755, root, bin) /lib/svc/method/*
+%class(manifest) %attr(0755, root, sys)/var/svc/manifest/*
+
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- fix packaging ownergroup of directories to smf manifest 
+- fix directory and files permissions in %files root for /lib/..., method, manifest
 * Wed Nov 17 2010 - Matt Lewandowsky <matt@greenviolet.net>
 - Added SMF manifest/method.
 * Tue Nov 16 2010 - Matt Lewandowsky <matt@greenviolet.net>
