@@ -27,7 +27,9 @@ Requires: SFEfreeglut
 BuildRequires: x11/library/freeglut
 Requires: x11/library/freeglut
 %endif
-BuildRequires: SUNWcmake
+BuildRequires: SFEcmake
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %prep
 %setup -q -n %{src_name}-%{version}
@@ -40,10 +42,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CPPFLAGS="-I/usr/X11/include"
-#export CC=/usr/sfw/bin/gcc
-#export CXX=/usr/sfw/bin/g++
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
 export CXXFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
 export LDFLAGS="-R%{_libdir} -L%{_libdir} -lX11 "
