@@ -11,8 +11,8 @@
 
 Name:                   SFEsauerbraten
 Summary:                Sauerbraten game engine
-Version:                2010_07_21
-IPS_component_version:	20100721
+Version:                2010_07_28
+IPS_component_version:	20100728
 Source:                 %{src_url}/%{src_name}_%{version}_%{src_edition}.tar.bz2
 Patch1:			sauerbraten-01-solaris.diff
 Patch2:			sauerbraten-02-startup.diff
@@ -84,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/sauerbraten
 
 %changelog
+* Sat Mar 19 2011 - Milan Jurik
+- bump to fixed release
 * Sat Jul 24 2010 - Milan Jurik
 - Bumped to Justice Edition (2010_07_21)
 * Tue Sep  8 2009 - drdoug007@gmail.com
