@@ -4,6 +4,8 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 
 %define  src_name Manifold
 %define  python_version  2.6
@@ -20,13 +22,14 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires: SUNWgnome-python26-libs
-Requires: SUNWPython26
-Requires: SFEpython26-genshi
-BuildRequires: SUNWgnome-python26-libs-devel
-BuildRequires: SUNWPython26-devel
-BuildRequires: SFEpython26-genshi
 BuildRequires: SUNWpython26-setuptools
+BuildRequires: %{pnm_buildrequires_SUNWgnome_python26_libs_devel}
+BuildRequires: %{pnm_buildrequires_SUNWlibpigment_python26_devel}
+Requires: %{pnm_requires_SUNWgnome_python26_libs}
+BuildRequires: SUNWPython26-devel
+Requires: SUNWPython26
+BuildRequires: SFEpython26-genshi
+Requires: SFEpython26-genshi
 
 %description
 Manifold helps you quickly and easily create Solaris SMF manifest XML files for your services by answering a few questions about how it needs to be configured.
@@ -118,5 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_cxx_libdir}/*
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWlibpigment_python26_devel}
 * Thu Jun 24 2010 - Thomas Wagner
 - initial spec
