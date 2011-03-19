@@ -20,7 +20,6 @@ Requires: SUNWlibms
 %setup -q -c -n %{name}
 
 %build
-export PATH=/usr/gcc/4.3/bin:$PATH
 cd BLAS
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
   make CC=cc CXX=CC F77=f77 FORTRAN=f77 LOADER=f77 PLAT="" OPTS="-03 -m64"

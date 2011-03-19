@@ -27,6 +27,8 @@ SUNW_BaseDir:	%{_basedir}
 
 Requires: SUNWcsl
 Requires: SUNWlibms
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %prep
 rm -rf %name-%version
