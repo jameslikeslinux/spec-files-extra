@@ -24,6 +24,9 @@ SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 %description 
 Asterisk is a complete IP PBX in software. It runs on a wide variety of operating systems and provides all of the features one would expect from a PBX including many advanced features that are often associated with high end (and high cost) proprietary PBXs. Asterisk supports Voice over IP in many protocols, and can interoperate with almost all standards-based telephony equipment using relatively inexpensive hardware.
 
@@ -48,8 +51,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir}
