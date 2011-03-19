@@ -51,7 +51,7 @@ rm -rf %{buildroot}
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/*
+%{_libdir}/lib*.so*
 
 %files devel
 %defattr (-, root, bin)
@@ -63,5 +63,7 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Mar 17 2011 - Thomas Wagner
+- fix packaging, wildcard to only catch lib*.so*  and not /usr/lib/pkgconfig/
 * Wed Dec 03 2010 - Milan Jurik
 - initial spec
