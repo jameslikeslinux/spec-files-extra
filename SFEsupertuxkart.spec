@@ -27,16 +27,24 @@ BuildRequires:  SFEplib-gpp
 %define cc_is_gcc 1
 %define _gpp g++
 %include base.inc
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 %else
 BuildRequires:  SFEplib-devel
 %endif
 
 BuildRequires:  SUNWlibsdl-devel
-BuildRequires:	SFElibmikmod-devel
-BuildRequires:  SUNWogg-vorbis
+Requires:	SUNWlibsdl
+BuildRequires:	SUNWlibmikmod-devel
+Requires:	SUNWlibmikmod
+BuildRequires:  SUNWogg-vorbis-devel
+Requires:	SUNWogg-vorbis
 BuildRequires:	SFEfreeglut-devel
+Requires:	SFEfreeglut
 BuildRequires:  SFEopenal-devel
+Requires:	SFEopenal
 BuildRequires:	SFEfreealut-devel
+Requires:	SFEfreealut
 BuildRequires:	SUNWgawk
 BuildRequires:	SUNWgnu-findutils
 Requires:	SFEbullet
@@ -71,8 +79,8 @@ unzip %{SOURCE2} -d data/ -x karts/mriceblock*
 
 %build
 %if %SFEplib_gpp
-export CC="/usr/gcc/4.3/bin/gcc"
-export CXX="/usr/gcc/4.3/bin/g++"
+export CC=gcc
+export CXX=g++
 export CXXFLAGS="-I%{_includedir} -I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -lGLU -lnsl -lsocket"
 %else
