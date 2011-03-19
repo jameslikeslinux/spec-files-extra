@@ -4,7 +4,11 @@
 # package are under the same license as the package itself.
 #
 
-# TODO fix sctp support
+##TODO## fix sctp support
+
+##TODO## remove geoip from ntop configure (illegal self download)
+#because this interferes with SFEgeoip.spec - should be more this
+#SFEntop.spec not delivering geoip, instead requiring SFEgeoip
 
 %include Solaris.inc
 %define cc_is_gcc 1
@@ -33,11 +37,16 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+##TODO## remove geoip parts from ntop, make ntop use SFEgeoip
+#"Conflicts" are dummy entries
+BuildConflicts: SFEgeiop
+Conflicts: SFEgeiop
+
 BuildRequires: SUNWlibpcap
-BuildRequires: SUNWgnu-dbm
+BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
 BuildRequires: SUNWgd2
 Requires: SUNWlibpcap
-Requires: SUNWgnu-dbm
+Requires: %{pnm_requires_SUNWgnu_dbm}
 Requires: SUNWgd2
 BuildRequires: SFElibevent
 Requires: SFElibevent
@@ -130,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/*
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWgnu_dbm}
+- open TODO entry to remove goeip from SFEntop.spec, add dummy (Build)Conflicts: SFEgeoip
 * Tue Jan 11 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_compatibility_ucb}
   Requires to %{pnm_requires_compatibility_ucb}
