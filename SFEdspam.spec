@@ -22,7 +22,7 @@ SUNW_BaseDir:            /
 
 %package devel
 Summary:                 %{summary} - development files
-SUNW_BaseDir:            /
+SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
@@ -101,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, bin) %{_includedir}/*
 
 %changelog
+* Thu Mar 17 2011 - Thomas Wagner
+- fix %files -devel catching /usr, setting SUNW_BaseDir: %{_basedir}
 * Sun Feb 14 2010 - Albert Lee <trisk@opensolaris.org>
 - Bump to 3.9.0
 - Add SMF manifest for daemon mode
