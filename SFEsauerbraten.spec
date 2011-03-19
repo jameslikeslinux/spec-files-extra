@@ -26,6 +26,8 @@ BuildRequires: SFEsdl-image-devel
 Requires: SFEsdl-image
 BuildRequires: SUNWxorg-mesa
 Requires: SUNWxorg-mesa
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %prep
 %setup -q -n %{src_name}
@@ -59,7 +61,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd src
-export CXX=/usr/gcc/4.3/bin/g++
+export CXX=g++
 export CXXOPTFLAGS="-O3 -fno-omit-frame-pointer"
 export LD_OPTIONS="-i %{xorg_lib_path} %{gnu_lib_path}"
 make -j $CPUS install
