@@ -55,11 +55,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*.h
 %dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man3
 %{_mandir}/man3/*
 
 %changelog
+* Thr Mar 17 2011 - Thomas Wagner
+- fix ownergroup for %{_docdir}
 * Mon Mar 14 2011 - Alex Viskovatoff
 - use %optflags
 * Mon Jan 10 2011 - Thomas Wagner
