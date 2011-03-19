@@ -18,7 +18,6 @@ URL:		http://www.netlib.org/lapack/
 %setup -q -c -n %{name}
 
 %build
-export PATH=/usr/gcc/4.3/bin:$PATH
 cd lapack-%{version}
 mv make.inc.example make.inc
 ln -s %{_libdir}/libblas.a blas.a

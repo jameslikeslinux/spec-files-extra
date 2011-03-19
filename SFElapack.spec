@@ -28,6 +28,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 Requires: SUNWcsl
 Requires: SUNWlibms
 BuildRequires: SFEblas
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 
 %prep
