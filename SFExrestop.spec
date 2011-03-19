@@ -10,7 +10,7 @@ Summary:                 xrestop - display X-Resource statistics
 Group:                   Utility
 Version:                 0.4
 Source:                  http://projects.o-hand.com/sources/xrestop/xrestop-%{version}.tar.gz
-URL:                     http://www.freedesktop.org/wiki/Software_2fxrestop
+URL:                     http://freedesktop.org/wiki/Software/xrestop
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
