@@ -10,7 +10,7 @@
 %include base.inc
 
 %define src_name   asterisk
-%define src_version    1.8.2.2
+%define src_version    1.8.3.2
 
 Name:         	SFE%{src_name}
 Summary:      	Asterisk : Complete IP PBX in software
@@ -109,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 19 2011 - Milan Jurik
+- bump to 1.8.3.2
 * Wed Feb 02 2011 - Milan Jurik
 - /var/run is under core system control
 * Mon Jan 24 2011 - Milan Jurik

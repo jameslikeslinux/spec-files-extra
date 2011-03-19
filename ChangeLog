@@ -3,6 +3,7 @@
 	* encumbered/SFEgnome-media-extras.spec: add VP8 plugin support
 	* base-specs/boost.spec: bump to 1.46.1 but disable graph lib
 	  for Sun Studio build
+	* SFEasterisk.spec: bump to 1.8.3.2
 
 2011-03-18  Alex Viskovatoff <viskovatoff@imap.cc>
 
