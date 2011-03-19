@@ -8,6 +8,7 @@
 # package are under the same license as the package itself.
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define cc_is_gcc 1
 %include base.inc
@@ -21,7 +22,8 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires: SUNWgnu-dbm
+Requires: %{pnm_requires_SUNWgnu_dbm}
+BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
 Requires: SUNWsqlite3
 BuildRequires: SUNWsqlite3
 
@@ -62,6 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/mDNS*
 %dir %attr (0755, root, bin) %{_cxx_libdir}
 %{_cxx_libdir}/lib*
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man8
 %{_mandir}/man8/*
@@ -77,5 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Mar 19 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWgnu_dbm}
+- fix permissions groupowner %{_datadir} in %files
 * Fri Oct 01 2010 - jchoi42@pha.jhu.edu
 - initial spec
