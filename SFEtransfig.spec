@@ -82,12 +82,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root, bin)
 %doc CHANGES NOTES README LATEX.AND.XFIG
-%{_bindir}/*
-%dir %attr (0755, root, bin) %{_mandir}
-%attr (0444, root, bin) %{_mandir}/man1/*
-%dir %attr (0755, root, bin) %{_datadir}
+%{_bindir}
+%dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/transfig/*
 %{_datadir}/xfig/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_mandir}
 
 %changelog
 * may 2010 - Gilles Dauphiun
