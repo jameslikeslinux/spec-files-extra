@@ -75,12 +75,18 @@ BuildRequires: SUNWopenssl-include
 Requires: SUNWopenssl-libraries
 %endif
 
-
 %package devel
 Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 
+%if %build_l10n
+%package l10n
+Summary:                 %{summary} - l10n files
+SUNW_BaseDir:            %{_basedir}
+%include default-depend.inc
+Requires:                %{name}
+%endif
 
 %prep
 %setup -q -n %name-%version -c -a0
@@ -184,7 +190,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sun Mar 20 2011 - Milan Jurik
-- bump to 1.2.7
+- bump to 1.2.7, locale package
 * Thu Aug 26 2010 - brian.cameron@oracle.com
 - Add flex dependency.
 * Fri Jul 16 2010 - yuntong.jin@sun.com
