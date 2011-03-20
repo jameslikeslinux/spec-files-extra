@@ -3,6 +3,7 @@
 	* SFEwebkitgtk.spec: bump to 1.2.7, locale package
 	* SFExfce4-dev-tools.spec: bump to 4.8.0, move to SFE from osol xfce
 	* SFElibxfce4util.spec: bump to 4.8.1, move to SFE from osol xfce
+	* SFExfconf.spec: bump to 4.8.0, move to SFE from osol xfce
 
 2011-03-19 Milan Jurik <sfnet@xylab.cz>
 
