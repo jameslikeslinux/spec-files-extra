@@ -24,7 +24,7 @@ Requires:	SFExfce4-dev-tools
 BuildRequires:	SUNWgnome-base-libs-devel
 Requires:	SUNWgnome-base-libs
 BuildRequires:	SUNWgtk-doc
-BuildRequires:	SUNWgnome-xml
+BuildRequires:	SUNWgnome-xml-share
 
 %package devel
 Summary:	%{summary} - developer files
