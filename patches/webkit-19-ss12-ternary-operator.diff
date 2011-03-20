@@ -1,8 +1,6 @@
-diff --git a/WebCore/html/HTMLParser.cpp b/WebCore/html/HTMLParser.cpp
-index f4ae6c2..b581e98 100644
---- a/WebCore/html/HTMLParser.cpp
-+++ b/WebCore/html/HTMLParser.cpp
-@@ -139,7 +139,7 @@ HTMLParser::HTMLParser(HTMLDocument* doc, bool reportErrors)
+--- webkit-1.2.7/WebCore/html/HTMLParser.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/html/HTMLParser.cpp	Sat Mar 19 23:16:20 2011
+@@ -143,7 +143,7 @@
      , m_handlingResidualStyleAcrossBlocks(false)
      , m_inStrayTableContent(0)
      , m_scriptingPermission(FragmentScriptingAllowed)
@@ -11,7 +9,7 @@ index f4ae6c2..b581e98 100644
  {
  }
  
-@@ -158,7 +158,7 @@ HTMLParser::HTMLParser(DocumentFragment* frag, FragmentScriptingPermission scrip
+@@ -163,7 +163,7 @@
      , m_handlingResidualStyleAcrossBlocks(false)
      , m_inStrayTableContent(0)
      , m_scriptingPermission(scriptingPermission)
@@ -20,11 +18,9 @@ index f4ae6c2..b581e98 100644
  {
      if (frag)
          frag->ref();
-diff --git a/WebCore/loader/DocumentLoader.cpp b/WebCore/loader/DocumentLoader.cpp
-index 37a2de2..3be695b 100644
---- a/WebCore/loader/DocumentLoader.cpp
-+++ b/WebCore/loader/DocumentLoader.cpp
-@@ -438,7 +438,7 @@ ArchiveResource* DocumentLoader::archiveResourceForURL(const KURL& url) const
+--- webkit-1.2.7/WebCore/loader/DocumentLoader.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/loader/DocumentLoader.cpp	Sat Mar 19 23:16:20 2011
+@@ -438,7 +438,7 @@
  
  PassRefPtr<Archive> DocumentLoader::popArchiveForSubframe(const String& frameName)
  {
@@ -33,11 +29,9 @@ index 37a2de2..3be695b 100644
  }
  
  void DocumentLoader::clearArchiveResources()
-diff --git a/WebCore/editing/markup.cpp b/WebCore/editing/markup.cpp
-index 714909f..fcb366b 100644
---- a/WebCore/editing/markup.cpp
-+++ b/WebCore/editing/markup.cpp
-@@ -965,7 +965,7 @@ String createMarkup(const Range* range, Vector<Node*>* nodes, EAnnotateForInterc
+--- webkit-1.2.7/WebCore/editing/markup.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/editing/markup.cpp	Sat Mar 19 23:16:20 2011
+@@ -973,7 +973,7 @@
      Node* body = enclosingNodeWithTag(Position(commonAncestor, 0), bodyTag);
      // FIXME: Do this for all fully selected blocks, not just the body.
      Node* fullySelectedRoot = body && *VisibleSelection::selectionFromContentsOfNode(body).toNormalizedRange() == *updatedRange ? body : 0;
@@ -46,11 +40,9 @@ index 714909f..fcb366b 100644
      if (annotate && fullySelectedRoot) {
          if (shouldIncludeWrapperForFullySelectedRoot(fullySelectedRoot, fullySelectedRootStyle.get()))
              specialCommonAncestor = fullySelectedRoot;
-diff --git a/WebCore/editing/CompositeEditCommand.cpp b/WebCore/editing/CompositeEditCommand.cpp
-index e9b6971..907c7f9 100644
---- a/WebCore/editing/CompositeEditCommand.cpp
-+++ b/WebCore/editing/CompositeEditCommand.cpp
-@@ -930,7 +930,7 @@ void CompositeEditCommand::moveParagraphs(const VisiblePosition& startOfParagrap
+--- webkit-1.2.7/WebCore/editing/CompositeEditCommand.cpp	Tue Dec 28 13:24:33 2010
++++ webkit-1.2.7-patch/WebCore/editing/CompositeEditCommand.cpp	Sat Mar 19 23:16:20 2011
+@@ -930,7 +930,7 @@
  
      // FIXME: This is an inefficient way to preserve style on nodes in the paragraph to move. It
      // shouldn't matter though, since moved paragraphs will usually be quite small.
@@ -59,11 +51,9 @@ index e9b6971..907c7f9 100644
      
      // A non-empty paragraph's style is moved when we copy and move it.  We don't move 
      // anything if we're given an empty paragraph, but an empty paragraph can have style
-diff --git a/WebCore/css/CSSComputedStyleDeclaration.cpp b/WebCore/css/CSSComputedStyleDeclaration.cpp
-index 8039e35..67a39f1 100644
---- a/WebCore/css/CSSComputedStyleDeclaration.cpp
-+++ b/WebCore/css/CSSComputedStyleDeclaration.cpp
-@@ -566,8 +566,8 @@ PassRefPtr<CSSValue> CSSComputedStyleDeclaration::valueForShadow(const ShadowDat
+--- webkit-1.2.7/WebCore/css/CSSComputedStyleDeclaration.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/css/CSSComputedStyleDeclaration.cpp	Sat Mar 19 23:16:20 2011
+@@ -568,8 +568,8 @@
          RefPtr<CSSPrimitiveValue> x = CSSPrimitiveValue::create(s->x, CSSPrimitiveValue::CSS_PX);
          RefPtr<CSSPrimitiveValue> y = CSSPrimitiveValue::create(s->y, CSSPrimitiveValue::CSS_PX);
          RefPtr<CSSPrimitiveValue> blur = CSSPrimitiveValue::create(s->blur, CSSPrimitiveValue::CSS_PX);
@@ -74,11 +64,9 @@ index 8039e35..67a39f1 100644
          RefPtr<CSSPrimitiveValue> color = CSSPrimitiveValue::createColor(s->color.rgb());
          list->prepend(ShadowValue::create(x.release(), y.release(), blur.release(), spread.release(), style.release(), color.release()));
      }
-diff --git a/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp b/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp
-index afbdf5d..6ba1f90 100644
---- a/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp
-+++ b/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp
-@@ -48,7 +48,7 @@ JSValue JSJavaScriptCallFrame::evaluate(ExecState* exec, const ArgList& args)
+--- webkit-1.2.7/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp	Fri Sep 10 15:20:32 2010
++++ webkit-1.2.7-patch/WebCore/bindings/js/JSJavaScriptCallFrameCustom.cpp	Sat Mar 19 23:16:20 2011
+@@ -48,7 +48,7 @@
  
  JSValue JSJavaScriptCallFrame::thisObject(ExecState*) const
  {
@@ -87,11 +75,9 @@ index afbdf5d..6ba1f90 100644
  }
  
  JSValue JSJavaScriptCallFrame::type(ExecState* exec) const
-diff --git a/WebCore/loader/icon/IconDatabase.cpp b/WebCore/loader/icon/IconDatabase.cpp
-index 4be3684..41fd021 100644
---- a/WebCore/loader/icon/IconDatabase.cpp
-+++ b/WebCore/loader/icon/IconDatabase.cpp
-@@ -511,7 +511,7 @@ void IconDatabase::setIconDataForIconURL(PassRefPtr<SharedBuffer> dataOriginal,
+--- webkit-1.2.7/WebCore/loader/icon/IconDatabase.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/loader/icon/IconDatabase.cpp	Sat Mar 19 23:16:20 2011
+@@ -511,7 +511,7 @@
      if (!isOpen() || iconURLOriginal.isEmpty())
          return;
      
@@ -100,11 +86,9 @@ index 4be3684..41fd021 100644
      String iconURL = iconURLOriginal.crossThreadString();
      
      Vector<String> pageURLs;
-diff --git a/WebCore/loader/archive/ArchiveResource.cpp b/WebCore/loader/archive/ArchiveResource.cpp
-index 691f66a..b6317da 100644
---- a/WebCore/loader/archive/ArchiveResource.cpp
-+++ b/WebCore/loader/archive/ArchiveResource.cpp
-@@ -35,17 +35,17 @@ namespace WebCore {
+--- webkit-1.2.7/WebCore/loader/archive/ArchiveResource.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/loader/archive/ArchiveResource.cpp	Sat Mar 19 23:16:20 2011
+@@ -35,17 +35,17 @@
  
  PassRefPtr<ArchiveResource> ArchiveResource::create(PassRefPtr<SharedBuffer> data, const KURL& url, const ResourceResponse& response)
  {
@@ -125,11 +109,9 @@ index 691f66a..b6317da 100644
  }
  
  ArchiveResource::ArchiveResource(PassRefPtr<SharedBuffer> data, const KURL& url, const ResourceResponse& response)
-diff --git a/WebCore/loader/archive/ArchiveFactory.cpp b/WebCore/loader/archive/ArchiveFactory.cpp
-index d09b064..8c80150 100644
---- a/WebCore/loader/archive/ArchiveFactory.cpp
-+++ b/WebCore/loader/archive/ArchiveFactory.cpp
-@@ -76,7 +76,7 @@ bool ArchiveFactory::isArchiveMimeType(const String& mimeType)
+--- webkit-1.2.7/WebCore/loader/archive/ArchiveFactory.cpp	Fri Mar 19 16:20:54 2010
++++ webkit-1.2.7-patch/WebCore/loader/archive/ArchiveFactory.cpp	Sat Mar 19 23:16:20 2011
+@@ -76,7 +76,7 @@
  PassRefPtr<Archive> ArchiveFactory::create(SharedBuffer* data, const String& mimeType)
  {
      RawDataCreationFunction* function = archiveMIMETypes().get(mimeType);
@@ -138,11 +120,9 @@ index d09b064..8c80150 100644
  }
  
  void ArchiveFactory::registerKnownArchiveMIMETypes()
-diff --git a/WebCore/page/animation/AnimationBase.cpp b/WebCore/page/animation/AnimationBase.cpp
-index 135365c..8dde52d 100644
---- a/WebCore/page/animation/AnimationBase.cpp
-+++ b/WebCore/page/animation/AnimationBase.cpp
-@@ -146,7 +146,7 @@ static inline TransformOperations blendFunc(const AnimationBase* anim, const Tra
+--- webkit-1.2.7/WebCore/page/animation/AnimationBase.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/page/animation/AnimationBase.cpp	Sat Mar 19 23:16:20 2011
+@@ -153,7 +153,7 @@
          for (unsigned i = 0; i < size; i++) {
              RefPtr<TransformOperation> fromOp = (i < fromSize) ? from.operations()[i].get() : 0;
              RefPtr<TransformOperation> toOp = (i < toSize) ? to.operations()[i].get() : 0;
@@ -151,11 +131,9 @@ index 135365c..8dde52d 100644
              if (blendedOp)
                  result.operations().append(blendedOp);
              else {
-diff --git a/WebCore/rendering/RenderLayer.cpp b/WebCore/rendering/RenderLayer.cpp
-index d8a3288..9bf0437 100644
---- a/WebCore/rendering/RenderLayer.cpp
-+++ b/WebCore/rendering/RenderLayer.cpp
-@@ -3374,7 +3374,7 @@ void RenderLayer::styleChanged(StyleDifference diff, const RenderStyle*)
+--- webkit-1.2.7/WebCore/rendering/RenderLayer.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/rendering/RenderLayer.cpp	Sat Mar 19 23:16:20 2011
+@@ -3427,7 +3427,7 @@
  void RenderLayer::updateScrollCornerStyle()
  {
      RenderObject* actualRenderer = renderer()->node() ? renderer()->node()->shadowAncestorNode()->renderer() : renderer();
@@ -164,7 +142,7 @@ index d8a3288..9bf0437 100644
      if (corner) {
          if (!m_scrollCorner) {
              m_scrollCorner = new (renderer()->renderArena()) RenderScrollbarPart(renderer()->document());
-@@ -3390,7 +3390,7 @@ void RenderLayer::updateScrollCornerStyle()
+@@ -3443,7 +3443,7 @@
  void RenderLayer::updateResizerStyle()
  {
      RenderObject* actualRenderer = renderer()->node() ? renderer()->node()->shadowAncestorNode()->renderer() : renderer();
@@ -173,11 +151,9 @@ index d8a3288..9bf0437 100644
      if (resizer) {
          if (!m_resizer) {
              m_resizer = new (renderer()->renderArena()) RenderScrollbarPart(renderer()->document());
-diff --git a/WebCore/rendering/RenderScrollbar.cpp b/WebCore/rendering/RenderScrollbar.cpp
-index 63fce8d..0144fd1 100644
---- a/WebCore/rendering/RenderScrollbar.cpp
-+++ b/WebCore/rendering/RenderScrollbar.cpp
-@@ -199,7 +199,7 @@ void RenderScrollbar::updateScrollbarPart(ScrollbarPart partType, bool destroy)
+--- webkit-1.2.7/WebCore/rendering/RenderScrollbar.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/rendering/RenderScrollbar.cpp	Sat Mar 19 23:16:20 2011
+@@ -199,7 +199,7 @@
      if (partType == NoPart)
          return;
  
@@ -186,10 +162,8 @@ index 63fce8d..0144fd1 100644
      
      bool needRenderer = !destroy && partStyle && partStyle->display() != NONE && partStyle->visibility() == VISIBLE;
      
-diff --git a/WebCore/rendering/RenderTextFragment.cpp b/WebCore/rendering/RenderTextFragment.cpp
-index 9ff1106..876784b 100644
---- a/WebCore/rendering/RenderTextFragment.cpp
-+++ b/WebCore/rendering/RenderTextFragment.cpp
+--- webkit-1.2.7/WebCore/rendering/RenderTextFragment.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/rendering/RenderTextFragment.cpp	Sat Mar 19 23:16:20 2011
 @@ -28,7 +28,7 @@
  namespace WebCore {
  
@@ -199,11 +173,9 @@ index 9ff1106..876784b 100644
      , m_start(startOffset)
      , m_end(length)
      , m_firstLetter(0)
-diff --git a/WebCore/loader/appcache/ApplicationCacheGroup.cpp b/WebCore/loader/appcache/ApplicationCacheGroup.cpp
-index c8a485a..c424895 100644
---- a/WebCore/loader/appcache/ApplicationCacheGroup.cpp
-+++ b/WebCore/loader/appcache/ApplicationCacheGroup.cpp
-@@ -775,7 +775,7 @@ void ApplicationCacheGroup::checkIfLoadIsComplete()
+--- webkit-1.2.7/WebCore/loader/appcache/ApplicationCacheGroup.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/loader/appcache/ApplicationCacheGroup.cpp	Sat Mar 19 23:16:20 2011
+@@ -775,7 +775,7 @@
              ASSERT(cacheStorage().isMaximumSizeReached() && m_calledReachedMaxAppCacheSize);
          }
  
@@ -212,11 +184,9 @@ index c8a485a..c424895 100644
  
          setNewestCache(m_cacheBeingUpdated.release());
          if (cacheStorage().storeNewestCache(this)) {
-diff --git a/WebCore/svg/SVGElement.cpp b/WebCore/svg/SVGElement.cpp
-index d039a4f..7acfa53 100644
---- a/WebCore/svg/SVGElement.cpp
-+++ b/WebCore/svg/SVGElement.cpp
-@@ -208,7 +208,7 @@ void SVGElement::sendSVGLoadEventIfPossible(bool sendParentLoadEvents)
+--- webkit-1.2.7/WebCore/svg/SVGElement.cpp	Mon Feb  7 18:29:58 2011
++++ webkit-1.2.7-patch/WebCore/svg/SVGElement.cpp	Sat Mar 19 23:16:20 2011
+@@ -280,7 +280,7 @@
              event->setTarget(currentTarget);
              currentTarget->dispatchGenericEvent(event.release());
          }

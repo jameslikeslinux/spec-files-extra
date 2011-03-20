@@ -1,6 +1,5 @@
-diff -r d2a07bdc6744 JavaScriptCore/jsc.cpp
---- a/JavaScriptCore/jsc.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/jsc.cpp	Tue May 18 19:38:43 2010 +0800
+--- webkit-1.2.7/JavaScriptCore/jsc.cpp	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/jsc.cpp	Sat Mar 19 23:02:18 2011
 @@ -304,6 +304,10 @@
      // Without this, Visual Studio will complain that this method does not return a value.
      return jsUndefined();
@@ -12,10 +11,9 @@ diff -r d2a07bdc6744 JavaScriptCore/jsc.cpp
  }
  
  // Use SEH for Release builds only to get rid of the crash report dialog
-diff -r d2a07bdc6744 JavaScriptCore/wtf/FastMalloc.cpp
---- a/JavaScriptCore/wtf/FastMalloc.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/wtf/FastMalloc.cpp	Tue May 18 19:38:43 2010 +0800
-@@ -1495,7 +1495,7 @@
+--- webkit-1.2.7/JavaScriptCore/wtf/FastMalloc.cpp	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/wtf/FastMalloc.cpp	Sat Mar 19 23:02:18 2011
+@@ -1499,7 +1499,7 @@
  void* TCMalloc_PageHeap::runScavengerThread(void* context)
  {
    static_cast<TCMalloc_PageHeap*>(context)->scavengerThread();
@@ -24,9 +22,6 @@ diff -r d2a07bdc6744 JavaScriptCore/wtf/FastMalloc.cpp
    // Without this, Visual Studio will complain that this method does not return a value.
    return 0;
  #endif
-diff -r 7f0899abd82d JavaScriptCore/wtf/FastMalloc.cpp
---- a/JavaScriptCore/wtf/FastMalloc.cpp	Fri May 21 01:19:20 2010 +0800
-+++ b/JavaScriptCore/wtf/FastMalloc.cpp	Fri May 21 01:20:53 2010 +0800
 @@ -3506,8 +3506,8 @@
    }
    if (!ret) {

@@ -10,7 +10,7 @@
 
 Name:                    SFEwebkitgtk
 Summary:                 WetKit, an open source web browser engine that's used by Safari, Dashboard, Mail, and many other OS X applications.
-Version:                 1.2.3
+Version:                 1.2.7
 Source:                  http://www.webkitgtk.org/webkit-%{version}.tar.gz
 # Source-md5:	22af6591b124610a8df55c7a87989349
 URL:                     http://www.webkitgtk.org/
@@ -152,6 +152,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -181,6 +183,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 20 2011 - Milan Jurik
+- bump to 1.2.7
 * Thu Aug 26 2010 - brian.cameron@oracle.com
 - Add flex dependency.
 * Fri Jul 16 2010 - yuntong.jin@sun.com

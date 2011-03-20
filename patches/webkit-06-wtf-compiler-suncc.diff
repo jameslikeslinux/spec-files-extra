@@ -1,8 +1,6 @@
-diff --git a/JavaScriptCore/wtf/Platform.h b/JavaScriptCore/wtf/Platform.h
-index 6557c28..53b96ef 100644
---- a/JavaScriptCore/wtf/Platform.h
-+++ b/JavaScriptCore/wtf/Platform.h
-@@ -89,6 +89,10 @@
+--- webkit-1.2.7/JavaScriptCore/wtf/Platform.h	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/wtf/Platform.h	Sat Mar 19 23:05:08 2011
+@@ -94,6 +94,10 @@
  #endif
  
  

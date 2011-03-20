@@ -1,8 +1,6 @@
-diff --git a/WebCore/platform/gtk/LocalizedStringsGtk.cpp b/WebCore/platform/gtk/LocalizedStringsGtk.cpp
-index 2d8dfc4..910f9ef 100644
---- a/WebCore/platform/gtk/LocalizedStringsGtk.cpp
-+++ b/WebCore/platform/gtk/LocalizedStringsGtk.cpp
-@@ -447,7 +447,7 @@ String localizedMediaControlElementHelpText(const String& name)
+--- webkit-1.2.7/WebCore/platform/gtk/LocalizedStringsGtk.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/platform/gtk/LocalizedStringsGtk.cpp	Sat Mar 19 23:08:30 2011
+@@ -457,7 +457,7 @@
  
  String localizedMediaTimeDescription(float time)
  {

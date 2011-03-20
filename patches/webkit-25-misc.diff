@@ -1,6 +1,5 @@
-diff -r d2a07bdc6744 JavaScriptCore/runtime/SmallStrings.cpp
---- a/JavaScriptCore/runtime/SmallStrings.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/runtime/SmallStrings.cpp	Tue May 18 19:51:11 2010 +0800
+--- webkit-1.2.7/JavaScriptCore/runtime/SmallStrings.cpp	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/runtime/SmallStrings.cpp	Sat Mar 19 23:30:22 2011
 @@ -61,7 +61,7 @@
  
  SmallStrings::SmallStrings()
@@ -10,10 +9,9 @@ diff -r d2a07bdc6744 JavaScriptCore/runtime/SmallStrings.cpp
      clear();
  }
  
-diff -r d2a07bdc6744 JavaScriptCore/wtf/Vector.h
---- a/JavaScriptCore/wtf/Vector.h	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/wtf/Vector.h	Tue May 18 19:51:11 2010 +0800
-@@ -948,7 +948,7 @@
+--- webkit-1.2.7/JavaScriptCore/wtf/Vector.h	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/wtf/Vector.h	Sat Mar 19 23:30:22 2011
+@@ -948,7 +964,7 @@
          // one is needed. 
          new (end()) T(static_cast<T>(*ptr));
  #else

@@ -1,6 +1,5 @@
-diff -r d2a07bdc6744 GNUmakefile.am
---- a/GNUmakefile.am	Tue May 18 19:09:56 2010 +0800
-+++ b/GNUmakefile.am	Tue May 18 19:33:11 2010 +0800
+--- webkit-1.2.7/GNUmakefile.am	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/GNUmakefile.am	Sat Mar 19 22:47:21 2011
 @@ -95,7 +95,6 @@
  # Don't include them for now to reduce the noise when compiling
  # $(GLIB_CFLAGS) $(CAIRO_CFLAGS) $(PANGO_CFLAGS)  $(FREETYPE_CFLAGS)
@@ -45,9 +44,9 @@ diff -r d2a07bdc6744 GNUmakefile.am
  global_cppflags += -DNDEBUG
 -global_cflags += $(SYMBOL_VISIBILITY)
 +global_cflags += -xldscope==hidden
- 
  else
- webcoregtk_cppflags += \
+ #webcoregtk_cppflags += \
+ #	-DG_DISABLE_DEPRECATED \
 @@ -544,7 +535,6 @@
  noinst_PROGRAMS += $(TEST_PROGS)
  
@@ -67,19 +66,18 @@ diff -r d2a07bdc6744 GNUmakefile.am
  
  TEST_PROGS += Programs/unittests/testhttpbackend \
  	Programs/unittests/testloading \
-diff -r d2a07bdc6744 GNUmakefile.in
---- a/GNUmakefile.in	Tue May 18 19:09:56 2010 +0800
-+++ b/GNUmakefile.in	Tue May 18 19:33:11 2010 +0800
+--- webkit-1.2.7/GNUmakefile.in	Mon Feb  7 18:43:44 2011
++++ webkit-1.2.7-patch/GNUmakefile.in	Sat Mar 19 22:48:10 2011
 @@ -99,7 +99,7 @@
  @ENABLE_FAST_MALLOC_FALSE@	-DUSE_SYSTEM_MALLOC
  
  @ENABLE_DEBUG_FALSE@am__append_5 = -DNDEBUG
 -@ENABLE_DEBUG_FALSE@am__append_6 = $(SYMBOL_VISIBILITY)
 +@ENABLE_DEBUG_FALSE@am__append_6 = -xldscope=hidden
- @ENABLE_DEBUG_TRUE@am__append_7 = \
- @ENABLE_DEBUG_TRUE@	-DG_DISABLE_DEPRECATED \
- @ENABLE_DEBUG_TRUE@	-DGDK_PIXBUF_DISABLE_DEPRECATED \
-@@ -6326,7 +6326,7 @@
+ #webcoregtk_cppflags += \
+ #	-DG_DISABLE_DEPRECATED \
+ #	-DGDK_PIXBUF_DISABLE_DEPRECATED \
+@@ -6360,7 +6360,7 @@
  INTROSPECTION_LIBS = @INTROSPECTION_LIBS@
  JPEG_LIBS = @JPEG_LIBS@
  LD = @LD@
@@ -88,7 +86,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  LIBOBJS = @LIBOBJS@
  LIBS = @LIBS@
  LIBSOUP_2_29_90_CFLAGS = @LIBSOUP_2_29_90_CFLAGS@
-@@ -6373,8 +6373,8 @@
+@@ -6409,8 +6409,8 @@
  SQLITE3_CFLAGS = @SQLITE3_CFLAGS@
  SQLITE3_LIBS = @SQLITE3_LIBS@
  STRIP = @STRIP@
@@ -99,8 +97,8 @@ diff -r d2a07bdc6744 GNUmakefile.in
  UNICODE_CFLAGS = @UNICODE_CFLAGS@
  UNICODE_LIBS = @UNICODE_LIBS@
  VERSION = @VERSION@
-@@ -8835,20 +8835,16 @@
- 	$(am__append_5) $(am__append_8) $(am__append_45)
+@@ -8878,13 +8878,9 @@
+ 	$(am__append_5) $(am__append_7) $(am__append_44)
  
  # Default compiler flags
 -global_cflags := -Wall -W -Wcast-align -Wchar-subscripts -Wreturn-type \
@@ -115,6 +113,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  
  # CFLAGS/CXXFLAGS used by WebCore and WebKit
  #
+@@ -8891,7 +8887,7 @@
  # gtk+.pc already include glib, cairo, freetype and pango CFLAGS
  # Don't include them for now to reduce the noise when compiling
  # $(GLIB_CFLAGS) $(CAIRO_CFLAGS) $(PANGO_CFLAGS)  $(FREETYPE_CFLAGS)
@@ -123,7 +122,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(ENCHANT_CFLAGS) $(GAIL_CFLAGS) $(GEOCLUE_CFLAGS) \
  	$(GLIB_CFLAGS) $(GSTREAMER_CFLAGS) $(GTK_CFLAGS) \
  	$(HILDON_CFLAGS) $(LIBSOUP_CFLAGS) $(LIBXML_CFLAGS) \
-@@ -8951,8 +8947,6 @@
+@@ -8994,8 +8990,6 @@
  	$(libJavaScriptCore_la_CFLAGS)
  
  libJavaScriptCore_la_CFLAGS = \
@@ -132,7 +131,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(global_cflags) \
  	$(GLIB_CFLAGS) \
  	$(UNICODE_CFLAGS)
-@@ -9053,19 +9047,16 @@
+@@ -9096,8 +9090,6 @@
  	$(javascriptcore_cppflags)
  
  Programs_minidom_CFLAGS = \
@@ -141,22 +140,22 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(global_cflags) \
  	$(GLOBALDEPS_CFLAGS)
  
+@@ -9104,11 +9096,10 @@
  Programs_minidom_LDADD = \
  	 libJavaScriptCore.la \
  	 -lm \
 -	 -lstdc++
--
++	 -lCstd \
++	 -lCrun
+ 
 -Programs_minidom_LDFLAGS = \
 -	-no-install \
 -	-no-fast-install
-+	 -lCstd \
-+	 -lCrun
-+
 +Programs_minidom_LDFLAGS =
  
  
  # jsc
-@@ -9077,7 +9068,6 @@
+@@ -9120,7 +9111,6 @@
  	$(javascriptcore_cppflags)
  
  Programs_jsc_CXXFLAGS = \
@@ -164,7 +163,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(global_cxxflags) \
  	$(global_cflags) \
  	$(GLOBALDEPS_CFLAGS) \
-@@ -9209,8 +9199,6 @@
+@@ -9254,8 +9244,6 @@
  	WebKitTools/GtkLauncher/main.c
  
  Programs_GtkLauncher_CFLAGS = \
@@ -173,7 +172,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(global_cflags) \
  	$(GTK_CFLAGS) \
  	$(LIBSOUP_CFLAGS)
-@@ -9220,9 +9208,7 @@
+@@ -9265,9 +9253,7 @@
  	$(GTK_LIBS) \
  	$(GLIB_LIBS)
  
@@ -184,7 +183,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  
  
  # DumpRenderTree
-@@ -9265,7 +9251,6 @@
+@@ -9310,7 +9296,6 @@
  	$(Programs_DumpRenderTree_CFLAGS)
  
  Programs_DumpRenderTree_CFLAGS = \
@@ -192,7 +191,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	$(dumprendertree_cppflags) \
  	$(global_cflags) \
  	$(GLOBALDEPS_CFLAGS) \
-@@ -9283,9 +9268,7 @@
+@@ -9328,9 +9313,7 @@
  	$(LIBSOUP_LIBS) \
  	$(FREETYPE_LIBS)
  
@@ -203,7 +202,7 @@ diff -r d2a07bdc6744 GNUmakefile.in
  
  @TARGET_X11_TRUE@TestNetscapePlugin_libtestnetscapeplugin_la_CPPFLAGS = \
  @TARGET_X11_TRUE@	-I$(srcdir)/WebKitTools/DumpRenderTree \
-@@ -9319,7 +9302,6 @@
+@@ -9364,7 +9347,6 @@
  MSGMERGE := $(shell which msgmerge)
  MSGMERGE_UPDATE := $(MSGMERGE) --update
  webkit_tests_cflags = \
@@ -211,10 +210,9 @@ diff -r d2a07bdc6744 GNUmakefile.in
  	-I$(srcdir)/JavaScriptCore/ForwardingHeaders \
  	-I$(srcdir)/WebKit/gtk \
  	-I$(top_builddir)/WebKit/gtk \
-diff -r d2a07bdc6744 JavaScriptCore/GNUmakefile.am
---- a/JavaScriptCore/GNUmakefile.am	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/GNUmakefile.am	Tue May 18 19:33:11 2010 +0800
-@@ -554,19 +554,15 @@
+--- webkit-1.2.7/JavaScriptCore/GNUmakefile.am	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/GNUmakefile.am	Sat Mar 19 22:46:12 2011
+@@ -554,8 +554,6 @@
  	$(javascriptcore_cppflags)
  
  Programs_minidom_CFLAGS = \
@@ -223,6 +221,7 @@ diff -r d2a07bdc6744 JavaScriptCore/GNUmakefile.am
  	$(global_cflags) \
  	$(GLOBALDEPS_CFLAGS)
  
+@@ -562,11 +560,9 @@
  Programs_minidom_LDADD = \
  	 libJavaScriptCore.la \
  	 -lm \
@@ -244,10 +243,9 @@ diff -r d2a07bdc6744 JavaScriptCore/GNUmakefile.am
  	$(global_cxxflags) \
  	$(global_cflags) \
  	$(GLOBALDEPS_CFLAGS) \
-diff -r d2a07bdc6744 configure.ac
---- a/configure.ac	Tue May 18 19:09:56 2010 +0800
-+++ b/configure.ac	Tue May 18 19:33:11 2010 +0800
-@@ -671,11 +671,11 @@
+--- webkit-1.2.7/configure.ac	Mon Feb  7 18:38:11 2011
++++ webkit-1.2.7-patch/configure.ac	Sat Mar 19 22:46:12 2011
+@@ -666,11 +666,11 @@
  
  # Add the appropriate 'O' level for optimized builds
  if test "$enable_optimizations" = "yes"; then

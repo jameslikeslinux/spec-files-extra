@@ -1,7 +1,6 @@
-diff -r 6e54e6079035 WebCore/platform/gtk/PopupMenuGtk.cpp
---- a/WebCore/platform/gtk/PopupMenuGtk.cpp	Mon Jan 25 13:26:39 2010 +0800
-+++ b/WebCore/platform/gtk/PopupMenuGtk.cpp	Mon Jan 25 16:24:14 2010 +0800
-@@ -54,7 +54,7 @@
+--- webkit-1.2.7/WebCore/platform/gtk/PopupMenuGtk.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/platform/gtk/PopupMenuGtk.cpp	Sat Mar 19 23:27:28 2011
+@@ -55,7 +55,7 @@
          m_popup = GTK_MENU(gtk_menu_new());
          g_signal_connect(m_popup.get(), "unmap", G_CALLBACK(menuUnmapped), this);
      } else
@@ -9,20 +8,19 @@ diff -r 6e54e6079035 WebCore/platform/gtk/PopupMenuGtk.cpp
 +        gtk_container_foreach(GTK_CONTAINER(m_popup.get()), (GtkCallback)(menuRemoveItem), this);
  
      int x, y;
-     gdk_window_get_origin(GTK_WIDGET(view->hostWindow()->platformPageClient())->window, &x, &y);
-@@ -104,7 +104,7 @@
-             // Center vertically the empty popup in the combo box area
+     gdk_window_get_origin(gtk_widget_get_window(GTK_WIDGET(view->hostWindow()->platformPageClient())), &x, &y);
+@@ -107,7 +107,7 @@
              m_menuPosition.setY(m_menuPosition.y() - rect.height() / 2);
  
+     g_list_free(children);
 -    gtk_menu_popup(m_popup.get(), 0, 0, reinterpret_cast<GtkMenuPositionFunc>(menuPositionFunction), this, 0, gtk_get_current_event_time());
 +    gtk_menu_popup(m_popup.get(), 0, 0, (GtkMenuPositionFunc)(menuPositionFunction), this, 0, gtk_get_current_event_time());
  }
  
  void PopupMenu::hide()
-diff -r 6e54e6079035 WebCore/platform/network/soup/ResourceHandleSoup.cpp
---- a/WebCore/platform/network/soup/ResourceHandleSoup.cpp	Mon Jan 25 13:26:39 2010 +0800
-+++ b/WebCore/platform/network/soup/ResourceHandleSoup.cpp	Mon Jan 25 16:24:29 2010 +0800
-@@ -534,7 +534,7 @@
+--- webkit-1.2.7/WebCore/platform/network/soup/ResourceHandleSoup.cpp	Fri Sep 10 15:20:33 2010
++++ webkit-1.2.7-patch/WebCore/platform/network/soup/ResourceHandleSoup.cpp	Sat Mar 19 23:26:06 2011
+@@ -542,7 +542,7 @@
                                                                          g_mapped_file_get_length(fileMapping),
                                                                          fileMapping,
  #if GLIB_CHECK_VERSION(2, 21, 3)

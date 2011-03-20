@@ -1,7 +1,6 @@
-diff -r d2a07bdc6744 JavaScriptCore/interpreter/RegisterFile.cpp
---- a/JavaScriptCore/interpreter/RegisterFile.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/interpreter/RegisterFile.cpp	Tue May 18 19:37:36 2010 +0800
-@@ -34,7 +34,7 @@
+--- webkit-1.2.7/JavaScriptCore/interpreter/RegisterFile.cpp	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/interpreter/RegisterFile.cpp	Sat Mar 19 22:58:16 2011
+@@ -36,7 +36,7 @@
  RegisterFile::~RegisterFile()
  {
  #if HAVE(MMAP)
@@ -10,10 +9,9 @@ diff -r d2a07bdc6744 JavaScriptCore/interpreter/RegisterFile.cpp
  #elif HAVE(VIRTUALALLOC)
  #if OS(WINCE)
      VirtualFree(m_buffer, DWORD(m_commitEnd) - DWORD(m_buffer), MEM_DECOMMIT);
-diff -r d2a07bdc6744 JavaScriptCore/interpreter/RegisterFile.h
---- a/JavaScriptCore/interpreter/RegisterFile.h	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/interpreter/RegisterFile.h	Tue May 18 19:37:36 2010 +0800
-@@ -174,7 +174,7 @@
+--- webkit-1.2.7/JavaScriptCore/interpreter/RegisterFile.h	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/interpreter/RegisterFile.h	Sat Mar 19 22:58:16 2011
+@@ -175,7 +175,7 @@
  
          size_t bufferLength = (capacity + maxGlobals) * sizeof(Register);
      #if HAVE(MMAP)
@@ -22,9 +20,8 @@ diff -r d2a07bdc6744 JavaScriptCore/interpreter/RegisterFile.h
          if (m_buffer == MAP_FAILED) {
  #if OS(WINCE)
              fprintf(stderr, "Could not allocate register file: %d\n", GetLastError());
-diff -r d2a07bdc6744 JavaScriptCore/runtime/MarkStackPosix.cpp
---- a/JavaScriptCore/runtime/MarkStackPosix.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/runtime/MarkStackPosix.cpp	Tue May 18 19:37:36 2010 +0800
+--- webkit-1.2.7/JavaScriptCore/runtime/MarkStackPosix.cpp	Fri Mar 19 16:20:53 2010
++++ webkit-1.2.7-patch/JavaScriptCore/runtime/MarkStackPosix.cpp	Sat Mar 19 22:58:16 2011
 @@ -44,7 +44,7 @@
  }
  void MarkStack::releaseStack(void* addr, size_t size)
@@ -34,9 +31,8 @@ diff -r d2a07bdc6744 JavaScriptCore/runtime/MarkStackPosix.cpp
  }
  
  }
-diff -r d2a07bdc6744 JavaScriptCore/wtf/TCSystemAlloc.cpp
---- a/JavaScriptCore/wtf/TCSystemAlloc.cpp	Tue May 18 19:09:56 2010 +0800
-+++ b/JavaScriptCore/wtf/TCSystemAlloc.cpp	Tue May 18 19:37:36 2010 +0800
+--- webkit-1.2.7/JavaScriptCore/wtf/TCSystemAlloc.cpp	Fri Sep 10 15:20:23 2010
++++ webkit-1.2.7-patch/JavaScriptCore/wtf/TCSystemAlloc.cpp	Sat Mar 19 22:58:16 2011
 @@ -194,10 +194,10 @@
  
    // Return the unused memory to the system
