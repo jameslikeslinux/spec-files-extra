@@ -7,6 +7,7 @@
 # include module(s): 
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:           SFEnetatalk
 Summary:        Open Source AFP fileserver
@@ -19,12 +20,16 @@ URL:            http://netatalk.sourceforge.net/
 Group:          Network
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
+
 %include default-depend.inc
-BuildRequires:  SFEbdb
-Requires:       SFEbdb
+
+BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
+Requires: %{pnm_requires_SUNWgnu_dbm}
+#make the root package to be installed first
+Requires: %name-root
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-SUNW_Basedir:   /
-%define _sysconfdir /etc
+SUNW_BaseDir:            %{_basedir}
 SUNW_Copyright: %{name}.copyright
 
 # OpenSolaris IPS Manifest Fields
@@ -40,6 +45,10 @@ Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
+
+%package root
+Summary:		%{summary} - root filesystem files, /
+SUNW_BaseDir:		/
 
 %prep
 rm -rf %name-%version
@@ -75,6 +84,10 @@ install -D -m 755 distrib/initscripts/rc.atalk.sysv $RPM_BUILD_ROOT%{_sysconfdir
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/spool/netatalk
 rm -rf $RPM_BUILD_ROOT/var/tmp
 rm -rf $RPM_BUILD_ROOT/usr/lib/security
+rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -rf $RPM_BUILD_ROOT%{_libdir}/netatalk/*.a
+rm -rf $RPM_BUILD_ROOT%{_libdir}/netatalk/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,76 +95,41 @@ rm -rf %name-%version
 
 %files
 %defattr(-,root,bin)
-%dir %attr (-,-,-) %{_basedir}
-%dir %attr (-,-,-) %{_basedir}/share
-%dir %attr (-,-,-) %{_basedir}/share/aclocal
-%dir %attr (-,-,-) %{_bindir}
-%dir %attr (-,-,-) %{_mandir}
-%dir %attr (-,-,-) %{_localstatedir}
-%dir %attr (-,-,-) %{_libdir}
-%dir %attr (-,-,-) %{_sysconfdir}
-%dir %attr (0755, root, sys) %{_sysconfdir}/netatalk
-%dir %attr (-,-,-) %{_sysconfdir}/init.d
-%dir %attr (0755, root, bin) %{_libdir}/netatalk
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/AppleVolumes.default
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/AppleVolumes.system
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/afpd.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/atalkd.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/papd.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/netatalk.conf
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/afp_ldap.conf
-%{_sysconfdir}/init.d/netatalk
+%{_sbindir}/*
+%{_bindir}/*
+%{_libdir}/netatalk/*
 
-%attr(755,root,bin) %{_sbindir}/*
-%attr(755,root,bin) %{_bindir}/[!n]*
-%attr(755,root,bin) %{_bindir}/n[!e]*
-%attr(755,root,bin) %{_bindir}/netacnv
+
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/netatalk/*
+%dir %attr (0755, root, bin) %{_mandir}
+%dir %attr (0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
-
-%attr(755,root,bin) %{_bindir}/netatalk-config
-%{_libexecdir}/netatalk/ifwmpap
-%{_libexecdir}/netatalk/ifpaprev
-%{_libexecdir}/netatalk/ofwpap
-%{_libexecdir}/netatalk/tfwmpaprev
-%{_libexecdir}/netatalk/ifmpap
-%{_libexecdir}/netatalk/tfmpap
-%{_libexecdir}/netatalk/tfwpaprev
-%{_libexecdir}/netatalk/ifpap
-%{_libexecdir}/netatalk/tfpaprev
-%{_libexecdir}/netatalk/ifwmpaprev
-%{_libexecdir}/netatalk/ofmpap
-%{_libexecdir}/netatalk/tfwmpap
-%{_libexecdir}/netatalk/ifmpaprev
-%{_libexecdir}/netatalk/ofwmpap
-%{_libexecdir}/netatalk/ofpap
-%{_libexecdir}/netatalk/etc2ps.sh
-%{_libexecdir}/netatalk/tfmpaprev
-%{_libexecdir}/netatalk/tfpap
-%{_libexecdir}/netatalk/psf
-%{_libexecdir}/netatalk/ifwpaprev
-%{_libexecdir}/netatalk/tfwpap
-%{_libexecdir}/netatalk/ifwpap
-%{_libexecdir}/netatalk/psa
-%{_libdir}/netatalk/*.so*
-%{_prefix}/share/netatalk/*
-%{_prefix}/share/aclocal/*
-%dir %{_localstatedir}/spool/netatalk
 
 
 %files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
-%dir %attr (0755, root, bin) %{_includedir}/atalk
-%dir %attr (0755, root, bin) %{_includedir}/netatalk
-%{_libdir}/*.a
-%{_libdir}/*.la
-%{_libdir}/netatalk/*.a
-%{_libdir}/netatalk/*.la
-%{_includedir}/atalk/*
-%{_includedir}/netatalk/*
+%{_includedir}/*
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/aclocal
+%{_datadir}/aclocal/*
+
+
+%files root
+%defattr (-, root, sys)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/*
+%{_sysconfdir}/init.d/netatalk
+%dir %attr (0755, root, sys) %{_localstatedir}
+%dir %{_localstatedir}/spool/netatalk
 
 
 %changelog
+* Sat Mar 20 2011 - Thomas Wagner
+- fix permissions by rewriting %files section
+- remove static libs
+- add -root package for config files
+- change (Build)Requires to %{pnm_buildrequires_SUNWgnu_dbm}
 * Sat Mar 12 2011 - Thomas Wagner
 - mkdir -p spool directory (packaging error)
 - remove typo in --with-bdb
@@ -168,6 +146,5 @@ rm -rf %name-%version
 * Sun Apr 04 2010 - yabawock@gmail.com
 - New upstream release
 - Enable support for NFSv4 ACLs
-
 * Wed Feb 17 2010 - sebastian.laubscher@interdose.com
 - initial version
