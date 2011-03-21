@@ -35,6 +35,14 @@ Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
+%if %build_l10n
+%package l10n
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires:	%{name}
+%endif
+
 %prep
 %setup -q -n %{src_name}-%{version}
 
@@ -62,6 +70,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 # delete libtool .la files
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
 
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -77,7 +91,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable/apps
 %{_datadir}/icons/hicolor/scalable/apps/*
-%attr (-, root, other) %{_datadir}/locale
 %dir %attr (0755, root, bin) %{_datadir}/glade3
 %dir %attr (0755, root, bin) %{_datadir}/glade3/catalogs
 %{_datadir}/glade3/catalogs/*
@@ -94,6 +107,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libglade
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*.pc
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%endif
 
 %changelog
 * Mon Mar 21 2011 - Milan Jurik
