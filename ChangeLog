@@ -1,3 +1,7 @@
+2011-03-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibxfcegui4.spec: bump to 4.8.0, move to SFE from osol xfce
+
 2011-03-20 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEwebkitgtk.spec: bump to 1.2.7, locale package

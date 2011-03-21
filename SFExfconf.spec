@@ -49,10 +49,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export PKG_CONFIG_PATH="%{_pkg_config_path}"
-
-config=./configure
-
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}		\
