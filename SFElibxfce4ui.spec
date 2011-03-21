@@ -92,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root, bin)
 %{_libdir}/lib*.so*
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_datadir}/glade3
 %dir %attr (0755, root, bin) %{_datadir}/glade3/catalogs
 %{_datadir}/glade3/catalogs/*
