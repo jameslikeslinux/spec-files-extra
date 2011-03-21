@@ -2,6 +2,7 @@
 
 	* SFElibxfcegui4.spec: bump to 4.8.0, move to SFE from osol xfce
 	* SFElibxfce4ui.spec: initial spec
+	* SFEperl-uri.spec: bump to 1.58
 
 2011-03-20 Milan Jurik <sfnet@xylab.cz>
 

@@ -10,7 +10,7 @@
 
 %include Solaris.inc
 
-%define uri_version 1.40
+%define uri_version 1.58
 %define perl_version 5.8.4
 
 Name:                    SFEperl-uri
@@ -72,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Mar 21 2011 - Milan Jurik
+- bump to 1.58
 * Wed Aug 19 2009 - hcoomes@insightbb.com
 - Updated source url and version to 1.40
 * Sun Jul 19 2009 - matt@greenviolet.net
