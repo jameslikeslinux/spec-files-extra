@@ -6,14 +6,3 @@
  
  (
  	c=////////////////////////////////////////////////////////////////
---- git-1.5.4.2/Documentation/Makefile-orig	2008-02-22 12:20:07.338972000 -0600
-+++ git-1.5.4.2/Documentation/Makefile	2008-02-22 12:22:42.743621000 -0600
-@@ -174,7 +174,7 @@ user-manual.xml: user-manual.txt user-ma
- 
- technical/api-index.txt: technical/api-index-skel.txt \
- 	technical/api-index.sh $(patsubst %,%.txt,$(API_DOCS))
--	cd technical && sh ./api-index.sh
-+	cd technical && bash ./api-index.sh
- 
- $(patsubst %,%.html,$(API_DOCS) technical/api-index): %.html : %.txt
- 	$(ASCIIDOC) -b xhtml11 -f asciidoc.conf \

@@ -1,0 +1,11 @@
+--- git-1.7.4.1/Documentation/Makefile.orig	Fri Feb 11 19:20:00 2011
++++ git-1.7.4.1/Documentation/Makefile	Mon Mar 21 20:21:46 2011
+@@ -43,7 +43,7 @@
+ ASCIIDOC=asciidoc
+ ASCIIDOC_EXTRA =
+ MANPAGE_XSL = manpage-normal.xsl
+-XMLTO_EXTRA =
++XMLTO_EXTRA = --skip-validation
+ INSTALL?=install
+ RM ?= rm -f
+ DOC_REF = origin/man

@@ -1,3 +1,8 @@
+2011-03-21  Alex Viskovatoff <viskovatoff@imap.cc>
+
+	* SFEgit.spec: update to 1.7.4.1
+	* SFEperl-tk.spec: initial spec
+
 2011-03-21 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibxfcegui4.spec: bump to 4.8.0, move to SFE from osol xfce

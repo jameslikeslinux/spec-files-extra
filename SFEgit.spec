@@ -15,11 +15,12 @@
 
 Name:                SFEgit
 Summary:             GIT - the stupid content tracker
-Version:             1.6.0.2
+Version:             1.7.4.1
 URL:                 http://git.or.cz/
 Source:              http://www.kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
+Patch3:              git-03-xmlto.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
@@ -47,6 +48,7 @@ BuildRequires: SFExmlto
 %setup -q -n git-%version
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -56,7 +58,7 @@ fi
 
 export CC=gcc
 export CXX=g++
-export CFLAGS="-O4"
+export CFLAGS="%optflags"
 export LDFLAGS="%arch_ldadd %ldadd ${EXTRA_LDFLAGS}"
 export PATH=$PATH:%{_builddir}/git-%version
 export NO_MSGFMT=1
@@ -109,6 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/git*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/git-core
+%{_libdir}/python2.6/site-packages
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gitk
 %dir %{_datadir}/git-core
@@ -126,12 +129,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man?
 %{_mandir}/man?/*
+%{_datadir}/gitweb
 %dir %attr (0755, root, bin) %{_prefix}/perl5
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Mon Mar 21 2011 - Alex Viskovatoff
+- Update to 1.7.4.1, adding one patch
 * Tue Oct 21 2008 - halton.huo@sun.com
 - Bump to 1.6.0.2
 * Tue Sep 02 2008 - halton.huo@sun.com
