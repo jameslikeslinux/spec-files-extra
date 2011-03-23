@@ -9,7 +9,7 @@
 
 Name:                SFEddrescue
 Summary:             GNU ddrescue - Data recovery tool
-Version:             1.12
+Version:             1.14
 License:             GPLv3+
 Source:              http://ftp.gnu.org/gnu/ddrescue/%{src_name}-%{version}.tar.gz
 URL:                 http://www.gnu.org/software/ddrescue/ddrescue.html
@@ -64,5 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Tue Mar 10 2011 - Thomas Wagner
+- bump to 1.14
 * Sun Apr 18 2010 - Albert Lee <trisk@opensolaris.org>
 - Initial spec
