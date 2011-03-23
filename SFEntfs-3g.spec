@@ -13,7 +13,7 @@
 
 Name:                    SFEntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
-Version:                 2010.3.6
+Version:                 2011.1.15
 License:                 GPLv2
 Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
 Url:                     http://www.tuxera.com/community/ntfs-3g-download/
@@ -127,6 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Mar 22 2011 - Thomas Wagner
+- Bump to 2011.1.15
 * Sat Jun 19 2010 - Milan Jurik
 - support SFEfusefs
 * Fri Mar 26 2010 - Albert Lee <trisk@opensolaris.org>
