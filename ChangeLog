@@ -1,3 +1,8 @@
+2011-03-23  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEofflineimap.spec, patches/offlineimap-01-multiresponse.diff:
+	  Bump to 6.3.2.1 and remove upstream patch.
+
 2011-03-21  Alex Viskovatoff <viskovatoff@imap.cc>
 
 	* SFEgit.spec: update to 1.7.4.1
