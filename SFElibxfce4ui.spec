@@ -23,6 +23,8 @@ Requires:	SUNWgnome-base-libs
 BuildRequires:	SFExfce4-dev-tools
 Requires:	SFElibxfce4util
 BuildRequires:	SFElibxfce4util-devel
+Requires	SFExfconf
+BuildRequires:	SFExfconf-devel
 Requires:	SUNWgnome-ui-designer
 BuildRequires:	SUNWgnome-ui-designer-devel
 BuildRequires:	SUNWgnome-xml-share
