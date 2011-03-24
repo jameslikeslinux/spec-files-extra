@@ -24,6 +24,8 @@ BuildRequires:	SUNWgnome-common-devel
 BuildRequires:	SFExfce4-dev-tools
 Requires:	SFElibxfce4util
 BuildRequires:	SFElibxfce4util-devel
+Requires:	SFElibxfce4ui
+BuildRequires:	SFElibxfce4ui-devel
 Requires:	SFElibexo
 BuildRequires:	SFElibexo-devel
 

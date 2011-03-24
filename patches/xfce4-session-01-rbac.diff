@@ -1,0 +1,44 @@
+--- xfce4-session-4.8.0/xfce4-session/shutdown.c	Sun Jan 16 17:38:20 2011
++++ xfce4-session-4.8.0-patch/xfce4-session/shutdown.c	Thu Mar 24 22:36:22 2011
+@@ -53,6 +53,11 @@
+ #include <asm/unistd.h>  /* for __NR_ioprio_set */
+ #endif
+ 
++#ifdef __sun
++#include <auth_attr.h>
++#include <secdb.h>
++#endif
++
+ #include <libxfce4util/libxfce4util.h>
+ #include <gtk/gtk.h>
+ 
+@@ -216,6 +221,9 @@
+ #ifdef HAVE_GETPWUID
+   struct passwd *pw;
+ #endif
++#ifdef __sun
++  char *username;
++#endif
+ 
+   g_return_val_if_fail(saveSession != NULL, FALSE);
+   g_return_val_if_fail(shutdownType != NULL, FALSE);
+@@ -232,6 +240,19 @@
+   /* load kiosk settings */
+   kiosk = xfce_kiosk_new ("xfce4-session");
+   kiosk_can_shutdown = xfce_kiosk_query (kiosk, "Shutdown");
++
++  /*
++   * On Solaris, if the user does not have RBAC permissions to shut down,
++   * then disable the buttons.
++   */
++#ifdef __sun
++  username = g_get_user_name ();
++  if (username == NULL || !chkauthattr ("solaris.system.shutdown", username))
++    {
++      kiosk_can_shutdown = FALSE;
++    }
++#endif
++
+   kiosk_can_save_session = xfce_kiosk_query (kiosk, "SaveSession");
+   xfce_kiosk_free (kiosk);
+ 
