@@ -12,7 +12,7 @@
 
 Summary:	Asynchronous JavaScript Engine  
 Name:		SFEnodejs  
-Version:	0.4.2
+Version:	0.4.3
 License:	BSD  
 Group:		Libraries  
 URL:		http://nodejs.org/  
@@ -86,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog  
+* Thu Mar 24 2011 - Thomas Wagner
+- bump to 0.4.3
 * Sat Mar 05 2011 - Milan Jurik
 - bump to 0.4.2, use internal libev
 * Wed Jan 05 2011 - Milan Jurik
