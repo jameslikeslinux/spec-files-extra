@@ -1,0 +1,12 @@
+--- xfdesktop-4.8.0/src/xfdesktop-file-icon.c	2011-01-16 17:39:03.000000000 +0100
++++ xfdesktop-4.8.0-patch/src/xfdesktop-file-icon.c	2011-03-25 22:14:27.827824068 +0100
+@@ -32,6 +32,9 @@
+ 
+ struct _XfdesktopFileIconPrivate
+ {
++#ifdef __sun
++int i;
++#endif
+ };
+ 
+ static void xfdesktop_file_icon_finalize(GObject *obj);
