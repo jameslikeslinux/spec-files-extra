@@ -1,6 +1,7 @@
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEunbound.spec: bump to 1.4.9
+	* SFEldns.spec: bump to 1.6.9
 
 2011-03-24 Milan Jurik <sfnet@xylab.cz>
 
