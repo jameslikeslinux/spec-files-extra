@@ -2,6 +2,7 @@
 
 	* SFEunbound.spec: bump to 1.4.9
 	* SFEldns.spec: bump to 1.6.9
+	* SFEpython26-django.spec: bump to 1.3
 
 2011-03-24 Milan Jurik <sfnet@xylab.cz>
 
