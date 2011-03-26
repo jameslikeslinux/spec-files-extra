@@ -1,0 +1,6 @@
+Dtlogin*altDtsIncrement:	True
+
+Dtlogin*altDtName:	Xfce 4.8.0 for OpenSolaris
+Dtlogin*altDtKey: 	/usr/bin/xfce4-session 
+Dtlogin*altDtStart: 	/usr/dt/config/Xsession.xfce
+Dtlogin*altDtLogo:	XFCE
