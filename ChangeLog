@@ -10,6 +10,7 @@
 	* base-specs/ffmpeg.spec: bump to 0.6.2
 	* SFExfcalendar.spec: bump to 4.8.1, move to SFE from osol xfce
 	* SFExfce4-mixer.spec: bump to 4.8.0, move to SFE from osol xfce
+	* SFEcadaver.spec: initial spec
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
