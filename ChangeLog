@@ -13,6 +13,7 @@
 	* SFEcadaver.spec: initial spec
 	* SFEsmfgui.spec: initial spec
 	* SFEpython26-enchant.spec: initial spec
+	* SFEunpaper.spec: initial spec
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
