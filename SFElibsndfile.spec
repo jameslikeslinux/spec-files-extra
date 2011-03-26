@@ -116,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Mar 23 2011 - Thomas Wagner
+- bump to 1.0.24
 * Sat May 09 2009 - Thomas Wagner
 - submitting changes suggested by Srirama Sharma:
 - add log note about removal of obsoleted libsndfile-01-flac-1.1.3.diff (removal on behalf Srirama Sharma)
