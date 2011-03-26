@@ -77,4 +77,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sat Mar 26 2011 - Milan Jurik
-- Inital version.
+- initial spec
