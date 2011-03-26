@@ -12,6 +12,7 @@
 Name:		SFEvnc2flv
 Summary:	Desktop Screen Recorder for UNIX, Linux, Windows or Mac. 
 Version:	20100207
+IPS_component_version:	0.20100207
 URL:		http://www.unixuser.org/~euske/python/vnc2flv/
 Source:		http://pypi.python.org/packages/source/v/vnc2flv/vnc2flv-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
