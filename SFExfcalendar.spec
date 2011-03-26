@@ -50,7 +50,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # __EXTENSIONS__ needed for FTW
-export CFLAGS="%optflags -D__EXTENSIONS__"
+export CFLAGS="%optflags -I/usr/include/libical -D__EXTENSIONS__"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}		\
 	--bindir=%{_bindir}		\
