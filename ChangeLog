@@ -3,6 +3,8 @@
 	* SFExfwm4.spec: bump to 4.8.0, move to SFE from osol xfce
 	* SFExfce-utils.spec: bump to 4.8.0, move to SFE from osol xfce
 	* SFExfce4-appfinder.spec: bump to 4.8.0, move to SFE from osol xfce
+	* SFEthunar-vfs.spec: initial spec
+	* SFEgtk-xfce-engine.spec: bump to 2.8.0, move to SFE from osol xfce
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
