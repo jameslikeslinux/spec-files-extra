@@ -116,17 +116,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr(0755, root, bin) %{_libdir}
-%{_libdir}/*
-%dir %attr(0755, root, bin) %{_prefix}/include
-%{_prefix}/include/*
+%dir %attr(0755, root, sys) /usr/share
 %dir %attr(0755, root, bin) %{_mandir}
 %{_mandir}/*
+%dir %attr(0755, root, bin) %{_libdir}
+%dir %attr(0755, root, other) %{_libdir}/pkgconfig
+%dir %attr(0755, root, bin) %{_libdir}/amd64
+%dir %attr(0755, root, other) %{_libdir}/amd64/pkgconfig
+%{_libdir}/lib*
+%{_libdir}/amd64/lib*
+%{_libdir}/pkgconfig/*
+%{_libdir}/amd64/pkgconfig/*
+
+%dir %attr(0755, root, bin) %{_prefix}/include
+%{_prefix}/include/*
 
 %changelog
-* Wed Feb 16 17:16:29 JST 2011  TAKI, Yasushi <taki@justplayer.com>
-- support 64bit.
-- use studio12
-- rename editline to SFEeditline
-* Tue Jan  5 16:49:53 JST 2010  TAKI, Yasushi <taki@justplayer.com>
+* Sat Mar 26 16:30:19 JST 2011
+- TAKI, Yasushi <taki@justplayer.com>
+- Change permissions.
+* Tue Jan  5 16:49:53 JST 2010
+- TAKI, Yasushi <taki@justplayer.com>
 - Initial Revision
