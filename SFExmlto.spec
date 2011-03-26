@@ -12,6 +12,7 @@ Version:                 0.0.23
 URL:                     http://fedorahosted.org/xmlto/
 Source:                  http://fedorahosted.org/releases/x/m/xmlto/xmlto-%{version}.tar.bz2
 Patch1:                  xmlto-01-find.diff
+Patch2:                  xmlto-02-Makefile-diable-validation.diff
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -27,6 +28,7 @@ Requires: SFEgnugetopt
 rm -rf %name-%version
 %setup -q -n xmlto-%version
 %patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -62,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sat Mar 26 2011 - Thomas Wagner
+- add patch2, disable xmlto verification (final solution tbd ##TODO##)
 * Sun Sep 19 2010 - Milan Jurik
 - bump to 0.0.23
 * Sat Aug 16 2008 - nonsea@users.sourceforge.net

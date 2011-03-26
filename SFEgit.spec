@@ -12,6 +12,9 @@
 # elsewhere for tools for ordinary humans layered on top of this.
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/sfw/bin/g++
+%include base.inc
 
 Name:                SFEgit
 Summary:             GIT - the stupid content tracker
@@ -56,8 +59,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=gcc
-export CXX=g++
+export CC=/usr/sfw/bin/gcc
+export CXX=/usr/sfw/bin/g++
 export CFLAGS="%optflags"
 export LDFLAGS="%arch_ldadd %ldadd ${EXTRA_LDFLAGS}"
 export PATH=$PATH:%{_builddir}/git-%version
@@ -136,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Sat Mar 26 2011 - Thomas Wagner
+- fix compiler options by setting cc_is_gcc 1 and gcc to be sfw version
 * Mon Mar 21 2011 - Alex Viskovatoff
 - Update to 1.7.4.1, adding one patch
 * Tue Oct 21 2008 - halton.huo@sun.com
