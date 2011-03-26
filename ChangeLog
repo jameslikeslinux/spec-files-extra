@@ -17,6 +17,7 @@
 	* SFEpython26-imaging-sane.spec: initial spec
 	* SFEocrfeeder.spec: initial spec
 	* SFEvnc2flv.spec: initial spec
+	* SFEmod-wsgi.spec: initial spec
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
