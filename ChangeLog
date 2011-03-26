@@ -12,6 +12,7 @@
 	* SFExfce4-mixer.spec: bump to 4.8.0, move to SFE from osol xfce
 	* SFEcadaver.spec: initial spec
 	* SFEsmfgui.spec: initial spec
+	* SFEpython26-enchant.spec: initial spec
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
