@@ -1,6 +1,7 @@
 2011-03-26 Milan Jurik <sfnet@xylab.cz>
 
 	* SFExfwm4.spec: bump to 4.8.0, move to SFE from osol xfce
+	* SFExfce-utils.spec: bump to 4.8.0, move to SFE from osol xfce
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
