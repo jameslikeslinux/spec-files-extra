@@ -94,8 +94,6 @@ rm -rf %buildroot
 %attr (-, root, other) %{_datadir}/locale
 %endif
 
-TODO python-sane
-
 %changelog
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec
