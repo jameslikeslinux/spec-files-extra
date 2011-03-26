@@ -6,6 +6,7 @@
 	* SFEthunar-vfs.spec: initial spec
 	* SFEgtk-xfce-engine.spec: bump to 2.8.0, move to SFE from osol xfce
 	* SFExfce-loginmgr.spec: move to SFE from osol xfce
+	* SFExfce-terminal.spec: bump to 0.4.6, move to SFE from osol xfce
 
 2011-03-25 Milan Jurik <sfnet@xylab.cz>
 
