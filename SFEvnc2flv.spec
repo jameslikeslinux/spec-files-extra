@@ -1,5 +1,5 @@
 #
-# spec file for package SFEpython-imaging-sane
+# spec file for package SFEvnc2flv
 #
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
@@ -9,34 +9,30 @@
 
 %define python_version 2.6
 
-Name:		SFEpython26-imaging-sane
-Summary:	The imaging-sane module is a Python interface to the SANE
-Version:	1.1.7
-URL:		http://www.pythonware.com/products/pil/
-Source:		http://effbot.org/downloads/Imaging-%{version}.tar.gz
+Name:		SFEvnc2flv
+Summary:	Desktop Screen Recorder for UNIX, Linux, Windows or Mac. 
+Version:	20100207
+URL:		http://www.unixuser.org/~euske/python/vnc2flv/
+Source:		http://pypi.python.org/packages/source/v/vnc2flv/vnc2flv-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires:	SUNWpython26-setuptools
 BuildRequires:	SUNWPython26
 Requires:	SUNWPython26
-BuildRequires:	SUNWsane-backendu
-Requires:	SUNWsane-backendu
 
 %include default-depend.inc
 
 %description
-The imaging-sane module is a Python interface to the SANE (Scanner Access is Now Easy) library, which provides access to various raster scanning devices such as flatbed scanners and digital cameras. 
+Vnc2flv is a screen recorder. It captures a VNC desktop session and saves it as a Flash Video (FLV) file.
 
 %prep
-%setup -q -n Imaging-%{version}
+%setup -q -n vnc2flv-%{version}
 
 %build
-cd Sane
 python%{python_version} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd Sane
 python%{python_version} setup.py install -O1 --skip-build --root="$RPM_BUILD_ROOT" --prefix="%{_prefix}"
 
 # move to vendor-packages
@@ -53,6 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%{_bindir}
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
