@@ -1,0 +1,11 @@
+--- vlc-1.1.4.1/modules/gui/skins2/x11/x11_factory.cpp.orig	Fr. Sep 24 11:31:59 2010
++++ vlc-1.1.4.1/modules/gui/skins2/x11/x11_factory.cpp	So. Nov  7 11:40:04 2010
+@@ -211,7 +211,7 @@
+     struct
+     {
+         struct dirent ent;
+-        char buf[NAME_MAX + 1];
++        char buf[8192 + 1];
+     } buf;
+     struct dirent *file;
+     DIR *dir;

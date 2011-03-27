@@ -1,0 +1,69 @@
+Source: http://mailman.videolan.org/pipermail/vlc-devel/2010-June/075315.html
+
+
+[vlc-devel] [PATCH 1/2] Use pathconf() as NAME_MAX might be undefined
+Francois Cartegnie fcvlcdev at free.fr
+Thu Jun 10 23:25:31 CEST 2010
+
+
+SunOS <limits.h> deprecates and comments the NAME_MAX declartion.
+The defined _POSIX_NAME_MAX does not reflect the real value (14).
+Posix says that the reentrant readdir can either take NAME_MAX or
+pathconf.
+
+--- vlc-1.1.4.1/src/text/filesystem.c.orig	2010-09-24 11:32:04.000000000 +0200
++++ vlc-1.1.4.1/src/text/filesystem.c	2010-11-06 22:46:23.808298542 +0100
+@@ -38,11 +38,15 @@
+ 
+ #include <stdio.h>
+ #include <limits.h> /* NAME_MAX */
++#if !defined(NAME_MAX) && defined(_POSIX_NAME_MAX)
++# define NAME_MAX _POSIX_NAME_MAX
++#endif
+ #include <errno.h>
+ #include <sys/types.h>
+ #ifdef HAVE_DIRENT_H
+ #  include <dirent.h>
+ #endif
++#include <stddef.h>
+ #ifdef HAVE_SYS_STAT_H
+ # include <sys/stat.h>
+ #endif
+@@ -322,13 +326,30 @@
+ 
+     return FromWide (ent->d_name);
+ #else
+-    struct dirent *ent;
+-    struct
+-    {
+-        struct dirent ent;
+-        char buf[NAME_MAX + 1];
+-    } buf;
+-    int val = readdir_r (dir, &buf.ent, &ent);
++    struct dirent *ent, *buf;
++    int fd;
++    int name_max;
++  #ifdef __SunOS
++    fd = dir->dd_fd; /* no dirfd on solaris */
++  #else
++    fd = dirfd( dir );
++  #endif
++    if ( fd == -1 ) return NULL;
++
++    name_max = fpathconf( fd, _PC_NAME_MAX );
++    if ( name_max == -1 )
++  #ifdef NAME_MAX
++      name_max = NAME_MAX;
++  #else
++      name_max = 260; /* libvlc.h FILENAME_MAX */
++  #endif
++
++    buf = (struct dirent *) malloc( (size_t) offsetof(struct dirent, d_name)
++                  + ++name_max * sizeof(char) );
++    if ( buf == NULL ) return NULL;
++    int val = readdir_r (dir, buf, &ent);
++    if ( !ent || val) free(buf);
++
+     if (val)
+     {
+         errno = val;

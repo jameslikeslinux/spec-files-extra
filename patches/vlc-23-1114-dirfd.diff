@@ -1,0 +1,15 @@
+--- vlc-1.1.4.1/modules/access/directory.c.orig	2010-11-07 02:58:48.788190957 +0100
++++ vlc-1.1.4.1/modules/access/directory.c	2010-11-07 03:07:54.938642264 +0100
+@@ -46,12 +46,6 @@
+ #   include <io.h>
+ #endif
+ 
+-#ifdef __sun__
+-static inline int dirfd (DIR *dir)
+-{
+-    return dir->dd_fd;
+-}
+-#endif
+ 
+ #include <vlc_fs.h>
+ #include <vlc_url.h>

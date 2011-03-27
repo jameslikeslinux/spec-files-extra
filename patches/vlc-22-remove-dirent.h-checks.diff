@@ -1,0 +1,164 @@
+From: Rémi Denis-Courmont <remi@remlab.net>
+Date: Tue, 3 Aug 2010 16:00:32 +0000 (+0300)
+Subject: Remove useless <dirent.h> check
+X-Git-Url: http://git.videolan.org/gitweb.cgi?p=vlc.git;a=commitdiff_plain;h=1da8392047446063f48bfaa61c1dc08be4461df8;hp=744ff759b3e319b47fb4b2b58fac8e5d9d684d7a
+
+Remove useless <dirent.h> check
+
+note: removed configure.ac changes from original post
+---
+
+diff --git a/modules/access/directory.c b/modules/access/directory.c
+index 121f622..b778cf0 100644
+--- a/modules/access/directory.c
++++ b/modules/access/directory.c
+@@ -46,9 +46,6 @@
+ #   include <io.h>
+ #endif
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+ #ifdef __sun__
+ static inline int dirfd (DIR *dir)
+ {
+diff --git a/modules/control/http/http.h b/modules/control/http/http.h
+index 0eb33f4..ebf1efa 100644
+--- a/modules/control/http/http.h
++++ b/modules/control/http/http.h
+@@ -49,10 +49,6 @@
+ #   include <io.h>
+ #endif
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+ /* stat() support for large files on win32 */
+ #if defined( WIN32 ) && !defined( UNDER_CE )
+ #   define stat _stati64
+diff --git a/modules/demux/mkv/mkv.hpp b/modules/demux/mkv/mkv.hpp
+index 6b46c2a..296ef13 100644
+--- a/modules/demux/mkv/mkv.hpp
++++ b/modules/demux/mkv/mkv.hpp
+@@ -62,10 +62,6 @@
+ #include <vector>
+ #include <algorithm>
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+ /* libebml and matroska */
+ #include "ebml/EbmlHead.h"
+ #include "ebml/EbmlSubHead.h"
+diff --git a/modules/gui/skins2/src/theme_loader.cpp b/modules/gui/skins2/src/theme_loader.cpp
+index d1f76f2..7a67113 100644
+--- a/modules/gui/skins2/src/theme_loader.cpp
++++ b/modules/gui/skins2/src/theme_loader.cpp
+@@ -42,11 +42,6 @@
+ #   include <direct.h>
+ #endif
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+-
+ #if defined( HAVE_ZLIB_H )
+ #   include <zlib.h>
+ #   include <errno.h>
+diff --git a/modules/gui/skins2/src/theme_repository.cpp b/modules/gui/skins2/src/theme_repository.cpp
+index 1dc83b1..0e335c9 100644
+--- a/modules/gui/skins2/src/theme_repository.cpp
++++ b/modules/gui/skins2/src/theme_repository.cpp
+@@ -30,9 +30,6 @@
+ #elif defined( WIN32 ) && !defined( UNDER_CE )
+ #   include <direct.h>
+ #endif
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+ 
+ #include <fstream>
+ 
+diff --git a/modules/misc/gnutls.c b/modules/misc/gnutls.c
+index 5b7a82b..5c527d2 100644
+--- a/modules/misc/gnutls.c
++++ b/modules/misc/gnutls.c
+@@ -36,9 +36,6 @@
+ 
+ #include <sys/types.h>
+ #include <errno.h>
+-#ifdef HAVE_DIRENT_H
+-# include <dirent.h>
+-#endif
+ #ifdef HAVE_SYS_STAT_H
+ # include <sys/stat.h>
+ #endif
+diff --git a/src/extras/libc.c b/src/extras/libc.c
+index 1be7fe8..b0d17d1 100644
+--- a/src/extras/libc.c
++++ b/src/extras/libc.c
+@@ -32,6 +32,7 @@
+ #include <vlc_common.h>
+ 
+ #include <errno.h>
++#include <dirent.h>
+ 
+ #undef iconv_t
+ #undef iconv_open
+@@ -42,10 +43,6 @@
+ #   include <iconv.h>
+ #endif
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+ #ifdef HAVE_FORK
+ #   include <signal.h>
+ #   include <unistd.h>
+diff --git a/src/input/subtitles.c b/src/input/subtitles.c
+index 3881d2f..9c6843d 100644
+--- a/src/input/subtitles.c
++++ b/src/input/subtitles.c
+@@ -35,10 +35,6 @@
+ #include <vlc_fs.h>
+ #include <vlc_url.h>
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+ #ifdef HAVE_UNISTD_H
+ #   include <unistd.h>
+ #endif
+diff --git a/src/modules/modules.c b/src/modules/modules.c
+index 15feab1..f6f0e75 100644
+--- a/src/modules/modules.c
++++ b/src/modules/modules.c
+@@ -39,10 +39,6 @@
+ #include <string.h>                                              /* strdup() */
+ #include <assert.h>
+ 
+-#ifdef HAVE_DIRENT_H
+-#   include <dirent.h>
+-#endif
+-
+ #include <sys/types.h>
+ #ifdef HAVE_SYS_STAT_H
+ #   include <sys/stat.h>
+--- a/src/text/filesystem.c.orig2 2010-11-07 02:52:49.965882930 +0100
++++ b/src/text/filesystem.c       2010-11-07 02:53:59.436312636 +0100
+@@ -43,9 +43,7 @@
+ #endif
+ #include <errno.h>
+ #include <sys/types.h>
+-#ifdef HAVE_DIRENT_H
+-#  include <dirent.h>
+-#endif
++#include <dirent.h>
+ #include <stddef.h>
+ #ifdef HAVE_SYS_STAT_H
+ # include <sys/stat.h>
