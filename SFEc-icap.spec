@@ -23,8 +23,6 @@ Source1:	c-icap.xml
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:	SFEclamav-devel
-Requires:	SFEclamav
 
 %package devel
 Summary:                 %{summary} - development files

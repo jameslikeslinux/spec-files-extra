@@ -1,6 +1,7 @@
 2011-03-29 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEc-icap.spec: bump to 0.1.5
+	* SFEc-icap-modules.spec: initial spec
 
 2011-03-26 Milan Jurik <sfnet@xylab.cz>
 
