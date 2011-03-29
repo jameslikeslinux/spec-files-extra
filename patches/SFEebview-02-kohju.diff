@@ -1,0 +1,11 @@
+--- po/Makefile.in.in	2004-02-22 15:34:42.000000000 +0900
++++ ../ebview-0.3.6/po/Makefile.in.in	2009-05-10 15:09:55.014062047 +0900
+@@ -16,7 +16,7 @@
+ top_srcdir = @top_srcdir@
+ VPATH = @srcdir@
+ 
+-prefix = @prefix@
++prefix = $(DESTDIR)/@prefix@
+ exec_prefix = @exec_prefix@
+ datadir = $(prefix)/@DATADIRNAME@
+ localedir = $(datadir)/locale

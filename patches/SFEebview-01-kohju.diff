@@ -1,0 +1,12 @@
+--- src/global.h	2004-02-15 22:59:41.000000000 +0900
++++ ../ebview-0.3.6/src/global.h	2009-05-10 15:09:56.545102855 +0900
+@@ -21,7 +21,8 @@
+ global GtkWidget *button_forward;
+ global GtkWidget *status_bar;
+ 
+-global GtkTooltips *tooltip;
++/* global GtkTooltips *tooltip; */
++global GtkTooltip *tooltip;
+ 
+ 
+ global GList *search_result;

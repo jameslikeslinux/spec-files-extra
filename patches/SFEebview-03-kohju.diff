@@ -1,0 +1,11 @@
+--- data/Makefile.in	2004-08-07 00:35:16.000000000 +0900
++++ ../ebview-0.3.6/data/Makefile.in	2009-05-10 15:09:50.585120437 +0900
+@@ -16,7 +16,7 @@
+ srcdir = @srcdir@
+ top_srcdir = @top_srcdir@
+ VPATH = @srcdir@
+-pkgdatadir = $(datadir)/@PACKAGE@
++pkgdatadir = $(DESTDIR)/$(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+ pkgincludedir = $(includedir)/@PACKAGE@
+ top_builddir = ..

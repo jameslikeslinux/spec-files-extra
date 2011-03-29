@@ -7,15 +7,19 @@
 #
 %include Solaris.inc
 %include packagenamemacros.inc
+%define cc_is_gcc 1
+%include base.inc
 
 %define _prefix /usr
-%define tarball_version  4.4.3
+#%define tarball_version  4.4.3
+%define tarball_version  4.4.1
 %define tarball_name	 eb
 
 Name:                    SFEeblib
 IPS_package_name:        library/eb
 Summary:                 the library for accessing to the EPWING format Dictionaries
-Version:                 4.4.3
+#Version:                 4.4.3
+Version:                 4.4.1
 License:		 Modified BSDL
 Url:                     http://www.sra.co.jp/people/m-kasahr/eb/
 Source:                  ftp://ftp.sra.co.jp/pub/misc/%{tarball_name}/%{tarball_name}-%{tarball_version}.tar.bz2
@@ -69,6 +73,11 @@ cd %{tarball_name}-%{tarball_version}
 %define target i386-sun-solaris
 %endif
 
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{_ldflags}"
+
 ./configure \
  --prefix=%{_prefix}\
  --sysconfdir=%{_sysconfdir} \
@@ -80,7 +89,13 @@ gmake -j$CPUS
 
 %ifarch amd64 sparcv9
 cd ../%{tarball_name}-%{tarball_version}-64
-export CFLAGS="%optflags64"
+
+export CC=gcc
+export CXX=g++
+export CFLAGS="-O3 -march=opteron -m64 -Xlinker -i -fno-omit-frame-pointer -fPIC -DPIC"
+export LDFLAGS="-L/usr/lib/amd64 -R/usr/lib/amd64  -Wl,-zignore -Wl,-zcombreloc -Wl,-Bdirect"
+#pkgbuild: + export 'CFLAGS=-O3 -march=i586 -Xlinker -i -fno-omit-frame-pointer -fPIC -DPIC'
+
 ./configure \
  --prefix=%{_prefix}\
  --sysconfdir=%{_sysconfdir} \
@@ -104,7 +119,7 @@ fi
 %ifarch amd64 sparcv9
 cd ../%{tarball_name}-%{tarball_version}-64
 gmake install DESTDIR=$RPM_BUILD_ROOT
-#rm -f $RPM_BUILD_ROOT/%{_libdir}/%{_arch64}/lib*a
+
 cd ..
 %endif
 
@@ -137,4 +152,5 @@ rm -rf $RPM_BUILD_ROOT
 - change for sfe.
 - support package name macros.
 - change strict permission
-
+* Tue Mar 29 2011 TAKI, Yasushi <taki@justplayer.com>
+- version down 4.4.3 to 4.4.1, because 4.4.3 does not work correctly.
