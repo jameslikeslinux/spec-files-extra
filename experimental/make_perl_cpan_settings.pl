@@ -162,9 +162,9 @@ rm -rf \$RPM_BUILD_ROOT
 \%files
 \%defattr(-,root,bin)
 \%{_prefix}/perl5
-\%attr(755,root,sys) \%dir \%{_datadir}
+\%dir \%attr(0755,root,sys) \%{_datadir}
 \%{_mandir}
-\#\%attr(755,root,sys) \%dir \%{_bindir}
+\#\%dir \%attr(0755,root,sys) \%{_bindir}
 \#\%{_bindir}/*
 
 \%changelog
