@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<!--
+ Copyright 2008 JUSTPLAYER Co.,Ltd.  All rights reserved.
+ Use is subject to license terms.
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License (the "License").
+ You may not use this file except in compliance with the License.
+
+ You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+ or http://www.opensolaris.org/os/licensing.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+ ident	"@(#)proftpd.xml	1.0	08/08/31 SMI"
+
+        NOTE:  This service manifest is not editable; its contents will
+        be overwritten by package or patch operations, including
+        operating system upgrade.  Make customizations in a different
+        file.
+-->
+
+<service_bundle type='manifest' name='proftpd'>
+
+<service
+        name='network/proftpd'
+        type='service'
+        version='1'>
+
+	<!--
+	   Wait for network interfaces to be initialized.
+	-->
+        <dependency
+                name='network'
+                grouping='require_all'
+                restart_on='none'
+                type='service'>
+                <service_fmri value='svc:/milestone/network:default' />
+        </dependency> 
+
+	<!--
+	   Wait for all local filesystems to be mounted.
+	-->
+        <dependency
+                name='filesystem-local'
+                grouping='require_all'
+                restart_on='none'
+                type='service'>
+                <service_fmri value='svc:/system/filesystem/local:default' />
+        </dependency> 
+
+        <exec_method
+                type='method'
+                name='start'
+                exec='/lib/svc/method/proftpd start'
+                timeout_seconds='60' />
+
+        <exec_method
+                type='method'
+                name='stop'
+                exec='/lib/svc/method/proftpd stop'
+                timeout_seconds='60' />
+
+        <exec_method
+                type='method'
+                name='refresh'
+                exec='/lib/svc/method/proftpd refresh'
+                timeout_seconds='60' />
+
+        <!--
+          Both action_authorization and value_authorization are needed
+          to allow the framework general/enabled property to be changed
+          when performing action (enable, disable, etc) on the service.
+        -->
+        <property_group name='general' type='framework'>
+		<propval name='value_authorization' type='astring'
+			value='solaris.smf.value.proftpd' />
+		<propval name='action_authorization' type='astring'
+			value='solaris.smf.manage.proftpd' />
+        </property_group>
+
+        <!--
+          We define two instances of Proftpd as examples.
+        -->
+
+        <instance name='default' enabled='false'>
+		<!-- 
+		   Make sure the data configurable property points to the
+		   appropriate database directory.
+		-->
+        	<property_group name='proftpd' type='application'>
+                	<propval name='data' type='astring'
+                    	   value='/usr/proftpd/1.3' />
+                	<propval name='bin' type='astring'
+                    	   value='/usr/proftpd/1.3/sbin/proftpd' />
+                	<propval name='instance' type='astring'
+                    	   value='/etc/proftpd/1.3/proftpd.conf' />
+                	<propval name='piddir' type='astring'
+			   value='/var/run/proftpd' />
+                	<propval name='pid' type='astring'
+			   value='/var/run/proftpd.pid' />
+                	<propval name='lib' type='astring'
+			   value='' />
+        	</property_group>
+
+                <template>
+                        <common_name>
+                                <loctext xml:lang='C'>
+                                        Proftpd 1.3 FTP server
+                                </loctext>
+                        </common_name>
+
+                        <documentation>
+                                <manpage title='proftpd' section='8'
+                                        manpath='/usr/proftpd/1.3/share/man' />
+                                <doc_link name='proftpd.org'
+                                        uri='http://www.proftpd.org' />
+                        </documentation>
+                </template>
+
+        </instance>
+
+</service>
+
+</service_bundle>
+

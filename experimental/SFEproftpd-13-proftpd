@@ -1,0 +1,86 @@
+#!/sbin/sh
+#
+# CDDL HEADER START
+#
+# The contents of this file are subject to the terms of the
+# Common Development and Distribution License (the "License").
+# You may not use this file except in compliance with the License.
+#
+# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+# or http://www.opensolaris.org/os/licensing.
+# See the License for the specific language governing permissions
+# and limitations under the License.
+#
+# When distributing Covered Code, include this CDDL HEADER in each
+# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+# If applicable, add the following below this CDDL HEADER, with the
+# fields enclosed by brackets "[]" replaced with your own identifying
+# information: Portions Copyright [yyyy] [name of copyright owner]
+#
+# CDDL HEADER END
+#
+# Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
+# Use is subject to license terms.
+#
+#ident	"@(#)proftpd	1.0	08/08/31 SMI"
+
+. /lib/svc/share/smf_include.sh
+
+# SMF_FMRI is the name of the target service. This allows multiple instances 
+# to use the same script.
+
+getproparg() {
+        val=`svcprop -p $1 $SMF_FMRI`
+        [ -n "$val" ] && echo $val
+}
+
+check_data_dir() {
+        if [ ! \( -d ${PIDDIR} -a -r ${PIDDIR} -a -w ${PIDDIR} \) ]; then
+                echo "Warning: proftpd/piddir $PIDDIR does not exist."
+                echo "Warning: proftpd/piddir $PIDDIR does not access by ${USER}."
+                mkdir -m 700 -p ${PIDDIR}
+                chown ${USER}:${GROUP} ${PIDDIR}
+        fi 
+}
+PREFIX=`getproparg proftpd/data`
+INSTANCE=`getproparg proftpd/instance`
+BIN=`getproparg proftpd/bin`
+PIDF=`getproparg proftpd/pid`
+PIDDIR=`getproparg proftpd/piddir`
+LIBDIR=`getproparg proftpd/lib`
+if [ -n "${LIBDIR}" ];then
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LIBDIR} ; export LD_LIBRARY_PATH
+fi
+
+if [ -z "$SMF_FMRI" ]; then
+	echo "Error: SMF framework variables are not initialized"
+	exit $SMF_EXIT_ERR
+fi
+
+if [ -z $PREFIX ]; then
+        echo "Error: proftpd/data property not set"
+        exit $SMF_EXIT_ERR_CONFIG
+fi
+
+case "$1" in
+'start')
+	check_data_dir
+	${BIN} -c ${INSTANCE}
+        ;;
+
+'stop')
+	kill `cat ${PIDF}`
+	rm -f ${PIDF}
+        ;;
+
+'refresh')
+        ${BIN} -c ${INSTANCE} -t && kill -HUP `cat ${PIDF}`
+        ;;
+
+*)
+        echo "Usage: $0 {start|stop|refresh}"
+        exit 1
+        ;;
+
+esac
+exit $SMF_EXIT_OK
