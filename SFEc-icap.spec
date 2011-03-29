@@ -12,17 +12,16 @@
 %include base.inc
 
 %define	src_name c_icap
-%define src_version 0.1.4
 
-Name:                SFEc-icap
-Summary:             An implementation of an ICAP server
-Version:             0.1.4
+Name:		SFEc-icap
+Summary:	An implementation of an ICAP server
+Version:	0.1.5
 Group:		System/Utilities
 URL:		http://c-icap.sourceforge.net/
-Source:              %{sf_download}/c-icap/%{src_name}-%{src_version}.tar.gz
-Source1:             c-icap.xml
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
+Source1:	c-icap.xml
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires:	SFEclamav-devel
 Requires:	SFEclamav
@@ -39,7 +38,7 @@ SUNW_BaseDir:            /
 %include default-depend.inc
 
 %prep
-%setup -q -n %{src_name}-%{src_version}
+%setup -q -n %{src_name}-%{version}
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -115,6 +114,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/system/filesystem/c-icap.xml
 
 %changelog
+* Tue Mar 29 2011 - Milan Jurik
+- bump to 0.1.5
 * Wed Feb 02 2011 - Milan Jurik
 - /var/run is under core system control
 * Wed Dec 29 2010 - Milan Jurik
