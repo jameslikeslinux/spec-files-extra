@@ -12,7 +12,7 @@
 Name:                    SFEfreeciv
 Summary:                 freeciv - a multiplayer strategy game
 URL:                     http://freeciv.wikia.com/
-Version:                 2.2.4
+Version:                 2.2.5
 Group:                   Amusements/Games
 Source:                  http://%{sf_mirror}/freeciv/freeciv-%{version}.tar.bz2
 # date:2008-12-23 type:bug owner:halton bugid:40661
@@ -54,12 +54,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CFLAGS="%{optflags}"
-
-libtoolize --force
-aclocal $ACLOCAL_FLAGS -I . -I m4
-autoheader
-automake -a -c -f
-autoconf
+export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix}			\
 	    --mandir=%{_mandir}			\
@@ -105,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/ggz.modules
 
 %changelog
+* Wed Mar 30 2011 - Milan Jurik
+- bump to 2.2.5
 * Wed Jan 05 2010 - Milan Jurik
 - bump to 2.2.4
 * Thu Sep 23 2010 - Milan Jurik
