@@ -75,6 +75,19 @@
 %define pnm_requires_SUNWwgetr				SUNWwget
 %define pnm_buildrequires_SUNWwget			SUNWwget
 %define pnm_requires_SUNWwget				SUNWwget
+
+#SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
+%define pnm_buildrequires_library_desktop_gtk1		SUNWGtk
+%define pnm_requires_library_desktop_gtk1		SUNWGtk
+%define pnm_buildrequires_SUNWGtk_devel			SUNWGtk
+%define pnm_buildrequires_SUNWGtk			SUNWGtk
+%define pnm_requires_SUNWGtk				SUNWGtk
+%define pnm_buildrequires_Gtk				SUNWGtk
+%define pnm_requires_Gtk				SUNWGtk
+
+%define pnm_requires_SUNWGtku				SUNWGtk
+%define pnm_requires_SUNWGtkr				SUNWGtk
+
 %endif
 #END os2nnn
 
@@ -137,6 +150,18 @@
 %define pnm_buildrequires_SUNWwget			web/wget
 %define pnm_requires_SUNWwget				web/wget
 
+#SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
+%define pnm_buildrequires_library_desktop_gtk1		library/desktop/gtk1
+%define pnm_requires_library_desktop_gtk1		library/desktop/gtk1
+%define pnm_buildrequires_SUNWGtk_devel			library/desktop/gtk1
+%define pnm_buildrequires_SUNWGtk			library/desktop/gtk1
+%define pnm_requires_SUNWGtk				library/desktop/gtk1
+%define pnm_buildrequires_Gtk				library/desktop/gtk1
+%define pnm_requires_Gtk				library/desktop/gtk1
+
+%define pnm_requires_SUNWGtku				library/desktop/gtk1
+%define pnm_requires_SUNWGtkr				library/desktop/gtk1
+
 #os2nnn
 %endif
 #>=130
@@ -178,6 +203,19 @@
 %define pnm_requires_SUNWwgetu				SUNWwgetu
 %define pnm_buildrequires_SUNWwgetr			SUNWwgetr
 %define pnm_requires_SUNWwgetr				SUNWwgetr
+
+#SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
+%define pnm_buildrequires_library_desktop_gtk1		SUNWGtku
+%define pnm_requires_library_desktop_gtk1		SUNWGtku
+%define pnm_buildrequires_SUNWGtk_devel			SUNWGtku
+%define pnm_buildrequires_SUNWGtk			SUNWGtku
+%define pnm_requires_SUNWGtk				SUNWGtku
+%define pnm_buildrequires_Gtk				SUNWGtku
+%define pnm_requires_Gtk				SUNWGtku
+
+%define pnm_requires_SUNWGtku				SUNWGtku
+%define pnm_requires_SUNWGtkr				SUNWGtkr
+
 
 #SUNWghostscriptu/SUNWghostscriptr/SUNWghostscript -> use always SUNWghostscriptu on SXCE
 #ghostscript and print/filter/ghostscript
@@ -361,6 +399,8 @@
 
 
 %changelog
+* Sat Mar 27 2011 - Thomas Wagner
+- handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner
 - handle more cases SUNWwgetu/SUNWwgetr/SUNWwget wget web/wget (>=133)
 - make endifs pretty commented

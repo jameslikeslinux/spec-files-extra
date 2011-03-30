@@ -1,3 +1,7 @@
+2011-03-30  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * include/packagenames.define.allbuilds.inc: handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
+
 2011-03-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEfreeciv.spec: bump to 2.2.5
