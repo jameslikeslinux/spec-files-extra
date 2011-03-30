@@ -107,10 +107,6 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %else
 # REMOVE l10n FILES*files-list*
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/help/[a-z]*/[a-z]*
-rm -rf $RPM_BUILD_ROOT%{_datadir}/omf/*/*-[a-z][a-z].omf
-rm -rf $RPM_BUILD_ROOT%{_datadir}/omf/*/*-[a-z][a-z]_[A-Z][A-Z].omf
-rm -rf $RPM_BUILD_ROOT%{_datadir}/omf/*/*latin.omf
 %endif
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):unsupported" $RPM_BUILD_ROOT}
@@ -155,11 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/gnome
 %attr (-, root, other) %{_datadir}/locale
-%{_datadir}/gnome/help/[a-z]*/[a-z]*
-%{_datadir}/omf/*/*-[a-z][a-z].omf
-%{_datadir}/omf/*/*-[a-z][a-z][_@]*.omf
 %endif
 
 %files root
