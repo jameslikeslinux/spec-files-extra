@@ -13,6 +13,10 @@
 # to them automatically; creating symbolic links of TeX executables to
 # a directory in your PATH is probably the best way of making LyX find them.
 
+# Since the libraries of SFEqt47-gpp are now in a non-standard location,
+# you will need to do, for example:
+# pfexec elfedit -e 'dyn:runpath /usr/gnu/lib' pdftex
+
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
@@ -26,15 +30,14 @@ Vendor:		LyX Team
 License:	GPL
 #Version:	1.6.8
 #Source:	ftp://ftp.lyx.org/pub/lyx/stable/1.6.x/%srcname-%version.tar.bz2
-Version:	2.0.0beta3
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.0/beta3/%srcname-%version.tar.gz
+Version:	2.0.0rc2
+Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-devel
-BuildRequires:	SFEboost-stdcxx-devel
+BuildRequires:	SFEqt47-gpp-devel
 
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
@@ -64,11 +67,11 @@ fi
 export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -pthreads -L/usr/gnu/lib -R/usr/gnu/lib"
-export LDFLAGS="%_ldflags -pthreads -L/usr/stdcxx/lib/g++/%_gpp_version -R/usr/stdcxx/lib/g++/%_gpp_version"
+export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include -L/usr/gnu/lib -R/usr/gnu/lib"
+export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -R/usr/g++/lib"
 
-./configure --prefix=%_prefix \
-  --with-qt4-dir=/usr/stdcxx --with-qt4-libraries=/usr/stdcxx/lib/g++/%_gpp_version
+# SFEhunspell is built with CC, so SFElyx can't link against it
+./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-hunspell
 
 make -j$CPUS
 
@@ -105,6 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Mar 30 2011 - Alex Viskovatoff
+- Adapt to gcc-built Qt now being in /usr/g++
+- Update to 2.0.0rc2; disable hunspell; remove build dependency on Boost
 * Tue Feb  8 2011 - Alex Viskovatoff
 - Adapt to Qt gcc libs now being in /usr/stdcxx
 * Sun Jan 30 2011 - Alex Viskovatoff
