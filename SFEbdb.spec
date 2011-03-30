@@ -8,14 +8,13 @@
 #SUNWbdb is w/o db.h, we install in /usr/gnu/
 %include usr-gnu.inc
 
-Name:                    SFEbdb
-Summary:                 Berkeley DB
-Version:                 4.8.26
-#Source:                  http://download-west.oracle.com/berkeley-db/db-%{version}.tar.gz
-Source:			http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
-URL:                     http://www.oracle.com/technology/software/products/berkeley-db/index.html
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEbdb
+Summary:	Berkeley DB
+Version:	4.8.30
+Source:		http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
+URL:		http://www.oracle.com/technology/software/products/berkeley-db/index.html
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
@@ -68,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/*
 
 %changelog
+* Wed Mar 30 2011 - Milan Jurik
+- bump to 4.8.30
 * Thu Feb 03 2011 - Milan Jurik
 - fix docdir group
 * Fri Jan 29 2010 - brian.cameron@sun.com
