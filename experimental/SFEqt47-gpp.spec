@@ -9,41 +9,137 @@
 # are included.  In the future, one could see which of those patches
 # would be useful here.
 
-%define _basedir /usr/stdcxx
+%define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname qt-everywhere-opensource-src
 
+%include packagenamemacros.inc
+
 Name:                SFEqt47-gpp
 Summary:             Cross-platform development framework/toolkit
 URL:                 http://trolltech.com/products/qt
 License:             LGPLv2
-Version:             4.7.1
+Version:             4.7.2
 Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Patch1:		     qt47/qt471-01-configure-ext.diff
+Patch2:		     qt47/qt471-02-ext.diff
+Patch3:		     qt47/qt472-03-ext2.diff
+Patch4:		     qt47/qt471-04-sse42.diff
+#These patches are stolen from KDE guys and affect WebKit 
+#(I'm not first who stole them, most of them are stolen from cvsdude old repo)
+Patch5:		     qt47/webkit01-17.diff
+Patch6:		     qt47/webkit04-17.diff
+Patch7:		     qt47/webkit05-17.diff
+Patch8:		     qt47/webkit08-17.diff
+Patch9:		     qt47/webkit10-17.diff
+Patch10:	     qt47/webkit11-17.diff
+Patch11:	     qt47/webkit13-17.diff
+Patch12:	     qt47/webkit14-17.diff
+Patch13:	     qt47/webkit15-17.diff
+Patch14:	     qt47/webkit16-17.diff
+Patch15:	     qt47/webkit17-17.diff
+#These don't affect Webkit, I've decided they are nice and steal from KDE guys
+Patch16:	     qt47/qt-fastmalloc.diff
+Patch17:	     qt47/qt-align.diff 
+Patch18:	     qt47/qt-qglobal.diff
+Patch19:	     qt47/qt-4.6.2-iconv-XPG5.diff
+Patch20: 	     qt47/qt-thread.diff
+Patch21:	     qt47/qt-arch.diff 
+Patch22:	     qt47/qt-4.6.2-webkit-CSSComputedStyleDeclaration.cpp.221.diff
+Patch23:	     qt47/qt-4.6.2-networkaccessmanager.cpp.233.diff
+Patch24:	     qt47/qt-4.7.0-webkit-runtime_array.h.234.diff
+Patch25:	     qt47/qt-MathExtras.diff
+Patch26:	     qt47/qt-webkit-exceptioncode.diff 
+Patch27:	     qt47/qt-uistring.diff 
+Patch28:	     qt47/template.diff 
+Patch29:	     qt47/plugin-loader.diff 
+Patch30:	     qt47/qt-qxmlquery.cpp.diff
+Patch31:	     qt47/qt-clucene.diff 
+Patch32:	     qt47/qt-configure-iconv.diff 
+Patch33:	     qt47/qt-4.6.2-iconv.diff
+Patch34:	     qt47/qt-qmutex_unix.cpp.diff
+#These exclusive to SFE
+Patch35:	     qt47/qt471-05-pluginqlib.diff
+Patch36:	     qt47/qt-4.7.1-webkit-jscore-munmap.diff
+Patch37:	     qt47/qt-4.7.1-webkit-jsc-wts-systemalloc.diff
+Patch38:	     qt47/qt-4.7.1-mathextras.diff
+Patch39: 	     qt47/qt-4.7.1-qiconvcodec.diff
+Patch40:	     qt47/qt-471-shm.diff
+Patch41:	     qt47/solaris-g++-qmake-conf.diff
+
+SUNW_BaseDir:        %_basedir
+BuildRoot:           %_tmppath/%name-%version-build
 %include default-depend.inc
 
-#FIXME: Requires: SUNWxorg-mesa
 # Guarantee X/freetype environment concisely (hopefully):
-Requires: SUNWGtku
+BuildRequires: %{pnm_buildrequires_library_desktop_gtk1}
+Requires:      %{pnm_requires_library_desktop_gtk1}
 Requires: SUNWxwplt
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
 # This package only provides libraries
-Requires: SFEqt47
 
-# %package devel
-# Summary:        %{summary} - development files
-# SUNW_BaseDir:   %{_basedir}
-# %include default-depend.inc
-# Requires: %name
+%package -n %name-devel
+Summary:        %{summary} - development files
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
+Requires: %name
+
+%package -n %name-doc
+Summary:        %{summary} - development files
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
+Requires: %name
+
 
 %prep
 %setup -q -n %srcname-%version
+# Don't pass --fuzz=0 to patch
+%define _patch_options --unified
+%patch1 -p0
+%patch2 -p0
+%patch3 -p1
+%patch4 -p0
+# %patch5 -p0
+# %patch6 -p1
+# %patch7 -p1
+# %patch8 -p1
+# %patch9 -p1
+# %patch10 -p1
+# %patch11 -p1
+# %patch12 -p1
+# %patch13 -p1
+# %patch14 -p1
+# %patch15 -p1
+# %patch16 -p1
+# %patch17 -p0
+# %patch18 -p1
+#%patch19 -p1
+%patch20 -p0
+# %patch21 -p0
+# %patch22 -p1
+# %patch23 -p1
+# %patch24 -p1
+# %patch25 -p0
+# %patch26 -p0
+%patch27 -p0
+# %patch28 -p0
+# %patch29 -p0
+# %patch30 -p0
+# %patch31 -p0
+# %patch32 -p0
+# %patch33 -p0
+%patch34 -p1
+# %patch35 -p0
+# %patch36 -p0
+# %patch37 -p0
+# %patch38 -p0
+%patch39 -p0
+# %patch40 -p0
 
 
 %build
@@ -58,70 +154,86 @@ export LD=/usr/gnu/bin/ld
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14"
 export LDFLAGS="%_ldflags -pthreads"
-#export LIBS="-lpthread -lrt"
-export LIBS="-pthread"
 
 # Assume i386 CPU is not higher than Pentium
 # This can be changed locally if your CPU is newer
-echo yes | ./configure -prefix %{_prefix} \
-           -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 \
+echo yes | ./configure -prefix %_prefix \
+           -no-ssse3 -no-sse4.1 -no-sse4.2 \
            -platform solaris-g++ \
            -opensource \
-           -docdir %{_docdir}/qt \
+           -docdir %_docdir/qt \
 	   -bindir %_bindir \
-	   -libdir %_cxx_libdir \
-           -headerdir %{_includedir}/qt \
-           -plugindir %{_cxx_libdir}/qt/plugins \
-           -datadir %{_datadir}/qt \
-           -translationdir %{_datadir}/qt/translations \
+	   -libdir %_libdir \
+           -headerdir %_includedir/qt \
+           -plugindir %_libdir/qt/plugins \
+           -datadir %_datadir/qt \
+           -translationdir %_datadir/qt/translations \
            -nomake examples \
            -nomake demos \
-           -no-phonon \
-           -no-phonon-backend \
 	   -no-webkit \
            -no-exceptions \
-           -sysconfdir %{_sysconfdir} \
+           -sysconfdir %_sysconfdir \
            -L /usr/gnu/lib \
            -R /usr/gnu/lib \
 	   -optimized-qmake \
-	   -verbose 		
+	   -verbose
 
 make -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-make install_subtargets INSTALL_ROOT=$RPM_BUILD_ROOT
+make install INSTALL_ROOT=$RPM_BUILD_ROOT
 
-rm ${RPM_BUILD_ROOT}%{_cxx_libdir}/lib*a
-
-# remove files included in SUNWqt47-devel:
-rm -r $RPM_BUILD_ROOT%_datadir
-rm -rf $RPM_BUILD_ROOT%_includedir
-rm -r $RPM_BUILD_ROOT%_bindir
+rm %buildroot%_libdir/lib*a
 
 # Eliminate QML imports stuff for now:
 # Who is Nokia to create a new subdirectory in /usr?
-rm -r $RPM_BUILD_ROOT%_prefix/imports
+rm -r %buildroot%_prefix/imports
+
+# Patch qmake.conf to use our paths
+cd %buildroot%_datadir/qt/mkspecs
+%patch41 -p0
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %_cxx_libdir
-%_cxx_libdir/lib*.so*
-%_cxx_libdir/lib*.prl
-%dir %attr (0755, root, bin) %_cxx_libdir/qt
-%_cxx_libdir/qt/*
+%dir %attr (0755, root, bin) %_libdir
+%_libdir/lib*.so*
+%_libdir/lib*.prl
+%dir %attr (0755, root, bin) %_libdir/qt
+%_libdir/qt/*
+%dir %attr (0755, root, sys) %_datadir
+%_datadir/qt
 
-#%files devel
-#%defattr (-, root, bin)
-#%dir %attr (0755, root, bin) %dir %{_cxx_libdir} 
-%dir %attr (0755, root, other) %_cxx_libdir/pkgconfig 
-%_cxx_libdir/pkgconfig/*
+%files -n %name-devel
+%defattr (-, root, bin)
+%_bindir
+%dir %attr (0755, root, bin) %_includedir
+%dir %attr (0755, root, other) %_includedir/qt
+%{_includedir}/qt/*
+%dir %attr (0755, root, bin) %dir %_libdir
+%dir %attr (0755, root, other) %_libdir/pkgconfig 
+%_libdir/pkgconfig/*
+
+%files -n %name-doc
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %_datadir/doc
+%_datadir/doc/*
+
 
 %changelog
+* Wed Mar 30 2011 - Alex Viskovatoff
+- update to 4.7.2; create separate doc package
+* Tue Mar 29 2011 - Thomas Wagner
+- re-add %package and %files -n %name-devel, easier to have a complete package
+- change BuildRequires to %{pnm_buildrequires_library_desktop_gtk1}
+* Mar 23 2011 - Alex Viskovatoff
+- Use /usr/g++ as basedir, not sharing headers with stdcxx anymore
 * Feb  8 2011 - Alex Viskovatoff
 - Use /usr/stdcxx as basedir; use -pthreads
 * Jan 30 2011 - Alex Viskovatoff

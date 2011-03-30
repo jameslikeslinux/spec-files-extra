@@ -6,8 +6,6 @@
 
 # NOTE: If you don't have the patched pkgtool, build with
 # pkgtool build --patches=patches/qt47 experimental/SFEqt47.spec
-# Instructions for obtaining the patch can be found here:
-# https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=Patches_for_pkgbuild
 
 # NOTE: This spec makes use of patches which are hard-coded to enable features
 # of the Intel Nehalem processor, specifically, the SSE 4.2 instruction set.
@@ -41,13 +39,14 @@
 
 
 # NOTE: To build software using this library which uses qmake, use
-# export PATH=$PATH:/usr/stdcxx/bin
+# export PATH=/usr/stdcxx/bin:$PATH
 # export QMAKESPEC=solaris-cc-stdcxx
 # export QTDIR=/usr/stdcxx
 
 %define _basedir /usr/stdcxx
 %include Solaris.inc
 %define srcname qt-everywhere-opensource-src
+%include packagenamemacros.inc
 
 Name:                SFEqt47
 Summary:             Cross-platform development framework/toolkit
@@ -108,19 +107,26 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 BuildRequires: SUNWlibstdcxx4
 Requires: SUNWlibstdcxx4
 
-#FIXME: Requires: SUNWxorg-mesa
 # Guarantee X/freetype environment concisely (hopefully):
-Requires: SUNWGtku
+BuildRequires: %{pnm_buildrequires_library_desktop_gtk1}
+Requires:      %{pnm_requires_library_desktop_gtk1}
 Requires: SUNWxwplt
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
 
-%package devel
-Summary:        %{summary} - development files
-SUNW_BaseDir:   %{_basedir}
+%package -n $name-devel
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
 %include default-depend.inc
 Requires: %name
+
+%package -n $name-doc
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
+%include default-depend.inc
+Requires: %name
+
 
 %prep
 %setup -q -n %{srcname}-%version
@@ -180,22 +186,22 @@ export LDFLAGS="%_ldflags -library=stdcxx4"
 
 
 # 4.6.3 runs into trouble with examples, so disable examples and demos.
+# 4.7.0 runs into trouble with phonon, so don't build that.
 
 # Assume i386 CPU is not higher than Pentium
-# This can be changed locally if your CPU is newer
 echo yes | ./configure -prefix %{_prefix} \
-           -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 \
+           -no-ssse3 -no-sse4.1 -no-sse4.2 \
            -platform solaris-cc \
            -opensource \
-           -docdir %{_docdir}/qt \
-           -headerdir %{_includedir}/qt \
-           -plugindir %{_libdir}/qt/plugins \
-           -datadir %{_datadir}/qt \
-           -translationdir %{_datadir}/qt/translations \
+           -docdir %_docdir/qt \
+           -headerdir %_includedir/qt \
+           -plugindir %_libdir/qt/plugins \
+           -datadir %_datadir/qt \
+           -translationdir %_datadir/qt/translations \
            -nomake examples \
            -nomake demos \
            -no-exceptions \
-           -sysconfdir %{_sysconfdir}
+           -sysconfdir %_sysconfdir
 
 # Elliminate -Winline, which Solaris Studio 12.2 rejects
 cd src/gui
@@ -243,8 +249,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/qt
 
-
-%files devel
+%files -n %name-devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %dir %attr (0755, root, other) %{_includedir}/qt
@@ -252,11 +257,22 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %dir %{_libdir} 
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig 
 %{_libdir}/pkgconfig/*
+
+%files -n %name-doc
+%defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/doc
 %{_datadir}/doc/*
 
+
 %changelog
+* Wed Mar 30 2011 - Alex Viskovatoff
+- create separate doc package
+* Tue Mar 29 2011 - Thomas Wagner
+- create a separate development IPS package
+- change BuildRequires to %{pnm_buildrequires_library_desktop_gtk1}
+* Mar 23 2011 - Alex Viskovatoff
+- Stop supplying the g++ qmake.conf; SFEqt47-gpp can do that
 * Sun Mar  6 2011 - Alex Viskovatoff
 - Enable Phonon, since it builds now
 * Tue Mar  1 2011 - Alex Viskovatoff

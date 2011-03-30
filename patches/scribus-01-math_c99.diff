@@ -1,0 +1,10 @@
+--- scribus-1.4.0.rc2/scribus/plugins/tools/2geomtools/lib2geom/svg-path.cpp.orig	Mon May 12 03:58:34 2008
++++ scribus-1.4.0.rc2/scribus/plugins/tools/2geomtools/lib2geom/svg-path.cpp	Tue Mar 29 15:54:05 2011
+@@ -28,6 +28,7 @@
+  *
+  */
+ 
++#include <iso/math_c99.h>
+ #include "sbasis-to-bezier.h"
+ #include "svg-path.h"
+ 

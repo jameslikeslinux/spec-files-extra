@@ -4,71 +4,74 @@
 # look at http://davekoelmeyer.wordpress.com/2010/03/09/build-scribus-1-3-5svn-on-opensolaris-x64/
 #
 
+# The stable release is 1.3.3.14.  This spec has not been tested with that.
+
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
+%define srcname scribus
 
-
-Name:           SFEscribus-ng
+Name:           SFEscribus
 Summary:        Graphical desktop publishing (DTP) application
 Group:		Applications/Office
-Version:        1.3.6
-#Source:		http://sourceforge.net/projects/scribus/files/scribus-devel/1.3.6/scribus-1.3.6.tar.bz2/download
-Source:		http://jaist.dl.sourceforge.net/project/scribus/scribus-devel/1.3.6/scribus-1.3.6.tar.bz2
-#Patch1:		scribus-01.diff
+Version:        1.4.0.rc2
+Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
+Patch1:		scribus-01-math_c99.diff
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include	default-depend.inc
 #Requires:	%name-root
 
-BuildRequires: 	SFEqt45
-Requires: 	SFEqt45
+BuildRequires: 	SFEqt47-gpp-devel
+Requires: 	SFEqt47-gpp
+Requires:	SFElibiconv
 
-Requires: 	SUNWgmake
+BuildRequires: 	SFEcmake
 BuildRequires: 	SUNWPython
 
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 
 %description
-Scribus is a GUI desktop publishing (DTP) application for GNU/Linux.
+Scribus is a GUI desktop publishing (DTP) application for Unix/Linux.
 
 
 %prep
-%setup -q -c -n %{name}
-#%patch1 -p0
+%setup -q -n %srcname-%version
+%patch1 -p1
+mkdir builddir
 
 %build
-cd scribus-%{version}
-mkdir builddir
 cd builddir
-# use gcc because SFEqt45 is build whith
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
-export CFLAGS="-O4 -fPIC -DPIC -fno-omit-frame-pointer"
+# It's not worth trying to get this to build with Solaris Studio
+export CC=gcc
+export CXX=g++
+export CFLAGS="%optflags"
+# Use -D__C99FEATURES__ to get isfinite defined by iso/stlibc_99.h (patch1)
+# Don't use -D_STDC_C99: that produces redefinition errors
+# This is to avoid "error: `isfinite' is not a member of `std'"
+export CXXFLAGS="%cxx_optflags -D__C99FEATURES__"
 export LD="/usr/bin/ld"
-export PATH="/usr/gcc/4.3/bin:$PATH"
-#export LDFLAGS="%_ldflags"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+export PATH=/usr/g++/bin:$PATH
+export QMAKESPEC=solaris-g++
 
-cmake -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%_prefix -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 .. 
+# CMAKE_INSTALL_PREFIX is ignored by make install, but it does determine
+# where Scribus looks for its icons.
+# Use Qt Arthur, because library/desktop/cairo links to libpng12
+cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DPNG_PNG_INCLUDE_DIR:PATH=/usr/include/libpng14 -DCMAKE_INSTALL_PREFIX:PATH=%_prefix -DWANT_QTARTHUR=1 -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 ..
 make
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd scribus-%{version}
 cd builddir
-mkdir -p $RPM_BUILD_ROOT/%_prefix
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
-export CFLAGS="-O4 -fPIC -DPIC -fno-omit-frame-pointer"
-export LD="/usr/bin/ld"
-export PATH="/usr/gcc/4.3/bin:$PATH"
-export DESTDIR=$RPM_BUILD_ROOT
-make install
-#make install DESTDIR=$RPM_BUILD_ROOT
-
+make install DESTDIR=%buildroot INSTALL="%_bindir/ginstall -c -p"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %files
 %defattr (-, root, bin)
@@ -81,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/scribus
 #TODO
 #%{_datadir}/gnome/apps/Applications/scribus.desktop
+%dir %attr(0755, root, root) %_datadir/mime
+%dir %attr(0755, root, root) %_datadir/mime/packages
 %{_datadir}/mime/packages/scribus.xml
 # TODO
 #%{_datadir}/pixmaps/scribus.png
@@ -88,12 +93,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/scribus
 %{_includedir}/scribus/
 %{_libdir}/scribus/
-%{_datadir}/doc
-#%{_datadir}/doc/scribus-%{version}./
-%{_datadir}/mimelnk
+%dir %attr (-, root, other) %_docdir
+%_docdir/scribus
+%dir %attr(0755, root, root) %_datadir/mimelnk
+%dir %attr(0755, root, root) %_datadir/mimelnk/application
+%{_datadir}/mimelnk/application/*
 %{_datadir}/man
 
 
 %changelog
+* 29 Mar 2011 - Alex Viskovatoff
+- Update to 1.4.0.rc2; use SFEqt47-gpp and SFEcmake; use Qt Arthur
 * 29 Apr 2010 - Gilles Dauphin ( Gilles DOT Dauphin AT enst DOT fr)
 - Initial spec

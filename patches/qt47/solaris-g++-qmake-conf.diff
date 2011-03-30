@@ -15,14 +15,14 @@
  
 -QMAKE_INCDIR		= /usr/sfw/include
 -QMAKE_LIBDIR		= /usr/sfw/lib
-+QMAKE_INCDIR		= /usr/stdcxx/include
-+QMAKE_LIBDIR		= /usr/stdcxx/lib/g++/4.5.2
++QMAKE_INCDIR		= /usr/g++/include
++QMAKE_LIBDIR		= /usr/g++/lib
  QMAKE_INCDIR_X11	= /usr/openwin/include
  QMAKE_LIBDIR_X11	= /usr/openwin/lib
 -QMAKE_INCDIR_QT		= $$[QT_INSTALL_HEADERS]
 -QMAKE_LIBDIR_QT		= $$[QT_INSTALL_LIBS]
-+QMAKE_INCDIR_QT		= /usr/stdcxx/include/qt
-+QMAKE_LIBDIR_QT		= /usr/stdcxx/lib/g++/4.5.2
++QMAKE_INCDIR_QT		= /usr/g++/include/qt
++QMAKE_LIBDIR_QT		= /usr/g++/lib
  QMAKE_INCDIR_OPENGL	= /usr/openwin/include
  QMAKE_LIBDIR_OPENGL	= /usr/openwin/lib
  
