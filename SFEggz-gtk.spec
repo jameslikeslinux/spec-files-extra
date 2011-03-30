@@ -14,6 +14,8 @@
 
 %use ggzgtk = ggz-gtk-client.spec
 
+%define SFElibggz	%(/usr/bin/pkginfo -q SFElibggz && echo 1 || echo 0)
+
 Name:               SFEggz-gtk
 Summary:            ggz-gtk - Gtk+ client libraries for GGZ gaming zone
 Version:            %{ggzgtk.version}
@@ -22,10 +24,15 @@ BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 Requires: SUNWgnome-base-libs
-Requires: SUNWgnome-games
 BuildRequires: SUNWgnome-base-libs-devel
-BuildRequires: SUNWgnome-games-devel
 BuildRequires: SUNWgnome-common-devel
+%if %SFElibggz
+BuildRequires:	SFElibggz-devel
+Requires:	SFElibggz
+%else
+BuildRequires:	SUNWgnome-games-devel
+Requires:	SUNWgnome-games
+%endif
 
 %package devel
 Summary:       %{summary} - development files
