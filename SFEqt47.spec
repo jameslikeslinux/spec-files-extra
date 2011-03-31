@@ -115,14 +115,14 @@ Requires: SUNWxwplt
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
 
-%package -n $name-devel
+%package -n %name-devel
 Summary:        %summary - development files
 SUNW_BaseDir:   %_basedir
 %include default-depend.inc
 Requires: %name
 
-%package -n $name-doc
-Summary:        %summary - development files
+%package -n %name-doc
+Summary:        %summary - documentation files
 SUNW_BaseDir:   %_basedir
 %include default-depend.inc
 Requires: %name

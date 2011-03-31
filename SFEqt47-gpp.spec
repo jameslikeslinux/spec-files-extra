@@ -5,7 +5,7 @@
 
 # This spec is not intended to provide as much Qt functionality as
 # SFEqt47.spec.  Its present purpose is merely to allow LyX to build
-# and run on Solaris.  Thus none of the patches used by SFEqt47.spec
+# and run on Solaris.  Thus few of the patches used by SFEqt47.spec
 # are included.  In the future, one could see which of those patches
 # would be useful here.
 
@@ -90,7 +90,7 @@ SUNW_BaseDir:   %{_basedir}
 Requires: %name
 
 %package -n %name-doc
-Summary:        %{summary} - development files
+Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
