@@ -27,6 +27,7 @@ BuildRequires:	SUNWgawk
 BuildRequires:	SUNWgnome-common-devel
 BuildRequires:	SUNWapch22u
 Requires:	SUNWapch22u
+Requires:	SUNWscpu
 
 %description
 The aim of mod_wsgi is to implement a simple to use Apache module which can host any Python application which supports the Python WSGI interface. The module would be suitable for use in hosting high performance production web sites, as well as your average self managed personal sites running on web hosting services. 
