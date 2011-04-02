@@ -1,3 +1,9 @@
+2011-04-02  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEpkgbuild.spec: bump to 1.3.104
+	* SFEmplayer-snap.spec: update tarball
+	* SFElibx264.spec: update tarball, reworking patches
+
 2011-04-01 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEproftpd.spec: bump to 1.3.3e
@@ -708,14 +714,8 @@
 
 	* SFEmplayer-snap.spec: use fixed (constant) tarball by default,
 	  restore cpu detection patch, make gui optional, format man page
-
-2010-11-10  Alex Viskovatoff <viskovatoff@imap.cc>
-
 	* SFElibx264.spec base-specs/x264.spec: update tarball, reworking
 	  patches; add optional (Build)Requires: SFEgpac(-devel)
-
-2010-11-10  Alex Viskovatoff <viskovatoff@imap.cc>
-
 	* SFEhunspell.spec: find dicts without using environment variable
 	* SFEncursesw.spec: get version number from base spec
 	* SFExz: update to 5.0.0

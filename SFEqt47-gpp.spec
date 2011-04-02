@@ -3,6 +3,15 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
+# NOTE: The easiest way to make pkgtool find the patches used by this spec
+# is to install experimental/SFEpkgbuild.spec, and rename pkgbuild and pkgtool
+# in /opt/dtbld/bin to something else, so that your updated pkgbuild and
+# pkgtool are found instead.
+# Otherwise, build with
+# pkgtool build --patches=patches/qt47 SFEqt47-gpp.spec
+# If you use the --autodeps flag, use
+# pkgtool build --patches=patches:patches/qt47-gpp --autodeps SFEqt47.spec
+
 # This spec is not intended to provide as much Qt functionality as
 # SFEqt47.spec.  Its present purpose is merely to allow LyX to build
 # and run on Solaris.  Thus few of the patches used by SFEqt47.spec
@@ -143,10 +152,7 @@ Requires: %name
 
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++

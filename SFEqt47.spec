@@ -4,8 +4,14 @@
 # includes module: qt
 #
 
-# NOTE: If you don't have the patched pkgtool, build with
-# pkgtool build --patches=patches/qt47 experimental/SFEqt47.spec
+# NOTE: The easiest way to make pkgtool find the patches used by this spec
+# is to install experimental/SFEpkgbuild.spec, and rename pkgbuild and pkgtool
+# in /opt/dtbld/bin to something else, so that your updated pgbuild and
+# pkgtool are found instead.
+# Otherwise, build with
+# pkgtool build --patches=patches/qt47 SFEqt47.spec
+# If you use the --autodeps flag, use
+# pkgtool build --patches=patches:patches/qt47 --autodeps SFEqt47.spec
 
 # NOTE: This spec makes use of patches which are hard-coded to enable features
 # of the Intel Nehalem processor, specifically, the SSE 4.2 instruction set.

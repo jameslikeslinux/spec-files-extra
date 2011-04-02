@@ -46,7 +46,7 @@
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
 
 %if %with_constant_tarball
-%define revision 32792
+%define revision 33159
 #else
 %define ver %(date '+%Y%m%d')
 %endif
@@ -178,6 +178,10 @@ cd %builddir
 %patch4 -p1
 %patch5 -p1
 #%patch6 -p1
+# The presence of the following file causes git to try to pull ffmpeg.
+# It is not clear if that file will be here permanently, or whether
+# its presence was an oversight by the Arch Linux maintainer.
+rm ffmpeg/mp_auto_pull
 
 %build
 cd %name-build/%builddir
@@ -275,6 +279,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Apr  2 2011 - Alex Viskovatoff
+- Update to new tarball
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Update to new tarball, with Patch6 no longer required
 - Replace --without-gui option with --with-gui, disabling gui by default
