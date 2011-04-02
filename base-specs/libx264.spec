@@ -76,11 +76,11 @@ fi
 make
 
 %install
-make install DESTDIR=%buildroot
-rm -f %buildroot%_libdir/lib*.*a
+make install DESTDIR=$RPM_BUILD_ROOT
+rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 
 %clean
-rm -rf %buildroot
+rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Apr  1 2011 - Alex Viskovatoff
