@@ -164,10 +164,10 @@ rm -rf %name-build
 mkdir -p %name-build
 cd %name-build
 %if %with_constant_tarball
-xzcat %SOURCE7 | tar xf -
+xz -dc %SOURCE7 | tar xf -
 %define builddir mplayer
 %else
-bzcat %SOURCE | tar xf -
+bzip2 -dc %SOURCE | tar xf -
 %define builddir mplayer-export
 mv mplayer-export-* mplayer-export
 %endif
@@ -185,10 +185,7 @@ rm ffmpeg/mp_auto_pull
 
 %build
 cd %name-build/%builddir
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 %if %debug_build
 dbgflag=--enable-debug

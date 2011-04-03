@@ -651,7 +651,7 @@ a@@ -92,6 +94,7 @@
              if(fs::is_directory(*itr)){
                  std::pair<col_node::subcolumns_t::iterator, bool> result 
                      = node.m_subcolumns.insert(
--                        std::make_pair(itr->filename(), col_node())
+-                        std::make_pair(itr->path().native(), col_node())
 +                        std::make_pair(itr->leaf(),
 +                             col_node_ptr(new col_node()))
                      );

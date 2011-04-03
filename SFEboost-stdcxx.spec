@@ -10,54 +10,54 @@
 %include Solaris.inc
 
 %define		major	1
-%define		minor	45
-%define		patchlevel 0
+%define		minor	46
+%define		patchlevel 1
 %define		src_url	http://easynews.dl.sourceforge.net/sourceforge/boost
 
 Name:		SFEboost-stdcxx
 Summary:	Boost - free peer-reviewed portable C++ source libraries
-Version:	%{major}.%{minor}.%{patchlevel}
+Version:	%major.%minor.%patchlevel
 License:	Boost Software License
 URL:		http://www.boost.org/
-Source:		%{src_url}/boost_%{major}_%{minor}_%{patchlevel}.tar.bz2
+Source:		%src_url/boost_%{major}_%{minor}_%patchlevel.tar.bz2
 Patch0:		boost-stdcxx-00-sun-jam.diff
 # These are from http://solaris.bionicmutton.org/hg/kde4-specs-460/raw-file/243b8041ba78/specs/patches/boost
 Patch1:		boost-stdcxx-01-solaris.diff
 Patch2:		boost-stdcxx-02-typenames.diff
 Patch3:		boost-stdcxx-03-python.diff
-Patch4:		boost-stdcxx-04-transform-width-min.diff
+#Patch4:	boost-stdcxx-04-transform-width-min.diff
 Patch5:		boost-stdcxx-05-graphviz.diff
 Patch6:		boost-stdcxx-06-stdcxx.diff
 
-SUNW_BaseDir:	%{_basedir}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%_basedir
+BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 BuildRequires: SFEicu-devel
 BuildRequires: SUNWPython
 Requires: SFEicu
 Requires: SUNWlibstdcxx4
 
-%package devel
-Summary:        %{summary} - development files
-SUNW_BaseDir:   %{_basedir}
+%package -n %name-devel
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
 %include default-depend.inc
+Requires: %name
 
 %prep
-%setup -q -n boost_%{major}_%{minor}_%{patchlevel}
+%setup -q -n boost_%{major}_%{minor}_%patchlevel
 %patch0 -p1
+# Don't pass --fuzz=0 to patch
+%define _patch_options --unified
 %patch1 -p1
 %patch2 -p0
 %patch3 -p1
-%patch4	
-%patch5	
+#%patch4	# obsolete
+%patch5
 %patch6
 
 %build
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 # -library=stdcxx4 is added by feature stdlib : sun-stdcxx in sun.jam
 
@@ -100,30 +100,30 @@ $BJAM --v2 -j$CPUS -sBUILD="release <threading>single/multi" -sICU_PATH=/usr/std
 BOOST_ROOT=`pwd`
 rm -rf $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
+mkdir -p $RPM_BUILD_ROOT%_libdir
+mkdir -p $RPM_BUILD_ROOT%_includedir
+mkdir -p $RPM_BUILD_ROOT%_docdir
+mkdir -p $RPM_BUILD_ROOT%_docdir/boost-%version
 
 for i in stage/lib/*.so; do
   NAME=`basename $i`
-  cp $i $RPM_BUILD_ROOT%{_libdir}/$NAME.%{version}
-  ln -s $NAME.%{version} $RPM_BUILD_ROOT%{_libdir}/$NAME
+  cp $i $RPM_BUILD_ROOT%_libdir/$NAME.%version
+  ln -s $NAME.%version $RPM_BUILD_ROOT%_libdir/$NAME
 done
 
 for i in `find "boost" -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_includedir}/$i
+  mkdir -p $RPM_BUILD_ROOT%_includedir/$i
 done
 for i in `find "boost" -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_includedir}/$i
+  cp $i $RPM_BUILD_ROOT%_includedir/$i
 done
 
 cd "doc/html"
 for i in `find . -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
+  mkdir -p $RPM_BUILD_ROOT%_docdir/boost-%version/$i
 done
 for i in `find . -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
+  cp $i $RPM_BUILD_ROOT%_docdir/boost-%version/$i
 done
 cd $BOOST_ROOT
 
@@ -132,19 +132,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (0755, root, bin) %_libdir
 %{_libdir}/lib*.so*
 
-%files devel
+%files -n %name-devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/boost
-%dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_docdir}
-%dir %attr (0755, root, other) %{_docdir}/boost-%{version}
-%{_docdir}/boost-%{version}/*
+%dir %attr (0755, root, bin) %_includedir
+%_includedir/boost
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %_docdir
+%dir %attr (0755, root, other) %_docdir/boost-%version
+%_docdir/boost-%version/*
 
 %changelog
+* Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Update to 1.46.1
 * Thu Jan 27 2011 - Alex Viskovatoff
 - Use -library=stdcxx4 instead of include/stdcxx.inc
 * Wed Jan 26 2011 - Alex Viskovatoff

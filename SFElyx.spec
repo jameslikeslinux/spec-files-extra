@@ -9,7 +9,7 @@
 # to install TeX Live using its own native installer.  See
 #   http://www.tug.org/texlive/acquire-netinstall.html.
 # You need to make sure that the various TeX executables are in your PATH.
-# The TeX Live installer gives you the option of creatingg symbolic links
+# The TeX Live installer gives you the option of creating symbolic links
 # to them automatically; creating symbolic links of TeX executables to
 # a directory in your PATH is probably the best way of making LyX find them.
 
@@ -31,16 +31,17 @@ License:	GPL
 #Version:	1.6.8
 #Source:	ftp://ftp.lyx.org/pub/lyx/stable/1.6.x/%srcname-%version.tar.bz2
 Version:	2.0.0rc2
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%version.tar.gz
+Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%version.tar.xz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
 BuildRequires:	SFEqt47-gpp-devel
-
+BuildRequires:	SUNWgnome-spell
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
+Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
 
 %if %build_l10n
@@ -57,11 +58,7 @@ Requires:       %name
 
 
 %build
-
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 # The LyX code is really nasty to Sun Studio
 export CC=gcc
@@ -71,23 +68,24 @@ export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include -L/usr/gnu/lib -R/us
 export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -R/usr/g++/lib"
 
 # SFEhunspell is built with CC, so SFElyx can't link against it
-./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-hunspell
+# aspell is deprecated
+./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-aspell --without-hunspell
 
 make -j$CPUS
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%buildroot
 
 %if %build_l10n
 %else
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+rm -rf %buildroot%_datadir/locale
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
@@ -108,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Disable aspell; LyX can use library/spell-checking/enchant
 * Wed Mar 30 2011 - Alex Viskovatoff
 - Adapt to gcc-built Qt now being in /usr/g++
 - Update to 2.0.0rc2; disable hunspell; remove build dependency on Boost

@@ -45,14 +45,14 @@ Name:		SFEhunspell
 Summary:	Spell checker
 URL:		http://hunspell.sourceforge.net
 Vendor:		László Németh
-Version:	1.3.1
+Version:	1.3.2
 License:	MPL 1.1/GPL 2.0/LGPL 2.1
-Source:		http://downloads.sourceforge.net/%{srcname}/%{srcname}-%{version}.tar.gz
+Source:		http://downloads.sourceforge.net/%srcname/%srcname-%version.tar.gz
 Patch1:		hunspell-01-dict-path.diff
 
 %include default-depend.inc
-SUNW_BaseDir:	%{_basedir}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%_basedir
+BuildRoot:	%_tmppath/%name-%version-build
 BuildRequires:	SUNWgmake
 BuildRequires:	SUNWaconf
 BuildRequires:	SUNWgnu-automake-19
@@ -63,11 +63,11 @@ Requires:	SUNWgnu-readline
 Requires:	SFElibiconv
 Requires:	SUNWmyspell-dictionary-en
 
-%package devel
-Summary:	%{summary} - development files
-SUNW_BaseDir:	%{_prefix}
+%package -n %name-devel
+Summary:	%summary - development files
+SUNW_BaseDir:	%_basedir
 %include default-depend.inc
-Requires:	SFEhunspell
+Requires:	%name
 
 
 %prep
@@ -76,29 +76,26 @@ Requires:	SFEhunspell
 
 %build
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 export CFLAGS="%optflags"
 
 export CXXFLAGS="%cxx_optflags -I/usr/gnu/include/ncursesw"
 export LIBS="-lsocket -lpthread -lCrun"
 export LDFLAGS="%_ldflags %gnu_lib_path"
-./configure --prefix=%_prefix --enable-threads=solaris --with-ui --with-readline
-
+./configure --prefix=%_prefix --enable-threads=solaris --disable-static --with-ui --with-readline
 
 gmake -j$CPUS
 
+
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-gmake install DESTDIR=$RPM_BUILD_ROOT
+gmake install DESTDIR=%buildroot
 
-rm -f $RPM_BUILD_ROOT%_libdir/lib*a
+rm -f %buildroot%_libdir/lib*a
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
@@ -106,18 +103,21 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/*
 %_libdir/*.so*
 %dir %attr (-, root, other) %_libdir/pkgconfig
-%_libdir/pkgconfig/%{srcname}.pc
+%_libdir/pkgconfig/%srcname.pc
 %dir %attr (-, root, sys) %_datadir
 %dir %attr (-, root, other) %_datadir/locale
 %attr (-, root, other) %_datadir/locale/*
 %_mandir
 
-%files devel
+%files -n %name-devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
+%dir %attr (0755, root, bin) %_includedir
+%_includedir/*
+
 
 %changelog
+* Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
+- bump to 1.3.2
 * Wed Mar 23 2011 - Alex Viskovatoff
 - bump to 1.3.1
 * Fri Feb  4 2011 - Alex Viskovatoff
