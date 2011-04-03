@@ -14,7 +14,7 @@ Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	4.5.0
+Version:	4.6.0
 License:	GPLv2
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
 Patch3:		mkvtoolnix-03-rmff.diff
@@ -117,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 4.6.0
 * Sat Feb  5 2011 - Alex Viskovatoff
 - Update to 4.5.0, adding one patch and removing one no longer needed
 * Thu Jan 27 2011 - Alex Viskovatoff
