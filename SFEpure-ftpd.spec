@@ -4,7 +4,7 @@
 %define src_name pure-ftpd
 
 Name:		SFEpure-ftpd
-Version:	1.0.29
+Version:	1.0.30
 Summary:	Lightweight, fast and secure FTP server
 
 Group:		System Environment/Daemons
@@ -14,15 +14,19 @@ Source:		http://download.pureftpd.org/pub/%{src_name}/releases/%{src_name}-%{ver
 Source1:	pure-ftpd.xml
 Patch1:		pure-ftpd-01-openldap.diff
 Provides:	ftpserver
-SUNW_BaseDir:	/
+SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+%include default-depend.inc
 
 BuildRequires:	SUNWopenldapu
 Requires:	SUNWopenldapu
 BuildRequires:	SUNWopenssl-include
 Requires:	SUNWopenssl-libraries
-BuildRequires:	SUNWmysql51
+BuildRequires:	SUNWmysql51u
+Requires:	SUNWmysql51u
+BuildRequires:	SUNWmysql51lib
 Requires:	SUNWmysql51lib
+Requires:	%{name}-root
 
 %description
 Pure-FTPd is a fast, production-quality, standard-comformant FTP server,
@@ -34,13 +38,25 @@ domains, built-in LS, anti-warez system, bandwidth throttling, FXP, bounded
 ports for passive downloads, UL/DL ratios, native LDAP and SQL support,
 Apache log files and more.
 
+%package root
+Summary:	%{summary} - / filesystem components
+SUNW_BaseDir:	/
+%include default-depend.inc
+
+
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
 %build
-export CFLAGS="%optflags -I/usr/include/openldap -I/usr/mysql/5.1/include/mysql"
-export LDFLAGS="%_ldflags -L/usr/mysql/5.1/lib/mysql -R /usr/mysql/5.1/lib/mysql"
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
+# mysql_config is broken, it adds -xnorunpath
+export CFLAGS="%optflags -xprefetch=auto -xprefetch_level=3 -mt -fns=no -fsimple=1 -xbuiltin=%none -xlibmil -xlibmopt -I/usr/include/openldap -I/usr/mysql/5.1/include/mysql"
+export LDFLAGS="%_ldflags -L/usr/mysql/5.1/lib/mysql -R/usr/mysql/5.1/lib/mysql"
 
 ./configure --prefix=%{_prefix} \
             --sysconfdir=%{_sysconfdir}/%{src_name} \
@@ -68,15 +84,13 @@ export LDFLAGS="%_ldflags -L/usr/mysql/5.1/lib/mysql -R /usr/mysql/5.1/lib/mysql
             --with-tls \
             --without-bonjour
 
-make
-
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
-install -d -m 755 %{buildroot}%{_mandir}/man8
 install -d -m 755 %{buildroot}%{_sbindir}
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{src_name}
 install -d -m 755 %{buildroot}%{_sysconfdir}/pki/%{src_name}}
@@ -94,17 +108,7 @@ install -p -m 644 pureftpd-pgsql.conf %{buildroot}%{_sysconfdir}/%{src_name}
 install -d 0755 %{buildroot}%/var/svc/manifest/network
 install -m 0644 %{SOURCE1} %{buildroot}%/var/svc/manifest/network
 
-# Man
-install -p -m 644 man/pure-ftpd.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-ftpwho.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-mrtginfo.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-uploadscript.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-pw.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-pwconvert.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-statsdecode.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-quotacheck.8 %{buildroot}%{_mandir}/man8
-install -p -m 644 man/pure-authd.8 %{buildroot}%{_mandir}/man8
-# no section 8
+# Man pages, no section 8
 install -d 0755 %{buildroot}%{_datadir}/man/man1m
 for i in %{buildroot}%{_datadir}/man/man8/*.8
 do
@@ -112,12 +116,12 @@ do
   name1m=${base}1m
   mv $i %{buildroot}%{_datadir}/man/man1m/${name1m}
 done
-rmdir %{buildroot}%{_datadir}/man/man8
-for i in %{buildroot}%{_datadir}/man/*/*
+for i in %{buildroot}%{_datadir}/man/man1m/*
 do
   sed 's/(8)/(1M)/g' $i | sed '/^\.TH/s/ \"8\" / \"1M\" /g' > $i.new
   mv $i.new $i
 done
+rmdir %{buildroot}%{_datadir}/man/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -143,18 +147,18 @@ user ftpuser=false gcos-field="pure-ftpd Reserved UID" username="pure-ftpd" pass
 %doc FAQ THANKS AUTHORS CONTACT HISTORY NEWS
 %doc README README.Authentication-Modules README.Configuration-File
 %doc README.Contrib README.Donations README.LDAP README.MySQL
-%doc README.PGSQL README.TLS README.Virtual-Users
+%doc README.TLS README.Virtual-Users
 %doc contrib/pure-vpopauth.pl pureftpd.schema contrib/pure-stat.pl
-%dir %attr (0755, root, sys) %{_sysconfdir}
-%dir %attr (0755, root, sys) %{_prefix}
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/doc
+%dir %attr (0755, root, other) %{_docdir}
 
-%{_bindir}/pure-*
-%{_sbindir}/pure-*
-%{_sysconfdir}/%{src_name}
-%{_sysconfdir}/pki/%{src_name}}
-%{_mandir}/man1m/*
+%{_bindir}
+%{_sbindir}
+%{_mandir}
+
+%files root
+%dir %attr (0755, root, sys) %{_sysconfdir}
+%{_sysconfdir}/*
 %dir %attr (0755, root, sys) %{_localstatedir}
 %dir %attr (0755, root, sys) %{_localstatedir}/ftp
 %dir %attr (0755, root, sys) %{_localstatedir}/svc
@@ -164,6 +168,8 @@ user ftpuser=false gcos-field="pure-ftpd Reserved UID" username="pure-ftpd" pass
 
 
 %changelog
+* Tue Apr 05 2011 - Milan Jurik
+- bump to 1.0.30
 * Sun Apr 25 2010 - Milan Jurik
 - added IPS support
 - update to 1.0.29
