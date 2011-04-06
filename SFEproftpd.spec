@@ -63,7 +63,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -I/usr/include/kerberosv5 -DHAVE_KRB5_H=1 -DKRB5_DLLIMP="
 export LDFLAGS="%_ldflags"
 
 export install_user=$LOGNAME
@@ -75,6 +75,7 @@ popd
 
 cp mod_gss-%{gss_version}/mod_gss.h include
 cp mod_gss-%{gss_version}/mod_gss.c contrib
+cp mod_gss-%{gss_version}/mod_auth_gss.c contrib
 
 ./configure --prefix=%{_prefix}/%{src_name}  \
             --bindir=%{_bindir} \
@@ -90,7 +91,7 @@ cp mod_gss-%{gss_version}/mod_gss.c contrib
             --enable-nls \
             --enable-dso \
             --enable-openssl \
-            --with-shared=mod_facl:mod_shaper:mod_tls:mod_gss
+            --with-shared=mod_facl:mod_rewrite:mod_readme:mod_shaper:mod_tls:mod_wrap:mod_auth_gss:mod_gss
 
 make -j$CPUS
 
@@ -166,6 +167,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 06 2011 - Milan Jurik
+- add more modules
 * Fri Apr 01 2011 - Milan Jurik
 - bump to 1.3.3e
 * Sun Feb 13 2011 - Milan Jurik
