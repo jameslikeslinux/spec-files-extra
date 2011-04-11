@@ -1,3 +1,7 @@
+2011-04-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEllvm.spec: bump to 2.9, add clang
+
 2011-04-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEproftpd.spec: add more modules

@@ -8,43 +8,36 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
+
 %define src_name        llvm
 
 
 Name:		SFEllvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
-Version:	2.5
+Version:	2.9
 License:        University of Illinois/NCSA Open Source License
 
 URL:		http://llvm.org/
-Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tar.gz
+Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tgz
+Source1:	http://llvm.org/releases/%{version}/clang-%{version}.tgz
+Patch1:		llvm-01-limits.diff
 
 Group:          Development
-Distribution:   OpenSolaris
-Vendor:         OpenSolaris Community
-
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:   %{_basedir}
-SUNW_Copyright: %{name}.copyright
-
-Patch1:		llvm-01-pod2html.diff
 
 %include default-depend.inc
 
 BuildRequires:	SUNWlibtool
 BuildRequires:	SUNWperl584usr
 BuildRequires:	SUNWgroff
-BuildRequires:	SUNWgcc
 BuildRequires:	SUNWbison
 BuildRequires:	SUNWflexlex
 BuildRequires:	SUNWgmake
-
-
-# OpenSolaris IPS Manifest Fields
-Meta(info.upstream):		Chris Lattner <sabre@nondot.org>
-Meta(info.maintainer):		David Höppner <0xffea@googlemail.com>
-Meta(info.repository_url):	http://llvm.org/svn/llvm-project/llvm/trunk
-Meta(info.classification):	org.opensolaris.category.2008: Development/C
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 
 %description
 LLVM is a compiler infrastructure designed for compile-time, link-time, runtime,
@@ -58,8 +51,8 @@ functionality.
 
 %prep
 %setup -q -n %{src_name}-%{version}
-
-%patch1	-p1
+%patch1 -p1
+cd tools && tar xzf %{SOURCE1} && mv clang-%{version} clang
 
 %build
 
@@ -68,14 +61,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC="/usr/sfw/bin/gcc"
-export CXX="/usr/sfw/bin/g++"
+export CC="/usr/gcc/4.5/bin/gcc"
+export CXX="/usr/gcc/4.5/bin/g++"
 
-export POD2HTML="/usr/perl5/5.8.4/bin/pod2html"
-export POD2MAN="/usr/perl5/5.8.4/bin/pod2man"
+export CFLAGS="%optflags"
+export LDFLAGS="%_ldflags"
 
-#export CFLAGS="%{gcc_optflags}"
-#export LDFLAGS="%{_ldflags}"
+export PATH=$PATH:/usr/perl5/bin
 
 ./configure	--prefix=%{_prefix}		\
 		--bindir=%{_bindir}		\
@@ -85,75 +77,35 @@ export POD2MAN="/usr/perl5/5.8.4/bin/pod2man"
 		--datadir=%{_datadir}		\
 		--disable-dependency-tracking	\
 		--enable-optimized		\
-		--enable-assertions
+		--disable-static		\
+		--enable-shared
 	
-gmake -j$CPUS
+VERBOSE=1 make -j$CPUS
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
+export PATH=$PATH:/usr/perl5/bin
+
 make install DESTDIR=${RPM_BUILD_ROOT}
 
 mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 
 %files
-%defattr (-, root, root)
-
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/llvm-config
-%{_bindir}/gccas
-%{_bindir}/gccld
-%{_bindir}/opt
-%{_bindir}/llvm-as
-%{_bindir}/llvm-dis
-%{_bindir}/llc
-%{_bindir}/llvm-ranlib
-%{_bindir}/llvm-ar
-%{_bindir}/llvm-nm
-%{_bindir}/llvm-ld
-%{_bindir}/llvm-prof
-%{_bindir}/llvm-link
-%{_bindir}/lli
-%{_bindir}/llvm-extract
-%{_bindir}/llvm-db
-%{_bindir}/bugpoint
-%{_bindir}/llvm-bcanalyzer
-%{_bindir}/llvm-stub
-%{_bindir}/llvmc
-
-%dir %attr (0755, root, sys) %{_includedir}
-%{_includedir}/*
-
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/*
-
-%dir %attr (0755, root, sys) %{_mandir}
-%dir %attr (0755, root, sys) %{_mandir}/man1
-%{_mandir}/man1/bugpoint.1
-%{_mandir}/man1/llc.1
-%{_mandir}/man1/lli.1
-%{_mandir}/man1/llvm-ar.1
-%{_mandir}/man1/llvm-as.1
-%{_mandir}/man1/llvm-bcanalyzer.1
-%{_mandir}/man1/llvm-config.1
-%{_mandir}/man1/llvmc.1
-%{_mandir}/man1/llvm-db.1
-%{_mandir}/man1/llvm-dis.1
-%{_mandir}/man1/llvm-extract.1
-%{_mandir}/man1/llvmgcc.1
-%{_mandir}/man1/llvmgxx.1
-%{_mandir}/man1/llvm-ld.1
-%{_mandir}/man1/llvm-link.1
-%{_mandir}/man1/llvm-nm.1
-%{_mandir}/man1/llvm-prof.1
-%{_mandir}/man1/llvm-ranlib.1
-%{_mandir}/man1/opt.1
-%{_mandir}/man1/tblgen.1
-
-
+%defattr (-, root, bin)
+%{_bindir}
+%{_includedir}/clang
+%{_includedir}/clang-c
+%{_includedir}/llvm
+%{_includedir}/llvm-c
+%{_libdir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/doc/*
+%{_mandir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/llvm
 
 %changelog
+* Mon Apr 11 2011 - Milan Jurik
+- bump to 2.9, add clang
 *                 - Thomas Wagner
 - migrated over from sourcejuicer
 * Fri May  8 2009 <0xffea@googlemail.com>
