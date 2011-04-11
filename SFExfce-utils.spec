@@ -7,11 +7,12 @@
 %include Solaris.inc
 
 %define src_name xfce-utils
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+#%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/xfce-utils/4.8/
 
 Name:		SFExfce-utils
 Summary:	Utilities for the XFce Desktop Environment
-Version:	4.8.0
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -49,6 +50,8 @@ fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
+# GNU xgettext needed
+export PATH=/usr/gnu/bin:$PATH
 ./configure --prefix=%{_prefix}		\
 	--bindir=%{_bindir}		\
 	--libdir=%{_libdir}		\
@@ -122,6 +125,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Apr 11 2011 - Milan Jurik
+- GNU xgettext needed
+* Sat Apr 9 2011 - kmays2000@gmail.com
+- bump to 4.8.1
 * Sat Mar 26 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Sun Aug 16 2009 - sobotkap@gmail.com

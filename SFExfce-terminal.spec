@@ -11,7 +11,7 @@
 
 Name:		SFExfce-terminal
 Summary:	Xfce terminal
-Version:	0.4.6
+Version:	0.4.7
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -44,6 +44,8 @@ fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -lX11"
+# GNU xgettext needed
+export PATH=/usr/gnu/bin:$PATH
 ./configure --prefix=%{_prefix}		\
 	--bindir=%{_bindir}		\
 	--libdir=%{_libdir}		\
@@ -128,6 +130,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Apr 11 2011 - Milan Jurik
+- GNU xgettext needed
+* Sat Apr 9 2011 - kmays2000@gmail.com
+- bump to 0.4.7
 * Sat Mar 26 2011 - Milan Jurik
 - bump to 0.4.6, move to SFE from osol xfce
 * Tue Aug 03 2010 - brian.cameron@oracle.com

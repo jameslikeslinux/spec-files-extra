@@ -1,3 +1,14 @@
+2011-04-12 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce-terminal.spec - bump to 0.4.7
+	* SFExfdesktop.spec - bump to 4.8.1
+	* SFEgtk-xfce-engine.spec - bump to 2.8.1
+	* SFExfce4-settings.spec - bump to 4.8.1
+	* SFExfce4-panel.spec - bump to 4.8.3
+	* SFExfce4-session.spec - bump to 4.8.1
+	* SFEthunar.spec - bump to 1.3.0
+	* SFExfce-utils.spec - bump to 4.8.1
+
 2011-04-11 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEllvm.spec: bump to 2.9, add clang

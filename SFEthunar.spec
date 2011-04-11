@@ -7,11 +7,12 @@
 %include Solaris.inc
 
 %define src_name Thunar
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+#%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/thunar/1.3/
 
 Name:		SFEthunar
 Summary:	Thunar File Manager
-Version:	1.2.0
+Version:	1.3.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 
@@ -62,6 +63,8 @@ fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
+# GNU xgettext needed
+export PATH=/usr/gnu/bin:$PATH
 ./configure --prefix=%{_prefix}		\
 	--sbindir=%{_sbindir}		\
 	--libdir=%{_libdir}		\
@@ -138,6 +141,9 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/24x24
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/24x24/apps
 %{_datadir}/icons/hicolor/24x24/apps/*
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/24x24/stock
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/24x24/stock/navigation
+%{_datadir}/icons/hicolor/24x24/stock/navigation/*
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48/apps
 %{_datadir}/icons/hicolor/48x48/apps/*
@@ -165,6 +171,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Apr 11 2011 - Milan Jurik
+- GNU xgettext needed
+* Sat Apr 9 2011 - kmays2000@gmail.com
+- bump to 1.3.0
 * Thu Mar 24 2011 - Milan Jurik
 - bump to 1.2.0, move to SFE from osol xfce
 * Fri Aug 14 2009 - sobotkap@gmail.com

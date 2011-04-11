@@ -7,11 +7,12 @@
 %include Solaris.inc
 
 %define src_name xfce4-session
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+#%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/xfce4-session/4.8/
 
 Name:		SFExfce4-session
 Summary:	Xfce Session manager
-Version:	4.8.0
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
@@ -61,6 +62,8 @@ fi
 export ICEAUTH=/usr/openwin/bin/iceauth
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/X11/lib -R/usr/X11/lib -lsecdb -lsocket -lnsl"
+# GNU xgettext needed
+export PATH=/usr/gnu/bin:$PATH
 ./configure --prefix=%{_prefix}		\
 	--libdir=%{_libdir}		\
 	--libexecdir=%{_libexecdir}	\
@@ -156,6 +159,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Apr 11 2011 - Milan Jurik
+- GNU xgettext needed
+* Thu Apr 9 2011 - kmays2000@gmail.com
+- bump to 4.8.1
 * Thu Mar 24 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Wed Aug 19 2009 - sobotkap@gmail.com

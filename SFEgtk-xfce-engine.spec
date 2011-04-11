@@ -7,11 +7,12 @@
 %include Solaris.inc
 
 %define src_name gtk-xfce-engine
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+#%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/gtk-xfce-engine/2.8/
 
 Name:		SFEgtk-xfce-engine
 Summary:	Port of xfce engine to GTK+-2.0
-Version:	2.8.0
+Version:	2.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -60,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/themes*
 
 %changelog
+* Thu Apr 9 2011 - kmays2000@gmail.com
+- bump to 2.8.1
 * Sat Mar 26 2011 - Milan Jurik
 - bump to 2.8.0, move to SFE from osol xfce
 * Tue Aug 03 2010 - brian.cameron@oracle.com
