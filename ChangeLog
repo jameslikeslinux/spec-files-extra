@@ -16,7 +16,7 @@
 	* SFEperl*: move to perl/
 	* SFEpython*: move to python/
 	* SFEgmpc-plugin*: move to gmpc-plugins/
-
+	* unmaintained: new directory
 
 2011-04-13 Ken Mays <kmays2000@gmail.com>
 
