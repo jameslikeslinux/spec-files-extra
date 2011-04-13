@@ -14,6 +14,9 @@
 	* SFEimagemagick.spec: update to 6.6.9-4
 	* SFEscribus.spec: update to 1.4.0.rc3; fix version name
 	* SFEperl*: move to perl/
+	* SFEpython*: move to python/
+	* SFEgmpc-plugin*: move to gmpc-plugins/
+
 
 2011-04-13 Ken Mays <kmays2000@gmail.com>
 
