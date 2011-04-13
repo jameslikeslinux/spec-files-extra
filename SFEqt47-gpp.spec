@@ -84,8 +84,8 @@ BuildRoot:           %_tmppath/%name-%version-build
 %include default-depend.inc
 
 # Guarantee X/freetype environment concisely (hopefully):
-BuildRequires: %{pnm_buildrequires_library_desktop_gtk1}
-Requires:      %{pnm_requires_library_desktop_gtk1}
+BuildRequires: SUNWgtk2
+Requires:      SUNWgtk2
 Requires: SUNWxwplt
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft

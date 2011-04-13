@@ -7,11 +7,11 @@
 # license. See the file LICENSE.MIT for details.
 
 %define tarball_name    icu4c
-%define tarball_version 4_4_2
+%define tarball_version 4_6_1
 
 Name:                   icu
 Summary:                International Components for Unicode
-Version:                4.4.2
+Version:                4.6.1
 Source:			http://download.icu-project.org/files/%tarball_name/%version/%tarball_name-%tarball_version-src.tgz
 
 Patch1: icu-01-qt-bug-7702.diff
@@ -22,15 +22,16 @@ Patch3:	icu-03-Rpath.diff
 
 %prep
 %setup -q -n %name
-%patch1 -p 1
-%patch3
+#%patch1 -p 1
+#%patch3
 # Patch2 applied below
 
 export LD=CC
 export CFLAGS="%optflags"
 export CPPFLAGS=""
 export CXXFLAGS="%cxx_optflags -library=stdcxx4"
-export LDFLAGS="%_ldflags -library=stdcxx4"
+#export LDFLAGS="-library=stdcxx4 %_ldflags"
+export LDFLAGS="-library=stdcxx4"
 export LIBS=""
 PATH=%{_bindir}:$PATH
 
@@ -86,7 +87,7 @@ test -f Makefile || { cat config.log ; exit 1 ; }
 
 # Patch2, but by now we're in the source/ dir; the second patch is already
 # relative to that directory.
-%patch2 -p1
+#%patch2 -p1
 
 %build
 test -f ./runConfigureICU || cd source
@@ -99,6 +100,9 @@ ${MAKE} install DESTDIR=${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Apr 11 2011 - Alex Viskovatoff
+- Revert the previous change: that breaks the build
+- Update to 4.6.1
 * Fri Jan 28 2011 - Alex Viskovatoff
 - Add %_ldflags to LDFLAGS
 * Fri Nov 19 2010 - Alex Viskovatoff

@@ -7,7 +7,7 @@
 
 Name:                SFElibao
 Summary:             Cross-platform audio library
-Version:             1.0.0
+Version:             1.1.0
 Source:              http://downloads.xiph.org/releases/ao/libao-%{version}.tar.gz
 URL:                 http://xiph.org/
 License:             GPLv2
@@ -75,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sun Apr 10 - Alex Viskovatoff
+- bump to 1.1.0
 * Thu Apr 08 2010 - Milan Jurik
 - update to 1.0.0
 * Mon Nov 26 2007 - Thomas Wagner

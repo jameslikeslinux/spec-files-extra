@@ -13,47 +13,52 @@
 #     driver	"sun"
 # }
 
+%define build_encumbered %{?_without_encumbered:0}%{?!_without_encumbered:0}
+
 %include Solaris.inc
 
 %define srcname mpd
 
 Name:                SFEmpd
 Summary:             Daemon for remote access music playing & managing playlists
-Version:             0.16.1
+Version:             0.16.2
 Source:              http://downloads.sourceforge.net/musicpd/%srcname-%version.tar.bz2
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFElibao-devel
-BuildRequires: SFElibmpcdec-devel
-BuildRequires: SFElibmad-devel
-BuildRequires: SFEfaad2-devel
-BuildRequires: SFElibid3tag-devel
-BuildRequires: SFElibsamplerate-devel
+BuildRequires: SFElibao
+BuildRequires: SFElibsamplerate
 BuildRequires: SUNWogg-vorbis-devel
 BuildRequires: SUNWgnome-audio-devel
 BuildRequires: SUNWflac-devel
-BuildRequires: SFElibshout-devel
+BuildRequires: SFElibshout
+BuildRequires: SFElibcdio
 #TODO# BuildRequires: SFElibpulse-devel
-#BuildRequires: SFEavahi-devel
 BuildRequires: SUNWavahi-bridge-dsd-devel
 ## MPD INSTALL file says AO "should be used only if there is no native plugin
 ## available or if the native plugin doesn't work."
 Requires: SFElibao
-Requires: SFElibmpcdec
-Requires: SFElibmad
-Requires: SFEfaad2
-Requires: SFElibid3tag
 Requires: SFElibsamplerate
 Requires: SUNWogg-vorbis
 Requires: SUNWgnome-audio
 Requires: SUNWflac
 Requires: SFElibshout
+Requires: SFElibcdio
 #TODO# Requires: SFElibpulse
-#Requires: SFEavahi
 Requires: SUNWavahi-bridge-dsd
+%if %build_encumbered
+BuildRequires: SFElibmpcdec-devel
+BuildRequires: SFElibmad-devel
+BuildRequires: SFEfaad2-devel
+# libid3tag is not encumbered, but it is not used by flac or ogg
+BuildRequires: SFElibid3tag-devel
+Requires: SFElibmpcdec
+Requires: SFEfaad2
+Requires: SFElibmad
+Requires: SFElibid3tag
+%endif
 
 %description
 Music Daemon to play common audio fileformats to audio devices or 
@@ -80,10 +85,19 @@ export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}  \
     	    --enable-ao          \
+	    --enable-iso9660     \
 	    --enable-shout       \
             --disable-alsa       \
-#            --disable-lsr        \
-
+%if %build_encumbered
+%else
+            --disable-mad        \
+            --disable-mpg123     \
+            --disable-aac        \
+            --disable-mpc        \
+            --disable-lame-encoder \
+            --disable-twolame-encoder \
+            --disable-ffmpeg     \
+%endif
 #optional:
             # --with-zeroconf=no   \
             # --enable-pulse
@@ -109,7 +123,6 @@ rm -rf $RPM_BUILD_ROOT
   echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -c SFE
 
 
-
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
@@ -124,6 +137,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff
+- Bump to 0.16.2; add --without-encumbered option
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Update to 0.16.1; use libxnet
 * Sun Oct  3 2010 - Alex Viskovatoff

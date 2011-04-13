@@ -9,15 +9,15 @@
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define  _cxx_libdir /usr/stdcxx/lib/g++/%_gpp_version
-%define srcname djview4
+%define srcname djview
 
 Name:		SFEdjview
 Summary:	DjVu file viewer
 URL:		http://djvu.sourceforge
 Vendor:		Léon Bottou
 License:	GPL
-Version:	4.6
-Source:		%sf_download/project/djvu/DjView/4.6/%srcname-%version.tar.gz
+Version:	4.7
+Source:		%sf_download/project/djvu/DjView/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -80,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff
+- Update to 4.7
 * Tue Feb  8 2011 - Alex Viskovatoff
 - Adapt to Qt gcc libs now being in /usr/stdcxx
 * Mon Jan 31 2011 - Alex Viskovatoff

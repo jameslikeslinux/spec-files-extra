@@ -598,9 +598,9 @@ a@@ -92,6 +94,7 @@
  
  # These settings are equivivalent to corresponding command-line
  # options.
---- boost_1_43_0-orig/tools/regression/src/library_status.cpp	2010-04-06 11:32:56.000000000 +1000
-+++ boost_1_43_0/tools/regression/src/library_status.cpp	2010-05-08 22:17:43.580338709 +1000
-@@ -25,6 +25,7 @@
+--- boost_1_46_0/tools/regression/src/library_status.cpp.orig	Thu Feb 17 17:48:35 2011
++++ boost_1_46_0/tools/regression/src/library_status.cpp	Fri Mar 18 14:04:38 2011
+@@ -26,6 +26,7 @@
  
  #include "boost/filesystem/operations.hpp"
  #include "boost/filesystem/fstream.hpp"
@@ -608,7 +608,7 @@ a@@ -92,6 +94,7 @@
  
  namespace fs = boost::filesystem;
  
-@@ -88,15 +89,25 @@
+@@ -89,15 +90,25 @@
          return os;
      }
  
@@ -638,7 +638,7 @@ a@@ -92,6 +94,7 @@
          std::pair<int, int> get_spans();
      };
  
-@@ -110,7 +121,7 @@
+@@ -111,7 +122,7 @@
              subcolumns_t::iterator itr;
              for(itr = m_subcolumns.begin(); itr != m_subcolumns.end(); ++itr){
                  std::pair<int, int> spans;
@@ -647,7 +647,7 @@ a@@ -92,6 +94,7 @@
                  rows = (std::max)(rows, spans.first);
                  cols += spans.second;
              }
-@@ -130,9 +141,10 @@
+@@ -131,9 +142,10 @@
              if(fs::is_directory(*itr)){
                  std::pair<col_node::subcolumns_t::iterator, bool> result 
                      = node.m_subcolumns.insert(
@@ -660,7 +660,7 @@ a@@ -92,6 +94,7 @@
              }
              ++itr;
          }
-@@ -562,7 +574,7 @@
+@@ -563,7 +575,7 @@
          ){
              fs::path subdir = dir_root / col_itr->first;
              retval |= visit_node_tree(
@@ -669,7 +669,7 @@ a@@ -92,6 +94,7 @@
                  subdir,
                  lib_name,
                  target,
-@@ -665,7 +677,7 @@
+@@ -666,7 +678,7 @@
          col_node::subcolumns_t::const_iterator itr;
          int max_depth = 1;
          for(itr = root.m_subcolumns.begin(); itr != root.m_subcolumns.end(); ++itr){
@@ -678,7 +678,7 @@ a@@ -92,6 +94,7 @@
          }
          return max_depth;
      }
-@@ -693,7 +705,7 @@
+@@ -694,7 +706,7 @@
              if(! node.m_subcolumns.empty()){
                  col_node::subcolumns_t::const_iterator itr;
                  for(itr = node.m_subcolumns.begin(); itr != node.m_subcolumns.end(); ++itr){
@@ -687,7 +687,7 @@ a@@ -92,6 +94,7 @@
                  }
              }
              return;
-@@ -704,10 +716,10 @@
+@@ -705,10 +717,10 @@
  
          col_node::subcolumns_t::const_iterator itr;
          for(itr = node.m_subcolumns.begin(); itr != node.m_subcolumns.end(); ++itr){

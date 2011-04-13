@@ -4,6 +4,8 @@
 # includes module(s): alsa-plugins
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 %ifarch amd64 sparcv9
 %include arch64.inc
 %use alsa64 = alsa-plugins.spec

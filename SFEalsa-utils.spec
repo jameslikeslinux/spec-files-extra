@@ -16,6 +16,7 @@ SUNW_Copyright:          %{name}.copyright
 Group:			 Audio
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SFEgnugetopt
 BuildRequires: SFEalsa-lib-devel
 Requires: SFEalsa-lib
 BuildRequires: SFExmlto
@@ -39,7 +40,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-CC=/usr/sfw/bin/gcc
+CC=gcc
 export CPPFLAGS="-D_POSIX_SOURCE -D__EXTENSIONS__ -D_XPG4_2"
 
 %if %debug_build

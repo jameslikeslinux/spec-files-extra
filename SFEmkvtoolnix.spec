@@ -20,6 +20,7 @@ Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
 Patch5:		mkvtoolnix-05-terminal.diff
+Patch6:		mkvtoolnix-06-r_flac.diff
 
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -64,6 +65,7 @@ Requires:       %name
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 sed 's/-Wall -Wno-comment //' Rakefile > Rakefile.new
 mv Rakefile.new Rakefile
 
@@ -83,7 +85,6 @@ export USER_LDFLAGS="%_ldflags -library=stdcxx4 -L/usr/stdcxx/lib -R/usr/stdcxx/
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 --with-extra-includes=/usr/stdcxx/include --with-boost-libdir=/usr/stdcxx/lib
 ./drake -j$CPUS
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -117,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Add patch to make build on oi_147
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Bump to 4.6.0
 * Sat Feb  5 2011 - Alex Viskovatoff

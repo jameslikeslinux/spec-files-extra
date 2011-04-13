@@ -40,7 +40,7 @@ BuildRequires: library/security/openssl
 BuildRequires: library/zlib
 #BuildRequires: library/readline
 #BuildRequires: library/ncurses
-BuildRequires: library/editline
+BuildRequires: SFEeditline
 BuildRequires: system/library
 BuildRequires: system/library/security/gss
 BuildRequires: system/library/math
@@ -57,7 +57,7 @@ Requires: system/library/math
 Requires: system/library/security/gss
 #Requires: library/readline
 #Requires: library/ncurses
-Requires: library/editline
+Requires: SFEeditline
 
 # OpenSolaris IPS Package Manifest Fields
 Meta(info.upstream):	 	PostgreSQL Global Development Group

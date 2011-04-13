@@ -44,7 +44,7 @@ export QMAKESPEC=solaris-cc-stdcxx
 export QTDIR=/usr/stdcxx
 
 qmake
-gmake -j$CPUS PREFIX=%_basedir
+gmake -j2 PREFIX=%_basedir
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 13 2011 - Alex Viskovatoff
+- Use only 2 cpus: using 16 cpus breaks build
 * Sat Mar 12 2011 - Alex Viskovatoff
 - Place /usr/stdcxx/bin at front of PATH
 * Fri Jan 28 2011 - Alex Viskovatoff

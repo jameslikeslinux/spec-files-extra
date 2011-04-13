@@ -34,7 +34,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %if %{os2nnn}
 %if %(expr %{osbuild} '>=' 134)
-buildRequires: library/desktop/gtk1
+buildRequires: library/desktop/gtk2
 BuildRequires: developer/documentation-tool/gtk-doc
 BuildRequires: developer/gnome/gettext
 BuildRequires: data/docbook

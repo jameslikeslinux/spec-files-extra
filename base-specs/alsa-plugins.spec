@@ -35,7 +35,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-CC=/usr/sfw/bin/gcc
+CC=gcc
 export CPPFLAGS="-D_POSIX_SOURCE -D__EXTENSIONS__ -D_XPG4_2"
 
 %if %debug_build

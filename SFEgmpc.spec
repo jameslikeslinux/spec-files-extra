@@ -9,8 +9,7 @@
 
 %include Solaris.inc
 
-
-%define SUNWgtkmm     %(/usr/bin/pkginfo -q SUNWgtkmm  && echo 1 || echo 0)
+%define SFEgtkmm   %(/usr/bin/pkginfo -q SFEgtkmm && echo 1 || echo 0)
 
 Name:                    SFEgmpc
 Summary:                 gmpc - A gnome frontend for the mpd daemon
@@ -19,17 +18,19 @@ Version:                 0.20.0
 Source:                  http://download.sarine.nl/Programs/gmpc/%{version}/gmpc-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-BuildRequires:		 SFElibmpd-devel
+BuildRequires:		 SFEgob
+BuildRequires:		 developer/vala
+BuildRequires:		 SFElibmpd
 #test#BuildRequires:           SFEavahi-devel
 Requires:		SFElibmpd
 Requires:		SUNWzlib
 
-%if %SUNWgtkmm
-BuildRequires:		SUNWgtkmm-devel
-Requires:		SUNWgtkmm
-%else
+%if %SFEgtkmm
 BuildRequires:		SFEgtkmm-devel
 Requires:		SFEgtkmm
+%else
+BuildRequires:		SUNWgtkmm-devel
+Requires:		SUNWgtkmm
 %endif
 
 #test#Requires:		       SFEavahi
@@ -129,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff
+- Add missing build dependencies
 * Wed Oct  6 2010 - Alex Viskovatoff
 - Bump to version 0.20.0; use gmake
 - Fix icon and man packaging

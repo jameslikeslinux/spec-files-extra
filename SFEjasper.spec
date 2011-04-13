@@ -25,6 +25,8 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires:                %{name}
 
+BuildRequires:           SUNWunzip
+
 %prep
 %setup -q -n jasper-%version
 

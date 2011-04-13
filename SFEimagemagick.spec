@@ -7,14 +7,14 @@
 
 %define src_name	ImageMagick
 #%define src_url		ftp://ftp.imagemagick.net/pub/%src_name
-%define major		6.6.7
-%define minor		0
+%define major		6.6.9
+%define minor		4
 %define src_url         %{sf_download}/project/imagemagick/%{major}-sources
 
 Name:                   SFEimagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
-Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.bz2
+Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
 Group:			Graphics
 License:		ImageMagick License
 SUNW_BaseDir:           %{_basedir}
@@ -26,6 +26,13 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_prefix}
 %include default-depend.inc
+
+Requires: %name-root
+%package root
+Summary:                 %{summary} - / filesystem
+SUNW_BaseDir:            /
+Requires: %name
+
 
 %prep
 %setup -q -n %{src_name}-%{major}-%{minor}
@@ -89,7 +96,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755,root,other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 
+%files root
+%defattr (-, root, sys)
+%dir %attr (-, root, sys) %_sysconfdir
+%attr (-, root, root) %_sysconfdir/ImageMagick
+
+
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff
+- update to 6.6.9-4
 * Thu Jan 13 2010 - Milan Jurik
 - bump to 6.6.7-0
 * Thu Nov 26 1009 - Thomas Wagner

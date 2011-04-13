@@ -16,8 +16,7 @@ Source:		http://www.pleyades.net/david/projects/%srcname/%srcname-%version.tar.b
 %include default-depend.inc
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
-BuildRequires:	SUNWgmake
-BuildRequires:	SUNWcmake
+BuildRequires:	SFEcmake
 BuildRequires:	SUNWgtk2-devel
 Requires:	SUNWgtk2
 BuildRequires:	SUNWgnome-terminal
@@ -36,6 +35,7 @@ Requires:       %name
 
 %prep
 %setup -q -n %srcname-%version
+mkdir build
 
 %build
 
@@ -44,17 +44,16 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-cmake -DCMAKE_INSTALL_PREFIX=%_prefix .
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=%_prefix ..
 
-gmake -j$CPUS
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-gmake install
-
-mkdir -p $RPM_BUILD_ROOT/%_prefix
-mv ./sfw_stage/* $RPM_BUILD_ROOT/%_prefix
+cd build
+make install DESTDIR=%{buildroot} INSTALL="%{_bindir}/ginstall -c -p"
 
 %if %build_l10n
 %else
@@ -87,5 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Mar 15 2011 - Alex Viskovatoff
+- Use SFEcmake
 * Wed Dec  8 2010 - Alex Viskovatoff
 - Initial spec

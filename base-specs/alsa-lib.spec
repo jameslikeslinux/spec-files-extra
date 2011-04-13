@@ -54,7 +54,7 @@ fi
 # /usr/bin/sed is busted. Find a better one :)
 export PATH=/usr/gnu/bin:/usr/xpg4/bin:$PATH
 
-CC=/usr/gcc/4.3/bin/gcc
+CC=gcc
 #export LD=/usr/gnu/bin/ld
 export CPPFLAGS="-D_POSIX_SOURCE -D__EXTENSIONS__ -D_XPG4_2"
 

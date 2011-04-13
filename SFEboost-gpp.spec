@@ -1,12 +1,15 @@
 #
-# Copyright 2008 Sun Microsystems, Inc.
+# Copyright (c) 2006 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
+%define _basedir /usr/g++
 %include Solaris.inc
-
 %define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
 %include base.inc
+# Build multithreaded libs: no need for non-multithreaded libs
+%define boost_with_mt 1
 
 %use boost = boost.spec
 
@@ -19,40 +22,57 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires: SUNWPython
 
-%package devel
+%package -n %name-devel
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
+Requires: %name
+
+%package -n %name-doc
+Summary:        %{summary} - development files
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
+Requires: %name
+
 
 %prep
 rm -rf %name-%version
 mkdir %name-%version
 %boost.prep -d %name-%version
 
+
 %build
 %boost.build -d %name-%version
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd %{_builddir}/%name-%version/boost_%{boost.ver_boost}
 
-mkdir -p $RPM_BUILD_ROOT%{_cxx_libdir}
-mkdir -p $RPM_BUILD_ROOT%{sfw_inc}/c++/%{_gpp_version}
+mkdir -p $RPM_BUILD_ROOT%{_libdir}
+mkdir -p $RPM_BUILD_ROOT%{_includedir}
+mkdir -p $RPM_BUILD_ROOT%{_docdir}
+mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
-for i in stage/lib/*.a; do
-  cp $i $RPM_BUILD_ROOT%{_cxx_libdir}
-done
 for i in stage/lib/*.so; do
   NAME=`basename $i`
-  cp $i $RPM_BUILD_ROOT%{_cxx_libdir}/$NAME.%{version}
-  ln -s $NAME.%{version} $RPM_BUILD_ROOT%{_cxx_libdir}/$NAME
+  cp $i $RPM_BUILD_ROOT%{_libdir}/$NAME.%{version}
+  ln -s $NAME.%{version} $RPM_BUILD_ROOT%{_libdir}/$NAME
 done
 
 for i in `find "boost" -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{sfw_inc}/c++/%{_gpp_version}/$i
+  mkdir -p $RPM_BUILD_ROOT%{_includedir}/$i
 done
 for i in `find "boost" -type f`; do
-  cp $i $RPM_BUILD_ROOT%{sfw_inc}/c++/%{_gpp_version}/$i
+  cp $i $RPM_BUILD_ROOT%{_includedir}/$i
+done
+
+cd "doc/html"
+for i in `find . -type d`; do
+  mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
+done
+for i in `find . -type f`; do
+  cp $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
 done
 
 %clean
@@ -60,17 +80,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*.so*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*.so*
 
-%files devel
+%files -n %name-devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*.a
-%dir %attr (0755, root, bin) %{sfw_inc}/c++/%{_gpp_version}
-%{sfw_inc}/c++/%{_gpp_version}/boost
+%dir %attr (0755, root, bin) %{_includedir}
+%{_includedir}/boost
+
+%files -n %name-doc
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/boost-%{version}
 
 %changelog
+* Sun Apr  3 2011 - Alex Viskovatoff
+- use new g++ libs pathname; build multithreaded libs
+* Fri Jan 11 2011 - Milan Jurik
+- do not deliver static libs
 * Mon May 17 2010 - Albert Lee <trisk@opensolaris.org>
 - Remove SUNWicu* dependencies added in error
 * Sat Jan 30 2010 - Brian Cameron <brian.cameron@sun.com>

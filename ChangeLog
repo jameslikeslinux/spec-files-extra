@@ -1,3 +1,19 @@
+2011-04-13  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEboost-gpp.spec: use new g++ libs pathname; build multithreaded libs
+	* SFEmpd.spec: bump to 0.16.2; add --without-encumbered option
+	* base-specs/icu.spec: update to 4.6.1
+	* SFEicu.spec: package pkgconfig files
+	* SFEdjvulibre.spec: bump to 3.5.24
+	* SFEdjview.spec: update to 4.7
+	* SFEpkgbuild.spec: add patches from oi-cbe, rearranging patches
+	* SFElibao.spec: bump to 1.1.0
+	* SFEmkvtoolnix.spec: add patch to make build on oi_147
+	* SFEqt47.spec: use CXXFLAGS used by kde-solaris
+	* SFEsakura.spec: use SFEcmake
+	* SFEimagemagick.spec: update to 6.6.9-4
+	* SFEscribus.spec: update to 1.4.0.rc3; fix version name
+
 2011-04-13 Ken Mays <kmays2000@gmail.com>
 
 	* SFEgarcon.spec: Bump to 0.1.6

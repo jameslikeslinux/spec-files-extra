@@ -15,6 +15,7 @@ Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SUNWperl-xml-parser
 Requires: SFEchmlib
 Requires: SUNWgnome-python26-extras
 Requires: SFEpychm

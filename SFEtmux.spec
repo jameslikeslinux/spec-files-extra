@@ -26,8 +26,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_Basedir:   %{_basedir}
 %include default-depend.inc
 
-Requires:       SFElibevent
-BuildRequires:  SFElibevent
+Requires:       SFElibevent2
+BuildRequires:  SFElibevent2
 
 # OpenSolaris IPS Package Manifest Fields
 Meta(info.upstream):            Nicholas Marriott <nicm@users.sf.net>
@@ -52,7 +52,7 @@ to (display and accept keyboard input from) multiple clients.
 
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -I/usr/include/event2"
 export LDFLAGS="%_ldflags"
 ./configure
 make -j$CPUS
@@ -78,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 10 2011 - Alex Viskovatoff
+- Use SFElibevent2
 * Mon Mar 14 2011 - Alex Viskovatoff
 - Import spec from http://hg.openindiana.org/spec-files-oi-extra/
   installing in /usr and bumping to 1.4

@@ -18,7 +18,7 @@ Patch1:		lensfun-01-sunstudio.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
-BuildRequires: SUNWdoxygen
+BuildRequires: SFEdoxygen
 Requires: SUNWglib2
 BuildRequires: SUNWglib2
 Requires: SUNWpng

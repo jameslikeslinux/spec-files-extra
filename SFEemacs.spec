@@ -19,7 +19,9 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %define _with_gtk 1
 
 BuildRequires: SUNWgnome-common-devel
+BuildRequires: SUNWgtk2
 BuildRequires: SFEalsa-lib-devel
+BuildRequires: SUNWtexi
 Requires: SUNWTiff
 Requires: SUNWpng
 Requires: SUNWjpg
@@ -138,6 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Sun Apr 12 2011 - Alex Viskovatoff
+- Add missing build dependencies
 * Thu Mar 17 2011 - Alex Viskovatoff
 - Bump to 23.3; reenable sound support
 * Wed Sep 15 2010 - knut.hatlen@oracle.com

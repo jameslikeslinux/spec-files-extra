@@ -21,7 +21,7 @@ Source:		http://unkart.ovh.org/%srcname/%srcname-%version.tar.bz2
 %include default-depend.inc
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
-BuildReqires:	SFEgcc
+BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SUNWncurses-devel
 Requires:	SUNWncurses

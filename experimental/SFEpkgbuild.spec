@@ -21,19 +21,23 @@ Name:         SFEpkgbuild
 License:      GPL
 Group:        Development/Tools/Other
 URL:	      http://pkgbuild.sourceforge.net/
-Version:      1.3.104
+Version:      1.3.103
 Release:      1
 BuildArch:    noarch
 Vendor:	      OpenSolaris Community
 Summary:      pkgbuild - rpmbuild-like tool for building Solaris packages
-#Source:      http://prdownloads.sourceforge.net/pkgbuild/pkgbuild-%{version}.tar.gz
-Source:       http://opensolaris-lang.googlecode.com/files/pkgbuild-%{version}pre.tar.bz2
-# First three patches are taken from here:
+Source:      http://prdownloads.sourceforge.net/pkgbuild/pkgbuild-%{version}.tar.bz2
+#Source:       http://opensolaris-lang.googlecode.com/files/pkgbuild-%{version}pre.tar.bz2
+# First three patches are taken from oi-cbe
+Patch1:       pkgbuild-01-add-unknown-dependencies.patch
+Patch2:       pkgbuild-02-nopkg.patch
+Patch3:       pkgbuild-03-forcefully-copy-docs.patch
+# Next three patches are taken from here:
 # http://solaris.bionicmutton.org/hg/kde4-specs-460/file/d57ba60c50da/setup/common/patches
-Patch1:       pkgbuild/pkgbuild-patchdir.diff
+Patch4:       pkgbuild/pkgbuild-patchdir.diff
 #Patch2:       pkgbuild/pkgbuild-postprocess-debug-separate.diff
 #Patch3:       pkgbuild/pkgbuild-local.diff
-Patch4:       pkgbuild/pkgbuild-xz.diff
+Patch5:       pkgbuild/pkgbuild-xz.diff
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %if %_is_pkgbuild
@@ -64,16 +68,19 @@ Most features and some extensions of the spec format are implemented.
 
 %prep
 %setup -q -n pkgbuild-%version
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 # Descriptions of patches 2 and 3 are taken from here:
 # http://solaris.bionicmutton.org/hg/kde4-specs-460/file/ed3b4f8dbad1/setup/common/install-pkgbuild
 # patch letting pkgtool find patches in subdirectories
-%patch1
+%patch4
 # patch for separating debug files
 #%patch2 -p1
 # patch for publishing to a local repository via the file protocol
 #%patch3
 # patch to make pkgbuild recognize xz compressed archives
-%patch4
+%patch5
 
 %build
 ./configure --prefix=%{pkgbuild_prefix} --docdir=%_docdir/%srcname
@@ -98,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Sun Apr 10 2011 - Alex Viskovatoff <herzen@imap.cc>
+- add patches from oi-cbe, rearranging patches
 * Sat Apr  2 2011 - Alex Viskovatoff <herzen@imap.cc>
 - bump to 1.3.104 pre-release, creating a custom tarball with ./configure in it
 - disable patches 2 and 3, since we don't use their functionality

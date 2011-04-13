@@ -100,7 +100,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/gencmn
 %{_sbindir}/gennorm2
 %{_sbindir}/gensprep
-%{_sbindir}/genuca
 %{_sbindir}/icupkg
 
 %ifarch amd64 sparcv9
@@ -114,10 +113,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_libdir}/lib*.so*
 %{_libdir}/icu
+%{_libdir}/pkgconfig
 %ifarch amd64 sparcv9
 %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.so*
 %{_libdir}/%{_arch64}/icu
+%{_libdir}/%{_arch64}/pkgconfig
 %endif
 
 %files devel
@@ -127,6 +128,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 11 2011 - Alex Viskovatoff
+- Package pkgconfig files
 * Sat Nov 20 2010 - Alex Viskovatoff
 - Create new spec using base spec from kde-solaris modified for SFE, with
   some code taken from FOSSicu4c.spec

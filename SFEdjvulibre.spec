@@ -16,7 +16,7 @@ Summary:	Open source implementation of DjVu
 URL:		http://djvu.sourceforge
 Vendor:		The original inventors of DjVu
 License:	GPL
-Version:	3.5.23
+Version:	3.5.24
 Source:		%sf_download/project/djvu/DjVuLibre/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 12 2011 - Alex Viskovatoff
+- Bump to 3.5.24
 * Tue Feb  8 2011 - Alex Viskovatoff
 - Use /usr/stdcxx as basedir
 * Mon Jan 31 2011 - Alex Viskovatoff

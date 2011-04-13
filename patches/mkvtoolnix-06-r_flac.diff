@@ -1,0 +1,13 @@
+--- mkvtoolnix-4.6.0/src/input/r_flac.cpp.orig	2011-03-09 22:28:47.000000000 +0000
++++ mkvtoolnix-4.6.0/src/input/r_flac.cpp	2011-04-13 02:16:53.819769444 +0100
+@@ -13,6 +13,10 @@
+ 
+ #include "common/common_pch.h"
+ 
++#include <iterator>
++#include <vector>
++using namespace std;
++
+ #include <ogg/ogg.h>
+ #include <vorbis/codec.h>
+ 

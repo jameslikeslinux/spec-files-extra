@@ -1,7 +1,7 @@
 #
-# spec file for package SFElibmpdclient
+# spec file for package SFElibmaa
 #
-# includes module: libmpdclient
+# includes module: libmaa
 #
 
 %include Solaris.inc
@@ -18,7 +18,7 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SUNWscpu
+#BuildRequires: SUNWscpu
 
 %package devel
 Summary:        %summary - development files

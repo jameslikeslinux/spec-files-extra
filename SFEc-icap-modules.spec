@@ -43,7 +43,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/sfw/bin/gcc
+export CC=gcc
 export CFLAGS="%optflags -I/usr/gnu/include"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 

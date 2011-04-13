@@ -59,8 +59,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%arch_ldadd %ldadd ${EXTRA_LDFLAGS}"
 export PATH=$PATH:%{_builddir}/git-%version

@@ -23,6 +23,7 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+BuildRequires:          SUNWgsed
 Requires:               SUNWlibC
 Requires:               SUNWlibmsr
 

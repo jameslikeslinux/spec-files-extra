@@ -114,8 +114,8 @@ BuildRequires: SUNWlibstdcxx4
 Requires: SUNWlibstdcxx4
 
 # Guarantee X/freetype environment concisely (hopefully):
-BuildRequires: %{pnm_buildrequires_library_desktop_gtk1}
-Requires:      %{pnm_requires_library_desktop_gtk1}
+BuildRequires: SUNWgtk2
+Requires:      SUNWgtk2
 Requires: SUNWxwplt
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
@@ -187,7 +187,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -library=stdcxx4 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -features=extensions,nestedaccess,tmplrefstatic -xalias_level=compatible"
+export CXXFLAGS="%cxx_optflags -library=stdcxx4 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -D_REENTRANT -DNDEBUG -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_PTHREAD_SEMANTICS -DSOLARIS -DNO_DEBUG -D_UNICODE -DUNICODE -D_RWSTD_REENTRANT -D_XOPEN_SOURCE=500 -D__EXTENSIONS__ -D_XPG5 -features=anachronisms,except,rtti,export,extensions,nestedaccess,tmplife,tmplrefstatic,zla -xlang=c99 -instances=global -template=geninlinefuncs -xalias_level -xbuiltin -xustr=ascii_utf16_ushort -s -xdebugformat=dwarf -Qoption ccfe  ++boolflag:sunwcch=false"
 export LDFLAGS="%_ldflags -library=stdcxx4"
 
 
@@ -195,19 +195,23 @@ export LDFLAGS="%_ldflags -library=stdcxx4"
 # 4.7.0 runs into trouble with phonon, so don't build that.
 
 # Assume i386 CPU is not higher than Pentium
-echo yes | ./configure -prefix %{_prefix} \
-           -no-ssse3 -no-sse4.1 -no-sse4.2 \
-           -platform solaris-cc \
-           -opensource \
-           -docdir %_docdir/qt \
-           -headerdir %_includedir/qt \
-           -plugindir %_libdir/qt/plugins \
-           -datadir %_datadir/qt \
-           -translationdir %_datadir/qt/translations \
-           -nomake examples \
-           -nomake demos \
-           -no-exceptions \
-           -sysconfdir %_sysconfdir
+./configure -prefix %_prefix \
+	-no-mmx -no-3dnow -no-sse -no-sse2 -no-sse3 -no-ssse3 -no-sse4.1 -no-sse4.2 \
+	-platform solaris-cc \
+	-opensource \
+	-confirm-license \
+	-docdir %_docdir/qt \
+	-headerdir %_includedir/qt \
+	-plugindir %_libdir/qt/plugins \
+	-datadir %_datadir/qt \
+	-translationdir %_datadir/qt/translations \
+	-nomake examples \
+	-nomake demos \
+	-no-exceptions \
+	-plugin-sql-sqlite \
+	-system-sqlite \
+	-no-sql-sqlite2 \
+	-sysconfdir %_sysconfdir
 
 # Elliminate -Winline, which Solaris Studio 12.2 rejects
 cd src/gui

@@ -39,7 +39,6 @@ The source code is under a BSD License.
 %prep
 %setup -q -n unbound-%{version}
 
-CC=/opt/SUNWspro/bin/cc \
 LDFLAGS="-lsocket -lnsl" \
 ./configure \
 	--prefix=%{_prefix} \

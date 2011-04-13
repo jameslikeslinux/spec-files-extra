@@ -30,14 +30,15 @@ Vendor:		LyX Team
 License:	GPL
 #Version:	1.6.8
 #Source:	ftp://ftp.lyx.org/pub/lyx/stable/1.6.x/%srcname-%version.tar.bz2
-Version:	2.0.0rc2
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%version.tar.xz
+Version:	2.0.0
+Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%{version}rc2.tar.xz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
 BuildRequires:	SFEqt47-gpp-devel
+BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
@@ -54,7 +55,8 @@ Requires:       %name
 
 
 %prep
-%setup -q -n %srcname-%version
+#%setup -q -n %srcname-%version
+%setup -q -n %srcname-%{version}rc2
 
 
 %build
