@@ -13,6 +13,7 @@
 	* SFEsakura.spec: use SFEcmake
 	* SFEimagemagick.spec: update to 6.6.9-4
 	* SFEscribus.spec: update to 1.4.0.rc3; fix version name
+	* SFEperl*: move to perl/
 
 2011-04-13 Ken Mays <kmays2000@gmail.com>
 

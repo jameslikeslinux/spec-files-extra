@@ -20,7 +20,7 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:		 SFEgob
 BuildRequires:		 developer/vala
-BuildRequires:		 SFElibmpd
+BuildRequires:		 SFElibmpd-devel
 #test#BuildRequires:           SFEavahi-devel
 Requires:		SFElibmpd
 Requires:		SUNWzlib
