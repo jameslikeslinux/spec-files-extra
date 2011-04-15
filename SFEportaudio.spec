@@ -10,13 +10,13 @@
 
 Name:                   SFEportaudio
 Summary:                Portable cross-platform Audio API
-Version:                v19_20071207
-Source:                 %{src_url}/pa_stable_%{version}.tar.gz
-Source1:                soundcard.h
-Patch1:			portaudio-01-pthread.diff
+Version:                v19_20110326
+IPS_component_version:	0.19.0.20110326
+Source:                 %{src_url}/pa_stable_%{version}.tgz
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires:		SUNWaudh
 
 %package devel
 Summary:                 %{summary} - development files
@@ -25,20 +25,12 @@ SUNW_BaseDir:            %{_prefix}
 
 %prep
 %setup -q -n %{src_name}
-%patch1 -p1
-mkdir -p src/os/unix/sys
-cp %{SOURCE1} src/os/unix/sys
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
-
-
-libtoolize --force --copy
-aclocal
-autoconf --force
 
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
@@ -55,6 +47,7 @@ export LDFLAGS="%_ldflags"
 	    --disable-static		\
 	    --without-jack		\
 	    --enable-cxx
+
 make -j$CPUS 
 
 %install
@@ -79,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Apr 15 2011 - Milan Jurik
+- new snapshot available
 * Tue Feb 24 2009 - Albert Lee
 - Use included sys/soundcard.h
 * Fri Mar 14 2008 - brian.cameron@sun.com
