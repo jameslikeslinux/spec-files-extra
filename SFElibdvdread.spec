@@ -8,7 +8,7 @@
 Name:                    SFElibdvdread
 Summary:                 libdvdread - Library for reading DVD video disks
 Version:                 4.1.3
-Source:                  http://www3.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdread-%{version}.tar.bz2
+Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdread-%{version}.tar.bz2
 Patch1:			 libdvdread-01-dvdfilestat.diff
 Patch2:			 libdvdread-02-wall.diff
 SUNW_BaseDir:            %{_basedir}
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Apr 15 2011 - Alex Viskovatoff
+- Update source URL
 * Mon Mar 15 2010 - Albert Lee <trisk@opensolaris.org>
 - Remove SFElibdvdcss dependencies
 - Update source URL

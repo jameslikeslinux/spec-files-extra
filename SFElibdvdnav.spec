@@ -8,7 +8,8 @@
 Name:                    SFElibdvdnav
 Summary:                 libdvdnav - DVD navigation library
 Version:                 4.1.3
-Source:                  http://www3.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-%{version}.tar.bz2
+Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-%{version}.tar.bz2
+#Source:			http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-4.1.3.tar.bz2
 Patch1:                  libdvdnav-01-Wall.diff
 SUNW_BaseDir:            %{_basedir}
 buildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -76,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Apr 15 2011 - Alex Viskovatoff
+- Update source URL
 * Mon Mar 15 2010 - Albert Lee <trisk@opensolaris.org>
 - Update source URL
 * Mar 2010 - Gilles Dauphin

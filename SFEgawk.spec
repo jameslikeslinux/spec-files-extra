@@ -7,7 +7,7 @@
 
 Name:                    SFEgawk
 Summary:                 GNU awk - pattern scanning and processing filter
-Version:                 3.1.6
+Version:                 3.1.8
 Source:			 http://ftp.gnu.org/gnu/gawk/gawk-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -90,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Fri Apr 15 2011 - Alex Viskovatoff
+- Bump to 3.1.8
 * Fri Jul 31 - dick@nagual.nl
 - Corrected build errors related to the awk gawk symlink
 - Package build and install OK on nevada > b93

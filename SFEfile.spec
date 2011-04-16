@@ -6,18 +6,19 @@
 %include Solaris.inc
 
 %define _prefix %{_basedir}/gnu
+%define srcversion      5.06
 
 Name:                SFEfile
 Summary:             determine file type
-Version:             5.04
-Source:              ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
+Version:             5.6
+Source:              ftp://ftp.astron.com/pub/file/file-%srcversion.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
-%setup -q -n file-%version
+%setup -q -n file-%srcversion
 
 %build
 
@@ -66,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/*.4
 
 %changelog
+* Fri Apr 15 2011 - Alex Viskovatoff
+- Bump to 5.06
 * Thu Jun 10 2010 - pradhap (at) gmail.com
 - Bump to 5.04
 * Tue Oct 22 2008  - Pradhap Devarajan <pradhap (at) gmail.com>

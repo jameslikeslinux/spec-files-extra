@@ -1,3 +1,17 @@
+2011-04-16  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEgit.spec: bump to 1.7.4.4
+	* SFEm4.spec: bump to 1.4.16
+	* SFEfile.spec: bump to 5.06
+	* base-specs/glibmm.spec: bump to 2.28.0
+	* SFEsylpheed.spec: bump to 3.1.0
+	* SFElibksba: bump to 1.2.0
+	* SFEfltk2.spec: bump to 2.0.x-r7722
+	* SFEprocmail.spec: update source URL (does not currently build,
+	  apparently because of a change in Sun Studio)
+	* SFEbluefish.spec: move to archive/
+	  (official repos are at a later major version number)
+
 2011-04-15 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEportaudio.spec: new snapshot available

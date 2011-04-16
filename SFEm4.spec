@@ -8,7 +8,7 @@
 
 Name:                    SFEm4
 Summary:                 GNU m4 macro processor
-Version:                 1.4.11
+Version:                 1.4.16
 Source:			 http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -91,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/m4.1
 
 %changelog
+* Fri Apr 15 2011 - Alex Viskovatoff
+- Bump to 1.4.16
 * Sat Aug 16 2008 - nonsea@users.sourceforge.net
 - Bump to 1.4.11 (1.4.8 ever break autoconf 2.6.1, 1.4.11 seems fix it)
 - Change "BuildConflicts: SUNWgm4" to "Conflicts: SUNWgm4"

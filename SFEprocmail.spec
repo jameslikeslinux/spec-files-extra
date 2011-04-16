@@ -8,7 +8,8 @@
 Name:                    SFEprocmail
 Summary:                 Procmail
 Version:                 3.22
-Source:                  http://www.procmail.org/procmail-%{version}.tar.gz
+#Source:                 http://www.procmail.org/procmail-%{version}.tar.gz
+Source:                  ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/procmail-%version.tar.gz
 Patch1:			 procmail-01-configuration.diff
 Patch2:			 procmail-02-debian.diff
 Patch3:			 procmail-03-large-files.diff
@@ -57,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/*
 
 %changelog
+* Sat Apr 16 2011 - Alex Viskovatoff
+- update source URL (does not currently build, apparently because of a change in Sun Studio)
 * Fri Jun 23 2006 - laca@sun.com
 - rename to SFEprocmail
 - remove unnecessary env variables

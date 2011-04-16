@@ -28,8 +28,8 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFElibao
-BuildRequires: SFElibsamplerate
+BuildRequires: SFElibao-devel
+BuildRequires: SFElibsamplerate-devel
 BuildRequires: SUNWogg-vorbis-devel
 BuildRequires: SUNWgnome-audio-devel
 BuildRequires: SUNWflac-devel

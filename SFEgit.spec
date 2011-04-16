@@ -18,7 +18,7 @@
 
 Name:                SFEgit
 Summary:             GIT - the stupid content tracker
-Version:             1.7.4.1
+Version:             1.7.4.4
 URL:                 http://git.or.cz/
 Source:              http://www.kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
 Patch1:              git-01-solaris-shell.diff
@@ -139,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Sat Apr 16 2011 - Alex Viskovatoff
+- Bump to 1.7.4.4
 * Sat Mar 26 2011 - Thomas Wagner
 - fix compiler options by setting cc_is_gcc 1 and gcc to be sfw version
 * Mon Mar 21 2011 - Alex Viskovatoff
