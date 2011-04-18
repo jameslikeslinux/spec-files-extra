@@ -10,7 +10,7 @@
 %define _prefix /usr/postgres
 %define _var_prefix /var/postgres
 %define tarball_name     postgresql
-%define tarball_version  9.0.3
+%define tarball_version  9.0.4
 %define major_version	 9.0
 
 %define _basedir         %{_prefix}/%{major_version}
@@ -18,7 +18,7 @@
 Name:                    SFEpostgres-90
 IPS_package_name:        database/postgres-90
 Summary:	         PostgreSQL client tools
-Version:                 9.0.3
+Version:                 9.0.4
 License:		 PostgreSQL
 Url:                     http://www.postgresql.org/
 Source:			 http://wwwmaster.postgresql.org/redir/311/h/source/v%{tarball_version}/%{tarball_name}-%{tarball_version}.tar.bz2
@@ -40,7 +40,7 @@ BuildRequires: library/security/openssl
 BuildRequires: library/zlib
 #BuildRequires: library/readline
 #BuildRequires: library/ncurses
-BuildRequires: SFEeditline
+BuildRequires: library/editline
 BuildRequires: system/library
 BuildRequires: system/library/security/gss
 BuildRequires: system/library/math
@@ -57,7 +57,7 @@ Requires: system/library/math
 Requires: system/library/security/gss
 #Requires: library/readline
 #Requires: library/ncurses
-Requires: SFEeditline
+Requires: library/editline
 
 # OpenSolaris IPS Package Manifest Fields
 Meta(info.upstream):	 	PostgreSQL Global Development Group
@@ -312,42 +312,13 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
-%attr (0755, root, bin) %{_prefix}/%{major_version}/bin/64
-#%dir %attr (0755, root, sys) /usr/share
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_CN
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_CN/LC_MESSAGES
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*/LC_MESSAGES
+%{_prefix}/%{major_version}/bin/64
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/amd64/clusterdb
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/amd64/createdb
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/amd64/createlang
@@ -438,9 +409,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-library
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
@@ -448,34 +416,8 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 #%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_CN
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_CN/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/zh_TW/LC_MESSAGES
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*/LC_MESSAGES
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man/man5
 %attr (0555, root, bin) %{_prefix}/%{major_version}/lib/amd64/libecpg.so.6.2
@@ -544,30 +486,14 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-languages
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}/share
-#%dir %attr (0755, root, sys) /usr/share
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*/LC_MESSAGES
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/pltcl_listmod
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/pltcl_loadmod
 %attr (0555, root, bin) %{_prefix}/%{major_version}/bin/pltcl_delmod
@@ -606,9 +532,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-developer
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/include
@@ -663,34 +586,10 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/makefiles
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/test
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/pgxs/src/test/regress
-#%dir %attr (0755, root, sys) /usr/share
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/nb
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/nb/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*/LC_MESSAGES
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/tablespace.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/trigger.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/server/commands/typecmds.h
@@ -1216,9 +1115,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-documentation
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/doc
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/doc/html
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/man
@@ -1235,40 +1131,18 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-server
 %defattr (-, root, bin)
 
+%dir %attr (0755, root, sys) /usr
+%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin/amd64
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
-%dir %attr (0755, root, bin) %{_prefix}/%{major_version}/share
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share
 %dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/cs/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/de/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/es/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/fr/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/it/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ja/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ko/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/pt_BR/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ro/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ru/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/sv/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/ta/LC_MESSAGES
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr
-%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/tr/LC_MESSAGES
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*
+%dir %attr (0755, root, other) %{_prefix}/%{major_version}/share/locale/*/LC_MESSAGES
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/share/timezonesets
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/share/tsearch_data
 %dir %attr (0755, postgres, postgres) %{_var_prefix}
@@ -1285,8 +1159,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %dir %attr (0755, root, bin) /lib
 %dir %attr (0755, root, bin) /lib/svc
 %dir %attr (0755, root, bin) /lib/svc/method
-%dir %attr (0755, root, sys) /usr
-%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, sys) /var
 %dir %attr (0755, root, sys) /var/svc
 %dir %attr (0755, root, sys) /var/svc/manifest
@@ -1487,9 +1359,6 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %files -n postgres-90-contrib
 %defattr (-, root, bin)
 
-#%dir %attr (0755, root, sys) /usr
-#%dir %attr (0755, root, bin) %{_prefix}
-#%dir %attr (0755, root, bin) %{_prefix}/%{major_version}
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64
@@ -1660,9 +1529,8 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/bin/amd64/vacuumlo
 
 %changelog
-* Wed Feb 16 17:16:29 JST 2011 TAKI, Yasushi <taki@justplayer.com>
-- support editline.
-- fixed readline problems of psql command.
+* Mon Apr 18 20:36:31 TAKI, Yasushi <taki@justplayer.com>
+- Bump to 9.0.4
 * Fri Feb  4 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Support 9.0.3
 * Tue Feb  1 JST 2011 TAKI, Yasushi <taki@justplayer.com>
