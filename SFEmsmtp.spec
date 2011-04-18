@@ -7,7 +7,7 @@
 
 Name:                    SFEmsmtp
 Summary:                 msmtp is an SMTP client for sending to a smart host
-Version:                 1.4.19
+Version:                 1.4.23
 Source:                  %{sf_download}/msmtp/msmtp-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -57,6 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 cd msmtp-%{version}
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -81,5 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Tue Apr 19 2011 - Knut Anders Hatlen
+- Bumped to 1.4.23
+- Removed /usr/share/info/dir because of collision with system/prerequisite/gnu
 * Tue Mar 02 2010 - matt@greenviolet.net
 - Initial spec file
