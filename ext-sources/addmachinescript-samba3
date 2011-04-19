@@ -1,0 +1,15 @@
+#! /usr/bin/bash 
+
+export MACHINE=${1}
+#strip the $-sign for user creating, rename after
+export MACHINESHORT=`echo "${1}" | sed -e 's/\$*$//'`
+/usr/bin/pfexec /usr/sbin/useradd -d / -g 1 -s /bin/false -c "Machine ${MACHINE}" "${MACHINESHORT}" && /usr/bin/pfexec  /usr/sbin/usermod -l "${MACHINE}" "${MACHINESHORT}"
+#workaround for exitlevels != 0 altough account got created (the $-sign is not wanted by the commands)
+getent passwd ${MACHINE}
+if [ $? != 0 ] 
+ then
+ pfexec svcadm restart svc:/system/name-service-cache
+ sleep 5
+ # in case the restart and wait does not help seeing the account, try it directly with looking at /etc/passwd
+ getent passwd ${MACHINE} || grep "^${MACHINE}:" /etc/passwd
+ fi
