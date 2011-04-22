@@ -1,12 +1,10 @@
 #
 # spec file for package SFEghc 
 #
-# Copyright 2008 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
 
-%define _basedir /opt/ghc
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
@@ -22,23 +20,17 @@
 
 %define		osgooglecode http://opensolaris-lang.googlecode.com/files
 %define bootstrap 6.12.3
-%define tarballdate 20110324
-
-# A development snapshot, taken from darcs HEAD, must be used because
-# the 7.0 releases do not build on Solaris.
 
 Name:		SFEghc 
 Summary:	The Glorious Glasgow Haskell Compilation System
-Version:	7.1
+Version:	6.12.3
 Release:	1
 License:	GHC License
 Group:		Development/Languages/Haskell
 Vendor:		GHC team
 URL:		http://www.haskell.org/ghc
-#Source		http://darcs.haskell.org/download/dist/%version/ghc-%version-src.tar.bz2
-#Source:	%url/dist/current/dist/ghc-%version-src.tar.bz2
-Source:		%url/dist/current/dist/ghc-%version-%tarballdate.tar.bz2
-Source1:	%osgooglecode/ghc-%bootstrap-bin.tar.bz2
+Source:		%url/dist/%version/ghc-%version-src.tar.bz2
+Source1:	%osgooglecode/ghc-%bootstrap-i386.tar.xz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 
@@ -70,12 +62,10 @@ Haskell home page at http://haskell.org/.
 
 %include default-depend.inc
 
-BuildRequires: 	SFEgccruntime
-BuildRequires: 	SFEgcc
+BuildRequires: 	SUNWgcc
 BuildRequires:	SUNWgsed
-Requires: 	SFEgccruntime
-Requires:	library/readline 
-Requires:	library/ncurses
+BuildRequires:	SFExz
+Requires: 	SUNWgccruntime
 
 %if %SFEgmp
 BuildRequires: SFEgmp-devel
@@ -122,22 +112,15 @@ Requires: %{name}
 
 %prep
 %setup -q -n ghc-%version
-%setup -q -n ghc-%version -T -D -a 1
-# Set correct pathnames for the ghc binaries used for bootstrapping
-cd ghc-%bootstrap-bin/bin
-sed "s|/tmp|%_builddir/ghc-%version|" ghc > ghc.new
-mv ghc.new ghc
-sed "s|/tmp|%_builddir/ghc-%version|" ghc-pkg > ghc-pkg.new
-mv ghc-pkg.new ghc-pkg
-chmod +x ghc*
-
+cd /var/tmp
+rm -rf ghc-%bootstrap-bin
+xz -dc %SOURCE1 | tar -xf -
 
 %build
 
-# gcc 3.4.3 does not understand -mtune=opteron-sse3
 export CFLAGS="%optflags"
 export PKG_CONFIG_PATH="%_libdir/pkgconfig"
-export PATH=$PATH:%_builddir/ghc-%version/ghc-%bootstrap-bin/bin
+export PATH=$PATH:/var/tmp/ghc-%bootstrap-bin/bin
 
 %if %{is_s10}
 export LD_OPTIONS='-L/usr/gnu/lib -R/usr/gnu/lib'
@@ -149,16 +132,10 @@ export LDFLAGS="-L%{_libdir} -R%{_libdir}"
 #export PERL_PATH=/usr/perl5/bin/perl
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-#export PATH=$PATH:/opt/sfw/bin
-#export PATH=$PATH:/usr/local/bin
 chmod +x configure
 # Note GHC conf does not support differing host/target (i.e., cross-compiling)
-#./configure --prefix=%_prefix \
-#    --with-ghc=%_builddir/ghc-%version/ghc-%bootstrap-bin/bin/ghc \
-#    --with-ghc=/usr/local/bin/ghc \
-#sh ./configure --prefix=%_prefix \
 ./configure --prefix=%_prefix \
-    --with-ghc=%_builddir/ghc-%version/ghc-%bootstrap-bin/bin/ghc \
+    --with-ghc=/var/tmp/ghc-%bootstrap-bin/bin/ghc \
     --with-gcc=/usr/bin/gcc --with-ld=/usr/bin/ld \
 %if %{is_s10}
     --with-gmp-includes=/usr/gnu/include    \
@@ -168,8 +145,8 @@ chmod +x configure
      --with-gmp-libraries=/usr/include/gmp   
 %endif
 
-gmake -j$CPUS 
-
+# Parallelism breaks with 16 cpus, so don't use more than 4
+gmake -j$(test $CPUS -ge 4 && echo 4 || echo $CPUS)
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -205,6 +182,7 @@ cat ghc6-prof-sort.files | sed 's:'"$RPM_BUILD_ROOT"'::' > TEMP && mv TEMP ghc6-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %files -f ghc6.files
@@ -224,6 +202,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Wed Apr 20 2011 - Alex Viskovatoff
+- Go back to 6.12.3, to use official source tarball
 * Sun Mar 27 2011 - Alex Viskovatoff
 - Update to 7.1 taken from darcs HEAD; 7.0.y does not build on Solaris
 - Use gcc 3.4.3: ghc 7.x does not build on later releases of gcc

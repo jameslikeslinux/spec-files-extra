@@ -15,8 +15,8 @@
 
 Name:		sabayon
 Summary:	Tool to maintain user profiles in a GNOME desktop
-Version:	2.30.0
-Release:	2
+Version:	2.30.1
+Release:	1
 Distribution:	Java Desktop System
 Vendor:		Gnome Community
 License:	GPLv2+
@@ -40,10 +40,13 @@ Group:		Applications/System
 
 
 ##OSOL Requres
+BuildRequires:  SUNWpython26-xdg
+Requires:       SUNWpython26-xdg
 Requires:       SFEpessulus
 Requires:       SUNWgnome-python-libs
 Requires:       SUNWgnome-python26-libs
-#Requires:       xorg-x11-server-Xephyr 
+BuildRequires:  x11/server/xephyr
+Requires:       x11/server/xephyr
 
 %description admin
 The sabayon-admin package contains the graphical tools which a
@@ -156,6 +159,8 @@ fi
 %doc %{_datadir}/omf/sabayon/* 
 
 %changelog
+* Fri Apr 22 2011 - Alex Viskovatoff
+- Bump to 2.30.1; add missing dependencies
 * Mon Jul 12 2010 - <yuntong.jin@sun.com>
 - Init spec file
 

@@ -1,3 +1,9 @@
+2011-04-22  Alex Viskovatoff <herzen@imap.cc>
+
+	* haskell/SFEghc.spec: use custom bootstrap tarball built with gcc-3
+	* SFEsabayon.spec: bump to 2.30.1; add missing dependencies
+	* SFExz.spec: bump to 5.0.1
+
 2011-04-19  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEmsmtp.spec: bump to 1.4.23; resolve conflict with
