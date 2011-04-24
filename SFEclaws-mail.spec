@@ -10,25 +10,17 @@
 
 Name:                    SFEclaws-mail
 Summary:                 Claws-Mail is an e-mail client (and news reader) based on GTK+
-Version:                 3.7.6
+Version:                 3.7.9
 Source:                  %{sf_download}/sylpheed-claws/%{src_name}-%{version}.tar.bz2
 License:                 GPL
 URL:                     http://claws-mail.org/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
-%package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires: %name
-
 BuildRequires: SUNWgsed
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWopenssl-include
-BuildRequires: SFEaspell-devel
 BuildRequires: SFElibetpan-devel
 Requires: SUNWlibmsr
 Requires: SUNWgnome-base-libs
@@ -41,24 +33,42 @@ Requires: SFEgnupg2
 Requires: SUNWpth
 Requires: SUNWgnupg
 %endif
-Requires: SFEaspell
 Requires: SFEdillo
 Requires: SFEbogofilter
 Requires: SFElibetpan
-
+BuildRequires: SUNWlibgpg-error-devel
+Requires: SUNWlibgpg-error
 
 %description
 Claws-Mail is an e-mail client (and news reader) based on GTK+
 
+%package devel
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires: %name
+
+%if %build_l10n
+%package l10n
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires: %name
+%endif
+
+
 %prep
 %setup -q -n %{src_name}-%{version}
-sed -i -e "s,CFLAGS -Wall,CFLAGS,g" configure configure.ac
-sed -i -e "s,-Wno-deprecated-declarations,-errfmt=error," src/plugins/pgpcore/Makefile.am \
+/usr/gnu/bin/sed -i -e "s,CFLAGS -Wall -Wno-pointer-sign,CFLAGS,g" configure configure.ac
+/usr/gnu/bin/sed -i -e "s,CFLAGS -std=gnu99 -DSOLARIS,CFLAGS -DSOLARIS,g" configure configure.ac
+/usr/gnu/bin/sed -i -e "s,-Wno-deprecated-declarations,-errfmt=error," src/plugins/pgpcore/Makefile.am \
     src/plugins/pgpcore/Makefile.in \
     src/plugins/pgpinline/Makefile.am \
     src/plugins/pgpinline/Makefile.in \
     src/plugins/pgpmime/Makefile.am \
     src/plugins/pgpmime/Makefile.in
+/usr/gnu/bin/sed -i -e "s,-Wno-deprecated-declarations,," src/plugins/smime/Makefile.in \
+    src/plugins/smime/Makefile.am
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -68,7 +78,6 @@ fi
 
 export CFLAGS="%optflags -xc99"
 export LDFLAGS="%_ldflags -lsocket -lnsl"
-export ASPELL="/usr/lib/aspell/aspell"
 
 ./configure --prefix=%{_prefix}          \
             --bindir=%{_bindir}         \
@@ -79,11 +88,11 @@ export ASPELL="/usr/lib/aspell/aspell"
             --sysconfdir=%{_sysconfdir} \
             --enable-shared             \
             --disable-static            \
-            --enable-aspell             \
-            --with-aspell-prefix=/usr   \
-            --disable-trayicon-plugin \
+            --enable-ipv6		\
+            --enable-jpilot		\
+            --disable-trayicon-plugin 	\
             --disable-ldap              \
-            --disable-pgpcore-plugin
+            --enable-spamassassin-plugin=yes
 
 make -j $CPUS
 
@@ -94,72 +103,58 @@ mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 install -m 644 *.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 rm ${RPM_BUILD_ROOT}%{_bindir}/sylpheed-claws
 
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/%{src_name}
-
-%dir %attr (0755, root, bin) %{_libdir}
-%dir %attr (0755, root, other) %{_libdir}/claws-mail
-%dir %attr (0755, root, other) %{_libdir}/claws-mail/plugins
 %{_libdir}/claws-mail/plugins/*
 %dir %attr (0755, root, sys) %{_datadir}
-%defattr (-, root, other)
-%{_prefix}/share/locale/*
-%dir %attr (0755, root, other) %{_datadir}/doc
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/manual
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/manual/en
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/manual/es
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/manual/fr
-%dir %attr (0755, root, other) %{_datadir}/doc/%{src_name}/manual/pl
-%{_datadir}/doc/%{src_name}/RELEASE_NOTES
-%{_datadir}/doc/%{src_name}/manual/en/*
-%{_datadir}/doc/%{src_name}/manual/es/*
-%{_datadir}/doc/%{src_name}/manual/fr/*
-%{_datadir}/doc/%{src_name}/manual/pl/*
 %dir %attr (0755, root, other) %{_datadir}/icons
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/apps
+%{_datadir}/icons/hicolor/48x48/apps/claws-mail.png
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/64x64
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/64x64/apps
+%{_datadir}/icons/hicolor/64x64/apps/claws-mail.png
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/128x128
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/128x128/apps
-%{_datadir}/icons/hicolor/48x48/apps/claws-mail.png
 %{_datadir}/icons/hicolor/128x128/apps/claws-mail.png
-%{_datadir}/icons/hicolor/64x64/apps/claws-mail.png
-
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/*.png
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%dir %attr (0755, root, bin) %{_datadir}/man
-%dir %attr (0755, root, bin) %{_datadir}/man/man1
-%{_datadir}/man/man1/claws-mail.1
-#%dir %attr (0755, root, bin) %{_datadir}/doc/claws-mail
-#%dir %attr (0755, root, bin) %{_datadir}/doc/claws-mail/de
-%{_datadir}/doc/claws-mail/manual/de/*
+%{_mandir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/claws-mail
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/claws-mail.pc
-%dir %attr (0755, root, bin) %{_includedir}
-%dir %attr (0755, root, bin) %{_includedir}/claws-mail
-%dir %attr (0755, root, bin) %{_includedir}/claws-mail/common
-%dir %attr (0755, root, bin) %{_includedir}/claws-mail/gtk
-%dir %attr (0755, root, bin) %{_includedir}/claws-mail/etpan
-%{_includedir}/claws-mail/*.h
-%{_includedir}/claws-mail/common/*.h
-%{_includedir}/claws-mail/gtk/*.h
-%{_includedir}/claws-mail/etpan/*.h
+%{_includedir}/claws-mail
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%endif
 
 %changelog
+* Sun Apr 24 2011 - Milan Jurik
+- minor cleanup
+* Fri Apr 15 2011 - kmays2000@gmail.com
+- Bumped to 3.7.9
+- Detect ipv6, jpilot, spamassasin, gpgme
 * Sun Jun 14 2010 - Milan Jurik
 - use SUNW packages if possible
 * Thu Jun 10 2010 - pradhap (at) gmail.com

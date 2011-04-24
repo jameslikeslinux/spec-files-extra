@@ -2,6 +2,7 @@
 
 	* SFEgarcon.spec: Bump to 0.1.7
 	* SFEtumbler.spec: Initial spec
+	* SFEclaws-mail.spec: Bump to 3.7.9
 
 2011-04-22  Alex Viskovatoff <herzen@imap.cc>
 
