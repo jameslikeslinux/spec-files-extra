@@ -1,41 +1,36 @@
---- pure-ftpd-1.0.30/configure	2010-12-30 11:42:52.000000000 +0100
-+++ pure-ftpd-1.0.30-patch/configure	2011-04-04 23:37:03.247665122 +0200
-@@ -23522,2 +23522,2 @@
--{ echo "$as_me:$LINENO: checking for ber_init in -llber" >&5
--echo $ECHO_N "checking for ber_init in -llber... $ECHO_C" >&6; }
-+{ echo "$as_me:$LINENO: checking for ber_init in -llber-2.4" >&5
-+echo $ECHO_N "checking for ber_init in -llber-2.4... $ECHO_C" >&6; }
-@@ -23528 +23528 @@
+--- pure-ftpd-1.0.31/configure	Sun Apr 17 17:08:36 2011
++++ pure-ftpd-1.0.31-patch/configure	Sun Apr 24 18:27:50 2011
+@@ -11330,2 +11330,2 @@
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ber_init in -llber" >&5
+-$as_echo_n "checking for ber_init in -llber... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ber_init in -llber-2.4" >&5
++$as_echo_n "checking for ber_init in -llber-2.4... " >&6; }
+@@ -11336,1 +11336,1 @@
 -LIBS="-llber  $LIBS"
 +LIBS="-llber-2.4  $LIBS"
-@@ -23588 +23588 @@
+@@ -11371,1 +11371,1 @@
 -  LIBS="-llber $LIBS"
 +  LIBS="-llber-2.4 $LIBS"
-@@ -23591,2 +23591,2 @@
--  { { echo "$as_me:$LINENO: error: liblber is needed for LDAP support" >&5
--echo "$as_me: error: liblber is needed for LDAP support" >&2;}
-+  { { echo "$as_me:$LINENO: error: liblber-2.4 is needed for LDAP support" >&5
-+echo "$as_me: error: liblber-2.4 is needed for LDAP support" >&2;}
-@@ -23597,2 +23597,2 @@
--{ echo "$as_me:$LINENO: checking for ldap_init in -lldap" >&5
--echo $ECHO_N "checking for ldap_init in -lldap... $ECHO_C" >&6; }
-+{ echo "$as_me:$LINENO: checking for ldap_init in -lldap-2.4" >&5
-+echo $ECHO_N "checking for ldap_init in -lldap-2.4... $ECHO_C" >&6; }
-@@ -23603 +23603 @@
+@@ -11377,2 +11377,2 @@
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ldap_init in -lldap" >&5
+-$as_echo_n "checking for ldap_init in -lldap... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ldap_init in -lldap-2.4" >&5
++$as_echo_n "checking for ldap_init in -lldap-2.4... " >&6; }
+@@ -11383,1 +11383,1 @@
 -LIBS="-lldap  $LIBS"
 +LIBS="-lldap-2.4  $LIBS"
-@@ -23663 +23663 @@
+@@ -11418,1 +11418,1 @@
 -  LIBS="-lldap $LIBS"
 +  LIBS="-lldap-2.4 $LIBS"
-@@ -23666,4 +23666,4 @@
--  { echo "$as_me:$LINENO: WARNING: Initial check for -lldap failed! May need -lssl -lcrypto" >&5
--echo "$as_me: WARNING: Initial check for -lldap failed! May need -lssl -lcrypto" >&2;}
--      { echo "$as_me:$LINENO: checking for ldap_bind in -lldap" >&5
--echo $ECHO_N "checking for ldap_bind in -lldap... $ECHO_C" >&6; }
-+  { echo "$as_me:$LINENO: WARNING: Initial check for -lldap-2.4 failed! May need -lssl -lcrypto" >&5
-+echo "$as_me: WARNING: Initial check for -lldap-2.4 failed! May need -lssl -lcrypto" >&2;}
-+      { echo "$as_me:$LINENO: checking for ldap_bind in -lldap-2.4" >&5
-+echo $ECHO_N "checking for ldap_bind in -lldap-2.4... $ECHO_C" >&6; }
-@@ -23674 +23674 @@
+@@ -11421,4 +11421,4 @@
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Initial check for -lldap failed! May need -lssl -lcrypto" >&5
+-$as_echo "$as_me: WARNING: Initial check for -lldap failed! May need -lssl -lcrypto" >&2;}
+-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ldap_bind in -lldap" >&5
+-$as_echo_n "checking for ldap_bind in -lldap... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Initial check for -lldap-2.4 failed! May need -lssl -lcrypto" >&5
++$as_echo "$as_me: WARNING: Initial check for -lldap-2.4 failed! May need -lssl -lcrypto" >&2;}
++      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ldap_bind in -lldap-2.4" >&5
++$as_echo_n "checking for ldap_bind in -lldap-2.4... " >&6; }
+@@ -11429,1 +11429,1 @@
 -LIBS="-lldap -lssl -lcrypto $LIBS"
 +LIBS="-lldap-2.4 -lssl -lcrypto $LIBS"
