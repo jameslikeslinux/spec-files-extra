@@ -1,0 +1,11 @@
+--- tumbler-0.1.21/tumbler/tumbler-thumbnailer.c	Sun Feb 13 14:01:31 2011
++++ tumbler-0.1.21-patch/tumbler/tumbler-thumbnailer.c	Sun Apr 24 13:37:32 2011
+@@ -145,7 +145,7 @@
+   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
+   g_return_if_fail (TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create != NULL);
+ 
+-  return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
++  (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
+                                                                  cancellable,
+                                                                  info);
+ }
