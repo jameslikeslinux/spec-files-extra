@@ -21,6 +21,7 @@ BuildRequires:	SUNWgnome-base-libs-devel
 Requires:	SUNWgnome-base-libs
 BuildRequires: 	SUNWdbus
 BuildRequires:	SUNWgtk-doc
+BuildRequires:	SUNWgnome-xml-share
 Requires:	%{name}-root
  
 %description
@@ -104,6 +105,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/gtk-doc/html
 %dir %{_datadir}/gtk-doc/html/tumbler
 %doc %{_datadir}/gtk-doc/html/tumbler/*
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%endif
  
 %changelog
 * Wed Apr 13 2011 - Ken Mays <kmays2000@gmail.com>
