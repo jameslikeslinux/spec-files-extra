@@ -9,7 +9,7 @@
 %define src_url http://archive.xfce.org/src/xfce/%{src_name}/0.1/
 
 Name:		SFEgarcon
-Version:	0.1.6
+Version:	0.1.7
 Summary:	Implementation of the freedesktop.org menu specification
 Group:          System Environment/Libraries
 URL:		http://xfce.org/
@@ -115,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Aug 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.1.7
 * Mon Mar 21 2011 - kmays2000@gmail.com
 - Bump to 0.1.6
 * Mon Mar 21 2011 - Milan Jurik

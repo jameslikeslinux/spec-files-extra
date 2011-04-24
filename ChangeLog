@@ -1,3 +1,7 @@
+2011-04-13 Ken Mays <kmays2000@gmail.com>
+
+	* SFEgarcon.spec: Bump to 0.1.7
+
 2011-04-22  Alex Viskovatoff <herzen@imap.cc>
 
 	* haskell/SFEghc.spec: use custom bootstrap tarball built with gcc-3
