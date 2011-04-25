@@ -7,11 +7,11 @@
 %include Solaris.inc
 
 %define src_name libxfcegui4
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/libxfcegui4/4.8/
 
 Name:		SFElibxfcegui4
 Summary:	Various gtk widgets for xfce
-Version:	4.8.0
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -54,6 +54,8 @@ fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
+# GNU xgettext needed
+export PATH=/usr/gnu/bin:$PATH
 ./configure --prefix=%{_prefix}		\
 	--libdir=%{_libdir}		\
 	--libexecdir=%{_libexecdir}	\
@@ -116,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Apr 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.1
 * Mon Mar 21 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Fri Sep 24 2010 - Brian Cameron  <brian.cameron@oracle.com>
