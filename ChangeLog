@@ -1,6 +1,8 @@
 2011-04-25 Ken Mays <kmays2000@gmail.com>
 
 	* SFElibxfcegui4.spec: Bump to 4.8.1
+	* SFExfce4-power-manager.spec: initial spec with patch
+	  from Guido Berhoerster
 
 2011-04-24 Milan Jurik <sfnet@xylab.cz>
 
