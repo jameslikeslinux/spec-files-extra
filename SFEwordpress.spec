@@ -14,7 +14,7 @@
 
 Name:                SFEwordpress
 Summary:             Wordpress
-Version:             3.0.4
+Version:             3.1.2
 Source:              http://wordpress.org/wordpress-%{version}%{src_name_minor_extra}.zip
 SUNW_BaseDir:        /
 URL:	             http://www.wordpress.org/index.html
@@ -77,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 26 2011 - Thomas Wagner
+- bump to 3.1.2 - security fix - upgrade stongly recommended
 * Thu Jan 13 2011 - Thomas Wagner
 - bump to 3.0.4 - security fix - upgrade stongly recommended
 * Wed Aug 25 2010 - Thomas Wagner
