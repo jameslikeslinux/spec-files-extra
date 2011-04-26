@@ -1,3 +1,7 @@
+2011-04-27  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEwordpress.spec: bump to 3.1.2 (security fixes)
+
 2011-04-25 Ken Mays <kmays2000@gmail.com>
 
 	* SFElibxfcegui4.spec: Bump to 4.8.1
