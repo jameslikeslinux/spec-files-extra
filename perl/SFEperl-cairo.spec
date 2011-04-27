@@ -12,6 +12,7 @@
 Name:                    SFEperl-cairo
 Summary:                 Cairo-%{tarball_version} PERL bindings
 Version:                 %{perl_version}.%{tarball_version}
+IPS_component_version:   1.70
 Source:                  %{sf_download}/gtk2-perl/Cairo-%{tarball_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
