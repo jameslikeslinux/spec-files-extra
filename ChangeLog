@@ -1,3 +1,7 @@
+2011-04-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEbzr.spec: Bump to 2.3.1.
+
 2011-04-28  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEmplayer-snap.spec: add missing optional dependencies
