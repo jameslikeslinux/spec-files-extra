@@ -34,6 +34,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Requires: SFEgcc
 Requires: SFEghc
 Requires: SFEghc-haskell-platform
+BuildRequires: SFEghc-X11
 Requires: SFEghc-X11
 Requires: SUNWxorg-clientlibs
 Requires: SUNWxorg-headers

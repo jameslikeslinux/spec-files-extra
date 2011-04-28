@@ -18,7 +18,7 @@
 %define osbuild %(uname -v | sed -e 's/[A-z_]//g')
 %endif
 
-%define		osgooglecode http://opensolaris-lang.googlecode.com/files
+%define osgooglecode http://opensolaris-lang.googlecode.com/files
 %define bootstrap 6.12.3
 
 Name:		SFEghc 
@@ -116,6 +116,7 @@ cd /var/tmp
 rm -rf ghc-%bootstrap-bin
 xz -dc %SOURCE1 | tar -xf -
 
+
 %build
 
 export CFLAGS="%optflags"
@@ -129,7 +130,6 @@ export LDFLAGS='-L/usr/gnu/lib -R/usr/gnu/lib'
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
 %endif
 
-#export PERL_PATH=/usr/perl5/bin/perl
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 chmod +x configure
@@ -200,6 +200,7 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/doc
 %{_datadir}/doc/*
+
 
 %changelog
 * Wed Apr 20 2011 - Alex Viskovatoff

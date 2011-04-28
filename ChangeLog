@@ -1,3 +1,8 @@
+2011-04-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmplayer-snap.spec: add missing optional dependencies
+	* SFEgcc-46.spec: move out of experimental/
+	
 2011-04-27  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEwordpress.spec: bump to 3.1.2 (security fixes)
@@ -22,7 +27,7 @@
 
 	* haskell/SFEghc.spec: use custom bootstrap tarball built with gcc-3
 	* SFEsabayon.spec: bump to 2.30.1; add missing dependencies
-	* SFExz.spec: bump to 5.0.1
+	* SFExz.spec: bump to 5.0.2
 
 2011-04-19  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 

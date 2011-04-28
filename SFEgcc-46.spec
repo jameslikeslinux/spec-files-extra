@@ -4,17 +4,15 @@
 # includes module(s): GNU gcc
 #
 
-# NOTE: Until the new version of gcc appears on the ftp server, you need to get
-# it from svn: svn co svn://gcc.gnu.org/svn/gcc/branches/gcc-4_6-branch gcc
-
 ##NOTE## This spec file is an interim solution regarding the path layout on disk
 ##       expect relocation to /usr/gcc/4.5/ and symlinks provided from /usr/gnu 
 ##       into to that location (provided by the latest installed or "pkg fix"ed gcc-45 
 ##NOTE## most likely the package name will change to SFEgcc-43 and another empty
 ##       package SFEgcc will be created always requiring the latest SFEgcc-<major><minor>
 ##NOTE## If you experience problems with that version bump, please drop us a note
-##NOTE## you will need the symlink rename and need 
-##       pkg uninstall SFEgccruntime and SFEgcc to get this spec build successfully.
+##NOTE## you will need "pkg uninstall SFEgccruntime and SFEgcc" *before* you can
+#        to get this spec build successfully. Reason: older runtime-libs interfere
+#        with building this eventually incompatible, newer gcc runtime from this spec
 
 
 # to more widely test if this change causes regressions, by default off:
@@ -40,8 +38,14 @@
 %define SUNWbinutils    %(/usr/bin/pkginfo -q SUNWbinutils 2>/dev/null && echo 1 || echo 0)
 %define SFEbinutils     %(/usr/bin/pkginfo -q SFEbinutils  2>/dev/null && echo 1 || echo 0)
 #see below, older builds then 126 have too old gmp / mpfr to gcc version around 4.4.4
-%define SFEgmp          %(/usr/bin/pkginfo -q SFEgmp  2>/dev/null  && echo 1 || echo 0)
-%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+#%define SFEgmp          %(/usr/bin/pkginfo -q SFEgmp  2>/dev/null  && echo 1 || echo 0)
+##TODO## to be replaced by packagenamemacros, selecting SFEgmp on specific osbuilds where
+#it is too old for fresh gcc builds
+%define SFEgmp          1
+#%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+##TODO## to be replaced by packagenamemacros, selecting SFEmpfr on specific osbuilds where
+#it is too old for fresh gcc builds
+%define SFEmpfr         1
 
 # force using SFEbinutils
 #if SFEbinutils is not present, force it by the commandline switch --with_SFEbinutils
@@ -89,6 +93,7 @@
 
 %define _prefix /usr/gcc/4.6
 %define _infodir %{_prefix}/info
+%define _gnu_bindir %{_basedir}/gnu/bin
 %define _gnu_libdir %{_basedir}/gnu/lib
 %define gccname SFEgcc-46
 
@@ -319,41 +324,6 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
 
-mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}
-cd $RPM_BUILD_ROOT%{_gnu_libdir}
-ln -s ../../gcc/4.5/lib/libgcc_s.so.1
-ln -s ../../gcc/4.5/lib/libgcc_s.so
-ln -s ../../gcc/4.5/lib/libgfortran.so.3
-ln -s ../../gcc/4.5/lib/libgfortran.so
-ln -s ../../gcc/4.5/lib/libgomp.so.1
-ln -s ../../gcc/4.5/lib/libgomp.so
-ln -s ../../gcc/4.5/lib/libobjc_gc.so.2
-ln -s ../../gcc/4.5/lib/libobjc_gc.so
-ln -s ../../gcc/4.5/lib/libobjc.so.2
-ln -s ../../gcc/4.5/lib/libobjc.so
-ln -s ../../gcc/4.5/lib/libssp.so.0
-ln -s ../../gcc/4.5/lib/libssp.so
-ln -s ../../gcc/4.5/lib/libstdc++.so.6
-ln -s ../../gcc/4.5/lib/libstdc++.so
-%ifarch amd64 sparcv9
-mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
-cd $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so.3
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so.2
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so.2
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so.0
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so.6
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
-%endif
-
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
 %ifarch amd64 sparcv9
@@ -397,7 +367,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/lib*.so*
 %{_libdir}/%{_arch64}/lib*.spec
 %endif
-%{_gnu_libdir}
 
 
 %files -n %gccname
@@ -434,8 +403,18 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Mon Mar 14 2011 - Alex Viskovatoff
-- Fork off new spec for gcc 4.6.0
+* Thu Apr 28 2011 - Alex Viskovatoff
+- Fork SFEgcc-46.spec off SFEgcc.spec, deleting symlinks from /usr/gnu
+* Thu Mar 17 2011 - Thomas Wagner
+- temporarily force SFEgmp SFEmpfr to have pkgtool --autodeps working in correct build-order
+* Wed Mar 16 2011 - Thomas Wagner
+- symlinks did not go into package, added %{_gnu_bindir}/* to %files SFEgcc 
+* Tue Mar 15 2011 - Thomas Wagner
+- add missing %define _gnu_bindir %{_basedir}/gnu/bin
+* Sat Mar 12 2011 - Thomas Wagner
+- make symlinks to get SFEgcc.spec version 4.x.x to have the gcc 4.x.x
+  default compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++ 
+  and /usr/gnu/bin/gfortran ...
 * Fri Mar 04 2011 - Milan Jurik
 - RUNPATH enforced to contain /usr/gnu/lib, libs symlinked to /usr/gnu/lib
 * Wed Mar 02 2011 - Milan Jurik

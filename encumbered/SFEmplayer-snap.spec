@@ -44,6 +44,8 @@
 %define with_x264 %(pkginfo -q SFElibx264 && echo 1 || echo 0)
 %define with_openjpeg %(pkginfo -q SFEopenjpeg && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
+%define with_schroedinger %(pkginfo -q SFElibschroedinger && echo 1 || echo 0)
+%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
 %if %with_constant_tarball
 %define revision 33159
@@ -152,6 +154,14 @@ BuildRequires: SFEopenjpeg-devel
 %if %with_giflib
 Requires: SFEgiflib
 BuildRequires: SFEgiflib-devel
+%endif
+%if with_schroedinger
+BuildRequires: SFElibschroedinger
+Requires: SFElibschroedinger
+%endif
+%if with_alsa
+BuildRequires: SFEalsa-lib
+Requires: SFEalsa-lib
 %endif
 
 %define x11	/usr/openwin
@@ -276,6 +286,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Apr 27 2011 - Alex Viskovatoff
+- Add missing optional dependencies
 * Sat Apr  2 2011 - Alex Viskovatoff
 - Update to new tarball
 * Tue Jan 18 2011 - Alex Viskovatoff
