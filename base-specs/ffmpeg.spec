@@ -4,24 +4,22 @@
 # includes module(s): FFmpeg
 #
 
-%define src_version 0.6.1
-
 Summary:                 FFmpeg - a very fast video and audio converter
 
 Version:                 0.6.2
-Source:                  http://www.ffmpeg.org/releases/ffmpeg-%{src_version}.tar.bz2
+Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch2:                  ffmpeg-02-configure.diff
 Patch3:                  ffmpeg-03-gnuisms.diff
 Patch4:                  ffmpeg-04-options.diff
 Patch8:                  ffmpeg-08-versionsh.diff
 SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{src_version}-build
+BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
 
 %prep
 #%setup -q -n ffmpeg-export-%{year}-%{month}-%{day}
-%setup -q -n ffmpeg-%{src_version}
+%setup -q -n ffmpeg-%version
 %patch2 -p1
 %patch4 -p1
 %patch8 -p1
@@ -109,6 +107,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 27 2011 - Alex Viskovatoff
+- remove superflous macro src_version
 * Sat Mar 26 2011 - Milan Jurik
 - bump to 0.6.2
 * Wed Jan 05 2011 - James Choi <jchoi42@pha.jhu.edu>
