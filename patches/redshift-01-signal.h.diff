@@ -1,11 +1,66 @@
---- redshift-1.2/src/redshift.c.orig	2010-04-20 14:39:21.398502191 +1200
-+++ redshift-1.2/src/redshift.c	2010-04-20 14:39:29.638087272 +1200
-@@ -28,7 +28,7 @@
- #include <time.h>
- #include <math.h>
- #include <locale.h>
--#include <sys/signal.h>
-+#include <signal.h>
+--- redshift-1.6/configure.ac	2010-10-17 17:27:35.000000000 -0400
++++ redshift-1.6/configure.ac	2011-04-25 11:15:53.114328593 -0400
+@@ -153,7 +153,7 @@
  
- #include <libintl.h>
- #define _(s) gettext(s)
+ 
+ # Checks for header files.
+-AC_CHECK_HEADERS([locale.h stdint.h stdlib.h string.h unistd.h sys/signal.h])
++AC_CHECK_HEADERS([locale.h stdint.h stdlib.h string.h unistd.h signal.h])
+ 
+ # Checks for typedefs, structures, and compiler characteristics.
+ AC_TYPE_UINT16_T
+--- redshift-1.6/src/redshift.c	2011-04-25 11:12:35.752264947 -0400
++++ redshift-1.6/src/redshift.c	2011-04-25 11:14:44.496435502 -0400
+@@ -30,8 +30,8 @@
+ #include <locale.h>
+ #include <errno.h>
+ 
+-#ifdef HAVE_SYS_SIGNAL_H
+-# include <sys/signal.h>
++#ifdef HAVE_SIGNAL_H
++# include <signal.h>
+ #endif
+ 
+ #ifdef ENABLE_NLS
+@@ -206,7 +206,7 @@
+ } program_mode_t;
+ 
+ 
+-#ifdef HAVE_SYS_SIGNAL_H
++#ifdef HAVE_SIGNAL_H
+ 
+ static volatile sig_atomic_t exiting = 0;
+ static volatile sig_atomic_t disable = 0;
+@@ -225,12 +225,12 @@
+ 	disable = 1;
+ }
+ 
+-#else /* ! HAVE_SYS_SIGNAL_H */
++#else /* ! HAVE_SIGNAL_H */
+ 
+ static int exiting = 0;
+ static int disable = 0;
+ 
+-#endif /* ! HAVE_SYS_SIGNAL_H */
++#endif /* ! HAVE_SIGNAL_H */
+ 
+ 
+ /* Calculate color temperature for the specified solar elevation. */
+@@ -1017,7 +1017,7 @@
+ 		   will be exactly 6500K. */
+ 		float adjustment_alpha = 0.0;
+ 
+-#ifdef HAVE_SYS_SIGNAL_H
++#ifdef HAVE_SIGNAL_H
+ 		struct sigaction sigact;
+ 		sigset_t sigset;
+ 		sigemptyset(&sigset);
+@@ -1034,7 +1034,7 @@
+ 		sigact.sa_mask = sigset;
+ 		sigact.sa_flags = 0;
+ 		sigaction(SIGUSR1, &sigact, NULL);
+-#endif /* HAVE_SYS_SIGNAL_H */
++#endif /* HAVE_SIGNAL_H */
+ 
+ 		/* Continously adjust color temperature */
+ 		int done = 0;

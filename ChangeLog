@@ -1,3 +1,15 @@
+2011-04-30  Albert Lee  <trisk@opensolaris.org>
+
+	* SFEiodine.spec: Bump to 0.6.0-rc1. Add patch1, patch2.
+	* SFEredshift.spec: Bump to 1.6. Support Studio. Update patch1, add
+	  patch2, patch3 for GNOME clock support.
+	* patches/iodine-01-solaris.diff: Add defines and -lresolv
+	* patches/iodine-02-nogcc.diff: Remove gcc-specific flags
+	* patches/redshift-01-signal.h.diff: Update for 1.6
+	* patches/redshift-02-clock-applet.diff: Support new GNOME applet
+	* patches/redshift-03-gerror-leak.diff: Add JDS support, fix leak
+	* patches/sshfs-fuse-01-sunpro.diff: Fix sshnodelay.so
+
 2011-04-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEbzr.spec: Bump to 2.3.1.
