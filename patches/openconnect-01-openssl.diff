@@ -1,0 +1,7 @@
+--- openconnect-3.02/Makefile	2011-04-19 15:49:41.000000000 +0200
++++ openconnect-3.02-patch/Makefile	2011-05-02 21:08:47.246784217 +0200
+@@ -20,2 +20,2 @@
+-SSL_CFLAGS += $(shell pkg-config --cflags libssl)
+-SSL_LDFLAGS += $(shell pkg-config --libs libssl)
++SSL_CFLAGS += $(shell pkg-config --cflags openssl)
++SSL_LDFLAGS += $(shell pkg-config --libs openssl)

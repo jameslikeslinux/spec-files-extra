@@ -1,3 +1,7 @@
+2011-05-02 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenconnect.spec: bump to 3.02
+
 2011-05-02  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEmplayer2.spec: fork new spec off SFEmplayer-snap.spec

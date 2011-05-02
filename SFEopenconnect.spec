@@ -11,12 +11,14 @@
 %define src_name	openconnect
 
 Name:		SFEopenconnect
-Version:	2.26
+Version:	3.02
+IPS_component_version: 3.2
 Summary:	Open client for Cisco AnyConnect VPN
 Group:		Productivity/Networking/Security
 License:	LGPLv2+
 URL:		http://www.infradead.org/openconnect.html
 Source:		ftp://ftp.infradead.org/pub/%{src_name}/%{src_name}-%{version}.tar.gz
+Patch1:		openconnect-01-openssl.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -28,41 +30,39 @@ HTTPS and DTLS protocols.
 
 %prep
 %setup -q -n %{src_name}-%{version}
+%patch1 -p1
 
 %build
 export CC=gcc
-export CFLAGS="%{optflags}"
-export LDFLAGS="%{_ldflags}"
+export RPM_OPT_FLAGS="%{optflags}"
+
 make
 
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
-mkdir -p %{buildroot}/%{_libdir}
-mv %{buildroot}/%{_prefix}/libexec/nm-openconnect-auth-dialog %{buildroot}/%{_libdir}
-rmdir %{buildroot}/%{_prefix}/libexec
-mkdir -p %{buildroot}/%{_mandir}/man1m
-install -m 0644 openconnect.8 %{buildroot}/%{_mandir}/man1m/openconnect.1m
 for i in %{buildroot}%{_datadir}/man/*/*
 do
   sed 's/(8)/(1M)/g' $i | sed '/^\.TH/s/ \"8\" / \"1M\" /g' > $i.new
   mv $i.new $i
 done
-
-
+mkdir -p %{buildroot}/%{_mandir}/man1m
+mv %{buildroot}/%{_mandir}/man8/* %{buildroot}/%{_mandir}/man1m/
+rmdir %{buildroot}/%{_mandir}/man8
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-, root, bin)
-%doc TODO COPYING.LGPL
+%doc README.DTLS README.SecurID TODO COPYING.LGPL
 %{_bindir}/openconnect
-%{_libdir}/nm-openconnect-auth-dialog
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/doc
 %{_mandir}/man1m/*
 
 %changelog
+* Mon May 02 2011 - Milan Jurik
+- bump to 3.02
 * Thu Dec 02 2010 - Milan Jurik
 - Initial spec based on opensuse
