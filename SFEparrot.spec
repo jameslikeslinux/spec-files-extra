@@ -11,9 +11,9 @@ Name:		SFE%srcname
 Summary:	Register-based virtual machine designed to run dynamic languages efficiently
 URL:		http://www.parrot.org/
 Vendor:		Parrot Foundation
-Version:	3.0.0
+Version:	3.3.0
 License:	Artistic License 2.0
-Source:		ftp://ftp.parrot.org/pub/%srcname/releases/supported/%version/%srcname-%version.tar.gz
+Source:		ftp://ftp.parrot.org/pub/%srcname/releases/supported/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -61,8 +61,6 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir
 %_libdir/libparrot.so
 %_libdir/%srcname
-%dir %attr (-, root, other) %_libdir/pkgconfig
-%_libdir/pkgconfig/%srcname
 %dir %attr (-, root, sys) %_datadir
 %dir %attr (-, root, other) %_docdir
 %_docdir/%srcname
@@ -76,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Apr 23 2011 - Alex Viskovatoff
+- Bump to 3.3.0
 * Fri Mar 11 2011 - Alex Viskovatoff
 - Initial spec

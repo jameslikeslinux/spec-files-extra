@@ -1,3 +1,10 @@
+2011-05-02  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmplayer2.spec: fork new spec off SFEmplayer-snap.spec
+	* base-specs/gst-plugins-ugly.spec: disable x264, since it breaks build
+	* SFErakudo-perl.spec: bump to 2011.04
+	* SFEparrot.spec: bump to 3.3.0
+
 2011-04-30  Albert Lee  <trisk@opensolaris.org>
 
 	* SFEiodine.spec: Bump to 0.6.0-rc1. Add patch1, patch2.
@@ -17,10 +24,10 @@
 2011-04-28  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEmplayer-snap.spec: add missing optional dependencies
-	* ffmpeg.spec: remove superflous macro src_version
+	* ffmpeg.spec: remove superfluous macro src_version
 	* libx264.spec: update tarball
 	* SFEgcc-46.spec: move out of experimental/
-	
+
 2011-04-27  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEwordpress.spec: bump to 3.1.2 (security fixes)

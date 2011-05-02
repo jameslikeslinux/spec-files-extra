@@ -1,35 +1,26 @@
 #
-# spec file for package SFEmplayer
+# spec file for package SFEmplayer2
 #
-# includes module(s): mplayer
+# includes module(s): mplayer2
 #
 
-# NOTE:	Make sure that the first gcc found in your path is version 4.3.3
-#	or later.  gcc-3 can build this, but MPlayer complains that the
-#	compiler is too old when it is run.  gcc-4.5.1 is recommended.
+# mplayer2 is a fork of mplayer started in 2009.
+# We take the unconventional step of renaming the executable and
+# man pages to "mplayer2", to allow both the original and the fork
+# to be installed at the same time.
 
 # NOTE: To make man display the man page correctly, use
 #	export PAGER="/usr/bin/less -insR"
 
-# If you want to build the gui, use
-#   pkgtool --with-gui build <specfile>
-# Please note that the MPlayer download page says the included gui is
-# no longer developed and there is limited bug fixing for it.
-# SMPlayer is recommended instead as a front end.
-
-# To build using the daily MPlayer Subversion snapshot, use
-# --with-daily-snap.  But that will almost certainly require you
-# to rework some patches.
-
-# Default is to use fixed tarball revision from Arch Linux
-%define with_constant_tarball %{?_with_daily_snap:0}%{?!_with_daily_snap:1}
-
-# Default is to build without the gui "gmplayer"; if you want a modern gui,
-# then consider building SFEsmplayer as well
-%define build_gui %{?_with_gui:1}%{?!_with_gui:0}
+# NOTE: mplayer2 does not come with MEncoder, because, according to the
+#	mplayer2 Web site, "The MEncoder codebase was in very bad shape."
 
 %include Solaris.inc
-%define cc_is_gcc 1 
+%define cc_is_gcc 1
+
+# TODO: Since we now use SFEffmpeg, which pulls in a lot of media libs,
+#	the conditional "requires" machinery below and further on is
+#	probably superfluous.
 
 %define with_faad %(pkginfo -q SFEfaad2 && echo 1 || echo 0)
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
@@ -47,42 +38,22 @@
 %define with_schroedinger %(pkginfo -q SFElibschroedinger && echo 1 || echo 0)
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
-%if %with_constant_tarball
-%define revision 33159
-#else
-%define ver %(date '+%Y%m%d')
-%endif
+%define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
-%define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
-
-Name:                    SFEmplayer
-Summary:                 mplayer - The Movie Player
-Version:                 1.0.3.%ver
-URL:                     http://www.mplayerhq.hu/
-%if %with_constant_tarball
-Source7:		 ftp://ftp.archlinux.org/other/mplayer/mplayer-%revision.tar.xz
-%else
-Source:                  http://www.mplayerhq.hu/MPlayer/releases/mplayer-export-snapshot.tar.bz2
-%endif
+Name:                    SFEmplayer2
+Summary:                 mplayer2 - MPlayer rebooted
+Version:                 2.0
+URL:                     http://www.mplayer2.org/
+Source:                  http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
 Patch1:                  mplayer-snap-01-shell.diff
-Patch2:                  mplayer-snap-02-aserror.diff
 Patch3:                  mplayer-snap-03-ldflags.diff
 Patch4:                  mplayer-snap-04-realplayer.diff
 Patch5:                  mplayer-snap-05-cpudetect.diff
-#Patch6:                  mplayer-snap-06-mkstemp.diff
-%if %build_gui
-Source3:                 http://www.mplayerhq.hu/MPlayer/skins/Blue-1.7.tar.bz2
-Source4:                 http://www.mplayerhq.hu/MPlayer/skins/Abyss-1.7.tar.bz2
-Source5:                 http://www.mplayerhq.hu/MPlayer/skins/neutron-1.5.tar.bz2
-Source6:                 http://www.mplayerhq.hu/MPlayer/skins/proton-1.2.tar.bz2
-%endif
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-build
+SUNW_BaseDir:            %_basedir
+BuildRoot:               %_tmppath/%name-build
 
 %include default-depend.inc
 Requires: SUNWsmbau
-Requires: SUNWgnome-audio
-BuildRequires: SUNWgnome-audio-devel
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
 Requires: SUNWfreetype2
@@ -91,9 +62,9 @@ Requires: SUNWjpg
 Requires: SUNWpng
 Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
-Requires: SUNWgccruntime
-Requires: SUNWgnome-base-libs
 Requires: SUNWsmbau
+BuildRequires: SFEffmpeg-devel
+Requires: SFEffmpeg
 Requires: SFEliveMedia
 Requires: SFElibcdio
 %ifarch i386 amd64
@@ -102,9 +73,6 @@ BuildRequires: SFEyasm
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
-%if %with_constant_tarball
-BuildRequires: SFExz
-%endif
 
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
@@ -170,31 +138,14 @@ Requires: SFEalsa-lib
 %endif
 
 %prep
-rm -rf %name-build
-mkdir -p %name-build
-cd %name-build
-%if %with_constant_tarball
-xz -dc %SOURCE7 | tar xf -
-%define builddir mplayer
-%else
-bzip2 -dc %SOURCE | tar xf -
-%define builddir mplayer-export
-mv mplayer-export-* mplayer-export
-%endif
-cd %builddir
+%setup -q -n mplayer2-%version
 %patch1 -p0
-%patch2 -p0
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-#%patch6 -p1
-# The presence of the following file causes git to try to pull ffmpeg.
-# It is not clear if that file will be here permanently, or whether
-# its presence was an oversight by the Arch Linux maintainer.
-rm ffmpeg/mp_auto_pull
+
 
 %build
-cd %name-build/%builddir
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 %if %debug_build
@@ -205,22 +156,20 @@ dbgflag=--disable-debug
 export CFLAGS="-O2 -fomit-frame-pointer -D__hidden=\"\""
 %endif
 
-export LDFLAGS="-L%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib -liconv" 
+# SFEgcc adds /usr/gnu/lib to lib search path
+#export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
+export LDFLAGS="-liconv" 
 export CC=gcc
 
 bash ./configure				\
-	    --prefix=%{_prefix}			\
-	    --mandir=%{_mandir}			\
-            --libdir=%{_libdir}			\
-            --confdir=%{_sysconfdir}		\
-%if %build_gui
-            --enable-gui			\
-%endif
+	    --prefix=%_prefix			\
+	    --mandir=%_mandir			\
+            --libdir=%_libdir			\
+            --confdir=%_sysconfdir		\
             --enable-menu			\
-            --extra-cflags=" -I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include -I%{x11}/include -I/usr/sfw/include" \
-            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment -L%{x11}/lib -R%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib" \
-            --extra-libs='-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv' \
-            --codecsdir=%{_libdir}/mplayer/codecs \
+            --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
+            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
+            --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
 %if %with_faad
             --enable-faad		\
 %endif
@@ -233,59 +182,47 @@ bash ./configure				\
 
 gmake -j$CPUS 
 
+
 %install
-rm -rf $RPM_BUILD_ROOT
-cd %name-build/%builddir
-gmake install DESTDIR=$RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%_libdir/mplayer/codecs
-%if %build_gui
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/mplayer/skins
-(
-	cd $RPM_BUILD_ROOT%{_datadir}/mplayer/skins
-	gtar fxj %SOURCE3
-	gtar fxj %SOURCE4
-	gtar fxj %SOURCE5
-	gtar fxj %SOURCE6
-	ln -s Blue default
-)
-%else
-mkdir $RPM_BUILD_ROOT%_datadir/mplayer
-%endif
+rm -rf %buildroot
+gmake install DESTDIR=%buildroot
+mkdir %buildroot/%_datadir/mplayer2
 ln -s /usr/openwin/lib/X11/fonts/TrueType/FreeSerif.ttf \
-      $RPM_BUILD_ROOT%_datadir/mplayer/subfont.ttf
+      %buildroot/%_datadir/mplayer2/subfont.ttf
+
+cd %buildroot/%_bindir
+mv mplayer mplayer2
+cd ../share/man/man1
+mv mplayer.1 mplayer2.1
 
 # nroff does not understand macros used by mplayer man page
 # See http://www.mplayerhq.hu/DOCS/tech/manpage.txt
-mkdir $RPM_BUILD_ROOT%_datadir/man/cat1
-cd $RPM_BUILD_ROOT%_datadir/man/cat1
-groff -mman -Tutf8 -rLL=78n ../man1/mplayer.1 | col -bxp > mplayer.1
-ln -s mplayer.1 mencoder.1
-cd -
+#mkdir %buildroot/%_datadir/man/cat1
+#cd %buildroot/%_datadir/man/cat1
+cd ..
+mkdir cat1
+groff -mman -Tutf8 -rLL=78n man1/mplayer2.1 | col -bxp > cat1/mplayer2.1
 
-rm -f $RPM_BUILD_ROOT%_libdir/lib*a
-
-rm -rf $RPM_BUILD_ROOT%_sysconfdir
+rm -rf %buildroot/%_libdir
+rm -rf %buildroot/%_sysconfdir
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
+
 
 %files
 %defattr (-, root, bin)
 %_bindir/*
-%_libdir/*
 %dir %attr (0755, root, sys) %_datadir
 %_mandir/man1
 %_mandir/cat1
-%_datadir/mplayer/subfont.ttf
-%if %build_gui
-%{_datadir}/mplayer/skins
-%dir %attr (0755, root, other) %{_datadir}/applications
-%{_datadir}/applications/*
-%dir %attr (0755, root, other) %{_datadir}/pixmaps
-%{_datadir}/pixmaps/*
-%endif
+%_datadir/mplayer2/subfont.ttf
+
 
 %changelog
+* Mon May  2 2011 - Alex Viskovatoff
+- Fork SFEmplayer2.spec off SFEmplayer-snap.spec, making the appropriate changes
+- Rename everything "mplayer2" for now so can coexist with original mplayer
 * Wed Apr 27 2011 - Alex Viskovatoff
 - Add missing optional dependencies
 * Sat Apr  2 2011 - Alex Viskovatoff

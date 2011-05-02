@@ -6,13 +6,13 @@
 
 %include Solaris.inc
 %define srcname rakudo-star
-%define srcvers 2011.01
+%define srcvers 2011.04
 
 Name:		SFErakudo-perl
 Summary:	A Perl 6 implementation built on the Parrot virtual machine
 URL:		http://www.rakudo.org/
 Vendor:		Rakudo.org
-Version:	2011.1
+Version:	2011.4
 License:	Artistic License 2.0
 Source:		http://github.com/downloads/rakudo/star/%srcname-%srcvers.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -57,6 +57,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %_bindir/perl6
 %_bindir/ufo
+%_bindir/ufobuilder
+%_bindir/panda
 %_libdir/parrot
 %dir %attr (-, root, sys) %_datadir
 %dir %attr (-, root, other) %_docdir
@@ -65,5 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May  1 2011 - Alex Viskovatoff
+- Bump to 2011.04
 * Fri Mar 11 2011 - Alex Viskovatoff
 - Initial spec

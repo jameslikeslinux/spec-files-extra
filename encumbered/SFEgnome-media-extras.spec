@@ -256,7 +256,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gstreamer-%{gst_minmaj}/lib*.so*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gstreamer-*
-%{_datadir}/gstreamer-*/presets/*
+#%{_datadir}/gstreamer-*/presets/*
 %{_datadir}/gstreamer-*/camera-apps/*
 
 %files devel

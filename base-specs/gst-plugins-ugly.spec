@@ -64,6 +64,7 @@ bash ./configure \
 %endif
   --disable-sidplay     \
   --enable-external     \
+  --disable-x264	\
   --enable-orc
 
 # FIXME: hack: stop the build from looping
@@ -119,6 +120,8 @@ GStreamer support libraries header files.
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Apr 28 2011 - Alex Viskovatoff
+- disable x264, since it breaks build (x264 decoder support is provided by ffmpeg)
 * Sun Feb 06 2011 - Milan Jurik
 - bump to 0.10.17, remove support for old gstreamer
 * Thu Jun 10 2010 - Albert Lee <trisk@opensolaris.org>g
