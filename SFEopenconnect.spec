@@ -5,7 +5,6 @@
 #
 
 %include Solaris.inc
-%define cc_is_gcc 1
 %include base.inc
 
 %define src_name	openconnect
@@ -33,10 +32,7 @@ HTTPS and DTLS protocols.
 %patch1 -p1
 
 %build
-export CC=gcc
-export RPM_OPT_FLAGS="%{optflags}"
-
-make
+make CC="$CC" RPM_OPT_FLAGS="%{optflags}" EXTRA_CFLAGS=-D__sun__
 
 %install
 rm -rf %{buildroot}
@@ -62,6 +58,8 @@ rm -rf %{buildroot}
 %{_mandir}/man1m/*
 
 %changelog
+* Thu May 05 2011 - Knut Anders Hatlen
+- Do not require gcc
 * Mon May 02 2011 - Milan Jurik
 - bump to 3.02
 * Thu Dec 02 2010 - Milan Jurik

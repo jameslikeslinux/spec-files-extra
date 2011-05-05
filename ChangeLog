@@ -1,3 +1,7 @@
+2011-05-05  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEopenconnect.spec: Do not require gcc
+
 2011-05-02 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEopenconnect.spec: bump to 3.02
