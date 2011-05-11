@@ -76,9 +76,10 @@ export CXX=g++
 
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr -Denable_alsa_mixer="no"
 
-make -j$CPUS
+#make -j$CPUS
+make VERBOSE=1
 
 %install
 rm -rf %{buildroot}
@@ -109,5 +110,7 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed May 11 2011 - Alex Viskovatoff
+- Disable alsa-mixer plugin, which breaks the build
 * Mon Feb 21 2011 - Milan Jurik
 - Initial spec

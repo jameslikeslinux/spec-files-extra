@@ -38,6 +38,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
 
 %include default-depend.inc
+BuildRequires: SFEgcc
+Requires:      SFEgccruntime
 BuildRequires: SUNWtexi
 BuildRequires: SUNWperl584usr
 BuildRequires: SUNWxwinc
@@ -172,6 +174,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libswscale
 
 %changelog
+* Wed May 11 2011 - Alex Viskovatoff
+- Add SFEgccruntime as a dependency
 * Mon Jan 24 2011 - Alex Viskovatoff
 - Add missing build dependency
 * Wed Jun 16 2010 - Milan Jurik

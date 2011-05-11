@@ -1,3 +1,12 @@
+2011-05-11  Alex Viskovatoff <herzen@imap.cc>
+
+	* base-specs/ffmpeg.spec: bump to 0.6.3
+	* encumbered/SFEffmpeg.spec: add SFEgccruntime as a dependency
+	* SFEcairo-dock-plugins.spec: disable alsa-mixer plugin
+	* perl/SFEperl-xml-parser.spec: initial spec
+	* perl/SFEperl-xml-xpath.spec: initial spec
+	* include/x86_sse2.inc: use -march instead of deprecated -mcpu flag
+
 2011-05-05  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEopenconnect.spec: Do not require gcc

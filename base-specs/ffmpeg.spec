@@ -6,7 +6,7 @@
 
 Summary:                 FFmpeg - a very fast video and audio converter
 
-Version:                 0.6.2
+Version:                 0.6.3
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch2:                  ffmpeg-02-configure.diff
@@ -107,6 +107,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed May 11 2011 - Alex Viskovatoff
+- bump to 0.6.3
 * Thu Apr 27 2011 - Alex Viskovatoff
 - remove superflous macro src_version
 * Sat Mar 26 2011 - Milan Jurik
