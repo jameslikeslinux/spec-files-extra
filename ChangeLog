@@ -1,3 +1,11 @@
+2011-05-12  Albert Lee  <trisk@opensolaris.org>
+
+	* SFEossp-uuid, base-specs/ossp-uuid.spec,
+	  patches/ossp-uuid-01-debian-0001.diff,
+	  patches/ossp-uuid-02-debian-0002.diff,
+	  patches/ossp-uuid-03-ldflags.diff: *NEW* API and CLI for Universally
+	  Unique Identifiers from OSSP
+
 2011-05-11  Alex Viskovatoff <herzen@imap.cc>
 
 	* base-specs/ffmpeg.spec: bump to 0.6.3

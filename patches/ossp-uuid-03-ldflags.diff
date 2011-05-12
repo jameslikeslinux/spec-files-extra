@@ -1,0 +1,28 @@
+--- uuid-1.6.2.orig/Makefile.in	2011-05-12 14:40:21.836393392 -0400
++++ uuid-1.6.2/Makefile.in	2011-05-12 14:44:18.385247721 -0400
+@@ -112,16 +112,19 @@
+ 	@$(LIBTOOL) --mode=compile $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
+ 
+ $(LIB_NAME): $(LIB_OBJS)
+-	@$(LIBTOOL) --mode=link $(CC) -o $(LIB_NAME) $(LIB_OBJS) -rpath $(libdir) \
+-	    -version-info `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
++	@$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $(LIB_NAME) $(LIB_OBJS) \
++	    $(LIBS) -rpath $(libdir) -version-info \
++	    `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
+ 
+ $(DCE_NAME): $(DCE_OBJS)
+-	@$(LIBTOOL) --mode=link $(CC) -o $(DCE_NAME) $(DCE_OBJS) -rpath $(libdir) \
+-	    -version-info `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
++	@$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $(DCE_NAME) $(DCE_OBJS) \
++	    $(LIBS) -rpath $(libdir) -version-info \
++	    `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
+ 
+ $(CXX_NAME): $(CXX_OBJS)
+-	@$(LIBTOOL) --mode=link $(CXX) -o $(CXX_NAME) $(CXX_OBJS) -rpath $(libdir) \
+-	    -version-info `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
++	@$(LIBTOOL) --mode=link $(CXX) $(LDFLAGS) -o $(CXX_NAME) $(CXX_OBJS) \
++	    $(LIBS) -rpath $(libdir) -version-info \
++	    `$(SHTOOL) version -l c -d libtool $(S)/uuid_vers.h`
+ 
+ $(PRG_NAME): $(PRG_OBJS) $(LIB_NAME)
+ 	@$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $(PRG_NAME) $(PRG_OBJS) $(LIB_NAME) $(LIBS)
