@@ -1,3 +1,7 @@
+2011-05-13  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEofflineimap.spec, SFEbzr.spec: Fix Python 2.6 dependencies
+
 2011-05-13  N.B.Prashanth  <nbprash.mit@gmail.com>
 
 	* SFEaxel.spec: initial spec

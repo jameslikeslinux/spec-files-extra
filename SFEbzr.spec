@@ -18,9 +18,9 @@ Source:                 http://launchpad.net/bzr/2.3/%{version}/+download/bzr-%{
 URL:			http://bazaar-vcs.org
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:		%{_prefix}
-Requires: SUNWPython
+Requires: SUNWPython26
 %include default-depend.inc
-BuildRequires: SUNWPython-devel
+BuildRequires: SUNWPython26-devel
 
 
 %description
@@ -61,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/bzr.1
 
 %changelog
+* Fri May 13 2011 - knut.hatlen@oracle.com
+- Fix Python 2.6 dependencies.
 * Thu Apr 28 2011 - knut.hatlen@oracle.com
 - Bump to 2.3.1.
 * Mon Aug 23 2010 - brian.cameron@oracle.com

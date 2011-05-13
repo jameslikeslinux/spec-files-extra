@@ -7,6 +7,7 @@
 
 %define version_suffix g37d0fe8
 %define build_dir_suffix 64c2baa
+%define python_version 2.6
 
 Name:		SFEofflineimap
 Summary:	Bi-directional syncing of IMAP/Maildir email boxes
@@ -19,18 +20,18 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SUNWPython-devel
-Requires: SUNWPython
+BuildRequires: SUNWPython26-devel
+Requires: SUNWPython26
 
 %prep
 %setup -q -n nicolas33-offlineimap-%{build_dir_suffix}
 
 %build
-python setup.py build
+/usr/bin/python%{python_version} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-python setup.py install --root=$RPM_BUILD_ROOT --prefix=%{_prefix}
+/usr/bin/python%{python_version} setup.py install --root=$RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -43,6 +44,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Fri May 13 2011 - Knut Anders Hatlen
+- Fix Python 2.6 dependencies
 * Wed Mar 23 2011 - Knut Anders Hatlen
 - Bump to 6.3.2.1
 - Remove upstream patch
