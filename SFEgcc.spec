@@ -98,7 +98,7 @@
 
 Name:                SFEgccruntime
 Summary:             GNU gcc runtime libraries required by applications
-Version:             4.5.2
+Version:             4.5.3
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -482,6 +482,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue May 17 2011 - Milan Jurik
+- bump to 4.5.3
 * Thu Mar 17 2011 - Thomas Wagner
 - temporarily force SFEgmp SFEmpfr to have pkgtool --autodeps working in correct build-order
 * Wed Mar 16 2011 - Thomas Wagner
