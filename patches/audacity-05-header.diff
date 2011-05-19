@@ -1,0 +1,10 @@
+--- audacity-src-1.3.13-beta/lib-src/portsmf/allegro.cpp-orig	2011-05-19 16:23:38.321211753 -0500
++++ audacity-src-1.3.13-beta/lib-src/portsmf/allegro.cpp	2011-05-19 16:24:31.259714151 -0500
+@@ -16,6 +16,7 @@
+ #include "memory.h"
+ #include <iostream>
+ #include <fstream>
++#include <sys/ddi.h>
+ using namespace std;
+ #include "allegro.h"
+ #include "algrd_internal.h"

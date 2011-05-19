@@ -20,15 +20,15 @@
 
 Name:                SFEaudacity
 Summary:             Free, Cross-Platform Sound Editor
-Version:             1.3.12
+Version:             1.3.13
 Source:              http://audacity.googlecode.com/files/%{src_name}-minsrc-%{version}-beta.tar.bz2
-# bug 1910685/
-Patch1:              audacity-01-fixsed.diff
 # bug 1910699
-Patch2:              audacity-02-addgtklibs.diff
-Patch3:              audacity-03-nyquist.diff
-Patch4:              audacity-04-portaudio.diff
-Patch5:              audacity-05-memorybarrier.diff
+Patch1:              audacity-01-addgtklibs.diff
+Patch2:              audacity-02-nyquist.diff
+Patch3:              audacity-03-portaudio.diff
+Patch4:              audacity-04-memorybarrier.diff
+Patch5:              audacity-05-header.diff
+Patch6:              audacity-06-error-dialog.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -39,6 +39,8 @@ BuildRequires: SFEladspa-devel
 Requires: SFEladspa
 BuildRequires: SFEsoundtouch-devel
 Requires: SFEsoundtouch
+BuildRequires: SFElibsndfile-devel
+Requires: SFElibsndfile
 BuildRequires: SUNWaudh
 BuildRequires: SUNWgnu-findutils
 
@@ -100,6 +102,7 @@ Requires:                %{name}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -267,6 +270,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 19 2011 - Brian Cameron
+- Bump to 1.3.13.
 * Tue Apr 27 2010 - Brian Cameron
 - Bump to 1.3.12.
 * Fri Jan 29 2010 - Brian Cameron

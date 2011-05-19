@@ -6,11 +6,11 @@
 %include Solaris.inc
 
 %define	src_name gnet
-%define	src_url	http://www.gnetlibrary.org/src
+%define	src_url	http://download.gnome.org/sources/gnet/2.0
 
 Name:                SFEgnet
 Summary:             Simple network library
-Version:             2.0.7
+Version:             2.0.8
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -77,5 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Apr 14 2011 - brian.cameron@oracle.com
+- Bump to 2.0.8.
 * Fri Jul 27 2007 - dougs@truemail.co.th
 - Initial spec

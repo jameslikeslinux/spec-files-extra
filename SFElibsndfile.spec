@@ -74,10 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/sndfile-info
 %{_bindir}/sndfile-play
 %{_bindir}/sndfile-regtest
-%{_bindir}/sndfile-jackplay
 %{_bindir}/sndfile-cmp
 %{_bindir}/sndfile-metadata-set
 %{_bindir}/sndfile-metadata-get
+%{_bindir}/sndfile-interleave
+%{_bindir}/sndfile-salvage
+%{_bindir}/sndfile-concat
+%{_bindir}/sndfile-deinterleave
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*.so*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -91,10 +94,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{_arch64}/sndfile-info
 %{_bindir}/%{_arch64}/sndfile-play
 %{_bindir}/%{_arch64}/sndfile-regtest
-%{_bindir}/%{_arch64}/sndfile-jackplay
 %{_bindir}/%{_arch64}/sndfile-cmp
 %{_bindir}/%{_arch64}/sndfile-metadata-set
 %{_bindir}/%{_arch64}/sndfile-metadata-get
+%{_bindir}/%{_arch64}/sndfile-interleave
+%{_bindir}/%{_arch64}/sndfile-salvage
+%{_bindir}/%{_arch64}/sndfile-concat
+%{_bindir}/%{_arch64}/sndfile-deinterleave
 %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.so*
 %endif
