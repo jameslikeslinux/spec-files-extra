@@ -62,7 +62,7 @@ export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
 %endif
 export CXXFLAGS="%cxx_optflags"
 export RPM_OPT_FLAGS="$CFLAGS"
-export LDFLAGS="-R/usr/lib/firefox"
+export LDFLAGS="-R/usr/lib/firefox -lICE"
 
 glib-gettextize -f
 libtoolize --copy --force
