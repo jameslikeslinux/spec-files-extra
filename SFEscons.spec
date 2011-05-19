@@ -12,8 +12,8 @@ URL:                     http://www.scons.org/
 Source:                  %{sf_download}/scons/scons-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWPython
-BuildRequires:           SUNWPython-devel
+Requires:                SUNWPython26
+BuildRequires:           SUNWPython26-devel
 
 %include default-depend.inc
 
