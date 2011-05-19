@@ -15,7 +15,7 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWicud
-BuildRequires: SUNWPython
+BuildRequires: SUNWPython26
 Requires: SUNWicu
 
 %package devel
