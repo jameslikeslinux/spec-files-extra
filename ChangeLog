@@ -1,5 +1,13 @@
 2010-05-19  Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFElightdm.spec: Bump to 0.3.4.
+	* patches/ligthdm-02-vala.diff: Add new patch needed to build.
+	* patches/lightdm-03-compile.diff: Update so it applies and addresses
+	  new compile issues.
+	* patches/lightdm-04-vt.diff: Get VT code to compile.
+
+2010-05-19  Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFEaudacity.spec: Bump to 1.3.13.
 	* patches/audacity-audacity-01-fixsed.diff: Remove patch no longer
 	  needed.
