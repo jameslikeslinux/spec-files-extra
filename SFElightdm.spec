@@ -10,7 +10,7 @@
 Name:                    SFElightdm
 License:                 GPL v3
 Version:                 0.3.4
-Source:                  http://launchpad.net/lightdm/trunk/0.3.4/+download/lightdm-%{version}.tar.gz
+Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
 Patch1:                  lightdm-01-branding.diff
@@ -138,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri May 20 2011 - Brian Cameron  <brian.cameron@oracle.com>
+- Bump to 0.3.4.  Rework patches.
 * Sat Oct 09 2010 - Simon Jin      <yun-tong.jin@oracle.com>
 - Bump to 0.1.2, reorder the patches.
 * Thu Aug 26 2010 - Brian Cameron  <brian.cameron@oracle.com>
