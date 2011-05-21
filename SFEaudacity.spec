@@ -13,7 +13,7 @@
 
 %define with_flac %(pkgchk -l SUNWflac-devel 2>/dev/null | grep 'FLAC++' >/dev/null && echo 1 || echo 0)
 %define with_libmad %(pkginfo -q SFElibmad && echo 1 || echo 0)
-%define with_libtwolame %(pkginfo -q SFElibtwolame && echo 1 || echo 0)
+%define with_twolame %(pkginfo -q SFEtwolame && echo 1 || echo 0)
 %define with_wxw_gcc %(pkginfo -q SFEwxwidgets-gnu && echo 1 || echo 0)
 %define SFElibsndfile %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
@@ -90,7 +90,7 @@ Requires: SFElibid3tag
 %endif
 
 # If twolame is installed, build with it.
-%if %with_libtwolame
+%if %with_twolame
 BuildRequires SFEtwolame-devel
 Requires SFEtwolame
 %endif
@@ -154,7 +154,7 @@ AU_LIBMAD_CONFIG="--with-libmad"
 AU_LIBMAD_CONFIG="--without-libmad"
 %endif
 
-%if %with_libtwolame
+%if %with_twolame
 AU_LIBTWOLAME_CONFIG="--with-libtwolame"
 %else
 AU_LIBTWOLAME_CONFIG="--without-libtwolame"
