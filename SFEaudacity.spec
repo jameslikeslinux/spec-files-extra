@@ -91,8 +91,8 @@ Requires: SFElibid3tag
 
 # If twolame is installed, build with it.
 %if %with_twolame
-BuildRequires SFEtwolame-devel
-Requires SFEtwolame
+BuildRequires: SFEtwolame-devel
+Requires: SFEtwolame
 %endif
 
 %package l10n
