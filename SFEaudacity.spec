@@ -15,6 +15,7 @@
 %define with_libmad %(pkginfo -q SFElibmad && echo 1 || echo 0)
 %define with_libtwolame %(pkginfo -q SFElibtwolame && echo 1 || echo 0)
 %define with_wxw_gcc %(pkginfo -q SFEwxwidgets-gnu && echo 1 || echo 0)
+%define SFElibsndfile %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 %define	src_name audacity
 
@@ -39,8 +40,13 @@ BuildRequires: SFEladspa-devel
 Requires: SFEladspa
 BuildRequires: SFEsoundtouch-devel
 Requires: SFEsoundtouch
+%if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
+%else
+BuildRequires: SUNWlibsndfile
+Requires: SUNWlibsndfile
+%endif
 BuildRequires: SUNWaudh
 BuildRequires: SUNWgnu-findutils
 
