@@ -207,9 +207,15 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+
+%if %build_l10n
 mv $RPM_BUILD_ROOT%{_datadir}/locale/zh $RPM_BUILD_ROOT%{_datadir}/locale/zh_CN
 cd  $RPM_BUILD_ROOT%{_datadir}/locale
 ln -s zh_CN zh
+%else
+#REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -238,9 +244,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/audacity
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%dir %attr (0755, root, other) %{_datadir}/doc
-%{_datadir}/doc/*
-%attr (-, root, other) %{_datadir}/locale
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 %dir %attr (-, root, root) %{_datadir}/mime
 %attr (-, root, root) %{_datadir}/mime/*
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
