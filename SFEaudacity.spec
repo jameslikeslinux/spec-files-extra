@@ -277,7 +277,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
 %attr (-, root, other) %{_datadir}/locale
-%{_datadir}/locale
 %endif
 
 %changelog
