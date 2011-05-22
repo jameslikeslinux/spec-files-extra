@@ -2,15 +2,17 @@
 # spec file for package SFEopenttd.spec
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 %define src_name openttd
-%define src_version 1.0.5
+%define src_version 1.1.0
 
 Name:           SFEopenttd
-Version:        1.0.5
+Version:        1.1.0
 Summary:        Transport system simulation game
-Source:         http://binaries.openttd.org/releases/%{src_version}/%{src_name}-%{src_version}-source.tar.bz2
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.1/opengfx-0.3.1.zip
+Source:         http://binaries.openttd.org/releases/%{src_version}/%{src_name}-%{src_version}-source.tar.gz
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.3/opengfx-0.3.3.zip
 Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
@@ -57,12 +59,14 @@ fi
 
 sed -e '1,$s@/usr/local@%{_prefix}@g' <config.lib >config.lib.sed
 mv config.lib.sed config.lib
-export CC=/usr/sfw/bin/gcc 
-export CXX=/usr/sfw/bin/g++ 
-export CFLAGS="-I%{_includedir} -I%{_includedir}/lzo "
-export LDFLAGS="-L%{_libdir} -R%{_libdir}"
+export CC=gcc
+export CXX=g++
+export CFLAGS="-I%{_includedir} -I%{_includedir}/lzo %optflags"
+export CXXFLAGS="%cxx_optflags"
+export LDFLAGS="%_ldflags"
 bash ./configure \
         --disable-strip \
+	--without-icu \
         --prefix-dir= \
         --binary-dir=%{_bindir} \
         --data-dir=%{_datadir}/openttd \
@@ -73,6 +77,7 @@ bash ./configure \
         --without-shared-dir \
         --doc-dir=%{_docdir} \
         --install-dir=$RPM_BUILD_ROOT
+
 gmake -j$CPUS
 # generate the AI API docs
 cd src/ai/api
@@ -81,7 +86,7 @@ doxygen
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%patch1 -p1
+#%patch1 -p1
 make install VERBOSE=1
 
 # Remove the installed docs - we will install subset of those
@@ -145,6 +150,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Sun May 22 2011 - Milan Jurik
+- bump to 1.1.0
+- disable libicu support to allow cross-version build
 * Fri Nov 26 2010 - Milan Jurik
 - fix music datafiles place
 * Tue Nov 23 2010 - Milan Jurik
