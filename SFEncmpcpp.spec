@@ -25,7 +25,7 @@ BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SUNWncurses-devel
 Requires:	SUNWncurses
-Requires:	SUNWncursesw
+Requires:	SFEncursesw
 BuildRequires:	SFElibmpdclient-devel
 Requires:	SFElibmpdclient
 
