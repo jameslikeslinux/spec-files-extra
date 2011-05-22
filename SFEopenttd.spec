@@ -32,12 +32,13 @@ BuildRequires:  SUNWzlib
 Requires:  SUNWzlib
 BuildRequires:  SUNWfontconfig
 Requires:  SUNWfontconfig
-BuildRequires:  SUNWicu
-Requires:  SUNWicu
 BuildRequires:  SUNWfreetype2
 Requires:  SUNWfreetype2
 BuildRequires:  SUNWdoxygen
-Requires:  SFElzo
+Requires: SFElzo
+BuildRequires: SFElzo
+Requires: SFExz
+BuildRequires: SFExz
 BuildRequires:	SUNWgsed
 BuildRequires:	SUNWgnome-desktop-prefs
 
