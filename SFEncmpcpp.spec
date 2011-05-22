@@ -14,7 +14,7 @@ Name:		SFEncmpcpp
 Summary:	ncurses based mpd client
 URL:		http://unkart.ovh.org/ncmpcpp
 Vendor:		Andrzej Rybczak <electricityispower.gmail.com>
-Version:	0.5.6
+Version:	0.5.7
 License:	GPLv2
 Source:		http://unkart.ovh.org/%srcname/%srcname-%version.tar.bz2
 
@@ -25,6 +25,7 @@ BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SUNWncurses-devel
 Requires:	SUNWncurses
+Requires:	SUNWncursesw
 BuildRequires:	SFElibmpdclient-devel
 Requires:	SFElibmpdclient
 
@@ -81,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 22 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Add missing dependencies
+- Bump to 0.5.7
 * Tue Feb 01 2011 - Alex Viskovatoff
 - Add missing dependencies
 * Sun Jan 30 2011 - Alex Viskovatoff
