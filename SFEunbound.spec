@@ -7,7 +7,7 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		SFEunbound
-Version:	1.4.9
+Version:	1.4.10
 License:	BSD
 URL:		http://www.nlnetlabs.nl/unbound/
 Source:		http://www.unbound.net/downloads/unbound-%{version}.tar.gz
@@ -129,6 +129,8 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Wed May 25 2011 - Milan Jurik
+- bump to 1.4.10
 * Fri Mar 25 2011 - Milan Jurik
 - bump to 1.4.9
 * Fri Feb 04 2011 - Milan Jurik
