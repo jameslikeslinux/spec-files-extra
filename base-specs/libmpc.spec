@@ -54,10 +54,13 @@ make -j$CPUS
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
+rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu May 26 2011 - Knut Anders Hatlen
+- remove conflicting file /usr/gnu/share/info/dir
 * Tue Mar 01 2011 - Milan Jurik
 - start proper multiarch

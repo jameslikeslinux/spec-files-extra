@@ -1,3 +1,8 @@
+2011-05-26  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* base-specs/libmpc.spec: remove conflicting file
+	  /usr/gnu/share/info/dir
+
 2011-05-22  N.B.Prashanth  <nbprash.mit@gmail.com>
 
 	* SFEncmpcpp.spec: bump to 0.5.7 ; Add missing dependencies
