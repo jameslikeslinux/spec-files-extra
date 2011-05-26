@@ -23,9 +23,8 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
-BuildRequires:	SUNWncurses-devel
+BuildRequires:	SUNWncurses
 Requires:	SUNWncurses
-Requires:	SFEncursesw
 BuildRequires:	SFElibmpdclient-devel
 Requires:	SFElibmpdclient
 

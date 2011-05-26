@@ -1,3 +1,9 @@
+2011-05-26  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEtexi2html.spec: initial spec
+	* encumbered/SFEmpd.spec: add missing dependency
+	* ext-sources/C++-filesystem-layout.dot: show the new arrangement
+
 2011-05-26  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* base-specs/libmpc.spec: remove conflicting file

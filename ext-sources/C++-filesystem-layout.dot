@@ -1,16 +1,28 @@
+# C++-filesystem-layout.dot
+#
+# Describes the projected SFE file system layout of C++ libraries, compiled with
+# Sun Studio CC against stdcxx or stlport4, or with g++.
+#
+# Here is the link to a svg image produced by this file at the SFE Wiki:
+# https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=File:C%2B%2B-filesystem-layout.svg#file
+#
+# To locally produce viewable files from this dot file, you need SFEgraphviz.
+# dot -T svg -o C++-filesystem-layout.svg C++-filesystem-layout.dot
+
 digraph G {
 	node [shape=plaintext,fontsize="10pt"]
 	edge [dir=none]
 	usr [label="/usr"]
 	usr -> bin
+	usr -> gpp
+	gpp -> gpp_bin
+	gpp -> gpp_lib
+	gpp -> gpp_include
+	gpp -> gpp_share
 	usr -> lib
-	lib -> gpp [color=gray]
-	gpp -> gpp_v1 [color=gray]
 	usr -> stdcxx [minlen=2]
 	stdcxx -> sx_bin
-	stdcxx -> sx_lib -> sx_gpp
-	sx_gpp -> gpp_v2
-	sx_gpp -> gpp_v3
+	stdcxx -> sx_lib
 	stdcxx -> sx_include
 	stdcxx -> sx_share
 	usr -> include
@@ -20,18 +32,23 @@ digraph G {
 	stlport4 -> st4_lib [color=gray]
 	stlport4 -> st4_include [color=gray]
 	stlport4 -> st4_share [color=gray]
-	sx_gpp [label="g++"]
-	gpp [label="g++",fontcolor=dimgray]
-	gpp_v1 [label="3.4.3",fontcolor=dimgray]
-	gpp_v2 [label="4.4.5"]
-	gpp_v3 [label="4.5.2"]
 	sx_bin [label="bin"]
 	sx_lib [label="lib"]
 	sx_include [label="include"]
 	sx_share [label="share"]
 	stlport4 [fontcolor=dimgray]
+	gpp [label="g++"]
+	gpp_bin [label="bin"]
+	gpp_lib [label="lib"]
+	gpp_include [label="include"]
+	gpp_share [label="share"]
 	st4_bin [label="bin"] [fontcolor=dimgray]
 	st4_lib [label="lib"] [fontcolor=dimgray]
 	st4_include [label="include"] [fontcolor=dimgray]
 	st4_share [label="share"] [fontcolor=dimgray]
 }
+
+#* May 19 2011 - Alex Viskovatoff
+#- Packages for libs built with gcc now provide their own headers etc.
+#* Feb 03 2011 - Alex Viskovatoff
+#- Initial version

@@ -13,7 +13,7 @@
 #     driver	"sun"
 # }
 
-%define build_encumbered %{?_without_encumbered:0}%{?!_without_encumbered:0}
+%define build_encumbered %{?_without_encumbered:0}%{?!_without_encumbered:1}
 
 %include Solaris.inc
 
@@ -52,11 +52,13 @@ Requires: SUNWavahi-bridge-dsd
 BuildRequires: SFElibmpcdec-devel
 BuildRequires: SFElibmad-devel
 BuildRequires: SFEfaad2-devel
+BuildRequires: SFEffmpeg
 # libid3tag is not encumbered, but it is not used by flac or ogg
 BuildRequires: SFElibid3tag-devel
 Requires: SFElibmpcdec
 Requires: SFEfaad2
 Requires: SFElibmad
+Requires: SFEffmpeg
 Requires: SFElibid3tag
 %endif
 
@@ -137,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon May 16 2011 - Alex Viskovatoff
+- Add missing dependency; fix setting of build_encumbered
 * Tue Apr 12 2011 - Alex Viskovatoff
 - Bump to 0.16.2; add --without-encumbered option
 * Tue Jan 18 2011 - Alex Viskovatoff
