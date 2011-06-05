@@ -7,6 +7,7 @@
 #
 %include Solaris.inc
 %include base.inc
+%include packagenamemacros.inc
 
 %define _prefix /usr
 %define tarball_version  20100424-3.0
@@ -31,9 +32,9 @@ Meta(info.upstream):	 	http://www.thrysoee.dk/editline/
 # Meta(info.repository_url):	[open source code repository]
 Meta(info.classification):	System Libraries
 
-BuildRequires: SUNWhea
-BuildRequires: system/library
-Requires: system/library
+BuildRequires: %{pnm_requires_SUNWhea}
+BuildRequires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWcsl}
 
 %description
 This is an autotool- and libtoolized port of the NetBSD Editline library (libedit). This Berkeley-style licensed command line editor library provides generic line editing, history, and tokenization functions, similar to those found in GNU Readline.
@@ -132,9 +133,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/include/*
 
 %changelog
-* Sat Mar 26 16:30:19 JST 2011
-- TAKI, Yasushi <taki@justplayer.com>
+* Sun Jun  5 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- Fix dependency using pnm.
+* Sat Mar 26 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Change permissions.
-* Tue Jan  5 16:49:53 JST 2010
-- TAKI, Yasushi <taki@justplayer.com>
+* Tue Jan  5 JST 2010 TAKI, Yasushi <taki@justplayer.com>
 - Initial Revision
