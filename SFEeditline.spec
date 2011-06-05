@@ -32,8 +32,8 @@ Meta(info.upstream):	 	http://www.thrysoee.dk/editline/
 # Meta(info.repository_url):	[open source code repository]
 Meta(info.classification):	System Libraries
 
-BuildRequires: %{pnm_requires_SUNWhea}
-BuildRequires: %{pnm_requires_SUNWcsl}
+BuildRequires: %{pnm_buildrequires_SUNWhea}
+BuildRequires: %{pnm_buildrequires_SUNWcsl}
 Requires: %{pnm_requires_SUNWcsl}
 
 %description
