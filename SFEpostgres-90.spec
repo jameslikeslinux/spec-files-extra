@@ -6,6 +6,7 @@
 #
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define _prefix /usr/postgres
 %define _var_prefix /var/postgres
@@ -34,30 +35,27 @@ SUNW_Basedir:            %{_basedir}
 SUNW_Copyright:          %{name}.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
-BuildRequires: library/libxslt
-BuildRequires: library/libxml2
-BuildRequires: library/security/openssl
-BuildRequires: library/zlib
-#BuildRequires: library/readline
-#BuildRequires: library/ncurses
-BuildRequires: library/editline
-BuildRequires: system/library
-BuildRequires: system/library/security/gss
-BuildRequires: system/library/math
-BuildRequires: system/library/security/gss
-BuildRequires: runtime/tcl-8
+BuildRequires: %{pnm_buildrequires_SUNWlxsl}
+BuildRequires: %{pnm_buildrequires_SUNWlxml}
+BuildRequires: %{pnm_buildrequires_SUNWgss}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+BuildRequires: %{pnm_buildrequires_SUNWzlib}
+BuildRequires: %{pnm_buildrequires_SUNWcsl}
+BuildRequires: %{pnm_buildrequires_SUNWlibms}
+BuildRequires: %{pnm_buildrequires_SUNWgss}
+BuildRequires: %{pnm_buildrequires_SUNWTcl}
+BuildRequires: SFEeditline
 
-Requires: database/postgres-90/library
-Requires: library/libxslt
-Requires: library/libxml2
-Requires: library/zlib
-Requires: system/library
-Requires: library/security/openssl
-Requires: system/library/math
-Requires: system/library/security/gss
-#Requires: library/readline
-#Requires: library/ncurses
-Requires: library/editline
+Requires: %{pnm_requires_SUNWlxsl}
+Requires: %{pnm_requires_SUNWlxml}
+Requires: %{pnm_requires_SUNWzlib}
+Requires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWopenssl}
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{pnm_requires_SUNWgss}
+Requires: SFEeditline
+
+Requires: %{name}-library
 
 # OpenSolaris IPS Package Manifest Fields
 Meta(info.upstream):	 	PostgreSQL Global Development Group
@@ -68,74 +66,73 @@ Meta(info.classification):	System Database
 %description
 PostgreSQL is a powerful, open source object-relational database system. It has more than 15 years of active development and a proven architecture that has earned it a strong reputation for reliability, data integrity, and correctness. It runs on all major operating systems, including Linux, UNIX (AIX, BSD, HP-UX, SGI IRIX, Mac OS X, Solaris, Tru64), and Windows. It is fully ACID compliant, has full support for foreign keys, joins, views, triggers, and stored procedures (in multiple languages). It includes most SQL:2008 data types, including INTEGER, NUMERIC, BOOLEAN, CHAR, VARCHAR, DATE, INTERVAL, and TIMESTAMP. It also supports storage of binary large objects, including pictures, sounds, or video. It has native programming interfaces for C/C++, Java, .Net, Perl, Python, Ruby, Tcl, ODBC, among others, and exceptional documentation. 
 
-%package -n postgres-90-library
+%package library
 
 IPS_package_name: database/postgres-90/library
 Summary: PostgreSQL client libraries
-Requires: system/library/math
-Requires: system/library
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{pnm_requires_SUNWcsl}
 
-%package -n postgres-90-languages
+%package languages
 IPS_package_name: database/postgres-90/language-bindings
 Summary: PostgreSQL additional Perl, Python & TCL server procedural languages
 
-Requires: runtime/perl-584
-Requires: runtime/python-24
-Requires: system/library/math
-Requires: system/library
-Requires: runtime/tcl-8
-Requires: database/postgres-90
-Requires: database/postgres-90/library
+#Requires: runtime/perl-584
+#Requires: runtime/python-24
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWTcl}
+Requires: %{name}
+Requires: %{name}-library
 
-%package -n postgres-90-developer
+%package developer
 IPS_package_name: database/postgres-90/developer
 Summary: PostgreSQL development tools and header files
 
-Requires: library/libxslt
-Requires: library/libxml2
-Requires: system/library/security/gss
-Requires: library/security/openssl
-Requires: system/library
-Requires: library/zlib
-Requires: system/library/math
-Requires: database/postgres-90
-Requires: database/postgres-90/library
+Requires: %{pnm_requires_SUNWlxsl}
+Requires: %{pnm_requires_SUNWlxml}
+Requires: %{pnm_requires_SUNWgss}
+Requires: %{pnm_requires_SUNWopenssl}
+Requires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWzlib}
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{name}
+Requires: %{name}-library
 
-%package -n postgres-90-documentation
+%package documentation
 IPS_package_name: database/postgres-90/documentation
 Summary: PostgreSQL documentation and man pages
 
-%package -n postgres-90-server
+%package server
 IPS_package_name: service/database/postgres-90
 Summary: PostgreSQL database server
 
 %define _basedir         /
 SUNW_Basedir:            %{_basedir}
 
-Requires: library/libxslt
-Requires: library/libxml2
-Requires: system/library/security/gss
-Requires: library/security/openssl
-Requires: system/library
-Requires: library/zlib
-Requires: system/library/math
-Requires: database/postgres-90
-Requires: database/postgres-90/library
+Requires: %{pnm_requires_SUNWlxsl}
+Requires: %{pnm_requires_SUNWlxml}
+Requires: %{pnm_requires_SUNWgss}
+Requires: %{pnm_requires_SUNWopenssl}
+Requires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWzlib}
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{name}
+Requires: %{name}-library
 
-%package -n postgres-90-contrib
+%package contrib
 IPS_package_name: database/postgres-90/contrib
 Summary: PostgreSQL community contributed tools not part of core product
 
-Requires: database/postgres-90/library
-Requires: library/libxslt
-Requires: library/libxml2
-Requires: system/library/security/gss
-Requires: library/security/openssl
-Requires: system/library
-Requires: library/zlib
-Requires: system/library/math
-Requires: database/postgres-90
-Requires: database/postgres-90/library
+Requires: %{pnm_requires_SUNWlxsl}
+Requires: %{pnm_requires_SUNWlxml}
+Requires: %{pnm_requires_SUNWgss}
+Requires: %{pnm_requires_SUNWopenssl}
+Requires: %{pnm_requires_SUNWcsl}
+Requires: %{pnm_requires_SUNWzlib}
+Requires: %{pnm_requires_SUNWlibms}
+Requires: %{name}
+Requires: %{name}-library
 
 %prep
 %setup -c -n %{tarball_name}-%{tarball_version}
@@ -164,7 +161,7 @@ export CCAS=/usr/bin/cc
 export CCASFLAGS=
 export CC=cc
 # export CFLAGS="%optflags"
-export CFLAGS="-i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
+export CFLAGS="-i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xCC"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -lncurses"
 export LD_OPTIONS="-R/usr/sfw/lib:/usr/gnu/lib -L/usr/sfw/lib:/usr/gnu/lib"
 
@@ -204,7 +201,8 @@ gmake -j$CPUS world
 %ifarch amd64 sparcv9
 cd ../%{tarball_name}-%{tarball_version}-64
 
-export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
+#export CFLAGS="%optflags64"
+export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xCC"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib/%{_arch64} -R/usr/gnu/lib/%{_arch64} -lncurses"
 export LD_OPTIONS="-R/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64} -L/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64}"
 
@@ -305,7 +303,7 @@ cd $RPM_BUILD_ROOT/%{_prefix}/%{major_version}/bin/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%actions -n postgres-90-server
+%actions server
 group groupname="postgres"
 user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" password=NP group="postgres"
 
@@ -406,7 +404,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 
 
 
-%files -n postgres-90-library
+%files library
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
@@ -483,7 +481,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64/libecpg_compat.so.3
 %attr (0755, root, bin) %{_prefix}/%{major_version}/lib/amd64/libecpg.so
  
-%files -n postgres-90-languages
+%files languages
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
@@ -529,7 +527,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0444, root, bin) %{_prefix}/%{major_version}/share/unknown.pltcl
 
 
-%files -n postgres-90-developer
+%files developer
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
@@ -1112,7 +1110,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/sqlda-native.h
 %attr (0644, root, bin) %{_prefix}/%{major_version}/include/sqlda.h
 
-%files -n postgres-90-documentation
+%files documentation
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/doc
@@ -1128,7 +1126,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/doc/contrib/timetravel.example
 
 
-%files -n postgres-90-server
+%files server
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, sys) /usr
@@ -1356,7 +1354,7 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %attr (0444, root, bin) %{_prefix}/%{major_version}/share/tsearch_data/french.stop
 %attr (0444, root, bin) %{_prefix}/%{major_version}/share/tsearch_data/german.stop
 
-%files -n postgres-90-contrib
+%files contrib
 %defattr (-, root, bin)
 
 %dir %attr (0755, root, bin) %{_prefix}/%{major_version}/bin
@@ -1529,7 +1527,9 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/bin/amd64/vacuumlo
 
 %changelog
-* Mon Apr 18 20:36:31 TAKI, Yasushi <taki@justplayer.com>
+* Sun Jun  5 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- fix dependency using for pnm.
+* Mon Apr 18 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Bump to 9.0.4
 * Fri Feb  4 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Support 9.0.3
