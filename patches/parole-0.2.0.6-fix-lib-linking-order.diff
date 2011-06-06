@@ -1,0 +1,15 @@
+--- parole-0.2.0.6/docs/plugin-api/Makefile.am_orig	2011-04-25 21:14:49.771563600 -0400
++++ parole-0.2.0.6/docs/plugin-api/Makefile.am	2011-04-25 21:16:16.621746100 -0400
+@@ -71,11 +71,11 @@
+         -I$(top_builddir)/parole
+ 
+ GTKDOC_LIBS=                    \
++	$(top_builddir)/parole/libparole.la \	
+ 	$(GTK_LIBS)		\
+         $(GLIB_LIBS)            \
+         $(GOBJECT_LIBS)		\
+ 	$(TAGLIBC_LIBS)		\
+-	$(top_builddir)/parole/libparole.la
+ 
+ if ENABLE_GTK_DOC
+ include $(top_srcdir)/gtk-doc.make

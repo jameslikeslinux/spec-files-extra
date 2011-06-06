@@ -1,0 +1,45 @@
+--- parole-0.2.0.6/data/mime/mime-functions.sh_orig	2011-04-25 21:35:43.646891100 -0400
++++ parole-0.2.0.6/data/mime/mime-functions.sh	2011-04-25 21:42:35.675369100 -0400
+@@ -2,14 +2,14 @@
+ 
+ get_audio_mimetypes ()
+ {
+-	MIMETYPES=`grep -v ^# $1 | grep "\/" | grep audio | grep -v "audio/x-pn-realaudio"`
++	MIMETYPES=`grep -v ^# $1 | grep "\/" | grep audio | grep -v "audio/x-pn-realaudio | grep -v x-scheme-handler/"`
+ 	MIMETYPES="$MIMETYPES application/x-flac"
+ 	MIMETYPES="$MIMETYPES application/vnd.rn-realmedia"
+ }
+ 
+ get_video_mimetypes ()
+ {
+-	MIMETYPES=`grep -v ^# $1 | grep -v x-content/ | grep -v audio | grep -v "application/x-flac"`
++	MIMETYPES=`grep -v ^# $1 | grep -v x-content/ | grep -v audio | grep -v "application/x-flac | grep -v x-scheme-handler/"`
+ 	MIMETYPES="$MIMETYPES audio/x-pn-realaudio"
+ }
+ 
+--- parole-0.2.0.6/data/mime/mime-type-include.sh_orig	2011-04-25 21:02:52.088404600 -0400
++++ parole-0.2.0.6/data/mime/mime-type-include.sh	2011-04-25 21:42:35.690994100 -0400
+@@ -6,7 +6,7 @@
+ 	echo "\"$i\","
+ }
+ 
+-MIMETYPES=`grep -v ^# $1 | grep -v x-content/`
++MIMETYPES=`grep -v ^# $1 | grep -v x-content/ | grep -v x-scheme-handler/`
+ 
+ echo "/* generated with mime-types-include.sh, don't edit */"
+ 
+--- parole-0.2.0.6/data/desktop/desktop.sh_orig	2011-04-25 21:29:42.847662600 -0400
++++ parole-0.2.0.6/data/desktop/desktop.sh	2011-04-25 21:59:16.864512600 -0400
+@@ -10,4 +10,12 @@
+ 	echo_mime;
+ done
+ 
++# URI scheme handlers
++SCHEMES="pnm mms net rtp rtsp mmsh uvox icy icyx"
++
++for i in $SCHEMES ; do
++    printf "x-scheme-handler/$i;"
++done
++
++
+ echo ""
