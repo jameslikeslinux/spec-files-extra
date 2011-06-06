@@ -1,7 +1,7 @@
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
         * Bumped SFEbanshee.spec to 2.1.0
         * Bumped SFElibfuse.spec and SFEfusefs.spec to fuse 2.8.5
-        * SFEimagemagick.spec: Bump to 6.6.9-10
+        * SFEimagemagick.spec: Bump to 6.7.0-4
         * SFEntfs-3g: Bump to 20110412
         * SFEparole.spec: Bumped to 0.2.0.6
         * patches/parole-0.2.0.6-fix-lib-linking-order.diff: Patch for link order fix.

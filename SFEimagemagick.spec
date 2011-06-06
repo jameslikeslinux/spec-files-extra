@@ -6,15 +6,15 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-#%define src_url		ftp://ftp.imagemagick.net/pub/%src_name
-%define major		6.6.9
-%define minor		10
-%define src_url         %{sf_download}/project/imagemagick/%{major}-sources
+%define src_url		ftp://ftp.imagemagick.org/pub/%src_name
+%define major		6.7.0
+%define minor		4
+#%define src_url         %{sf_download}/project/imagemagick/%{major}-sources
 
 Name:                   SFEimagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
-Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
+Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.7z
 Group:			Graphics
 License:		ImageMagick License
 SUNW_BaseDir:           %{_basedir}
@@ -104,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
-- update to 6.6.9-10
+- update to 6.7.0-4
 * Tue Apr 12 2011 - Alex Viskovatoff
 - update to 6.6.9-4
 * Thu Jan 13 2010 - Milan Jurik
