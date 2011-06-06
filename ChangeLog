@@ -1,3 +1,9 @@
+2011-06-06  Ken Mays  <kmays2000@gmail.com>
+        * SFEntfs-3g-20110412: Initial revised spec
+        * SFEparole.spec: Bumped to 0.2.0.6
+        * patches/parole-0.2.0.6-fix-lib-linking-order.diff: Patch for link order fix.
+        * patches/parole-0.2.0.6-add-uri-scheme-handler-support.diff: Patch for URI scheme support.
+
 2011-05-26  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEtexi2html.spec: initial spec
