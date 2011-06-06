@@ -6,13 +6,13 @@
 %include Solaris.inc
 
 Name:         SFEbanshee
-Version:      0.13.1
+Version:      2.1.0
 Summary:      Banshee - music management and playback for GNOME
-Source:       http://banshee-project.org/files/banshee/banshee-%{version}.tar.gz
+Source:       http://ftp.gnome.org/pub/GNOME/sources/banshee/2.1/banshee-%{version}.tar.bz2
 Patch1:       banshee-01-sunpro.diff
 Patch2:       banshee-02-monodoc.diff
 Patch3:       banshee-03-solaris.diff
-URL:          http://banshee-project.org/
+URL:          http://banshee.fm/
 SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 Docdir:	      %{_defaultdocdir}/doc
@@ -166,6 +166,9 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_datadir}/dbus-1/services/*
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+%dir %attr (0755, root, other) %{_datadir}/banshee/icons/hicolor/*/categories/
+%dir %attr (0755, root, other) %{_datadir}/banshee/icons/hicolor/*/actions/
+%dir %attr (0755, root, other) %{_datadir}/banshee/icons/hicolor/*/emblems//
 %dir %attr (0755, root, other) %{_datadir}/icons
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/scalable/
@@ -183,6 +186,12 @@ test -x $BASEDIR/lib/postrun || exit 0
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/apps/
 %{_datadir}/icons/hicolor/32x32/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/apps/
+%{_datadir}/icons/hicolor/48x48/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/192x192/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/192x192/apps/
+%{_datadir}/icons/hicolor/192x192/apps/*
 
 %files root
 %defattr (0755, root, sys)
@@ -197,6 +206,8 @@ test -x $BASEDIR/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 2.1.0
 * Sun Nov 18 2007 - daymobrew@users.sourceforge.net
 - Change LDFLAGS to work for gcc.
 * Sat Oct 01 2007 - trisk@acm.jhu.edu
