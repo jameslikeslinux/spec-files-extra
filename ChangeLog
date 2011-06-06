@@ -1,4 +1,5 @@
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
+        * Bumped SFExfce4-session.spec to 4.8.2
         * Bumped SFEbanshee.spec to 2.1.0
         * Bumped SFElibfuse.spec and SFEfusefs.spec to fuse 2.8.5
         * SFEimagemagick.spec: Bump to 6.7.0-4
