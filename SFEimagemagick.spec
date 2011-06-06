@@ -8,7 +8,7 @@
 %define src_name	ImageMagick
 #%define src_url		ftp://ftp.imagemagick.net/pub/%src_name
 %define major		6.6.9
-%define minor		4
+%define minor		10
 %define src_url         %{sf_download}/project/imagemagick/%{major}-sources
 
 Name:                   SFEimagemagick
@@ -103,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.6.9-10
 * Tue Apr 12 2011 - Alex Viskovatoff
 - update to 6.6.9-4
 * Thu Jan 13 2010 - Milan Jurik
