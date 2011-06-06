@@ -12,7 +12,7 @@
 
 Name:		SFExfce4-session
 Summary:	Xfce Session manager
-Version:	4.8.2
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
@@ -159,8 +159,6 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
-* Mon Jun 6 2011 - Ken Mays
-- bump to 4.8.2
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Thu Apr 9 2011 - kmays2000@gmail.com
