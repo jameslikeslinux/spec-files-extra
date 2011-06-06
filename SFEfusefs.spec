@@ -7,17 +7,15 @@
 %include Solaris.inc
 
 %define src_name fusefs
-%define src_url http://hub.opensolaris.org/bin/download/Project+fuse/files
-%define tarball_version	20100615
 
 %define usr_kernel /usr/kernel
 %define drv_base %{usr_kernel}/drv
 
 Name:		SFEfusefs
 Summary:	File system in User Space
-Version:	0.%{tarball_version}
-URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
-Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
+Version:	2.8.5
+URL:		http://sourceforge.net/projects/fuse/files/fuse-2.X/
+Source:		%{src_url}/%{version}/fuse-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -77,5 +75,7 @@ driver name=fuse
 %endif
 
 %changelog
+* Mon Jun 06 2011 - Ken Mays <kmays2000@igmail.com>
+- Bumped to 2.8.5
 * Sat Jun 19 2010 - Milan Jurik
 - Initial spec
