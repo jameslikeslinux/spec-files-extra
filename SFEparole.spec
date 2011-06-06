@@ -31,8 +31,8 @@ BuildRequires:      SFElibxfce4util
 BuildRequires:      SFElibxfcegui4-devel
 BuildRequires:      SFElibxfcegui4 
 Buildrequires:      SFExfce4-dev-tools
-Patch1:		    parole-0.2.0.6-add-uri-scheme-handler-support.patch
-Patch2:             parole-0.2.0.6-fix-lib-linking-order.patch
+Patch1:		    parole-0.2.0.6-add-uri-scheme-handler-support.diff
+Patch2:             parole-0.2.0.6-fix-lib-linking-order.diff
 
 # For future reference
 # BuildRequires: SFElibxfcegui4
@@ -117,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
+- Moved patch files to diff extensions.
 * Mon Apr 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial spec for 0.2.0.6
 
