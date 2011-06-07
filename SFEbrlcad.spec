@@ -6,16 +6,22 @@
 %include Solaris.inc
 
 Name:                    SFEbrlcad
-Summary:                 The BRL-CAD package is a powerful Constructive Solid Geometry (CSG) solid modeling system with over 20 years development and production use by the U.S. military. 
-Version:                 7.10.4
+Summary:                 cross-platform solid modeling system (BRL-CAD) 
+Version:                 7.20.0
 Source:                  %{sf_download}/brlcad/brlcad-%{version}.tar.bz2
 URL:                     http://brlcad.org
 Group:                   Productivity/Graphics/CAD
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
+# Note on BRL-CAD 7.14.x for Solaris - Ken Mays 
+# Sourceforge has a 7.14.0 binary for Solaris x86 
+# URL: https://sourceforge.net/projects/brlcad/files/BRL-CAD%20for%20Solaris/7.14.0/
+# BRL-CAD_7.14.0_solaris_x86.pkg.bz2 
+#
 
 %include default-depend.inc
 
+BuildRequires: SFEcmake 
 Requires: SUNWcsu
 
 %prep
@@ -30,15 +36,29 @@ fi
 
 bash autogen.sh
 
-LDFLAGS='-lnsl -lsocket' ./configure --prefix=%{_prefix} \
-            --mandir=%{_mandir} \
-            --libdir=%{_libdir} \
-            --libexecdir=%{_libexecdir} \
-            --infodir=%{_infodir} \
-            --sysconfdir=%{_sysconfdir} \
-            --datadir=%{_datadir} \
-	        --with-ldflags='-lnsl -lsocket'
-make -j$CPUS
+LDFLAGS='-lnsl -lsocket' 
+
+#./configure --prefix=%{_prefix} \
+#            --mandir=%{_mandir} \
+#            --libdir=%{_libdir} \
+#            --libexecdir=%{_libexecdir} \
+#            --infodir=%{_infodir} \
+#            --sysconfdir=%{_sysconfdir} \
+#            --datadir=%{_datadir} \
+#	        --with-ldflags='-lnsl -lsocket'
+
+
+export PATH=$PATH:/usr/perl5/bin
+export CFLAGS="%optflags"
+export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
+export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldef
+s"
+
+mkdir -p builds/unix
+cd builds/unix
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
+make VERBOSE=1 -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -117,6 +137,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-- Tue Feb 5 2007 - pradhap (at) gmail.com
+* Tue Jun 7 2011 - Ken Mays <kmays2000 at gmail.com>
+- Bumped to 7.20.0
+- Modified for SFEcmake build system
+* Tue Feb 5 2007 - pradhap (at) gmail.com
 - Initial brlcad spec file.
 

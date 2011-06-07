@@ -1,4 +1,5 @@
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
+	* SFEbrlcad.spec: Bumped to 7.20.0
 	* SFElibid3tag-gnu.spec: Added libid3tag.diff patch
 	* patches/libid3tag.diff: adds bug fixes from #2494754
         * SFEwine.spec: Bumped to 1.3.21 and Wine-Gecko 1.2.0
