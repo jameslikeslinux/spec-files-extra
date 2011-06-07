@@ -6,7 +6,7 @@
 Name:                    SFEgftp
 Summary:                 gFTP - Multithreaded FTP client for Unix based machines
 URL:                     http://gftp.seul.org/
-Version:                 2.0.18
+Version:                 2.0.19
 Source:                  http://gftp.seul.org/gftp-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -73,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 2.0.19
 * Sun Sep 28 2008 - alfred.peng@sun.com
 - Update group bit for %{_datadir}/man.
 * Wed Sep 24 2008 - alfred.peng@sun.com

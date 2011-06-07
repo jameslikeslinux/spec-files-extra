@@ -3,6 +3,12 @@
         * restore ChangeLog@3476 to re-get the svn log from the past (file was deleted+recreaed by other commiter)
 
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
+	* SFEhplip.spec: Bumped to 3.11.5
+	* SFEgftp.spec: Bumped to 2.0.19
+	* SFElbreakout2.spec: Bumped to 2.6.3
+	* SFEgit.spec: Bumped to 1.7.5.4
+	* SFEopenvpn.spec: Bumped to 2.2.0
+	* SFEgettext.spec: Bumped to 0.18.1.1
 	* SFEwine.spec: Bumped to 1.3.21
 	* SFEaspell.spec: Fixed v0.60.6 packaging per BUG #2110810.
 	* SFElibid3tag-gnu.spec: added libid3tag.diff patch

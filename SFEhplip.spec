@@ -9,7 +9,7 @@
 Name:                    SFEhplip
 Summary:                 hplip - HP Linux Image and Printing
 Group:                   utilities/printing
-Version:		 2.8.2
+Version:		 3.11.5
 Source:                  %{sf_download}/hplip/hplip-%{version}.tar.gz
 Patch1:                  hplip-01-build.diff
 SUNW_BaseDir:            %{_basedir}
@@ -55,7 +55,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.la
 # conflict with Solaris
 rm $RPM_BUILD_ROOT%{_bindir}/hpijs
 #FIXME: move python stuff to vendor-packages
-rm $RPM_BUILD_ROOT%{_libdir}/python2.4/site-packages/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/python2.6/site-packages/*.la
 rm $RPM_BUILD_ROOT%{_libdir}/sane/lib*.la
 
 # FIXME: add "hpaio" to sane.d/dll.conf some other way
@@ -73,7 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.so*
 %{_libdir}/cups
 %{_libdir}/sane
-%{_libdir}/python2.4
+%{_libdir}/python2.6
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
@@ -88,5 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/hp
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 3.11.5
 * Fri Mar 28 2008 - laca@sun.com
 - create

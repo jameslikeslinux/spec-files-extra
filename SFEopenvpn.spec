@@ -7,17 +7,17 @@
 
 Name:		SFEopenvpn
 Summary:	Opensource, full-featured SSL VPN package
-Version:	2.0.9
-Source:		http://openvpn.net/release/openvpn-%{version}.tar.gz
-Source1:	http://www.whiteboard.ne.jp/~admin2/tuntap/source/openvpn/tun.c
+Version:	2.2.0
+Source:		http://swupdate.openvpn.net/community/releases/openvpn-%{version}.tar.gz
+#Source1:	http://www.whiteboard.ne.jp/~admin2/tuntap/source/openvpn/tun.c
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SFElzo
 Requires: SFElzo
-BuildRequires: SFEtun
-Requires: SFEtun
+#BuildRequires: SFEtun
+#Requires: SFEtun
 
 %prep
 %setup -q -n openvpn-%version
@@ -56,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/openvpn.8
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 2.2.0, comes with integrated tun.c
 * Wed Oct  3 2007 - Doug Scott <dougs@truemail.co.th>
 - Added modified tun.c
 * Wed Apr 07 2007 - Eric Boutilier

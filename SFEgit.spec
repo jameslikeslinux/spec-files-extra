@@ -17,10 +17,10 @@
 %include base.inc
 
 Name:                SFEgit
-Summary:             GIT - the stupid content tracker
-Version:             1.7.4.4
-URL:                 http://git.or.cz/
-Source:              http://www.kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
+Summary:             Git - the fast version control system
+Version:             1.7.5.4
+URL:                 http://git-scm.com/
+Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
 Patch3:              git-03-xmlto.diff
@@ -139,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.5.4
 * Sat Apr 16 2011 - Alex Viskovatoff
 - Bump to 1.7.4.4
 * Sat Mar 26 2011 - Thomas Wagner

@@ -21,7 +21,7 @@
 
 Name:                SFEfreetype
 Summary:             Freetype
-Version:             2.3.4
+Version:             2.4.4
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
@@ -116,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- BumpeD to 2.4.4
 * Tue Jun  5 2007 - Doug Scott
 - Change to isabuild
 * Mon Apr 30 2007 - dougs@truemail.co.th

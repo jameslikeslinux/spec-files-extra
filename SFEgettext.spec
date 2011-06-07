@@ -8,7 +8,7 @@
 
 Name:                SFEgettext
 Summary:             GNU gettext
-Version:             0.16.1
+Version:             0.18.1.1
 Source:              ftp://ftp.gnu.org/pub/gnu/gettext/gettext-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -182,6 +182,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.18.1.1
 * Fri Jan 11 2008 - moinak.ghosh@sun.com
 - Fix missing '$' in CC variable reference
 - Add patch to fix invalid usage of a va_list variable
