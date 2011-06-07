@@ -16,7 +16,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.1.44
+# 	%define version 1.3.11
 # %endif
 
 #%if %{!?version:1}
@@ -37,6 +37,7 @@ Source1:                http://winetricks.org/winetricks
 # See http://wiki.winehq.org/Gecko for which version to use.
 #
 Source2:                %{src_url}/%{sname}/%{sname}_gecko-1.2.0-x86.msi
+Source2:    		http://kegel.com/wine/wisotool
 Source100:              wine.directory
 Source101:              winetricks.desktop
 Source102:              wine-appwiz.desktop
@@ -112,9 +113,12 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export CC="/usr/gnu/bin/gcc"
+export CXX="/usr/gnu/bin/g++"
+
 #
 # I retuned for GCC 4.5.3/4.6 optimizations for wider usage. (kmays)
 #
+
 export CFLAGS="-g -Os -march=pentium4 -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 
 export LDFLAGS="-L/lib -R/lib -L/usr/lib -R/usr/lib %{xorg_lib_path} %{gnu_lib_path} %{sfw_lib_path}"
 export LD=/usr/ccs/bin/ld
@@ -263,6 +267,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
+%{_includedir}/wine
+%{_libdir}/wine/*.def
 %dir %attr (0755, root, sys) %{_datadir}
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 

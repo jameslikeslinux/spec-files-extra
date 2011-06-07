@@ -3,12 +3,12 @@
         * restore ChangeLog@3476 to re-get the svn log from the past (file was deleted+recreaed by other commiter)
 
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
-*	SFEwine.spec: Bumped to 1.3.21 per BUG# 2963445
-*	SFEaspell.spec: Fixed v0.60.6 packaging per BUG #2110810.
-*	SFElibid3tag-gnu.spec: Bug#2494754 - added libid3tag.diff patch
-*	SFEbrlcad.spec: Bumped to 7.20.0
-*	SFExfce4-settings.spec: Downgraded to 4.8.2
-*	/patches/libid3tag.diff added
+	* SFEwine.spec: Bumped to 1.3.21
+	* SFEaspell.spec: Fixed v0.60.6 packaging per BUG #2110810.
+	* SFElibid3tag-gnu.spec: added libid3tag.diff patch
+	* SFEbrlcad.spec: Bumped to 7.20.0
+	* SFExfce4-settings.spec: Downgraded to 4.8.2
+	* /patches/libid3tag.diff added
 
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
         * Bumped SFEbanshee.spec to 2.1.0
