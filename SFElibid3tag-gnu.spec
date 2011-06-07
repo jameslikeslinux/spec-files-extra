@@ -20,6 +20,7 @@ SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%name-%{version}-build
 %include default-depend.inc
 Requires:     SUNWzlib
+Patch1:       libid3tag.diff
 
 %description
 ID3 tag manipulation library a wide range of multimedia formats
@@ -38,6 +39,8 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
+
+%patch1 -p1
 
 export CFLAGS="%optflags"
 export CXX=g++

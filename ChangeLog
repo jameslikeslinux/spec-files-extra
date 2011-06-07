@@ -1,5 +1,8 @@
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
+	* SFElibid3tag-gnu.spec: Added libid3tag.diff patch
+	* patches/libid3tag.diff: adds bug fixes from #2494754
         * SFEwine.spec: Bumped to 1.3.21 and Wine-Gecko 1.2.0
+	* SFEaspell.spec: Fixed Bug #2110810
 
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
         * SFEflightgear.spec: Migrated to 2.0.0 from SFEflightgear20
