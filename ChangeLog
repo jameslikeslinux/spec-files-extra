@@ -1,4 +1,5 @@
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
+	* SFExfce4-settings.spec: Bumped back to 4.8.2
 	* SFEbrlcad.spec: Bumped to 7.20.0
 	* SFElibid3tag-gnu.spec: Added libid3tag.diff patch
 	* patches/libid3tag.diff: adds bug fixes from #2494754

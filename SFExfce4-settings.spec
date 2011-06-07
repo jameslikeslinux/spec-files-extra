@@ -7,11 +7,11 @@
 %include Solaris.inc
 
 %define src_name xfce4-settings
-%define src_url http://archive.xfce.org/src/xfce/xfce4-settings/4.9/
+%define src_url http://archive.xfce.org/src/xfce/xfce4-settings/4.8/
 
 Name:		SFExfce4-settings
 Summary:	Various gtk widgets for xfce
-Version:	4.9.0
+Version:	4.8.2
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -104,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jun 07 2011 - kmays2000@gmail.com
+- Backed to 4.8.2
 * Mon Jun 06 2011 - kmays2000@gmail.com
 - bump to 4.9.0
 * Thu Apr 9 2011 - kmays2000@gmail.com
