@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 %define _prefix %{_basedir}/gnu
-%define srcversion      5.06
+%define srcversion      5.07
 
 Name:                SFEfile
 Summary:             determine file type
@@ -67,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/*.4
 
 %changelog
+* Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 5.07
 * Fri Apr 15 2011 - Alex Viskovatoff
 - Bump to 5.06
 * Thu Jun 10 2010 - pradhap (at) gmail.com

@@ -1,26 +1,28 @@
 #
-# spec file for package SFEFligthGear.spec
+# spec file for package SFEFlightGear.spec
 # Gilles Dauphin
 #
 #
 %include Solaris.inc
 
 %define src_name	FlightGear
-%define src_url		ftp://ftp.kingmont.com/flightsims/flightgear/Source
-# mirror that works sometime:
-# http://flightgear.mxchange.org/pub/fgfs/Source/FlightGear-1.0.0.tar.gz
-# http://mirror.fslutd.org/flightgear/Source/FlightGear-1.0.0.tar.gz
-#ftp://ftp.kingmont.com/flightsims/flightgear/Source/FlightGear-1.0.0.tar.gz
+%define src_url		ftp://ftp.kingmont.com/flightsims/flightgear/Source/
+#
+# Mirror:
+# ftp://ftp.de.flightgear.org/pub/fgfs/Source/FlightGear-1.0.0.tar.gz
+# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/FlightGear-1.0.0.tar.gz
+#
 # TODO: make package with:
 # http://www.flightgear.org/Docs/getstart/getstart.html
 # http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Docs/getstart.pdf
-# faire un package pour installer modele son et scene.
-# ftp://ftp.flightgear.org/pub/fgfs/Shared/fgfs-base-1.0.0.tar.bz2
+#
+# FlightGear Scenery package (Main Mirror)
+# ftp://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Shared/fgfs-base-1.0.0.tar.bz2
 
 %define SFEfreeglut  %(/usr/bin/pkginfo -q SFEfreeglut && echo 1 || echo 0)
 
 Name:                   SFEFlightGear
-Summary:                Flight Simulator for 'true' airplane
+Summary:                The multi-platform flight simulator development project
 Version:                1.0.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:			FlightGear-01.diff
@@ -41,7 +43,6 @@ Requires:		x11/library/freeglut
 %endif
 BuildRequires:		SFESimGear-devel
 Requires:		SFESimGear
-# TODO: somethings i don't understand
 #BuildRequires:		SFEplib-devel
 Requires:		SFEplib
 
@@ -95,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 #%{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
+- Fixed Mirrors Link, Summary, and fgfs-base package link
+- Fixed links for FlightGear 2.0.0 build review 
 * Thu Feb 03 2011 - Milan Jurik
 - SFEfreeglut as optinal
 * Mar 2010 - Gilles Dauphin

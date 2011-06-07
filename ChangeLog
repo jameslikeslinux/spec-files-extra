@@ -1,4 +1,9 @@
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
+        * SFEflightgear.spec: Summary/Mirror fixes
+        * Bumped SFEsylpheed.spec to 3.1.1
+        * Bumped SFEfile.spec to 5.07
+        * Bumped SFEinkscape.spec to 0.48.1
+        * Bumped SFEblender.spec to 2.57b
         * Bumped SFExfce4-settings.spec to 4.9.0
         * Bumped SFEbanshee.spec to 2.1.0
         * Bumped SFElibfuse.spec and SFEfusefs.spec to fuse 2.8.5

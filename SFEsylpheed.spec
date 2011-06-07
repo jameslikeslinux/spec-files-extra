@@ -13,7 +13,7 @@
 
 Name:                     SFEsylpheed
 Summary:                  a GTK+ based, lightweight, and fast e-mail client
-Version:                  3.1.0
+Version:                  3.1.1
 Source:                   %{src_url}/%{src_name}-%{version}.tar.bz2
 License:                  GPL
 URL:                      http://sylpheed.sraoss.jp/
@@ -107,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 
 %changelog
+* Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.1.1
 * Sat Apr 16 2011 - Alex Viskovatoff
 - bump to 3.1.0
 * Thu Oct 16 2009 - Dick Hoogendijk
