@@ -1,5 +1,5 @@
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
-        * SFEflightgear.spec: Summary/Mirror fixes
+        * SFEflightgear.spec: Migrated to 2.0.0 from SFEflightgear20
         * Bumped SFEsylpheed.spec to 3.1.1
         * Bumped SFEfile.spec to 5.07
         * Bumped SFEinkscape.spec to 0.48.1
