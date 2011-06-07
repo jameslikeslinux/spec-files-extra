@@ -10,29 +10,33 @@
 
 # To attempt building a certain wine version, as opposed to the latest
 # Wine version available from Sourceforge, pass the version as an argument.
-# example version number: 1.1.27
-# $ pkgtool build SFEwine --define 'version 1.1.27'
+# example version number: 1.1.44
+# $ pkgtool build SFEwine --define 'version 1.1.44'
 
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.1.38
+# 	%define version 1.1.44
 # %endif
 
-%if %{!?version:1}
-	%define version %{!?version:%( version=`wget -O - "ftp://ibiblio.org/pub/linux/system/emulators/wine/wine.lsm" 2>/dev/null | grep "Version: " | head -1 | sed -e 's,^Version: ,,'`; if [ "$version" = "" ]; then version=`ls %{_sourcedir}/wine-*.tar.bz2 | sed -e 's,^.*wine-,,' -e 's,\.tar\.bz2,,' | tail -1`; fi; echo $version )}
-%endif
+#%if %{!?version:1}
+#	%define version %{!?version:%( version=`wget -O - "ftp://ibiblio.org/pub/linux/system/emulators/wine/wine.lsm" 2>/dev/null | grep "Version: " | head -1 | sed -e 's,^Version: ,,'`; if [ "$version" = "" ]; then version=`ls %{_sourcedir}/wine-*.tar.bz2 | sed -e 's,^.*wine-,,' -e 's,\.tar\.bz2,,' | tail -1`; fi; echo $version )}
+#%endif
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                %{version}
+Version:                1.3.21
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
+#
 # See: http://lists.freedesktop.org/archives/tango-artists/2009-July/001973.html
 # Also: http://www.airwebreathe.org.uk/wine-icon/
-Source1:                http://winezeug.googlecode.com/svn/trunk/winetricks
+#
+Source1:                http://winetricks.org/winetricks
+#
 # See http://wiki.winehq.org/Gecko for which version to use.
-Source2:                %{src_url}/%{sname}_gecko-1.0.0-x86.cab
+#
+Source2:                %{src_url}/%{sname}/%{sname}_gecko-1.2.0-x86.msi
 Source100:              wine.directory
 Source101:              winetricks.desktop
 Source102:              wine-appwiz.desktop
@@ -54,7 +58,7 @@ ExclusiveArch:		i386 amd64
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
+Requires:	SUNWaudh
 BuildRequires:	SUNWgnome-camera-devel
 Requires:	SUNWgnome-camera
 BuildRequires:	SUNWhea
@@ -109,9 +113,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export CC="/usr/gnu/bin/gcc"
-# Solaris requires a Pentium, hence -march=i586.
-# Most desktop users on OpenSolaris probably have a recent Intel. Hence -mtune=prescott.
-export CFLAGS="-g -Os -march=i586 -mtune=prescott -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 
+#
+# I retuned for GCC 4.5.3/4.6 optimizations for wider usage. (kmays)
+#
+export CFLAGS="-g -Os -march=pentium4 -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 
 export LDFLAGS="-L/lib -R/lib -L/usr/lib -R/usr/lib %{xorg_lib_path} %{gnu_lib_path} %{sfw_lib_path}"
 export LD=/usr/ccs/bin/ld
 
@@ -263,6 +268,12 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped Wine 1.3.21 with fixed links to Wine-Gecko 1.2.0.
+- Needs more rework resolution to Bugs #2963445,2874868,2019193. 
+- Relaxed GCC optimizations for wider CPU compatibility (Pentium4 and higher)
+- Added SUNWaudh (header-audio) requirement
+
 * Fri Mar 19 2010 - matt@greenviolet.net
 - Remove patch for Wine bug 20714. 1.1.41 has a fix.
  
