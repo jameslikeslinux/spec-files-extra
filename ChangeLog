@@ -3,6 +3,10 @@
         * restore ChangeLog@3476 to re-get the svn log from the past (file was deleted+recreaed by other commiter)
 
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
+	* SFEreadline.spec: Bumped to 6.2
+	* SFEpure-ftpd.spec: Bumped to 1.0.32
+	* SFEnasm.spec: Bumped to 2.10rc6
+	* SFEtcl.spec: Bumped to 8.7.9
 	* SFEhplip.spec: Bumped to 3.11.5
 	* SFEgftp.spec: Bumped to 2.0.19
 	* SFElbreakout2.spec: Bumped to 2.6.3

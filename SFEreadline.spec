@@ -7,7 +7,7 @@
 
 Name:                    SFEreadline
 Summary:                 GNU readline - library for editing typed command lines
-Version:                 5.2
+Version:                 6.2
 Source:			 http://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -138,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Tue Jun 7 2011- Ken Mays <kmays2000@gmail.com>
+- Bump to 6.2
 * Mon May 14 2007 - dougs@truemail.co.th
 - Forced to link with libcurses
 * Tue Mar  7 2007 - dougs@truemail.co.th

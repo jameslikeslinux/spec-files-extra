@@ -4,7 +4,7 @@
 %define src_name pure-ftpd
 
 Name:		SFEpure-ftpd
-Version:	1.0.31
+Version:	1.0.32
 Summary:	Lightweight, fast and secure FTP server
 
 Group:		System Environment/Daemons
@@ -168,6 +168,8 @@ user ftpuser=false gcos-field="pure-ftpd Reserved UID" username="pure-ftpd" pass
 
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 1.0.32
 * Sun Apr 24 2011 - Milan Jurik
 - bump to 1.0.31
 * Tue Apr 05 2011 - Milan Jurik

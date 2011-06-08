@@ -7,7 +7,7 @@
 
 Name:                SFEtcl
 Summary:             Tcl - Tool Command Language
-Version:             8.4.16
+Version:             8.5.9
 Source:              %{sf_download}/tcl/tcl%{version}-src.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8.5.9
 * Sun Nov 18 2007 - shivakumar.gn@gmail.com
 - The -devel package needs to install private headers as well
 - Most tcl extensions(iTcl) cannot be built without these headers.
