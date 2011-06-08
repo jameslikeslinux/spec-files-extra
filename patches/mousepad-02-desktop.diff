@@ -1,0 +1,10 @@
+--- mousepad-0.2.16/mousepad.desktop.in.orig	2011-06-08 17:21:32.381623100 -0400
++++ mousepad-0.2.16/mousepad.desktop.in	2011-06-08 17:24:01.553498100 -0400
+@@ -9,5 +9,5 @@
+ Icon=mousepad
+ StartupNotify=true
+ Terminal=false
+-MimeType=text/plain
+-Categories=Application;Utility;TextEditor;GTK;
++MimeType=application/x-awk;application/x-csh;application/x-perl;application/x-php;application/x-shellscript;text/plain;text/x-c;text/x-c++;text/x-c++hdr;text/x-chdr;text/x-c++src;text/x-csrc;text/x-fortran;text/x-java;text/x-log;text/x-makefile;text/x-moc;text/x-pascal;text/x-patch;text/x-python;text/x-readme;text/x-scheme;text/x-tcl;text/x-tex;
++Categories=Utility;TextEditor;GTK;
