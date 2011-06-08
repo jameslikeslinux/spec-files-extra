@@ -1,5 +1,9 @@
 2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFEperl-uri.spec: Add back spec-file that got deleted.
+
+2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFElibfm.spec: Bump to 0.1.15.
 	* SFEpcmanfm.spec: Bump to 0.9.8.
 	* patches/libfm-01-studio.diff, libfm-02-fixcompile.diff: Update.
