@@ -18,8 +18,6 @@ Group:		User Interface/Desktops
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:	SUNWgnome-base-libs-devel
-Requires:	SUNWgnome-base-libs
 
 %prep
 %setup -q -n %{src_name}-%{version}

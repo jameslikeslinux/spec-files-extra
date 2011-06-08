@@ -18,8 +18,6 @@ Group:		User Interface/Desktops
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:	SUNWgnome-base-libs-devel
-Requires:	SUNWgnome-base-libs
 BuildRequires:	SFExfce4-dev-tools
 Requires:	SFExfce4-dev-tools
 Requires:	SFElibxfce4util

@@ -21,8 +21,6 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SFExfce4-dev-tools
 Requires:	SFExfce4-dev-tools
-BuildRequires:	SUNWgnome-base-libs-devel
-Requires:	SUNWgnome-base-libs
 BuildRequires:	SUNWgtk-doc
 BuildRequires:	SUNWgnome-xml-share
 

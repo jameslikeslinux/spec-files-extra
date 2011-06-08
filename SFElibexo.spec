@@ -19,8 +19,6 @@ Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
-BuildRequires:	SUNWgnome-base-libs-devel
-Requires:	SUNWgnome-base-libs
 Requires:	SFExfce4-dev-tools
 BuildRequires:	SFElibxfce4util-devel
 Requires:	SFElibxfce4util
@@ -105,7 +103,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xfce4/exo-1/exo-helper-1
 %dir %attr (0755, root, bin) %{_libdir}/python%{python_version}
 %{_libdir}/python%{python_version}/*
-%{_libdir}/gio
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1

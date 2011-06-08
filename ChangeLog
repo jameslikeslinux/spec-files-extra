@@ -1,5 +1,13 @@
 2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFElibexo.spec: The gio directory is no longer built now that
+	  glib 2.28 is in Nevada.  This should now be built with a modern
+	  glib.
+	* SFElibxfce4util.spec, SFExfconf.spec, SFExfce4-dev-tools.spec:
+	  No longer depend on gnome-base-libs, which is no longer a package.
+
+2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFEperl-uri.spec: Add back spec-file that got deleted.
 
 2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
