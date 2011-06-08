@@ -12,6 +12,11 @@
 	* restore ChangeLog@3476 to re-get the svn log from the past (file was
 	  deleted+recreaed by other commiter)
 
+2011-06-08  Ken Mays  <kmays2000@gmail.com>
+	* SFEwine.spec: Modified for SFEgcc
+	* SFEinkscape: Added inkscape-01-combo.diff cluster patch
+	* SFEsupertuxkart.spec: Bump to 0.7.1b
+
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
 	* SFEreadline.spec: Bumped to 6.2
 	* SFEpure-ftpd.spec: Bumped to 1.0.32

@@ -59,8 +59,8 @@ ExclusiveArch:		i386 amd64
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires:  	SFEgcc
-Requires:	SUNWaudh
+BuildRequires: 	SFEgcc
+Requires: 	SFEgccruntime
 BuildRequires:	SUNWgnome-camera-devel
 Requires:	SUNWgnome-camera
 BuildRequires:	SUNWhea
@@ -277,7 +277,6 @@ rm -rf $RPM_BUILD_ROOT
 - Bumped Wine 1.3.21 with fixed links to Wine-Gecko 1.2.0.
 - Needs more rework resolution to Bugs #2963445,2874868,2019193. 
 - Relaxed GCC optimizations for wider CPU compatibility (Pentium4 and higher)
-- Added SUNWaudh (header-audio) requirement
 
 * Fri Mar 19 2010 - matt@greenviolet.net
 - Remove patch for Wine bug 20714. 1.1.41 has a fix.

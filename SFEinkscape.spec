@@ -18,8 +18,7 @@ Summary:                 Inkscape - vector graphics editor
 Version:                 0.48.1
 Source:                  %{sf_download}/inkscape/inkscape-%{version}.tar.gz
 URL:                     http://www.inkscape.org
-Patch1:                  inkscape-01-open.diff
-Patch2:                  inkscape-02-getcwd.diff
+Patch1:                  inkscape-01-combo.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -54,7 +53,6 @@ Requires:                %{name}
 %setup -q -c -n %name-%version
 cd inkscape-%{version}
 %patch1 -p1
-%patch2 -p1
 cd ../..
 %poppler.prep -d %name-%version
 
@@ -122,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Added patches/inkscape-01-combo.diff
 * Mon Jun 6 2011 - kmays2000@gmail.com
 - bump to 0.48.1
 * Wed Apr 23 2008 - laca@sun.com

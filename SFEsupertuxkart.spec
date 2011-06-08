@@ -4,7 +4,7 @@
 %include Solaris.inc
 
 %define src_name supertuxkart
-%define src_version 0.6.2a
+%define src_version 0.7.1.b
 
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define SFEplib_gpp %(/usr/bin/pkginfo -q SFEplib-gpp && echo 1 || echo 0)
@@ -12,13 +12,13 @@
 
 
 Name:           SFEsupertuxkart
-Version:        0.6.2.0.1
+Version:        0.7.1.0.1
 Summary:        Kids 3D go-kart racing game featuring Tux
 Group:          Amusements/Games
 License:        GPLv2+ and GPLv3 and CC-BY-SA
 URL:            http://supertuxkart.sourceforge.net/
 Source0:        %{sf_download}/%{src_name}/%{src_name}-%{src_version}-src.tar.bz2
-Source2:	%{sf_download}/%{src_name}/addon0.6.1-1.zip
+Source2:	%{sf_download}/%{src_name}/STK_0.7_Karts_AddonsPack.7z
 Patch1:		supertuxkart-01-sunstudio.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -79,8 +79,8 @@ unzip %{SOURCE2} -d data/ -x karts/mriceblock*
 
 %build
 %if %SFEplib_gpp
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="-I%{_includedir} -I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -lGLU -lnsl -lsocket"
 %else
@@ -135,12 +135,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, other) %{_datadir}/locale
 
 %changelog
+Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.7.1.b
+- New addon STK_0.7_Karts_AddonsPack.7z
+- Reviewed irrlicht-1.7.2 dependency 
+
 * May 2010 - G.d.
-- an other try
+- and other try
+
 * Sun May 09 2010 - Gilles Dauphin
 - search Openal in AL/al.h
+
 * Sun May 09 2010 Milan Jurik
 - initial SFE import
+
 * Thu Jan 14 2010 Jon Ciesla <limb@jcomserv.net> - 0.6.2-3
 - Rebuild for new irrlicht.
 
