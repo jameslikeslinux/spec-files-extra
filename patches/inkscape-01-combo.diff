@@ -1,0 +1,58 @@
+--- inkscape-0.48.1/src/color-profile.cpp.orig	2011-01-01 23:34:09.814902000 -0500
++++ inkscape-0.48.1/src/color-profile.cpp	2011-06-08 12:15:05.895653500 -0400
+@@ -5,7 +5,9 @@
+ #define noDEBUG_LCMS
+ 
+ #include <glib/gstdio.h>
+-#include <sys/fcntl.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
+ #include <gdkmm/color.h>
+ #include <glib/gi18n.h>
+ 
+--- inkscape-0.48.1/src/ui/dialog/filedialogimpl-gtkmm.cpp.orig	2010-07-12 23:48:40.691600000 -0400
++++ inkscape-0.48.1/src/ui/dialog/filedialogimpl-gtkmm.cpp	2011-06-08 12:29:49.088587500 -0400
+@@ -1549,7 +1549,7 @@
+ {
+     Glib::ustring s = Glib::filename_to_utf8 (get_current_folder());
+     if (s.length() == 0)
+-        s = getcwd (NULL, 0);
++        s = Glib::ustring (getcwd (NULL, MAXPATHLEN));
+     set_current_folder(Glib::filename_from_utf8(s)); //hack to force initial dir listing
+     set_modal (TRUE);                      //Window
+     sp_transientize((GtkWidget *)gobj());  //Make transient
+
+--- inkscape-0.48.1/src/2geom/isnan.h.orig	Tue Jul 13 05:48:40 2010
++++ inkscape-0.48.1/src/2geom/isnan.h	Fri Apr 22 19:17:33 2011
+@@ -68,7 +68,7 @@
+ # define IS_NAN(_a) (_isnan(_a)) 	/* Win32 definition */
+ #elif defined(isnan) || defined(__FreeBSD__) || defined(__osf__)
+ # define IS_NAN(_a) (isnan(_a))		/* GNU definition */
+-#elif defined (SOLARIS_2_8) && __GNUC__ == 3 && __GNUC_MINOR__ == 2
++#elif defined (__SVR4) && defined (__sun)
+ # define IS_NAN(_a) (isnan(_a))		/* GNU definition */
+ #else
+ # define IS_NAN(_a) (std::isnan(_a))
+@@ -89,7 +89,7 @@
+ # define IS_FINITE(_a) (isfinite(_a))
+ #elif defined(__osf__)
+ # define IS_FINITE(_a) (finite(_a) && !IS_NAN(_a))
+-#elif defined (SOLARIS_2_8) && __GNUC__ == 3 && __GNUC_MINOR__ == 2
++#elif defined (__SVR4) && defined (__sun)
+ #include  <ieeefp.h>
+ #define IS_FINITE(_a) (finite(_a) && !IS_NAN(_a))
+ #else
+
+--- inkscape-0.48.1/src/2geom/convex-cover.cpp.orig Tue Jul 13 05:48:40 2010
++++ inkscape-0.48.1/src/2geom/convex-cover.cpp	Fri Apr 22 19:02:18 2011
+@@ -34,6 +34,9 @@
+ #include <algorithm>
+ #include <map>
+ 
++#undef INFINITY
++#define INFINITY (__builtin_inff())
++
+ /** Todo:
+     + modify graham scan to work top to bottom, rather than around angles
+     + intersection
