@@ -28,6 +28,7 @@
 	* SFEwine.spec: Modified for SFEgcc
 	* SFEinkscape: Added inkscape-01-combo.diff cluster patch
 	* SFEsupertuxkart.spec: Bump to 0.7.1b
+	* SFEphp.spec: Bump to 5.3.6
 
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
 	* SFEreadline.spec: Bumped to 6.2

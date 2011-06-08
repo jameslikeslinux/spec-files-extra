@@ -9,7 +9,7 @@
 
 Name:                    SFEphp
 Summary:                 php - Hypertext Preprocessor - general-purpose scripting language for Web development
-Version:                 5.2.5
+Version:                 5.3.6
 Source:                  http://www.php.net/distributions/php-%{version}.tar.bz2
 URL:                     http://www.php.net/
 SUNW_BaseDir:            %{_basedir}
@@ -132,6 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/apache2
 
 %changelog
+* Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 5.3.6
 * Sat Nov 17 2007 - daymobrew@users.sourceforge.net
 - Enable building with either SUNWgnu-gettext or SFEgettext.
 * Sat May 5 2007 - Thomas Wagner
