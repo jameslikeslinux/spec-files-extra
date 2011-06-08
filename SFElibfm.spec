@@ -9,15 +9,19 @@
 
 Name:                    SFElibfm
 Summary:                 LXDE lightweight file manager library
-Version:                 0.1.12
+Version:                 0.1.14
 Source:                  http://downloads.sourceforge.net/pcmanfm/libfm-%{version}.tar.gz
 Patch1:                  libfm-01-studio.diff
-Patch2:                  libfm-02-inline.diff
-Patch3:                  libfm-03-fixcompile.diff
+Patch2:                  libfm-02-fixcompile.diff
 URL:                     http://sourceforge.net/projects/pcmanfm/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%if %{!?_without_gtk_doc:1}%{?_without_gtk_doc:0}
+BuildRequires: SUNWgnome-common-devel
+BuildRequires: SUNWgtk-doc
+%endif
 
 Requires: SFEmenu-cache
 BuildRequires: SFEmenu-cache
@@ -44,7 +48,6 @@ Requires:                %{name}
 %setup -q -n libfm-%version
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -74,6 +77,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.a" -exec rm -f {} ';'
+
+%if %{!?_without_gtk_doc:0}%{?_without_gtk_doc:1}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/gtk-doc
+%endif
 
 %if %build_l10n
 %else
@@ -107,6 +114,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %dir %attr (0755, root, bin) %dir %{_includedir}
 %{_includedir}/*
+%if %{!?_without_gtk_doc:1}%{?_without_gtk_doc:0}
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/gtk-doc
+%endif
 
 %files root
 %defattr (-, root, sys)
@@ -123,10 +134,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 08 2011 - brian.cameron@oracle.com
+- Bump to 0.1.15.
 * Thu Sep 16 2010 - brian.cameron@oracle.com
 - Add patch libfm-03-fixcompile.diff so that it builds with older compilers. 
 * Tue Aug 04 2009 - brian.cameron@sun.com
-- Bump to 0.5.1
+- Bump.
 * Mon May 25 2009 - alfred.peng@sun.com
 - Update source URL and set correct GMSGFMT.
 * Mon Mar 16 2009 - alfred.peng@sun.com

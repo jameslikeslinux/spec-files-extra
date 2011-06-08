@@ -1,6 +1,16 @@
+2010-06-08 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElibfm.spec: Bump to 0.1.15.
+	* SFEpcmanfm.spec: Bump to 0.9.8.
+	* patches/libfm-01-studio.diff, libfm-02-fixcompile.diff: Update.
+	* patches/libfm-02-inline.diff: Remove patch no longer needed.
+	* patches/pcmanfm-01-Wall.diff, patches/pcmanfm-02-state.diff: Update.
+	* patches/pcmanfm-02-inline.diff: Remove patch no longer needed.
+
 2011-06-27  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * restore ChangeLog@3476 to re-get the svn log from the past (file was deleted+recreaed by other commiter)
+	* restore ChangeLog@3476 to re-get the svn log from the past (file was
+	  deleted+recreaed by other commiter)
 
 2011-06-07  Ken Mays  <kmays2000@gmail.com>
 	* SFEreadline.spec: Bumped to 6.2
@@ -21,13 +31,16 @@
 	* /patches/libid3tag.diff added
 
 2011-06-06  Ken Mays  <kmays2000@gmail.com>
-        * Bumped SFEbanshee.spec to 2.1.0
-        * Bumped SFElibfuse.spec and SFEfusefs.spec to fuse 2.8.5
-        * SFEimagemagick.spec: Bump to 6.7.0-4
-        * SFEntfs-3g-20110412: Initial revised spec
-        * SFEparole.spec: Bumped to 0.2.0.6
-        * patches/parole-0.2.0.6-fix-lib-linking-order.diff: Patch for link order fix.
-        * patches/parole-0.2.0.6-add-uri-scheme-handler-support.diff: Patch for URI scheme support.
+
+	* Bumped SFEbanshee.spec to 2.1.0
+	* Bumped SFElibfuse.spec and SFEfusefs.spec to fuse 2.8.5
+	* SFEimagemagick.spec: Bump to 6.7.0-4
+	* SFEntfs-3g-20110412: Initial revised spec
+	* SFEparole.spec: Bumped to 0.2.0.6
+	* patches/parole-0.2.0.6-fix-lib-linking-order.diff: Patch for link
+	  order fix.
+	* patches/parole-0.2.0.6-add-uri-scheme-handler-support.diff: Patch for
+	  URI scheme support.
 
 2011-05-26  Alex Viskovatoff <herzen@imap.cc>
 
@@ -143,7 +156,7 @@
 
 2011-04-27  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEwordpress.spec: bump to 3.1.2 (security fixes)
+	* SFEwordpress.spec: bump to 3.1.2 (security fixes)
 
 2011-04-25 Ken Mays <kmays2000@gmail.com>
 
@@ -272,7 +285,7 @@
 
 2011-03-30  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * include/packagenames.define.allbuilds.inc: handle
+	* include/packagenames.define.allbuilds.inc: handle
 	  SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 
 2011-03-30 Milan Jurik <sfnet@xylab.cz>
@@ -390,9 +403,9 @@
 
 2011-03-14  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEgcc.spec: make symlinks to have the gcc 4.x.x default
-          compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++
-          and /usr/gnu/bin/gfortran
+	* SFEgcc.spec: make symlinks to have the gcc 4.x.x default
+	  compiler accessible by /usr/gnu/bin/gcc and /usr/gnu/bin/g++
+	  and /usr/gnu/bin/gfortran
 
 2011-03-12  Alex Viskovatoff <viskovatoff@imap.cc>
 
@@ -403,8 +416,9 @@
 
 2011-03-12  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFElibmpc.spec: make SFEgmp and SFEmpfr a hard requirement to overide
-          autodetect (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with --autodeps)
+	* SFElibmpc.spec: make SFEgmp and SFEmpfr a hard requirement to overide
+	  autodetect (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with
+	  --autodeps)
 
 2011-03-06 Milan Jurik <sfnet@xylab.cz>
 
@@ -487,7 +501,7 @@
 
 2011-02-14  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEdrupal7.spec: more permissions in apache config needed
+	* SFEdrupal7.spec: more permissions in apache config needed
 
 2011-02-13 Milan Jurik <sfnet@xylab.cz>
 
@@ -505,7 +519,7 @@
 
 2011-02-12  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEdrupal7.spec: initial spec
+	* SFEdrupal7.spec: initial spec
 
 2011-02-11 Milan Jurik <sfnet@xylab.cz>
 
@@ -515,9 +529,11 @@
 
 2011-02-11  Thomas Wagner  <tom68@users.sourceforge.net>
 
-	* SFEcmake.spec: fix compile errors (configure thinks that EXT2 is present:
-                         archive_write_disk.c: .* _IOR)
-        * SFEopenal.spec: BuildRequire SFEcmake (avoid /usr/bin/cmake with ./sfw_stage in it)
+	* SFEcmake.spec: fix compile errors (configure thinks that EXT2 is
+	  present:
+	                 archive_write_disk.c: .* _IOR)
+	* SFEopenal.spec: BuildRequire SFEcmake (avoid /usr/bin/cmake with
+	  ./sfw_stage in it)
 
 2011-02-10 Milan Jurik <sfnet@xylab.cz>
 
@@ -527,7 +543,8 @@
 
 2011-02-08  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEgcc.spec: bump to 4.5.2, interim spec, read notes on top of SFEgcc.spec
+	* SFEgcc.spec: bump to 4.5.2, interim spec, read notes on top of
+	  SFEgcc.spec
 
 2011-02-08 Milan Jurik <sfnet@xylab.cz>
 
@@ -610,7 +627,7 @@
 
 2011-01-30  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEopenal.spec: fix install errors (DESTDIR, mv /sfw_stage)
+	* SFEopenal.spec: fix install errors (DESTDIR, mv /sfw_stage)
 
 2011-01-29 Milan Jurik <sfnet@xylab.cz>
 
@@ -663,7 +680,7 @@
 
 2010-01-25  TAKI, Yasushi <taki@justplayer.com>
 
-        * add PostgreSQL 9.0 packages for IPS
+	* add PostgreSQL 9.0 packages for IPS
 
 2010-01-20  Brian Cameron  <brian.cameron@oracle.com>
 

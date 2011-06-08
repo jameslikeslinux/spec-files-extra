@@ -9,11 +9,10 @@
 
 Name:                    SFEpcmanfm
 Summary:                 LXDE lightweight file manager
-Version:                 0.9.7
+Version:                 0.9.8
 Source:                  http://downloads.sourceforge.net/pcmanfm/pcmanfm-%{version}.tar.gz
 Patch1:                  pcmanfm-01-Wall.diff
-Patch2:                  pcmanfm-02-inline.diff
-Patch3:                  pcmanfm-03-state.diff
+Patch2:                  pcmanfm-02-state.diff
 URL:                     http://sourceforge.net/projects/pcmanfm/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -21,6 +20,11 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 Requires: SFElibfm
 BuildRequires: SFElibfm-devel
+
+%package root
+Summary:        %{summary} - / filesystem
+SUNW_BaseDir:   /
+%include default-depend.inc
 
 %if %build_l10n
 %package l10n
@@ -34,7 +38,6 @@ Requires:                %{name}
 %setup -q -n pcmanfm-%version
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -50,7 +53,9 @@ aclocal $ACLOCAL_FLAGS
 autoheader
 automake -a -c -f
 autoconf
-./configure --prefix=%{_prefix} --libdir=%{_libdir}
+./configure --prefix=%{_prefix} \
+            --libdir=%{_libdir} \
+            --sysconfdir=%{_sysconfdir}
 make -j$CPUS 
 
 %install
@@ -76,6 +81,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_datadir}/pcmanfm
 %{_datadir}/pcmanfm/*
 
+%files root
+%attr (0755, root, sys) %dir %{_sysconfdir}
+%dir %attr (0755, root, sys) %{_sysconfdir}/xdg
+%dir %attr (0755, root, sys) %{_sysconfdir}/xdg/pcmanfm
+%{_sysconfdir}/xdg/pcmanfm/*
+
 %if %build_l10n
 %files l10n
 %defattr (-, root, bin)
@@ -84,6 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 08 2011 - brian.cameron@oracle.com
+- Bump to 0.9.8.
 * Thu Sep 16 2010 - brian.cameron@oracle.com
 - Add patch pcmanfm-03-state.diff so that it builds with older compilers.
 * Tue Aug 04 2009 - brian.cameron@sun.com

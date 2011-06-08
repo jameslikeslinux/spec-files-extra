@@ -1,9 +1,9 @@
---- libfm-0.1.12/configure.ac-orig	2010-08-27 00:22:58.277160931 -0500
-+++ libfm-0.1.12/configure.ac	2010-08-27 00:23:21.588493826 -0500
+--- libfm-0.1.14/configure.ac-orig	2010-08-27 00:22:58.277160931 -0500
++++ libfm-0.1.14/configure.ac	2010-08-27 00:23:21.588493826 -0500
 @@ -3,7 +3,7 @@
  
  AC_PREREQ([2.63])
- AC_INIT([libfm], [0.1.12], [http://libfm.sf.net/])
+ AC_INIT([libfm], [0.1.14], [http://libfm.sf.net/])
 -AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 +AM_INIT_AUTOMAKE()
  
@@ -11,15 +11,15 @@
  
 --- libfm-0.1.12/src/Makefile.am-orig	2010-08-27 00:38:47.380412379 -0500
 +++ libfm-0.1.12/src/Makefile.am	2010-08-27 00:38:59.923612592 -0500
-@@ -153,7 +153,6 @@ libfm_la_SOURCES = \
- libfm_la_CFLAGS = \
+@@ -185,7 +185,6 @@ libfm_la_CFLAGS = \
  	$(GIO_CFLAGS) \
  	$(MENU_CACHE_CFLAGS) \
+ 	$(DBUS_CFLAGS) \
 -	-Werror-implicit-function-declaration \
  	$(NULL)
  
  libfm_la_LIBADD = \
-@@ -178,8 +177,7 @@ libfm_gtk_la_CFLAGS = \
+@@ -211,8 +210,7 @@ libfm_gtk_la_CFLAGS = \
  	$(MENU_CACHE_CFLAGS) \
  	-I$(srcdir) \
  	-I$(srcdir)/base \
@@ -29,7 +29,7 @@
  
  libfm_gtk_la_LIBADD = \
  	$(GTK_LIBS) \
-@@ -204,7 +202,6 @@ libfm_pref_apps_CFLAGS = \
+@@ -237,7 +235,6 @@ libfm_pref_apps_CFLAGS = \
  	$(GTK_CFLAGS) \
  	$(GIO_CFLAGS) \
  	$(MENU_CACHE_CFLAGS) \
@@ -37,7 +37,7 @@
  	$(NULL)
  
  libfm_pref_apps_LDADD = \
-@@ -225,7 +222,6 @@ libfm_demo_SOURCES = \
+@@ -258,7 +255,6 @@ libfm_demo_SOURCES = \
  libfm_demo_CFLAGS = \
  	$(GTK_CFLAGS) \
  	$(MENU_CACHE_CFLAGS) \
@@ -45,7 +45,15 @@
  	$(NULL)
  
  libfm_demo_LDADD = \
-@@ -314,7 +310,6 @@ gnome_terminal_SOURCES = \
+@@ -285,7 +281,6 @@ libgiofm_la_CFLAGS = \
+ 	$(GIO_CFLAGS) \
+ 	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
+ 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
+-	-DG_DISABLE_DEPRECATED \
+ 	$(NULL)
+ 
+ libgiofm_la_LDFLAGS = 	\
+@@ -350,7 +345,6 @@ gnome_terminal_SOURCES = \
  
  gnome_terminal_CFLAGS = \
  	$(GLIB_CFLAGS) \
@@ -53,3 +61,13 @@
  	$(NULL)
  
  gnome_terminal_LDADD = \
+--- libfm-0.1.14/src/tests/Makefile.am-orig	2011-06-08 11:21:16.760136885 -0500
++++ libfm-0.1.14/src/tests/Makefile.am	2011-06-08 11:21:24.260181393 -0500
+@@ -10,7 +10,6 @@ AM_CPPFLAGS = \
+ 	$(GIO_CFLAGS) \
+ 	$(MENU_CACHE_CFLAGS) \
+ 	$(DBUS_CFLAGS) \
+-	-Werror-implicit-function-declaration \
+ 	$(NULL)
+ 
+ noinst_PROGRAMS = $(TEST_PROGS)
