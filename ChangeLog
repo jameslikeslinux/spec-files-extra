@@ -1,5 +1,5 @@
 2011-06-09  Ken Mays  <kmays2000@gmail.com>
-
+	 * SFExfce-gigolo.spec: Initial spec
 	 * SFExfce-ristretto.spec: Initial spec
 	 * patches/ristretto-01-window.diff: Fix CLI dir open
 	 * patches/ristretto-03-main.diff: Add quit shortcut (q)
