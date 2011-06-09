@@ -6,13 +6,12 @@
 %include Solaris.inc
 %include osdistro.inc
 
-%define src_version 2.10rc6
-
 Name:                SFEnasm
 Summary:             Portable, modular 80x86 assembler
 Version:             2.10rc6
+IPS_component_version: 2.10.0.6
 URL:                 http://www.nasm.us/
-Source:              http://www.nasm.us/pub/nasm/releasebuilds/%{src_version}/nasm-%{src_version}.tar.bz2
+Source:              http://www.nasm.us/pub/nasm/releasebuilds/%{version}/nasm-%{version}.tar.bz2
 License:             2-BSD
 Group:               Development/Languages
 SUNW_BaseDir:        %{_basedir}
@@ -51,7 +50,7 @@ BuildRequires:       SUNWghostscriptu
 %endif
 
 %prep
-%setup -q -n nasm-%src_version
+%setup -q -n nasm-%version
 
 %build
 
