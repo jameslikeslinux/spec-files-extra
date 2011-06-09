@@ -54,6 +54,9 @@ urxvt is a Multiscreenserver and Client for Terminal emulation. Supports Unicode
 charsets and has tons of nice features. With "compiz" you can enable traparent 
 backgrounds (unmodified or shaded background inside the Terminal window)
 
+To add the terminal controls to /etc/termcap run this command after package install:
+grep "^rxvt-unicode" /etc/termcap || \
+ TERMINFO=/usr/share/lib/terminfo infocmp -C rxvt-unicode >> /etc/termcap 
 
 %prep
 %setup -q -n rxvt-unicode-%{src_version}
@@ -137,8 +140,14 @@ make
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-mkdir -p "$RPM_BUILD_ROOT/%{_datadir}/terminfo/"
-TERMINFO=$RPM_BUILD_ROOT/%{_datadir}/terminfo/  tic -v doc/etc/rxvt-unicode.terminfo
+##TODO## do older systems have /usr/share/terminfo at all?
+#else: just set with /lib/ on any os release
+TERMINFO="$RPM_BUILD_ROOT/%{_datadir}/terminfo/"
+[ -d %{_datadir}/lib/terminfo ] && TERMINFO="%{_datadir}/lib/terminfo/"
+
+mkdir -p "$RPM_BUILD_ROOT/$TERMINFO"
+#only at package creation time
+TERMINFO="$RPM_BUILD_ROOT/$TERMINFO"  tic -v doc/etc/rxvt-unicode.terminfo
 
 #in case old pkgbuild does not automaticly place %doc files there
 test -d $RPM_BUILD_ROOT%{_docdir} || mkdir $RPM_BUILD_ROOT%{_docdir}
@@ -147,7 +156,7 @@ test -d $RPM_BUILD_ROOT%{_docdir} || mkdir $RPM_BUILD_ROOT%{_docdir}
 rm -rf $RPM_BUILD_ROOT
 
 
-#TODO# postinstall with infocmp -C rxvt-unicode >> /etc/termcap if !grep "^rxvt-unicode" /etc/termcap
+#TODO# postinstall with TERMINFO=/usr/share/lib/terminfo infocmp -C rxvt-unicode >> /etc/termcap if !grep "^rxvt-unicode" /etc/termcap
 #TODO# postinstall display note to user to really read the README.FAQ with tons of usefull hints
 
 
@@ -157,7 +166,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/terminfo/r/*
+%dir %attr(-, root, sys) %{_datadir}/[l|t]*
+%{_datadir}/[l|t]*/*
 %dir %attr (0755, root, other) %{_docdir}
 %dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/*
@@ -177,6 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 - bump to 9.11
 - add Patch16 (already in svn code) to fix initial window not initialized with rows/columns
 - (Build)Requires SUNWgcc<|runtime>  is sufficient
+- fix location of terminfo directory, fix files for terminfo
 * Sat Jun 19 2010 - Thomas Wagner
 - bump to 9.07
 - make version number IPS compatible (9.07 -> 9.7)
