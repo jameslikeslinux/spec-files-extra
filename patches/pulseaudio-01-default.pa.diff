@@ -1,0 +1,11 @@
+--- pulseaudio-0.9.22/src/daemon/default.pa.in-orig	2011-06-09 14:53:38.482787677 -0500
++++ pulseaudio-0.9.22/src/daemon/default.pa.in	2011-06-09 14:54:34.432992374 -0500
+@@ -72,7 +72,7 @@ load-module module-native-protocol-unix
+ ### here if you plan to use paprefs)
+ #load-module module-esound-protocol-tcp
+ #load-module module-native-protocol-tcp
+-#load-module module-zeroconf-publish
++load-module module-zeroconf-publish
+ 
+ ### Load the RTP reciever module (also configured via paprefs, see above)
+ #load-module module-rtp-recv

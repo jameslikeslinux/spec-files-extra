@@ -1,0 +1,129 @@
+--- pulseaudio-0.9.22/src/pulsecore/socket-server.c-orig	2011-06-09 16:43:59.167250309 -0500
++++ pulseaudio-0.9.22/src/pulsecore/socket-server.c	2011-06-09 16:59:12.482110908 -0500
+@@ -50,7 +50,10 @@
+ #endif
+ 
+ #ifdef HAVE_LIBWRAP
++#include <syslog.h>
+ #include <tcpd.h>
++int allow_severity = LOG_INFO;
++int deny_severity = LOG_WARNING;
+ #endif
+ 
+ #ifndef HAVE_INET_NTOP
+--- pulseaudio-0.9.22/src/pulsecore/macro.h-orig	2011-06-09 16:34:44.238088678 -0500
++++ pulseaudio-0.9.22/src/pulsecore/macro.h	2011-06-09 16:35:10.924507543 -0500
+@@ -91,7 +91,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+  * twice. It is thus considered misuse to use code with side effects
+  * as arguments to MIN and MAX. */
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_MAX(a,b)                             \
+     __extension__ ({                            \
+             typeof(a) _a = (a);                 \
+@@ -102,7 +102,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+ #define PA_MAX(a, b) ((a) > (b) ? (a) : (b))
+ #endif
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_MIN(a,b)                             \
+     __extension__ ({                            \
+             typeof(a) _a = (a);                 \
+@@ -113,7 +113,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+ #define PA_MIN(a, b) ((a) < (b) ? (a) : (b))
+ #endif
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_CLAMP(x, low, high)                                          \
+     __extension__ ({                                                    \
+             typeof(x) _x = (x);                                         \
+@@ -125,7 +125,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+ #define PA_CLAMP(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
+ #endif
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_CLAMP_UNLIKELY(x, low, high)                                 \
+     __extension__ ({                                                    \
+             typeof(x) _x = (x);                                         \
+@@ -141,7 +141,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+  * make sense: we cannot know if it is more likely that the values is
+  * lower or greater than the boundaries.*/
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_ROUND_UP(a, b)                       \
+     __extension__ ({                            \
+             typeof(a) _a = (a);                 \
+@@ -152,7 +152,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+ #define PA_ROUND_UP(a, b) ((((a) + (b) - 1) / (b)) * (b))
+ #endif
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_ROUND_DOWN(a, b)                     \
+     __extension__ ({                            \
+             typeof(a) _a = (a);                 \
+@@ -163,7 +163,7 @@ static inline size_t PA_PAGE_ALIGN(size_
+ #define PA_ROUND_DOWN(a, b) (((a) / (b)) * (b))
+ #endif
+ 
+-#ifdef __GNUC__
++#ifdef __FOO_GNUC__
+ #define PA_CLIP_SUB(a, b)                       \
+     __extension__ ({                            \
+             typeof(a) _a = (a);                 \
+--- pulseaudio-0.9.22/src/utils/padsp.c-orig	2011-06-09 16:36:04.541707885 -0500
++++ pulseaudio-0.9.22/src/utils/padsp.c	2011-06-09 16:36:39.028227979 -0500
+@@ -2224,6 +2224,7 @@ static int dsp_ioctl(fd_info *i, unsigne
+             break;
+         }
+ 
++#if 0
+         case SOUND_PCM_READ_RATE:
+             debug(DEBUG_LEVEL_NORMAL, __FILE__": SOUND_PCM_READ_RATE\n");
+ 
+@@ -2247,6 +2248,7 @@ static int dsp_ioctl(fd_info *i, unsigne
+             *(int*) argp = pa_sample_size(&i->sample_spec)*8;
+             pa_threaded_mainloop_unlock(i->mainloop);
+             break;
++#endif
+ 
+         case SNDCTL_DSP_GETOPTR: {
+             count_info *info;
+@@ -2317,7 +2319,7 @@ fail:
+     return ret;
+ }
+ 
+-#ifdef sun
++#ifdef __sun
+ int ioctl(int fd, int request, ...) {
+ #else
+ int ioctl(int fd, unsigned long request, ...) {
+--- pulseaudio-0.9.22/src/modules/module-augment-properties.c-orig	2011-06-09 17:01:15.762102168 -0500
++++ pulseaudio-0.9.22/src/modules/module-augment-properties.c	2011-06-09 17:02:40.207502312 -0500
+@@ -183,8 +183,8 @@ static void update_rule(struct rule *r) 
+         /* Let's try a more aggressive search, but only one level */
+         if ((desktopfiles_dir = opendir(DESKTOPFILEDIR))) {
+             while ((dir = readdir(desktopfiles_dir))) {
+-                if (dir->d_type != DT_DIR
+-                    || strcmp(dir->d_name, ".") == 0
++                if (/* dir->d_type != DT_DIR 
++                    || */ strcmp(dir->d_name, ".") == 0
+                     || strcmp(dir->d_name, "..") == 0)
+                     continue;
+ 
+--- pulseaudio-0.9.22/src/modules/module-solaris.c-orig	2011-06-09 17:03:16.696536244 -0500
++++ pulseaudio-0.9.22/src/modules/module-solaris.c	2011-06-09 17:05:21.360915394 -0500
+@@ -1015,7 +1015,7 @@ int pa__init(pa_module *m) {
+     else
+         pa_log_warn("Could not register SIGPOLL handler");
+ 
+-    if (!(u->thread = pa_thread_new(thread_func, u))) {
++    if (!(u->thread = pa_thread_new("solaris", thread_func, u))) {
+         pa_log("Failed to create thread.");
+         goto fail;
+     }

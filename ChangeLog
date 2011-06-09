@@ -1,5 +1,20 @@
 2010-06-09 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFEpulseaudio: Bump from 0.9.5 to 0.9.22.  Note that to build the
+	  new version you need to build it with the newer libtool 2.2.6b in
+	  archive/SFElibtool.spec.  Also now pulseaudio builds with GCC since
+	  if you do not build with GCC it requires libatomic-ops, and I was
+	  not able to get pulseaudio to build with libatomic-ops.
+	* patches/pulseaudio-03-solaris.diff: Patches needed to get the code
+	  to build.  Some of the fixes in this patch are not correct, but get
+	  the module to build.
+	* patches/pulseaudio-01-ioctl.diff, patches/pulseaudio-04-devname.diff,
+	  patches/pulseaudio-05-dirty_hack_IP_MULTICAST_LOOP-module-rtp-send.c,
+	  patches/pulseaudio-06-null-argument.diff: Remove patch no longer
+	  needed.
+
+2010-06-09 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFElibexo.spec: Fix so that /usr/lib/gio is included in the package
 	  if on build 164 or earlier, when GLib was updated to 2.28.
 

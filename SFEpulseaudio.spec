@@ -13,18 +13,12 @@
 
 Name:		SFEpulseaudio
 Summary:	pulseaudio - stream audio to clients
-Version:	0.9.5
+Version:	0.9.22
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
-# bug 253
-Patch1:		pulseaudio-01-ioctl.diff
-Patch2:		pulseaudio-02-default.pa.diff
+Patch1:		pulseaudio-01-default.pa.diff
 # bug 254
-Patch3:		pulseaudio-03-esdcompat.diff
-# bug 255
-Patch4:		pulseaudio-04-devname.diff
-Patch5:		pulseaudio-05-dirty_hack_IP_MULTICAST_LOOP-module-rtp-send.c
-# bug 256
-Patch6:         pulseaudio-06-null-argument.diff
+Patch2:		pulseaudio-02-esdcompat.diff
+Patch3:         pulseaudio-03-solaris.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -54,14 +48,20 @@ Summary:                 %{summary} - / filesystem
 SUNW_BaseDir:            /
 %include default-depend.inc
 
+%if %build_l10n
+%package l10n
+IPS_package_name:        system/display-manager/gdm/l10n
+Summary:                 %{summary} - l10n files
+SUNW_BaseDir(relocate_from:%{_prefix}): %{_gnome_il10n_basedir}
+%include default-depend.inc
+Requires:                %{name}
+%endif
+
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 perl -pi -e 's,/bin/sh,/bin/ksh,' src/daemon/esdcompat.in
 
 %build
@@ -74,8 +74,10 @@ fi
 #_XGP4_2 and __EXTENSIONS__ for rtp.c to find all typedefs
 export CPPFLAGS="-D_XPG4_2 -D__EXTENSIONS__"
 
-export CFLAGS="%optflags"
+export CFLAGS="%gcc_optflags -std=c99"
 export LDFLAGS="%{_ldflags} -lxnet -lsocket -lgobject-2.0"
+
+export CC=gcc
 
 ./configure --prefix=%{_prefix}         \
             --mandir=%{_mandir}         \
@@ -97,6 +99,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 #rm -f $RPM_BUILD_ROOT%{_libdir}/pulse-*/modules/lib*.la
 find $RPM_BUILD_ROOT%{_libdir}/ -name "*.a" -exec rm {} \; -print -o -name  "*.la" -exec rm {} \; -print
 
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -107,6 +115,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libexecdir}/pulse*
 %{_libdir}/lib*.so*
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/pulseaudio
+%{_datadir}/vala
+%dir %attr(0755, root, bin) %{_mandir}
+%dir %attr(0755, root, bin) %{_mandir}/man1
+%{_mandir}/man1/*
+%{_mandir}/man5/*
 
 %files devel
 %defattr (-, root, bin)
@@ -116,10 +131,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %files root
-%defattr (-, root, bin)
+%defattr (-, root, sys)
 %attr (0755, root, sys) %dir %{_sysconfdir}
 %attr (0755, root, sys) %dir %{_sysconfdir}/pulse
 %{_sysconfdir}/pulse/*
+%dir %attr (0755, root, bin) %{_sysconfdir}/dbus-1
+%dir %attr (0755, root, bin) %{_sysconfdir}/dbus-1/system.d
+%{_sysconfdir}/dbus-1/system.d/*
+
+%{_sysconfdir}/xdg
+%dir %attr (0755, root, bin) /lib
+/lib/udev
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/gnome
+%attr (-, root, other) %{_datadir}/locale
+%{_datadir}/gnome/*help/*/[a-z]*
+%{_datadir}/omf/gdm/*-[a-z]*.omf
+%endif
 
 %changelog
 * Tue Feb 17 2009 - Thomas Wagner
