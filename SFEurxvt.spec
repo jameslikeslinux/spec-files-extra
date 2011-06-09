@@ -2,6 +2,9 @@
 # spec file for package SFEurxvt
 #
 
+%define src_version 9.11
+%define version 9.11
+
 ##TODO## needs rework for IPS: %{version} is not truly numeric: 9.06 .. needs workaround for IPS
 #TODO# urxvt does not set terminal-size. have to use: stty rows 50; stty columns 132; export LINES=50 COLUMNS=132
 ##DONE## #TODO# cleanup environment setting CFLAGS/CXXFLAGS/LDFLAGS...
@@ -27,19 +30,23 @@
 Name:                    SFEurxvt
 Summary:                 urxvt - X Terminal Client (+multiscreen Server) with unicode support, derived from rxvt
 URL:                     http://software.schmorp.de
-Version:                 9.06
-Source:                  http://dist.schmorp.de/rxvt-unicode/rxvt-unicode-%{version}.tar.bz2
+Version:                 %{version}
+Source:                  http://dist.schmorp.de/rxvt-unicode/rxvt-unicode-%{src_version}.tar.bz2
 Patch10:		 urxvt-10-terminfo_enacs.diff
 Patch11:		 urxvt-11-remove-tic.diff
 Patch12:		 urxvt-12-configure-bash.diff
+#already in svn code, check on next version update if this one can be removed
+Patch16:		 urxvt-16-ioctl-tty-I_PUSH.diff
 SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+BuildRoot:               %{_tmppath}/%{name}-%{src_version}-build
 
 
 %include default-depend.inc
 
-BuildRequires: SFEgcc
-Requires:      SFEgccruntime
+#old gcc is enough BuildRequires: SFEgcc
+#old gcc is enough Requires:      SFEgccruntime
+BuildRequires: SUNWgcc
+Requires:      SUNWgccruntime
 
 
 %description
@@ -49,15 +56,18 @@ backgrounds (unmodified or shaded background inside the Terminal window)
 
 
 %prep
-%setup -q -n rxvt-unicode-%{version}
+%setup -q -n rxvt-unicode-%{src_version}
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+#already in svn code, check on next version update if this one can be removed
+Patch16:		 urxvt-16-ioctl-tty-I_PUSH.diff
+%patch16 -p1
 
 
 %build
-export CC=gcc
-export CXX=g++
+export CC=/usr/sfw/bin/gcc
+export CXX=/usr/sfw/bin/g++
 export LDFLAGS="%_ldflags"
 #export LD_OPTIONS="-i -L/usr/X11/lib -R/usr/X11/lib -L/usr/openwin/lib -R/usr/openwin/lib"
 #export LD=/opt/jdsbld/bin/ld-wrapper
@@ -65,7 +75,6 @@ export LDFLAGS="%_ldflags"
 #export CXXFLAGS="%cxx_optflags -D_XPG5 -D_XOPEN_SOURCE=500 -D__EXTENSIONS__"
 export CFLAGS="%optflags -L/usr/X11/lib -R/usr/X11/lib -lX11 -lXext -lXrender"
 export CXXFLAGS="%cxx_optflags"
-
 
 ./configure \
             --prefix=%{_prefix} \
@@ -165,6 +174,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 09 2011 - Thomas Wagner
+- bump to 9.11
+- add Patch16 (already in svn code) to fix initial window not initialized with rows/columns
+- (Build)Requires SUNWgcc<|runtime>  is sufficient
+* Sat Jun 19 2010 - Thomas Wagner
+- bump to 9.07
+- make version number IPS compatible (9.07 -> 9.7)
 * Fri Feb 06 2009 - Thomas Wagner
 - set compiler to gcc in any case
 - (Build)Requires: SFEgcc(runtime)
