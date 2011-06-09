@@ -3,6 +3,8 @@
 #
 # bugdb: www.pulseaudio.org/report/
 #
+# Note that this requires building with the version 2.2.6b of libtool in 
+# archive/SFElibtool.spec
 
 %include Solaris.inc
 
@@ -18,6 +20,7 @@ Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		pulseaudio-01-default.pa.diff
 # bug 254
 Patch2:		pulseaudio-02-esdcompat.diff
+# This patch is very rough, but gets the code to compile.
 Patch3:         pulseaudio-03-solaris.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -77,6 +80,10 @@ export CPPFLAGS="-D_XPG4_2 -D__EXTENSIONS__"
 export CFLAGS="%gcc_optflags -std=c99"
 export LDFLAGS="%{_ldflags} -lxnet -lsocket -lgobject-2.0"
 
+# If you do not build with gcc, then it seems to need atomic_ops, and
+# pulseaudio does not compile on Solaris with SFElibatomic-ops.  Should fix
+# this so it can build with Sun Studio.
+#
 export CC=gcc
 
 ./configure --prefix=%{_prefix}         \
