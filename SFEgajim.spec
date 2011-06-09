@@ -9,7 +9,7 @@
 Name:		SFEgajim
 Summary:	Gajim Jabber client
 Group:		Applications/Internet
-Version:	0.14.1
+Version:	0.14.2
 URL:		http://www.gajim.org/
 Source:		http://www.gajim.org/downloads/0.14/gajim-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -98,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jun 09 2011 - Milan Jurik
+- bump to 0.14.2
 * Sat Dec 04 2010 - Milan Jurik
 - update to 0.14.1, move to python 2.6
 * Sat Mar 23 2008 - nicolas@slubman.info
