@@ -1,0 +1,17 @@
+--- ristretto-0.0.93/docs/manual/C/Makefile.am	2010-11-13 09:03:47.000000000 -0500
++++ ristretto-0.0.93/docs/manual/C/Makefile.am.patched	2011-06-09 01:29:36.016925500 -0400
+@@ -3,7 +3,7 @@
+ SUBDIRS = 					\
+ 	images
+ 
+-TARGET_DIR = $(datadir)/doc/ristretto/html/C
++TARGET_DIR = $(docdir)/html/C
+ STYLESHEET = ../ristretto.xsl
+ DOCUMENT = ristretto.xml
+ 
+@@ -64,3 +64,5 @@
+ 	-cp $(srcdir)/html/* $(distdir)/html
+ 
+ .PHONY: dist-hook-local
++
++

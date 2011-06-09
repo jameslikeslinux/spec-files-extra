@@ -1,0 +1,17 @@
+--- ristretto-0.0.93/src/thumbnailer.c.orig	2011-02-28 13:45:45.000000000 -0500
++++ ristretto-0.0.93/src/thumbnailer.c	2011-06-09 01:45:27.281438000 -0400
+@@ -18,6 +18,8 @@
+ 
+ #include <config.h>
+ 
++#include <string.h>
++
+ #include <glib.h>
+ #include <gtk/gtk.h>
+ #include <gio/gio.h>
+@@ -388,3 +390,5 @@
+ 
+                     
+ */
++
++
