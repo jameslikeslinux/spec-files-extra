@@ -61,7 +61,6 @@ backgrounds (unmodified or shaded background inside the Terminal window)
 %patch11 -p1
 %patch12 -p1
 #already in svn code, check on next version update if this one can be removed
-Patch16:		 urxvt-16-ioctl-tty-I_PUSH.diff
 %patch16 -p1
 
 
