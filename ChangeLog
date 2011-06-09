@@ -1,4 +1,9 @@
-2011-05-22 Milan Jurik <sfnet@xylab.cz>
+2010-06-09 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElibexo.spec: Fix so that /usr/lib/gio is included in the package
+	  if on build 164 or earlier, when GLib was updated to 2.28.
+
+2011-06-09 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgajim.spec: bump to 0.14.2
 

@@ -6,6 +6,8 @@
 
 %include Solaris.inc
 
+%define osbuild %(uname -v | sed -e 's/[A-z_]//g')
+
 %define python_version 2.6
 
 %define src_name exo
@@ -103,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xfce4/exo-1/exo-helper-1
 %dir %attr (0755, root, bin) %{_libdir}/python%{python_version}
 %{_libdir}/python%{python_version}/*
+%if %(expr %{osbuild} '<' 165)
+%{_libdir}/gio/*
+%endif
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1
