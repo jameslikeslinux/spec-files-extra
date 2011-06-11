@@ -1,5 +1,6 @@
 2011-06-11  Ken Mays  <kmays2000@gmail.com>
 
+	* SFExfce-xfmpc.spec: Initial spec
         * SFExfce4-battery-plugin.spec: Initial spec
         * SFExfce4-cddrive-plugin.spec: Initial spec
         * SFExfce4-cellmodem-plugin.spec: Initial spec
