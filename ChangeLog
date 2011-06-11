@@ -1,3 +1,42 @@
+2011-06-11  Ken Mays  <kmays2000@gmail.com>
+
+        * SFExfce4-battery-plugin.spec: Initial spec
+        * SFExfce4-cddrive-plugin.spec: Initial spec
+        * SFExfce4-cellmodem-plugin.spec: Initial spec
+        * SFExfce4-clipman-plugin.spec: Initial spec
+        * SFExfce4-cpufreq-plugin.spec: Initial spec
+        * SFExfce4-cpugraph-plugin.spec: Initial spec
+        * SFExfce4-diskperf-plugin.spec: Initial spec
+        * SFExfce4-eyes-plugin.spec: Initial spec
+        * SFExfce4-fsguard-plugin.spec
+        * SFExfce4-genmon-plugin.spec: Initial spec
+        * SFExfce4-indicator-plugin.spec: Initial spec
+        * SFExfce4-linelight-plugin.spec: Initial spec
+        * SFExfce4-modemlights-plugin.spec: Initial spec
+        * SFExfce4-mount-plugin.spec: Initial spec
+        * SFExfce4-mpc-plugin.spec: Initial spec
+        * SFExfce4-netload-plugin.spec: Initial spec
+        * SFExfce4-notes-plugin.spec: Initial spec
+        * SFExfce4-places-plugin.spec: Initial spec
+        * SFExfce4-radio-plugin.spec: Initial spec
+        * SFExfce4-smartbookmark-plugin.spec: Initial spec
+        * SFExfce4-stopwatch-plugin.spec: Initial spec
+        * SFExfce4-systemload-plugin.spec: Initial spec
+        * SFExfce4-time-out-plugin.spec: Initial spec
+        * SFExfce4-timer-plugin.spec: Initial spec
+        * SFExfce4-verve-plugin.spec: Initial spec
+        * SFExfce4-wavelan-plugin.spec: Initial spec
+        * SFExfce4-weather-plugin.spec: Initial spec
+        * SFExfce4-xfapplet-plugin.spec: Initial spec
+        * SFExfce4-xkb-plugin.spec: Initial spec
+        * SFExfce4-xmms-plugin.spec: Initial spec
+	* Added patches/xfce4-cpugraph-plugin-01-solaris_support.diff
+	* Added patches/xfce4-cpugraph-plugin-02-fixmaxcpu.diff
+	* Added patches/xfce4-mpc-plugin-01-libnsl.diff
+	* Added patches/xfce4-netload-plugin-01-libnsl.diff
+	* Added patches/xfce4-netload-plugin-02-os-def.diff
+	* Added patches/xfce4-netload-plugin-03-localedir.diff
+
 2011-06-10  Ken Mays  <kmays2000@gmail.com>
 
 	* SFExfce4-screenshooter.spec: Initial spec

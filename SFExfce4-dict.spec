@@ -18,12 +18,14 @@ Source:         %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:  SFElibxfcegui4 
-BuildRequires:  SFElibxfce4ui
-BuildRequires:  SFExfce4-panel
-BuildRequires:  SUNWperl-xml-parser
+Requires:       SFElibxfcegui4 
+Requires:       SFElibxfce4ui
+Requires:       SFExfce4-panel
+Requires:       SUNWperl-xml-parser
 Suggests:       xfce4-panel-plugin-dict 
- 
+Requires:       SUNWpostrun
+
+
 %description
 Xfce4 Dictionary is written by Enrico Trger, and is a client program to query different dictionaries. It can query a Dict server (RFC 2229), open online dictionaries in a web browser or verify the spelling of a word using aspell or ispell. It contains a stand-alone application and a plugin for the Xfce panel. 
 
@@ -54,7 +56,9 @@ fi
         --libexecdir=%{_libexecdir}     \
         --datadir=%{_datadir}           \
         --mandir=%{_mandir}             \
-        --sysconfdir=%{_sysconfdir}
+        --sysconfdir=%{_sysconfdir}     \
+        --enable-gtk-doc                \
+        --disable-static
 
 make -j $CPUS
 
@@ -65,6 +69,24 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+( echo 'test -x /usr/bin/update-desktop-database || exit 0';
+  echo '/usr/bin/update-desktop-database'
+  touch %{_datadir}/icons/hicolor || :
+  if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+        %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+  fi
+) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -u
+
+%postun
+test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
+( echo 'test -x /usr/bin/update-desktop-database || exit 0';
+  echo '/usr/bin/update-desktop-database'
+  touch %{_datadir}/icons/hicolor || :
+  if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+        %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+  fi
+) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -u
 
 %files
 %defattr(-,root,bin)
