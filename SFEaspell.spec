@@ -64,37 +64,24 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*.so*
-%{_mandir}/*/* 
-%{_infodir}/aspell.* 
-%{_bindir}/aspell 
-%{_bindir}/aspell-import 
-%{_bindir}/run-with-aspell 
-%{_bindir}/word-list-compress 
-%{_bindir}/pre* 
-%{_libdir}/libaspell.so.* 
-%{_libdir}/libpspell.so.* 
-%{_libdir}/aspell-0.60 
-%{_datadir}/locale/*/*/aspell.mo
+%{_libdir}/aspell
+
+# Possible fix for #BUG #2110810 (Ken Mays)
+# %{_mandir}/*/*
+# %{_bindir}/aspell 
+# %{_bindir}/aspell-import 
+# %{_bindir}/run-with-aspell 
+# %{_bindir}/word-list-compress 
+# %{_bindir}/pre* 
 
 %files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
-%{_infodir}/aspell-dev.* 
-%{_prefix}/include/* 
-%{_bindir}/pspell-config 
-%{_libdir}/lib*.a %{_libdir}/lib*.la 
-%{_libdir}/libaspell.so 
-%{_libdir}/libpspell.so
-
-
-%files ispell
-%defattr(-,root,root)
-%{_bindir}/ispell 
 
 %changelog
-* Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
-- Fixed v0.60.6 packaging per BUG #2110810.
+* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
+- Packaging reviewed per BUG #2110810.
 * Fri Mar 05 2010 - Brian Cameron <brian.cameron>
 - Need to set LD_NOEXEC_64 and add -xannotate=no to deal with doo bug #9720.
   and bugster #6823945/#6865312.

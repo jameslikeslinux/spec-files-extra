@@ -4,12 +4,12 @@
 %include Solaris.inc
 
 %define python_version 2.6
-%define src_version 2.57b
+%define src_version 2.49b
 %define src_url http://download.blender.org/source
 
 Name:           SFEblender
 Summary:        Blender - Open source 3D creation tools
-Version:        2.57b
+Version:        2.49.2
 Source:		%{src_url}/blender-%{src_version}.tar.gz
 Patch1:		blender-01-build.diff
 Patch2:		blender-02-install.diff
@@ -178,8 +178,6 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
-* Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
-- BumpeD to 2.57b
 * May 18 2010 - G.D.
 - exec in bindir
 * Wed May 12 2010 - Albert Lee <trisk@opensolaris.org>
@@ -199,3 +197,4 @@ rm -rf $RPM_BUILD_ROOT
 - depend SUNWopenexr
 * Sept 16 2008 - Gilles Dauphin ( Gilles DOT Dauphin AT enst DOT fr)
 - Initial spec
+
