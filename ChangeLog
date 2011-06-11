@@ -35,7 +35,6 @@
 	* Added patches/xfce4-mpc-plugin-01-libnsl.diff
 	* Added patches/xfce4-netload-plugin-01-libnsl.diff
 	* Added patches/xfce4-netload-plugin-02-os-def.diff
-	* Added patches/xfce4-netload-plugin-03-localedir.diff
 
 2011-06-10  Ken Mays  <kmays2000@gmail.com>
 

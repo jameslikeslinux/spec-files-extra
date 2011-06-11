@@ -16,7 +16,6 @@ URL:			http://www.xfce.org/
 Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-netload-plugin/1.0/xfce4-netload-plugin-%{version}.tar.bz2
 Patch1:			xfce4-netload-plugin-01-libnsl.diff
 Patch2:			xfce4-netload-plugin-02-os-def.diff
-Patch3:			xfce4-netload-plugin-03-localedir.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -38,7 +37,6 @@ Requires:		SUNWpostrun
 %setup -q -n xfce4-netload-plugin-%{version}
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`

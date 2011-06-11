@@ -16,8 +16,6 @@ Summary:		CPU Graph Plugin
 Version:		1.0.1
 URL:			http://www.xfce.org/
 Source0:                http://archive.xfce.org/src/panel-plugins/xfce4-cpugraph-plugin/1.0/%{src_name}-%{version}.tar.bz2
-#Patch1:		xfce4-cpugraph-plugin-01-solaris_support.diff
-#Patch2:                xfce4-cpugraph-plugin-02-fixmaxcpu.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -31,8 +29,6 @@ Requires:		SUNWpostrun
 
 %prep
 %setup -q -n %{src_name}-%{version}
-#%patch1 -p1
-#%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
