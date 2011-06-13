@@ -1,3 +1,9 @@
+2011-06-13 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEaspell.spec: Bump to Aspell 0.60.6
+	* base-specs/aspell.spec: Bump to Aspell 0.60.6
+	* patches/aspell-01-forte.diff: fixed for Aspell 0.60.6 
+
 2011-06-11  Ken Mays  <kmays2000@gmail.com>
 
 	* SFExfce-xfmpc.spec: Initial spec

@@ -60,19 +60,22 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+# Fixed packaging for #BUG #2110810 (Ken Mays)
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
+#%doc COPYING README
+#%doc manual/aspell.html
+%{_mandir}/*/*
+%{_bindir}/spell
+%{_bindir}/aspell-import
+%{_bindir}/run-with-aspell
+%{_bindir}/word-list-compress
+%{_bindir}/ispell
+%{_bindir}/pre*
+%{_bindir}/pspell-config
 %{_libdir}/lib*.so*
 %{_libdir}/aspell
-
-# Possible fix for #BUG #2110810 (Ken Mays)
-# %{_mandir}/*/*
-# %{_bindir}/aspell 
-# %{_bindir}/aspell-import 
-# %{_bindir}/run-with-aspell 
-# %{_bindir}/word-list-compress 
-# %{_bindir}/pre* 
 
 %files devel
 %defattr (-, root, bin)
@@ -80,9 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Packaging reviewed per BUG #2110810.
-* Fri Mar 05 2010 - Brian Cameron <brian.cameron>
+* Mon Jun 13 2011 - Ken Mays <kmays2000@gmail.com>
+- Fixed packaging per BUG #2110810.
+* Fri Mar 05 2010 - Brian Cameron <brian.cameron@oracle.com>
 - Need to set LD_NOEXEC_64 and add -xannotate=no to deal with doo bug #9720.
   and bugster #6823945/#6865312.
 * Sat Apr 21 2007 - dougs@truemail.co.th

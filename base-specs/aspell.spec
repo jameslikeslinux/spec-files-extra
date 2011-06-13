@@ -7,7 +7,7 @@
 # bugdb: http://sourceforge.net/tracker/index.php?func=detail&group_id=245&atid=100245&aid=
 #
 Name:     	aspell
-Version: 	0.60.4
+Version: 	0.60.6
 Release:        356
 Vendor:		Sun Microsystems, Inc.
 Distribution:	Java Desktop System
@@ -17,7 +17,7 @@ Docdir:         %{_datadir}/doc
 Autoreqprov:	on
 URL:		http://www.sun.com/software/javadesktopsystem/
 Epoch:		2
-Source:		ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz
+Source:		ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz 
 # date:2004-05-27 type:bug owner:yippi bugzilla:1415029
 Patch1:		aspell-01-forte.diff
 Summary:	A spelling checker.
@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/info
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jun 13 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to Aspell 0.60.6
+- Revised/Fixed aspell-01-forte.diff patch for Aspell 0.60.6 
 * Tue Mar 12 2007 - jeff.cai@sun.com
 - Move to sourceforge from opensolaris.
 * Thu Apr 20 2006 - halton.huo@sun.com
