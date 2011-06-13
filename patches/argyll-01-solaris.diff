@@ -1,0 +1,188 @@
+diff -ur Argyll_V1.3.3.orig/Jamfile Argyll_V1.3.3/Jamfile
+--- Argyll_V1.3.3.orig/Jamfile	2011-05-12 22:01:10.000000000 -0400
++++ Argyll_V1.3.3/Jamfile	2011-06-13 17:10:30.289215145 -0400
+@@ -41,7 +41,7 @@
+ 	if $(NT) {
+ 		SubInclude libusbw ;
+ 	}
+-	if $(UNIX) && $(OS) != FREEBSD {
++	if $(UNIX) && $(OS) != FREEBSD && $(OS) != SOLARIS {
+ 		SubInclude libusb ;
+ 	}
+ }
+Only in Argyll_V1.3.3: Jamfile.rej
+diff -ur Argyll_V1.3.3.orig/Jamtop Argyll_V1.3.3/Jamtop
+--- Argyll_V1.3.3.orig/Jamtop	2011-05-12 22:01:10.000000000 -0400
++++ Argyll_V1.3.3/Jamtop	2011-06-13 17:15:31.943779403 -0400
+@@ -25,7 +25,7 @@
+ USE_LIBUSB1 = true ;
+ 
+ # Except that FreeBSD doesn't have libusb1 port yet..
+-if $(OS) = FREEBSD || $(OS) = OPENBSD {
++if $(OS) = FREEBSD || $(OS) = OPENBSD || $(OS) = SOLARIS {
+ 	USE_LIBUSB1 = false ; # Use libusb 0.1
+ }
+ 
+@@ -61,7 +61,7 @@
+ 		} else {
+ 			EXIT Unable to locate the X11 include files ;
+ 		}
+-		if $(OS) = FREEBSD {
++		if $(OS) = FREEBSD || $(OS) = SOLARIS {
+ 			LINKFLAGS += -L$(LibWinD) -g -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss  -lusb ;
+ 		} else {
+ 			LINKFLAGS += -L$(LibWinD) -ldl -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss ;
+Only in Argyll_V1.3.3: Jamtop.orig
+Only in Argyll_V1.3.3: Jamtop.rej
+diff -ur Argyll_V1.3.3.orig/jcnf/jcnf.c Argyll_V1.3.3/jcnf/jcnf.c
+--- Argyll_V1.3.3.orig/jcnf/jcnf.c	2011-05-12 22:02:32.000000000 -0400
++++ Argyll_V1.3.3/jcnf/jcnf.c	2011-06-13 16:56:39.703347421 -0400
+@@ -726,18 +726,22 @@
+ static jc_error jcnf_lock_file(jcnf *p) {
+ #ifndef NT
+ 	int i, fh;
+-	int lop;
++	struct flock lock;
+ 
+ 	fh = fileno(p->fp);
+ 
++	lock.l_start = 0;
++	lock.l_whence = SEEK_SET;
++	lock.l_len = 0;
++
+ 	if (p->modify) {
+-		lop = LOCK_EX | LOCK_NB;
++		lock.l_type = F_WRLCK;
+ 	} else {
+-		lop = LOCK_SH | LOCK_NB;
++		lock.l_type = F_RDLCK;
+ 	}
+ 
+ 	for (i = 0; i < LOCK_RETRIES; i++) {
+-		if (flock(fh, lop) == 0)
++		if (fcntl(fh, F_SETLK, &lock) != -1)
+ 			break;
+ 		sleep(1);
+ 	}
+diff -ur Argyll_V1.3.3.orig/jcnf/jcnf.h Argyll_V1.3.3/jcnf/jcnf.h
+--- Argyll_V1.3.3.orig/jcnf/jcnf.h	2011-05-12 22:02:32.000000000 -0400
++++ Argyll_V1.3.3/jcnf/jcnf.h	2011-06-13 16:56:39.703822702 -0400
+@@ -43,6 +43,10 @@
+ 
+  */
+ 
++#ifdef __sun
++#include <sys/time.h>
++#endif
++
+ /* jcnf error codes */
+ typedef enum {
+ 	jc_ok		    = 0,		/* No error */
+diff -ur Argyll_V1.3.3.orig/numlib/numsup.c Argyll_V1.3.3/numlib/numsup.c
+--- Argyll_V1.3.3.orig/numlib/numsup.c	2011-05-12 22:01:11.000000000 -0400
++++ Argyll_V1.3.3/numlib/numsup.c	2011-06-13 16:56:39.704793385 -0400
+@@ -23,6 +23,7 @@
+ #ifdef UNIX
+ #include <unistd.h>
+ #include <sys/param.h>
++#include <limits.h>
+ #endif
+ 
+ #include "numsup.h"
+Only in Argyll_V1.3.3/numlib: numsup.c.orig
+diff -ur Argyll_V1.3.3.orig/plot/Jamfile Argyll_V1.3.3/plot/Jamfile
+--- Argyll_V1.3.3.orig/plot/Jamfile	2011-05-12 22:01:54.000000000 -0400
++++ Argyll_V1.3.3/plot/Jamfile	2011-06-13 16:56:39.705272532 -0400
+@@ -5,6 +5,8 @@
+ PREF_CCFLAGS	= $(CCDEBUGFLAG) ;		# Debugging flags
+ PREF_LINKFLAGS	= $(LINKDEBUGFLAG) ;
+ 
++LINKLIBS = ../numlib/libnum ;
++
+ # PLOT library
+ Library libplot : plot.c : : : ../h ../numlib ../spectro ;
+ if $(UNIX) && $(OS) != MACOSX {
+diff -ur Argyll_V1.3.3.orig/spectro/hidio.c Argyll_V1.3.3/spectro/hidio.c
+--- Argyll_V1.3.3.orig/spectro/hidio.c	2011-05-12 22:02:20.000000000 -0400
++++ Argyll_V1.3.3/spectro/hidio.c	2011-06-13 16:56:39.706229106 -0400
+@@ -60,6 +60,8 @@
+ #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+ #include <sys/types.h> 
+ #include <usbhid.h> 
++#elif defined(__sun)
++#include <sys/usb/clients/hid/hid.h>
+ #else	/* assume Linux */ 
+ #include <asm/types.h>
+ #include <linux/hiddev.h>
+Only in Argyll_V1.3.3/spectro: hidio.c.orig
+diff -ur Argyll_V1.3.3.orig/spectro/Jamfile Argyll_V1.3.3/spectro/Jamfile
+--- Argyll_V1.3.3.orig/spectro/Jamfile	2011-05-12 22:02:18.000000000 -0400
++++ Argyll_V1.3.3/spectro/Jamfile	2011-06-13 16:56:39.706995157 -0400
+@@ -27,21 +27,6 @@
+ 	IOFILE = ntio.c ;
+ }
+ if $(UNIX) {
+-	if $(USE_LIBUSB1) = true {
+-		LIBUSBDIR = ../libusb1 ;
+-		LIBUSBHDRS = ../libusb1 ;
+-		if $(LIBUSB_IS_DLL) = true {
+-			LIBUSB = $(LIBUSB1NAME)$(SUFIMPLIB) ;
+-			LIBUSBSH = $(LIBUSB1NAME)$(SUFSHLIB) ;
+-		} else {
+-			LIBUSB = $(LIBUSB1NAME)$(SUFLIB) ;
+-		}
+-		DEFINES += USE_LIBUSB1 ;
+-	} else {
+-		LIBUSBDIR = ../libusb ;
+-		LIBUSBHDRS = ../libusb ;
+-		LIBUSB = libusb ;
+-	}
+ 	IOFILE = unixio.c ;
+ 	CONVFILE = pollem.c ;
+ }
+@@ -66,7 +51,7 @@
+ }
+ 
+ HDRS = ../h ../numlib ../icc ../cgats ../rspl ../xicc ../gamut ../spectro
+-       ../plot $(LIBUSBHDRS) $(CMMHDRS) ;
++       ../plot $(CMMHDRS) ;
+ 
+ # Instrument access library library
+ Library libinst : inst.c insttypes.c dtp20.c dtp22.c dtp41.c dtp51.c dtp92.c i1disp.c i1pro.c i1pro_imp.c munki.c munki_imp.c ss.c ss_imp.c hcfr.c spyd2.c huey.c $(IOFILE) usbio.c hidio.c ;
+@@ -97,8 +82,6 @@
+ 	File $(LIBUSBSH) : $(LIBUSBDIR)/$(LIBUSBSH) ;
+ 	# executable needs .so/.dll in same directory
+ 	NDepends $(Executables) : $(LIBUSBSH) ;
+-} else {
+-	LINKLIBS += $(LIBUSBDIR)/$(LIBUSB) ;
+ }
+ 
+ # General target reader program
+Only in Argyll_V1.3.3/spectro: Jamfile.orig
+diff -ur Argyll_V1.3.3.orig/spectro/usbio.c Argyll_V1.3.3/spectro/usbio.c
+--- Argyll_V1.3.3.orig/spectro/usbio.c	2011-05-12 22:02:20.000000000 -0400
++++ Argyll_V1.3.3/spectro/usbio.c	2011-06-13 16:56:39.708690448 -0400
+@@ -185,10 +185,6 @@
+ #ifdef ENABLE_USB
+ 	struct usb_bus *bus;
+ 
+-	/* Check that we've got an up to date version of libusb */
+-	if (usb_argyll_patched() < 2)
+-		error("usblib isn't up to date to work with this version of Argyll");
+-
+ 	if (p->debug > 8)
+ 		usb_set_debug(p->debug);
+ 
+Only in Argyll_V1.3.3/spectro: usbio.c.orig
+diff -ur Argyll_V1.3.3.orig/ucmm/ucmm.c Argyll_V1.3.3/ucmm/ucmm.c
+--- Argyll_V1.3.3.orig/ucmm/ucmm.c	2011-05-12 22:02:31.000000000 -0400
++++ Argyll_V1.3.3/ucmm/ucmm.c	2011-06-13 16:56:39.709850429 -0400
+@@ -763,7 +763,7 @@
+ 				}
+ 				if ((pp = jc_get_nth_elem(key, 3)) == NULL)
+ 					continue;
+-				if (strcmp(pp,"ICC_PROFILE") != 0i
++				if (strcmp(pp,"ICC_PROFILE") != 0
+ 				 || type != jc_string
+ 				 || strcmp(data, data_name) != 0) {
+ 					free(pp);
