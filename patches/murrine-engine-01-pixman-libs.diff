@@ -1,0 +1,37 @@
+diff -ur murrine-0.98.1.1.orig/configure.ac murrine-0.98.1.1/configure.ac
+--- murrine-0.98.1.1.orig/configure.ac	2010-10-04 13:46:13.000000000 -0400
++++ murrine-0.98.1.1/configure.ac	2011-06-14 21:33:13.784434478 -0400
+@@ -46,6 +46,8 @@
+ 
+ AC_SUBST(GTK_CFLAGS)
+ AC_SUBST(GTK_LIBS)
++AC_SUBST(PIXMAN_CFLAGS)
++AC_SUBST(PIXMAN_LIBS)
+ 
+ GTK_VERSION=`$PKG_CONFIG --variable=gtk_binary_version gtk+-2.0`
+ AC_SUBST(GTK_VERSION)
+diff -ur murrine-0.98.1.1.orig/Makefile.am murrine-0.98.1.1/Makefile.am
+--- murrine-0.98.1.1.orig/Makefile.am	2010-10-04 13:46:45.000000000 -0400
++++ murrine-0.98.1.1/Makefile.am	2011-06-14 21:33:47.887266372 -0400
+@@ -1,4 +1,4 @@
+-INCLUDES = $(GTK_CFLAGS)
++INCLUDES = $(GTK_CFLAGS) $(PIXMAN_CFLAGS)
+ 
+ SUBDIRS = schema
+ DIST_SUBDIRS = $(SUBDIRS) po
+@@ -36,5 +36,5 @@
+ 	./src/stack-blur.h
+ 
+ libmurrine_la_LDFLAGS = -module -avoid-version -no-undefined
+-libmurrine_la_LIBADD =  $(GTK_LIBS)
++libmurrine_la_LIBADD =  $(GTK_LIBS) $(PIXMAN_LIBS)
+ 
+diff -ur murrine-0.98.1.1.orig/murrine.pc.in murrine-0.98.1.1/murrine.pc.in
+--- murrine-0.98.1.1.orig/murrine.pc.in	2010-09-08 18:58:55.000000000 -0400
++++ murrine-0.98.1.1/murrine.pc.in	2011-06-14 21:33:24.255951526 -0400
+@@ -6,4 +6,4 @@
+ Name: murrine
+ Description: Murrine GTK+ Theme Engine
+ Version: @VERSION@
+-Requires: gtk+-2.0
++Requires: gtk+-2.0 pixman-1
