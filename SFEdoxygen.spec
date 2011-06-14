@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jun 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.4
 * Mon Jul 30 2007 - markwright@internode.on.net
 - bump to 1.5.3, remove patch1 as already applied, bump patch3.
 * Mon Apr  2 2007 - laca@sun.com

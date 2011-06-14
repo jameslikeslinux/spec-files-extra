@@ -1,3 +1,8 @@
+2011-06-14 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEdoxygen.spec: Bump to 1.7.4
+	* base-specs/doxygen.spec: Bump to 1.7.4
+
 2011-06-13  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFExclip.spec: initial spec
