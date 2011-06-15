@@ -4,9 +4,6 @@ URL:                     http://wxwidgets.org/
 Version:                 %{src_ver}
 Source:			 %{sf_download}/wxwindows/%{pkg_src_name}-%{src_ver}.tar.bz2
 Patch1:                  wxwidgets-01-msgfmt.diff
-Patch2:                  wxwidgets-02-Tmacro.diff
-# http://trac.wxwidgets.org/changeset/61009
-Patch3:                  wxwidgets-03-changeset_r61009.diff
 # http://trac.wxwidgets.org/ticket/4697
 Patch4:                  wxwidgets-04-wxFileName-ticket-4697.diff
 Patch5:                  wxwidgets-05-setup.h.in.diff
@@ -16,8 +13,6 @@ SUNW_BaseDir:            %{_basedir}
 rm -rf %{name}-%{src_ver}
 %setup -q -n %{pkg_src_name}-%{src_ver}
 %patch1 -p1
-#%patch2 -p0
-%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
@@ -76,6 +71,12 @@ export LDFLAGS="${LDFLAGS} -L/opt/kde4/lib -R/opt/kde4/lib"
 export LD_OPTIONS="${LD_OPTIONS} -L/opt/kde4/lib -R/opt/kde4/lib"
 %endif
 %endif
+%else
+%if %{is64}
+export PKG_CONFIG_PATH="/usr/lib/%{_arch64}/pkgconfig"
+%else
+export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
+%endif
 %endif
 
 # keep PATH from being mangled by SDL check (breaks grep -E and tr A-Z a-z)
@@ -88,12 +89,11 @@ perl -pi -e 's,PATH=".*\$PATH",:,' configure
 %if %{is_s10}
             --without-gnomeprint		\
             --without-gnomevfs			\
-            --with-expat                        \
 %else
             --with-gnomeprint			\
             --with-gnomevfs			\
-            --without-expat                     \
 %endif
+            --with-expat                        \
             --enable-unicode			\
             --enable-mimetype			\
             --enable-gui			\
@@ -102,7 +102,8 @@ perl -pi -e 's,PATH=".*\$PATH",:,' configure
             --with-subdirs			\
             --with-sdl                          \
             --with-opengl			\
-            --without-libmspack
+            --without-libmspack			\
+            --with-libpng=builtin
 
 sed -i -e 's,${compiler} -o ${outfile} -MMD -MF,${compiler} -c -o ${outfile} -MMD -MF,' bk-make-pch
 

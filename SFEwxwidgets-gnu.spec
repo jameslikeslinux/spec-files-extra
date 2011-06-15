@@ -8,7 +8,7 @@
 %include usr-gnu.inc
 
 %define pkg_src_name	wxWidgets
-%define	src_ver 2.8.10
+%define	src_ver 2.8.12
 %define	src_name        wxwidgets-gnu
 
 %define using_gld %(gcc -v 2>&1 | /usr/xpg4/bin/grep -q with-gnu-ld && echo 1 || echo 0)
@@ -60,6 +60,9 @@ Requires:      FOSSgtk2
 Requires:      FOSSexpat
 BuildRequires: FOSSgtk2
 BuildRequires: FOSSexpat
+%else
+Requires:      SUNWlexpt
+BuildRequires: SUNWlexpt
 %endif
 
 %package devel
@@ -153,6 +156,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 15 2011 - James Lee <jlee@thestaticvoid.com>
+- Bump to 2.8.12.
+- Set correct PKG_CONFIG_PATH for 64-bit builds.
+- Build with expat library, required for XML support.
+- Build with builtin libpng due to version mismatch between png.h and
+  libpng.so on Solaris 11.
 * Thu Jun 21 2009 - brian.cameron@sun.com
 - Bump to 2.8.10.  Remove upstream ptach wxwidgets-02-fixcompile.diff.
   Add patch wxwidgets-02-Tmacro.diff to resolve compile issue when building
