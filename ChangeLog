@@ -1,3 +1,7 @@
+2011-06-15 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* base-specs/ncursesw.spec: Bump to 5.9
+
 2011-06-14 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEdoxygen.spec: Bump to 1.7.4
