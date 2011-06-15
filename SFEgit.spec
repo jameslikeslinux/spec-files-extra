@@ -43,6 +43,7 @@ Requires: SUNWgnu-diffutils
 Requires: SFEdiffutils
 %endif
 Requires: SUNWTk
+Requires: SUNWsvn-perl
 %define perl_version 5.8.4
 BuildRequires: SFEasciidoc
 BuildRequires: SFExmlto
@@ -73,9 +74,6 @@ make configure
         --with-perl=/usr/perl5/bin/perl
 make all doc
 
-# fix path to wish (tk shell)
-perl -pi -e 's,exec wish ,exec /usr/sfw/bin/wish8.3,' gitk
-
 # fix perl lib dir:
 for f in "
     git-archimport
@@ -86,8 +84,7 @@ for f in "
     git-rerere
     git-send-email
     git-shortlog
-    git-svn
-    git-svnimport"; do
+    git-svn"; do
   perl -pi -e 's,"/usr/lib/site_perl","/usr/perl5/vendor_perl/%{perl_version}",' $f
 done
 
@@ -139,6 +136,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Tue Jun 14 2011 James Lee <jlee@thestaticvoid.com>
+- Don't fix path to wish in 'gitk'
+- Remove reference to non-existent file 'git-svnimport'
+- Requrie SUNWsvn-perl for 'git-svn'
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.5.4
 * Sat Apr 16 2011 - Alex Viskovatoff

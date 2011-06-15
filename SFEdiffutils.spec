@@ -53,8 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
 %{_mandir}/*
+%{_datadir}/locale
 
 %changelog
+* Tue Jun 14 2011 James Lee <jlee@thestaticvoid.com>
+- Include locale data
 * Wed Nov 15 2006  <eric.boutilier@sun.com>
 - Copied and transposed CBEdiffutils to SFEdiffutils
 * Tue Aug 22 2006  <laca@sun.com>

@@ -17,6 +17,7 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SFEgnugetopt
 Requires: SUNWlxsl
 Requires: SUNWlxml
 Requires: SUNWgnome-xml-share
@@ -64,6 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 14 2011 - James Lee <jlee@thestaticvoid.com>
+- Build requires SFEgnugetopt
 * Tue Apr 05 2011 - Thomas Wagner
 - commit missing patch2 after removing typo 
 * Sat Mar 26 2011 - Thomas Wagner
