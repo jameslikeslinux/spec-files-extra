@@ -1,3 +1,8 @@
+2011-06-15 Ken Mays  <kmays2000@gmail.com>
+
+	* Fixed patches for blender-2.49b (No HUNK warnings)
+	* Added blender-2.57b-01-sunos5-config.diff
+
 2011-06-15 N.B.Prashanth <nbprash.mit@gmail.com>
 
 	* base-specs/ncursesw.spec: Bump to 5.9

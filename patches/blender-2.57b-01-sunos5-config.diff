@@ -1,0 +1,98 @@
+--- ./build_files/scons/config/sunos5-config.py.orig	2011-06-15 13:57:08.000892500 -0400
++++ ./build_files/scons/config/sunos5-config.py	2011-06-15 14:52:16.500482000 -0400
+@@ -1,16 +1,16 @@
+ LCGDIR = '../lib/sunos5'
+ LIBDIR = '${LCGDIR}'
+ 
+-BF_PYTHON = '/usr/local'
+-BF_PYTHON_VERSION = '3.2'
++BF_PYTHON = '/usr'
++BF_PYTHON_VERSION = '2.6'
+ BF_PYTHON_INC = '${BF_PYTHON}/include/python${BF_PYTHON_VERSION}'
+ BF_PYTHON_BINARY = '${BF_PYTHON}/bin/python${BF_PYTHON_VERSION}'
+ BF_PYTHON_LIB = 'python${BF_PYTHON_VERSION}' #BF_PYTHON+'/lib/python'+BF_PYTHON_VERSION+'/config/libpython'+BF_PYTHON_VERSION+'.a'
+ BF_PYTHON_LINKFLAGS = ['-Xlinker', '-export-dynamic']
+ 
+-WITH_BF_OPENAL = True
++WITH_BF_OPENAL = False
+ WITH_BF_STATICOPENAL = False
+-BF_OPENAL = '/usr/local'
++BF_OPENAL = '/usr'
+ BF_OPENAL_INC = '${BF_OPENAL}/include'
+ BF_OPENAL_LIBPATH = '${BF_OPENAL}/lib'
+ BF_OPENAL_LIB = 'openal'
+@@ -35,7 +35,7 @@
+ 
+ WITH_BF_OPENEXR = True
+ WITH_BF_STATICOPENEXR = False
+-BF_OPENEXR = '/usr/local'
++BF_OPENEXR = '/usr'
+ BF_OPENEXR_INC = ['${BF_OPENEXR}/include', '${BF_OPENEXR}/include/OpenEXR' ]
+ BF_OPENEXR_LIBPATH = '${BF_OPENEXR}/lib'
+ BF_OPENEXR_LIB = 'Half IlmImf Iex Imath '
+@@ -45,18 +45,18 @@
+ WITH_BF_DDS = True
+ 
+ WITH_BF_JPEG = True
+-BF_JPEG = '/usr/local'
++BF_JPEG = '/usr'
+ BF_JPEG_INC = '${BF_JPEG}/include'
+ BF_JPEG_LIBPATH = '${BF_JPEG}/lib'
+ BF_JPEG_LIB = 'jpeg'
+ 
+ WITH_BF_PNG = True
+-BF_PNG = '/usr/local'
++BF_PNG = '/usr'
+ BF_PNG_INC = '${BF_PNG}/include'
+ BF_PNG_LIBPATH = '${BF_PNG}/lib'
+ BF_PNG_LIB = 'png'
+ 
+-BF_TIFF = '/usr/local'
++BF_TIFF = '/usr'
+ BF_TIFF_INC = '${BF_TIFF}/include'
+ 
+ WITH_BF_ZLIB = True
+@@ -65,9 +65,9 @@
+ BF_ZLIB_LIBPATH = '${BF_ZLIB}/lib'
+ BF_ZLIB_LIB = 'z'
+ 
+-WITH_BF_INTERNATIONAL = True
++WITH_BF_INTERNATIONAL = False
+ 
+-BF_GETTEXT = '/usr/local'
++BF_GETTEXT = '/usr'
+ BF_GETTEXT_INC = '${BF_GETTEXT}/include'
+ BF_GETTEXT_LIB = 'gettextlib'
+ BF_GETTEXT_LIBPATH = '${BF_GETTEXT}/lib'
+@@ -98,7 +98,7 @@
+ #BF_PARANOID = True
+ 
+ # enable freetype2 support for text objects
+-BF_FREETYPE = '/usr/local'
++BF_FREETYPE = '/usr'
+ BF_FREETYPE_INC = '${BF_FREETYPE}/include ${BF_FREETYPE}/include/freetype2'
+ BF_FREETYPE_LIBPATH = '${BF_FREETYPE}/lib'
+ BF_FREETYPE_LIB = 'freetype'
+@@ -107,7 +107,7 @@
+ BF_QUICKTIME = '/usr/local'
+ BF_QUICKTIME_INC = '${BF_QUICKTIME}/include'
+ 
+-WITH_BF_ICONV = True
++WITH_BF_ICONV = False
+ BF_ICONV = "/usr"
+ BF_ICONV_INC = '${BF_ICONV}/include'
+ BF_ICONV_LIB = 'iconv'
+@@ -122,10 +122,10 @@
+ 
+ # Mesa Libs should go here if your using them as well....
+ WITH_BF_STATICOPENGL = False
+-BF_OPENGL = '/usr/openwin'
+-BF_OPENGL_INC = '${BF_OPENGL}/include'
++BF_OPENGL = '/usr/X11'
++BF_OPENGL_INC = '${BF_OPENGL}/include/NVIDIA'
+ BF_OPENGL_LIB = 'GL GLU X11 Xi'
+-BF_OPENGL_LIBPATH = '${BF_OPENGL}/lib'
++BF_OPENGL_LIBPATH = '${BF_OPENGL}/lib/NVIDIA'
+ BF_OPENGL_LIB_STATIC = '${BF_OPENGL_LIBPATH}/libGL.a ${BF_OPENGL_LIBPATH}/libGLU.a ${BF_OPENGL_LIBPATH}/libXxf86vm.a ${BF_OPENGL_LIBPATH}/libX11.a ${BF_OPENGL_LIBPATH}/libXi.a ${BF_OPENGL_LIBPATH}/libXext.a ${BF_OPENGL_LIBPATH}/libXxf86vm.a'
+ 
+ ##
