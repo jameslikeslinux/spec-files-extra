@@ -1,3 +1,7 @@
+2011-06-16 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEeterm.spec: Bump to 0.9.6
+
 2011-06-16 Ken Mays <kmays2000@gmail.com>
 
 	* experimental/SFEblender257b.spec: Req SUNWPython >=2.6.6/3.2
