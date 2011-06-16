@@ -1,3 +1,9 @@
+2011-06-16 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEp7zip.spec: Bump to 9.20.1; Patch not used
+	* SFExz.spec: Bump to 5.0.3
+	* SFExcircuit.spec: Bump to 3.7.26
+
 2011-06-15 Ken Mays  <kmays2000@gmail.com>
 
 	* Fixed patches for blender-2.49b (No HUNK warnings)

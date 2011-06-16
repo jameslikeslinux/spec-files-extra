@@ -7,7 +7,7 @@
 %include Solaris.inc
 
 Name:		SFExz
-Version:	5.0.2
+Version:	5.0.3
 Summary:	LZMA utils
 URL:		http://tukaani.org/xz
 Source:		http://tukaani.org/xz/xz-%{version}.tar.bz2
@@ -88,6 +88,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Bump to 5.0.3
 * Thu Apr 21 2011 - Alex Viskovatoff
 - Bump to 5.0.2
 * Fri Feb  4 2011 - Alex Viskovatoff

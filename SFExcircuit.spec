@@ -7,7 +7,7 @@
 
 Name:                    SFExcircuit
 Summary:                 xcircuit - electrical circuit schematic diagram drawing program
-Version:                 3.4.26
+Version:                 3.7.26
 Group:                   Utility
 Source:                  http://opencircuitdesign.com/xcircuit/archive/xcircuit-%{version}.tgz
 SUNW_BaseDir:            %{_basedir}
@@ -54,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 16 2011 - N.B.Prashanth<nbprash.mit@gmail.com>
+- Bump to 3.7.26
 * Sun Jul 23 2006 - laca@sun.com
 - rename to SFExcircuit
 - delete -share subpkg

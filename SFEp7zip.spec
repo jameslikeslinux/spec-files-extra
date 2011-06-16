@@ -7,9 +7,8 @@
 
 Name:                    SFEp7zip
 Summary:                 7-Zip file archiver with a high compression ratio
-Version:                 4.57
+Version:                 9.20.1
 Source:			 %{sf_download}/p7zip/p7zip_%{version}_src_all.tar.bz2
-Patch1:                  p7zip-01-makefile.diff
 URL:                     http://www.7-zip.org/download.html
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -17,7 +16,6 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n p7zip_%{version}
-%patch1 -p1
 cp makefile.solaris_x86 makefile.machine
 
 %build
@@ -60,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Bump to 9.20.1; Remove patch
 * Sat Feb 02 2008 - moinak.ghosh@sun.com
 - Bump version to 4.57 and update patch.
 * Sun Aug 20 2007 - trisk@acm.jhu.edu
