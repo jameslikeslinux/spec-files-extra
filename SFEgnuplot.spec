@@ -7,7 +7,7 @@
 
 Name:                    SFEgnuplot
 Summary:                 gnuplot
-Version:                 4.2.5
+Version:                 4.4.0
 Source:			 http://downloads.sourceforge.net/%{summary}/%{summary}-%{version}.tar.gz
 Patch1:			gnuplot-01.diff
 URL:                     http://www.gnuplot.info
@@ -26,7 +26,7 @@ BuildRequires: SUNWpng-devel
 
 %prep
 %setup -q -n gnuplot-%version
-%patch1 -p0
+#%patch1 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -52,15 +52,16 @@ make
 %install
 # workaround for bug http://defect.opensolaris.org/bz/show_bug.cgi?id=3644
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/lib/X11/app-defaults
-mkdir -p $RPM_BUILD_ROOT/usr/X11/lib/app-defaults
+#mkdir -p $RPM_BUILD_ROOT/usr/lib/X11/app-defaults
+#mkdir -p $RPM_BUILD_ROOT/usr/X11/lib/app-defaults
 #pushd $RPM_BUILD_ROOT/usr/lib
 #ln -s ../X11/lib X11
 #popd
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_datadir}/info/dir
-mv "${RPM_BUILD_ROOT}/usr/lib/X11/app-defaults/Gnuplot" "${RPM_BUILD_ROOT}/usr/X11/lib/app-defaults/"
-rm -rf ${RPM_BUILD_ROOT}/usr/lib/X11
+#mv "${RPM_BUILD_ROOT}/usr/lib/X11/app-defaults/Gnuplot" 
+#"${RPM_BUILD_ROOT}/usr/X11/lib/app-defaults/"
+#rm -rf ${RPM_BUILD_ROOT}/usr/lib/X11
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,21 +96,25 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_datadir}/info
 %{_datadir}/info/*
-%dir %attr(0755, root, bin) %{_datadir}/emacs
-%dir %attr(0755, root, bin) %{_datadir}/emacs/site-lisp
-%{_datadir}/emacs/site-lisp/*
+#%dir %attr(0755, root, bin) %{_datadir}/emacs
+#%dir %attr(0755, root, bin) %{_datadir}/emacs/site-lisp
+#%{_datadir}/emacs/site-lisp/*
 %dir %attr(0755, root, sys) %{_datadir}/gnuplot
 %{_datadir}/gnuplot/*
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
-%dir %attr (0755, root, bin) %{_prefix}/X11
-%dir %attr (0755, root, bin) %{_prefix}/X11/lib
-%dir %attr (0755, root, bin) %{_prefix}/X11/lib/app-defaults
-%{_prefix}/X11/lib/app-defaults/*
+#%dir %attr (0755, root, bin) %{_prefix}/X11
+#%dir %attr (0755, root, bin) %{_prefix}/X11/lib
+#%dir %attr (0755, root, bin) %{_prefix}/X11/lib/app-defaults
+#%{_prefix}/X11/lib/app-defaults/*
 
 
 %changelog
+* Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Bump to 4.4.0
+- Remove patch; Not necessary
+- Updated spec
 * Jan 28 2010 - Gilles dauphin
 - bump to 4.2.5
 - workaround /usr/lib/X11 and /usr/X11/lib
