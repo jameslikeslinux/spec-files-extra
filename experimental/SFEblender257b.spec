@@ -4,9 +4,11 @@
 #
 %include Solaris.inc
 #
-# Note: Blender 2.57b prefers Python 2.6.6 or higher.
-#      
-%define python_version 2.6
+# Note: Blender 2.57b prefers Python 3.2.x or higher.
+# Note: FFMPEG and Boomer API audio header   
+# Note: You can use Scons (preferred) or CMAKE. 
+# 
+%define python_version 3.2
 %define src_version 2.57b
 %define src_url http://download.blender.org/source
 %define collada 1 
@@ -28,14 +30,18 @@ Requires: 	SUNWfreetype2
 Requires: 	SUNWpng
 #Requires:	SUNWmesa
 Requires:	SUNWpcre
+#Requires:	SFEscons
 Requires: 	SUNWpostrun
-Requires:	SFEcmake
+Requires:	system/header/header-audio
+Requires:	library/expat
+Requires:	library/perl-5/xml-parser
 BuildRequires: 	SFEgcc
 Requires: 	SFEgccruntime
 BuildRequires: 	SUNWTiff
 BuildRequires: 	SUNWopensslr
 BuildRequires: 	SUNWlibsdl-devel
-BuildRequires: 	SUNWPython
+# Build Python 3.2.x 
+#BuildRequires: 	SUNWPython
 BuildRequires:	driver/graphics/nvidia
 
 %description
@@ -97,77 +103,45 @@ export PKG_CONFIG_PATH="$PROTO_PKG"
 
 cd blender-%{src_version}
 
-# Don't even think about trying to build this with Solaris Studio
+# SFEgcc 4.5.2
 export CC=/usr/sfw/bin/gcc
 export CXX=/usr/sfw/bin/g++
 
-export CFLAGS="$RPM_OPT_FLAGS -pipe -fopenmp -fPIC -funsigned-char -fno-strict-aliasing -g -ggdb" 
+export CFLAGS="$RPM_OPT_FLAGS -march=pentium4 -pipe -fopenmp -fPIC -funsigned-char -fno-strict-aliasing -g -ggdb" 
 export CXXFLAGS=$CFLAGS
-export BF_TIFF_LIB="%{_libdir}/libtiff.so" 
-export BF_TIFF_INC="%{_includedir}" 
-export BF_GETTEXT_LIBPATH="%{_libdir}" 
-#WITH_INTERNATIONAL 
-mkdir -p Build 
-pushd Build 
-#      -DPYTHON_LIB=%%{_libdir}/libpython2.6.so \ 
-cmake ../ \ 
-      -G"Unix Makefiles" \ 
-      -DWITH_FFTW3:BOOL=on \ 
-      -DWITH_JACK:BOOL=on \ 
-      -DWITH_CODEC_SNDFILE:BOOL=on \ 
-      -DWITH_IMAGE_OPENJPEG:BOOL=off \ 
-%if %{collada} == 1 
-      -DWITH_OPENCOLLADA:BOOL=on \ 
-      -DOPENCOLLADA=%{_prefix} \ 
-      -DOPENCOLLADA_LIBPATH=%{_libdir} \ 
-      -DOPENCOLLADA_INC=%{_includedir} \ 
-%else
-      -DWITH_OPENCOLLADA:BOOL=off \ 
-%endif
-      -DPYTHON_LIBPATH=%{_libdir} \ 
-      -DPYTHON_LIBRARY=%{_libdir}/libpython%{python3_ver}%{py3_abi_kind}.so \ 
-      -DPYTHON_INCLUDE_DIRS=%{python3_incdir} \ 
-      -DWITH_PYTHON_INSTALL:BOOL=off \ 
-      -DWITH_PYTHON:BOOL=on \ 
-      -DWITH_IMAGE_OPENJPEG:BOOL=off \ 
-      -DWITH_GAMEENGINE:BOOL=on \ 
-%if %DISTRIBUTABLE == 1 
-      -DWITH_CODEC_FFMPEG:BOOL=off \ 
-%else
-      -DWITH_CODEC_FFMPEG:BOOL=on \ 
-%endif
-      -DWITH_CXX_GUARDEDALLOC:BOOL=on \ 
-      -DCMAKE_VERBOSE_MAKEFILE:BOOL=on \ 
-%if %wplayer == 1 
-      -DWITH_PLAYER:BOOL=on \ 
-%else
-      -DWITH_PLAYER:BOOL=off \ 
-%endif
-      -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
+#
+# Note:     -DPYTHON_LIB=%%{_libdir}/libpython3.2.so \ 
+#
+# Prefer built-in Scons setup and make mods for GCC 4.5.2
+#
 
-make -j$CPUS
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
+export MSGFMT=/usr/gnu/bin/msgfmt
+
+#
+# Used built-in scons 1.2.0 here
+# build_files/scons/config/sunos5-config.py
+#
+python scons/scons.py -j $CPUS prefix=%{_basedir}       \
+        python_site_packages_dir=%{pythonlibdir}
 
 
 %install
 
 
 rm -rf $RPM_BUILD_ROOT
-#mkdir -p $RPM_BUILD_ROOT%{_libdir}/pkgconfig
-#cd blender-%{src_version}
-#gmake release
+
+python scons/scons.py install prefix=%{_basedir} python_site_packages_dir=%{pythonlibdir} \
+        mandir=%{_mandir} destdir=$RPM_BUILD_ROOT
+
 
 # x86_64, i386, etc.
 #cd obj/blender-%{version}-solaris-2.11-*-py%{python_version}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/blender
-
-
-cd .blender
-tar cf - . | (cd $RPM_BUILD_ROOT%{_datadir}/blender ; tar xfp -)
-cd ..
-
-install -d -m 0755 $RPM_BUILD_ROOT/%{_bindir}
-install -m 0755 blender $RPM_BUILD_ROOT%{_bindir}/blender
-#install -m 0755 blenderplayer $RPM_BUILD_ROOT%{_bindir}/blenderplayer
+#mkdir -p $RPM_BUILD_ROOT%{_datadir}/blender
 
 #%if %build_l10n
 #%else
@@ -196,13 +170,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_datadir}/blender
 %{_datadir}/applications/blender.desktop 
 %{_datadir}/applications/x-blend.desktop 
+%{_datadir}/locale/*
 %{_datadir}/pixmaps/blender.xpm 
 %{_datadir}/icons/hicolor/16x16/apps/blender.png 
 %{_datadir}/icons/hicolor/22x22/apps/blender.png 
+%{_datadir}/icons/hicolor/24x24/apps/blender.png
 %{_datadir}/icons/hicolor/32x32/apps/blender.png 
+%{_datadir}/icons/hicolor/48x48/apps/blender.png
+%{_datadir}/icons/hicolor/256x256/apps/blender.png
 %{_datadir}/icons/hicolor/scalable/apps/blender.svg 
 %{_datadir}/pixmaps/blender.svg 
 %{_datadir}/pixmaps/blender.png 
+%{_datadir}/doc-base/*
 %{_datadir}/blender/*  
 
 
@@ -220,5 +199,5 @@ rm -rf $RPM_BUILD_ROOT
 #%{_includedir}/%{name}/*.DEF 
   
 %changelog
-* Mon 15 Jun 2010 - Ken Mays <kmays2000@gmail.com>
+* Mon 15 Jun 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial spec

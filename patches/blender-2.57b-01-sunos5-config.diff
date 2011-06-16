@@ -1,15 +1,6 @@
---- ./build_files/scons/config/sunos5-config.py.orig	2011-06-15 13:57:08.000892500 -0400
-+++ ./build_files/scons/config/sunos5-config.py	2011-06-15 14:52:16.500482000 -0400
-@@ -1,16 +1,16 @@
- LCGDIR = '../lib/sunos5'
- LIBDIR = '${LCGDIR}'
- 
--BF_PYTHON = '/usr/local'
--BF_PYTHON_VERSION = '3.2'
-+BF_PYTHON = '/usr'
-+BF_PYTHON_VERSION = '2.6'
- BF_PYTHON_INC = '${BF_PYTHON}/include/python${BF_PYTHON_VERSION}'
- BF_PYTHON_BINARY = '${BF_PYTHON}/bin/python${BF_PYTHON_VERSION}'
+--- build_files/scons/config/sunos5-config.py.orig	2011-06-15 13:57:08.000892500 -0400
++++ build_files/scons/config/sunos5-config.py	2011-06-16 08:07:54.925214000 -0400
+@@ -8,9 +8,9 @@
  BF_PYTHON_LIB = 'python${BF_PYTHON_VERSION}' #BF_PYTHON+'/lib/python'+BF_PYTHON_VERSION+'/config/libpython'+BF_PYTHON_VERSION+'.a'
  BF_PYTHON_LINKFLAGS = ['-Xlinker', '-export-dynamic']
  
@@ -82,9 +73,12 @@
  BF_ICONV = "/usr"
  BF_ICONV_INC = '${BF_ICONV}/include'
  BF_ICONV_LIB = 'iconv'
-@@ -122,10 +122,10 @@
+@@ -120,12 +120,12 @@
+ BF_FFMPEG_LIBPATH='${BF_FFMPEG}/lib'
+ BF_FFMPEG_LIB = 'avformat avcodec avutil avdevice'
  
- # Mesa Libs should go here if your using them as well....
+-# Mesa Libs should go here if your using them as well....
++# NVIDIA Libs & headers should go here if your using them as well....
  WITH_BF_STATICOPENGL = False
 -BF_OPENGL = '/usr/openwin'
 -BF_OPENGL_INC = '${BF_OPENGL}/include'
@@ -96,3 +90,20 @@
  BF_OPENGL_LIB_STATIC = '${BF_OPENGL_LIBPATH}/libGL.a ${BF_OPENGL_LIBPATH}/libGLU.a ${BF_OPENGL_LIBPATH}/libXxf86vm.a ${BF_OPENGL_LIBPATH}/libX11.a ${BF_OPENGL_LIBPATH}/libXi.a ${BF_OPENGL_LIBPATH}/libXext.a ${BF_OPENGL_LIBPATH}/libXxf86vm.a'
  
  ##
+@@ -134,12 +134,12 @@
+ ##ifeq ($CPU),alpha)
+ ##   CFLAGS += -pipe -fPIC -funsigned-char -fno-strict-aliasing -mieee
+ 
+-CCFLAGS = ['-pipe','-fPIC','-funsigned-char','-fno-strict-aliasing']
++CCFLAGS = [,-fopenmp','-pipe','-fPIC','-funsigned-char','-fno-strict-aliasing']
+ 
+ CPPFLAGS = ['-DSUN_OGL_NO_VERTEX_MACROS']
+-CXXFLAGS = ['-pipe','-fPIC','-funsigned-char','-fno-strict-aliasing']
+-REL_CFLAGS = ['-DNDEBUG', '-O2']
+-REL_CCFLAGS = ['-DNDEBUG', '-O2']
++CXXFLAGS = ['-fopenmp','-pipe','-fPIC','-funsigned-char','-fno-strict-aliasing']
++REL_CFLAGS = ['-DNDEBUG', '-O2','-march=pentium4']
++REL_CCFLAGS = ['-DNDEBUG', '-O2','-march=pentium4']
+ ##BF_DEPEND = True
+ ##
+ ##AR = ar
