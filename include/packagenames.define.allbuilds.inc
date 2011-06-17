@@ -393,12 +393,105 @@
 %endif
 #END >=156
 
+
+#START setting perl5, defaults  - Part 1 of 3
+#define perl defaults, primarily shared settings and default
+#for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
+#STRONG NOTE: below the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk. We hope, that we
+#do not need to handle special cases there, e.g. an odd distro decides
+#to relocate to another path layout on disk....
+
+%define perl_version 5.8.4
+%define perl_major_version 5
+%define perl_major_minor_version 5.8
+%define perl_major_minor_micro_version 5.8.4
+
+# NOTE the section sitting below the distro specfic settings
+# where the resulting paths on the disk are evaluated!
+
+#END setting perl5, defaults  - Part 1 of 3
+
+
+
+#START setting perl5, changes with specific builds and distros  - Part 2 of 3
+
+#the distro specific settings below.
+#set specifics for more fresh osbuild/osdistro like Solaris 11 Express, OpenIndiana
+#which integrate perl 5.10 or newer (please add more sections for overrides in 
+#different distro releases. Order is: greatest osbuild must be listed last to
+#override previous settings)
+
+#set perl5 for Solaris11Express
+%if %{os2nnn}
+%if %{solaris11express}
+##TODO## remove this todo once the perl version to use is known and set the exact build number
+%if %( expr %{osbuild} '>=' 166 )
+#set perl5 for Solaris 11 Express
+%define perl_version 5.12.3
+%define perl_major_minor_version 5.12
+%define perl_major_minor_micro_version 5.12.3
+%endif
+##TODO## remove this todo once the perl version to use is known and set the exact build number
+#END >= 166
+%endif
+#END solaris11express
+%endif
+#END os2nnn
+
+#set perl5 for OpenIndiana
+%if %{os2nnn}
+%if %{openindiana}
+%if %( expr %{osbuild} '>=' 151 )
+#set perl5 for OpenIndiana 
+%define perl_version 5.10
+%define perl_major_minor_version 5.10
+##TODO## determine correct version %define perl_major_minor_micro_version 5.10.x
+%define perl_major_minor_micro_version 5.10.999
+%endif
+#END >= 151
+%endif
+#END openindiana
+%endif
+#END os2nnn
+
+#add more distro here
+
+#END setting perl5, changes with specific builds and distros  - Part 2 of 3
+
+
+#START setting perl5, all builds  - Part 3 of 3
+# this is the section noted above which evaluates the resulting paths on the
+# disk for the defaults for perl or the distro specific changed values e.g.
+# more fresh perl version 5.8.4 -> 5.10 
+
+#vendor_perl
+# echo %{_prefix}/%{perl_path_vendor_perl}         -> prints /usr/perl5/vendor_perl
+%define perl_path_vendor_perl "perl%{perl_major_version}/vendor_perl"
+
+# echo %{_prefix}/%{perl_path_vendor_perl_version} -> prints /usr/perl5/vendor_perl/5.8.4 (or 5.10)
+%define perl_path_vendor_perl_version "perl%{perl_major_version}/vendor_perl/%{perl_version}"
+
+
+#site_perl
+# echo %{_prefix}/%{perl_path_site_perl}           -> prints /usr/perl5/site_perl
+%define perl_path_site_perl "perl%{perl_major_version}/site_perl"
+
+# echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10)
+%define perl_path_site_perl_version "perl%{perl_major_version}/site_perl/%{perl_version}"
+
+#END setting perl5, all builds  - Part 3 of 3
+
+
+
 #place very special cases here, for instance in Solaris 10
 ##TODO## for a future version
 
 
 
 %changelog
+* Fri Jun 17 2011 - Thomas Wagner
+- handle different perl versions (5.8.4, 5.10, 5.12) and module paths 
 * Sat Mar 27 2011 - Thomas Wagner
 - handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner

@@ -69,18 +69,29 @@ NOTE:                library/security/openssl -> SUNWopenssl or openssl or libra
 
 %prep
 echo "
-packagenamemacros: osbuild %{osbuild}
-packagenamemacros: SXCE %{SXCE}
-packagenamemacros: os2nnn %{os2nnn}
-packagenamemacros: oi147    %{oi147}    experimental
-packagenamemacros: os201005 %{os201005} not yet released, name might eventually change?
-packagenamemacros: os201003 %{os201003} deprecared, this release name was never used, will be removed
-packagenamemacros: os200906 %{os200906}
-packagenamemacros: os200902 %{os200902}
-packagenamemacros: os200811 %{os200811}
-packagenamemacros: osdistrelnumber %{osdistrelnumber}
-packagenamemacros: osdistrelname   %{osdistrelname}
-packagenamemacros: osdet299999 %{osdet299999}
+packagenamemacros: osbuild 		%{osbuild}
+packagenamemacros: SXCE 		%{SXCE}
+packagenamemacros: os2nnn 		%{os2nnn}
+packagenamemacros: solaris11express	%{solaris11express} Solaris 11 Express yes/no
+packagenamemacros: s11ex201100 		%{s11ex201100} Solaris 11 Express (some following release e.g. 166)
+packagenamemacros: s11ex201011 		%{s11ex201011} Solaris 11 Express (first release end of 2010)
+packagenamemacros: openindiana		%{openindiana} OpenIndiana yes/no
+packagenamemacros: oi201100 		%{oi201100} OpenIndiana 151, experimental reworked
+packagenamemacros: oi201009 		%{oi201009} OpenIndiana 147/148, experimental reworked
+packagenamemacros: os201005 		%{os201005} not yet released, name might eventually change?
+packagenamemacros: os201003 		%{os201003} deprecared, this release name was never used, will be removed
+packagenamemacros: os200906 		%{os200906}
+packagenamemacros: os200902 		%{os200902}
+packagenamemacros: os200811 		%{os200811}
+packagenamemacros: osdistrelnumber 	%{osdistrelnumber}
+packagenamemacros: osdistrelname   	%{osdistrelname}
+packagenamemacros: osdet299999 		%{osdet299999}
+packagenamemacros: perl_major_version number is: 		%{perl_major_version}
+packagenamemacros: perl_version number is:       		%{perl_version}
+packagenamemacros: _prefix/perl_path_vendor_perl	 	%{_prefix}/%{perl_path_vendor_perl}
+packagenamemacros: _prefix/perl_path_vendor_perl_version 	%{_prefix}/%{perl_path_vendor_perl_version}
+packagenamemacros: _prefix/perl_path_site_perl 			%{_prefix}/%{perl_path_site_perl}
+packagenamemacros: _prefix/perl_path_site_perl_version 		%{_prefix}/%{perl_path_site_perl_version}
 " >/dev/null
 
 
@@ -88,35 +99,23 @@ echo "
 requesting package SUNWopenssl resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for SUNWopenssl is contained in  %{pnm_buildrequires_SUNWopenssl}
        Requires for SUNWopenssl is contained in  %{pnm_requires_SUNWopenssl}
-" >/dev/null
 
-echo "
 requesting package openssl w/o the SUNW prefix in the name resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for openssl is contained in  %{pnm_buildrequires_openssl}
        Requires for openssl is contained in  %{pnm_requires_openssl}
-" >/dev/null
 
-echo "
 requesting package library/security/openssl resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for library/security/openssl is contained in  %{pnm_buildrequires_library_security_openssl}
        Requires for library/security/openssl is contained in  %{pnm_requires_library_security_openssl}
-" >/dev/null
 
-
-
-echo "
 requesting package SUNWncurses / SUNWncurses-devel resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for SUNWncurses-devel is contained in  %{pnm_buildrequires_SUNWncurses_devel}
        Requires for SUNWncurses is contained in  %{pnm_requires_SUNWncurses}
-" >/dev/null
 
-echo "
 requesting package ncurses w/o the SUNW prefix in the name resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for ncurses is contained in  %{pnm_buildrequires_ncurses}
        Requires for ncurses is contained in  %{pnm_requires_ncurses}
-" >/dev/null
 
-echo "
 requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for library/ncurses is contained in  %{pnm_buildrequires_library_ncurses}
        Requires for library/ncurses is contained in  %{pnm_requires_library_ncurses}
@@ -125,6 +124,9 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Fri Jun 17 2011 - Thomas Wagner
+- adjust changed names for osdistro variables (osdistro.inc)
+- add perl version specific examples
 * Sat Oct 20 2010 - Thomas Wagner
 - add oi to the mix
 * Jun  1 2010 - Thomas Wagner

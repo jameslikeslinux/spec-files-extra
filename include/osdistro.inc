@@ -80,10 +80,14 @@
 # os2nnn is defined 1 if we can detect the OpenSolaris (IPS based) distro
 # 
 # an estimate is done to tell which distro release is present
-#NEWRELEASE add to the table
-# os2008.11    os2009.06    os2009.11    os2010.03    os2010.05  os2010.11
+#NEWRELEASE add to the table    (OpenSolaris releases as os2......)
+# os2008.11    os2009.06    os2009.11    os2010.03    os2010.05  
 # corresponds to:
-# os200811     os200906     os200911     os201003     os201005   os201011
+# os200811     os200906     os200911     os201003     os201005   
+#
+# Solaris11Express_firstrelease Solaris11Express_following OpenIndiana147 OpenIndiana151
+##TODO## replace the "*00" to be the real release month
+# s11ex201011                   s11ex201000                oi201009       oi201100
 
 #numbers for each major distro release are stored in %os2nnnversion
 
@@ -91,15 +95,34 @@
 #set defaults to null - reverse order to catch youngest distro first 
 #and then used to skip the other detection rules for older releases
 #NEWRELEASE add to the table
-%define os201011 0
+
+#boolean flags for major osdistro names
+#no versioning here
+%define openindiana 0
+%define solaris11express 0
+
+#boolean flags for major osdistro names - *with* versioning the releases
+#use osbuild in addition to finer granularity, e.g. osbuild >= 148
+#OpenSolaris and Solaris11Express below. We need something to tell the release as well
+#Solaris11Express gets its own name prefix though it's close to what OpenSolaris was
+
+#OpenIndiana
+# could be oi201009 and oi201100 or something, the first development release and following
+##TODO## replace oi201100
+%define oi201100 0
+%define oi201009 0
+
+#Solaris 11 Express and OpenSolaris
+##TODO## replace s11ex201100
+%define s11ex201100 0
+%define s11ex201011 0
+#OpenSolaris
 %define os201005 0
 #never apperared: (this variable might go away some day)
 %define os201003 0
 %define os200906 0
 %define os200902 0
 %define os200811 0
-#note: OI names subject to change, just start with something: oi<buildnumber>
-%define oi147 0
 
 
 # one of the IPS style OpenSolaris distro releases is present if os2nnn set to "1"
@@ -150,20 +173,22 @@
 #below probably release of 2010.05 (was 2010.03 or whatever name)
 
 
-##START build 147 and up, OpenIndiana oi2010.05 as os201005
+##START build 151 and up, OpenIndiana
 #NOTE: we try to set a resonable opensolaris/solaris express release
 # name as well, they should behave similar. Remaining issues to be fixed
 # in consuming spec file!
 %if %{osdet299999}
-%if %( expr %{osbuild} '>=' 147 )
+%if %( expr %{osbuild} '>=' 151 )
 %if %( egrep 'OpenIndiana Development' /etc/release > /dev/null && echo 1 || echo 0 )
 #we are on an IPS based OS distro
 %define os2nnn   1
 #below: subject to change!
-%define oi147 1
-%define osdistrelnumber 147
-#below: subject to change!
-%define osdistrelname   "OI147"
+%define openindiana 1
+##TODO## replace oi201100
+%define oi201100    1
+%define osdistrelnumber 151
+#                                below: subject to change!
+%define osdistrelname   "OpenIndiana"
 #this was the last check, skip all others
 %define osdet299999 0
 %else
@@ -175,7 +200,62 @@
 ##END
 
 
-##START build 151 and up, detect "Oracle Solaris 11 Express snv_151a X86" aka 2010.11 as os201011
+##START build 147 and up, OpenIndiana
+#NOTE: we try to set a resonable opensolaris/solaris express release
+# name as well, they should behave similar. Remaining issues to be fixed
+# in consuming spec file!
+%if %{osdet299999}
+%if %( expr %{osbuild} '>=' 147 )
+%if %( egrep 'OpenIndiana Development' /etc/release > /dev/null && echo 1 || echo 0 )
+#we are on an IPS based OS distro
+%define os2nnn   1
+#below: subject to change!
+%define openindiana 1
+%define oi201009    1
+%define osdistrelnumber 147
+#                                below: subject to change!
+%define osdistrelname   "OpenIndiana"
+#this was the last check, skip all others
+%define osdet299999 0
+%else
+%endif
+%else
+%endif
+%else
+%endif
+##END
+
+
+##START build *greater then* 151, this is 152 and up, detect "Oracle Solaris 11 Express snv_166 X86" aka 2011.00 as s11ex201100
+#NOTE: s11ex201100 <- 00 - nothing is released, to use "00" as placeholder in year 2011
+#NOTE: we try to set a resonable release number in %osdistrelnumber
+# name as well, they should behave similar. Remaining issues to be fixed
+# in consuming spec file!
+%if %{osdet299999}
+%if %( expr %{osbuild} '>=' 152 )
+%if %( egrep 'Oracle Solaris 11 Express' /etc/release > /dev/null && echo 1 || echo 0 )
+#we are on an IPS based OS distro
+%define os2nnn   1
+#below: subject to change!
+##TODO## replace s11ex201100
+%define s11ex201100 1
+%define solaris11express 1
+##TODO## replace 201100
+%define osdistrelnumber 201100
+#                                below: subject to change!
+%define osdistrelname   "Solaris 11 Express"
+#this was the last check, skip all others
+%define osdet299999 0
+%else
+%endif
+%else
+%endif
+%else
+%endif
+##END
+
+
+##START build 151 and up, detect "Oracle Solaris 11 Express snv_151a X86" aka 2010.11 as s11ex201011
 #NOTE: we try to set a resonable release number in %osdistrelnumber
 # name as well, they should behave similar. Remaining issues to be fixed
 # in consuming spec file!
@@ -185,9 +265,11 @@
 #we are on an IPS based OS distro
 %define os2nnn   1
 #below: subject to change!
-%define os201011 1
+%define s11ex201011 1
+%define solaris11express 1
 %define osdistrelnumber 201011
-%define osdistrelname   "os2010.11"
+#                                below: subject to change!
+%define osdistrelname   "Solaris 11 Express"
 #this was the last check, skip all others
 %define osdet299999 0
 %else
@@ -267,6 +349,11 @@
 
 
 %changelog
+* Fri Jun 17 2011 - Thomas Wagner
+- changed osdistrelname "OI147" to read "OpenIndiana", "os2010.11" to read "Solaris11Express"
+- added boolean flags for: openindiana solaris11express oi201009 oi201100 s11ex201011 s11ex201100
+- removed boolean flags for: os201011 (renamed to s11ex201011), oi147 (renamed to oi201009)
+- added OpenIndiana development release with build 151 number, faked distreleasenumber to oi201100 (00 to be changed later)
 * Wed Mar 16 2011 - Thomas Wagner
 - add Oracle Solaris 11 Express to the mix
 * Sat Oct 20 2010 - Thomas Wagner
