@@ -410,6 +410,13 @@
 %define perl_major_minor_version 5.8
 %define perl_major_minor_micro_version 5.8.4
 
+###TODO## not clear if we should require SUNWperl584core or SUNWperl584usr
+#both?
+#note: the name is subject to change if we find a better one
+#_default string is not meant to be a part of the package name...
+%define pnm_buildrequires_perl5_default SUNWperl584core
+%define pnm_requires_perl5_default	SUNWperl584core
+
 # NOTE the section sitting below the distro specfic settings
 # where the resulting paths on the disk are evaluated!
 
@@ -434,6 +441,9 @@
 %define perl_version 5.12
 %define perl_major_minor_version 5.12
 %define perl_major_minor_micro_version 5.12.3
+#runtime/perl-512 or library/perl-5/sun-solaris-512
+%define pnm_buildrequires_perl5_default runtime/perl-512
+%define pnm_requires_perl5_default	runtime/perl-512
 %endif
 ##TODO## remove this todo once the perl version to use is known and set the exact build number
 #END >= 166
@@ -445,12 +455,16 @@
 #set perl5 for OpenIndiana
 %if %{os2nnn}
 %if %{openindiana}
+##TODO## monitor closely when OpenIndiana starts shipping complete module sets with e.g. perl-512
 %if %( expr %{osbuild} '>=' 151 )
 #set perl5 for OpenIndiana 
 %define perl_version 5.10
 %define perl_major_minor_version 5.10
 ##TODO## determine correct version %define perl_major_minor_micro_version 5.10.x
 %define perl_major_minor_micro_version 5.10.0
+#runtime/perl-510
+%define pnm_buildrequires_perl5_default runtime/perl-510
+%define pnm_requires_perl5_default	runtime/perl-510
 %endif
 #END >= 151
 %endif
@@ -498,6 +512,8 @@
 - set perl to 5.12 on Solaris 11 to have modules in directory vendor_perl/5.12 (and not in 5.12.3)
 - set perl to 5.10 on OpenIndiana to have modules in directory vendor_perl/5.10 (and not in 5.10.0)
 - add note about omitting "micro"-versionnumber from the path to modules
+- handle special macro name pnm_buildrequires_perl5_default pnm_requires_perl5_default:
+   SUNWperl584core/SUNWperl584usr runtime/perl-510 runtime/perl-512 (note the _default string)
 * Sat Mar 27 2011 - Thomas Wagner
 - handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner
