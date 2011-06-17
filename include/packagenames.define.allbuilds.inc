@@ -414,8 +414,8 @@
 #both?
 #note: the name is subject to change if we find a better one
 #_default string is not meant to be a part of the package name...
-%define pnm_buildrequires_perl5_default SUNWperl584core
-%define pnm_requires_perl5_default	SUNWperl584core
+%define pnm_buildrequires_perl_default SUNWperl584core
+%define pnm_requires_perl_default	SUNWperl584core
 
 # NOTE the section sitting below the distro specfic settings
 # where the resulting paths on the disk are evaluated!
@@ -442,8 +442,8 @@
 %define perl_major_minor_version 5.12
 %define perl_major_minor_micro_version 5.12.3
 #runtime/perl-512 or library/perl-5/sun-solaris-512
-%define pnm_buildrequires_perl5_default runtime/perl-512
-%define pnm_requires_perl5_default	runtime/perl-512
+%define pnm_buildrequires_perl_default runtime/perl-512
+%define pnm_requires_perl_default	runtime/perl-512
 %endif
 ##TODO## remove this todo once the perl version to use is known and set the exact build number
 #END >= 166
@@ -463,8 +463,8 @@
 ##TODO## determine correct version %define perl_major_minor_micro_version 5.10.x
 %define perl_major_minor_micro_version 5.10.0
 #runtime/perl-510
-%define pnm_buildrequires_perl5_default runtime/perl-510
-%define pnm_requires_perl5_default	runtime/perl-510
+%define pnm_buildrequires_perl_default runtime/perl-510
+%define pnm_requires_perl_default	runtime/perl-510
 %endif
 #END >= 151
 %endif
@@ -484,18 +484,18 @@
 
 #vendor_perl
 # echo %{_prefix}/%{perl_path_vendor_perl}         -> prints /usr/perl5/vendor_perl
-%define perl_path_vendor_perl "perl%{perl_major_version}/vendor_perl"
+%define perl_path_vendor_perl perl%{perl_major_version}/vendor_perl
 
 # echo %{_prefix}/%{perl_path_vendor_perl_version} -> prints /usr/perl5/vendor_perl/5.8.4 (or 5.10.0)
-%define perl_path_vendor_perl_version "perl%{perl_major_version}/vendor_perl/%{perl_version}"
+%define perl_path_vendor_perl_version perl%{perl_major_version}/vendor_perl/%{perl_version}
 
 
 #site_perl
 # echo %{_prefix}/%{perl_path_site_perl}           -> prints /usr/perl5/site_perl
-%define perl_path_site_perl "perl%{perl_major_version}/site_perl"
+%define perl_path_site_perl perl%{perl_major_version}/site_perl
 
 # echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10.0)
-%define perl_path_site_perl_version "perl%{perl_major_version}/site_perl/%{perl_version}"
+%define perl_path_site_perl_version perl%{perl_major_version}/site_perl/%{perl_version}
 
 #END setting perl5, all builds  - Part 3 of 3
 
@@ -514,7 +514,9 @@
 - add note about omitting "micro"-versionnumber from the path to modules
 - handle special macro name pnm_buildrequires_perl5_default pnm_requires_perl5_default:
    SUNWperl584core/SUNWperl584usr runtime/perl-510 runtime/perl-512 (note the _default string)
-Ã- fine tune perl_vesion to be 5.10.0 and higher version numbers remain as 5.12 (w/o micro version)
+- fine tune perl_vesion to be 5.10.0 and higher version numbers remain as 5.12 (w/o micro version)
+- rename pnm_buildrequires_perl5_default to pnm_buildrequires_perl_default (+requires)
+- remove >"< from %define perl_path_<vendor|site>*
 * Sat Mar 27 2011 - Thomas Wagner
 - handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner
