@@ -10,7 +10,7 @@
 
 Name:                   SFEcabextract
 Summary:                CAB file extractor
-Version:                1.3
+Version:                1.4
 Group:			System/Utilities
 URL:			http://www.cabextract.org.uk
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
@@ -55,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Fri Jun 17 2011 - N.B.Prashanth
+- Bump to 1.4.
 * Sun Aug 08 2010 - Milan Jurik
 - bump to 1.3 to fix CVE-2010-2801
 * Tue Feb 11 2008 - pradhap (at) gmail.com
