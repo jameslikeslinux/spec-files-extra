@@ -21,3 +21,7 @@ notes: with perl5 you might need to change other paths in the spec as well
 
 5)
 write pnm_macros to get perl584 or perl510 or other future versions properly (Build)Required or paths like /usr/perl5/vendor_perl/5[.8.4|.10|...) properly setup
+
+6)
+once Solaris 11 Express build is out delivering a new perl version, check + adjust
+the build-number and remove corresponding ##TODO## in include/packagenames.define.allbuilds.inc
