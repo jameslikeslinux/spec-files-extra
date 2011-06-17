@@ -402,6 +402,9 @@
 #do not need to handle special cases there, e.g. an odd distro decides
 #to relocate to another path layout on disk....
 
+#note: older Solaris releases did include "micro"-versionnumber in 
+#modules path, e.g. vendor_perl/5.8.4
+#more fresh versions do only set major.minor, this is e.g. vendor_perl/5.12
 %define perl_version 5.8.4
 %define perl_major_version 5
 %define perl_major_minor_version 5.8
@@ -428,7 +431,7 @@
 ##TODO## remove this todo once the perl version to use is known and set the exact build number
 %if %( expr %{osbuild} '>=' 166 )
 #set perl5 for Solaris 11 Express
-%define perl_version 5.12.3
+%define perl_version 5.12
 %define perl_major_minor_version 5.12
 %define perl_major_minor_micro_version 5.12.3
 %endif
@@ -447,7 +450,7 @@
 %define perl_version 5.10
 %define perl_major_minor_version 5.10
 ##TODO## determine correct version %define perl_major_minor_micro_version 5.10.x
-%define perl_major_minor_micro_version 5.10.999
+%define perl_major_minor_micro_version 5.10.0
 %endif
 #END >= 151
 %endif
@@ -492,6 +495,9 @@
 %changelog
 * Fri Jun 17 2011 - Thomas Wagner
 - handle different perl versions (5.8.4, 5.10, 5.12) and module paths 
+- set perl to 5.12 on Solaris 11 to have modules in directory vendor_perl/5.12 (and not in 5.12.3)
+- set perl to 5.10 on OpenIndiana to have modules in directory vendor_perl/5.10 (and not in 5.10.0)
+- add note about omitting "micro"-versionnumber from the path to modules
 * Sat Mar 27 2011 - Thomas Wagner
 - handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner
