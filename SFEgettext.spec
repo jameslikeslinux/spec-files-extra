@@ -33,7 +33,7 @@ Requires:                %{name}
 
 %prep
 %setup -q -c -n %name-%version
-%patch1 -p0
+#%patch1 -p0
 %ifarch amd64 sparcv9
 cp -pr gettext-%{version} gettext-%{version}-64
 %endif
@@ -182,6 +182,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 17 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Removed patch; File to be patched does not exist in upstream release
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.18.1.1
 * Fri Jan 11 2008 - moinak.ghosh@sun.com

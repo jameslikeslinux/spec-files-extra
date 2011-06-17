@@ -1,3 +1,7 @@
+2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEgettext.spec: Removed patch; Patched file removed upstream
+
 2011-06-17  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * TODO: new file (experimental) with free or assigned tasks, short/long term
