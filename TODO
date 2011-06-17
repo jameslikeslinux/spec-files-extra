@@ -1,0 +1,16 @@
+
+SFEhplip.spec: pnm_macros for SFEcups/SUNWcups, SFEsane-backends/SUNWsanebackends/SUNWsanebackendu, eventually python version macro 2.4/2.6
+
+SFErsnapshot.spec: pnm_macros for SUNWsshu
+
+SFEp7zip.spec: check saprc build, especially enianness (old patch p7zip-01-makefile.diff)
+
+
+all spec files using renamed / removed / added packages: search for packages
+which can make use of pnm_macros by:
+for package in openssl gnu-dbm gdbm pigment libmikmod fftw4 sane-backend system/header sfwhea$ hea$ ghostscript Gtk wget gtk1 python26 python-gnome-libs perl5
+  do
+  egrep -n "^Requires.* (/|SUNW|SFE).*$package" *spec base-specs/*spec experimental/*spec
+  done
+notes: with perl5 you might need to change other paths in the spec as well
+
