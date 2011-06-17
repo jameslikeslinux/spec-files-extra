@@ -458,7 +458,7 @@
 ##TODO## monitor closely when OpenIndiana starts shipping complete module sets with e.g. perl-512
 %if %( expr %{osbuild} '>=' 151 )
 #set perl5 for OpenIndiana 
-%define perl_version 5.10
+%define perl_version 5.10.0
 %define perl_major_minor_version 5.10
 ##TODO## determine correct version %define perl_major_minor_micro_version 5.10.x
 %define perl_major_minor_micro_version 5.10.0
@@ -480,13 +480,13 @@
 #START setting perl5, all builds  - Part 3 of 3
 # this is the section noted above which evaluates the resulting paths on the
 # disk for the defaults for perl or the distro specific changed values e.g.
-# more fresh perl version 5.8.4 -> 5.10 
+# more fresh perl version 5.8.4 -> 5.12 
 
 #vendor_perl
 # echo %{_prefix}/%{perl_path_vendor_perl}         -> prints /usr/perl5/vendor_perl
 %define perl_path_vendor_perl "perl%{perl_major_version}/vendor_perl"
 
-# echo %{_prefix}/%{perl_path_vendor_perl_version} -> prints /usr/perl5/vendor_perl/5.8.4 (or 5.10)
+# echo %{_prefix}/%{perl_path_vendor_perl_version} -> prints /usr/perl5/vendor_perl/5.8.4 (or 5.10.0)
 %define perl_path_vendor_perl_version "perl%{perl_major_version}/vendor_perl/%{perl_version}"
 
 
@@ -494,7 +494,7 @@
 # echo %{_prefix}/%{perl_path_site_perl}           -> prints /usr/perl5/site_perl
 %define perl_path_site_perl "perl%{perl_major_version}/site_perl"
 
-# echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10)
+# echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10.0)
 %define perl_path_site_perl_version "perl%{perl_major_version}/site_perl/%{perl_version}"
 
 #END setting perl5, all builds  - Part 3 of 3
@@ -514,6 +514,7 @@
 - add note about omitting "micro"-versionnumber from the path to modules
 - handle special macro name pnm_buildrequires_perl5_default pnm_requires_perl5_default:
    SUNWperl584core/SUNWperl584usr runtime/perl-510 runtime/perl-512 (note the _default string)
+Ã- fine tune perl_vesion to be 5.10.0 and higher version numbers remain as 5.12 (w/o micro version)
 * Sat Mar 27 2011 - Thomas Wagner
 - handle SUNWGtku/SUNWGtkr/SUNWGtk Gtk library/desktop/gtk1
 * Sat Mar 19 2011 - Thomas Wagner
