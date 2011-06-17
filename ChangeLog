@@ -4,7 +4,19 @@
 
 2011-06-17  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * TODO: new file (experimental) with free or assigned tasks, short/long term
+	* TODO: new file (experimental) with free or assigned tasks, short/long term
+	* osdistro.inc: renamed OI147 / os2010.11 to OpenIndiana / Solaris11Express, 
+	  added boolean flags for: openindiana solaris11express oi201009 oi201100 
+	  s11ex201011 s11ex201100, removed boolean flags for: os201011 (renamed 
+	  to s11ex201011), oi147 (renamed to oi201009),
+	  added OpenIndiana 151 (oi201100), Solaris 11 (Express) (s11ex201100)
+	* packagenames.define.allbuilds.inc: handle different perl versions
+	  (5.8.4, 5.10, 5.12) and create macros for module paths 
+	* packagenamemacros.spec: new osdistro variables (osdistro.inc),
+	  add perl version specific examples
+	* packagenamemacros-simulate-builds.spec: new osdistro variables (osdistro.inc),
+	  add Solaris 11 Express builds, add OpenIndiana build 151,
+	  more pretty print output
 
 2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
 
