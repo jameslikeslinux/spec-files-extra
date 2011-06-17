@@ -1,11 +1,16 @@
+usage: no ChangeLog for this TODO file needed. Just edit and commit with a very short note, e.g. solved 2) short_issue, added 5) pnm for perl5.x.x
 
+1)
 SFEhplip.spec: pnm_macros for SFEcups/SUNWcups, SFEsane-backends/SUNWsanebackends/SUNWsanebackendu, eventually python version macro 2.4/2.6
 
+2)
 SFErsnapshot.spec: pnm_macros for SUNWsshu
 
+3)
 SFEp7zip.spec: check saprc build, especially enianness (old patch p7zip-01-makefile.diff)
 
 
+4)
 all spec files using renamed / removed / added packages: search for packages
 which can make use of pnm_macros by:
 for package in openssl gnu-dbm gdbm pigment libmikmod fftw4 sane-backend system/header sfwhea$ hea$ ghostscript Gtk wget gtk1 python26 python-gnome-libs perl5
@@ -14,3 +19,5 @@ for package in openssl gnu-dbm gdbm pigment libmikmod fftw4 sane-backend system/
   done
 notes: with perl5 you might need to change other paths in the spec as well
 
+5)
+write pnm_macros to get perl584 or perl510 or other future versions properly (Build)Required or paths like /usr/perl5/vendor_perl/5[.8.4|.10|...) properly setup
