@@ -166,6 +166,7 @@
 
 
 
+#note: build 166 (maybe earlier) does read "Oracle Solaris 11 snv_166 X86"
 #note: build 160 (2010.11++) does read "Oracle Solaris 11 Express snv_160 X86"
 #note: build 151a 2010.11 does read "Oracle Solaris 11 Express snv_156 X86"
 #note: build 140 does read "Solaris Next Development"
@@ -226,14 +227,14 @@
 ##END
 
 
-##START build *greater then* 151, this is 152 and up, detect "Oracle Solaris 11 Express snv_166 X86" aka 2011.00 as s11ex201100
+##START build *greater then* 151, this is 152 and up, detect "Oracle Solaris 11 snv_166 X86" aka 2011.00 as s11ex201100
 #NOTE: s11ex201100 <- 00 - nothing is released, to use "00" as placeholder in year 2011
 #NOTE: we try to set a resonable release number in %osdistrelnumber
 # name as well, they should behave similar. Remaining issues to be fixed
 # in consuming spec file!
 %if %{osdet299999}
 %if %( expr %{osbuild} '>=' 152 )
-%if %( egrep 'Oracle Solaris 11 Express' /etc/release > /dev/null && echo 1 || echo 0 )
+%if %( egrep 'Oracle Solaris 11 ' /etc/release > /dev/null && echo 1 || echo 0 )
 #we are on an IPS based OS distro
 %define os2nnn   1
 #below: subject to change!
@@ -354,6 +355,7 @@
 - added boolean flags for: openindiana solaris11express oi201009 oi201100 s11ex201011 s11ex201100
 - removed boolean flags for: os201011 (renamed to s11ex201011), oi147 (renamed to oi201009)
 - added OpenIndiana development release with build 151 number, faked distreleasenumber to oi201100 (00 to be changed later)
+- make grep on /etc/release more relaxed on "Oracle Solaris 11 "
 * Wed Mar 16 2011 - Thomas Wagner
 - add Oracle Solaris 11 Express to the mix
 * Sat Oct 20 2010 - Thomas Wagner
