@@ -1,3 +1,7 @@
+2011-06-18 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFElibreoffice.spec: Initial spec (3.3.3.1)
+
 2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
 
 	* SFEgettext.spec: Removed patch; Patched file removed upstream
