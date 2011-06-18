@@ -29,3 +29,7 @@ the build-number and remove corresponding ##TODO## in include/packagenames.defin
 
 7)
 need one general license file for "perl" licensed packages. all specs can point to that file with SUNW_Copyright:
+
+8)
+add to SFEperl-* modules hierarchical package names as well. maintain old short SVR4 name as package alias.
+see experimental/make_perl_cpan_settings.pl to get an idea about what the hierarchical package name might be.
