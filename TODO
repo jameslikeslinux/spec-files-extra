@@ -33,3 +33,8 @@ need one general license file for "perl" licensed packages. all specs can point 
 8)
 add to SFEperl-* modules hierarchical package names as well. maintain old short SVR4 name as package alias.
 see experimental/make_perl_cpan_settings.pl to get an idea about what the hierarchical package name might be.
+
+9)
+see if SFEgcc can avoid forcing the linker to be the gnu ld. suggested by richlowe is https://github.com/mirrors/gcc/commit/ce72f71213f2d4c75e3e82b6524e477d0e743ec5 
+this would enable sun ld even on OI147.
+check if this fix is already in the %version of gcc we have now (4.5.3).
