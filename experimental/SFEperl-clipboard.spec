@@ -22,7 +22,7 @@ Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 Url:		http://search.cpan.org/~king/%{tarball_name}-%{tarball_version}
 SUNW_Basedir:	%{_basedir}
-SUNW_Copyright: %{name}.copyright
+#SUNW_Copyright: %{name}.copyright
 Source0:	http://search.cpan.org/CPAN/authors/id/K/KI/KING/Clipboard-%{tarball_version}.tar.gz
 
 BuildRequires:  %{pnm_buildrequires_perl_default}
@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Sat Jun 18 2011 - Thomas Wagner
+- comment Copyright. need a general solution to point to perl license.
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic
