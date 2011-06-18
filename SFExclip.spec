@@ -55,11 +55,14 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/doc
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
 
 
 %changelog
+* Sat Jun 18 2011 - Thomas Wagner
+- fix permissions for %{_datadir}/doc
 * Mon Jun 13 2011 - Thomas Wagner
 - Initial spec
