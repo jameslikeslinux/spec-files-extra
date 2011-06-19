@@ -376,6 +376,7 @@
 #spec file maintainer how to solve that
 
 #cases >=156
+%if %{solaris11express}
 %if %( expr %{osbuild} '>=' 156 )
 #https://defect.opensolaris.org/bz/attachment.cgi?id=4441
 #(the attachment link from above is in: https://defect.opensolaris.org/bz/show_bug.cgi?id=17668)
@@ -389,10 +390,27 @@
 %define pnm_requires_SUNWlibpigment_devel			SUNWcs
 %define pnm_requires_SUNWlibpigment_python26			SUNWcs
 %define pnm_requires_SUNWlibpigment_python26_devel		SUNWcs
-
 %endif
 #END >=156
+%endif
+#END solaris11express
 
+# audio headers got renamed several times, then 
+# included in other package
+%if %{solaris11express}
+%if %( expr %{osbuild} '>=' 163 )
+#with 163 system/header/header-audio moved into system/header
+%define pnm_buildrequires_SUNWaudh_devel 			system/header
+%define pnm_buildrequires_SUNWaudh 				system/header
+%define pnm_requires_SUNWaudh 					system/header
+%define pnm_buildrequires_audh 					system/header
+%define pnm_requires_audh 					system/header
+%define pnm_buildrequires_system_header_header_audio		system/header
+%define pnm_requires_system_header_header_audio 		system/header
+%endif
+#END >=163
+%endif
+#END solaris11express
 
 #START setting perl5, defaults  - Part 1 of 3
 #define perl defaults, primarily shared settings and default
@@ -500,13 +518,24 @@
 #END setting perl5, all builds  - Part 3 of 3
 
 
-
+#  pkg contents -r -m system/header/header-audio
+# set name=pkg.fmri value=pkg://solaris/system/header/header-audio@0.5.11,5.11-0.163:20110410T085804Z
+# set name=variant.arch value=sparc value=i386
+# set name=org.opensolaris.consolidation value=osnet
+# set name=variant.opensolaris.zone value=global value=nonglobal
+# set name=pkg.renamed value=true
+# depend fmri=consolidation/osnet/osnet-incorporation type=require
+# depend fmri=pkg:/system/header@0.5.11,5.11-0.163 type=require
+ 
+ 
 #place very special cases here, for instance in Solaris 10
 ##TODO## for a future version
 
 
 
 %changelog
+* Sun Jun 19 2011 - Thomas Wagner
+- handle SUNWaudh|audh|system/header/header-audio moved into system/header (>=163 s11ex)
 * Fri Jun 17 2011 - Thomas Wagner
 - handle different perl versions (5.8.4, 5.10, 5.12) and module paths 
 - set perl to 5.12 on Solaris 11 to have modules in directory vendor_perl/5.12 (and not in 5.12.3)
