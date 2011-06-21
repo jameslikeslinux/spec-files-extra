@@ -1,4 +1,5 @@
 2011-06-18 Ken Mays <kmays2000@gmail.com>
+	* base-specs/kqemu.spec: Bump to 1.4.0pre1-07032008
 	* base-specs/qemu.spec: Bump to 0.9.1-06222008
 	* base-specs/libogg.spec : Bump to 1.3.2
 	* base-specs/libvorbis.spec: Bump to 1.2.2
