@@ -45,7 +45,7 @@ fi
 
 
 %changelog
-* Mon Oct  8 2007 - dougs@truemail.co.th
+* Tue Jun 21 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.4.0pre1-07032008
 
 * Mon Oct  8 2007 - dougs@truemail.co.th
