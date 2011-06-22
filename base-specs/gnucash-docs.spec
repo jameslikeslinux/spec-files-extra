@@ -13,7 +13,7 @@ Name:           gnucash-docs
 Summary:        This is the documentation module for GnuCash
 License:        GNU Free Documentation License
 Group:          Applications/Finance
-Version:        2.2.0
+Version:        2.4.5
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
