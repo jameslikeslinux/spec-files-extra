@@ -432,8 +432,8 @@
 #both?
 #note: the name is subject to change if we find a better one
 #_default string is not meant to be a part of the package name...
-%define pnm_buildrequires_perl_default SUNWperl584core
-%define pnm_requires_perl_default	SUNWperl584core
+%define pnm_buildrequires_perl_default	SUNWperl584core, SUNWperl584usr
+%define pnm_requires_perl_default	SUNWperl584core, SUNWperl584usr
 
 # NOTE the section sitting below the distro specfic settings
 # where the resulting paths on the disk are evaluated!
@@ -534,6 +534,9 @@
 
 
 %changelog
+* Thu Jun 23 2011 - Thomas Wagner
+- enhance default (Build)Requires pnm_buildrequires_perl_default to include both
+  SUNWperl584core, SUNWperl584usr. Only affects older distributions
 * Sun Jun 19 2011 - Thomas Wagner
 - handle SUNWaudh|audh|system/header/header-audio moved into system/header (>=163 s11ex)
 * Fri Jun 17 2011 - Thomas Wagner
@@ -541,7 +544,7 @@
 - set perl to 5.12 on Solaris 11 to have modules in directory vendor_perl/5.12 (and not in 5.12.3)
 - set perl to 5.10 on OpenIndiana to have modules in directory vendor_perl/5.10 (and not in 5.10.0)
 - add note about omitting "micro"-versionnumber from the path to modules
-- handle special macro name pnm_buildrequires_perl5_default pnm_requires_perl5_default:
+- handle special macro name pnm_buildrequires_perl5_default pnm_requires_perl5_default (note: renamed!):
    SUNWperl584core/SUNWperl584usr runtime/perl-510 runtime/perl-512 (note the _default string)
 - fine tune perl_vesion to be 5.10.0 and higher version numbers remain as 5.12 (w/o micro version)
 - rename pnm_buildrequires_perl5_default to pnm_buildrequires_perl_default (+requires)
