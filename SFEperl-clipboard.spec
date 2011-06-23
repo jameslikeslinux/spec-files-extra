@@ -7,6 +7,7 @@
 # includes module(s):
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define tarball_version 0.13
 %define tarball_name    Clipboard
@@ -21,13 +22,11 @@ Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 Url:		http://search.cpan.org/~king/%{tarball_name}-%{tarball_version}
 SUNW_Basedir:	%{_basedir}
-SUNW_Copyright: %{name}.copyright
+#SUNW_Copyright: %{name}.copyright
 Source0:	http://search.cpan.org/CPAN/authors/id/K/KI/KING/Clipboard-%{tarball_version}.tar.gz
 
-BuildRequires:	SUNWperl584core
-BuildRequires:	SUNWperl584usr
-Requires:	SUNWperl584core
-Requires:	SUNWperl584usr
+BuildRequires:  %{pnm_buildrequires_perl_default}
+Requires:  	%{pnm_requires_perl_default}
 Requires: 	SFExclip
 
 Meta(info.maintainer):          roboporter by pkglabo.justplayer.com <pkgadmin@justplayer.com>
@@ -41,7 +40,7 @@ Meta(info.classification):	org.opensolaris.category.2008:Development/Perl
 %setup -q -n %{tarball_name}-%{tarball_version}
 
 %build
-perl Makefile.PL PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT LIB=/usr/perl5/vendor_perl/5.8.4
+perl Makefile.PL PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT LIB=%{_prefix}/%{perl_path_vendor_perl_version}
 make
 
 %install
@@ -63,5 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Sat Jun 18 2011 - Thomas Wagner
+- comment Copyright. need a general solution to point to perl license.
+* Fri Jun 17 2011 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
+  paths dynamic
 * Mon Jun 13 2011 - Thomas Wagner
 - Initial spec
