@@ -1,5 +1,9 @@
 2011-06-22 Ken Mays <kmays2000@gmail.com>
 
+	* SFEseamonkey.spec: Bump to 2.1
+
+2011-06-22 Ken Mays <kmays2000@gmail.com>
+
 	* experimental/SFEwesnoth-1.8.spec: Bump to 1.8.6
 	* Removed SFEwesnoth-dev and old patches  
 
