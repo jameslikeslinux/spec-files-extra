@@ -182,6 +182,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.6
+- Fixed patches for 2.4.6
 * Mon Nov 16 2009 - halton.huo@sun.com
 - guile integrate into snv_125, use SUNWguile 
 * Mon Oct 20 2008 - halton.huo@sun.com

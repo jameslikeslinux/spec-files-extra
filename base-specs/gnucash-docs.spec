@@ -13,7 +13,7 @@ Name:           gnucash-docs
 Summary:        This is the documentation module for GnuCash
 License:        GNU Free Documentation License
 Group:          Applications/Finance
-Version:        2.4.5
+Version:        2.2.0
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -82,5 +82,7 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 %doc AUTHORS COPYING-DOCS ChangeLog NEWS README HACKING
 
 %changelog
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.2.0, Fixed link from gnome-docs 2.4.5 (non exists)
 * Wed Jun 25 2008 - nonsea@users.sourceforge.net
 - Initial version

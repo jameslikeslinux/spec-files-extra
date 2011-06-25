@@ -1,6 +1,10 @@
-2011-06-22 Ken Mays <kmays2000@gmail.com>
+
+2011-06-25 Ken Mays <kmays2000@gmail.com>
 
 	* SFEseamonkey.spec: Bump to 2.1
+	* SFEgnucash.spec: Bump to 2.4.6
+	* patches/gnucash-04-void-return.diff: Revised
+	* patches/gnucash-05-solaris-guile.diff: Revised
 
 2011-06-22 Ken Mays <kmays2000@gmail.com>
 
