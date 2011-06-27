@@ -1,3 +1,7 @@
+2011-06-27 Ken Mays <kmays2000@gmail.com>
+
+	* Added experimental/SFEblender258.spec: Req Python 3.2.x
+	* Added patches/blender-2.58-sunos5-config.diff
 
 2011-06-25 Ken Mays <kmays2000@gmail.com>
 

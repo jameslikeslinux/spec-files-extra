@@ -1,25 +1,25 @@
 #
-# Blender 2.57b SPEC file for SFE
+# Blender 2.58(x) SPEC file for SFE
 # By Ken Mays
 #
 %include Solaris.inc
 #
-# Note: Blender 2.57b prefers Python 3.2.x or higher.
+# Note: Blender 2.58 prefers Python 3.2.x or higher.
 # Note: FFMPEG and Boomer API audio header   
 # Note: You can use Scons (preferred) or CMAKE. 
 # 
 %define python_version 3.2
-%define src_version 2.57b
+%define src_version 2.58
 %define src_url http://download.blender.org/source
 %define collada 1 
 %define wplayer 1 
 
-Name:           SFEblender
+Name:           SFEblender258
 Summary:        Blender -  the free open source 3D content creation suite
-Version:        2.57.2
+Version:        2.58.0
 URL:		http://www.blender.org
-Source:		%{src_url}/blender-%{src_version}.tar.gz
-Patch1:		blender-2.57b-01-sunos5-config.diff	
+Source:		%{src_url}/blender-%{src_version}.tgz
+Patch1:		blender-2.58-sunos5-config.diff	
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include	default-depend.inc
@@ -199,5 +199,26 @@ rm -rf $RPM_BUILD_ROOT
 #%{_includedir}/%{name}/*.DEF 
   
 %changelog
+* Mon Jun 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.58
 * Mon 15 Jun 2011 - Ken Mays <kmays2000@gmail.com>
-- Initial spec
+- Revised spec for Blender > 2.49b and Python 3.2 req
+* May 18 2010 - G.D.
+- exec in bindir
+* Wed May 12 2010 - Albert Lee <trisk@opensolaris.org>
+- Bump to 2.49b
+- Update Python version to 2.6
+- Fix install on non-amd64
+- Create wrapper at build time
+* Jue  17 2009 - Simonjin
+- Bump to 2.49, and update the patch blender-01-build.diff
+* April 2009 - Gilles dauphin
+- adjust version for IPS
+* Sun 18 Jan 2009 - Henry Zhang
+- Bump to 2.48a, and update the patch and blender-01.sh.
+* Thu 27 Nov 2008 - Henry Zhang
+- Add dependency SUNWilmbase
+* Sun 09 Nov 2008 - Gilles Dauphin
+- depend SUNWopenexr
+* Sept 16 2008 - Gilles Dauphin ( Gilles DOT Dauphin AT enst DOT fr)
+- Initial specc

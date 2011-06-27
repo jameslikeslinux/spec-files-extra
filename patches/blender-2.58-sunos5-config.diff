@@ -1,6 +1,14 @@
---- build_files/scons/config/sunos5-config.py.orig	2011-06-15 13:57:08.000892500 -0400
-+++ build_files/scons/config/sunos5-config.py	2011-06-16 08:07:54.925214000 -0400
-@@ -8,9 +8,9 @@
+--- blender-2.58/build_files/scons/config/sunos5-config.py.orig	2011-06-27 14:17:47.221916800 -0400
++++ blender-2.58/build_files/scons/config/sunos5-config.py	2011-06-27 14:26:34.847431300 -0400
+@@ -1,16 +1,16 @@
+ LCGDIR = '../lib/sunos5'
+ LIBDIR = '${LCGDIR}'
+ 
+-BF_PYTHON = '/usr/local'
++BF_PYTHON = '/usr'
+ BF_PYTHON_VERSION = '3.2'
+ BF_PYTHON_INC = '${BF_PYTHON}/include/python${BF_PYTHON_VERSION}'
+ BF_PYTHON_BINARY = '${BF_PYTHON}/bin/python${BF_PYTHON_VERSION}'
  BF_PYTHON_LIB = 'python${BF_PYTHON_VERSION}' #BF_PYTHON+'/lib/python'+BF_PYTHON_VERSION+'/config/libpython'+BF_PYTHON_VERSION+'.a'
  BF_PYTHON_LINKFLAGS = ['-Xlinker', '-export-dynamic']
  
@@ -12,7 +20,22 @@
  BF_OPENAL_INC = '${BF_OPENAL}/include'
  BF_OPENAL_LIBPATH = '${BF_OPENAL}/lib'
  BF_OPENAL_LIB = 'openal'
-@@ -35,7 +35,7 @@
+@@ -22,20 +22,20 @@
+ WITH_BF_STATICCXX = False
+ BF_CXX_LIB_STATIC = '${BF_CXX}/lib/libstdc++.a'
+ 
+-BF_LIBSAMPLERATE = '/usr/local'
++BF_LIBSAMPLERATE = '/usr'
+ BF_LIBSAMPLERATE_INC = '${BF_LIBSAMPLERATE}/include'
+ BF_LIBSAMPLERATE_LIB = 'samplerate'
+ BF_LIBSAMPLERATE_LIBPATH = '${BF_LIBSAMPLERATE}/lib'
+ 
+ WITH_BF_SDL = True
+-BF_SDL = '/usr/local' #$(shell sdl-config --prefix)
++BF_SDL = '/usr' #$(shell sdl-config --prefix)
+ BF_SDL_INC = '${BF_SDL}/include/SDL' #$(shell $(BF_SDL)/bin/sdl-config --cflags)
+ BF_SDL_LIBPATH = '${BF_SDL}/lib'
+ BF_SDL_LIB = 'SDL' #BF_SDL #$(shell $(BF_SDL)/bin/sdl-config --libs) -lSDL_mixer
  
  WITH_BF_OPENEXR = True
  WITH_BF_STATICOPENEXR = False
@@ -55,7 +78,7 @@
  BF_GETTEXT_INC = '${BF_GETTEXT}/include'
  BF_GETTEXT_LIB = 'gettextlib'
  BF_GETTEXT_LIBPATH = '${BF_GETTEXT}/lib'
-@@ -98,7 +98,7 @@
+@@ -98,16 +98,16 @@
  #BF_PARANOID = True
  
  # enable freetype2 support for text objects
@@ -64,8 +87,10 @@
  BF_FREETYPE_INC = '${BF_FREETYPE}/include ${BF_FREETYPE}/include/freetype2'
  BF_FREETYPE_LIBPATH = '${BF_FREETYPE}/lib'
  BF_FREETYPE_LIB = 'freetype'
-@@ -107,7 +107,7 @@
- BF_QUICKTIME = '/usr/local'
+ 
+ WITH_BF_QUICKTIME = False # -DWITH_QUICKTIME
+-BF_QUICKTIME = '/usr/local'
++BF_QUICKTIME = '/usr'
  BF_QUICKTIME_INC = '${BF_QUICKTIME}/include'
  
 -WITH_BF_ICONV = True
@@ -73,7 +98,13 @@
  BF_ICONV = "/usr"
  BF_ICONV_INC = '${BF_ICONV}/include'
  BF_ICONV_LIB = 'iconv'
-@@ -120,12 +120,12 @@
+@@ -115,17 +115,17 @@
+ 
+ # enable ffmpeg  support
+ WITH_BF_FFMPEG = True # -DWITH_FFMPEG
+-BF_FFMPEG = '/usr/local'
++BF_FFMPEG = '/usr'
+ BF_FFMPEG_INC = '${BF_FFMPEG}/include'
  BF_FFMPEG_LIBPATH='${BF_FFMPEG}/lib'
  BF_FFMPEG_LIB = 'avformat avcodec avutil avdevice'
  
