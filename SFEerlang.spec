@@ -1,73 +1,53 @@
 #
-# spec file for package SFEerlang 
+# spec file for package: SFEerlang
 #
-# Copyright 2010 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
+# includes module(s):
+#
 
 %include Solaris.inc
-
 %define cc_is_gcc 1
 
-%ifarch amd64 sparcv9
-%include arch64.inc
-%define is64 1
-%use erlang_64 = erlang.spec
-%endif
-
-%include base.inc
-%define is64 0
-%use erlang = erlang.spec
-
-%define pkg_src_name     otp_src
-%define src_name         erlang
-%define src_ver          R13B04
-
-Name:                    SFEerlang 
-Summary:                 erlang - Erlang programming language and OTP libraries (g++-built)
-Version:                 %{src_ver}
-Release:                 1
-License:                 ERLANG PUBLIC LICENSE
-Group:                   Development/Languages/Erlang
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
-URL:                     http://www.erlang.org
-Source:                  http://erlang.org/download/%{pkg_src_name}_%{src_ver}.tar.gz
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{src_name}_%{src_ver}
-
-%define SFEgd            %(/usr/bin/pkginfo -q SUNWgd && echo 0 || echo 1)
 %define SFEunixodbc      %(/usr/bin/pkginfo -q SUNWunixodbc && echo 0 || echo 1)
 
-%include default-depend.inc
-
-%define src2_name crypto_lib_makefile.patch
-%define src3_name erts_configure.patch
-%define src4_name inet_drv.c.patch
-%define src5_name libs_makefile.patch64
-%define src6_name orber_lib_makefile.patch
-%define src7_name ssl_examples_makefile.patch
-
-Source2:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src2_name}
-Source3:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src3_name}
-Source4:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src4_name}
-Source5:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src5_name}
-Source6:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src6_name}
-Source7:                 http://src.opensolaris.org/source/raw/sfw/usr/src/cmd/erlang/Patches/%{src7_name}
-
-Requires: 	SFEgcc
-
-Requires:       SFEwxwidgets-gnu
-BuildRequires:  SFEwxwidgets-gnu-devel
-
-%if %SFEgd
-BuildRequires: SFEgd-devel
-Requires: SFEgd
-%else
-BuildRequires: SUNWgd2
-Requires: SUNWgd2
+%define mybindir %{_bindir}
+%ifarch amd64 sparcv9 
+%include arch64.inc
+%define myldflags -m64 %{_ldflags}
+%define wx_config /usr/gnu/bin/%{_arch64}/wx-config
+%use erlang_64 = erlang.spec
 %endif
+%include base.inc
+%define myldflags %{_ldflags}
+%define wx_config /usr/gnu/bin/wx-config
+%if %can_isaexec
+%define mybindir %{_bindir}/%{base_isa}
+%endif
+%use erlang = erlang.spec
+
+Name:		SFEerlang
+Version:	%{erlang.version}
+Summary:	Erlang programming language and OTP libraries
+License:	Erlang Public License
+Distribution:   OpenSolaris
+Vendor:         OpenSolaris Community
+Url:		http://www.erlang.org/
+SUNW_BaseDir:	/
+SUNW_Copyright:	%{name}.copyright
+
+Source0:	epmd.xml
+
+%include default-depend.inc
+BuildRequires:	SFEgcc
+BuildRequires:	SUNWj6dev
+BuildRequires:	SUNWopenssl-include
+BuildRequires:	SUNWopenssl-libraries
+BuildRequires:	SFEwxwidgets-gnu-devel
+Requires:	SFEgccruntime
+Requires:	SUNWopenssl-libraries
+Requires:	SFEwxwidgets-gnu
 
 %if %SFEunixodbc
 BuildRequires: SFEunixodbc-devel
@@ -77,108 +57,122 @@ BuildRequires: SUNWunixodbc
 Requires: SUNWunixodbc
 %endif
 
-BuildRequires: SUNWgtar
-BuildRequires: SUNWesu
+Meta(info.maintainer):		James Lee <jlee@thestaticvoid.com>
+Meta(info.upstream):		erlang-bugs@erlang.org
+Meta(info.upstream_url):	http://www.erlang.org/
+Meta(info.classification):	org.opensolaris.category.2008:Development/Other Languages
+
+%description
+Open Source Erlang is a functional programming language designed at the
+Ericsson Computer Science Laboratory.
+
+Some of Erlang main features are:
+
+ * Clear declarative syntax and is largely free from side-effects;
+ * Builtin support for real-time, concurrent and distributed programming;
+ * Designed for development of robust and continously operated programs;
+ * Dynamic code replacement at runtime.
+
+The Erlang distribution also includes OTP (Open Telecom Platform) which
+provides a reach set of libraries and applications. 
 
 %prep
 rm -rf %{name}-%{version}
 mkdir %{name}-%{version}
 %ifarch amd64 sparcv9
 mkdir %{name}-%{version}/%{_arch64}
-%define is64 1
 %erlang_64.prep -d %{name}-%{version}/%{_arch64}
 %endif
-
 mkdir %{name}-%{version}/%{base_arch}
-%define is64 0
 %erlang.prep -d %{name}-%{version}/%{base_arch}
-
 
 %build
 %ifarch amd64 sparcv9
-%define is64 1
 %erlang_64.build -d %{name}-%{version}/%{_arch64}
 %endif
-
-%define is64 0
 %erlang.build -d %{name}-%{version}/%{base_arch}
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %ifarch amd64 sparcv9
-%define is64 1
 %erlang_64.install -d %{name}-%{version}/%{_arch64}
 %endif
-
-%define is64 0
 %erlang.install -d %{name}-%{version}/%{base_arch}
 
+%if %can_isaexec
+cd $RPM_BUILD_ROOT%{_bindir}
+for i in dialyzer epmd erl erlc escript run_erl run_test to_erl typer; do
+	ln -s ../lib/isaexec $i
+done
+%endif
 
-# Prepare lists of files for packaging
-cd %{_builddir}/%{name}-%{version}
-touch SFEerlang-all.files
+rm -rf $RPM_BUILD_ROOT%{_datadir}/info
 
-find $RPM_BUILD_ROOT%{_prefix} \( -type f -o -type l \) -name "*" > SFEerlang-all.files
-sort SFEerlang-all.files > SFEerlang-all-sort.files
-# Clean up syntax for %files section
-sed -i -e 's:'"$RPM_BUILD_ROOT"'::' SFEerlang-all-sort.files
+# copy epmd SMF manifest
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/svc/manifest/network
+cp %{SOURCE0} $RPM_BUILD_ROOT%{_localstatedir}/svc/manifest/network/epmd.xml
 
 %clean
-%ifarch amd64 sparcv9
-%define is64 1
-%erlang_64.clean -d %{name}-%{version}/%{_arch64}
+rm -rf $RPM_BUILD_ROOT
+
+%if %(test -f /usr/sadm/install/scripts/i.manifest && echo 0 || echo 1)
+%iclass manifest -f i.manifest
 %endif
 
-%define is64 0
-%erlang.clean -d %{name}-%{version}/%{base_arch}
-
-%files -f SFEerlang-all-sort.files
-%defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%dir %attr (0755, root, bin) %{_libdir}
-
+%files
+%defattr(-,root,bin)
 %ifarch amd64 sparcv9
-%dir %attr (0755, root, bin) %{_bindir}/%{_arch64}
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
+%{_bindir}/%{_arch64}/dialyzer
+%{_bindir}/%{_arch64}/epmd
+%{_bindir}/%{_arch64}/erl
+%{_bindir}/%{_arch64}/erlc
+%{_bindir}/%{_arch64}/escript
+%{_bindir}/%{_arch64}/run_erl
+%{_bindir}/%{_arch64}/run_test
+%{_bindir}/%{_arch64}/to_erl
+%{_bindir}/%{_arch64}/typer
+%{_libdir}/%{_arch64}/erlang
 %endif
-
-%ifarch amd64 sparcv9
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/erts-5.7.5/man
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/erts-5.7.5/doc
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/kernel-2.13.5/examples/uds_dist/ebin
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/kernel-2.13.5/examples/uds_dist/priv
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/erl_interface-3.6.5/src/auxdir
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/inets-5.3/examples/server_root/htdocs/secret/top_secret
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/inets-5.3/examples/server_root/htdocs/mnesia_secret/top_secret
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/inets-5.3/examples/server_root/logs
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/mnesia-4.4.13/include
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/ssl-3.10.8/examples/certs/etc/otpCA/certs
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/ssl-3.10.8/examples/certs/etc/otpCA/crl
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/ssl-3.10.8/examples/certs/etc/erlangCA/crl
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/ssl-3.10.8/examples/certs/etc/erlangCA/certs
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/common_test-1.4.7/priv/bin
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/percept-0.8.4/priv/logs
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}/erlang/lib/odbc-2.10.7/priv/obj
+%if %can_isaexec
+%{_bindir}/%{base_isa}/dialyzer
+%{_bindir}/%{base_isa}/epmd
+%{_bindir}/%{base_isa}/erl
+%{_bindir}/%{base_isa}/erlc
+%{_bindir}/%{base_isa}/escript
+%{_bindir}/%{base_isa}/run_erl
+%{_bindir}/%{base_isa}/run_test
+%{_bindir}/%{base_isa}/to_erl
+%{_bindir}/%{base_isa}/typer
+%hard %{_bindir}/dialyzer
+%hard %{_bindir}/epmd
+%hard %{_bindir}/erl
+%hard %{_bindir}/erlc
+%hard %{_bindir}/escript
+%hard %{_bindir}/run_erl
+%hard %{_bindir}/run_test
+%hard %{_bindir}/to_erl
+%hard %{_bindir}/typer
+%else
+%{_bindir}/dialyzer
+%{_bindir}/epmd
+%{_bindir}/erl
+%{_bindir}/erlc
+%{_bindir}/escript
+%{_bindir}/run_erl
+%{_bindir}/run_test
+%{_bindir}/to_erl
+%{_bindir}/typer
 %endif
-
-%dir %attr (0755, root, bin) %{_libdir}/erlang/erts-5.7.5/man
-%dir %attr (0755, root, bin) %{_libdir}/erlang/erts-5.7.5/doc
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/kernel-2.13.5/examples/uds_dist/priv
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/kernel-2.13.5/examples/uds_dist/ebin
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/erl_interface-3.6.5/src/auxdir
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/inets-5.3/examples/server_root/htdocs/secret/top_secret
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/inets-5.3/examples/server_root/htdocs/mnesia_secret/top_secret
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/inets-5.3/examples/server_root/logs
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/mnesia-4.4.13/include
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/ssl-3.10.8/examples/certs/etc/erlangCA/crl
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/ssl-3.10.8/examples/certs/etc/erlangCA/certs
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/ssl-3.10.8/examples/certs/etc/otpCA/crl
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/ssl-3.10.8/examples/certs/etc/otpCA/certs
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/common_test-1.4.7/priv/bin
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/percept-0.8.4/priv/logs
-%dir %attr (0755, root, bin) %{_libdir}/erlang/lib/odbc-2.10.7/priv/obj
+%{_libdir}/erlang
+%defattr(-,root,sys)
+%dir %{_localstatedir}/svc/manifest/network
+%class(manifest) %attr(444,root,sys) %{_localstatedir}/svc/manifest/network/epmd.xml
 
 %changelog
-* Sun Jun 6 2010 - markwright@internode.on.net
-- Initial spec
+* Tue Jun 28 2011 - James Lee <jlee@thestaticvoid.com>
+- Add odbc dependency.
+- Add epmd service.
+* Wed Jun 15 2011 - James Lee <jlee@thetsaticvoid.com>
+- Update for SFE inclusion
+* Fri Jan 21 2011 - James Lee <jlee@thestaticvoid.com>
+- Initial version

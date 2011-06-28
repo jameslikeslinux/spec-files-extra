@@ -1,0 +1,15 @@
+diff -ur otp_src_R14B03.old/erts/emulator/drivers/common/inet_drv.c otp_src_R14B03/erts/emulator/drivers/common/inet_drv.c
+--- otp_src_R14B03.old/erts/emulator/drivers/common/inet_drv.c	2011-06-15 12:18:06.353958911 -0400
++++ otp_src_R14B03/erts/emulator/drivers/common/inet_drv.c	2011-06-15 12:37:31.929247906 -0400
+@@ -251,6 +251,11 @@
+ 
+ #include <net/if.h>
+ 
++/* Solaris 11 defines incomplete support for SIOCGIFHWADDR */
++#if defined(__sun) && defined(__SVR4)
++#undef SIOCGIFHWADDR
++#endif
++
+ /* SCTP support -- currently for UNIX platforms only: */
+ #undef HAVE_SCTP
+ #if (!defined(VXWORKS) && !defined(__WIN32__) && defined(HAVE_SCTP_H))

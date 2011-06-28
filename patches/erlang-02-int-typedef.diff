@@ -1,0 +1,12 @@
+diff -ur otp_src_R14B03.old/lib/wx/c_src/egl_impl.h otp_src_R14B03/lib/wx/c_src/egl_impl.h
+--- otp_src_R14B03.old/lib/wx/c_src/egl_impl.h	2011-06-15 12:18:07.179637541 -0400
++++ otp_src_R14B03/lib/wx/c_src/egl_impl.h	2011-06-15 13:33:59.723172053 -0400
+@@ -94,7 +94,7 @@
+ #elif defined(__sun__)
+ #include <inttypes.h>
+ #if defined(__STDC__)
+-#if defined(__arch64__)
++#if defined(__arch64__) || defined(_LP64)
+ typedef long int int64_t;
+ typedef unsigned long int uint64_t;
+ #else

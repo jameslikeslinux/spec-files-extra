@@ -1,0 +1,12 @@
+diff -ur otp_src_R14B03.old/lib/wx/c_src/Makefile.in otp_src_R14B03/lib/wx/c_src/Makefile.in
+--- otp_src_R14B03.old/lib/wx/c_src/Makefile.in	2011-06-15 12:18:07.180142447 -0400
++++ otp_src_R14B03/lib/wx/c_src/Makefile.in	2011-06-15 16:10:00.476765837 -0400
+@@ -170,7 +170,7 @@
+ 
+ $(TARGET_DIR)/erl_gl$(SO_EXT): $(GL_OBJECTS)
+ 	mkdir -p $(TARGET_DIR)
+-	$(CC) $(LDFLAGS) $(GL_OBJECTS) $(GL_LIBS) -o $@
++	$(LD) $(LDFLAGS) $(GL_OBJECTS) $(GL_LIBS) -o $@
+ 
+ 
+ # ----------------------------------------------------
