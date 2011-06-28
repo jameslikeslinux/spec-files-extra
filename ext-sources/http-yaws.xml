@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+
+<service_bundle type='manifest' name='yaws'>
+
+<service
+	name='network/http'
+	type='service'
+	version='1'>
+
+	<single_instance />
+
+	<dependency
+	    name='fs-local'
+	    grouping='require_all'
+	    restart_on='none'
+	    type='service'>
+		<service_fmri value='svc:/system/filesystem/local' />
+	</dependency>
+
+	<dependency
+	    name='network-service'
+	    grouping='require_all'
+	    restart_on='none'
+	    type='service'>
+		<service_fmri value='svc:/network/service' />
+	</dependency>
+
+	<dependency
+	    name='name-services'
+	    grouping='require_all'
+	    restart_on='refresh'
+	    type='service'>
+		<service_fmri value='svc:/milestone/name-services' />
+	</dependency>
+	
+	<dependency
+	    name='network-epmd'
+	    grouping='require_all'
+	    restart_on='restart'
+	    type='service'>
+		<service_fmri value='svc:/network/epmd' />
+	</dependency>
+
+	<instance name='yaws' enabled='false'>
+
+		<dependency
+		    name='config-file'
+		    grouping='require_all'
+		    restart_on='refresh'
+		    type='path'>
+			<service_fmri
+			    value='file://localhost/etc/yaws/yaws.conf' />
+		</dependency>
+
+		<exec_method
+			type='method'
+			name='start'
+			exec='/lib/svc/method/http-yaws start'
+			timeout_seconds='10'>
+	                <method_context>
+        	                <method_credential user='webservd' group='webservd' privileges="basic,net_privaddr" />
+	                </method_context>
+		</exec_method>
+
+		<exec_method
+			type='method'
+			name='stop'
+			exec='/lib/svc/method/http-yaws stop'
+			timeout_seconds='10'>
+	                <method_context>
+        	                <method_credential user='webservd' group='webservd' />
+	                </method_context>
+		</exec_method>
+
+		<exec_method
+			type='method'
+			name='refresh'
+			exec='/lib/svc/method/http-yaws refresh'
+			timeout_seconds='10'>
+	                <method_context>
+        	                <method_credential user='webservd' group='webservd' />
+	                </method_context>
+		</exec_method>
+
+		<property_group name='options' type='application'>
+			<propval name='io_pipe_name' type='astring' value='svc' />
+			<propval name='mnesia_dir' type='astring' value='' />
+		</property_group>
+
+		<template>
+			<common_name>
+				<loctext xml:lang='C'>
+				Yet Another Web Server
+				</loctext>
+			</common_name>
+			<documentation>
+				<manpage title='yaws' section='1M'
+				    manpath='/usr/share/man' />
+			</documentation>
+		</template>
+
+	</instance>
+
+	<stability value='Unstable' />
+
+</service>
+
+</service_bundle>

@@ -1,0 +1,34 @@
+#!/sbin/sh
+
+. /lib/svc/share/smf_include.sh
+
+io_pipe_name=$(svcprop -p options/io_pipe_name $SMF_FMRI)
+mnesia_dir=$(svcprop -p options/mnesia_dir $SMF_FMRI)
+
+case "$1" in
+    "start")
+        if [ "$io_pipe_name" != '""' ]; then
+            args="--run_erl $io_pipe_name "
+        else
+            args="--daemon "
+        fi
+
+        [ "$mnesia_dir" != '""' ] && args="${args}--mnesiadir $mnesia_dir"
+
+        TERM=vt100 /usr/bin/yaws $args --sname yaws
+        ;;
+
+    "stop")
+        /usr/bin/yaws --stop
+        ;;
+
+    "refresh")
+        /usr/bin/yaws --hup
+        ;;
+
+    *)
+        echo "Usage: $0 { start | stop | refresh }"
+        exit $SMF_EXIT_ERR_CONFIG
+esac
+
+exit $SMF_EXIT_OK

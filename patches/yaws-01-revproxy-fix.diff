@@ -1,0 +1,71 @@
+commit 5cc39b7757c312e592a84763717c562a2804191f
+Author: Steve Vinoski <vinoski@ieee.org>
+Date:   Mon Jun 20 22:29:42 2011 -0400
+
+    fix reverse proxy problem (issue #60)
+    
+    Change yaws_server.erl to not exit on {'EXIT', From, Reason} messages
+    found when erasing transient messages, a change originally introduced
+    in commit c0755739. Doing so was causing reverse proxy to no longer
+    work, as reported in issue #60 on github and as experienced by several
+    users. Note however that this might be a temporary fix, since it might
+    be better to figure out the source of the EXIT message, but I'm
+    committing and pushing this fix now for the benefit of those waiting
+    to use the reverse proxy feature.
+    
+    Thanks to Manuel Durán Aguete for providing a test case making it easy
+    to reproduce the problem and test the fix.
+
+diff --git a/src/yaws_server.erl b/src/yaws_server.erl
+index 49ae1b7..7c57424 100644
+--- a/src/yaws_server.erl
++++ b/src/yaws_server.erl
+@@ -1182,9 +1182,8 @@ init_db() ->
+     put(init_db, lists:keydelete(init_db, 1, get())).
+ 
+ erase_transients() ->
+-    %% flush all messages. If exit message found, rethrow it
++    %% flush all messages
+     Fun = fun(G) -> receive
+-                        {'EXIT', _From, Reason} -> exit(Reason);
+                         _X -> G(G)
+                     after 0 -> ok
+                     end
+
+commit a922ccb753c4d17f3f6b4da0398493786b2fe67a
+Author: Christopher Faulet <christopher@yakaz.com>
+Date:   Tue Jun 21 09:44:07 2011 +0200
+
+    catch exit signals sent by gserv process
+    
+    In commit 5cc39b7, the temporary fix for issue #60, all exit signals
+    found when erasing transient messages are ignored. This commit
+    completes that fix. Exit signals coming specifically from the gserv
+    process to shutdown the connection are also ignored.  So, only signals
+    from gserv are now processed and all others are flushed.
+
+diff --git a/src/yaws_server.erl b/src/yaws_server.erl
+index 7c57424..8415964 100644
+--- a/src/yaws_server.erl
++++ b/src/yaws_server.erl
+@@ -956,6 +956,7 @@ acceptor(GS) ->
+     end.
+ acceptor0(GS, Top) ->
+     ?TC([{record, GS, gs}]),
++    put(gserv_pid, Top),
+     put(gc, GS#gs.gconf),
+     X = do_accept(GS),
+     Top ! {self(), next, X},
+@@ -1182,8 +1183,11 @@ init_db() ->
+     put(init_db, lists:keydelete(init_db, 1, get())).
+ 
+ erase_transients() ->
+-    %% flush all messages
++    %% flush all messages.
++    %% If exit signal is received from the gserv process, rethrow it
++    Top = get(gserv_pid),
+     Fun = fun(G) -> receive
++                        {'EXIT', Top, Reason} -> exit(Reason);
+                         _X -> G(G)
+                     after 0 -> ok
+                     end
