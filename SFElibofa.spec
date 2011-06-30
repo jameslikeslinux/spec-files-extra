@@ -18,6 +18,7 @@ Source:		http://musicip-libofa.googlecode.com/files/libofa-%{version}.tar.gz
 Patch1:         libofa-01-libadd.diff
 Patch2:         libofa-02-libadd2.diff
 Patch3:         libofa-03-missinghdrs.diff 
+Patch4:         libofa-04-pkgconfig-fftw3.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -36,6 +37,7 @@ Requires:	%{pnm_requires_SUNWfftw3}
 %patch1 -p0
 %patch2 -p0
 %patch3 -p0
+%patch4 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -71,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Thu Jun 30 2011 - James Lee <jlee@thestaticvoid.com>
+- SUNWfftw3 doesn't deliver a pkg-config file, so explicitly add
+  libfftw3 to libofa.pc.
 * Tue Feb  3 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWfftw3}
   Requires to %{pnm_requires_SUNWfftw3}

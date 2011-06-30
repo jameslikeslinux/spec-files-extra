@@ -19,6 +19,7 @@ SUNW_BaseDir:		%{_prefix}
 Requires: SUNWPython26
 %include default-depend.inc
 Requires: SFEqt4
+Requires: SFEsip
 BuildRequires: SUNWPython26-devel
 BuildRequires: SFEsip
 
@@ -32,6 +33,14 @@ export LDFLAGS="%_ldflags"
 export QMAKESPEC=/usr/share/qt/mkspecs/default
 python configure.py -w --confirm-license \
     -d %{_libdir}/python%{python_version}/vendor-packages
+
+# Force link with libCrun.  LDFLAGS and LIBS do not seem to be honored
+# by configure.py
+find . -name "Makefile" | while read makefile; do
+        sed 's/^\(LIBS = .*\)/\1 -lCrun/' $makefile > $makefile.new
+        mv -f $makefile.new $makefile
+done
+
 make
 
 %install
@@ -58,6 +67,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/sip
 
 %changelog
+* Thu Jun 30 2011 - James Lee <jlee@thestaticvoid.com>
+- Add runtime dependency on SFEsip, solving "ImportError: No module named sip"
+- Force link with libCrun because Python in Solaris doesn't link with it:
+  http://download.oracle.com/docs/cd/E18659_01/html/821-1383/bkamv.html
 * Tue Feb 01 2011 - Alex Viskovatoff
 - bump to 4.8.3, so the tarball downloads
 * Sun Nov 07 2010 - Milan Jurik
