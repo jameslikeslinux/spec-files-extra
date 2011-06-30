@@ -1,3 +1,7 @@
+2011-06-30 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.11
+
 2011-06-27 Ken Mays <kmays2000@gmail.com>
 
 	* Added experimental/SFEblender258.spec: Req Python 3.2.x
