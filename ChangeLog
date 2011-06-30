@@ -2,6 +2,7 @@
 
 	* SFEunbound.spec: bump to 1.4.11
 	* SFEldns.spec: bump to 1.6.10
+	* SFEnodejs.spec: bump to 0.4.9
 
 2011-06-27 Ken Mays <kmays2000@gmail.com>
 
