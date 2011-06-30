@@ -15,7 +15,7 @@
 %define		src_url	http://easynews.dl.sourceforge.net/sourceforge/boost
 
 Name:		SFEboost-stdcxx
-Summary:	Boost - free peer-reviewed portable C++ source libraries
+Summary:	Free peer-reviewed portable C++ libraries
 Version:	%major.%minor.%patchlevel
 License:	Boost Software License
 URL:		http://www.boost.org/

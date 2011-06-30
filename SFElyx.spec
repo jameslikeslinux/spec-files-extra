@@ -28,10 +28,8 @@ Summary:	Graphical LaTeX front end: What You See Is What You Mean
 URL:		http://www.lyx.org
 Vendor:		LyX Team
 License:	GPL
-#Version:	1.6.8
-#Source:	ftp://ftp.lyx.org/pub/lyx/stable/1.6.x/%srcname-%version.tar.bz2
 Version:	2.0.0
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%{version}rc2.tar.xz
+Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0.x/%srcname-%version.tar.xz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -55,8 +53,7 @@ Requires:       %name
 
 
 %prep
-#%setup -q -n %srcname-%version
-%setup -q -n %srcname-%{version}rc2
+%setup -q -n %srcname-%version
 
 
 %build
@@ -66,8 +63,8 @@ CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include -L/usr/gnu/lib -R/usr/gnu/lib"
-export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -R/usr/g++/lib"
+export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include/qt"
+export LDFLAGS="%_ldflags -pthreads -lxnet -L/usr/g++/lib -R/usr/g++/lib"
 
 # SFEhunspell is built with CC, so SFElyx can't link against it
 # aspell is deprecated

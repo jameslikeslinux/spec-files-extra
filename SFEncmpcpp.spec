@@ -11,7 +11,7 @@
 %define srcname ncmpcpp
 
 Name:		SFEncmpcpp
-Summary:	ncurses based mpd client
+Summary:	Text-mode Music Player Daemon client
 URL:		http://unkart.ovh.org/ncmpcpp
 Vendor:		Andrzej Rybczak <electricityispower.gmail.com>
 Version:	0.5.7

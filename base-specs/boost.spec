@@ -58,9 +58,8 @@ export CXXFLAGS="%cxx_optflags -library=stlport4 -staticlib=stlport4 -norunpath 
 export LDFLAGS="%_ldflags -library=stlport4 -staticlib=stlport4"
 %endif
 
-# Do not build with ICU if building with GCC since ICU is built with SunStudio.
 %if %cc_is_gcc
-./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --without-icu 
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --with-icu=/usr/g++
 %else
 ./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu --without-libraries=graph
 %endif
@@ -68,12 +67,10 @@ export LDFLAGS="%_ldflags -library=stlport4 -staticlib=stlport4"
 ./bjam --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
   release stage
 
-%install
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 23 2011 - Alex Viskovatoff
+- enable ICU when building with gcc
 * Sat Mar 19 2011 - Milan Jurik
 - bump to 1.46.1 but disable graph lib for Sun Studio build
 * Thu Aug 26 2010 - Brian Cameron <brian.cameron@oracle.com

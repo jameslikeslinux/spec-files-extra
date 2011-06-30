@@ -5,6 +5,9 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 %define srcname smplayer
 
 Name:		SFEsmplayer
@@ -39,9 +42,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export LIBS=-lz
-export PATH=/usr/stdcxx/bin:$PATH
-export QMAKESPEC=solaris-cc-stdcxx
-export QTDIR=/usr/stdcxx
+export PATH=/usr/g++/bin:$PATH
+export QMAKESPEC=solaris-g++
+export QTDIR=/usr/g++
 gmake -j$CPUS PREFIX=%_basedir
 
 %install

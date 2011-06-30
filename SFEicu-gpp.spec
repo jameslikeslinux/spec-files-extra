@@ -11,8 +11,11 @@
 # This package does not conflict with library/icu because its base directory
 # is /usr/stdcxx.
 
-%define _basedir /usr/stdcxx
+%define _basedir /usr/g++
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 %ifarch amd64 sparcv9
 %include arch64.inc
 %use icu_64 = icu.spec
@@ -23,15 +26,16 @@
 %define opt_arch64 0
 %use icu = icu.spec
 
-Name:			SFEicu
-Summary:		%icu.summary (linked against stdcxx)
+Name:			SFEicu-gpp
+Summary:		%icu.summary (g++ built)
 Version:		%icu.version
+URL:			http://site.icu-project.org/
 License:		BSD.icu
 SUNW_BaseDir:		%_basedir
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:		SUNWlibstdcxx4
-Requires:		SUNWlibstdcxx4
+BuildRequires:		SFEgcc
+Requires:		SFEgccruntime
 
 %package devel
 Summary:		%{summary} - development files
@@ -128,6 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 23 2011 - Alex Viskovatoff
+- Fork SFEicu-gpp.spec off SFEicu.spec
 * Mon Apr 11 2011 - Alex Viskovatoff
 - Package pkgconfig files
 * Sat Nov 20 2010 - Alex Viskovatoff

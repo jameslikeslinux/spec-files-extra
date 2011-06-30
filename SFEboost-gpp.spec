@@ -14,13 +14,15 @@
 %use boost = boost.spec
 
 Name:                SFEboost-gpp
-Summary:             Boost - free peer-reviewed portable C++ source libraries (g++-built)
+Summary:             Free peer-reviewed portable C++ libraries (g++-built)
 Version:             %{boost.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWPython
+BuildRequires:	SFEicu-gpp-devel
+Requires:	SFEicu-gpp
 
 %package -n %name-devel
 Summary:        %{summary} - development files
@@ -53,6 +55,11 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
+
+# It's not worth figuring out how to get the Boost build system
+# to set the runpath correctly
+elfedit -e 'dyn:runpath /usr/ccs/lib:/lib:/usr/lib:/usr/gnu/lib:/usr/g++/lib' \
+        stage/lib/libboost_regex.so.1.46.1
 
 for i in stage/lib/*.so; do
   NAME=`basename $i`
@@ -95,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Thu Jun 23 2011 - Alex Viskovatoff
+- set correct runpath for libboost_regex, so it finds ICU libraries
 * Sun Apr  3 2011 - Alex Viskovatoff
 - use new g++ libs pathname; build multithreaded libs
 * Fri Jan 11 2011 - Milan Jurik

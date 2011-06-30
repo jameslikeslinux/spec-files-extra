@@ -20,6 +20,8 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:		 SFEgob
 BuildRequires:		 developer/vala
+BuildRequires:		 library/perl-5/xml-parser
+Requires:		 library/perl-5/xml-parser
 BuildRequires:		 SFElibmpd-devel
 #test#BuildRequires:           SFEavahi-devel
 Requires:		SFElibmpd

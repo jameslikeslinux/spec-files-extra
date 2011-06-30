@@ -63,7 +63,7 @@ Requires:	SUNWgnu-readline
 Requires:	SFElibiconv
 Requires:	SUNWmyspell-dictionary-en
 
-%package -n %name-devel
+%package devel
 Summary:	%summary - development files
 SUNW_BaseDir:	%_basedir
 %include default-depend.inc
@@ -109,13 +109,15 @@ rm -rf %buildroot
 %attr (-, root, other) %_datadir/locale/*
 %_mandir
 
-%files -n %name-devel
+%files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %_includedir
 %_includedir/*
 
 
 %changelog
+* Fri Jun 10 2011 - Alex Viskovatoff <herzen@imap.cc>
+- don't create separate IPS devel package
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
 - bump to 1.3.2
 * Wed Mar 23 2011 - Alex Viskovatoff

@@ -15,7 +15,7 @@ Summary:        Graphical desktop publishing (DTP) application
 Group:		Applications/Office
 Version:        1.4.0
 #Source:	http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
-Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc3/%srcname-%version.rc3.tar.bz2
+Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc5/%srcname-%version.rc5.tar.bz2
 Patch1:		scribus-01-math_c99.diff
 SUNW_BaseDir:   %_basedir
 BuildRoot:      %_tmppath/%name-%version-build
@@ -38,7 +38,7 @@ Scribus is a GUI desktop publishing (DTP) application for Unix/Linux.
 
 
 %prep
-%setup -q -n %srcname-%version.rc3
+%setup -q -n %srcname-%version.rc5
 %patch1 -p1
 mkdir builddir
 
@@ -100,6 +100,8 @@ rm -rf %buildroot
 
 
 %changelog
+* 26 Jun 2011 - Alex Viskovatoff
+- Bump to 1.4.0.rc5
 * 13 Apr 2011 - Alex Viskovatoff
 - Update to 1.4.0.rc3; fix version name
 * 29 Mar 2011 - Alex Viskovatoff

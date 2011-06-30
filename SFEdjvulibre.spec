@@ -4,11 +4,12 @@
 # includes module: djvulibre
 #
 
-%define _basedir /usr/stdcxx
+%define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
+%define _cxx_libdir /usr/g++/lib
 %define srcname djvulibre
 
 Name:		SFEdjvulibre
@@ -108,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jun 12 2011 - Alex Viskovatoff
+- Qt gcc libs are now in their own place
 * Tue Apr 12 2011 - Alex Viskovatoff
 - Bump to 3.5.24
 * Tue Feb  8 2011 - Alex Viskovatoff

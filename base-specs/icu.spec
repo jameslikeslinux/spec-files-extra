@@ -18,20 +18,26 @@ Patch1: icu-01-qt-bug-7702.diff
 Patch2: icu-02-qt-bug-7702.diff
 #from upstream http://bugs.icu-project.org/trac/ticket/7695
 Patch3:	icu-03-Rpath.diff
+Patch4: icu-04-gnu99.diff
 # This is executed in the context either of 32- or 64-bit builds.
 
 %prep
 %setup -q -n %name
 #%patch1 -p 1
 #%patch3
+%patch4 -p 1
 # Patch2 applied below
 
-export LD=CC
 export CFLAGS="%optflags"
 export CPPFLAGS=""
+%if %cc_is_gcc
+export CXXFLAGS="%cxx_optflags"
+%else
+export LD=CC
 export CXXFLAGS="%cxx_optflags -library=stdcxx4"
 #export LDFLAGS="-library=stdcxx4 %_ldflags"
 export LDFLAGS="-library=stdcxx4"
+%endif
 export LIBS=""
 PATH=%{_bindir}:$PATH
 
@@ -52,7 +58,11 @@ CPPFLAGS="$LOCAL_LIB $CPPFLAGS"
 
 cd source
 chmod 0755 ./runConfigureICU
+%if %cc_is_gcc
+./runConfigureICU Solaris/GCC \
+%else
 ./runConfigureICU Solaris \
+%endif
 	--prefix=%{_prefix} \
 	--bindir=%{_bindir}\
 	--sbindir=%{_sbindir} \

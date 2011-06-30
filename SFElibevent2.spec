@@ -8,7 +8,7 @@
 
 Name:                SFElibevent2
 Summary:             An event notification library for event-driven network servers.
-Version:             2.0.10
+Version:             2.0.11
 Source:              %sf_download/levent/libevent/libevent-2.0/libevent-%version-stable.tar.gz
 URL:                 http://monkey.org/~provos/libevent/
 License:             BSD
@@ -58,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 
 %changelog
+* Tue May 31 2011 - Alex Viskovatoff
+- bump to 2.0.11
 * Fri Mar 18 2011 - Alex Viskovatoff
 - fork new spec off SFElibevent.spec
 * Mon Mar 14 2011 - Alex Viskovatoff

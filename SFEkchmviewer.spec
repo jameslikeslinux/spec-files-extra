@@ -5,6 +5,9 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 %define srcname kchmviewer
 
 Name:		SFEkchmviewer
@@ -18,10 +21,10 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SFEqt47-devel
+BuildRequires: SFEqt47-gpp-devel
 BuildRequires: SFEchmlib
 
-Requires: SFEqt47
+Requires: SFEqt47-gpp
 Requires: SFEchmlib
 Requires: SUNWzlib
 
@@ -34,17 +37,15 @@ mv build-%version %srcname-%version
 %build
 cd %srcname-%version
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export PATH=/usr/stdcxx/bin:$PATH
-export QMAKESPEC=solaris-cc-stdcxx
-export QTDIR=/usr/stdcxx
+export PATH=/usr/g++/bin:$PATH
+export QMAKESPEC=solaris-g++
+export QTDIR=/usr/g++
 
 qmake
-gmake -j2 PREFIX=%_basedir
+# Parallelism breaks with 16 cpus, so don't use more than 4
+gmake -j$(test $CPUS -ge 4 && echo 4 || echo $CPUS) PREFIX=%_basedir
 
 %install
 rm -rf $RPM_BUILD_ROOT

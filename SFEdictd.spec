@@ -7,9 +7,9 @@
 %define srcname		 dictd
 
 Name:                    SFEdictd
-Summary:                 Dictd Server and Client
+Summary:                 DICTD Server and Client
 Version:                 1.12.0
-URL:                     http://dict.org
+URL:                     http://www.dict.org/w/software/start
 License:		 GPLv2
 Source:                  %sf_download/project/dict/%srcname/%srcname-%version/%srcname-%version.tar.gz
 Patch1:			 dictd-01-Makefile.diff

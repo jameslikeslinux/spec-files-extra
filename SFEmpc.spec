@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 Name:                SFEmpc
-Summary:             Command line tool and client for MPD - Music Player Daemon
+Summary:             Command line tool and client for Music Player Daemon
 Version:             0.20
 Source:              http://downloads.sourceforge.net/project/musicpd/mpc/0.20/mpc-%version.tar.bz2
 SUNW_BaseDir:        %{_basedir}

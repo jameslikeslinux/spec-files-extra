@@ -41,7 +41,7 @@
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                    SFEmplayer2
-Summary:                 mplayer2 - MPlayer rebooted
+Summary:                 MPlayer fork with some additional features
 Version:                 2.0
 URL:                     http://www.mplayer2.org/
 Source:                  http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz

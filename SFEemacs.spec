@@ -3,6 +3,7 @@
 #
 # includes module(s): GNU emacs
 #
+%define _basedir /usr/gnu
 %include Solaris.inc
 
 Name:                    SFEemacs
@@ -140,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Mon Jun 27 2011 - Alex Viskovatoff
+- Install in /usr/gnu so as not to conflict with system gnu-emacs
 * Sun Apr 12 2011 - Alex Viskovatoff
 - Add missing build dependencies
 * Thu Mar 17 2011 - Alex Viskovatoff
