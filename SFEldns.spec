@@ -10,7 +10,7 @@
 Name:		SFEldns
 URL:		http://www.nlnetlabs.nl/projects/ldns/
 Summary:	ldns library for DNS programming
-Version:	1.6.9
+Version:	1.6.10
 Group:		System/Libraries
 License:	BSD
 Source:		http://www.nlnetlabs.nl/downloads/%{src_name}/%{src_name}-%{version}.tar.gz 
@@ -61,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jun 30 2011 - Milan Juril
+- bump to 1.6.10
 * Fri Mar 25 2011 - Milan Jurik
 - bump to 1.6.9
 * Mon Jan 24 2011 - Milan Jurik
