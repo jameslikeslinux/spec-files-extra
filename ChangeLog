@@ -1,3 +1,8 @@
+2011-07-01  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEsbcl.spec: initial spec, contributed by James Lee
+	* SFEargyll.spec: initial spec, contributed by James Lee
+
 2011-06-30  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqt47-gpp.spec: use kde-solaris patches; bump to 4.7.3
