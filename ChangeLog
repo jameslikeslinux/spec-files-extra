@@ -18,6 +18,8 @@
 	* SFEhunspell.spec: don't create separate IPS devel package
 	* SFEgmpc.spec: add missing dependency
 	* SFEpython3.spec: initial spec, contributed by A Hettinger
+	* SFEpython26-mpd: initial spec, contributed by James Lee
+	* SFEsonata.spec: initial spec, contributed by James Lee
 
 2011-06-30 Milan Jurik <sfnet@xylab.cz>
 
