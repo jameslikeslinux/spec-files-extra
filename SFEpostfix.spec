@@ -12,7 +12,6 @@
 #ldap
 #cdb (really needed?)
 #spf
-#tls
 #tlsfix
 
 ##TODO## think on using SUNWsndmr:/etc/mail/aliases file to get the Solaris standard aliases mapping
@@ -113,7 +112,7 @@
 Name:                    SFEpostfix
 Summary:                 postfix - Mailer System
 URL:                     http://postfix.org/
-Version:                 2.8.1
+Version:                 2.8.3
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 Source3:                 postfix.xml
@@ -152,6 +151,17 @@ Requires: %{name}-root
 
 #%config %class(preserve)
 Requires: SUNWswmt
+
+%if %{requires_db}
+BuildRequires: SFEbdb
+Requires: SFEbdb
+%endif
+
+%if %{with_tls}
+BuildRequires: SUNWopenssl-include
+BuildRequires: SUNWopenssl-libraries
+Requires: SUNWopenssl-libraries
+%endif
 
 %include default-depend.inc
 
@@ -262,6 +272,11 @@ AUXLIBS=
 
 %ifarch s390 s390x ppc
 CCARGS="${CCARGS} -fsigned-char"
+%endif
+
+%if %{requires_db}
+  CCARGS="${CCARGS} -DHAS_DB -I%{gnu_includedir}"
+  AUXLIBS="${AUXLIBS} -L%{gnu_libdir} -R%{gnu_libdir} -ldb"
 %endif
 
 %if %{with_cdb}
@@ -796,9 +811,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %attr (0755, root, sys) %dir %{_sysconfdir}
 %attr (0755, root, sys) %dir %{_sysconfdir}/%{src_name}
 #%{_sysconfdir}/%{src_name}/*
-%class(renamenew) %{_sysconfdir}/%{src_name}/master.cf
-%class(renamenew) %{_sysconfdir}/%{src_name}/main.cf
-%class(renamenew) %{_sysconfdir}/%{src_name}/aliases.unused
+%class(renamenew) %config %{_sysconfdir}/%{src_name}/master.cf
+%class(renamenew) %config %{_sysconfdir}/%{src_name}/main.cf
+%class(renamenew) %config %{_sysconfdir}/%{src_name}/aliases.unused
 %{_sysconfdir}/%{src_name}/examples
 %{_sysconfdir}/%{src_name}/bounce.cf.default
 %{_sysconfdir}/%{src_name}/access
@@ -829,7 +844,7 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %dir %attr (0755, root, other) %{_localstatedir}/lib
 %dir %attr (0700, %{runuser}, root) %{_localstatedir}/lib/postfix
 %dir %attr (0755, root, bin) %{_localstatedir}/spool
-%dir %attr (0755, %{runuser}, bin) %{_localstatedir}/spool/%{src_name}
+%dir %attr (0755, root, bin) %{_localstatedir}/spool/%{src_name}
 %dir %attr (0700, %{runuser}, bin) %{_localstatedir}/spool/%{src_name}/active
 %dir %attr (0700, %{runuser}, bin) %{_localstatedir}/spool/%{src_name}/bounce
 %dir %attr (0700, %{runuser}, bin) %{_localstatedir}/spool/%{src_name}/corrupt
@@ -854,13 +869,13 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %dir %attr (0755, root, bin) %{gnu_sysconfdir}
 %dir %attr (0755, root, bin) %{gnu_sysconfdir}/sasl2
 %if %(test %{with_sasl} -ge 1 && echo 1 || echo 0)
-%class(renamenew) %{gnu_sysconfdir}/sasl2/saslauthd.postfix
+%class(renamenew) %config %{gnu_sysconfdir}/sasl2/saslauthd.postfix
 %endif
 %if %(test %{with_sasl} -ge 1 && echo 1 || echo 0)
 %dir %attr (0755, root, bin) %{gnu_dir}
 %dir %attr (0755, root, bin) %{gnu_libdir}
 %dir %attr (0755, root, bin) %{gnu_libdir}/sasl2
-%class(renamenew) %{gnu_libdir}/sasl2/smtpd.conf
+%class(renamenew) %config %{gnu_libdir}/sasl2/smtpd.conf
 %endif
 
 
@@ -871,6 +886,16 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Fri Jul 01 2011 - James Lee <jlee@thestaticvoid.com>
+- Bump to 2.8.3.
+- Include dependency on SFEbdb for 'hash' postmap support.
+- Include dependency on SUNWopenssl-{include,libraries} for TLS.
+- Update SMF manifest to use /usr/sbin/postfix instead of non-existent
+  /etc/init.d/postfix.
+- Add '%config' to files with '%class(renamenew)' so the
+  'preserve=renamenew' attribute gets set in the IPS manifest.
+- Change owner of /var/spool/postfix to root, as recommended by
+  'postfix check'.
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
 - add %actions to create users and groups (including predefined numeric uid/gid)
