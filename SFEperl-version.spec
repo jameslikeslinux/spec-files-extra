@@ -1,22 +1,18 @@
 #
-# spec file for package SFEperl-uri
+# spec file for package SFEperl-version
 #
-# includes module(s): uri perl module
-#
-# Copyright (c) 2004 Sun Microsystems, Inc.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
+# includes module(s): version
 #
 
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define uri_version 1.58
+%define version_version 0.76
 
-Name:                    SFEperl-uri
-Summary:                 URI-%{uri_version} PERL module
-Version:                 %{perl_version}.%{uri_version}
-Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
+Name:                    SFEperl-version
+Summary:                 version-%{version_version} PERL module
+Version:                 %{perl_version}.%{version_version}
+Source:                  http://www.cpan.org/modules/by-module/version/version-%{version_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
@@ -34,7 +30,7 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %setup -q            -c -n %name-%version
 
 %build
-cd URI-%{uri_version}
+cd version-%{version_version}
 perl Makefile.PL \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
@@ -47,7 +43,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd URI-%{uri_version}
+cd version-%{version_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
@@ -60,11 +56,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/URI
-%{_prefix}/%{perl_path_vendor_perl_version}/URI/*
-%{_prefix}/%{perl_path_vendor_perl_version}/*.pm
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/version
+%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/version/*
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
 %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
+%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/version.*
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man3
@@ -75,18 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
 - BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
-* Mon Mar 21 2011 - Milan Jurik
-- bump to 1.58
-* Wed Aug 19 2009 - hcoomes@insightbb.com
-- Updated source url and version to 1.40
-* Sun Jul 19 2009 - matt@greenviolet.net
-- Bumped to version 1.38
-* Sun Jan 28 2007 - mike kiedrowski (lakeside-AT-cybrzn-DOT-com)
-- Updated how version is defined.
-* Tue Jul  4 2006 - laca@sun.com
-- rename to SFEperl-uri
-- delete -devel-share subpkg
-* Thu May 11 2006 - damien.carbery@sun.com
-- Change owner of 'auto' dir to root:bin to match SUNWperl-xml-parser.
-* Mon Jan 02 2006 - glynn.foster@sun.com
-- Initial spec file
+* Thr Apr 30 2009 - Thomas Wagner
+- bump to 0.76
+* Wed Jun 18 2008 - daymobrew@users.sourceforge.net
+- Bump to 0.7501.
+
+* Tue Nov 13 2007 - trisk@acm.jhu.edu
+- Initial spec

@@ -1,9 +1,9 @@
 #
-# spec file for package SFEperl-uri
+# spec file for package SFEperl-html_parser
 #
-# includes module(s): uri perl module
+# includes module(s): HTML-Parser perl module
 #
-# Copyright (c) 2004 Sun Microsystems, Inc.
+# Copyright (c) 2008 Rafael Alfaro
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -11,17 +11,20 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define uri_version 1.58
+%define html_parser_version 3.68
 
-Name:                    SFEperl-uri
-Summary:                 URI-%{uri_version} PERL module
-Version:                 %{perl_version}.%{uri_version}
-Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
+Name:                    SFEperl-html-parser
+Summary:                 HTML-%{html_parser_version} PERL module
+Version:                 %{perl_version}.%{html_parser_version}
+Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/HTML-Parser-%{html_parser_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
+SUNW_Copyright:          %{name}.copyright
+Group:                   Development
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
 BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
+Requires:		 SFEperl-html-tagset
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -34,7 +37,7 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %setup -q            -c -n %name-%version
 
 %build
-cd URI-%{uri_version}
+cd HTML-Parser-%{html_parser_version}
 perl Makefile.PL \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
@@ -47,7 +50,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd URI-%{uri_version}
+cd HTML-Parser-%{html_parser_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
@@ -60,9 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/URI
-%{_prefix}/%{perl_path_vendor_perl_version}/URI/*
-%{_prefix}/%{perl_path_vendor_perl_version}/*.pm
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/HTML
+%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/HTML/*.pm
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
 %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
 %dir %attr(0755, root, sys) %{_datadir}
@@ -71,22 +73,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Fri Jun 17 2011 - Thomas Wagner
+* Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
 - BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
-* Mon Mar 21 2011 - Milan Jurik
-- bump to 1.58
-* Wed Aug 19 2009 - hcoomes@insightbb.com
-- Updated source url and version to 1.40
+- Bumped to version 3.68, change download URL
+- note: INSTALLSITELIB now without the directory %{perl_dir} (platform specific directory)
+* Tue Feb  1 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamemacros.inc
 * Sun Jul 19 2009 - matt@greenviolet.net
-- Bumped to version 1.38
-* Sun Jan 28 2007 - mike kiedrowski (lakeside-AT-cybrzn-DOT-com)
-- Updated how version is defined.
-* Tue Jul  4 2006 - laca@sun.com
-- rename to SFEperl-uri
-- delete -devel-share subpkg
-* Thu May 11 2006 - damien.carbery@sun.com
-- Change owner of 'auto' dir to root:bin to match SUNWperl-xml-parser.
-* Mon Jan 02 2006 - glynn.foster@sun.com
-- Initial spec file
+- Bumped to version 3.61
+* Sat Aug 17 2008 - rafael.alfaro@gmail.com
+- Add license and group
+* Thu Jun 22 2008 - rafael.alfaro@gmail.com
+- Initial spec file 

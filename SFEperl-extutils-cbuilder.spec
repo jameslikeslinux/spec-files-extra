@@ -1,22 +1,23 @@
 #
-# spec file for package SFEperl-uri
+# spec file for package SFEperl-extutils-cbuilder
 #
-# includes module(s): uri perl module
+# includes module(s): ExtUtils-CBuilder
 #
-# Copyright (c) 2004 Sun Microsystems, Inc.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
+
+##TODO## IPS complatible version numbers!
+%define module_version 0.2603
+%define module_name ExtUtils-CBuilder
+%define module_name_major ExtUtils
+%define module_package_name extutils-cbuilder
+#still unused: %define module_name_minor CBuilder
+
 
 %include Solaris.inc
 %include packagenamemacros.inc
-
-%define uri_version 1.58
-
-Name:                    SFEperl-uri
-Summary:                 URI-%{uri_version} PERL module
-Version:                 %{perl_version}.%{uri_version}
-Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
+Name:                    SFEperl-%{module_package_name}
+Summary:                 %{module_name}-%{module_version} PERL module
+Version:                 %{perl_version}.%{module_version}
+Source:                   http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
@@ -31,11 +32,12 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %include default-depend.inc
 
 %prep
-%setup -q            -c -n %name-%version
+%setup -q	-c -n %name-%version
 
 %build
-cd URI-%{uri_version}
+cd %{module_name}-%{module_version}
 perl Makefile.PL \
+    UNINST=0 \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
     INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
@@ -47,7 +49,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd URI-%{uri_version}
+cd %{module_name}-%{module_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
@@ -60,9 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/URI
-%{_prefix}/%{perl_path_vendor_perl_version}/URI/*
-%{_prefix}/%{perl_path_vendor_perl_version}/*.pm
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{module_name_major}
+%{_prefix}/%{perl_path_vendor_perl_version}/%{module_name_major}/*
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
 %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
 %dir %attr(0755, root, sys) %{_datadir}
@@ -71,22 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Fri Jun 17 2011 - Thomas Wagner
+* Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
 - BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
-* Mon Mar 21 2011 - Milan Jurik
-- bump to 1.58
-* Wed Aug 19 2009 - hcoomes@insightbb.com
-- Updated source url and version to 1.40
-* Sun Jul 19 2009 - matt@greenviolet.net
-- Bumped to version 1.38
-* Sun Jan 28 2007 - mike kiedrowski (lakeside-AT-cybrzn-DOT-com)
-- Updated how version is defined.
-* Tue Jul  4 2006 - laca@sun.com
-- rename to SFEperl-uri
-- delete -devel-share subpkg
-* Thu May 11 2006 - damien.carbery@sun.com
-- Change owner of 'auto' dir to root:bin to match SUNWperl-xml-parser.
-* Mon Jan 02 2006 - glynn.foster@sun.com
-- Initial spec file
+* Sat Jul 18 2009 - matt@greenviolet.net 
+- Bump version to 0.2603
+* Tue Apr 08 2008 - trisk@acm.jhu.edu
+- Initial spec

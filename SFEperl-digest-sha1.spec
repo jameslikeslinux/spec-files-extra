@@ -1,27 +1,26 @@
 #
-# spec file for package SFEperl-uri
+# spec file for package SFEperl-Digest-SHA1
 #
-# includes module(s): uri perl module
+# includes module(s): Digest-SHA1
 #
-# Copyright (c) 2004 Sun Microsystems, Inc.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
+
+%define module_version 2.13
+%define module_name Digest-SHA1
+%define module_name_major Digest
+%define module_package_name digest-sha1
+#still unused: %define module_name_minor SHA1
+
 
 %include Solaris.inc
 %include packagenamemacros.inc
-
-%define uri_version 1.58
-
-Name:                    SFEperl-uri
-Summary:                 URI-%{uri_version} PERL module
-Version:                 %{perl_version}.%{uri_version}
-Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
+Name:                    SFEperl-%{module_package_name}
+Summary:                 %{module_name}-%{module_version} PERL module
+Version:                 %{perl_version}.%{module_version}
+Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/GAAS/%{module_name}-%{module_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
-BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -34,8 +33,9 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %setup -q            -c -n %name-%version
 
 %build
-cd URI-%{uri_version}
+cd %{module_name}-%{module_version}
 perl Makefile.PL \
+    UNINST=0 \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
     INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
@@ -47,7 +47,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd URI-%{uri_version}
+cd %{module_name}-%{module_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
@@ -60,9 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/URI
-%{_prefix}/%{perl_path_vendor_perl_version}/URI/*
-%{_prefix}/%{perl_path_vendor_perl_version}/*.pm
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/%{module_name_major}
+%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/%{module_name_major}/*
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
 %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
 %dir %attr(0755, root, sys) %{_datadir}
@@ -71,22 +70,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Fri Jun 17 2011 - Thomas Wagner
+* Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
-- BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
-* Mon Mar 21 2011 - Milan Jurik
-- bump to 1.58
-* Wed Aug 19 2009 - hcoomes@insightbb.com
-- Updated source url and version to 1.40
-* Sun Jul 19 2009 - matt@greenviolet.net
-- Bumped to version 1.38
-* Sun Jan 28 2007 - mike kiedrowski (lakeside-AT-cybrzn-DOT-com)
-- Updated how version is defined.
-* Tue Jul  4 2006 - laca@sun.com
-- rename to SFEperl-uri
-- delete -devel-share subpkg
-* Thu May 11 2006 - damien.carbery@sun.com
-- Change owner of 'auto' dir to root:bin to match SUNWperl-xml-parser.
-* Mon Jan 02 2006 - glynn.foster@sun.com
+* Sat Mar 05 2011 - Milan Jurik
+- bump to 2.13
+* Tue Mar 02 2010 - matt@greenviolet.net
+- Bump version to 2.12
+- Removed dependency on obsolete SUNSsfwhea
+* Wed Nov 28 2007 - Thomas Wagner
+- renamed package and if necessary (Build-)Requires
+* Sat Nov 24 2007 - Thomas Wagner
+- moved from site_perl to vendor_perl
+- released into the wild
+* Sat, 19 May 2007  - Thomas Wagner
 - Initial spec file
+- parametrize module-name and version ( %define module_version 2.11 %define module_name Digest-SHA1)

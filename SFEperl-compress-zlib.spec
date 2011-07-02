@@ -1,27 +1,29 @@
 #
-# spec file for package SFEperl-uri
+# spec file for package SFEperl-compress-zlib
 #
-# includes module(s): uri perl module
+# includes module(s): Compress-Zlib
 #
-# Copyright (c) 2004 Sun Microsystems, Inc.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
+
 
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define uri_version 1.58
+#note: download file version differs from package version (for IPS not accepting "015" / leading zero)
+%define module_version 2.15
+%define module_version_download 2.015
 
-Name:                    SFEperl-uri
-Summary:                 URI-%{uri_version} PERL module
-Version:                 %{perl_version}.%{uri_version}
-Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
+Name:                    SFEperl-compress-zlib
+Summary:                 Compress-Zlib-%{module_version_download} PERL module
+Version:                 %{perl_version}.%{module_version}
+Source:                  http://www.cpan.org/modules/by-module/Compress/Compress-Zlib-%{module_version_download}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
 BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
+Requires:                SFEperl-io-compress-base
+Requires:                SFEperl-io-compress-zlib
+Requires:                SFEperl-compress-raw-zlib
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -34,7 +36,7 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %setup -q            -c -n %name-%version
 
 %build
-cd URI-%{uri_version}
+cd Compress-Zlib-%{module_version_download}
 perl Makefile.PL \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
@@ -47,7 +49,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd URI-%{uri_version}
+cd Compress-Zlib-%{module_version_download}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
@@ -60,9 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/URI
-%{_prefix}/%{perl_path_vendor_perl_version}/URI/*
-%{_prefix}/%{perl_path_vendor_perl_version}/*.pm
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/Compress
+%{_prefix}/%{perl_path_vendor_perl_version}/Compress/*
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/auto
+%{_prefix}/%{perl_path_vendor_perl_version}/auto/*
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
 %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
 %dir %attr(0755, root, sys) %{_datadir}
@@ -75,18 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
 - BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
-* Mon Mar 21 2011 - Milan Jurik
-- bump to 1.58
-* Wed Aug 19 2009 - hcoomes@insightbb.com
-- Updated source url and version to 1.40
+- note: unusal two times "auto" in filesystem tree
+- fix %version to use the right variable %{module_version}
+* Thr Apr 30 2009 - Thomas Wagner
+- make version number IPS capable  (and merged my local version bump with matt's)
+- adust naming of version variables
 * Sun Jul 19 2009 - matt@greenviolet.net
-- Bumped to version 1.38
-* Sun Jan 28 2007 - mike kiedrowski (lakeside-AT-cybrzn-DOT-com)
-- Updated how version is defined.
-* Tue Jul  4 2006 - laca@sun.com
-- rename to SFEperl-uri
-- delete -devel-share subpkg
-* Thu May 11 2006 - damien.carbery@sun.com
-- Change owner of 'auto' dir to root:bin to match SUNWperl-xml-parser.
-* Mon Jan 02 2006 - glynn.foster@sun.com
-- Initial spec file
+- Bumped to version 2.015
+* Tue Nov 13 2007 - trisk@acm.jhu.edu
+- Initial spec
