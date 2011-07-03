@@ -54,7 +54,7 @@ yourself.
 %setup -n %{_name}-%{unmangled_version}
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
 
 env CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} \
 					--mandir=%{_mandir}
@@ -96,3 +96,5 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed June 29, 2011 - A Hettinger <ahettinger@prominic.net>
 - Initial .spec
+* Sun Jul 3, 2011 - A Hettinger <ahettinger@prominic.net>
+- the ternary operator is not supported in anchient versions of awk
