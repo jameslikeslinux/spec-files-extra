@@ -1,3 +1,7 @@
+2011-07-03  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEdovecot.spec: Bump to 2.0.13.
+
 2011-07-02  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEperl-*: move out of perl/, modify to use pnm_macros, more ChangeLog info to come

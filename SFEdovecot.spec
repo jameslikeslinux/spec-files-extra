@@ -21,7 +21,7 @@ Name:                    SFEdovecot
 Summary:                 dovecot - A Maildir based pop3/imap email daemon
 URL:                     http://www.dovecot.org
 #note: see downloadversion above
-Version:                 2.0.11
+Version:                 2.0.13
 Source:                  http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
 Source2:		dovecot.xml
 
@@ -156,6 +156,8 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Sun Jul 03 2011 - Knut Anders Hatlen
+- bump to 2.0.13
 * Wed Mar 16 2011 - Thomas Wagner
 - add dependencies (Build)Requires SUNWbzip SUNWlexpt SUNWgnu-idn SUNWcurl
 * Tue Mar 15 2011 - Thomas Wagner
