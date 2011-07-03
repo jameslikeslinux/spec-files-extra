@@ -86,8 +86,8 @@ packagenamemacros: os200811 		%{os200811}
 packagenamemacros: osdistrelnumber 	%{osdistrelnumber}
 packagenamemacros: osdistrelname   	%{osdistrelname}
 packagenamemacros: osdet299999 		%{osdet299999}
-packagenamemacros: pnm_buildrequires_perl5_default: 		%{pnm_buildrequires_perl5_default}
-packagenamemacros: pnm_requires_perl5_default: 			%{pnm_requires_perl5_default}
+packagenamemacros: pnm_buildrequires_perl_default: 		%{pnm_buildrequires_perl_default}
+packagenamemacros: pnm_requires_perl_default: 			%{pnm_requires_perl_default}
 packagenamemacros: perl_major_version number is: 		%{perl_major_version}
 packagenamemacros: perl_version number is:       		%{perl_version}
 packagenamemacros: _prefix/perl_path_vendor_perl	 	%{_prefix}/%{perl_path_vendor_perl}
@@ -126,6 +126,8 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Sun Jul  3 2011 - Thomas Wagner
+- rename variables perl5_default to perl_default
 * Fri Jun 17 2011 - Thomas Wagner
 - adjust changed names for osdistro variables (osdistro.inc)
 - add perl version specific examples
