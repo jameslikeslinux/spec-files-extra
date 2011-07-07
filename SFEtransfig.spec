@@ -12,7 +12,7 @@
 %define src_name transfig
 
 Name:		SFEtransfig
-Summary:      	Tool to convert fig drawings (xfig) to other formats.
+Summary:      	Tool to convert fig drawings (xfig) to other formats
 Version:       	3.2.5
 Release:        a
 License:	Xfig license

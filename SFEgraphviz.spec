@@ -12,6 +12,7 @@
 
 Name:                SFEgraphviz
 Summary:             Graph drawing tools and libraries
+Group:               Applications/Graphics and Imaging
 Version:             2.26.3
 Source:              http://www.graphviz.org/pub/graphviz/ARCHIVE/graphviz-%{version}.tar.gz
 URL:                 http://www.graphviz.org

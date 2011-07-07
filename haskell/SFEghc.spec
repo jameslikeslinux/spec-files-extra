@@ -22,7 +22,7 @@
 %define bootstrap 6.12.3
 
 Name:		SFEghc 
-Summary:	The Glorious Glasgow Haskell Compilation System
+Summary:	The Glorious Glasgow Haskell Compiler
 Version:	6.12.3
 Release:	1
 License:	GHC License

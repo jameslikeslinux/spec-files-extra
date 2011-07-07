@@ -9,6 +9,7 @@
 
 Name:		SFEsakura
 Summary:	Lightweight terminal emulator based on GTK and VTE
+Group:		Applications/System Utilities
 URL:		http://www.pleyades.net/david/sakura.php
 Version:	2.3.8
 License:	GPLv2

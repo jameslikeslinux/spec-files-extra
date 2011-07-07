@@ -6,7 +6,8 @@
 %include Solaris.inc
 
 Name:                    SFExcircuit
-Summary:                 xcircuit - electrical circuit schematic diagram drawing program
+Summary:                 Electrical circuit schematic diagram drawing program
+Group:                   Applications/Graphics and Imaging
 Version:                 3.7.26
 Group:                   Utility
 Source:                  http://opencircuitdesign.com/xcircuit/archive/xcircuit-%{version}.tgz

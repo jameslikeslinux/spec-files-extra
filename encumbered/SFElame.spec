@@ -31,7 +31,7 @@
 
 
 Name:                    SFElame
-Summary:                 MP3 Encoders - lame and toolame
+Summary:                 MP3 encoders - lame and toolame
 Version:                 %{lame.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build

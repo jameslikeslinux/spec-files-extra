@@ -9,6 +9,7 @@ Name:                    SFElibetpan
 Summary:                 libetpan  - mail library
 Version:                 1.0
 Source:                  %{sf_download}/libetpan/libetpan-%{version}.tar.gz
+URL:                     http://libetpan.sourceforge.net/libetpan/
 SUNW_BaseDir:            %{_basedir}
 buildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

@@ -12,7 +12,7 @@
 
 
 Name:                     SFEsylpheed
-Summary:                  a GTK+ based, lightweight, and fast e-mail client
+Summary:                  A GTK+ based, lightweight, and fast e-mail client
 Version:                  3.1.1
 Source:                   %{src_url}/%{src_name}-%{version}.tar.bz2
 License:                  GPL

@@ -45,9 +45,8 @@ and idle-time optimization of programs from arbitrary programming languages.
 LLVM is written in C++ and has been developed since 2000 at the University of
 Illinois and Apple. It currently supports compilation of C and C++ programs,
 using front-ends derived from GCC 4.0.1. A new front-end for the C family of
-languages is in development. The compiler infrastructure
-includes mirror sets of programming tools as well as libraries with equivalent
-functionality.
+languages is in development. The compiler infrastructure includes mirror sets of
+programming tools as well as libraries with equivalent functionality.
 
 %prep
 %setup -q -n %{src_name}-%{version}

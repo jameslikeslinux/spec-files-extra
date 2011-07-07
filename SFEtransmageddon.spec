@@ -15,7 +15,7 @@ Group:		AudioVideo
 License:	LGPLv2.1
 Version:	0.16
 URL:		http://www.linuxrising.org/
-Source:		http://www.linuxrising.org/transmageddon/files/transmageddon-%{version}.tar.bz2
+Source:		http://www.linuxrising.org/files/transmageddon-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -73,5 +73,7 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jun 15 2011 - Alex Viskovatoff
+- update download link
 * Sun Feb 06 2011 - Milan Jurik
 - initial spec

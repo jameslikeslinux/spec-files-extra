@@ -1,3 +1,35 @@
+2011-07-07  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEstellarium-gpp.spec: fork new spec off SFEstellarium.spec
+	* SFEqt47-gpp.spec: add missing dependency on SFEgcc
+	* SFElzo.spec: bump to 2.5
+	^ SFEfltk2.spec: bump to 8411
+	* base-spec/gob2.spec: bump to 2.0.18
+	* SFElibexo.spec: add missing dependency
+	* SFElibmaa: add missing build dependency
+	* SFExerces-c-gpp: use CC=/usr/gnu/bin/cc; create devel package
+	* base-specs/xerces-c.spec: fix download URL
+	* base-specs/giflib.spec: fix download URL
+	* SFElibcddb.spec: fix download URL
+	* SFEtransmageddon.spec: update download URL
+	* SFEfusefs.spec: revert previous change, so source gets found
+	* SFElibfuse.spec: revert previous change, so package gets built
+	* SFEntfs-3g.spec: revert previous change, so package gets built
+	* SFEphysfs.spec: use SFEcmake
+	* SFEeterm.spec: use modern gcc
+	* SFEportaudio.spec: use not more than 4 CPUs to build
+	* SFEsdl-ixer.spec, SFEiodine.spec, SFElv.spec, SFEsbcl.spec,
+	  SFElibetpan.spec, SFExfconf.spec, SFEpython3.spec,
+	  SFEfltk2.spec, SFEtransfig.spec, SFEcabextract.spec,
+	  SFElame.spec, SFElibiconv.spec, SFEvala.spec, SFEp7zip.spec,
+	  SFEqt47-gpp.spec, SFEmtr.spec, SFEgmp.spec, SFElibassuan.spec,
+	  SFEscreen.spec, giflib.spec, gob2.spec, SFEimlib2.spec,
+	  SFEllvm.spec, SFEsylpheed.spec, SFEghc.spec, SFEviking.spec,
+	  SFEopenttd.spec, SFEtightnvc.spec, SFEsakura.spec,
+	  SFElightdm.spec, SFEportaudio.spec, SFExcircuit.spec,
+	  SFEimagemagick.spec, SFEgraphviz.spec:
+	  make various cosmetic changes, such as adding Group tag
+
 2011-07-03  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEdovecot.spec: Bump to 2.0.13.

@@ -20,7 +20,7 @@ Summary:             C library to access data on a CDDB server
 Version:             1.3.2
 License:             GPL v2
 URL:                 http://libcddb.sourceforge.net/
-Source:              http://%{sf_mirror}/%{src_name}/%{src_name}-%{version}.tar.bz2
+Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 Requires:            SFElibiconv

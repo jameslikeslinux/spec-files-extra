@@ -10,7 +10,7 @@ License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
 Version:	1.1
-URL:		viking.sf.net
+URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
 Patch1:		viking-01-return.diff
 Patch2:		viking-02-wall.diff

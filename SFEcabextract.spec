@@ -11,7 +11,7 @@
 Name:                   SFEcabextract
 Summary:                CAB file extractor
 Version:                1.4
-Group:			System/Utilities
+Group:			Applications/System Utilities
 URL:			http://www.cabextract.org.uk
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
 License:		GPLv3

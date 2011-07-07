@@ -28,7 +28,7 @@
 
 Name:		SFEsbcl
 Version:	%{sbcl.version}
-Summary:	A Common Lisp Implementation
+Summary:	Steel Bank Common Lisp
 Group:		Development/Other Languages
 License:	Public Domain/BSD
 Url:		http://www.sbcl.org/

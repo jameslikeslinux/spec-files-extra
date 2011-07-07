@@ -34,7 +34,7 @@ BuildRequires:  SUNWfontconfig
 Requires:  SUNWfontconfig
 BuildRequires:  SUNWfreetype2
 Requires:  SUNWfreetype2
-BuildRequires:  SUNWdoxygen
+BuildRequires: developer/documentation-tool/doxygen
 Requires: SFElzo
 BuildRequires: SFElzo
 Requires: SFExz

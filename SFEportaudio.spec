@@ -48,7 +48,8 @@ export LDFLAGS="%_ldflags"
 	    --without-jack		\
 	    --enable-cxx
 
-make -j$CPUS 
+# Parallelism breaks with 16 cpus, so don't use more than 4
+make -j$(test $CPUS -ge 4 && echo 4 || echo $CPUS)
 
 %install
 rm -rf $RPM_BUILD_ROOT

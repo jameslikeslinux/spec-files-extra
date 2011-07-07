@@ -13,6 +13,7 @@
 
 Name:		SFEperl-xml-parser
 IPS_package_name: library/perl-5/xml-parser
+Group:		Development/Perl
 Version:	2.40
 IPS_component_version: 2.40
 Summary:	Flexible fast parser with plug-in styles

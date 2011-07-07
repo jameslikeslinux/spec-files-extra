@@ -13,7 +13,7 @@
 
 
 Name:                SFElibiconv
-Summary:             GNU iconv -- Code set conversion
+Summary:             GNU iconv - Code set conversion
 Version:             1.13.1
 Source:              http://ftp.gnu.org/pub/gnu/libiconv/libiconv-%{version}.tar.gz
 Patch2:              libiconv-02-646.diff

@@ -27,7 +27,7 @@
 
 
 Name:                    SFEgmp
-Summary:                 GNU Multiple Presicion Arithmetic Library
+Summary:                 GNU Multiple Precision Arithmetic Library
 Group:                   libraries/math
 Version:                 4.3.2
 Source:                  http://ftp.sunet.se/pub/gnu/gmp/gmp-%{version}.tar.bz2

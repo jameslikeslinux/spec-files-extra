@@ -46,6 +46,8 @@ Patch5:		%patchprefix/qt-auto-tests-qhttpnetworkconnection.diff
 SUNW_BaseDir:        %_basedir
 BuildRoot:           %_tmppath/%name-%version-build
 %include default-depend.inc
+BuildRequires:		SFEgcc
+Requires:		SFEgccruntime
 
 # Guarantee X/freetype environment concisely (hopefully):
 BuildRequires: SUNWgtk2
@@ -67,7 +69,7 @@ SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-package -n %name-doc
+%package -n %name-doc
 Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
@@ -196,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/mkspecs
 
-files -n %name-doc
+%files -n %name-doc
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/q3porting.xml
@@ -205,6 +207,8 @@ files -n %name-doc
 
 
 %changelog
+* Sat Jul  2 2011 - Alex Viskovatoff <hezen@imap.cc>
+- Add missing dependency on SFEgcc
 * Sat Jun 25 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Use patches from kde-solaris instead of those inherited from SFEqt47.spec
 - Bump to 4.7.3

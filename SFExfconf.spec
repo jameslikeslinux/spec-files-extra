@@ -10,7 +10,7 @@
 %define src_url http://archive.xfce.org/xfce/4.8/src/
 
 Name:		SFExfconf
-Summary:	Configuration managment for Xfce
+Summary:	Configuration management for Xfce
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2

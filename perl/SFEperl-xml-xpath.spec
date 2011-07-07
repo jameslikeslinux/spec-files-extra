@@ -13,6 +13,7 @@
 
 Name:		SFEperl-xml-xpath
 IPS_package_name: library/perl-5/xml-xpath
+Group:		Development/Perl
 Version:	1.13
 IPS_component_version: 1.13
 Summary:	A set of modules for parsing and evaluating

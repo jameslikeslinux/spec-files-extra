@@ -11,7 +11,7 @@
 %include Solaris.inc
 
 Name: SFEpython3
-Summary: A high-level object-oriented programming language
+Summary: The Python interpreter, libraries and utilities
 Group: Development/Python
 Version: %{version}
 Release: %{release}

@@ -30,6 +30,8 @@ BuildRequires:	SFEperl-uri
 Requires:	SUNWgnome-panel
 BuildRequires:	SUNWgnome-panel-devel
 BuildRequires:	SUNWlxsl
+BuildRequires:	SUNWgnome-python26-libs
+Requires:	SUNWgnome-python26-libs
 
 %package root
 Summary:	%{summary} - / filesystem

@@ -4,13 +4,15 @@
 %include Solaris.inc
 
 %define src_name libfuse
+%define src_url http://hub.opensolaris.org/bin/download/Project+fuse/files
+%define tarball_version 20100615
 
 Name:		SFElibfuse
 Summary:	Library for FUSE
-Version:	2.8.5
+Version:	0.%{tarball_version}
 Group:		System Environment/Libraries
-URL:		http://sourceforge.net/projects/fuse/files/fuse-2.X/
-Source:		%{src_url}/%{version}/fuse-%{version}.tar.gz
+URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
+Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
 Source1:	libfuse.exec_attr
 Source2:	libfuse.prof_attr
 SUNW_BaseDir:	%{_basedir}
@@ -102,7 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 07 2011 - Alex Viskovatoff
+- Revert the previous change, so the package gets built
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
-- Bumped to 2.8.5
+- Bump to 2011.4.12
 * Wed Jun 19 2010 - Milan Jurik
 - Initial spec

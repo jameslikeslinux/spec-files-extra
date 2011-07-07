@@ -14,7 +14,7 @@
 Name:                   SFEimagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
-Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.7z
+Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
 Group:			Graphics
 License:		ImageMagick License
 SUNW_BaseDir:           %{_basedir}

@@ -17,7 +17,7 @@ rm -rf %{name}-%{src_ver}
 %setup -q -n %{pkg_src_name}-%{src_ver}
 %patch1 -p1
 #%patch2 -p0
-%patch3 -p1
+#%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 

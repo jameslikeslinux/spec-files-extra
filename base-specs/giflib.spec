@@ -7,7 +7,7 @@
 %define src_ver 4.1.6
 %define src_name giflib
 #%define src_url http://%{sf_mirror}/libungif
-%define src_url http://%{sf_mirror}/giflib
+%define src_url %{sf_download}/giflib
 
 Name:		giflib
 Summary:	GIF-manipulation library

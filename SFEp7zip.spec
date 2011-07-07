@@ -7,6 +7,7 @@
 
 Name:                    SFEp7zip
 Summary:                 7-Zip file archiver with a high compression ratio
+Group:                   Applications/System Utilities
 Version:                 9.20.1
 Source:			 %{sf_download}/p7zip/p7zip_%{version}_src_all.tar.bz2
 URL:                     http://www.7-zip.org/download.html

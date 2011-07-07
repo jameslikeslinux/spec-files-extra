@@ -47,6 +47,13 @@ Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac-devel
 Requires: SUNWflac
 
+%description
+SDL_mixer is a sample multi-channel audio mixer library.
+
+It supports any number of simultaneously playing channels of 16 bit stereo
+audio, plus a single channel of music, mixed by the popular MikMod MOD,
+Timidity MIDI, Ogg Vorbis, and SMPEG MP3 libraries.
+
 %package devel
 Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}

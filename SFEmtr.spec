@@ -8,7 +8,7 @@
 %include Solaris.inc
 
 Name:                SFEmtr
-Summary:             Ping/Traceroute network diagnostic tool w/ GTK support
+Summary:             Ping/Traceroute network diagnostic tool with GTK support
 Version:             0.80
 Source:              ftp://www.BitWizard.nl/mtr/mtr-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}

@@ -20,10 +20,26 @@ Patch3:                  lightdm-03-compile.diff
 Patch4:                  lightdm-04-vt.diff
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
-Summary:                 Light Display manager
-URL:                     https://launchpad.net/~robert-ancell/+archive/lightdm
+Summary:                 Light Display Manager
+URL:                     https://launchpad.net/~lightdm-team/+archive/ppa
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:            %{_basedir}
+
+%description
+
+LightDM is a cross-desktop display manager that aims to be the standard display
+manager for the X.org X server. The motivation for this project is there have
+been many new display managers written since XDM (often based on the XDM
+source). The main difference between these projects is in the GUIs (e.g.
+different toolkits) and performance - this could be better accomplished with a
+common display manager that allows these differences.
+
+Key features are:
+
+A well-defined greeter API allowing multiple GUIs
+Support for all display manager use cases, with plugins where appropriate
+Low code complexity
+Fast performance 
 
 %include default-depend.inc
 Requires:                SUNWglib2

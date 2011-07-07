@@ -29,7 +29,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Meta(info.maintainer):	 	pkglabo.justplayer.com <pkgadmin@justplayer.com>
 Meta(info.upstream):	 	NARITA Tomio <nrt@ff.iij4u.or.jp>
 # Meta(info.repository_url):	[open source code repository]
-Meta(info.classification):	System Utilities
+Meta(info.classification):	System/Utilities
 
 %description
 lv is a powerful multilingual file viewer. Apparently, lv looks like less (1), a representative file viewer on UNIX as you know, so UNIX people (and less people on other OSs) don't have to learn a burdensome new interface. lv can be used on MSDOS ANSI terminals and almost all UNIX platforms. lv is a currently growing software, so your feedback is welcome and helpful for us to refine the future lv. 

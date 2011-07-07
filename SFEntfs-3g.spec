@@ -1,5 +1,5 @@
 #
-# spec file for package SFEntfs-3g 
+# spec file for package SFEntfs-3g
 #
 #
 # you will need FUSE see: http://www.opensolaris.org/os/project/fuse
@@ -13,9 +13,9 @@
 
 Name:                    SFEntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
-Version:                 2011.4.12
+Version:                 2011.1.15
 License:                 GPLv2
-Source:			 http://tuxera.com/opensource/ntfs-3g_ntfsprogs-%{version}.tgz
+Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
 Url:                     http://www.tuxera.com/community/ntfs-3g-download/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -127,6 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 07 2011 - Alex Viskovatoff
+- Revert the previous change, so the package gets built
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2011.4.12
 * Tue Mar 22 2011 - Thomas Wagner
