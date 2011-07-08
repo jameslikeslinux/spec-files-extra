@@ -40,8 +40,7 @@ Requires: 	SFEgccruntime
 BuildRequires: 	SUNWTiff
 BuildRequires: 	SUNWopensslr
 BuildRequires: 	SUNWlibsdl-devel
-# Build Python 3.2.x 
-#BuildRequires: 	SUNWPython
+Requires: 	runtime/python-32
 BuildRequires:	driver/graphics/nvidia
 
 %description
