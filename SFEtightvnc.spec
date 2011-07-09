@@ -6,6 +6,7 @@
 # Owner: laca
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFEtightvnc
 Summary:                 tightvnc - remote control software
@@ -17,7 +18,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWjpg
 Requires: SUNWlibmsr
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWxwplt
 Requires: SUNWzlib
 BuildRequires: SUNWxwopt

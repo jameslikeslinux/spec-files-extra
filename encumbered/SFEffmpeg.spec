@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
@@ -41,7 +42,7 @@ Autoreqprov:             on
 BuildRequires: SFEgcc
 Requires:      SFEgccruntime
 BuildRequires: SUNWtexi
-BuildRequires: SUNWperl584usr
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWxwinc
 Requires: SUNWxwrtl
 Requires: SUNWzlib

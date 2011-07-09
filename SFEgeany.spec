@@ -18,7 +18,7 @@ Group:               Development/Tools
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:       SUNWperl-xml-parser
+BuildRequires:       library/perl-5/xml-parser
 
 %package l10n
 Summary:                 %{summary} - l10n files

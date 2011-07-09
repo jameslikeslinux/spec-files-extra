@@ -22,7 +22,7 @@ BuildRequires:	SUNWgnome-common-devel
 BuildRequires:	SUNWgnome-doc-utils
 BuildRequires:	SUNWlxsl
 BuildRequires:	SUNWgawk
-BuildRequires:	SUNWperl-xml-parser
+BuildRequires:	library/perl-5/xml-parser
 BuildRequires:	SUNWcurl
 Requires:	SUNWcurl
 BuildRequires:	SFEgpsd-devel

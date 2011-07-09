@@ -10,6 +10,8 @@
 # Owner: jedy
 #
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %use aspell = aspell.spec
 
 Name:          SFEaspell
@@ -21,7 +23,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 Requires:      SUNWlibC
 Requires:      SUNWlibms
 Requires:      SUNWlibmsr
-Requires:      SUNWperl584core
+Requires:      %pnm_requires_perl_default
 BuildConflicts:	SUNWaspell
 
 %package devel

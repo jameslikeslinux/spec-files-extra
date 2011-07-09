@@ -5,6 +5,7 @@
 #
 %define _basedir /usr/gnu
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
@@ -28,7 +29,7 @@ Requires: SUNWpng
 Requires: SUNWjpg
 Requires: SUNWlibms
 Requires: SUNWzlib
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWtexi
 Requires: SUNWdbus
 Requires: SFEalsa-lib

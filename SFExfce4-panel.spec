@@ -28,7 +28,7 @@ BuildRequires:	SFElibxfcegui4-devel
 Requires:	SFElibxfcegui4
 BuildRequires:	SFElibxfce4ui-devel
 Requires:	SFElibxfce4ui
-BuildRequires:	SUNWperl-xml-parser
+BuildRequires:	library/perl-5/xml-parser
 Requires:	SFEgarcon
 BuildRequires:	SFEgarcon-devel
 Requires:	SFElibexo

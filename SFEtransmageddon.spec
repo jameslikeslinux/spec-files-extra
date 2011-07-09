@@ -21,7 +21,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWPython
 BuildRequires: SUNWgnome-common-devel
-BuildRequires: SUNWperl-xml-parser
+BuildRequires: library/perl-5/xml-parser
 
 %if %build_l10n
 %package l10n

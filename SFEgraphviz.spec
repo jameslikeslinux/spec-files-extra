@@ -4,9 +4,9 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define python_version 2.6
-%define perl_version 5.8.4
 
 %define SFEfreetype %(/usr/bin/pkginfo -q SFEfreetype && echo 1 || echo 0)
 
@@ -43,7 +43,7 @@ BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWlibtool
 BuildRequires: SUNWPython-devel
 BuildRequires: SUNWTcl
-BuildRequires: SUNWperl584core
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWruby18u
 BuildRequires: SUNWswig
 BuildRequires: SUNWgnome-common-devel

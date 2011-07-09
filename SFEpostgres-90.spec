@@ -77,8 +77,8 @@ Requires: %{pnm_requires_SUNWcsl}
 IPS_package_name: database/postgres-90/language-bindings
 Summary: PostgreSQL additional Perl, Python & TCL server procedural languages
 
-#Requires: runtime/perl-584
-#Requires: runtime/python-24
+Requires: %pnm_requires_perl_default
+Requires: runtime/python-26
 Requires: %{pnm_requires_SUNWlibms}
 Requires: %{pnm_requires_SUNWcsl}
 Requires: %{pnm_requires_SUNWTcl}

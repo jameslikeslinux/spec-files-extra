@@ -8,6 +8,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
@@ -31,7 +32,7 @@ SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 
 BuildRequires:	SUNWlibtool
-BuildRequires:	SUNWperl584usr
+BuildRequires:	%pnm_buildrequires_perl_default
 BuildRequires:	SUNWgroff
 BuildRequires:	SUNWbison
 BuildRequires:	SUNWflexlex

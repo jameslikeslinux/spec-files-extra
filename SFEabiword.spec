@@ -10,6 +10,7 @@
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
+%include packagenamemacros.inc
 
 %use abiword = abiword.spec
 
@@ -34,7 +35,7 @@ Requires:           SUNWgnome-spell
 Requires:           SUNWgnome-character-map
 Requires:           SUNWgnome-print
 Requires:           SUNWfontconfig
-Requires:           SUNWperl584core
+Requires:           %pnm_requires_perl_default
 Requires:           SUNWlibgsf
 Requires:           SUNWlibrsvg
 Requires:           SFElibfribidi

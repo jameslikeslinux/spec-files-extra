@@ -15,6 +15,7 @@
 %define cc_is_gcc 1
 %define _gpp /usr/sfw/bin/g++
 %include base.inc
+%include packagenamemacros.inc
 
 Name:                SFEgit
 Summary:             Git - the fast version control system
@@ -33,7 +34,7 @@ Requires: SUNWsshu
 Requires: SUNWopenssl-libraries
 Requires: SUNWlexpt
 Requires: SUNWcurl
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWPython
 Requires: SUNWbash
 Requires: SUNWlexpt
@@ -43,7 +44,6 @@ Requires: SUNWgnu-diffutils
 Requires: SFEdiffutils
 %endif
 Requires: SUNWTk
-%define perl_version 5.8.4
 BuildRequires: SFEasciidoc
 BuildRequires: SFExmlto
 

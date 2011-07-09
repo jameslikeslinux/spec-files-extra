@@ -7,6 +7,7 @@
 # includes module(s):
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define tarball_version 1.13
 %define tarball_name    XML-XPath
@@ -24,11 +25,9 @@ Url:		http://search.cpan.org/~msergeant/%{tarball_name}-%{tarball_version}
 SUNW_Basedir:	%{_basedir}
 Source0:	http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-XPath-%{tarball_version}.tar.gz
 
-BuildRequires:	SUNWperl584core
-BuildRequires:	SUNWperl584usr
+BuildRequires:	%pnm_buildrequires_perl_default
 BuildRequires:	library/perl-5/xml-parser
-Requires:	SUNWperl584core
-Requires:	SUNWperl584usr
+Requires:	%pnm_requires_perl_default
 Requires:	library/perl-5/xml-parser
 
 Meta(info.maintainer):          roboporter by pkglabo.justplayer.com <pkgadmin@justplayer.com>
@@ -42,7 +41,7 @@ A set of modules for parsing and evaluating
 %setup -q -n %{tarball_name}-%{tarball_version}
 
 %build
-perl Makefile.PL PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT LIB=/usr/perl5/vendor_perl/5.8.4
+perl Makefile.PL PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT LIB=%_prefix/%perl_path_vendor_perl_version
 make
 
 %install
@@ -57,12 +56,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,bin)
-%{_prefix}/perl5
+%{_prefix}/%perl_path_vendor_perl_version
 %dir %attr(0755,root,sys) %{_datadir}
 %{_mandir}
 %dir %attr(0755,root,sys) %{_bindir}
 %{_bindir}/xpath
 
 %changelog
+* Fri Jul  8 2011 - Alex Viskovatoff
+- Change (Build)Requires to %{pnm_buildrequires_perl_default}
 * Fri Mar  6 2011 - Alex Viskovatoff
 - Generate new spec with make_perl_cpan_settings.pl

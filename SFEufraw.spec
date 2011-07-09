@@ -6,6 +6,7 @@
 
 %include Solaris.inc
 %include stdcxx.inc
+%include packagenamemacros.inc
 
 Name:		SFEufraw
 Summary:	Ufraw - Raw Photo Converter
@@ -46,7 +47,7 @@ BuildRequires: SUNWlibexif-devel
 # dos2unix:
 BuildRequires: SUNWesu
 # pod2man:
-BuildRequires: SUNWperl584usr
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWgnome-common-devel
 Requires: SUNWlibstdcxx4
 BuildRequires: SUNWlibstdcxx4

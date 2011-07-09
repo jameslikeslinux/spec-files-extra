@@ -1,3 +1,13 @@
+2011-07-09  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEemacs.spec, SFEtun.spec, SFEpostgres-90.spec, SFEllvm.spec,
+	  perl-depend.inc, SFEffmpeg.spec, SFEpessulus.spec, SFEgit.spec,
+	  SFEgeany.spec, SFEpkgbuild.spec, SFEabiword.spec, SFEufraw.spec,
+	  SFEaspell.spec, SFExfce4-panel.spec, SFEgraphviz.spec,
+	  SFEtransmageddon.spec, SFEtightvnc.spec, SFEviking.spec,
+	  FEperl-xml-parser.spec, SFEperl-xml-xpath.spec, SFEperl-tk,spec:
+	  use packagenamemacros.inc
+
 2011-07-08 Ken Mays <kmays2000@gmail.com>
 
 	* SFEblender258.spec: added new python 3.2 build in IPS

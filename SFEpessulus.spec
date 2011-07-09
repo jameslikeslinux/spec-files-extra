@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define pythonver 2.6
 
 Name:		SFEpessulus
@@ -18,8 +19,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWgnome-common-devel
-BuildRequires: SUNWperl-xml-parser
-BuildRequires: SUNWperl584usr
+BuildRequires: library/perl-5/xml-parser
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-python26-libs-devel
 BuildRequires: SUNWPython26

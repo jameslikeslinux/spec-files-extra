@@ -19,6 +19,14 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+%description
+tuntap is a TAP driver for Solaris that can be used for OpenVPN, OpenConnect,
+and vpnc.
+
+The code is based on the Universal TUN/TAP driver. Some changes were made and
+code added for supporting Ethernet tunneling feature, since the Universal
+TUN/TAP driver for Solaris only supports IP tunneling known as TUN.
+
 %package devel
 Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
