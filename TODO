@@ -66,3 +66,30 @@ Only _prefix get's set, except you again include base.inc like that
 /usr/g++/lib.
 ...
 
+14)
+re-visit dependencies on other perl modules and make them (Build)Requires in those spec files: SFEperl-net-dns.spec SFEperl-mail-spf.spec
+
+15)
+check dependencies on SFEgcc* for SFEkchmviewer.spec, ...
+
+16)
+make up a file or a wiki page with current notes like "deprecated" and "recommeded"
+collect topics here:
+  deprecated: CC=gcc   recommended: CC=/usr/gnu/bin/gcc  or CC=/usr/sfw/bin/gcc (reason: on fresh builds PATH=/usr/ccs/bin:/usr/gnu/bin gets you the gcc-3.x.x version *unwanted*)
+
+  recommended: use in all FLAGS the macros:  CFLAGS="%{_optflags}" LDFLAGS=...  CXXFLAGS=... (reason: a lot)
+
+  deprecated: use of build specifiy package names. recommended: use of packagenamemacros.inc (reason: perl-584/perl-510/SUNWperl584core -> different directories vendor_perl/<5.8.4|5.10|5.12.3>
+
+17)
+SFEqt47-gpp.spec:
+searching idea how to dynamicly start vncserver and later on explicitly kill this instand. shoul dnot interfere with other vncserver already running on this system (mind: non-global-zones as well)
+
+
+18)
+packagenamemacros.inc - maybe add a rule for libpng14 (older builds don't have that new version, may need SFE png as replacement)
+
+19)
+commit files delete in gmpc-plugins/ which already have moved into trunk/
+
+
