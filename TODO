@@ -43,3 +43,26 @@ check if this fix is already in the %version of gcc we have now (4.5.3).
 think on _default macro to point to Python 2.4 or 2.6 or whatever future version is in a Distribution
 pnm_buildrequires_perl_default requires_perl_default      (early stage, testing)
 pnm_buildrequires_python_default requires_python_default  (not yet there, which other parameters needed)
+
+11)
+SFEstellarium-gpp.spec ### NOTE ### (Alex Viskovatoff>
+ ###
+ ### The only way I can get this to link successfully is to remove
+ ### libgcc_s.so* and libstdc++.* from /usr/sfw/lib while building.
+
+12)
+gnu style find. think on a pnm_macro to get this into /usr/gnu/bin/ dependent on the
+distro and osbuild (use case is e.g. SFExerces-c-gpp.spec/SFExerxes-c.spec base-specs/xerces-c.spec)
+
+
+13)
+verify this usage hint: if C++ libraries are to be placed in other _basedir:
+It might be that _basedir=/usr/g++ is on some cases not set early enough or in the wrong order.
+Only _prefix get's set, except you again include base.inc like that
+%include Solaris.inc
+%define _basedir /usr/g++
+%include base.inc
+/usr/g++/bin
+/usr/g++/lib.
+...
+
