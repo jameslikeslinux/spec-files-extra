@@ -11,6 +11,7 @@
 Name:                   SFEfvwm
 Summary:                %{fvwm.summary}
 Version:                %{fvwm.version}
+Source1:		Fvwm.desktop
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -51,6 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf %{buildroot}%{_datadir}/locale
 %endif
 
+mkdir -p %{buildroot}%{_datadir}/xsessions && cp %{SOURCE1} %{buildroot}%{_datadir}/xsessions/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -63,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/*
 %{_mandir}
 %{_datadir}/fvwm
+%{_datadir}/xsessions/Fvwm.desktop
 
 %if %build_l10n
 %files l10n
@@ -74,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Jul 11 2011 - Milan Jurik
 - fix packaging
+- add dm session
 * Jul 2009 - dauphin@enst.fr
 - SUNWreadline is in B117
 * Fri Apr 27 2006 - dougs@truemail.co.th
