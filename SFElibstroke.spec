@@ -44,14 +44,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export PKG_CONFIG_PATH=/usr/sfw/lib/pkgconfig
 export CPPFLAGS="-I/usr/sfw/include -I/usr/X11/lib"
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 export LD_LIBRARY_PATH="-L/usr/sfw/lib -R/usr/sfw/lib -L/usr/X11/lib -RL/usr/X11/lib"
 
 libtoolize --copy --force
-aclocal -I /usr/sfw/share/aclocal
+aclocal
 autoconf -f
 automake -a -c -f
 ./configure --prefix=%{_prefix}		\
