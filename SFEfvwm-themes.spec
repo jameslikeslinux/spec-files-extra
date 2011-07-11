@@ -46,7 +46,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}
 %{_mandir}
 %dir %attr (0755, root, sys) %{_datadir}
-%defattr (-, root, other)
 %{_datadir}/fvwm
 
 %changelog
