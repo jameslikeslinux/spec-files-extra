@@ -3,6 +3,7 @@
 	* SFEclamav.spec: bump to 0.97.1
 	* SFEc-icap.spec: bump to 0.1.6
 	* SFEc-icap-modules.spec: bump to 0.1.6
+	* SFEopenttd.spec: bump to 1.1.1
 
 2011-07-11 Milan Jurik <sfnet@xylab.cz>
 

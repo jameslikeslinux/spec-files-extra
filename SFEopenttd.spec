@@ -6,13 +6,13 @@
 %include base.inc
 
 %define src_name openttd
-%define src_version 1.1.0
+%define src_version 1.1.1
 
 Name:           SFEopenttd
-Version:        1.1.0
+Version:        1.1.1
 Summary:        Transport system simulation game
 Source:         http://binaries.openttd.org/releases/%{src_version}/%{src_name}-%{src_version}-source.tar.gz
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.3/opengfx-0.3.3.zip
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.4/opengfx-0.3.4.zip
 Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
@@ -34,7 +34,7 @@ BuildRequires:  SUNWfontconfig
 Requires:  SUNWfontconfig
 BuildRequires:  SUNWfreetype2
 Requires:  SUNWfreetype2
-BuildRequires: developer/documentation-tool/doxygen
+BuildRequires: SUNWdoxygen
 Requires: SFElzo
 BuildRequires: SFElzo
 Requires: SFExz
@@ -151,6 +151,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 1.1.1
 * Sun May 22 2011 - Milan Jurik
 - bump to 1.1.0
 - disable libicu support to allow cross-version build
