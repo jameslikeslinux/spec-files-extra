@@ -15,7 +15,7 @@
 
 Name:		SFEc-icap
 Summary:	An implementation of an ICAP server
-Version:	0.1.5
+Version:	0.1.6
 Group:		System/Utilities
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
@@ -112,6 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/system/filesystem/c-icap.xml
 
 %changelog
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 0.1.6
 * Tue Mar 29 2011 - Milan Jurik
 - bump to 0.1.5
 * Wed Feb 02 2011 - Milan Jurik
