@@ -63,11 +63,42 @@
 
 2011-07-02  Thomas Wagner  <tom68@users.sourceforge.net>
 
+	* SFEperl-*: move out of perl/, modify to use pnm_macros, more ChangeLog info to come
 	* SFEimagemagick.spec: Bump to 6.7.0-10
+
+2011-07-01  Alex Viskovatoff <herzen@imap.cc>
+
+   	* SFEsbcl.spec: initial spec, contributed by James Lee
+   	* SFEargyll.spec: initial spec, contributed by James Lee
+
+2011-06-30  Alex Viskovatoff <herzen@imap.cc>
+
+        * SFEqt47-gpp.spec: use kde-solaris patches; bump to 4.7.3
+        * SFEwxwidgets-gpp.spec: initial spec, from SFEwxwidgets-gnu.spec
+        * SFEicu-gpp.spec: initial spec, derived from SFEicu.spec
+        * base-specs/icu.spec: implement building with gcc
+   	* base-specs/boost.spec: enable ICU when building with gcc
+   	* SFEboost-gpp.spec: set correct runpath for libboost_regex
+   	* SFEmkvtoolnix.spec: build with gcc; bump to 4.8.0; build GUI
+   	* SFEsmplayer.spec: build with gcc
+   	* SFEkchmviewer.spec: build with gcc
+   	* SFEdjvulibre.spec: install in /usr/g++
+   	* SFEdjview.spec: look for Qt in /usr/g++
+   	* SFEemacs.spec: install in /usr/gnu
+   	* SFElibevent2.spec: bump to 2.0.11
+   	* SFEscribus.spec: bump to 1.4.0.rc5
+   	* SFEtransmission.spec: go back to 2.22, so seeding works
+   	* SFEhunspell.spec: don't create separate IPS devel package
+   	* SFEgmpc.spec: add missing dependency
+   	* SFEpython3.spec: initial spec, contributed by A Hettinger
+   	* SFEpython26-mpd: initial spec, contributed by James Lee
+   	* SFEsonata.spec: initial spec, contributed by James Lee
 
 2011-06-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEunbound.spec: bump to 1.4.11
+	* SFEldns.spec: bump to 1.6.10
+    	* SFEnodejs.spec: bump to 0.4.9
 
 2011-06-27 Ken Mays <kmays2000@gmail.com>
 
