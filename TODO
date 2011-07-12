@@ -99,3 +99,10 @@ commit files delete in gmpc-plugins/ which already have moved into trunk/
 20)
 implement a compiler check on gcc being gcc 4.x.x and not old gcc 3.x.x . Could be placed in a central include file.
 prevent users from accidentially using /usr/gnu/bin/gcc being 3.x.x instead of 4.x.x .
+
+21)
+think on include files modeled after usr-gnu.in to define library variants (g++/SunStudio, stdcxx, stdc++, ...)
+names could be usr-stdcxx.inc, usr-stdc++.inc, usr-stlport4.inc, usr-g++.inc
+note: should eliminate the old path /%_prefix/lib/g++/%_gpp_version
+note: might need changes in the regular include files as well (think hard before changing them)
+make usage note on the wiki and enter wiki url into the include file
