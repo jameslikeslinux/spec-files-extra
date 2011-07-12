@@ -1,9 +1,17 @@
+2011-07-12 Alex Viskovatoff <herzen@immap.cc>
+
+	* SFElibast.spec: build with SFEgcc instead of gcc-3
+	* SFElibcdio.spec: build with SFEgcc instead of gcc-3
+	* encumbered/SFElame.spec: build with SFEgcc by default
+	* encumbered/SFExvid.spec: build with SFEgcc by default
+	* perl/SFEperl-lwp.spec: use packagenamemacros.inc
+
 2011-07-12  Guido Berhoerster  <gber@openindiana.org>
 
-        * SFEasciidoc.spec: added copyright file
-        * copyright/SFEasciidoc.copyright: added copyright file
-        * SFEaaphoto.spec: added copyright file
-        * copyright/SFEaaphoto.copyright: added copyright file
+	* SFEasciidoc.spec: add copyright file
+	* copyright/SFEasciidoc.copyright: add copyright file
+	* SFEaaphoto.spec: add copyright file
+	* copyright/SFEaaphoto.copyright: add copyright file
 
 2011-07-12 Ken Mays <kmays2000@gmail.com>
 

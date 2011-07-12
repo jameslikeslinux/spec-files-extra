@@ -15,6 +15,8 @@
 # we suggest you applying the patch above.
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 %define with_hal %(pkginfo -q SUNWhal && echo 1 || echo 0)
 %define osbuild %(uname -v | sed -e 's/[A-z_]//g')
@@ -32,8 +34,8 @@ Requires: SUNWlexpt
 Requires: SUNWlibC
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 Requires: SUNWdbus
 Requires: SFElibcddb
 BuildRequires: SFElibcddb
@@ -73,8 +75,8 @@ mkdir %name-%version
 #
 %build
 export CFLAGS="%gcc_optflags -I/usr/gnu/include -I/usr/gnu/include/ncurses"
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 %if %with_hal
 export CFLAGS="$CFLAGS -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include"
 export LDFLAGS="%_ldflags -lhal -ldbus-1 -R/usr/gnu/lib -L/usr/gnu/lib"
@@ -122,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cdio
 
 %changelog
+* Sun Jul 10 2011 - Alex Viskovatoff
+- Build with SFEgcc
 * Sun Apr 11 2010 - Milan Jurik
 - adding missing build dependency
 * Thu Apr 08 2010 - Milan Jurik

@@ -4,8 +4,8 @@
 # includes module(s): xvid
 #
 
-# want this? compile with: pkgtool --with-gcc4 build <specfile>
-%define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
+# want this? compile with: pkgtool --with-gcc3 build <specfile>
+%define use_gcc4 %{?_with_gcc3:0}%{?!_with_gcc3:1}
 
 %include Solaris.inc
 %define cc_is_gcc 1
@@ -96,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 10 2011 - Alex Viskovatoff
+- build with SFEgcc by default
 * Wed Mar 03 2010 - Milan Jurik
 - use_gcc4 support
 * Sat Aug 22 2009 - Milan Jurik

@@ -17,7 +17,7 @@ Source:		%sf_download/project/dict/%srcname/%srcname-%version/%srcname-%version.
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
-BuildRequires:	compatibility/ucb
+BuildRequires:	SUNWscp
 
 # Taken from doc/libmaa.tex in the distribution tarball
 %description
