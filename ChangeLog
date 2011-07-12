@@ -1,3 +1,8 @@
+2011-07-12 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEmidori.spec: Initial spec
+          Needs WebKitGTK+ 1.4.x dependency, review Vala language compiler.
+ 
 2011-07-12 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEclamav.spec: bump to 0.97.1
