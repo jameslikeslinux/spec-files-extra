@@ -13,6 +13,7 @@ License:                 GPLv2
 Version:                 8.6.3
 URL:                     http://www.methods.co.nz/asciidoc/
 Source:                  %{sf_download}/asciidoc/asciidoc-%{version}.tar.gz
+SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -59,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/asciidoc
 
 %changelog
+* Mon Jul 11 2011 - Guido Berhoerster
+- added copyright file
 * Sat Feb 05 2011 - Milan Jurik
 - bump to 8.6.3
 * Sun Jul 11 2010 - Milan Jurik
