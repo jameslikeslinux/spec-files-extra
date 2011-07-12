@@ -1,3 +1,16 @@
+2010-07-12 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEtelepathy-glib.spec: Now requires GTK3.
+	* base-specs/telepathy-glib.spec: Update to 0.15.2.
+	* patches/telepathy-glib-01-void.diff: Remove upstream patch.
+	* SFEgnome-shell.spec: Update to 3.1.3.
+	* patches/gnome-shell-01-compile.diff: New patch needed to compile.
+	* SFEmutter.spec: Update to 3.1.3.1.
+	* patches/mutter-01-suncc-xc99.diff: Rework.
+	* patches/mutter-03-compile.diff: Rework.
+	* SFEgjs.spec: Update to 0.7.14.
+	* patches/jds-01-solaris.diff: Rework.
+
 2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
 
 	* SFEliferea.spec: bump to 1.6.6
@@ -276,7 +289,6 @@
 
 	* SFExfce4-screenshooter.spec: Initial spec
 	* SFExfce4-dict.spec: Initial spec
-
 
 2010-06-09 Brian Cameron  <brian.cameron@oracle.com>
 

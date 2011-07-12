@@ -1,0 +1,494 @@
+--- gnome-shell-3.1.3/src/Makefile-tray.am-orig	2011-07-06 22:43:50.738000081 -0500
++++ gnome-shell-3.1.3/src/Makefile-tray.am	2011-07-06 22:44:18.058648448 -0500
+@@ -1,6 +1,5 @@
+ tray_cflags =					\
+ 	-I$(top_srcdir)/src			\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"notification_area\"	\
+ 	$(TRAY_CFLAGS)				\
+ 	$(NULL)
+--- gnome-shell-3.1.3/src/Makefile.am-orig	2011-07-06 22:43:50.738133098 -0500
++++ gnome-shell-3.1.3/src/Makefile.am	2011-07-06 23:02:30.734464290 -0500
+@@ -60,8 +60,12 @@ EXTRA_DIST += $(bin_SCRIPTS:=.in)
+ include Makefile-gdmuser.am
+ include Makefile-st.am
+ include Makefile-tray.am
++if HAVE_PULSE
+ include Makefile-gvc.am
++endif
++if HAVE_EVOLUTION
+ include Makefile-calendar-server.am
++endif
+ 
+ gnome_shell_cflags =				\
+ 	$(GNOME_SHELL_CFLAGS)			\
+--- gnome-shell-3.1.3/src/Makefile-gdmuser.am-orig	2011-07-06 22:43:50.737774770 -0500
++++ gnome-shell-3.1.3/src/Makefile-gdmuser.am	2011-07-06 22:44:11.128677643 -0500
+@@ -3,7 +3,6 @@ gdmuser_cflags =				\
+ 	-DPREFIX=\""$(prefix)"\"		\
+ 	-DLIBDIR=\""$(libdir)"\"		\
+ 	-DDATADIR=\""$(datadir)"\"		\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"GdmUser\"		\
+ 	-DGDM_CACHE_DIR=\""$(localstatedir)/cache/gdm"\"	\
+ 	$(GDMUSER_CFLAGS)			\
+--- gnome-shell-3.1.3/src/shell-polkit-authentication-agent.c-orig	2011-07-06 22:50:23.992487102 -0500
++++ gnome-shell-3.1.3/src/shell-polkit-authentication-agent.c	2011-07-06 23:50:04.653554254 -0500
+@@ -13,7 +13,11 @@
+ #include "shell-marshal.h"
+ 
+ #define POLKIT_AGENT_I_KNOW_API_IS_SUBJECT_TO_CHANGE
++#ifdef HAVE_POLKIT
+ #include <polkitagent/polkitagent.h>
++#else
++#include "gio/gio.h"
++#endif
+ #include "shell-polkit-authentication-agent.h"
+ 
+ #include <glib/gi18n.h>
+@@ -54,14 +58,22 @@ print_debug (const gchar *str, ...)
+ 
+ struct _ShellPolkitAuthenticationAgentClass
+ {
++#if HAVE_POLKIT
+   PolkitAgentListenerClass parent_class;
++#else
++  GObjectClass parent_class;
++#endif
+ };
+ 
+ struct _AuthRequest;
+ typedef struct _AuthRequest AuthRequest;
+ 
+ struct _ShellPolkitAuthenticationAgent {
++#if HAVE_POLKIT
+   PolkitAgentListener parent_instance;
++#else
++  GObject parent_instance;
++#endif
+ 
+   GList *scheduled_requests;
+ 
+@@ -78,8 +90,13 @@ enum
+ 
+ static guint signals[LAST_SIGNAL] = { 0 };
+ 
++#if HAVE_POLKIT
+ G_DEFINE_TYPE (ShellPolkitAuthenticationAgent, shell_polkit_authentication_agent, POLKIT_AGENT_TYPE_LISTENER);
++#else
++G_DEFINE_TYPE (ShellPolkitAuthenticationAgent, shell_polkit_authentication_agent, G_TYPE_OBJECT);
++#endif
+ 
++#if HAVE_POLKIT
+ static void initiate_authentication (PolkitAgentListener  *listener,
+                                      const gchar          *action_id,
+                                      const gchar          *message,
+@@ -94,43 +111,57 @@ static void initiate_authentication (Pol
+ static gboolean initiate_authentication_finish (PolkitAgentListener  *listener,
+                                                 GAsyncResult         *res,
+                                                 GError              **error);
++#endif
+ 
+ static void
+ shell_polkit_authentication_agent_init (ShellPolkitAuthenticationAgent *agent)
+ {
+-  gpointer handle;
++  gpointer handle = NULL;
++#if HAVE_POLKIT
+   PolkitSubject *subject;
++#else
++  gpointer subject = NULL;
++#endif
+   GError *error;
+ 
+   subject = NULL;
+-
+   error = NULL;
++
++#ifdef HAVE_POLKIT
+   subject = polkit_unix_session_new_for_process_sync (getpid (),
+                                                       NULL, /* GCancellable* */
+                                                       &error);
++#endif
++
+   if (subject == NULL)
+     {
++#ifdef HAVE_POLKIT
+       g_warning ("Error getting session for the process we are in: %s (%s %d)",
+                  error->message,
+                  g_quark_to_string (error->domain),
+                  error->code);
+       g_error_free (error);
++#endif
+       goto out;
+     }
+ 
++#ifdef HAVE_POLKIT
+   handle = polkit_agent_listener_register (POLKIT_AGENT_LISTENER (agent),
+                                            POLKIT_AGENT_REGISTER_FLAGS_NONE,
+                                            subject,
+                                            NULL, /* use default object path */
+                                            NULL, /* GCancellable */
+                                            &error);
++#endif
+   if (handle == NULL)
+     {
++#ifdef HAVE_POLKIT
+       g_warning ("Error registering polkit authentication agent: %s (%s %d)",
+                  error->message,
+                  g_quark_to_string (error->domain),
+                  error->code);
+       g_error_free (error);
++#endif
+       goto out;
+     }
+ 
+@@ -157,14 +188,18 @@ static void
+ shell_polkit_authentication_agent_class_init (ShellPolkitAuthenticationAgentClass *klass)
+ {
+   GObjectClass *gobject_class;
++#if HAVE_POLKIT
+   PolkitAgentListenerClass *listener_class;
++#endif
+ 
+   gobject_class = G_OBJECT_CLASS (klass);
+   gobject_class->finalize = shell_polkit_authentication_agent_finalize;
+ 
++#if HAVE_POLKIT
+   listener_class = POLKIT_AGENT_LISTENER_CLASS (klass);
+   listener_class->initiate_authentication = initiate_authentication;
+   listener_class->initiate_authentication_finish = initiate_authentication_finish;
++#endif
+ 
+   signals[INITIATE_SIGNAL] =
+     g_signal_new ("initiate",
+@@ -210,7 +245,9 @@ struct _AuthRequest {
+   gchar          *action_id;
+   gchar          *message;
+   gchar          *icon_name;
++#if HAVE_POLKIT
+   PolkitDetails  *details;
++#endif
+   gchar          *cookie;
+   GList          *identities;
+ 
+@@ -224,7 +261,9 @@ auth_request_free (AuthRequest *request)
+   g_free (request->action_id);
+   g_free (request->message);
+   g_free (request->icon_name);
++#if HAVE_POLKIT
+   g_object_unref (request->details);
++#endif
+   g_list_foreach (request->identities, (GFunc) g_object_unref, NULL);
+   g_list_free (request->identities);
+   g_object_unref (request->simple);
+@@ -234,6 +273,7 @@ auth_request_free (AuthRequest *request)
+ static void
+ auth_request_initiate (AuthRequest *request)
+ {
++#if HAVE_POLKIT
+   gchar **user_names;
+   GPtrArray *p;
+   GList *l;
+@@ -282,6 +322,7 @@ auth_request_initiate (AuthRequest *requ
+                  request->cookie,
+                  user_names);
+   g_strfreev (user_names);
++#endif
+ }
+ 
+ static void auth_request_complete (AuthRequest *request,
+@@ -327,11 +368,13 @@ auth_request_complete (AuthRequest *requ
+ {
+   ShellPolkitAuthenticationAgent *agent = request->agent;
+ 
++#if HAVE_POLKIT
+   if (dismissed)
+     g_simple_async_result_set_error (request->simple,
+                                      POLKIT_ERROR,
+                                      POLKIT_ERROR_CANCELLED,
+                                      _("Authentication dialog was dismissed by the user"));
++#endif
+ 
+   if (agent->current_request == request)
+     {
+@@ -372,6 +415,7 @@ maybe_process_next_request (ShellPolkitA
+     }
+ }
+ 
++#if HAVE_POLKIT
+ static void
+ initiate_authentication (PolkitAgentListener  *listener,
+                          const gchar          *action_id,
+@@ -423,6 +467,7 @@ initiate_authentication_finish (PolkitAg
+   else
+     return TRUE;
+ }
++#endif
+ 
+ void
+ shell_polkit_authentication_agent_complete (ShellPolkitAuthenticationAgent *agent,
+@@ -433,3 +478,4 @@ shell_polkit_authentication_agent_comple
+ 
+   auth_request_complete (agent->current_request, dismissed);
+ }
++
+--- gnome-shell-3.1.3/src/Makefile-st.am-orig	2011-07-06 22:43:50.737896083 -0500
++++ gnome-shell-3.1.3/src/Makefile-st.am	2011-07-06 22:44:25.280025280 -0500
+@@ -2,7 +2,6 @@ st_cflags =					\
+ 	-I$(top_srcdir)/src			\
+ 	-DPREFIX=\""$(prefix)"\"		\
+ 	-DLIBDIR=\""$(libdir)"\"		\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"St\"			\
+ 	-DST_COMPILATION			\
+ 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"	\
+--- gnome-shell-3.1.3/src/Makefile-calendar-server.am-orig	2011-07-06 22:43:50.737635250 -0500
++++ gnome-shell-3.1.3/src/Makefile-calendar-server.am	2011-07-06 22:44:03.582148596 -0500
+@@ -22,7 +22,6 @@ gnome_shell_calendar_server_CFLAGS =		\
+ 	-DPREFIX=\""$(prefix)"\"		\
+ 	-DLIBDIR=\""$(libdir)"\"		\
+ 	-DDATADIR=\""$(datadir)"\"		\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"ShellCalendarServer\"	\
+ 	$(CALENDAR_SERVER_CFLAGS)		\
+ 	$(NULL)
+--- gnome-shell-3.1.3/configure.ac-orig	2011-07-06 18:55:08.095037103 -0500
++++ gnome-shell-3.1.3/configure.ac	2011-07-06 22:30:38.573814283 -0500
+@@ -93,10 +93,22 @@ PKG_CHECK_MODULES(GNOME_SHELL, gio-2.0 >
+ 			       libcanberra
+                                telepathy-glib >= $TELEPATHY_GLIB_MIN_VERSION
+                                telepathy-logger-0.2 >= $TELEPATHY_LOGGER_MIN_VERSION
+-                               polkit-agent-1 >= $POLKIT_MIN_VERSION xfixes)
++                               xfixes)
+ 
+ PKG_CHECK_MODULES(SHELL_PERF_HELPER, gtk+-3.0 gio-2.0)
+ 
++PKG_CHECK_MODULES(POLKIT,
++        polkit-agent-1 >= $POLKIT_MIN_VERSION,
++        have_polkit=yes,
++        have_polkit=no)
++if test "x$have_polkit" = "xyes" ; then
++  AC_DEFINE(HAVE_POLKIT, [], [Define if we have polkit])
++fi
++AM_CONDITIONAL(HAVE_POLKIT, test x$have_polkit = xyes)
++AC_SUBST(HAVE_POLKIT)
++AC_SUBST(POLKIT_CFLAGS)
++AC_SUBST(POLKIT_LIBS)
++
+ GJS_VERSION=`$PKG_CONFIG --modversion gjs-internals-1.0`
+ AC_DEFINE_UNQUOTED([GJS_VERSION], ["$GJS_VERSION"], [The version of GJS we're linking to])
+ AC_SUBST([GJS_VERSION], ["$GJS_VERSION"])
+@@ -113,8 +125,8 @@ AC_SUBST(JHBUILD_TYPELIBDIR)
+ 
+ saved_CFLAGS=$CFLAGS
+ saved_LIBS=$LIBS
+-CFLAGS=$GNOME_SHELL_CFLAGS
+-LIBS=$GNOME_SHELL_LIBS
++CFLAGS=$GNOME_SHELL_CFLAGS $POLKIT_CFLAGS
++LIBS=$GNOME_SHELL_LIBS $POLKIT_LIBS
+ AC_CHECK_FUNCS(JS_NewGlobalObject XFixesCreatePointerBarrier)
+ CFLAGS=$saved_CFLAGS
+ LIBS=$saved_LIBS
+@@ -122,9 +134,20 @@ LIBS=$saved_LIBS
+ PKG_CHECK_MODULES(ST, clutter-1.0 gtk+-3.0 libcroco-0.6 >= 0.6.2 gnome-desktop-3.0 >= 2.90.0 x11)
+ PKG_CHECK_MODULES(GDMUSER, dbus-glib-1 gtk+-3.0)
+ PKG_CHECK_MODULES(TRAY, gtk+-3.0)
+-PKG_CHECK_MODULES(GVC, libpulse libpulse-mainloop-glib gobject-2.0)
+ PKG_CHECK_MODULES(DESKTOP_SCHEMAS, gsettings-desktop-schemas >= 0.1.7)
+ 
++PKG_CHECK_MODULES(GVC,
++        libpulse libpulse-mainloop-glib gobject-2.0,
++        have_pulse=yes,
++        have_pulse=no)
++if test "x$have_pulse" = "xyes" ; then
++  AC_DEFINE(HAVE_PULSE, [], [Define if we have libpulse])
++fi
++AM_CONDITIONAL(HAVE_PULSE, test x$have_pulse = xyes)
++AC_SUBST(HAVE_PULSE)
++AC_SUBST(GVC_CFLAGS)
++AC_SUBST(GVC_LIBS)
++
+ AC_MSG_CHECKING([for bluetooth support])
+ PKG_CHECK_EXISTS([gnome-bluetooth-1.0 >= 3.1.0],
+         [BLUETOOTH_DIR=`$PKG_CONFIG --variable=applet_libdir gnome-bluetooth-1.0`
+@@ -138,7 +161,15 @@ PKG_CHECK_EXISTS([gnome-bluetooth-1.0 >=
+ 	 AC_SUBST([HAVE_BLUETOOTH],[0])
+ 	 AC_MSG_RESULT([no])])
+ 
+-PKG_CHECK_MODULES(CALENDAR_SERVER, libecal-1.2 >= $LIBECAL_MIN_VERSION libedataserver-1.2 >= $LIBEDATASERVER_MIN_VERSION libedataserverui-3.0 >= $LIBEDATASERVERUI_MIN_VERSION gio-2.0)
++PKG_CHECK_MODULES(CALENDAR_SERVER,
++        libecal-1.2 >= $LIBECAL_MIN_VERSION libedataserver-1.2 >= $LIBEDATASERVER_MIN_VERSION libedataserverui-3.0 >= $LIBEDATASERVERUI_MIN_VERSION gio-2.0,
++        have_evolution=yes,
++        have_evolution=no)
++if test "x$have_evolution" = "xyes" ; then
++  AC_DEFINE(HAVE_EVOLUTION, [], [Define if we have Evolution])
++fi
++AM_CONDITIONAL(HAVE_EVOLUTION, test x$have_evolution = xyes)
++AC_SUBST(HAVE_EVOLUTION)
+ AC_SUBST(CALENDAR_SERVER_CFLAGS)
+ AC_SUBST(CALENDAR_SERVER_LIBS)
+ 
+--- gnome-shell-3.1.3/js/ui/polkitAuthenticationAgent.js-orig	2011-07-08 01:53:25.834811079 -0500
++++ gnome-shell-3.1.3/js/ui/polkitAuthenticationAgent.js	2011-07-08 01:55:24.517310264 -0500
+@@ -29,8 +29,8 @@ const Pango = imports.gi.Pango;
+ const Gdm = imports.gi.Gdm;
+ const Gio = imports.gi.Gio;
+ const Mainloop = imports.mainloop;
+-const Polkit = imports.gi.Polkit;
+-const PolkitAgent = imports.gi.PolkitAgent;
++/* const Polkit = imports.gi.Polkit; 
++const PolkitAgent = imports.gi.PolkitAgent; */
+ 
+ const ModalDialog = imports.ui.modalDialog;
+ 
+@@ -177,11 +177,15 @@ AuthenticationDialog.prototype = {
+ 
+         this._doneEmitted = false;
+ 
++/*
+         this._identityToAuth = Polkit.UnixUser.new_for_name(userName);
++*/
+         this._cookie = cookie;
+ 
++/*
+         this._session = new PolkitAgent.Session({ identity: this._identityToAuth,
+                                                   cookie: this._cookie });
++*/
+         this._session.connect('completed', Lang.bind(this, this._onSessionCompleted));
+         this._session.connect('request', Lang.bind(this, this._onSessionRequest));
+         this._session.connect('show-error', Lang.bind(this, this._onSessionShowError));
+--- gnome-shell-3.1.3/js/ui/statusMenu.js-orig	2011-07-08 01:53:35.018828475 -0500
++++ gnome-shell-3.1.3/js/ui/statusMenu.js	2011-07-08 01:55:11.760284464 -0500
+@@ -8,7 +8,9 @@ const Lang = imports.lang;
+ const Shell = imports.gi.Shell;
+ const St = imports.gi.St;
+ const Tp = imports.gi.TelepathyGLib;
++/*
+ const UPowerGlib = imports.gi.UPowerGlib;
++*/
+ 
+ const GnomeSession = imports.misc.gnomeSession;
+ const Main = imports.ui.main;
+@@ -62,6 +64,7 @@ StatusMenuButton.prototype = {
+ 
+         this._account_mgr = Tp.AccountManager.dup()
+ 
++/*
+         this._upClient = new UPowerGlib.Client();
+         this._screenSaverProxy = new ScreenSaverProxy(DBus.session, BUS_NAME, OBJECT_PATH);
+         this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
+@@ -111,6 +114,7 @@ StatusMenuButton.prototype = {
+                                        Lang.bind(this, this._updateHaveShutdown));
+ 
+         this._upClient.connect('notify::can-suspend', Lang.bind(this, this._updateSuspendOrPowerOff));
++*/
+     },
+ 
+     _onDestroy: function() {
+@@ -185,6 +189,7 @@ StatusMenuButton.prototype = {
+     },
+ 
+     _updateSuspendOrPowerOff: function() {
++/*
+         this._haveSuspend = this._upClient.get_can_suspend();
+ 
+         if (!this._suspendOrPowerOffItem)
+@@ -205,6 +210,7 @@ StatusMenuButton.prototype = {
+         } else {
+             this._suspendOrPowerOffItem.updateText(_("Suspend"), _("Power Off..."));
+         }
++*/
+     },
+ 
+     _updatePresenceIcon: function(presence, status) {
+@@ -316,7 +322,9 @@ StatusMenuButton.prototype = {
+         if (this._haveSuspend &&
+             this._suspendOrPowerOffItem.state == PopupMenu.PopupAlternatingMenuItemState.DEFAULT) {
+             this._screenSaverProxy.SetActiveRemote(true, Lang.bind(this, function() {
++/*
+                 this._upClient.suspend_sync(null);
++*/
+             }));
+         } else {
+             this._session.ShutdownRemote();
+--- gnome-shell-3.1.3/js/ui/status/volume.js-orig	2011-07-08 01:53:46.540541789 -0500
++++ gnome-shell-3.1.3/js/ui/status/volume.js	2011-07-08 01:54:04.382799502 -0500
+@@ -5,7 +5,9 @@ const DBus = imports.dbus;
+ const Lang = imports.lang;
+ const Mainloop = imports.mainloop;
+ const Shell = imports.gi.Shell;
++/*
+ const Gvc = imports.gi.Gvc;
++*/
+ const Signals = imports.signals;
+ const St = imports.gi.St;
+ 
+@@ -28,6 +30,7 @@ Indicator.prototype = {
+     _init: function() {
+         PanelMenu.SystemStatusButton.prototype._init.call(this, 'audio-volume-muted', null);
+ 
++/*
+         this._control = new Gvc.MixerControl({ name: 'GNOME Shell Volume Control' });
+         this._control.connect('ready', Lang.bind(this, this._onControlReady));
+         this._control.connect('default-sink-changed', Lang.bind(this, this._readOutput));
+@@ -69,6 +72,7 @@ Indicator.prototype = {
+ 
+         this.actor.connect('scroll-event', Lang.bind(this, this._onScrollEvent));
+         this._control.open();
++*/
+     },
+ 
+     _getMaxVolume: function(property) {
+--- gnome-shell-3.1.3/js/ui/status/network.js-orig	2011-07-08 01:53:42.325484711 -0500
++++ gnome-shell-3.1.3/js/ui/status/network.js	2011-07-08 01:53:59.046197223 -0500
+@@ -5,8 +5,10 @@ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ const Lang = imports.lang;
+ const Mainloop = imports.mainloop;
++/*
+ const NetworkManager = imports.gi.NetworkManager;
+ const NMClient = imports.gi.NMClient;
++*/
+ const Shell = imports.gi.Shell;
+ const Signals = imports.signals;
+ const St = imports.gi.St;
+@@ -37,9 +39,11 @@ const NMAccessPointSecurity = {
+ };
+ 
+ // small optimization, to avoid using [] all the time
++/*
+ const NM80211Mode = NetworkManager['80211Mode'];
+ const NM80211ApFlags = NetworkManager['80211ApFlags'];
+ const NM80211ApSecurityFlags = NetworkManager['80211ApSecurityFlags'];
++*/
+ 
+ // number of wireless networks that should be visible
+ // (the remaining are placed into More...)
+@@ -1523,6 +1527,7 @@ NMApplet.prototype = {
+     _init: function() {
+         PanelMenu.SystemStatusButton.prototype._init.call(this, 'network-error');
+ 
++/*
+         this._client = NMClient.Client.new();
+ 
+         this._statusSection = new PopupMenu.PopupMenuSection();
+@@ -1636,6 +1641,7 @@ NMApplet.prototype = {
+                 this._settings.connect('new-connection', Lang.bind(this, this._newConnection));
+             }
+         }));
++*/
+     },
+ 
+     _ensureSource: function() {
+--- gnome-shell-3.1.3/js/ui/main.js-orig	2011-07-12 02:03:00.474373615 -0500
++++ gnome-shell-3.1.3/js/ui/main.js	2011-07-12 02:04:57.004857186 -0500
+@@ -87,7 +87,7 @@ function start() {
+ 
+     // Load the calendar server. Note that we are careful about
+     // not loading any events until the user presses the clock
+-    global.launch_calendar_server();
++    // global.launch_calendar_server();
+ 
+     // Ensure ShellWindowTracker and ShellAppUsage are initialized; this will
+     // also initialize ShellAppSystem first.  ShellAppSystem

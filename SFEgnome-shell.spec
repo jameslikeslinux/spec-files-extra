@@ -9,22 +9,25 @@
 %include Solaris.inc
 Name:                    SFEgnome-shell
 Summary:                 GNOME Shell
-Version:                 2.91.0
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/2.91/gnome-shell-%{version}.tar.bz2
+Version:                 3.1.3
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/3.1/gnome-shell-%{version}.tar.bz2
+Patch1:                  gnome-shell-01-compile.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           SUNWPython26-devel
 BuildRequires:           SUNWdbus-glib-devel
-BuildRequires:           SUNWgnome-base-libs-devel
+BuildRequires:           SUNWgtk3-devel
 BuildRequires:           SUNWgnome-media-devel
 BuildRequires:           SUNWgnome-panel-devel
 BuildRequires:           SUNWlibrsvg-devel
 BuildRequires:           SUNWclutter-devel
 BuildRequires:           SUNWgobject-introspection-devel
 BuildRequires:           SFEgjs-devel
+BuildRequires:           SFElibtelepathy-devel
+BuildRequires:           SFEtelepathy-logger-devel
 Requires:                SUNWPython26
 Requires:                SUNWdbus-glib
-Requires:                SUNWgnome-base-libs
+Requires:                SUNWgtk3
 Requires:                SUNWgnome-media
 Requires:                SUNWgnome-panel
 Requires:                SUNWlibrsvg
@@ -32,6 +35,8 @@ Requires:                SUNWclutter
 Requires:                SUNWgobject-introspection
 Requires:                SFEgjs
 Requires:                SFEmutter
+Requires:                SFElibtelepathy
+Requires:                SFEtelepathy-logger
 %include default-depend.inc
 
 %package root
@@ -49,16 +54,22 @@ Requires:                %{name}
 
 %prep
 %setup -q -n gnome-shell-%version
+%patch1 -p1
 
 %build
+
+# This is needed for the gobject-introspection compile to find libdrm.
+export LD_LIBRARY_PATH="/usr/lib/xorg:/usr/lib/firefox"
+
 #export LDFLAGS="%_ldflags -lmalloc"
 export PYTHON=/usr/bin/python%{pythonver}
+automake -a -c -f
+autoconf
 ./configure \
    --prefix=%{_prefix} \
    --libexecdir=%{_libexecdir} \
    --mandir=%{_mandir} \
-   --sysconfdir=%{_sysconfdir} \
-   --with-clutter
+   --sysconfdir=%{_sysconfdir}
 make
 
 %install
@@ -89,15 +100,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/gnome-shell
-%{_libdir}/mutter/plugins
+%{_libdir}/gnome-shell-perf-helper
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+%{_datadir}/glib-2.0
 %{_datadir}/gnome-shell
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/man1/*
-
 
 %files root
 %defattr(-, root, sys)
@@ -112,6 +123,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 06 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.1.3.
 * Fri Oct 22 2010 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 2.91.0.
 * Wed Jun 23 2010 - Lin Ma <lin.ma@sun.com>

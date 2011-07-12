@@ -6,7 +6,7 @@
 %include Solaris.inc
 Name:                    SFEgjs
 Summary:                 GNOME JavaScript bindings
-Version:                 0.7.4
+Version:                 0.7.14
 Source:                  http://ftp.gnome.org/pub/GNOME/sources/gjs/0.7/gjs-%{version}.tar.bz2
 # see b.g.o 619721 and 595447
 Patch1:                  gjs-01-solaris.diff
@@ -30,7 +30,7 @@ SUNW_BaseDir: %{_basedir}
 %patch1 -p1
 
 %build
-export LDFLAGS="-L/usr/lib/firefox"
+export CFLAGS="%optflags -L/usr/lib/firefox"
 export LD=cc
 libtoolize -f
 aclocal $ACLOCAL_FLAGS
@@ -40,6 +40,7 @@ autoconf
 make
 
 %install
+export CFLAGS="-L/usr/lib/firefox -lxpcom"
 make install DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT/%{_libdir} -type f -name "*.a" -exec rm -f {} ';'
@@ -69,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Tue Jul 05 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.7.14.
 * Fri Oct 22 2010 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 0.7.4.
 * Wed May 26 2010 - Erwann Cheneed <erwann.chenede@sun.com>

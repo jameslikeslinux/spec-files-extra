@@ -9,8 +9,8 @@
 
 Name:                    SFEmutter
 Summary:                 Clutter enabled metacity window manager
-Version:                 2.91.0
-Source:	                 http://ftp.gnome.org/pub/GNOME/sources/mutter/2.91/mutter-%{version}.tar.bz2
+Version:                 3.1.3.1
+Source:	                 http://ftp.gnome.org/pub/GNOME/sources/mutter/3.1/mutter-%{version}.tar.bz2
 Patch1:                  mutter-01-suncc-xc99.diff
 # Bug #612506.
 Patch2:                  mutter-02-wait.diff
@@ -18,12 +18,12 @@ Patch3:                  mutter-03-compile.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           SUNWPython26-devel
-BuildRequires:           SUNWlibgtk3-devel
+BuildRequires:           SUNWgtk3-devel
 BuildRequires:           SUNWclutter-devel
 BuildRequires:           SUNWgobject-introspection-devel
 BuildRequires:           SFEgjs-devel
 Requires:                SUNWPython26
-Requires:                SUNWlibgtk3
+Requires:                SUNWgtk3
 Requires:                SUNWclutter
 Requires:                SUNWgobject-introspection
 Requires:                SFEgjs
@@ -55,6 +55,7 @@ Requires:                %{name}
 
 %build
 export CFLAGS="%optflags"
+export LDFLAGS="%{_ldflags} -L/usr/lib/thunderbird"
 export PYTHON=/usr/bin/python%{pythonver}
 
 libtoolize --force
@@ -131,6 +132,8 @@ cat >> $BASEDIR/var/svc/profile/upgrade <<\EOF
 %endif
 
 %changelog
+* Tue Jul 05 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.1.3.1.
 * Fri Oct 22 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 2.91.0.
 * Tue Jun 01 2010 - Brian Cameron  <brian.cameron@oracle.com>

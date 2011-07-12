@@ -26,8 +26,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWgnome-common-devel
-Requires: SUNWgnome-base-libs
-BuildRequires: SUNWgnome-base-libs-devel
+Requires: SUNWgtk3
+BuildRequires: SUNWgtk3-devel
 Requires: SUNWgobject-introspection
 BuildRequires: SUNWgobject-introspection-devel
 

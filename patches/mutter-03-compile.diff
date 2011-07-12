@@ -1,5 +1,16 @@
---- mutter-2.91.0/src/core/delete.c-orig	2010-10-22 20:15:34.860168118 -0500
-+++ mutter-2.91.0/src/core/delete.c	2010-10-22 20:17:19.897735691 -0500
+--- mutter-3.1.3/src/core/screen.c-orig	2011-07-06 16:42:08.909834885 -0500
++++ mutter-3.1.3/src/core/screen.c	2011-07-06 16:46:24.453517000 -0500
+@@ -2924,7 +2924,7 @@ meta_screen_resize (MetaScreen *screen,
+ 
+   g_slist_free (windows);
+ 
+-  g_signal_emit (screen, screen_signals[MONITORS_CHANGED], 0, index);
++  g_signal_emit (screen, screen_signals[MONITORS_CHANGED], 0, 0);
+ }
+ 
+ void
+--- mutter-3.1.3/src/core/delete.c-orig	2011-07-06 16:40:48.193294716 -0500
++++ mutter-3.1.3/src/core/delete.c	2011-07-06 16:41:12.081819592 -0500
 @@ -22,8 +22,6 @@
   * 02111-1307, USA.
   */
@@ -7,5 +18,5 @@
 -#define _XOPEN_SOURCE /* for kill() */
 -
  #include <config.h>
- #include "util.h"
+ #include <meta/util.h>
  #include "window-private.h"
