@@ -1,3 +1,7 @@
+2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
+	
+        * SFEcpio.spec:	bump to	2.11; Fixed %files section
+
 2011-07-12 Alex Viskovatoff <herzen@immap.cc>
 
 	* SFElibast.spec: build with SFEgcc instead of gcc-3
