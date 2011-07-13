@@ -1,3 +1,7 @@
+2011-07-13 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcairo-dock.spec: bump to 2.3.0~3
+
 2010-07-12 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEtelepathy-glib.spec: Now requires GTK3.

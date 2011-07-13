@@ -9,13 +9,13 @@
 %include base.inc
 
 %define	src_name	cairo-dock
-%define ver_major	2.2.0
-%define ver_minor	4
+%define ver_major	2.3.0
+%define ver_minor	3
 
 Name:           SFEcairo-dock
 Summary:        cairo-dock
 Version:        %{ver_major}.%{ver_minor}
-Source:		http://launchpad.net/%{src_name}-core/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
+Source:		http://launchpad.net/%{src_name}-core/2.3/%{ver_major}/+download/%{src_name}-%{ver_major}~%{ver_minor}.tar.gz
 URL:		glx-dock.org
 Patch1:		cairo-dock-01-cmake.diff
 SUNW_BaseDir:   %{_basedir}
@@ -50,7 +50,7 @@ Requires:        %{name}
 %endif
 
 %prep
-%setup -q -n %{src_name}-%{ver_major}-%{ver_minor}
+%setup -q -n %{src_name}-%{ver_major}~%{ver_minor}
 %patch1 -p1
 
 %build
@@ -111,6 +111,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jul 13 2011 - Milan Jurik
+- update to 2.3.0-3
 * Mon Feb 21 2011 - Milan Jurik
 - update to 2.2.0-4
 * Aug 04 2009 - Gilles Dauphin ( Gilles POINT Dauphin A enst POINT fr)
