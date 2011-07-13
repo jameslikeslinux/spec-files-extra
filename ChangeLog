@@ -1,5 +1,10 @@
 2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFEgnome-shell-extensions.spec: New spec file.
+	* SFEgnome-shell.spec: Remove comment.
+
+2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFEtelepathy-logger.spec, base-specs/telepathy-logger.spec,
 	  patches/telepathy-logger-01-configure.diff: Add new spec file
 	  for telepathy-logger.

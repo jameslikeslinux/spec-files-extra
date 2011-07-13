@@ -61,9 +61,8 @@ Requires:                %{name}
 # This is needed for the gobject-introspection compile to find libdrm.
 export LD_LIBRARY_PATH="/usr/lib/xorg:/usr/lib/firefox"
 
-#export LDFLAGS="%_ldflags -lmalloc"
 export PYTHON=/usr/bin/python%{pythonver}
-automake -a -c -f
+automake-1.11 -a -c -f
 autoconf
 ./configure \
    --prefix=%{_prefix} \
