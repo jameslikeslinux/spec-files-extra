@@ -1,5 +1,10 @@
 2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFEpulseaudio.spec, patches/pulseaudio-04-xcb.diff:  Add patch to
+	  address compile issue.  Also add SFElibatomic-ops as a requires.
+
+2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFEgnome-shell-extensions.spec: New spec file.
 	* SFEgnome-shell.spec: Remove comment.
 
