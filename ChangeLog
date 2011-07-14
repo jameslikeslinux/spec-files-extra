@@ -1,3 +1,7 @@
+2011-07-14 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.12
+
 2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEpulseaudio.spec, patches/pulseaudio-04-xcb.diff:  Add patch to
