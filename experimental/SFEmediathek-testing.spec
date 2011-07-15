@@ -7,18 +7,17 @@
 %define src_name  mediathek-testing
 %define subdir    mediathek-testing
 #thanks IPS, we can't have leading zeros in version numbers, but we need them for the download
-%define tarball_version 2010.04.19
-%define docversion 2.0.1
+%define tarball_version 2.5.0_2011.07.08
+%define docversion 2.5.0
 
 Name:                    SFEmediathek-testing
-Summary:                 mediathek - tool for writing very fast and very flexible scanners
-URL:                     http://mediathek.org/
-Version:                 2004.4.19
-Source:                  %{sf_download}/project/zdfmediathk/testing/Mediathek_mit_libs_%{tarball_version}_Testversion.zip
-
-#      http://downloads.sourceforge.net/project/zdfmediathk/testing/Mediathek_mit_libs_2010.04.19_Testversion.zip
-Source2:                 %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{docversion}/Anleitung_MediathekView_%{docversion}.pdf
-#http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%202.0.1/Anleitung_MediathekView_2.0.1.pdf
+Summary:                 mediathek - download TV broadcasters online offers, download podcasts
+URL:                     http://zdfmediathk.sourceforge.net/
+Version:                 2011.7.8
+#      http://downloads.sourceforge.net/project/zdfmediathk/testing/Mediathek_2.5.0_2011.07.08_Testversion.zip   	
+Source:                  %{sf_download}/project/zdfmediathk/testing/Mediathek_%{tarball_version}_Testversion.zip
+#         http://sourceforge.net/projects/zdfmediathk/files/Mediathek/Mediathek%202.5.0/Kurzanleitung_2.5.0.pdf/download
+Source2:                 %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{docversion}/Kurzanleitung_%{docversion}.pdf
 
 
 SUNW_BaseDir:            %{_basedir}
@@ -52,7 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%doc Anleitung_MediathekView_%{docversion}.pdf 
+#%doc Anleitung_MediathekView_%{docversion}.pdf 
+%doc Kurzanleitung_%{docversion}.pdf
 %dir %attr (0755, root, bin) %{_basedir}/lib/%{subdir}/
 %{_basedir}/lib/%{subdir}/*
 %dir %attr (0755, root, bin) %{_bindir}
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 15 2011 - Thomas Wagner
+- bump to version 2011.07.08
+- new URLs
 * Sun Apr 25 2010 - Thomas Wagner
 - bump to testverion 2010.04.19
 - Initial spec
