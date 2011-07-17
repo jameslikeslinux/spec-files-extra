@@ -8,7 +8,7 @@
 %define	src_name clamav
 
 Name:                SFEclamav
-Summary:             Unix Anti-virus scanner
+Summary:             Unix anti-virus scanner
 Version:             0.97.1
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz

@@ -1,6 +1,7 @@
 2011-07-17 Alex Viskovatoff <herzen@immap.cc>
 
-	encumbered/SFEffmpeg.spec: add --disable-asm as option for i386
+	encumbered/SFEffmpeg.spec: add --disable-asm as option for i38
+	SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
 	base-specs/ffmpeg.spec: update to 0.8, disabling all patches
 	base-specs/libx264.spec: update tarball
 	encumbered/SFEmplayer-snap.spec: update tarball
@@ -55,11 +56,11 @@
 	* SFEliferea.spec: bump to 1.6.6
 
 2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
-	
+
         * SFEdia.spec:	bump to	0.97.1; Updated tags
 
 2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
-	
+
         * SFEcpio.spec:	bump to	2.11; Fixed %files section
 
 2011-07-12 Alex Viskovatoff <herzen@immap.cc>
@@ -199,10 +200,10 @@
 2011-06-22 Ken Mays <kmays2000@gmail.com>
 
 	* experimental/SFEwesnoth-1.8.spec: Bump to 1.8.6
-	* Removed SFEwesnoth-dev and old patches  
+	* Removed SFEwesnoth-dev and old patches
 
 2011-06-21 Ken Mays <kmays2000@gmail.com>
-	
+
 	* base-specs/kqemu.spec: Bump to 1.4.0pre1-07032008
 	* base-specs/qemu.spec: Bump to 0.9.1-06222008
 	* base-specs/libogg.spec : Bump to 1.3.2
@@ -283,7 +284,7 @@
 
 	* SFEaspell.spec: Bump to Aspell 0.60.6
 	* base-specs/aspell.spec: Bump to Aspell 0.60.6
-	* patches/aspell-01-forte.diff: fixed for Aspell 0.60.6 
+	* patches/aspell-01-forte.diff: fixed for Aspell 0.60.6
 
 2011-06-11  Ken Mays  <kmays2000@gmail.com>
 
