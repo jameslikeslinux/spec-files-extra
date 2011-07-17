@@ -4,8 +4,8 @@
 # includes module(s): lame, toolame
 #
 
-# want this? compile with: pkgtool --with-gcc3 build <specfile>
-%define use_gcc4 %{?_with_gcc3:0}%{?!_with_gcc3:1}
+# want this? compile with: pkgtool --with-gcc4 build <specfile>
+%define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
 
 
 %include Solaris.inc
@@ -147,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Jul 17 2011 - Alex Viskovatoff
+- revert to previous version: spec does not build with SFEgcc
 * Sun Jul 10 2011 - Alex Viskovatoff
 - build with SFEgcc by default
 * Thu Nov 04 2010 - Milan Jurik

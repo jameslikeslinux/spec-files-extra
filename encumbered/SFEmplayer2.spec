@@ -17,6 +17,7 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
+%include base.inc
 
 # TODO: Since we now use SFEffmpeg, which pulls in a lot of media libs,
 #	the conditional "requires" machinery below and further on is
@@ -44,7 +45,9 @@ Name:                    SFEmplayer2
 Summary:                 MPlayer fork with some additional features
 Version:                 2.0
 URL:                     http://www.mplayer2.org/
-Source:                  http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
+#Source:                  http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
+#Source:    http://git.mplayer2.org/mplayer2/snapshot/mplayer2-2.0.tar.bz2
+Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
 Patch1:                  mplayer-snap-01-shell.diff
 Patch3:                  mplayer-snap-03-ldflags.diff
 Patch4:                  mplayer-snap-04-realplayer.diff
@@ -56,7 +59,8 @@ BuildRoot:               %_tmppath/%name-build
 Requires: SUNWsmbau
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
-Requires: SUNWfreetype2
+# OI 151 is at a newer version than S11X, so this dependency blocks installation on S11X
+#Requires: SUNWfreetype2
 Requires: SUNWspeex
 Requires: SUNWjpg
 Requires: SUNWpng
@@ -88,7 +92,6 @@ BuildRequires: SFElame-devel
 Requires: SFEtwolame
 BuildRequires: SFEtwolame-devel
 %endif
-Requires: SUNWgawk
 Requires: SFEfaad2
 BuildRequires: SFEfaad2-devel
 Requires: SFElibmpcdec
@@ -131,6 +134,8 @@ Requires: SFElibschroedinger
 BuildRequires: SFEalsa-lib
 Requires: SFEalsa-lib
 %endif
+BuildRequires: SFElibass-devel
+Requires: SFElibass
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
@@ -138,7 +143,8 @@ Requires: SFEalsa-lib
 %endif
 
 %prep
-%setup -q -n mplayer2-%version
+#%setup -q -n mplayer2-%version
+%setup -q -n mplayer2-master
 %patch1 -p0
 %patch3 -p1
 %patch4 -p1
@@ -146,7 +152,7 @@ Requires: SFEalsa-lib
 
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 %if %debug_build
 dbgflag=--enable-debug
@@ -175,7 +181,6 @@ bash ./configure				\
 %endif
             --enable-live			\
 	    --enable-rpath			\
-            --enable-largefiles			\
 	    --enable-crash-debug		\
             --enable-dynamic-plugins            \
 	    $dbgflag
@@ -220,6 +225,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jul 16 2011 - Alex Viskovatoff
+- Update to git version, so mplayer2 can link against newest ffmpeg
 * Mon May  2 2011 - Alex Viskovatoff
 - Fork SFEmplayer2.spec off SFEmplayer-snap.spec, making the appropriate changes
 - Rename everything "mplayer2" for now so can coexist with original mplayer

@@ -5,11 +5,11 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 %include packagenamemacros.inc
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
-
-%define cc_is_gcc 1
 
 %if %arch_sse2
 %define arch_opt --cpu=i686 --enable-mmx --enable-mmx2
@@ -22,7 +22,7 @@
 %endif
 
 %ifarch i386
-%define arch_opt
+%define arch_opt --disable-asm
 %endif
 
 %include base.inc
@@ -32,7 +32,7 @@ Name:                    SFEffmpeg
 Summary:                 %{ffmpeg.summary}
 Version:                 %{ffmpeg.version}
 URL:                     %{ffmpeg.url}
-Group:		Libraries/Multimedia
+Group:		         System/Multimedia Libraries
 
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -41,6 +41,7 @@ Autoreqprov:             on
 %include default-depend.inc
 BuildRequires: SFEgcc
 Requires:      SFEgccruntime
+BuildRequires: SFEyasm
 BuildRequires: SUNWtexi
 BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWxwinc
@@ -126,6 +127,7 @@ cd $RPM_BUILD_ROOT%{_bindir} && ln -s ../lib/isaexec ffmpeg
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%define _pkg_docdir %_docdir/ffmpeg
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %if %can_isaexec
@@ -151,6 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/ffmpeg/*.ffpreset
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
+%doc -d %base_arch/ffmpeg-%version/doc developer.html faq.html ffmpeg.html ffplay.html ffprobe.html ffserver.html general.html libavfilter.html
 
 %files devel
 %defattr (-, root, bin)
@@ -175,6 +178,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libswscale
 
 %changelog
+* Sat Jul 16 2011 - Alex Viskovatoff
+- Add SFEyasm as a dependency; package documentation files
+- Add --disable-asm as option for i386 so that newer versions build
 * Wed May 11 2011 - Alex Viskovatoff
 - Add SFEgccruntime as a dependency
 * Mon Jan 24 2011 - Alex Viskovatoff

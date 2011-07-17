@@ -4,27 +4,24 @@
 # includes module(s): FFmpeg
 #
 
-Summary:                 FFmpeg - a very fast video and audio converter
-
-Version:                 0.6.3
+Summary:                 A very fast video and audio converter
+Version:                 0.8
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
-Patch2:                  ffmpeg-02-configure.diff
-Patch3:                  ffmpeg-03-gnuisms.diff
-Patch4:                  ffmpeg-04-options.diff
-Patch8:                  ffmpeg-08-versionsh.diff
+#Patch2:                  ffmpeg-02-configure.diff
+#Patch3:                  ffmpeg-03-gnuisms.diff
+#Patch4:                  ffmpeg-04-options.diff
+#Patch8:                  ffmpeg-08-versionsh.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
 
 %prep
-#%setup -q -n ffmpeg-export-%{year}-%{month}-%{day}
 %setup -q -n ffmpeg-%version
-%patch2 -p1
-%patch4 -p1
-%patch8 -p1
-%patch3 -p1
-
+#%patch2 -p1
+#%patch4 -p1
+#%patch8 -p1
+#%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -33,14 +30,15 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 # for pod2man
 export PATH=/usr/perl5/bin:$PATH
-export CC=gcc
+export CC=/usr/gnu/bin/gcc
 # All this is necessary to free up enough registers on x86
 %ifarch i386
 export CFLAGS="%optflags -Os -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
 %else
 export CFLAGS="%optflags -Os -I%{xorg_inc} -I%{_includedir}"
 %endif
-export LDFLAGS="%_ldflags %{xorg_lib_path} -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir}"
+#export LDFLAGS="%_ldflags %{xorg_lib_path} -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir}"
+export LDFLAGS="%_ldflags %{xorg_lib_path} -L%{_libdir} -R%{_libdir}"
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
         export LDFLAGS="$LDFLAGS -m64"
 fi
@@ -62,8 +60,6 @@ bash ./configure	\
     --enable-libxvid	\
     --enable-libx264	\
     --enable-libfaac	\
-    --enable-libfaad	\
-    --enable-libfaadbin	\
     --enable-libtheora	\
     --enable-libmp3lame	\
     --enable-libvorbis	\
@@ -107,6 +103,9 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Jul 17 2011 - Alex Viskovatoff
+- update to 0.8, disabling all patches (all fail and are apparently superfluous)
+- remove obsolete flags from invocation of ./configure
 * Wed May 11 2011 - Alex Viskovatoff
 - bump to 0.6.3
 * Thu Apr 27 2011 - Alex Viskovatoff
