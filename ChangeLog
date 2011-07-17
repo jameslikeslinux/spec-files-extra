@@ -13,6 +13,8 @@
 2011-07-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibgc.spec: use GCC and enable pthreads support
+	* SFEgcc.spec: bump to 4.6.1
+	* SFEgcc-46.spec: obsolete
 
 2011-07-14 Milan Jurik <sfnet@xylab.cz>
 

@@ -91,14 +91,14 @@
 %define SFElibmpc 1
 %endif
 
-%define _prefix /usr/gcc/4.5
+%define _prefix /usr/gcc/4.6
 %define _infodir %{_prefix}/info
 %define _gnu_bindir %{_basedir}/gnu/bin
 %define _gnu_libdir %{_basedir}/gnu/lib
 
 Name:                SFEgccruntime
 Summary:             GNU gcc runtime libraries required by applications
-Version:             4.5.3
+Version:             4.6.1
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -482,6 +482,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Jul 17 2011 - Milan Jurik
+- bump to 4.6.1
 * Tue May 17 2011 - Milan Jurik
 - bump to 4.5.3
 * Thu Mar 17 2011 - Thomas Wagner
