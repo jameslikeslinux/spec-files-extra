@@ -4,6 +4,8 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 %define src_name gc
 %define src_url http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/
@@ -36,6 +38,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}		\
@@ -44,6 +48,7 @@ export LDFLAGS="%_ldflags"
 	--datadir=%{_datadir}		\
 	--mandir=%{_mandir}		\
 	--sysconfdir=%{_sysconfdir}	\
+	--enable-threads=posix		\
 	--enable-cplusplus		\
 	--enable-large-config		\
 	--enable-shared			\
@@ -73,5 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 17 2011 - Milan Jurik
+- use GCC and enable pthreads support
 * Mon Mar 21 2011 - Milan Jurik
 - initial spec

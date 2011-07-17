@@ -1,3 +1,7 @@
+2011-07-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibgc.spec: use GCC and enable pthreads support
+
 2011-07-14 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEunbound.spec: bump to 1.4.12
