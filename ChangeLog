@@ -1,13 +1,14 @@
 2011-07-17 Alex Viskovatoff <herzen@immap.cc>
 
-	encumbered/SFEffmpeg.spec: add --disable-asm as option for i38
-	SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
-	base-specs/ffmpeg.spec: update to 0.8, disabling all patches
-	base-specs/libx264.spec: update tarball
-	encumbered/SFEmplayer-snap.spec: update tarball
-	encumbered/SFEmplayer2.spec: update to git version
-	encumbered/SFElame.spec: revert to building with gcc-3
-	SFElibass.spec: initial spec
+	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i38
+	* SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
+	* base-specs/ffmpeg.spec: update to 0.8, disabling all patches
+	* base-specs/libx264.spec: update tarball
+	* encumbered/SFEmplayer-snap.spec: update tarball
+	* encumbered/SFEmplayer2.spec: update to git version
+	* encumbered/SFElame.spec: revert to building with gcc-3
+	* SFElibass.spec: initial spec
+	* encumbered/SFEsox.spec: update source URL
 
 2011-07-17 Milan Jurik <sfnet@xylab.cz>
 
