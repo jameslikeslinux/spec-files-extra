@@ -230,6 +230,120 @@
 %define pnm_requires_SUNWghostscriptr			SUNWghostscriptr
 %define pnm_buildrequires_SUNWghostscriptu		SUNWghostscriptu
 %define pnm_requires_SUNWghostscriptu			SUNWghostscriptu
+
+#Apache on a SXCE or S10  host
+
+##ignored, too old SUNWapchd
+##ignored, too old SUNWapchr
+##ignored, too old SUNWapchu
+#config files of modules are prerequisite to the modules, so only list modules here
+
+%define pnm_buildrequires_SUNWapch22r 		SUNWapch22r
+%define pnm_requires_SUNWapch22r		SUNWapch22r
+
+%define pnm_buildrequires_SUNWapch22u		SUNWapch22u
+%define pnm_requires_SUNWapch22u		SUNWapch22u
+
+%define pnm_buildrequires_SUNWapch22		SUNWapch22u
+%define pnm_requires_SUNWapch22			SUNWapch22u
+
+%define pnm_buildrequires_apch22		SUNWapch22u
+%define pnm_requires_apch22			SUNWapch22u
+
+#doc
+%define pnm_buildrequires_SUNWapch22d		SUNWapch22d
+%define pnm_requires_SUNWapch22d		SUNWapch22d
+%define pnm_buildrequires_apch22d		SUNWapch22d
+%define pnm_requires_apch22d			SUNWapch22d
+
+%define pnm_buildrequires_SUNWapch22m_dtrace	SUNWapch22m-dtrace
+%define pnm_requires_SUNWapch22m_dtrace		SUNWapch22m-dtrace
+%define pnm_buildrequires_apch22m_dtrace	SUNWapch22m-dtrace
+%define pnm_requires_apch22m_dtrace		SUNWapch22m-dtrace
+
+%define pnm_buildrequires_SUNWapch22m_fcgid	SUNWapch22m-fcgid
+%define pnm_requires_SUNWapch22m_fcgid		SUNWapch22m-fcgid
+%define pnm_buildrequires_apch22m_fcgid		SUNWapch22m-fcgid
+%define pnm_requires_apch22m_fcgid		SUNWapch22m-fcgid
+
+%define pnm_buildrequires_SUNWapch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_requires_SUNWapch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_buildrequires_apch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_requires_apch22m_proxy_html		SUNWapch22m-proxy-html
+
+%define pnm_buildrequires_SUNWapch22m_php52	SUNWapch22m-php52
+%define pnm_requires_SUNWapch22m_php52		SUNWapch22m-php52
+%define pnm_buildrequires_apch22m_php52		SUNWapch22m-php52
+%define pnm_requires_apch22m_php52		SUNWapch22m-php52
+
+%define pnm_buildrequires_SUNWapch22m_security	SUNWapch22m-security
+%define pnm_requires_SUNWapch22m_security	SUNWapch22m-security
+%define pnm_buildrequires_apch22m_security	SUNWapch22m-security
+%define pnm_requires_apch22m_security		SUNWapch22m-security
+
+%define pnm_buildrequires_SUNWapch22m_sed	SUNWapch22m-sed
+%define pnm_requires_SUNWapch22m_sed		SUNWapch22m-sed
+%define pnm_buildrequires_apch22m_sed		SUNWapch22m-sed
+%define pnm_requires_apch22m_sed		SUNWapch22m-sed
+
+%define pnm_buildrequires_SUNWapch22m_jk	SUNWapch22m-jk
+%define pnm_requires_SUNWapch22m_jk		SUNWapch22m-jk
+%define pnm_buildrequires_apch22m_jk		SUNWapch22m-jk
+%define pnm_requires_apch22m_jk			SUNWapch22m-jk
+
+%define pnm_buildrequires_SUNWapch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_requires_SUNWapch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_buildrequires_apch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_requires_apch22m_xml2enc		SUNWapch22m-xml2enc
+
+# php
+#SUNWphp52d/          SUNWphp52r-mysql/    SUNWphp52r-xdebug/   SUNWphp52u-mysql/    SUNWphp52u-xdebug/
+#SUNWphp52r/          SUNWphp52r-pear/     SUNWphp52u/          SUNWphp52u-pear/     
+#SUNWphp52r-apc/      SUNWphp52r-pgsql/    SUNWphp52u-apc/      SUNWphp52u-pgsql/    
+#SUNWphp52r-idn/      SUNWphp52r-suhosin/  SUNWphp52u-idn/      SUNWphp52u-suhosin/  
+#SUNWphp52r-memcache/ SUNWphp52r-tcpwrap/  SUNWphp52u-memcache/ SUNWphp52u-tcpwrap/  
+
+
+%define pnm_buildrequires_SUNWphp52u		SUNWphp52u
+%define pnm_requires_SUNWphp52u			SUNWphp52u
+%define pnm_buildrequires_SUNWphp52		SUNWphp52u
+%define pnm_requires_SUNWphp52			SUNWphp52u
+
+%define pnm_buildrequires_SUNWphp52r		SUNWphp52r
+%define pnm_requires_SUNWphp52r			SUNWphp52r
+
+%define pnm_buildrequires_SUNWphp52d		SUNWphp52d
+%define pnm_requires_SUNWphp52d			SUNWphp52d
+
+
+%define pnm_buildrequires_SUNWphp52r_mysql	SUNWphp52r-mysql
+%define pnm_requires_SUNWphp52r_mysql		SUNWphp52r-mysql
+
+%define pnm_buildrequires_SUNWphp52u_mysql	SUNWphp52u-mysql
+%define pnm_requires_SUNWphp52u_mysql		SUNWphp52u-mysql
+
+%define pnm_buildrequires_SUNWphp52_mysql	SUNWphp52u-mysql
+%define pnm_requires_SUNWphp52_mysql		SUNWphp52u-mysql
+
+%define pnm_buildrequires_php52_mysql		SUNWphp52u-mysql
+%define pnm_requires_php52_mysql		SUNWphp52u-mysql
+
+#-apc -idn -memcache skipped, can be added if needed
+%define pnm_buildrequires_SUNWphp52_pear	SUNWphp52u-pear
+%define pnm_requires_SUNWphp52_pear		SUNWphp52u-pear
+%define pnm_buildrequires_php52_pear 		SUNWphp52u-pear
+%define pnm_requires_php52_pear 		SUNWphp52u-pear
+
+%define pnm_buildrequires_SUNWphp52_pgsql 	SUNWphp52u-psql
+%define pnm_requires_SUNWphp52_pgsql 		SUNWphp52u-psql
+%define pnm_buildrequires_SUNWphp52u_pgsql 	SUNWphp52u-psql
+%define pnm_requires_SUNWphp52u_pgsql 		SUNWphp52u-psql
+%define pnm_buildrequires_SUNWphp52r_pgsql 	SUNWphp52r-psql
+%define pnm_requires_SUNWphp52r_pgsql 		SUNWphp52r-psql
+%define pnm_buildrequires_php52_pgsql 		SUNWphp52u-psql
+%define pnm_requires_php52_pgsql		SUNWphp52u-psql
+#-suhosin -tcpwrap -xdebug skipped, can be added if needed
+
 %endif
 #END SXCE
 
@@ -369,6 +483,11 @@
 %endif
 #END <116
 
+#2010-09-14 SUNWgraphviz removed from spec-files
+#a) when was SUNWgraphviz added
+#b) when was SUNWgraphviz removed from the builds
+#%if %( expr %{osbuild} '>' 000 )
+#%endif
 
 #packages no longer available, we could bail out or just require a core package
 #to continue for now, we just set a already existing package name, the spec file 
@@ -534,6 +653,9 @@
 
 
 %changelog
+* Sat Jul 16 2011 - Thomas Wagner
+- handle SUNWapch22** (subset only. old SXCE/IPS_old/IPS_new_names)
+- handle SUNWphp52**  (subset only. old SXCE/IPS_old/IPS_new_names)
 * Thu Jun 23 2011 - Thomas Wagner
 - enhance default (Build)Requires pnm_buildrequires_perl_default to include both
   SUNWperl584core, SUNWperl584usr. Only affects older distributions
