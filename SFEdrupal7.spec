@@ -21,7 +21,7 @@
 
 Name:                SFEdrupal7
 Summary:             Drupal - open-source content-management platform
-Version:             7.0
+Version:             7.4
 License: 	     GPLv2
 Source:              http://ftp.drupal.org/files/projects/drupal-%{version}%{src_name_minor_extra}.tar.gz
 SUNW_BaseDir:        /
@@ -43,7 +43,7 @@ Meta(info.classification):      org.opensolaris.category.2008:Social Application
 ##TEMP## enhance description, drupal basics
 %description
 Drupal CMS System
-see pkgbuild.wiki.sourcefore.net/SFEdrupal7.spec for initial setup 
+see http://pkgbuild.wiki.sourcefore.net/SFEdrupal7.spec for initial setup 
 instructions regarding Solaris (TM) and see www.drupal.org for
 drupal platform independent instructions.
 Note: Only english language files included. Please install more languages yourself.
@@ -102,5 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-*                 - Thomas Wagner
-- initial version, derived form spec-files-jucr/specs/drupal6.spec
+* Sat Jul 16 2011 - Thomas Wagner
+- bump to 7.4
+* Sat Feb 12 2011 - Thomas Wagner
+- initial version 7.0, derived form spec-files-jucr/specs/drupal6.spec
