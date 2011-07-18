@@ -91,7 +91,8 @@
 %define SFElibmpc 1
 %endif
 
-%define _prefix /usr/gcc/4.6
+%define major_minor 4.6
+%define _prefix /usr/gcc/%major_minor
 %define _infodir %{_prefix}/info
 %define _gnu_bindir %{_basedir}/gnu/bin
 %define _gnu_libdir %{_basedir}/gnu/lib
@@ -329,38 +330,38 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 #to be linked by userland binaries (runtime linking, see output of "ldd binaryname")
 mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}
 cd $RPM_BUILD_ROOT%{_gnu_libdir}
-ln -s ../../gcc/4.5/lib/libgcc_s.so.1
-ln -s ../../gcc/4.5/lib/libgcc_s.so
-ln -s ../../gcc/4.5/lib/libgfortran.so.3
-ln -s ../../gcc/4.5/lib/libgfortran.so
-ln -s ../../gcc/4.5/lib/libgomp.so.1
-ln -s ../../gcc/4.5/lib/libgomp.so
-ln -s ../../gcc/4.5/lib/libobjc_gc.so.2
-ln -s ../../gcc/4.5/lib/libobjc_gc.so
-ln -s ../../gcc/4.5/lib/libobjc.so.2
-ln -s ../../gcc/4.5/lib/libobjc.so
-ln -s ../../gcc/4.5/lib/libssp.so.0
-ln -s ../../gcc/4.5/lib/libssp.so
-ln -s ../../gcc/4.5/lib/libstdc++.so.6
-ln -s ../../gcc/4.5/lib/libstdc++.so
+ln -s ../../gcc/%major_minor/lib/libgcc_s.so.1
+ln -s ../../gcc/%major_minor/lib/libgcc_s.so
+ln -s ../../gcc/%major_minor/lib/libgfortran.so.3
+ln -s ../../gcc/%major_minor/lib/libgfortran.so
+ln -s ../../gcc/%major_minor/lib/libgomp.so.1
+ln -s ../../gcc/%major_minor/lib/libgomp.so
+ln -s ../../gcc/%major_minor/lib/libobjc_gc.so.2
+ln -s ../../gcc/%major_minor/lib/libobjc_gc.so
+ln -s ../../gcc/%major_minor/lib/libobjc.so.2
+ln -s ../../gcc/%major_minor/lib/libobjc.so
+ln -s ../../gcc/%major_minor/lib/libssp.so.0
+ln -s ../../gcc/%major_minor/lib/libssp.so
+ln -s ../../gcc/%major_minor/lib/libstdc++.so.6
+ln -s ../../gcc/%major_minor/lib/libstdc++.so
 #link arch runtime libs for compatibility
 %ifarch amd64 sparcv9
 mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
 cd $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so.3
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so.2
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so.2
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so.0
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so.6
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgcc_s.so.1
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgcc_s.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgfortran.so.3
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgfortran.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgomp.so.1
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libgomp.so
+#ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libobjc_gc.so.2
+#ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libobjc_gc.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libobjc.so.2
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libobjc.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libssp.so.0
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libssp.so
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libstdc++.so.6
+ln -s ../../../gcc/%major_minor/lib/%{_arch64}/libstdc++.so
 %endif
 
 #link binaries into usual place the former SFEgcc used and 
@@ -385,20 +386,20 @@ ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
 #the exact SFEgcc compiler version number, just use the most recent 4.x.x
 mkdir -p $RPM_BUILD_ROOT%{_gnu_bindir}
 cd $RPM_BUILD_ROOT%{_gnu_bindir}
-ln -s ../../gcc/4.5/bin/c++
-# leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/4.5/bin/cpp
-ln -s ../../gcc/4.5/bin/g++
-ln -s ../../gcc/4.5/bin/gcc
-ln -s ../../gcc/4.5/bin/gccbug
-ln -s ../../gcc/4.5/bin/gcov
-ln -s ../../gcc/4.5/bin/gfortran
+ln -s ../../gcc/%major_minor/bin/c++
+# leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/%major_minor/bin/cpp
+ln -s ../../gcc/%major_minor/bin/g++
+ln -s ../../gcc/%major_minor/bin/gcc
+ln -s ../../gcc/%major_minor/bin/gccbug
+ln -s ../../gcc/%major_minor/bin/gcov
+ln -s ../../gcc/%major_minor/bin/gfortran
 #most likely not needed are those, you can specify in your spec file
-#/usr/gcc/4.5/bin/i386-pc-solaris2.11-* if you really want
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-c++
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-g++
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc-4.5.2
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gfortran
+#/usr/gcc/%major_minor/bin/i386-pc-solaris2.11-* if you really want
+#ln -s ../../gcc/%major_minor/bin/i386-pc-solaris2.11-c++
+#ln -s ../../gcc/%major_minor/bin/i386-pc-solaris2.11-g++
+#ln -s ../../gcc/%major_minor/bin/i386-pc-solaris2.11-gcc
+#ln -s ../../gcc/%major_minor/bin/i386-pc-solaris2.11-gcc-4.5.2
+#ln -s ../../gcc/%major_minor/bin/i386-pc-solaris2.11-gfortran
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
@@ -482,6 +483,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Jul 17 2011 - Alex Viskovatoff
+- do not hardcode <majornumber>.<minornumber>
 * Sun Jul 17 2011 - Milan Jurik
 - bump to 4.6.1
 * Tue May 17 2011 - Milan Jurik
