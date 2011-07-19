@@ -1,0 +1,11 @@
+--- qt-everywhere-opensource-src-4.7.3/src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h.orig	2011-07-18 09:07:43.000000000 +0100
++++ qt-everywhere-opensource-src-4.7.3/src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h	2011-07-18 22:21:30.316862532 +0100
+@@ -197,4 +197,8 @@
+ using std::signbit;
+ #endif
+ 
++#if OS(SOLARIS)
++using std::isnan;
++#endif
++
+ #endif // #ifndef WTF_MathExtras_h

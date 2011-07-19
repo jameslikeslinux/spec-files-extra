@@ -158,6 +158,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- Add -fpermissive flag to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff
 - Fork SFEwxwidgets-gpp.spec off SFEwxwidgets-gnu.spec,
   using /usr/g++ as _basedir

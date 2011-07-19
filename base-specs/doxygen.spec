@@ -53,7 +53,7 @@ export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sf
 %define platform solaris-g++
 %else
 %define platform solaris-cc
-export CXX="$CXX -norunpath"
+export CXX="$CXX -norunpath -features=tmplrefstatic"
 %endif
 
 ./configure --prefix %{_prefix}		\

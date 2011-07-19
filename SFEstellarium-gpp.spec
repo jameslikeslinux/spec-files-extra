@@ -7,7 +7,7 @@
 # package are under the same license as the package itself.
 #
 
-### NOTE ### (Alex Viskovatoff>
+### NOTE ### (Alex Viskovatoff)
 ###
 ### The only way I can get this to link successfully is to remove
 ### libgcc_s.so* and libstdc++.* from /usr/sfw/lib while building.
@@ -75,7 +75,8 @@ mkdir -p builds/unix
 cd builds/unix
 
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_LIBRARY_PATH=/usr/gnu/lib:/usr/g++/lib ../..
-make VERBOSE=1 -j$CPUS
+#make VERBOSE=1 -j$CPUS
+make -j$CPUS
 cd ../..
 convert -size 32x32 data/icon.bmp stellarium.png
 

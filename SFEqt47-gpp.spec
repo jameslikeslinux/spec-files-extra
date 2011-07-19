@@ -37,6 +37,9 @@ Patch1:		%patchprefix/qt-gc-sections.diff
 Patch2:		%patchprefix/qt-MathExtras.diff
 Patch3:		%patchprefix/qt-qmake.SFE.diff
 
+# This is required to build with gcc 4.6.1
+Patch6:		%patchprefix/qt-isnan.diff
+
 %if %{run_autotests}
 Patch4:		%patchprefix/qt-tests-auto-qwidget_window.diff
 #from upstream
@@ -88,6 +91,7 @@ tar xzf %{SOURCE1}
 %patch1
 %patch2
 %patch3
+%patch6 -p1
 %if %{run_autotests}
 %patch4
 %patch5
@@ -207,6 +211,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff <hezen@imap.cc>
+- Add patch qt-isnan.diff to enable building with gcc 4.6
 * Sat Jul  2 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Add missing dependency on SFEgcc
 * Sat Jun 25 2011 - Alex Viskovatoff <hezen@imap.cc>

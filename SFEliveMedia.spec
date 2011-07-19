@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- remove obsolete flag -Kpic from liveMedia-02-config.diff
 * Thr Mar 17 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWwget}
 * Thr Feb  3 2011 - Thomas Wagner

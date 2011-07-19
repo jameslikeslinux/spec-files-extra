@@ -8,26 +8,15 @@ Summary:                 A very fast video and audio converter
 Version:                 0.8
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
-#Patch2:                  ffmpeg-02-configure.diff
-#Patch3:                  ffmpeg-03-gnuisms.diff
-#Patch4:                  ffmpeg-04-options.diff
-#Patch8:                  ffmpeg-08-versionsh.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
 
 %prep
 %setup -q -n ffmpeg-%version
-#%patch2 -p1
-#%patch4 -p1
-#%patch8 -p1
-#%patch3 -p1
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 # for pod2man
 export PATH=/usr/perl5/bin:$PATH
 export CC=/usr/gnu/bin/gcc
@@ -63,7 +52,6 @@ bash ./configure	\
     --enable-libtheora	\
     --enable-libmp3lame	\
     --enable-libvorbis	\
-    --enable-version3   \
     --enable-x11grab	\
     --enable-libspeex   \
     --enable-pthreads	\
@@ -104,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sun Jul 17 2011 - Alex Viskovatoff
-- update to 0.8, disabling all patches (all fail and are apparently superfluous)
+- update to 0.8, discarding all patches (all fail and apparently are superfluous)
 - remove obsolete flags from invocation of ./configure
 * Wed May 11 2011 - Alex Viskovatoff
 - bump to 0.6.3

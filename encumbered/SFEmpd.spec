@@ -90,6 +90,7 @@ export LDFLAGS="%_ldflags"
 	    --enable-iso9660     \
 	    --enable-shout       \
             --disable-alsa       \
+            --disable-ffmpeg     \
 %if %build_encumbered
 %else
             --disable-mad        \
@@ -98,7 +99,6 @@ export LDFLAGS="%_ldflags"
             --disable-mpc        \
             --disable-lame-encoder \
             --disable-twolame-encoder \
-            --disable-ffmpeg     \
 %endif
 #optional:
             # --with-zeroconf=no   \
@@ -139,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- ffmpeg currently breaks build, so disable it
 * Mon May 16 2011 - Alex Viskovatoff
 - Add missing dependency; fix setting of build_encumbered
 * Tue Apr 12 2011 - Alex Viskovatoff

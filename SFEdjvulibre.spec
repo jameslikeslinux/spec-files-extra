@@ -14,7 +14,7 @@
 
 Name:		SFEdjvulibre
 Summary:	Open source implementation of DjVu
-URL:		http://djvu.sourceforge
+URL:		http://djvu.sourceforge.net
 Vendor:		The original inventors of DjVu
 License:	GPL
 Version:	3.5.24

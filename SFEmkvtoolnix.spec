@@ -79,15 +79,11 @@ cd lib/libebml
 
 %build
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++
-export USER_CXXFLAGS="%cxx_optflags \
-  -D_XOPEN_SOURCE=500 -D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS"
+export USER_CXXFLAGS="%cxx_optflags -fpermissive -D_POSIX_PTHREAD_SEMANTICS"
 export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
 
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
@@ -143,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Modify CXXXFLAGS to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Build with g++
 - Update to 4.8.0; build GUI

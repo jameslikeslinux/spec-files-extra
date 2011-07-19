@@ -37,8 +37,8 @@ BuildRequires:	SUNWgroff
 BuildRequires:	SUNWbison
 BuildRequires:	SUNWflexlex
 BuildRequires:	SUNWgmake
-BuildRequires:	SFEgcc
-Requires:	SFEgccruntime
+BuildRequires:	SFEgcc-45
+Requires:	SFEgcc-45-runtime
 
 %description
 LLVM is a compiler infrastructure designed for compile-time, link-time, runtime,
@@ -65,7 +65,7 @@ export CC="/usr/gcc/4.5/bin/gcc"
 export CXX="/usr/gcc/4.5/bin/g++"
 
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
+export LDFLAGS="%_ldflags -L/usr/gcc/4.5/lib -R/usr/gcc/4.5/lib"
 
 export PATH=$PATH:/usr/perl5/bin
 

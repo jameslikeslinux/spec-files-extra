@@ -16,10 +16,8 @@
 %endif
 
 %ifarch i386
-%define arch_opt --cpu=i686 --enable-mmx --enable-mmx2
-%include x86_sse2.inc
-%define _bindir		 %_prefix/bin
-%define _libdir		 %_prefix/lib
+%define arch_opt --cpu=prescott --disable-ssse3
+%define optflags %_gcc_opt_level -march=prescott -mfpmath=sse -Xlinker -i -fno-omit-frame-pointer %gcc_picflags
 %endif
 
 %use ffmpeg = ffmpeg.spec
@@ -82,6 +80,7 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
+
 %prep
 rm -rf %name-%version
 mkdir %name-%version
@@ -97,11 +96,11 @@ mkdir %name-%version/%base_arch
 %install
 rm -rf $RPM_BUILD_ROOT
 
-
 %ffmpeg.install -d %name-%version/%base_arch
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %files
 %define _pkg_docdir %_docdir/ffmpeg
@@ -132,7 +131,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libpostproc
 %{_includedir}/libswscale
 
+
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- Do not use x86_sse2.inc: it adds Sun Studio-specific flags
 * Sat Jul 16 2011 - Alex Viskovatoff
 - Fork new spec off SFEffmpeg.spec with multiarch support (CPU < SSE2) removed
 * Sat Jul 16 2011 - Alex Viskovatoff

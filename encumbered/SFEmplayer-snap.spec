@@ -97,7 +97,7 @@ Requires: SUNWgnome-base-libs
 Requires: SUNWsmbau
 Requires: SFEliveMedia
 Requires: SFElibcdio
-Requries: SFElibvpx
+Requires: SFElibvpx
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif

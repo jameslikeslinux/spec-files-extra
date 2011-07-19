@@ -1,3 +1,20 @@
+2011-07-19 Alex Viskovatoff <herzen@immap.cc>
+
+	* SFEgcc-45.spec: move SFEgcc-46.spec out of archive and downgrade
+	  to gcc 4.5.3; disable patch which adds /usr/gnu/lib to runpath
+	* SFEllvm.spec: build with SFEgcc-45 (doesn't build with gcc 4.6)
+	* SFEqt47-gpp.spec: add patch to enable building with gcc 4.6
+	* SFEwxwidgets-gpp.spec: add -fpermissive flag to please gcc 4.6
+	* SFEncmpcpp.spec: add -fpermissive flag for benefit of gcc 4.6
+	* SFEmkvtoolnix.spec: modify CXXXFLAGS to fix gcc 4.6 build
+	* encumbered/SFElame.spec: build with SFEgcc by default;
+	  add -msse2 flag to make i386 build succeed
+	* encumbered/SFEmpd.spec: disable ffmpeg, which breaks build
+	* encumbered/SFEffmpeg-sse2-only.spec: do not use x86_sse2.inc
+	* base-specs/ffmpeg.spec: update to 0.8; hard delete all patches
+	* base-specs/doxygen.spec: add -features=tmplrefstatic to build
+	* patches/liveMedia-02-config.diff: delete obsolete -Kpic flag
+
 2010-07-19 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEbzr.spec: Bump to 2.4.
@@ -9,7 +26,7 @@
 
 2011-07-17 Alex Viskovatoff <herzen@immap.cc>
 
-	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i38
+	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i386
 	* SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
 	* base-specs/ffmpeg.spec: update to 0.8, disabling all patches
 	* base-specs/libx264.spec: update tarball

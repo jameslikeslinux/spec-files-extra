@@ -91,22 +91,20 @@
 %define SFElibmpc 1
 %endif
 
-%define _prefix /usr/gcc/4.6
+%define _prefix /usr/gcc/4.5
 %define _infodir %{_prefix}/info
-%define _gnu_bindir %{_basedir}/gnu/bin
-%define _gnu_libdir %{_basedir}/gnu/lib
-%define gccname SFEgcc-46
+%define gccname SFEgcc-45
 
 Name:                %gccname-runtime
 Summary:             GNU gcc runtime libraries required by applications
-Version:             4.6.0
+Version:             4.5.3
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
 Patch2:              gcc-02-handle_pragma_pack_push_pop.diff
 %else
 %endif
-Patch3:              gcc-03-gnulib.diff
+#Patch3:              gcc-03-gnulib.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -155,7 +153,7 @@ Requires: SUNWbinutils
 
 Requires: SUNWpostrun
 
-%package -n %gccname
+%package devel
 Summary:                 GNU gcc
 Version:                 %{version}
 SUNW_BaseDir:            %{_basedir}
@@ -190,7 +188,7 @@ Requires: SUNWpostrun
 
 
 %if %build_l10n
-%package -n %gccname-l10n
+%package l10n
 Summary:                 %{summary} - l10n files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
@@ -209,7 +207,7 @@ cd gcc-%{version}
 %patch2 -p1
 %else
 %endif
-%patch3 -p1
+#%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -335,7 +333,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{_arch64}/lib*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -n SFEgcc-46
+%post devel
 ( echo 'PATH=/usr/bin:/usr/sfw/bin; export PATH' ;
   echo 'infos="';
   echo 'gcc.info cpp.info gccint.info cppinternals.info gccinstall.info gfortran.info' ;
@@ -346,7 +344,7 @@ rm -rf $RPM_BUILD_ROOT
   echo 'done';
   echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -c SFE
 
-%preun -n SFEgcc-46
+%preun devel
 ( echo 'PATH=/usr/bin:/usr/sfw/bin; export PATH' ;
   echo 'infos="';
   echo 'gcc.info cpp.info gccint.info cppinternals.info gccinstall.info gfortran.info' ;
@@ -369,7 +367,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 
-%files -n %gccname
+%files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_prefix}
 %{_prefix}/man
@@ -395,7 +393,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gcc-%{version}/python/libstdcxx/__init__.py
 
 %if %build_l10n
-%files -n %gccname-l10n
+%files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, sys) %{_datadir}
@@ -403,6 +401,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- Downgrade this spec to gcc 4.5.3, now that SFEgcc is at 4.6.1
+- Disable patch adding /usr/gnu/lib to runpath
 * Thu Apr 28 2011 - Alex Viskovatoff
 - Fork SFEgcc-46.spec off SFEgcc.spec, deleting symlinks from /usr/gnu
 * Thu Mar 17 2011 - Thomas Wagner

@@ -28,6 +28,9 @@ subtitles than the conventional SRT and similar formats. This format can be
 rendered with VSFilter in conjunction with a DirectShow-aware video player
 (on Microsoft Windows), or MPlayer with the SSA/ASS library.
 
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
+
 %package devel
 Summary:        %summary - development files
 SUNW_BaseDir:   %_basedir

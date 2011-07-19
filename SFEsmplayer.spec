@@ -25,8 +25,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires: SUNWgmake
 BuildRequires: SUNWgnu-coreutils
 BuildRequires: SUNWgtar
-BuildRequires: SFEqt47-devel
-Requires: SFEqt47
+BuildRequires: SFEqt47-gpp-devel
+Requires: SFEqt47-gpp
 Requires: SUNWzlib
 
 
@@ -41,6 +41,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export LIBS=-lz
 export PATH=/usr/g++/bin:$PATH
 export QMAKESPEC=solaris-g++

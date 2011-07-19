@@ -43,7 +43,7 @@ export CFLAGS="%optflags"
 # Get compile errors with CC
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
-export CXXFLAGS="%cxx_optflags -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
+export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
 export LIBS=-lsocket
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 # Very strangely, without "--without-taglib" link errors are produced
@@ -81,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 18 2011 - Alex Viskovatoff
+- Add -fpermissive flag to allow compilation with gcc 4.6
 * Sun May 22 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
 - Add missing dependencies
 - Bump to 0.5.7

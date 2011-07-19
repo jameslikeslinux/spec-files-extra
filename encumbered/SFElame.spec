@@ -4,8 +4,8 @@
 # includes module(s): lame, toolame
 #
 
-# want this? compile with: pkgtool --with-gcc4 build <specfile>
-%define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
+# want this? compile with: pkgtool --with-gcc3 build <specfile>
+%define use_gcc4 %{?_with_gcc3:0}%{?!_with_gcc3:1}
 
 
 %include Solaris.inc
@@ -23,6 +23,7 @@
 %endif
 
 %include base.inc
+%define optflags %gcc_optflags -msse2
 
 %use lame = lame.spec
 %use toolame = toolame.spec
@@ -147,10 +148,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
-* Sun Jul 17 2011 - Alex Viskovatoff
-- revert to previous version: spec does not build with SFEgcc
-* Sun Jul 10 2011 - Alex Viskovatoff
-- build with SFEgcc by default
+* Mon Jul 18 2011 - Alex Viskovatoff
+- build with SFEgcc by default; add -msse2 flag to make i386 build succeed
 * Thu Nov 04 2010 - Milan Jurik
 - fix isaexec
 * Wed Mar 24 2010 - Milan Jurik
