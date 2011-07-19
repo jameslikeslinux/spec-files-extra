@@ -26,9 +26,9 @@ SUNW_Basedir:	%{_basedir}
 Source0:	http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-XPath-%{tarball_version}.tar.gz
 
 BuildRequires:	%pnm_buildrequires_perl_default
-BuildRequires:	library/perl-5/xml-parser
+BuildRequires:	SUNWperl-xml-parser
 Requires:	%pnm_requires_perl_default
-Requires:	library/perl-5/xml-parser
+Requires:	SUNWperl-xml-parser
 
 Meta(info.maintainer):          roboporter by pkglabo.justplayer.com <pkgadmin@justplayer.com>
 Meta(info.upstream):            MSERGEANT <msergeant@cpan.org>

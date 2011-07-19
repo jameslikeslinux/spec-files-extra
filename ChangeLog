@@ -11,7 +11,7 @@
 	  add -msse2 flag to make i386 build succeed
 	* encumbered/SFEmpd.spec: disable ffmpeg, which breaks build
 	* encumbered/SFEffmpeg-sse2-only.spec: do not use x86_sse2.inc
-	* base-specs/ffmpeg.spec: update to 0.8; hard delete all patches
+	* base-specs/ffmpeg.spec: hard delete all patches
 	* base-specs/doxygen.spec: add -features=tmplrefstatic to build
 	* patches/liveMedia-02-config.diff: delete obsolete -Kpic flag
 
