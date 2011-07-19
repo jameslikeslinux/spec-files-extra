@@ -1,3 +1,12 @@
+2010-07-19 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEbzr.spec: Bump to 2.4.
+	* SFElightdm.spec: Bump to 0.4.4.
+	* patches/lightdm-01-compile.diff: Add new patch needed to compile.
+	* patches/lightdm-01-branding.diff, patches/lightdm-03-compile.diff:
+	  patches/lightdm-04-vt.diff: Removed patches that are no longer
+	  needed.
+
 2011-07-17 Alex Viskovatoff <herzen@immap.cc>
 
 	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i38

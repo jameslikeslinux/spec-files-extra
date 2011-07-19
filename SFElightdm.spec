@@ -9,15 +9,12 @@
 %include Solaris.inc
 Name:                    SFElightdm
 License:                 GPL v3
-Version:                 0.3.4
+Version:                 0.4.4
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
-Patch1:                  lightdm-01-branding.diff
+Patch1:                  lightdm-01-compile.diff
 Patch2:                  lightdm-02-vala.diff
-Patch3:                  lightdm-03-compile.diff
-# This patch gets the code to compile, but does not implement VT support.
-Patch4:                  lightdm-04-vt.diff
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
 Summary:                 Light Display Manager
@@ -68,8 +65,6 @@ SUNW_BaseDir:            %{_basedir}
 %setup -q -n lightdm-%version
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 libtoolize --force
@@ -134,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_sysconfdir}/dbus-1/system.d
 %{_sysconfdir}/dbus-1/system.d/*
 %{_sysconfdir}/init/lightdm.conf
-%{_sysconfdir}/lightdm.conf
+%{_sysconfdir}/lightdm
 # SVC method file
 %dir %attr (0755, root, bin) /lib
 %dir %attr (0755, root, bin) /lib/svc
@@ -154,6 +149,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Jul 19 2011 - Brian Cameron  <brian.cameron@oracle.com>
+- Bump to 0.4.4.
 * Fri May 20 2011 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 0.3.4.  Rework patches.
 * Sat Oct 09 2010 - Simon Jin      <yun-tong.jin@oracle.com>
