@@ -1,3 +1,9 @@
+2011-07-20 Alex Viskovatoff <herzen@immap.cc>
+
+	* experimental/SFEllvm-subversion.spec: fork new spec off
+	  SFEllvm.spec, using development version from SVN
+	* encumbered/SFEmplayer-snap.spec: fix version number
+
 2011-07-20  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * SFEmpack.spec: initial spec, migrated form spec-files-jucr, added pnm_macros

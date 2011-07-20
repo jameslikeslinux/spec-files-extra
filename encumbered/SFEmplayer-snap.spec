@@ -48,8 +48,8 @@
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
 %if %with_constant_tarball
-%define revision 33805
-#else
+%define ver 33805
+%else
 %define ver %(date '+%Y%m%d')
 %endif
 
@@ -60,7 +60,7 @@ Summary:                 mplayer - The Movie Player
 Version:                 1.0.3.%ver
 URL:                     http://www.mplayerhq.hu/
 %if %with_constant_tarball
-Source7:		 ftp://ftp.archlinux.org/other/mplayer/mplayer-%revision.tar.xz
+Source7:		 ftp://ftp.archlinux.org/other/mplayer/mplayer-%ver.tar.xz
 %else
 Source:                  http://www.mplayerhq.hu/MPlayer/releases/mplayer-export-snapshot.tar.bz2
 %endif
@@ -284,6 +284,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 20 1011 - Alex Viskovatoff
+- Fix version number used for constant tarball
 * Sat Jul 16 2011 - Alex Viskovatoff
 - Update to new tarball, removing obsolete configure option
 * Wed Apr 27 2011 - Alex Viskovatoff
