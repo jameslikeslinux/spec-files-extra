@@ -92,6 +92,7 @@ searching idea how to dynamicly start vncserver and later on explicitly kill thi
 
 18)
 packagenamemacros.inc - maybe add a rule for libpng14 (older builds don't have that new version, may need SFE png as replacement)
+packagenamemacros.inc - handle osbuild dependend to graphviz_default to be SUNWgraphviz or SFEgraphviz
 
 19)
 commit files delete in gmpc-plugins/ which already have moved into trunk/
@@ -106,3 +107,7 @@ names could be usr-stdcxx.inc, usr-stdc++.inc, usr-stlport4.inc, usr-g++.inc
 note: should eliminate the old path /%_prefix/lib/g++/%_gpp_version
 note: might need changes in the regular include files as well (think hard before changing them)
 make usage note on the wiki and enter wiki url into the include file
+
+22)
+package wish list
+SFEmpack (see spec-files-jucr/specs/mpack.spec, clear dependencies)  #easy-jucr
