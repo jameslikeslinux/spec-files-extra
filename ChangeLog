@@ -1,3 +1,9 @@
+2011-07-20  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEmpack.spec: initial spec, migrated form spec-files-jucr, added pnm_macros
+        * include/packagenames.define.allbuilds.inc: add initial (limited) support
+          for pnm_buildrequires_python_default, pnm_requires_python_default -> SUNWPython26
+
 2011-07-19 Alex Viskovatoff <herzen@immap.cc>
 
 	* SFEgcc-45.spec: move SFEgcc-46.spec out of archive and downgrade
@@ -41,6 +47,10 @@
 	* SFElibgc.spec: use GCC and enable pthreads support
 	* SFEgcc.spec: bump to 4.6.1
 	* SFEgcc-46.spec: obsolete
+
+2011-07-14  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEmediathek.spec, experimental/SFEmediathek-testing.spec: bump to 2.5.0, testing: 2011.07.08
 
 2011-07-14 Milan Jurik <sfnet@xylab.cz>
 
