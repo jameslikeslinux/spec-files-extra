@@ -63,7 +63,7 @@ CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include/qt"
+export CXXFLAGS="%cxx_optflags -pthreads -fpermissive -I/usr/g++/include/qt"
 export LDFLAGS="%_ldflags -pthreads -lxnet -L/usr/g++/lib -R/usr/g++/lib"
 
 # SFEhunspell is built with CC, so SFElyx can't link against it
