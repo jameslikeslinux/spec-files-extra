@@ -532,7 +532,7 @@
 #END solaris11express
 
 #START setting perl5, defaults  - Part 1 of 3
-#define perl defaults, primarily shared settings and default
+#define perl defaults, primarily shared settings and default version, paths
 #for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
 #STRONG NOTE: below the osdistro and osbuild sections, there is *another*
 #section evaluating the resulting paths on the disk. We hope, that we
@@ -637,6 +637,38 @@
 #END setting perl5, all builds  - Part 3 of 3
 
 
+#START setting Python, defaults  - Part 1 of 1
+#define Python defaults, primarily shared settings and default versions and paths
+#NOTE: we start initially only with setting Python 2.6 for *ALL* osbuild / osdistro
+#this is to be extended in the future as required (for older osbuild/osdistro, *or* 
+#for next Python 2.x or 3.x)
+
+%define python_version 2.6
+%define python_major_version 2
+%define python_major_minor_version 2.6
+%define python_major_minor_micro_version 2.6.4
+
+###TODO## not clear if we should require SUNWperl584core or SUNWperl584usr
+#both?
+#note: the name is subject to change if we find a better one
+#_default string is not meant to be a part of the package name...
+%define pnm_buildrequires_python_default	SUNWPython26-devel,SUNWPython26
+%define pnm_requires_python_default	SUNWPython26
+
+# add sub-packagenames like "SUNWPython26-extra" and "-cherrypy" to the end, see examples:
+#  BuildRequires:	%{pnm_buildrequires_python_default}-extra 
+#  Requires:		%{pnm_requires_python_default}-extra 
+#  BuildRequires:	%{pnm_buildrequires_python_default}-cherrypy
+#  Requires:		%{pnm_requires_python_default}-cherrypy
+
+#BIG NOTE read the "perl" examples in this file *IF* you want to 
+#extend the logic to define a new osbuild/osdistro or switch to
+#another Python version, e.g. 2.7 or 3.0 only for specific osbuild/osdistro
+#combinations.
+#Mind to write the same comments as for the perl section "Part n of m" to 
+#highlight that a value may be re-defined later on for special cases
+#END setting Python
+
 #  pkg contents -r -m system/header/header-audio
 # set name=pkg.fmri value=pkg://solaris/system/header/header-audio@0.5.11,5.11-0.163:20110410T085804Z
 # set name=variant.arch value=sparc value=i386
@@ -653,6 +685,11 @@
 
 
 %changelog
+* Wed Jul 20 2011 - Thomas Wagner
+- handle special macro name pnm_buildrequires_python_default pnm_requires_python_default
+  and macros for python version.
+  SUNWPython26 is initially the only Python-version for *all* osbuild / osdistro, to
+  be extended as required later (for older osbuild/osdistro, *or* for next Python 2.x or 3.x)
 * Sat Jul 16 2011 - Thomas Wagner
 - handle SUNWapch22** (subset only. old SXCE/IPS_old/IPS_new_names)
 - handle SUNWphp52**  (subset only. old SXCE/IPS_old/IPS_new_names)
