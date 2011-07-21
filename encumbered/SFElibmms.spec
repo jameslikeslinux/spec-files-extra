@@ -15,7 +15,10 @@
 %use libmms = libmms.spec
 
 Name:               SFElibmms
-Summary:            libmms - mms stream protocol library
+Summary:            mms stream protocol library
+License:            LGPLv2
+SUNW_Copyright:	    libmms.copyright
+URL:                http://libmms.sourceforge.net/
 Version:            %{libmms.version}
 SUNW_BaseDir:       %{_basedir}
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
@@ -63,5 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Sep 02 2008 - halton.huo@sun.com
 - Initial version

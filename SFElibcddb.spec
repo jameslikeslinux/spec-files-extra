@@ -98,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/demo/libcddb/bin/cddb_query
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Dev 21 2008 - Thomas Wagner
 - changed ACLOCAL_FLAGS to conditionally use m4 files from CBEgettext location (/opt/dtbld or /opt/jdsbld, ..) bcs. missing AM_GNU_GETTEXT_VERSION|AM_ICONV when using jds cbe 1.7.0(-rc1)
 * Tue Sep 02 2008 - halton.huo@sun.com

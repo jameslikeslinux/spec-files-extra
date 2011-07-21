@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Apr 11 2010 - Milan Jurik
 - cleanup for the latest pkgtool
 * Sun Aug 17 2008 - nonsea@users.sourceofrge.net

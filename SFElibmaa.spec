@@ -10,9 +10,10 @@
 Name:		SFElibmaa
 Summary:	Library providing low-level data structures helpful for writing compilers
 URL:		https://sourceforge.net/projects/dict/
-Vendor:		Aleksey Cheusov
+Meta(info.upstream):	Aleksey Cheusov <vle@gmx.net>
 Version:	1.2.0
-License:	GPLv2
+License:	LGPLv2+
+SUNW_Copyright:	libmaa.copyright
 Source:		%sf_download/project/dict/%srcname/%srcname-%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -81,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Jun 11 2011 - Alex Viskovatoff
 - Add missing build dependency
 * Tue Jan 25 2011 - Alex Viskovatoff

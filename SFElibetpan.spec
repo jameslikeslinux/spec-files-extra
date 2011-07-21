@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/libetpan-config
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Jun 10 2010 - pradhap (at) gmail.com
 - Bump to 1.0
 * Thu Oct 2 2008 - markwright@internode.on.net

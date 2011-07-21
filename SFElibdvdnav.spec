@@ -80,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Apr 15 2011 - Alex Viskovatoff
 - Update source URL
 * Mon Mar 15 2010 - Albert Lee <trisk@opensolaris.org>

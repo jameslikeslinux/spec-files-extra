@@ -8,7 +8,10 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                    SFElibmpcdec
-Summary:                 libmpcdec - Portable Musepack decoder library
+Summary:                 Portable Musepack decoder library
+License:                 LGPLv2
+SUNW_Copyright:	         libmpcdec.copyright
+URL:                     http://musepack.net/
 Version:                 1.2.6
 Source:                  http://files.musepack.net/source/libmpcdec-%{version}.tar.bz2
 Patch1:			 libmpcdec-01-configure.diff
@@ -70,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Oct  3 2010 - Alex Viskovatoff
 - Use gmake.
 * Tue Feb 17 2009 - Thomas Wagner

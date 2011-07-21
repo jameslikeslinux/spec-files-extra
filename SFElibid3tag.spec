@@ -15,6 +15,9 @@
 Name:                    SFElibid3tag
 Summary:                 %{libid3tag.summary}
 Version:                 %{libid3tag.version}
+License:                 GPLv2
+SUNW_Copyright:	         libid3tag.copyright
+URL:                     http://www.underbit.com/products/mad/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -78,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Sep 26 2010 - Alex Viskovatoff
 - multiarch support, based on SFElibmad.spec
 * Wed Jul  5 2006 - laca@sun.com

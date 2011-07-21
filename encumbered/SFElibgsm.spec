@@ -110,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Nov 28 2010 - Milan Jurik
 - add pentium_pro+mmx lib
 * Tue Sep 08 2009 - Milan Jurik

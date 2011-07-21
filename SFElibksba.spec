@@ -7,6 +7,9 @@
 
 Name:                SFElibksba
 Summary:             A library to make X.509 certificates as well as the CMS
+License:             GPLv3
+SUNW_Copyright:	     libksba.copyright
+URL:                 http://www.gnupg.org/related_software/libksba/index.en.html
 Version:             1.2.0
 Source:              ftp://ftp.gnupg.org/gcrypt/libksba/libksba-%{version}.tar.bz2
 
@@ -81,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/info/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Apr 16 2011 - Alex Viskovatoff
 - bump to 1.2.0
 * Mars 24 2010 - rm in _prefix

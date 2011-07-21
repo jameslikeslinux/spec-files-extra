@@ -118,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Jul 21 2011 - Milan Jurik
 - de-gcc spec, leave decision about compiler to environment
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Jul 10 2011 - Alex Viskovatoff
 - Build with SFEgcc
 * Sun Apr 11 2010 - Milan Jurik

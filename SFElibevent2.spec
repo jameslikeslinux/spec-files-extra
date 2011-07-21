@@ -60,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue May 31 2011 - Alex Viskovatoff
 - bump to 2.0.11
 * Fri Mar 18 2011 - Alex Viskovatoff

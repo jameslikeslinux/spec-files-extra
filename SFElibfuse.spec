@@ -106,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Jul 07 2011 - Alex Viskovatoff
 - Revert the previous change, so the package gets built
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>

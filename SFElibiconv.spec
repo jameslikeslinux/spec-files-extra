@@ -110,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Feb 23 2011 - Milan Jurik
 - fix packaging
 * May 30 2010 - Thomas Wagner

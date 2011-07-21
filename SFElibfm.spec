@@ -136,6 +136,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Jun 08 2011 - brian.cameron@oracle.com
 - Bump to 0.1.15.
 * Thu Sep 16 2010 - brian.cameron@oracle.com

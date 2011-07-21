@@ -81,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Jul 10 2011 - Alex Viskovatoff
 - Build with SFEgcc
 * Fri Mar 21 2008 - nonsea@users.sourceforge.net

@@ -15,6 +15,9 @@
 Name:                    SFElibmad
 Summary:                 %{libmad.summary}
 Version:                 %{libmad.version}
+License:                 GPLv2
+SUNW_Copyright:	         libmad.copyright
+URL:                     http://www.underbit.com/products/mad/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -77,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Aug 21 2009 - Milan Jurik
 - multiarch support
 * Thu Jul 30 2009 - oliver.mauras@gmail.com

@@ -159,6 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Mar 21 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Wed Aug 04 2010 - brian.cameron@oracle.com
