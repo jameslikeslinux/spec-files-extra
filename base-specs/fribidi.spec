@@ -9,7 +9,7 @@ Name:        fribidi
 Version:     0.19.2
 Summary:     Library implementing the Unicode Bidirectional Algorithm
 Group:       System/Libraries
-License:     LGPL
+License:     LGPLv2
 URL:         http://fribidi.org/
 Source:      http://fribidi.org/download/%{name}-%{version}.tar.gz
 BuildRoot:   %{_tmppath}/%{name}-%{version}-root

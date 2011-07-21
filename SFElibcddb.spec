@@ -18,7 +18,8 @@
 Name:                SFElibcddb
 Summary:             C library to access data on a CDDB server
 Version:             1.3.2
-License:             GPL v2
+License:             LGPLv2
+SUNW_Copyright:	     libcddb.copyright
 URL:                 http://libcddb.sourceforge.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:        %{_basedir}

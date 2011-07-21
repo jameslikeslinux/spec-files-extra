@@ -6,8 +6,11 @@
 %include Solaris.inc
 
 Name:                    SFElibdvdnav
-Summary:                 libdvdnav - DVD navigation library
+Summary:                 DVD navigation library
 Version:                 4.1.3
+License:                 GPLv2+
+SUNW_Copyright:	         libdvdnav.copyright
+URL:                     http://dvd.sourceforge.net/
 Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-%{version}.tar.bz2
 #Source:			http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-4.1.3.tar.bz2
 Patch1:                  libdvdnav-01-Wall.diff

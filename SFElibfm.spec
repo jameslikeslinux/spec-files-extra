@@ -9,6 +9,8 @@
 
 Name:                    SFElibfm
 Summary:                 LXDE lightweight file manager library
+License:                 GPLv2+
+SUNW_Copyright:	         libfm.copyright
 Version:                 0.1.14
 Source:                  http://downloads.sourceforge.net/pcmanfm/libfm-%{version}.tar.gz
 Patch1:                  libfm-01-studio.diff

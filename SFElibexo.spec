@@ -15,6 +15,8 @@
 
 Name:		SFElibexo
 Summary:	Application library for the Xfce desktop environment
+License:	GPLv2
+SUNW_Copyright:	libexo.copyright
 Version:	0.6.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2

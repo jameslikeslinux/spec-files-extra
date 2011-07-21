@@ -8,6 +8,9 @@
 Name:                    SFElibdvdread
 Summary:                 libdvdread - Library for reading DVD video disks
 Version:                 4.1.3
+License:                 GPLv2+
+SUNW_Copyright:	         libdvdread.copyright
+URL:                     http://www.mplayerhq.hu
 Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdread-%{version}.tar.bz2
 Patch1:			 libdvdread-01-dvdfilestat.diff
 Patch2:			 libdvdread-02-wall.diff

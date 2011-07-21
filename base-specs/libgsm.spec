@@ -14,8 +14,8 @@
 Name:		SFElibgsm
 Summary:	GSM audio encoding/decoding library
 Version:	%{src_ver}
-License:	Free (Copyright (C) Technische Universitaet Berlin)
-#Source:		%{src_url}/%{src_name}_%{version}.orig.tar.gz
+License:	BSD
+#Source:	%{src_url}/%{src_name}_%{version}.orig.tar.gz
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		libgsm-01-makefile.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

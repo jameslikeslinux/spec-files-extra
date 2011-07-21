@@ -9,6 +9,8 @@
 
 Name:		SFElibfuse
 Summary:	Library for FUSE
+License:	LGPLv2
+SUNW_Copyright:	libfuse.copyright
 Version:	0.%{tarball_version}
 Group:		System Environment/Libraries
 URL:		http://hub.opensolaris.org/bin/view/Project+fuse/

@@ -22,6 +22,8 @@ Name:		SFElibgsm
 Summary:	%{libgsm.summary}
 Version:	%{libgsm.version}
 License:	%{libgsm.license}
+SUNW_Copyright:	libgsm.copyright
+URL:		https://launchpad.net/libgsm
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 

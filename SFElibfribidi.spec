@@ -18,6 +18,7 @@ URL:			%{fribidi.url}
 Version:                %{fribidi.version}
 License:		%{fribidi.license}
 Group:			%{fribidi.group}
+SUNW_Copyright:		fribidi.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

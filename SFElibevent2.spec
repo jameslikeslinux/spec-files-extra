@@ -8,6 +8,8 @@
 
 Name:                SFElibevent2
 Summary:             An event notification library for event-driven network servers.
+License:             BSD
+SUNW_Copyright:	     libevent.copyright
 Version:             2.0.11
 Source:              %sf_download/levent/libevent/libevent-2.0/libevent-%version-stable.tar.gz
 URL:                 http://monkey.org/~provos/libevent/

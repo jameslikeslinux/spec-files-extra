@@ -24,7 +24,10 @@
 %use libcdio = libcdio.spec
 
 Name:                    SFElibcdio
-Summary:                 GNU libcdio
+Summary:                 GNU Compact Disc Input and Control Library
+License:                 GPLv3
+SUNW_Copyright:	         libcdio.copyright
+URL:                     http://www.gnu.org/software/libcdio/
 Version:                 %{libcdio.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
