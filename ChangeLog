@@ -1,3 +1,7 @@
+2011-07-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibcdio.spec: de-gcc spec
+
 2011-07-20 Alex Viskovatoff <herzen@immap.cc>
 
 	* experimental/SFEllvm-subversion.spec: fork new spec off

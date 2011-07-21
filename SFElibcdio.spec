@@ -15,8 +15,6 @@
 # we suggest you applying the patch above.
 
 %include Solaris.inc
-%define cc_is_gcc 1
-%include base.inc
 
 %define with_hal %(pkginfo -q SUNWhal && echo 1 || echo 0)
 %define osbuild %(uname -v | sed -e 's/[A-z_]//g')
@@ -37,8 +35,6 @@ Requires: SUNWlexpt
 Requires: SUNWlibC
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
-BuildRequires: SFEgcc
-Requires: SFEgccruntime
 Requires: SUNWdbus
 Requires: SFElibcddb
 BuildRequires: SFElibcddb
@@ -56,7 +52,6 @@ Requires: SFEncurses
 Requires: SUNWhal
 %endif
 BuildRequires: SUNWlexpt
-BuildRequires: SUNWgcc
 BuildRequires: SUNWdbus-devel
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SFElibcddb-devel
@@ -72,14 +67,8 @@ rm -rf %name-%version
 mkdir %name-%version
 %libcdio.prep -d %name-%version
 
-# Note, we have to build this with gcc, because Forte cannot handle
-# the flexible arrays used in libcdio.  We should move to using Forte
-# if this issue is resolved with the Forte compiler.
-#
 %build
-export CFLAGS="%gcc_optflags -I/usr/gnu/include -I/usr/gnu/include/ncurses"
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CFLAGS="%optflags -I/usr/gnu/include -I/usr/gnu/include/ncurses"
 %if %with_hal
 export CFLAGS="$CFLAGS -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include"
 export LDFLAGS="%_ldflags -lhal -ldbus-1 -R/usr/gnu/lib -L/usr/gnu/lib"
@@ -127,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cdio
 
 %changelog
+* Thu Jul 21 2011 - Milan Jurik
+- de-gcc spec, leave decision about compiler to environment
 * Sun Jul 10 2011 - Alex Viskovatoff
 - Build with SFEgcc
 * Sun Apr 11 2010 - Milan Jurik
