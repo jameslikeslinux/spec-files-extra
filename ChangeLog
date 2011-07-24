@@ -1,3 +1,7 @@
+2011-07-24 Alex Viskovatoff <herzen@immap.cc>
+
+	* SFEmkvtoolnix.spec: bump to 4.9.1
+
 2011-07-21 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibcdio.spec: de-gcc spec

@@ -16,9 +16,10 @@
 Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
-Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	4.8.0
+Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
+Version:	4.9.1
 License:	GPLv2
+SUNW_Copyright:	mkvtoolnix.copyright
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
@@ -107,12 +108,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
+%define _pkg_docdir %_docdir/%srcname
 %defattr (-, root, bin)
+%doc ChangeLog README AUTHORS
 %_bindir
 %dir %attr (-, root, sys) %_datadir
 %_mandir
-%dir %attr (-, root, other) %_docdir
-%_docdir/%srcname
+#%dir %attr (-, root, other) %_docdir
+%_docdir/%srcname/guide
 %dir %attr (-, root, other) %_datadir/applications
 %_datadir/applications/mkvinfo.desktop
 %_datadir/applications/mkvmergeGUI.desktop
@@ -139,6 +142,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 4.9.1; add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Modify CXXXFLAGS to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff <herzen@imap.cc>
