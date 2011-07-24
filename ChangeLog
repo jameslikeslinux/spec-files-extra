@@ -1,6 +1,7 @@
 2011-07-24 Alex Viskovatoff <herzen@immap.cc>
 
 	* SFEmkvtoolnix.spec: bump to 4.9.1
+	* SFElyx.spec: use system (SFE) Boost
 
 2011-07-21 Milan Jurik <sfnet@xylab.cz>
 

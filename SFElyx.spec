@@ -26,8 +26,8 @@
 Name:		SFElyx
 Summary:	Graphical LaTeX front end: What You See Is What You Mean
 URL:		http://www.lyx.org
-Vendor:		LyX Team
-License:	GPL
+License:	GPLv2
+SUNW_Copyright:	lyx.copyright
 Version:	2.0.0
 Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0.x/%srcname-%version.tar.xz
 SUNW_BaseDir:	%_basedir
@@ -40,6 +40,7 @@ BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
+Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
 
@@ -59,16 +60,16 @@ Requires:       %name
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-# The LyX code is really nasty to Sun Studio
 export CC=gcc
 export CXX=g++
+export CPPFLAGS="-I/usr/g++/include -I/usr/g++/include/qt"
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -pthreads -fpermissive -I/usr/g++/include/qt"
+export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
 export LDFLAGS="%_ldflags -pthreads -lxnet -L/usr/g++/lib -R/usr/g++/lib"
 
 # SFEhunspell is built with CC, so SFElyx can't link against it
 # aspell is deprecated
-./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-aspell --without-hunspell
+./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-included-boost --without-aspell --without-hunspell
 
 make -j$CPUS
 
@@ -105,6 +106,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Use system Boost; add SUNW_Copyright
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Disable aspell; LyX can use library/spell-checking/enchant
 * Wed Mar 30 2011 - Alex Viskovatoff
