@@ -1,21 +1,21 @@
 %define src_name orc
 
 Name:		SFEorc
-Version:	0.4.11
+Version:	0.4.14
 Summary:	The Oil Run-time Compiler
 
 Group:		System Environment/Libraries
 License:	BSD
 URL:		http://code.entropywave.com/projects/orc/
 Source:		http://code.entropywave.com/download/orc/orc-%{version}.tar.gz
-Patch1:		orc-01-get_cpuid.diff
+%Patch1:		orc-01-get_cpuid.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 
 %prep
 %setup -q -n %{src_name}-%{version}
 perl -i.orig -lpe 'if ($. == 1){s/^.*$/#!\/bin\/bash/}' configure
-%patch1 -p1
+#%patch1 -p1
 
 %build
 export CFLAGS="%optflags"
@@ -46,6 +46,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Update to 0.4.14, disabling the sole patch
 * Tue Jul 13 2010 - Thomas Wagner
 - change shell of configure to be real bash
 * Fri Jun 18 2010 - Brian Cameron <brian.cameron@oracle.com>
