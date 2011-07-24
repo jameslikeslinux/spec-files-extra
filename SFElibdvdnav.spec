@@ -4,6 +4,8 @@
 # includes module(s): libdvdnav
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 Name:                    SFElibdvdnav
 Summary:                 DVD navigation library
@@ -12,7 +14,6 @@ License:                 GPLv2+
 SUNW_Copyright:	         libdvdnav.copyright
 URL:                     http://dvd.sourceforge.net/
 Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-%{version}.tar.bz2
-#Source:			http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-4.1.3.tar.bz2
 Patch1:                  libdvdnav-01-Wall.diff
 SUNW_BaseDir:            %{_basedir}
 buildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -31,10 +32,8 @@ BuildRequires: SFElibdvdread-devel
 %patch1 -p1
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+export CC=/usr/gnu/bin/gcc
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal -I ."
@@ -80,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+# Fri Jul 22 2011 - Alex Viskovatoff
+- Build with gcc, so that mplayer2 can play DVDs
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Fri Apr 15 2011 - Alex Viskovatoff

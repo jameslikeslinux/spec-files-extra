@@ -2,6 +2,9 @@
 
 	* SFEmkvtoolnix.spec: bump to 4.9.1
 	* SFElyx.spec: use system (SFE) Boost
+	* encumbered/SFEmplayer2: do not rename mplayer to "mplayer2"
+	* SFElibdvdread.spec: build with gcc so mplayer2 can play DVDs
+	* SFElibdvdnav.spec: build with gcc so mplayer2 can play DVDs
 
 2011-07-21 Milan Jurik <sfnet@xylab.cz>
 

@@ -4,10 +4,8 @@
 # includes module(s): mplayer2
 #
 
-# mplayer2 is a fork of mplayer started in 2009.
-# We take the unconventional step of renaming the executable and
-# man pages to "mplayer2", to allow both the original and the fork
-# to be installed at the same time.
+# mplayer2 is a fork of mplayer started in 2009.  A comparison of the two
+# can be found here: http://www.mplayer2.org/comparison.html
 
 # NOTE: To make man display the man page correctly, use
 #	export PAGER="/usr/bin/less -insR"
@@ -15,38 +13,36 @@
 # NOTE: mplayer2 does not come with MEncoder, because, according to the
 #	mplayer2 Web site, "The MEncoder codebase was in very bad shape."
 
+# NOTE: To allow mplayer and mplayer2 to be installed at the same time,
+#	build with "pkgbuild --with-rename", which renames mplayer and
+#	its man pages to "mplayer2".
+%define rename %{?_with_rename:1}%{?!_with_rename:0}
+
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
 
-# TODO: Since we now use SFEffmpeg, which pulls in a lot of media libs,
-#	the conditional "requires" machinery below and further on is
-#	probably superfluous.
-
-%define with_faad %(pkginfo -q SFEfaad2 && echo 1 || echo 0)
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
 %define with_ladspa %(pkginfo -q SFEladspa && echo 1 || echo 0)
 %define with_openal %(pkginfo -q SFEopenal && echo 1 || echo 0)
 %define with_mad %(pkginfo -q SFElibmad && echo 1 || echo 0)
 %define with_liba52 %(pkginfo -q SFEliba52 && echo 1 || echo 0)
-%define with_lame %(pkginfo -q SFElame && echo 1 || echo 0)
-%define with_twolame %(pkginfo -q SFEtwolame && echo 1 || echo 0)
 %define with_mpcdec %(pkginfo -q SFElibmpcdec && echo 1 || echo 0)
-%define with_xvid %(pkginfo -q SFExvid && echo 1 || echo 0)
-%define with_x264 %(pkginfo -q SFElibx264 && echo 1 || echo 0)
 %define with_openjpeg %(pkginfo -q SFEopenjpeg && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
-%define with_schroedinger %(pkginfo -q SFElibschroedinger && echo 1 || echo 0)
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                    SFEmplayer2
 Summary:                 MPlayer fork with some additional features
-Version:                 2.0
+License:                 GPLv3
+SUNW_Copyright:	         mplayer2.copyright
+Version:                 2.0.99
 URL:                     http://www.mplayer2.org/
-#Source:                  http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
-#Source:    http://git.mplayer2.org/mplayer2/snapshot/mplayer2-2.0.tar.bz2
+#Source:                 http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
+# Use the development version, since current release is incompatible
+# with the new ffmpeg interface
 Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
 Patch1:                  mplayer-snap-01-shell.diff
 Patch3:                  mplayer-snap-03-ldflags.diff
@@ -86,14 +82,6 @@ BuildRequires:	SUNWlibsndfile
 Requires:	SUNWlibsndfile
 %endif
 
-Requires: SFElame
-BuildRequires: SFElame-devel
-%if %with_twolame
-Requires: SFEtwolame
-BuildRequires: SFEtwolame-devel
-%endif
-Requires: SFEfaad2
-BuildRequires: SFEfaad2-devel
 Requires: SFElibmpcdec
 BuildRequires: SFElibmpcdec-devel
 %if %with_fribidi
@@ -110,14 +98,6 @@ BuildRequires: SFEliba52-devel
 Requires: SFEopenal
 BuildRequires: SFEopenal-devel
 %endif
-%if %with_xvid
-Requires: SFExvid
-BuildRequires: SFExvid-devel
-%endif
-%if %with_x264
-Requires: SFElibx264
-BuildRequires: SFElibx264-devel
-%endif
 %if %with_openjpeg
 Requires: SFEopenjpeg
 BuildRequires: SFEopenjpeg-devel
@@ -126,16 +106,14 @@ BuildRequires: SFEopenjpeg-devel
 Requires: SFEgiflib
 BuildRequires: SFEgiflib-devel
 %endif
-%if %with_schroedinger
-BuildRequires: SFElibschroedinger
-Requires: SFElibschroedinger
-%endif
 %if %with_alsa
 BuildRequires: SFEalsa-lib
 Requires: SFEalsa-lib
 %endif
 BuildRequires: SFElibass-devel
 Requires: SFElibass
+BuildRequires: SUNWttf-dejavu
+Requires: SUNWttf-dejavu
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
@@ -176,9 +154,7 @@ bash ./configure				\
             --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
             --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
-%if %with_faad
             --enable-faad		\
-%endif
             --enable-live			\
 	    --enable-rpath			\
 	    --enable-crash-debug		\
@@ -191,22 +167,36 @@ gmake -j$CPUS
 %install
 rm -rf %buildroot
 gmake install DESTDIR=%buildroot
+%if %rename
 mkdir %buildroot/%_datadir/mplayer2
 ln -s /usr/openwin/lib/X11/fonts/TrueType/FreeSerif.ttf \
       %buildroot/%_datadir/mplayer2/subfont.ttf
+%else
+mkdir %buildroot/%_datadir/mplayer
+# The following font is not supplied by OpenIndiana
+#ln -s /usr/openwin/lib/X11/fonts/TrueType/FreeSerif.ttf \
+ln -s /usr/share/fonts/TrueType/dejavu/DejaVuSans.ttf \
+      %buildroot%_datadir/mplayer/subfont.ttf
+%endif
 
+%if %rename
 cd %buildroot/%_bindir
 mv mplayer mplayer2
 cd ../share/man/man1
 mv mplayer.1 mplayer2.1
+%endif
 
 # nroff does not understand macros used by mplayer man page
 # See http://www.mplayerhq.hu/DOCS/tech/manpage.txt
 #mkdir %buildroot/%_datadir/man/cat1
-#cd %buildroot/%_datadir/man/cat1
-cd ..
+cd %buildroot/%_datadir/man
+#cd ..
 mkdir cat1
+%if %rename
 groff -mman -Tutf8 -rLL=78n man1/mplayer2.1 | col -bxp > cat1/mplayer2.1
+%else
+groff -mman -Tutf8 -rLL=78n man1/mplayer.1 | col -bxp > cat1/mplayer.1
+%endif
 
 rm -rf %buildroot/%_libdir
 rm -rf %buildroot/%_sysconfdir
@@ -216,15 +206,23 @@ rm -rf %buildroot
 
 
 %files
+%define _pkg_docdir %_docdir/mplayer
 %defattr (-, root, bin)
+%doc README AUTHORS LICENSE
 %_bindir/*
 %dir %attr (0755, root, sys) %_datadir
 %_mandir/man1
 %_mandir/cat1
+%if %rename
 %_datadir/mplayer2/subfont.ttf
-
+%else
+%_datadir/mplayer/subfont.ttf
+%endif
 
 %changelog
+* Fri Jul 22 2011 - Alex Viskovatoff
+- Default to not renaming mplayer to "mplayer2"; symlink to a DejaVu font
+  which is available on all platforms; add SUNW_Copyright
 * Sat Jul 16 2011 - Alex Viskovatoff
 - Update to git version, so mplayer2 can link against newest ffmpeg
 * Mon May  2 2011 - Alex Viskovatoff
