@@ -25,6 +25,10 @@
 
 Name:                    SFElibx264
 Summary:                 %{libx264.summary}
+Group:                   System/Multimedia Libraries
+License:                 GPLv2
+SUNW_Copyright:	         libx264.copyright
+URL:                     http://www.videolan.org/developers/x264.html
 Version:                 %{libx264.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -37,6 +41,31 @@ BuildRequires: SFEyasm
 BuildRequires: SFEgpac-devel
 Requires: SFEgpac
 %endif
+
+%description
+x264 is a free software library and application for encoding video streams into
+the H.264/MPEG-4 AVC format.
+
+Encoder features:
+
+    * 8x8 and 4x4 adaptive spatial transform
+    * Adaptive B-frame placement
+    * B-frames as references / arbitrary frame order
+    * CAVLC/CABAC entropy coding
+    * Custom quantization matrices
+    * Intra: all macroblock types (16x16, 8x8, 4x4, and PCM with all predictions)
+    * Inter P: all partitions (from 16x16 down to 4x4)
+    * Inter B: partitions from 16x16 down to 8x8 (including skip/direct)
+    * Interlacing (MBAFF)
+    * Multiple reference frames
+    * Ratecontrol: constant quantizer, constant quality, single or multipass ABR, optional VBV
+    * Scenecut detection
+    * Spatial and temporal direct mode in B-frames, adaptive mode selection
+    * Parallel encoding on multiple CPUs
+    * Predictive lossless mode
+    * Psy optimizations for detail retention (adaptive quantization, psy-RD, psy-trellis)
+    * Zones for arbitrarily adjusting bitrate distribution
+
 
 %package devel
 Summary:                 %{summary} - development files
@@ -115,6 +144,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Nov 10 2010 - Alex Viskovatoff
 - add optional (Build)Requires: SFEgpac(-devel)
 * Fri Apr 09 - Milan Jurik

@@ -7,7 +7,7 @@
 %define src_url http://www.mega-nerd.com/SRC
 
 Name:		SFElibsamplerate
-Summary:	libsamplerate - Sample Rate Converter for audio
+Summary:	Sample Rate Converter for audio
 Version:	0.1.7
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

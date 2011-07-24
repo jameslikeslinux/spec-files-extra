@@ -45,7 +45,7 @@ export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
 export LIBS=-lsocket
-export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
+export LDFLAGS="%_ldflags %gnu_lib_path"
 # Very strangely, without "--without-taglib" link errors are produced
 # even if taglib is not installed
 ./configure --prefix=%_prefix \

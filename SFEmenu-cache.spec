@@ -7,6 +7,8 @@
 
 Name:                    SFEmenu-cache
 Summary:                 LXDE menu cache
+License:                 GPLv2
+SUNW_Copyright:	         menu-cache.copyright
 Version:                 0.3.2
 Source:                  http://downloads.sourceforge.net/lxde/menu-cache-%{version}.tar.gz
 URL:                     http://sourceforge.net/projects/lxde/
@@ -64,6 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Mar 05 2010 - brian.cameron@sun.com
 - Bump to 0.3.2.
 * Mon Feb 15 2010 - brian.cameron@sun.com

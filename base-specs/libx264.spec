@@ -10,7 +10,7 @@
 %define src_url          http://download.videolan.org/pub/videolan/x264/snapshots
 
 Name:                    libx264
-Summary:                 H264 encoder library
+Summary:                 H.264 encoder library
 Version:                 %snap
 Source:                  %src_url/%src_name-%snap-%snaph.tar.bz2
 Source1:                 libx264-replacement-version.sh

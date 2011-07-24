@@ -98,6 +98,7 @@ Requires: SUNWsmbau
 Requires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibvpx
+BuildRequires: SFElibvpx-devel
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif

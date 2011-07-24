@@ -26,6 +26,8 @@
 Name:		SFElibmpc
 Summary:	%{libmpc.summary}
 URL:		%{libmpc.url}
+License:	LGPLv2
+SUNW_Copyright:	libmpc.copyright
 Version:	%{libmpc.version}
 SUNW_BaseDir:	%{_basedir}/%{_subdir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -130,6 +132,8 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Mar 12 2011 - Thomas Wagner
 - make SFEgmp and SFEmpfr a hard requirement to overide autodetect 
   (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with --autodeps)

@@ -11,6 +11,8 @@
 
 Name:		SFElibxfce4util
 Summary:	Utility library for the Xfce desktop environment
+License:	LGPLv2+
+SUNW_Copyright:	libxfce4util.copyright
 Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -96,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik
 - bump to 4.8.1, move to SFE from osol xfce
 * Wed Aug 19 2009 - sobotkap@gmail.com

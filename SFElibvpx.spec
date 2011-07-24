@@ -21,9 +21,11 @@
 
 Name:		SFElibvpx
 Summary:	The VP8 Codec SDK
-Group:		Libraries/Multimedia
+Group:		System/Multimedia Libraries
 Version:	%{libvpx.version}
 URL:		http://www.webmproject.org/
+License:        BSD
+SUNW_Copyright:	libvpx.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -49,7 +51,7 @@ mkdir %name-%version/%{base_arch}
 %libvpx.prep -d %name-%version/%{base_arch}
 
 %build
-export CC=/usr/gcc/4.5/bin/gcc
+export CC=/usr/gnu/bin/gcc
 
 %ifarch amd64
 %libvpx_64.build -d %name-%version/%_arch64
@@ -77,5 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Mar 17 2011 - Milan Jurik
 - initial spec

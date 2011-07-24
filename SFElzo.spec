@@ -9,6 +9,10 @@
 
 Name:                SFElzo
 Summary:             Lossless data compression library
+License:             GPLv2
+SUNW_Copyright:	     lzo.copyright
+URL:                 http://www.oberhumer.com/opensource/lzo/
+Meta(info.upstream): Markus F.X.J. Oberhumer <markus@oberhumer.com>
 Version:             2.5
 Group:               System/Libraries
 Source:              http://www.oberhumer.com/opensource/lzo/download/lzo-%{src_version}.tar.gz
@@ -59,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %_docdir/lzo
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Jun 25 2011 - Alex Viskovatoff
 - bump to 2.05
 * Mon 29 2010 - Milan Jurik

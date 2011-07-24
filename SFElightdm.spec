@@ -8,7 +8,8 @@
 
 %include Solaris.inc
 Name:                    SFElightdm
-License:                 GPL v3
+License:                 GPLv3
+SUNW_Copyright:	         lightdm.copyright
 Version:                 0.4.4
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
@@ -149,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jul 19 2011 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 0.4.4.
 * Fri May 20 2011 - Brian Cameron  <brian.cameron@oracle.com>

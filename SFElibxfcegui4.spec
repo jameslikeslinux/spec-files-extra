@@ -11,6 +11,8 @@
 
 Name:		SFElibxfcegui4
 Summary:	Various gtk widgets for xfce
+License:	LGPLv2+
+SUNW_Copyright:	libxfcegui4.copyright
 Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -118,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Apr 21 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 4.8.1
 * Mon Mar 21 2011 - Milan Jurik

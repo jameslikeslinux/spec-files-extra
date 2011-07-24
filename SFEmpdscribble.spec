@@ -10,9 +10,10 @@
 Name:		SFEmpdscribble
 Summary:	MPD client which submits information about tracks being played to Last.fm
 URL:		http://mpd.wikia.com/wiki/Client:Mpdscribble
-Vendor:		Max Kellermann
+Meta(info.upstream):	Max Kellermann <max@duempel.org>
+License:	GPLv2
+SUNW_Copyright:	mpdscribble.copyright
 Version:	0.21
-License:	BSD revised
 Source:		http://downloads.sourceforge.net/project/musicpd/%srcname/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -78,5 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Initial spec

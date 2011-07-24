@@ -17,6 +17,8 @@
 
 Name:		SFEllvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
+License:	BSD
+SUNW_Copyright:	llvm.copyright
 Version:	2.9
 License:        University of Illinois/NCSA Open Source License
 
@@ -104,6 +106,8 @@ mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 %{_docdir}/llvm
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - bump to 2.9, add clang
 *                 - Thomas Wagner

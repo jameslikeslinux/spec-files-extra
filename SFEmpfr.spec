@@ -26,6 +26,9 @@
 
 Name:                SFEmpfr
 Summary:             C library for multiple-precision floating-point computations
+License:             GPLv3
+SUNW_Copyright:	     mpfr.copyright
+URL:                 http://www.mpfr.org/
 Version:             2.4.2
 Source:              http://ftp.gnu.org/gnu/mpfr/mpfr-%{version}.tar.bz2
 SUNW_BaseDir:        %{_basedir}/%{_subdir}
@@ -183,6 +186,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jun 15 2010 - Thomas Wagner
 - new Source URL
 * Sun Jun 14 2010 - Thomas Wagner

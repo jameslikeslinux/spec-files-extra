@@ -21,6 +21,9 @@
 
 Name:                SFEmpd
 Summary:             Daemon for remote access music playing & managing playlists
+License:             GPLv2
+SUNW_Copyright:	     mpd.copyright
+Meta(info.upstream): Max Kellermann <max@duempel.org>
 Version:             0.16.2
 Source:              http://downloads.sourceforge.net/musicpd/%srcname-%version.tar.bz2
 

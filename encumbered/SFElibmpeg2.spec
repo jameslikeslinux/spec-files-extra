@@ -12,6 +12,9 @@
 
 Name:                SFElibmpeg2
 Summary:             MPEG2 Decoder library
+URL:                 http://libmpeg2.sourceforge.net
+License:             GPLv2
+SUNW_Copyright:	     libmpeg2.copyright
 Version:             0.5.1
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
@@ -74,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Feb 02 2011 - Alex Viskovatoff
 - Update to 0.5.1
 - Don't call autoconf explicitly: that breaks the build
