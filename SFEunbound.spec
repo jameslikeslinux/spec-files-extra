@@ -14,6 +14,7 @@ Source:		http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.xml
 Group: System Environment/Daemons
 BuildRoot:	%{_tmppath}/unbound-%{version}-build
+SUNW_Copyright:	unbound.copyright
 SUNW_BaseDir:	/
 BuildRequires: SUNWflexlex
 BuildRequires: SUNWopenssl-include
@@ -129,6 +130,8 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Thu Jul 14 2011 - Milan Jurik
 - bump to 1.4.12
 * Thu Jun 30 2011 - Milan Jurik

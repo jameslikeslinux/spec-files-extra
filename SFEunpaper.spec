@@ -13,6 +13,7 @@ Version:	0.3
 URL:		http://unpaper.berlios.de/
 Source:		http://download.berlios.de/unpaper/%{src_name}-bin-%{version}.tar.gz
 License:	GPLv2
+SUNW_Copyright:	unpaper.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -36,5 +37,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec

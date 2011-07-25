@@ -12,8 +12,9 @@ Summary:	Multiplatform IRC client using GTK+
 URL:		http://xchat.org/
 Vendor:		Peter Železný <zed@xchat.org>
 Version:	2.8.8
-License:	GPLv2
+License:	LGPLv2.1
 Source:		http://xchat.org/files/source/2.8/%srcname-%version.tar.bz2
+SUNW_Copyright: xchat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -104,5 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat Mar 12 2011 - Alex Viskovatoff
 - Initial spec

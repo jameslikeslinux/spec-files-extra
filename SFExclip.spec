@@ -12,6 +12,8 @@ Version:                 0.12
 Source:                  %{sf_download}/xclip/xclip/%{version}/xclip-%{version}.tar.gz
 URL:			 http://sourceforge.net/projects/xclip/
 #SUNW_Copyright:          
+License:		 GPL
+SUNW_Copyright:		 xclip.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -62,6 +64,8 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat Jun 18 2011 - Thomas Wagner
 - fix permissions for %{_datadir}/doc
 * Mon Jun 13 2011 - Thomas Wagner

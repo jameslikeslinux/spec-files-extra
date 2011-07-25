@@ -16,6 +16,8 @@ Source:		%{sf_download}/ufraw/ufraw-%{version}.tar.gz
 Patch1:		ufraw-01-openmp.diff
 Patch2:		ufraw-02-sunstudio.diff
 URL:		http://ufraw.sourceforge.net/
+License:	GPLv2
+SUNW_Copyright:	ufraw.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -131,6 +133,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Tue Mar 01 2011 - Milan Jurik
 - bump to 0.18
 * 18 May 2010 - Gilles Dauphin

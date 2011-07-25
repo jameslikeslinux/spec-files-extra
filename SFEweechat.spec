@@ -23,11 +23,12 @@ Summary:	Lightweight console IRC client
 URL:		http://www.weechat.org/
 Vendor:		Sebastien Helleu <flashcode@flashtux.org>
 Version:	0.3.4
-License:	GPLv2
+License:	GPLv3+
 Source:		http://www.weechat.org/files/src/%srcname-%version.tar.bz2
 Patch1:		weechat-01-fix-strftime.diff
 Patch2:		weechat-02-remove-date-time.diff
 Patch3:		weechat-03-fix-array-overflow.diff
+SUNW_Copyright:	weechat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -113,5 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Sun Mar 13 2011 - Alex Viskovatoff
 - Initial spec

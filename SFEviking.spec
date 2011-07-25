@@ -12,9 +12,11 @@ Summary:	GPS Viewer
 Version:	1.1
 URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
+License:	GPLv2
 Patch1:		viking-01-return.diff
 Patch2:		viking-02-wall.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright:	viking.copyright
 SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
@@ -88,6 +90,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Fri Feb 11 2011 - Milan Jurik
 - bump to 1.1
 * Sat Jan 15 2011 - Milan Jurik

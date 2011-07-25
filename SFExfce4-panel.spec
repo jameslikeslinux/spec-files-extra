@@ -16,6 +16,8 @@ Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
+License:	GPLv2+
+SUNW_Copyright: xfce4-panel.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -145,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Wed Apr 9 2011 - kmays2000@gmail.com
