@@ -10,8 +10,10 @@ Summary:                 Audio Processing Library
 URL:                     http://www.surina.net/soundtouch
 Version:                 1.5.0
 Source:                  http://www.surina.net/soundtouch/soundtouch-%{version}.tar.gz
+License:		 LGPLv2.1+
 Patch1:                  soundtouch-01-nomsse.diff
 SUNW_BaseDir:            %{_basedir}
+SUNW_Copyright:		 soundtouch.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
@@ -82,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Thu Jan 21 2010 - Milan Jurik
 - update to 1.5.0, remove upstream fixes
 * Tue Feb 24 2009 - brian.cameron@sun.com

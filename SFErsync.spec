@@ -10,7 +10,8 @@ Summary:                 rsync - fast incremental file transfer (%{_basedir}/gnu
 URL:                     http://rsync.samba.org/
 Version:                 3.0.8
 Source:                  http://rsync.samba.org/ftp/rsync/rsync-%{version}.tar.gz
-
+License:		 GPLv3
+SUNW_Copyright:		 rsync.copyright
 
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -65,5 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Fri Apr 01 20011 - Thomas Wagner
 - Initial spec

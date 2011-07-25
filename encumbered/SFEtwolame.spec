@@ -17,6 +17,8 @@ Source:                  http://downloads.sourceforge.net/twolame/twolame-%{vers
 Patch1:			 twolame-01-configure.diff
 Patch2:                  twolame-02-configure.diff
 Patch3:                  twolame-03-configure.diff
+License:		 LGPLv2.1+
+SUNW_Copyright:		 twolame.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -96,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Jul 05 2009 - Milan Jurik
 - patch2 and patch3 to remove potential building problems
 * Tue Feb 17 2009 - Thomas Wagner

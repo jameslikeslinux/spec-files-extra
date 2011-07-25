@@ -16,8 +16,10 @@ Group:		Applications/Office
 Version:        1.4.0
 #Source:	http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
 Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc5/%srcname-%version.rc5.tar.bz2
+License:	GPLv2
 Patch1:		scribus-01-math_c99.diff
 SUNW_BaseDir:   %_basedir
+SUNW_Copyright: scribus.copyright
 BuildRoot:      %_tmppath/%name-%version-build
 %include	default-depend.inc
 #Requires:	%name-root
@@ -100,6 +102,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * 26 Jun 2011 - Alex Viskovatoff
 - Bump to 1.4.0.rc5
 * 13 Apr 2011 - Alex Viskovatoff

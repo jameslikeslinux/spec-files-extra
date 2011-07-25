@@ -13,6 +13,7 @@ Group:                  Utility
 License:                GPLv2
 URL:                    http://smartmontools.sourceforge.net/
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
+SUNW_Copyright:		smartmontools.copyright
 SUNW_BaseDir:           %{_prefix}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -80,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/smartd.conf
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Wed Dec 01 2010 - Milan Jurik
 - bump to 5.40
 * Tue Jun 15 2010 - Milan Jurik

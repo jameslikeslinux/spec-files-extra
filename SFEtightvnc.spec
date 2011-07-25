@@ -13,6 +13,8 @@ Summary:                 tightvnc - remote control software
 Version:                 1.3.9
 URL:                     http://www.tightvnc.com/
 Source:                  %{sf_download}/vnc-tight/tightvnc-%{version}_unixsrc.tar.bz2
+License:		 GPLv2
+SUNW_Copyright:		 tightvnc.spec
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

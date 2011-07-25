@@ -10,7 +10,9 @@ Name:                    SFEtransmission
 Summary:                 GTK and console BitTorrent client
 Version:                 2.22
 Source:                  http://download.m0k.org/transmission/files/transmission-%{version}.tar.bz2
+License:		 MIT
 URL:                     http://transmission.m0k.org/
+SUNW_Copyright:		 transmission.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{source_name}-%{version}-build
 %include default-depend.inc
@@ -125,6 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Jun 14 2011 - Alex Viskovatoff
 - go back to 2.22, since 2.31 has issues with seeding
 * Wed Jun  1 2011 - Alex Viskovatoff

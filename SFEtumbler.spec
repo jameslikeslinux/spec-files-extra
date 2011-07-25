@@ -13,7 +13,9 @@ Summary:        Thumbnail management for Xfce
 Version:        0.1.21
 URL:            http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License:	LGPLv2+
 Patch1:		tumbler-01-sunstudio.diff
+SUNW_Copyright:	tumbler.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -114,5 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
  
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Wed Apr 13 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial spec

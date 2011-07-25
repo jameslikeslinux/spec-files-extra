@@ -10,7 +10,9 @@ Name:                    SFEtaglib
 Summary:                 TagLib  - a library for reading and editing the meta-data of several popular audio formats
 Version:                 1.6.3
 Source:                  http://developer.kde.org/~wheeler/files/src/taglib-%{version}.tar.gz
+License:		 LGPLv2.1
 Patch1:                  taglib-01-map.diff
+SUNW_Copyright:	  	 taglib.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -77,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Apr 27 2010 - brian.cameron@sun.com
 - Bump to 1.6.3.
 * Tue Dec 22 2009 - brian.cameron@sun.com

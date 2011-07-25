@@ -23,6 +23,7 @@ Group:          Applications/System Utilities
 Distribution:   OpenIndiana
 Vendor:         OpenIndiana Community
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright:	tmux.copyright
 SUNW_Basedir:   %{_basedir}
 %include default-depend.inc
 
@@ -78,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Apr 10 2011 - Alex Viskovatoff
 - Use SFElibevent2
 * Mon Mar 14 2011 - Alex Viskovatoff

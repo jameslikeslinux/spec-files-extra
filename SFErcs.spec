@@ -13,6 +13,7 @@ URL:		http://www.cs.purdue.edu/homes/trinkle/RCS/
 Vendor:		GNU Project
 Version:        5.7
 License:	GPLv2
+SUNW_Copyright:	rcs.copyright
 Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/%srcname-%version.tar.Z
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -64,5 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Initial spec

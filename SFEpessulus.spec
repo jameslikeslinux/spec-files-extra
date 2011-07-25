@@ -13,6 +13,8 @@ Summary:	Pessulus
 Version:	2.30.4
 Group:		System/GUI/GNOME
 URL:		http://live.gnome.org/Pessulus
+License:	GPLv2+
+SUNW_Copyright:	pessulus.copyright
 Source:		http://ftp.gnome.org/pub/GNOME/sources/pessulus/2.30/pessulus-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -131,6 +133,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sat Dec 18 2010 - Milan Jurik
 - bump to 2.30.4
 * Mon Jan 15 2007 - daymobrew@users.sourceforge.net

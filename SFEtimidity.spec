@@ -19,6 +19,7 @@ Patch2:		timidity-02-inttypes.diff
 Patch3:		timidity-10-freeinst.diff
 URL:		http://timidity.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright: timidity.copyright
 SUNW_Basedir:	%{_prefix}
 
 %include default-depend.inc
@@ -144,6 +145,8 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/timidity/timidity.cfg
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Dec 26 2010 - Milan Jurik
 - from jucr to SFE
 * Fri Jul 31 2009 - milan.cermak@sun.com

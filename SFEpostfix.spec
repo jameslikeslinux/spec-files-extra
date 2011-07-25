@@ -116,6 +116,7 @@ URL:                     http://postfix.org/
 Version:                 2.8.1
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
+License:		 IBM Public License v1.0
 Source3:                 postfix.xml
 Source5:                 postfix-spamassassin-wiki.apache.org-filter.sh
 Source6:		 http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
@@ -127,6 +128,7 @@ Source9:		 postfix-saslauthd.conf
 Patch3:			postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
+SUNW_Copyright:		postfix.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqires:
@@ -871,6 +873,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
 - add %actions to create users and groups (including predefined numeric uid/gid)

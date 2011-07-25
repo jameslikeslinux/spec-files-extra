@@ -18,6 +18,7 @@ License:	GPLv2+
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
 Patch1:		stellarium-01-sunstudio.diff
+SUNW_Copyright:	stellarium.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -102,6 +103,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Mon Mar  7 2011 - Alex Viskovatoff
 - use SFEcmake; boost is not a dependency
 * Tue Feb 08 2011 - Milan Jurik

@@ -18,6 +18,7 @@ Version:	0.6.9
 License:	GPL
 Source:		%sf_download/%srcname/%srcname-%version.tar.bz2
 Patch1:		smplayer-01-std-namespace.diff
+SUNW_Copyright:	smplayer.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -85,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Fri Jan 28 2011 - Alex Viskovatoff
 - Stop linking to libCstd (which did not cause crashes for some reason)
 - Add the Qt bin directory to $PATH, so one patch is no longer needed

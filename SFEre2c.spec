@@ -13,7 +13,7 @@ URL:                     http://re2c.org/
 Version:                 0.13.5
 Source:                  %{sf_download}/re2c/re2c-%{version}.tar.gz
 
-
+SUNW_Copyright:		 re2c.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
@@ -65,6 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Thr Aug 06 2009  - Thomas Wagner
 - switch to gcc4 - sunstudio spits "parser.y", line 98: Error: Cannot cast from std::pair<unsigned, re2c::RuleOp*> to std::pair<int, re2c::RegExp*>.
 - spamassassin now works with re2c (old re2c version did hang forever)

@@ -14,6 +14,7 @@ URL:		http://www.rakudo.org/
 Vendor:		Rakudo.org
 Version:	2011.4
 License:	Artistic License 2.0
+SUNW_Copyright:	rakudo.copyright
 Source:		http://github.com/downloads/rakudo/star/%srcname-%srcvers.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -67,6 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun May  1 2011 - Alex Viskovatoff
 - Bump to 2011.04
 * Fri Mar 11 2011 - Alex Viskovatoff

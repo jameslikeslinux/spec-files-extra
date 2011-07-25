@@ -22,7 +22,7 @@ Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{src_name}-%{version}%{release}-build
 SUNW_Basedir:   %{_basedir}
-SUNW_Copyright: %{src_name}.copyright
+SUNW_Copyright: transfig.copyright
 
 %include default-depend.inc
 
@@ -90,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * may 2010 - Gilles Dauphiun
 - import in SFE, name is SFE...
 * Fri Jul 24 - beffa@ieee.org
