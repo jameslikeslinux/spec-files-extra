@@ -15,6 +15,8 @@
 Name:		SFEgiflib
 Summary:	%{giflib.summary}
 Version:	%{giflib.version}
+License:	MIT
+SUNW_Copyright:	giflib.copyright
 URL:		http://giflib.sourceforge.net/
 Group:		System/Libraries
 SUNW_BaseDir:	%{_basedir}
@@ -76,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon May 17 2010 - Milan Jurik
 - bump to 4.1.6
 * Thu Sep  6 2007 - dougs@truemail.co.th

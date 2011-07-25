@@ -11,6 +11,8 @@ Name:                SFEjasper
 License:             Jasper Software License
 Summary:             A free software-based reference implementation of the JPEG-2000 Part-1 CODEC
 Version:             1.900.1
+License:             JasPer License
+SUNW_Copyright:      jasper.copyright
 URL:                 http://www.ece.uvic.ca/~mdadams/jasper/
 Source:              http://www.ece.uvic.ca/~mdadams/jasper/software/jasper-%{version}.zip
 Source1:             http://www.ece.uvic.ca/~mdadams/jasper/LICENSE
@@ -84,5 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Jan 30 2008 - moinak.ghosh@sun.com
 - Initial spec.

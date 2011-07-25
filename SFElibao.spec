@@ -10,7 +10,8 @@ Summary:             Cross-platform audio library
 Version:             1.1.0
 Source:              http://downloads.xiph.org/releases/ao/libao-%{version}.tar.gz
 URL:                 http://xiph.org/
-License:             GPLv2
+License:             GPLv2+
+SUNW_Copyright:      libao.copyright
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -75,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Apr 10 - Alex Viskovatoff
 - bump to 1.1.0
 * Thu Apr 08 2010 - Milan Jurik

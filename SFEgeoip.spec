@@ -7,6 +7,8 @@
 Name:                SFEgeoip
 Summary:             The GeoIP library and cli tools
 Version:             1.4.6
+License:             LGPLv2.1+
+SUNW_Copyright:      geoip.copyright
 Source:              http://www.maxmind.com/download/geoip/api/c/GeoIP-%{version}.tar.gz
 Patch1:              geoip-01-solaris.diff
 SUNW_BaseDir:        %{_basedir}
@@ -77,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat May 30 2009 - Andras Barna (andras.barna@gmail.com)
 - bump to 1.4.6
 * Tue Oct 28 2008 - Andras Barna (andras.barna@gmail.com)

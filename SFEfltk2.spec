@@ -13,7 +13,8 @@ Version:	2.0.x-r8411
 IPS_component_version: 2.0.0.0.8411
 Source:		ftp://ftp.easysw.com/pub/%{src_name}/snapshots/%{src_name}-%{version}.tar.bz2
 URL:		http://www.fltk.org/
-License:	FLTK
+License:	FLTK and LGPLv2
+SUNW_Copyright:	fltk2.copyright
 Group:		Development/Libraries
 Patch1:		fltk2-01-scandir.diff
 Patch3:		fltk2-03-test.diff
@@ -92,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun 11 2011 - Alex Viskovatoff
 - bump to 8411
 * Fri Apr 16 2011 - Alex Viskovatoff

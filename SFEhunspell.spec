@@ -46,7 +46,8 @@ Summary:	Spell checker
 URL:		http://hunspell.sourceforge.net
 Vendor:		László Németh
 Version:	1.3.2
-License:	MPL 1.1/GPL 2.0/LGPL 2.1
+License:	MPLv1.1 or GPLv2+ or LGPLv2.1+
+SUNW_Copyright:	hunspell.copyright
 Source:		http://downloads.sourceforge.net/%srcname/%srcname-%version.tar.gz
 Patch1:		hunspell-01-dict-path.diff
 
@@ -116,6 +117,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Use SUNWncurses instead of SFEncursesw
 * Fri Jun 10 2011 - Alex Viskovatoff <herzen@imap.cc>

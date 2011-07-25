@@ -15,6 +15,8 @@
 Name:                   SFEfreeglut
 Summary:                %{freeglut.summary}
 Version:                %{freeglut.version}
+License:                MIT
+SUNW_Copyright:         freeglut.copyright
 Patch1:                 freeglut-01-sun.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build

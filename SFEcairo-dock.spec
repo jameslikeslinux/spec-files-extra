@@ -15,6 +15,8 @@
 Name:           SFEcairo-dock
 Summary:        cairo-dock
 Version:        %{ver_major}.%{ver_minor}
+License:        GPLv3+
+SUNW_Copyright: cairo-dock.copyright
 Source:		http://launchpad.net/%{src_name}-core/2.3/%{ver_major}/+download/%{src_name}-%{ver_major}~%{ver_minor}.tar.gz
 URL:		glx-dock.org
 Patch1:		cairo-dock-01-cmake.diff
@@ -111,6 +113,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Jul 13 2011 - Milan Jurik
 - update to 2.3.0-3
 * Mon Feb 21 2011 - Milan Jurik

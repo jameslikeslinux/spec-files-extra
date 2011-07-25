@@ -15,6 +15,8 @@
 Name:                    SFEliba52
 Summary:                 %{liba52.summary}
 Version:                 %{liba52.version}
+License:                 GPLv2+
+SUNW_Copyright:          liba52.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -98,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Aug 15 2007 - dougs@truemail.co.th
 - converted to build 64bit
 * Mon Jun 12 2006 - laca@sun.com

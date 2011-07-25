@@ -18,6 +18,8 @@
 Name:           SFEcairo-dock-plugins
 Summary:        cairo-dock plugins
 Version:        %{ver_major}.%{ver_minor}
+License:        GPLv3+ and LGPLv2+
+SUNW_Copyright: cairo-dock-plugins.copyright
 Source:		http://launchpad.net/cairo-dock-plug-ins/2.3/%{ver_major}/+download/%{src_name}-%{ver_major}~%{ver_minor}.tar.gz
 Patch1:		cairo-dock-plugins-01-cmake.diff
 Patch2:		cairo-dock-plugins-02-solaris.diff
@@ -113,6 +115,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Jul 13 2011 - Milan Jurik
 - update to 2.3.0-3
 * Wed May 11 2011 - Alex Viskovatoff

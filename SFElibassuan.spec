@@ -11,7 +11,8 @@ Version:	2.0.1
 URL:		http://www.gnupg.org/related_software/libassuan/
 Source:		ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-%{version}.tar.bz2
 URL:		http://www.gnupg.org/
-License:	GPLv3
+License:	GPLv3+
+SUNW_Copyright:	libassuan.copyright
 Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

@@ -22,6 +22,8 @@ Summary:                 dovecot - A Maildir based pop3/imap email daemon
 URL:                     http://www.dovecot.org
 #note: see downloadversion above
 Version:                 2.0.13
+License:                 LGPLv2.1+ and MIT
+SUNW_Copyright:          dovecot.copyright
 Source:                  http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
 Source2:		dovecot.xml
 
@@ -156,6 +158,8 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jul 03 2011 - Knut Anders Hatlen
 - bump to 2.0.13
 * Wed Mar 16 2011 - Thomas Wagner

@@ -14,7 +14,8 @@ Version:	2.2
 Patch1:		dillo-01-dynarray.diff
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 URL:		http://www.dillo.org/
-License:	GPLv3
+License:	GPLv3+
+SUNW_Copyright:	dillo.copyright
 Group:		Applications/Internet
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -78,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun 13 2010 - Milan Jurik
 - bump to 2.2
 * Sun Nov 18 2007 - daymobrew@users.sourceforge.net

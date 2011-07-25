@@ -22,6 +22,8 @@
 Name:                SFEaudacity
 Summary:             Free, Cross-Platform Sound Editor
 Version:             1.3.13
+License:             GPLv2+
+SUNW_Copyright:      audacity.copyright
 Source:              http://audacity.googlecode.com/files/%{src_name}-minsrc-%{version}-beta.tar.bz2
 # bug 1910699
 Patch1:              audacity-01-addgtklibs.diff
@@ -280,6 +282,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed May 19 2011 - Brian Cameron
 - Bump to 1.3.13.
 * Tue Apr 27 2010 - Brian Cameron

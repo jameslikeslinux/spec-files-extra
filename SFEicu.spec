@@ -27,6 +27,7 @@ Name:			SFEicu
 Summary:		%icu.summary (linked against stdcxx)
 Version:		%icu.version
 License:		BSD.icu
+SUNW_Copyright:		icu.copyright
 SUNW_BaseDir:		%_basedir
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -128,6 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Apr 11 2011 - Alex Viskovatoff
 - Package pkgconfig files
 * Sat Nov 20 2010 - Alex Viskovatoff

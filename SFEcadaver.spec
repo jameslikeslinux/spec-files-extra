@@ -11,6 +11,8 @@
 Name:		SFEcadaver
 Summary:	command-line WebDAV client for Unix
 Version:	0.23.3
+License:	GPLv2+ and LGPLv2+
+SUNW_Copyright:	cadaver.copyright
 URL:		http://www.webdav.org/cadaver/
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		cadaver-01-locale.diff
@@ -76,5 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec

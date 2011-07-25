@@ -16,6 +16,8 @@
 Name:		SFEcmake
 Summary:	Cross platform make system
 Version:	2.8.4
+License:	BSD3c
+SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 URL:		http://www.cmake.org
 Group:		Development/Tools

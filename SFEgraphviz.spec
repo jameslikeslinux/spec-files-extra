@@ -14,6 +14,8 @@ Name:                SFEgraphviz
 Summary:             Graph drawing tools and libraries
 Group:               Applications/Graphics and Imaging
 Version:             2.26.3
+License:             CPL-1.0
+SUNW_Copyright:      graphviz.copyright
 Source:              http://www.graphviz.org/pub/graphviz/ARCHIVE/graphviz-%{version}.tar.gz
 URL:                 http://www.graphviz.org
 SUNW_BaseDir:        %{_basedir}
@@ -129,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/graphviz/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Jul 17 2010 - Milan Jurik
 - fix build and packaging
 * Sun Apr 11 2010 - Milan Jurik

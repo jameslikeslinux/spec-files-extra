@@ -15,6 +15,7 @@
 
 Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
+Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
 Version:	4.9.1

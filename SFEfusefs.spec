@@ -16,6 +16,8 @@
 Name:		SFEfusefs
 Summary:	File system in User Space
 Version:	0.%{tarball_version}
+License:	CDDL and GPLv2+ and BSD
+SUNW_Copyright:	fusefs.copyright
 URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
 Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
 SUNW_BaseDir:	%{_basedir}
@@ -77,6 +79,8 @@ driver name=fuse
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Jul 07 2011 - Alex Viskovatoff
 - Revert previous change: source file does not get found
 * Mon Jun 06 2011 - Ken Mays <kmays2000@igmail.com>

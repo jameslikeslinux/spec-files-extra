@@ -11,6 +11,8 @@
 Name:		SFEbdb
 Summary:	Berkeley DB
 Version:	4.8.30
+License:        BSD3c
+SUNW_Copyright: bdb.copyright
 Source:		http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 URL:		http://www.oracle.com/technology/software/products/berkeley-db/index.html
 SUNW_BaseDir:	%{_basedir}

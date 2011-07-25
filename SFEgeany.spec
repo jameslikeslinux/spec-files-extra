@@ -12,6 +12,8 @@
 Name:                SFEgeany
 Summary:             A small and lightweight integrated developer environment
 Version:             0.20
+License:             GPLv2+
+SUNW_Copyright:      geany.copyright
 Source:              %{src_url}/%{src_name}-%{version}.tar.bz2
 URL:                 http://geany.uvena.de/Main/HomePage
 Group:               Development/Tools
@@ -106,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/geany/*
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jan 25 2011 - Milan Jurik
 - bump to 0.20
 * Wed Jan 05 2011 - Milan Jurik

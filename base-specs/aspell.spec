@@ -11,7 +11,6 @@ Version: 	0.60.6
 Release:        356
 Vendor:		Sun Microsystems, Inc.
 Distribution:	Java Desktop System
-License:	LGPL
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 Docdir:         %{_datadir}/doc
 Autoreqprov:	on

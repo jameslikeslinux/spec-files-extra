@@ -24,7 +24,8 @@ Name:         	SFE%{src_name}
 Summary:      	Easytag :  EasyTAG - Tag editor for MP3, Ogg Vorbis files and more
 Version:      	%{src_version}
 Release:      	%{pkg_release}
-License:      	GPL
+License:      	GPLv2+
+SUNW_Copyright: easytag.copyright
 Group:          Entertainment
 Source:         %{sf_download}/easytag/%{src_name}-%{version}.tar.bz2
 Patch1:        	easytag-01-configure.diff
@@ -128,6 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Oct 17 2010 - Alex Viskovatoff
 - Do not run autoconf: that breaks the build and is not required for tarballs
 - Patch configure instead of configure.in, just removing references to stdc++

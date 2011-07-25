@@ -10,7 +10,8 @@
 
 Name:			SFEbzr
 Summary:		Bazaar Source Code Management System
-License:		GPL
+License:		GPLv2+
+SUNW_Copyright:		bzr.copyright
 Group:			system/dscm
 Version:		2.4
 Distribution:		spec-files-extra
@@ -61,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/bzr.1
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jul 19 2011 - brian.cameron@oracle.com
 - Bump to 2.4.
 * Fri May 13 2011 - knut.hatlen@oracle.com

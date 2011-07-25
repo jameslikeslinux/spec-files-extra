@@ -31,6 +31,8 @@
 Name:                    SFEffmpeg
 Summary:                 %{ffmpeg.summary}
 Version:                 %{ffmpeg.version}
+License:                 GPLv2+ and LGPLv2.1+
+SUNW_Copyright:          ffmpeg.copyright
 URL:                     %{ffmpeg.url}
 Group:		         System/Multimedia Libraries
 

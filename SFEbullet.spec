@@ -12,6 +12,8 @@
 
 Name:                   SFEbullet
 Summary:                Bullet Physics Library
+License:                BSD3c
+SUNW_Copyright:         bullet.copyright
 Version:                2.77
 URL:			http://code.google.com/p/bullet/
 Source:                 %{src_url}/%{src_name}-%{version}.tgz
@@ -68,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Feb 05 2011 - Milan Jurik
 - bump to 2.77
 - avoid cmake, build extras and dynamic libs

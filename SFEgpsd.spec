@@ -14,6 +14,7 @@ Version:	2.95
 Summary:	Service daemon for mediating access to a GPS
 Group:		System Environment/Daemons
 License:	BSD
+SUNW_Copyright:	gpsd.copyright
 URL:		http://developer.berlios.de/projects/gpsd/
 Source:		http://download.berlios.de/%{src_name}/%{src_name}-%{version}.tar.gz
 Patch1:		gpsd-01-sunstudio.diff
@@ -164,5 +165,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Dec 29 2010 - Milan Jurik
 - initial spec based on Fedora but no UBS support :-(

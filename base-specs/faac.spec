@@ -7,7 +7,7 @@
 Summary:	Reference encoder and encoding library for MPEG2/4 AAC
 Name:		SFEfaac
 Version:	1.28
-License:	LGPL
+License:	LGPLv2+
 Group:		Applications/Multimedia
 URL:		http://www.audiocoding.com/
 Source:		%{sf_download}/faac/faac-src/faac-%{version}.tar.gz
@@ -49,5 +49,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Jun 18 2010 - Milan Jurik
 - Initial version

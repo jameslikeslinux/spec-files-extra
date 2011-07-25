@@ -100,6 +100,8 @@
 Name:                SFEgccruntime
 Summary:             GNU gcc runtime libraries required by applications
 Version:             4.6.1
+License:             GPLv3+
+SUNW_Copyright:      gcc.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -483,6 +485,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jul 17 2011 - Alex Viskovatoff
 - do not hardcode <majornumber>.<minornumber>
 * Sun Jul 17 2011 - Milan Jurik

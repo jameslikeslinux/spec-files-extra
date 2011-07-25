@@ -9,6 +9,8 @@ Name:                SFEimlib2
 Summary:             General image loading and rendering library
 Group:               System/Multimedia Libraries
 Version:             1.4.4
+License:             BSD
+SUNW_Copyright:      imlib2.copyright
 Source:              %{sf_download}/enlightenment/imlib2-%{version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}

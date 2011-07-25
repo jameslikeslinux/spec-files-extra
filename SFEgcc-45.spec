@@ -98,6 +98,8 @@
 Name:                %gccname-runtime
 Summary:             GNU gcc runtime libraries required by applications
 Version:             4.5.3
+License:             GPLv3+
+SUNW_Copyright:      gcc-45.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -401,6 +403,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jul 18 2011 - Alex Viskovatoff
 - Downgrade this spec to gcc 4.5.3, now that SFEgcc is at 4.6.1
 - Disable patch adding /usr/gnu/lib to runpath

@@ -34,6 +34,8 @@
 Name:                    SFElame
 Summary:                 MP3 encoders - lame and toolame
 Version:                 %{lame.version}
+License:                 LGPLv2.1+
+SUNW_Copyright:          lame.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -148,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jul 18 2011 - Alex Viskovatoff
 - build with SFEgcc by default; add -msse2 flag to make i386 build succeed
 * Thu Nov 04 2010 - Milan Jurik

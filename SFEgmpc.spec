@@ -15,6 +15,8 @@ Name:                    SFEgmpc
 Summary:                 gmpc - A gnome frontend for the mpd daemon
 URL:                     http://sarine.nl/gmpc/
 Version:                 0.20.0
+License:                 GPLv2+
+SUNW_Copyright:          gmpc.copyright
 Source:                  http://download.sarine.nl/Programs/gmpc/%{version}/gmpc-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -132,6 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Apr 12 2011 - Alex Viskovatoff
 - Add missing build dependencies
 * Wed Oct  6 2010 - Alex Viskovatoff

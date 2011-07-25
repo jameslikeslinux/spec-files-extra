@@ -10,6 +10,8 @@
 Name:           SFEblender
 Summary:        Blender - Open source 3D creation tools
 Version:        2.49.2
+License:        GPLv2+
+SUNW_Copyright: blender.copyright
 Source:		%{src_url}/blender-%{src_version}.tar.gz
 Patch1:		blender-01-build.diff
 Patch2:		blender-02-install.diff
@@ -178,6 +180,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * May 18 2010 - G.D.
 - exec in bindir
 * Wed May 12 2010 - Albert Lee <trisk@opensolaris.org>

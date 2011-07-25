@@ -14,6 +14,8 @@
 Name:                   SFEimagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
+License:                ImageMagick License
+SUNW_Copyright:         imagemagick.copyright
 Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
 Group:			Graphics
 License:		ImageMagick License
@@ -103,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jul 03 2011 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.0-10
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>

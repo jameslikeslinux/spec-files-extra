@@ -13,6 +13,8 @@
 Name:           SFEgtkimageview
 Summary:        Image metadata library
 Version:        %{default_pkg_version}
+License:        LGPLv2.1+
+SUNW_Copyright: gtkimageview.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -86,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * May 18 2010 - Gilles Dauphin
 - ready for next release
 * Tue Mar 30 2010 - Milan Jurik

@@ -20,6 +20,8 @@
 Name:               SFEgnucash
 Summary:            gnucash - Financial-accounting software
 Version:            %{gnucash.version}
+License:            GPLv3+
+SUNW_Copyright:     gnucash.copyright
 SUNW_BaseDir:       %{_basedir}
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -182,6 +184,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.4.6
 - Fixed patches for 2.4.6

@@ -11,6 +11,8 @@
 Name:                   SFEjam
 Summary:                make-like program
 Version:                2.5
+License:                jam License
+SUNW_Copyright:         jam.copyright
 URL:                    http://www.perforce.com/jam/jam.html
 Source:                 %{src_url}/%{src_name}-%{version}.tar
 SUNW_BaseDir:           %{_basedir}
@@ -48,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/jam
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thr Mar 17 2011 - Thomas Wagner
 - simplify install bin.solaris*/ (failed on amd64)
 * Thu Apr 08 2010 - Milan Jurik

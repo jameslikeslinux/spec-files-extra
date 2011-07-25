@@ -18,6 +18,7 @@ Name:		SFEfaac
 Summary:	%{faac.summary}
 Version:	%{faac.version}
 License:	%{faac.license}
+SUNW_Copyright:	faac.copyright
 Group:		%{faac.group}
 URL:		%{faac.url}
 SUNW_BaseDir:	%{_basedir}
@@ -92,5 +93,7 @@ rm -rf %{buildroot}
 %{_includedir}/*.h
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Jun 18 2010 - Milan Jurik
 - Initial version

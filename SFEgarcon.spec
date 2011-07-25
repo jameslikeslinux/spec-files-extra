@@ -11,6 +11,8 @@
 Name:		SFEgarcon
 Version:	0.1.7
 Summary:	Implementation of the freedesktop.org menu specification
+License:	LGPLv2+ and GFDLv1.1
+SUNW_Copyright:	garcon.copyright
 Group:          System Environment/Libraries
 URL:		http://xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -115,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Aug 21 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.1.7
 * Mon Mar 21 2011 - kmays2000@gmail.com

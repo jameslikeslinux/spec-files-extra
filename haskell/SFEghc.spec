@@ -26,6 +26,7 @@ Summary:	The Glorious Glasgow Haskell Compiler
 Version:	6.12.3
 Release:	1
 License:	GHC License
+SUNW_Copyright:	ghc.copyright
 Group:		Development/Languages/Haskell
 Vendor:		GHC team
 URL:		http://www.haskell.org/ghc
@@ -203,6 +204,8 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Apr 20 2011 - Alex Viskovatoff
 - Go back to 6.12.3, to use official source tarball
 * Sun Mar 27 2011 - Alex Viskovatoff

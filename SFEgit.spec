@@ -20,6 +20,8 @@
 Name:                SFEgit
 Summary:             Git - the fast version control system
 Version:             1.7.5.4
+License:             GPLv2
+SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
 Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
 Patch1:              git-01-solaris-shell.diff
@@ -139,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.5.4
 * Sat Apr 16 2011 - Alex Viskovatoff

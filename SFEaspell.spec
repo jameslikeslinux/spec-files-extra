@@ -17,6 +17,8 @@
 Name:          SFEaspell
 Summary:       A Spell Checker
 Version:       %{aspell.version}
+License:       LGPLv2.0+
+SUNW_Copyright: aspell.copyright
 SUNW_BaseDir:  %{_prefix}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -85,6 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jun 13 2011 - Ken Mays <kmays2000@gmail.com>
 - Fixed packaging per BUG #2110810.
 * Fri Mar 05 2010 - Brian Cameron <brian.cameron@oracle.com>

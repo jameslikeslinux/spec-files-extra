@@ -15,7 +15,8 @@ Name:		SFEdjview
 Summary:	DjVu file viewer
 URL:		http://djvu.sourceforge
 Vendor:		Léon Bottou
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	djview.copyright
 Version:	4.7
 Source:		%sf_download/project/djvu/DjView/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -77,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun 12 2011 - Alex Viskovatoff
 - Qt gcc libs are now in their own place
 * Tue Apr 12 2011 - Alex Viskovatoff

@@ -9,6 +9,8 @@
 
 Name:                SFEboost
 Summary:             Boost - free peer-reviewed portable C++ source libraries
+License:             Boost License Version
+SUNW_Copyright:      boost.copyright
 Version:	     %{boost.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -80,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Fri Jan 11 2011 - Milan Jurik
 - do not deliver static libs
 * Wed Dec 02 2009 - Albert Lee <trisk@opensolaris.org>

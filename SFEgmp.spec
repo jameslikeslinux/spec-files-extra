@@ -30,6 +30,8 @@ Name:                    SFEgmp
 Summary:                 GNU Multiple Precision Arithmetic Library
 Group:                   libraries/math
 Version:                 4.3.2
+License:                 GPLv3+
+SUNW_Copyright:          gmp.copyright
 Source:                  http://ftp.sunet.se/pub/gnu/gmp/gmp-%{version}.tar.bz2
 %ifarch amd64
 ##TODO## not longer needed? 
@@ -196,6 +198,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun  6 2010 - Thomas Wagner
 - bump to 4.3.2
 - rework patch gmp-01 for version 4.3.2
