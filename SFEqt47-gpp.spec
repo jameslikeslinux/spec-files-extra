@@ -46,6 +46,7 @@ Patch4:		%patchprefix/qt-tests-auto-qwidget_window.diff
 Patch5:		%patchprefix/qt-auto-tests-qhttpnetworkconnection.diff
 %endif
 
+SUNW_Copyright:	     qt.copyright
 SUNW_BaseDir:        %_basedir
 BuildRoot:           %_tmppath/%name-%version-build
 %include default-depend.inc
@@ -211,6 +212,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Add patch qt-isnan.diff to enable building with gcc 4.6
 * Sat Jul  2 2011 - Alex Viskovatoff <hezen@imap.cc>
