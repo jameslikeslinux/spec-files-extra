@@ -15,7 +15,9 @@ Summary:	Desktop manager for the Xfce Desktop Environment
 Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License: 	GPLv2
 Group:		User Interface/Desktops
+SUNW_Copyright: xfdesktop.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -126,6 +128,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Thu Apr 9 2011 - kmays2000@gmail.com

@@ -12,9 +12,11 @@ Name:                   SFEyasm
 Summary:                Yet another assembler
 Version:                1.1.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
+License:		LGPL
 Patch1:                 yasm-01-bin_multi_test.sh.diff
 Patch2:                 yasm-02-configure.diff
 Patch3:                 yasm-03-out_test.sh.diff
+SUNW_Copyright:		yasm.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

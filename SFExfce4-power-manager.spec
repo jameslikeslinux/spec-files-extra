@@ -14,8 +14,10 @@ Summary:	Xfce Power management utilities
 Version:	1.0.10
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License:	GPLv2
 Patch1:		xfce4-power-manager-01-solaris-diff
 Group:		User Interface/Desktops
+SUNW_Copyright:	xfce4-power-manager.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -141,5 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Apr 21 2011 - Ken Mays <kmays2000@gmail.com
 - Initial spec for 1.0.10

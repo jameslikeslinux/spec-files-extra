@@ -14,7 +14,9 @@ Summary:	Configuration management for Xfce
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License:	GPLv2
 Group:		User Interface/Desktops
+SUNW_Copyright:	xfconf.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -101,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Wed Aug 19 2009 - sobotkap@gmail.com

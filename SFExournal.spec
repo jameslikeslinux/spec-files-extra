@@ -12,7 +12,7 @@ Summary:	Note-taking and sketching application
 URL:		http://xournal.sourceforge.net
 Vendor:		Dennis Auroux
 Version:	0.4.5
-License:	GPL
+License:	GPLv2
 Source:		http://downloads.sourceforge.net/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch:		xournal-01-inline.diff
 
@@ -105,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Oct 21 2010 - Alex Viskovatoff
 - Apply patch supplied by Milan Jurik to correctly set deliverables attributes
 * Tue Oct 12 2010 - Alex Viskovatoff
