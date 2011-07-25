@@ -8,9 +8,11 @@
 Name:                    SFEp7zip
 Summary:                 7-Zip file archiver with a high compression ratio
 Group:                   Applications/System Utilities
+License:                 LGPLv2
+SUNW_Copyright:          p7zip.copyright
 Version:                 9.20.1
 Source:			 %{sf_download}/p7zip/p7zip_%{version}_src_all.tar.bz2
-URL:                     http://www.7-zip.org/download.html
+URL:                     http://www.7-zip.org/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -59,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
 - Bump to 9.20.1; Remove patch
 * Sat Feb 02 2008 - moinak.ghosh@sun.com

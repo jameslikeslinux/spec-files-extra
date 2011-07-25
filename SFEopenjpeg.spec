@@ -11,6 +11,8 @@
 
 Name:                SFEopenjpeg
 Summary:             Open Source multimedia framework
+License:             BSD
+SUNW_Copyright:      openjpeg.copyright
 Version:             1.3
 Source:              http://openjpeg.googlecode.com/files/%{src_name}_%{src_version}.tar.gz
 Patch1:		     openjpeg-01-makefile.diff
@@ -60,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri May 21 2010 - Milan Jurik
 - update to 1.3, split devel package
 * Sun Jul 29 2007 - dougs@truemail.co.th

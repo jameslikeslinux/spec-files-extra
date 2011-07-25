@@ -17,8 +17,9 @@ Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
 URL:		http://www.openttd.org/
-Group:		Amusements/Games
+Group:		Applications/Games
 License:	GPLv2
+SUNW_Copyright:	openttd.copyright
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-build
 
@@ -151,6 +152,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jul 12 2011 - Milan Jurik
 - bump to 1.1.1
 * Sun May 22 2011 - Milan Jurik

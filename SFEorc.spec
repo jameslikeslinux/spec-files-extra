@@ -28,6 +28,8 @@ Summary:	%{orc.summary}
 
 Group:		%{orc.group}
 License:	%{orc.license}
+SUNW_Copyright:	orc.copyright
+Meta(info.upstream):	David Schleef <ds@schleef.org>
 URL:		%{orc.url}
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -184,6 +186,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Dec 02 2010 - Milan Jurik
 - update to 0.4.11, enable only SSE backend because of Sun Studio
 * Sat Oct 20 2010 - Thomas Wagner
@@ -194,21 +198,17 @@ rm -rf $RPM_BUILD_ROOT
 - update to 0.4.4 and integration to SFE
 * Thu Mar 04 2010 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.3-1
 - Updated to 0.4.3
-
 * Sun Oct 18 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-4
 - Removed unused libdir
-
 * Sun Oct 18 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-3
 - Specfile cleanup
 - Removed tools subpackage
 - Added docs subpackage
-
 * Sat Oct 03 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-2
 - Use orc as pakage name
 - spec-file cleanup
 - Added devel requirements
 - Removed an rpath issue
-
 * Fri Oct 02 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-1
 - Initial release
 

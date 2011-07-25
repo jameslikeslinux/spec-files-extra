@@ -8,7 +8,9 @@
 %include Solaris.inc
 
 Name:                    SFEopenbox
-Summary:                 a free window manager for the X Window System
+Summary:                 A free window manager for the X Window System
+License:                 GPLv2
+SUNW_Copyright:          openbox.copyright
 Version:                 3.4.11.2
 Source:                  http://icculus.org/openbox/releases/openbox-%{version}.tar.gz
 URL:                     http://icculus.org/openbox/index.php/Main_Page
@@ -101,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Jun 10 2010 - pradhap (at) gmail.com
 - Bump to 3.4.11.2
 * Mon Feb 15 2010 - brian.cameron@sun.com

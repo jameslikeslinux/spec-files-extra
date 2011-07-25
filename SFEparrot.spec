@@ -10,9 +10,10 @@
 Name:		SFE%srcname
 Summary:	Register-based virtual machine designed to run dynamic languages efficiently
 URL:		http://www.parrot.org/
-Vendor:		Parrot Foundation
+Meta(info.upstream):	Parrot Developers <parrot-dev@lists.parrot.org>
 Version:	3.3.0
-License:	Artistic License 2.0
+License:	Artistic 2.0
+SUNW_Copyright:	
 Source:		ftp://ftp.parrot.org/pub/%srcname/releases/supported/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -74,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Apr 23 2011 - Alex Viskovatoff
 - Bump to 3.3.0
 * Fri Mar 11 2011 - Alex Viskovatoff

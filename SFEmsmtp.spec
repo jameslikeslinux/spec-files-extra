@@ -6,7 +6,11 @@
 %include Solaris.inc
 
 Name:                    SFEmsmtp
-Summary:                 msmtp is an SMTP client for sending to a smart host
+Summary:                 SMTP client for sending to a smart host
+License:                 GPLv3+
+SUNW_Copyright:          msmtp.copyright
+URL:                     http://msmtp.sourceforge.net/
+Meta(info.upstream):     Martin Lambers <marlam@marlam.de>
 Version:                 1.4.23
 Source:                  %{sf_download}/msmtp/msmtp-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
@@ -82,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Apr 19 2011 - Knut Anders Hatlen
 - Bumped to 1.4.23
 - Removed /usr/share/info/dir because of collision with system/prerequisite/gnu

@@ -18,6 +18,8 @@
 
 Name:                    SFEperl-%{module_package_name}
 Summary:                 %{module_name}-%{module_version} PERL module
+License:                 Artistic 2.0
+SUNW_Copyright:          perl-razor-agents.copyright
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://downloads.sourceforge.net/razor/razor-agents-%{module_version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
@@ -99,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

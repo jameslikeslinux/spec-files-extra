@@ -8,6 +8,8 @@
 
 Name:                SFEnasm
 Summary:             Portable, modular 80x86 assembler
+License:             BSD
+SUNW_Copyright:      nasm.copyright
 Version:             2.10rc6
 IPS_component_version: 2.10.0.6
 URL:                 http://www.nasm.us/
@@ -98,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/nasm/*
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 2.10rc6
 * Sat Mar 05 2011 - Milan Jurik
