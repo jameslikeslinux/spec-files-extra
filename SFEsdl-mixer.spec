@@ -25,6 +25,7 @@ Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 URL:			%{sdl.url}
 License:		%{sdl.license}
+SUNW_Copyright:		sdl-mixer.copyright
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -136,6 +137,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Feb 03 2011 - Milan Jurik
 - SFE vs. SUNW libmikmod detection
 * Sun May 16 2010 - Milan Jurik

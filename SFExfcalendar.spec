@@ -14,6 +14,7 @@ Summary:	Xfce Calendar
 Version:	4.8.1
 URL:		http://www.xfce.org/projects/orage
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+SUNW_Copyright:	xfcalendar.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -126,6 +127,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat mar 23 2011 - Milan Jurik
 - bump to 4.8.1, move to SFE from osol xfce
 * Wed Aug 04 2010 - brian.cameron@oracle.com

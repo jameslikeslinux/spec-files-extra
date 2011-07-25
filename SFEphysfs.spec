@@ -14,6 +14,7 @@ Version:                1.1.1
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:			physfs-01-alloca.diff
 Patch2:                 physfs-02-inline.diff
+SUNW_Copyright:		libphysfs.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -62,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat Jun 14 2008 - andras.barna@gmail.com
 - Remove useless gcc check which breaks the build, and we use Sun Studio by default anyway
 * Tue Jan 08 2008 - moinak.ghosh@sun.com

@@ -11,7 +11,7 @@ Version:	5.0.3
 Summary:	LZMA utils
 URL:		http://tukaani.org/xz
 Source:		http://tukaani.org/xz/xz-%{version}.tar.bz2
-
+SUNW_Copyright: xz-utils.copyright
 Group:		Applications/Archivers
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -88,6 +88,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
 - Bump to 5.0.3
 * Thu Apr 21 2011 - Alex Viskovatoff
