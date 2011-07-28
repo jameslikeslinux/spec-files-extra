@@ -10,7 +10,7 @@
 Name:                    SFElightdm
 License:                 GPLv3
 SUNW_Copyright:	         lightdm.copyright
-Version:                 0.4.4
+Version:                 0.9.2
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
@@ -105,20 +105,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%attr (0755, root, bin)%{_bindir}/*
+%dir %attr (0755, root, bin) %{_sbindir}
+%attr (0755, root, bin)%{_sbindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, bin) %{_libdir}/lib*.so*
 %dir %attr (0755, root, bin) %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/*
-%{_libexecdir}/lightdm-example-gtk-greeter
-%{_libexecdir}/lightdm-example-python-gtk-greeter
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gir-1.0/*
 %{_datadir}/gtk-doc/*
-%{_datadir}/lightdm/*
 %{_datadir}/vala
-%{_datadir}/lightdm-example-gtk-greeter
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/lightdm.1
