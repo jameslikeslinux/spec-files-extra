@@ -23,9 +23,11 @@
 
 2011-07-20  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEmpack.spec: initial spec, migrated form spec-files-jucr, added pnm_macros
-        * include/packagenames.define.allbuilds.inc: add initial (limited) support
-          for pnm_buildrequires_python_default, pnm_requires_python_default -> SUNWPython26
+	* SFEmpack.spec: initial spec, migrated form spec-files-jucr, added
+	  pnm_macros
+	* include/packagenames.define.allbuilds.inc: add initial (limited)
+	  support for pnm_buildrequires_python_default,
+	  pnm_requires_python_default -> SUNWPython26
 
 2011-07-19 Alex Viskovatoff <herzen@immap.cc>
 
@@ -73,7 +75,8 @@
 
 2011-07-14  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFEmediathek.spec, experimental/SFEmediathek-testing.spec: bump to 2.5.0, testing: 2011.07.08
+	* SFEmediathek.spec, experimental/SFEmediathek-testing.spec: bump to
+	  2.5.0, testing: 2011.07.08
 
 2011-07-14 Milan Jurik <sfnet@xylab.cz>
 
@@ -119,11 +122,11 @@
 
 2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
 
-        * SFEdia.spec:	bump to	0.97.1; Updated tags
+	* SFEdia.spec: bump to 0.97.1; Updated tags
 
 2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
 
-        * SFEcpio.spec:	bump to	2.11; Fixed %files section
+	* SFEcpio.spec: bump to 2.11; Fixed %files section
 
 2011-07-12 Alex Viskovatoff <herzen@immap.cc>
 
@@ -143,7 +146,7 @@
 2011-07-12 Ken Mays <kmays2000@gmail.com>
 
 	* experimental/SFEmidori.spec: Initial spec
-          Needs WebKitGTK+ 1.4.x dependency, review Vala language compiler.
+	  Needs WebKitGTK+ 1.4.x dependency, review Vala language compiler.
 
 2011-07-12 Milan Jurik <sfnet@xylab.cz>
 
@@ -210,42 +213,43 @@
 
 2011-07-02  Thomas Wagner  <tom68@users.sourceforge.net>
 
-	* SFEperl-*: move out of perl/, modify to use pnm_macros, more ChangeLog info to come
+	* SFEperl-*: move out of perl/, modify to use pnm_macros, more
+	  ChangeLog info to come
 	* SFEimagemagick.spec: Bump to 6.7.0-10
 
 2011-07-01  Alex Viskovatoff <herzen@imap.cc>
 
-   	* SFEsbcl.spec: initial spec, contributed by James Lee
-   	* SFEargyll.spec: initial spec, contributed by James Lee
+	* SFEsbcl.spec: initial spec, contributed by James Lee
+	* SFEargyll.spec: initial spec, contributed by James Lee
 
 2011-06-30  Alex Viskovatoff <herzen@imap.cc>
 
-        * SFEqt47-gpp.spec: use kde-solaris patches; bump to 4.7.3
-        * SFEwxwidgets-gpp.spec: initial spec, from SFEwxwidgets-gnu.spec
-        * SFEicu-gpp.spec: initial spec, derived from SFEicu.spec
-        * base-specs/icu.spec: implement building with gcc
-   	* base-specs/boost.spec: enable ICU when building with gcc
-   	* SFEboost-gpp.spec: set correct runpath for libboost_regex
-   	* SFEmkvtoolnix.spec: build with gcc; bump to 4.8.0; build GUI
-   	* SFEsmplayer.spec: build with gcc
-   	* SFEkchmviewer.spec: build with gcc
-   	* SFEdjvulibre.spec: install in /usr/g++
-   	* SFEdjview.spec: look for Qt in /usr/g++
-   	* SFEemacs.spec: install in /usr/gnu
-   	* SFElibevent2.spec: bump to 2.0.11
-   	* SFEscribus.spec: bump to 1.4.0.rc5
-   	* SFEtransmission.spec: go back to 2.22, so seeding works
-   	* SFEhunspell.spec: don't create separate IPS devel package
-   	* SFEgmpc.spec: add missing dependency
-   	* SFEpython3.spec: initial spec, contributed by A Hettinger
-   	* SFEpython26-mpd: initial spec, contributed by James Lee
-   	* SFEsonata.spec: initial spec, contributed by James Lee
+	* SFEqt47-gpp.spec: use kde-solaris patches; bump to 4.7.3
+	* SFEwxwidgets-gpp.spec: initial spec, from SFEwxwidgets-gnu.spec
+	* SFEicu-gpp.spec: initial spec, derived from SFEicu.spec
+	* base-specs/icu.spec: implement building with gcc
+	* base-specs/boost.spec: enable ICU when building with gcc
+	* SFEboost-gpp.spec: set correct runpath for libboost_regex
+	* SFEmkvtoolnix.spec: build with gcc; bump to 4.8.0; build GUI
+	* SFEsmplayer.spec: build with gcc
+	* SFEkchmviewer.spec: build with gcc
+	* SFEdjvulibre.spec: install in /usr/g++
+	* SFEdjview.spec: look for Qt in /usr/g++
+	* SFEemacs.spec: install in /usr/gnu
+	* SFElibevent2.spec: bump to 2.0.11
+	* SFEscribus.spec: bump to 1.4.0.rc5
+	* SFEtransmission.spec: go back to 2.22, so seeding works
+	* SFEhunspell.spec: don't create separate IPS devel package
+	* SFEgmpc.spec: add missing dependency
+	* SFEpython3.spec: initial spec, contributed by A Hettinger
+	* SFEpython26-mpd: initial spec, contributed by James Lee
+	* SFEsonata.spec: initial spec, contributed by James Lee
 
 2011-06-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEunbound.spec: bump to 1.4.11
 	* SFEldns.spec: bump to 1.6.10
-    	* SFEnodejs.spec: bump to 0.4.9
+	* SFEnodejs.spec: bump to 0.4.9
 
 2011-06-27 Ken Mays <kmays2000@gmail.com>
 
@@ -286,19 +290,21 @@
 
 2011-06-17  Thomas Wagner  <tom68@users.sourceforge.net>
 
-	* TODO: new file (experimental) with free or assigned tasks, short/long term
-	* osdistro.inc: renamed OI147 / os2010.11 to OpenIndiana / Solaris11Express, 
-	  added boolean flags for: openindiana solaris11express oi201009 oi201100 
-	  s11ex201011 s11ex201100, removed boolean flags for: os201011 (renamed 
-	  to s11ex201011), oi147 (renamed to oi201009),
-	  added OpenIndiana 151 (oi201100), Solaris 11 (Express) (s11ex201100)
+	* TODO: new file (experimental) with free or assigned tasks, short/long
+	  term
+	* osdistro.inc: renamed OI147 / os2010.11 to OpenIndiana /
+	  Solaris11Express, added boolean flags for: openindiana
+	  solaris11express oi201009 oi201100 s11ex201011 s11ex201100, removed
+	  boolean flags for: os201011 (renamed to s11ex201011), oi147 (renamed
+	  to oi201009), added OpenIndiana 151 (oi201100), Solaris 11 (Express)
+	  (s11ex201100)
 	* packagenames.define.allbuilds.inc: handle different perl versions
 	  (5.8.4, 5.10, 5.12) and create macros for module paths 
 	* packagenamemacros.spec: new osdistro variables (osdistro.inc),
 	  add perl version specific examples
-	* packagenamemacros-simulate-builds.spec: new osdistro variables (osdistro.inc),
-	  add Solaris 11 Express builds, add OpenIndiana build 151,
-	  more pretty print output
+	* packagenamemacros-simulate-builds.spec: new osdistro variables
+	  (osdistro.inc), add Solaris 11 Express builds, add OpenIndiana build
+	  151, more pretty print output
 
 2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
 
@@ -339,8 +345,8 @@
 
 2011-06-13  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFExclip.spec: initial spec
-        * SFEperl-clipboard.spec: initial spec
+	* SFExclip.spec: initial spec
+	* SFEperl-clipboard.spec: initial spec
 
 2011-06-13 Ken Mays  <kmays2000@gmail.com>
 
@@ -351,36 +357,36 @@
 2011-06-11  Ken Mays  <kmays2000@gmail.com>
 
 	* SFExfce-xfmpc.spec: Initial spec
-        * SFExfce4-battery-plugin.spec: Initial spec
-        * SFExfce4-cddrive-plugin.spec: Initial spec
-        * SFExfce4-cellmodem-plugin.spec: Initial spec
-        * SFExfce4-clipman-plugin.spec: Initial spec
-        * SFExfce4-cpufreq-plugin.spec: Initial spec
-        * SFExfce4-cpugraph-plugin.spec: Initial spec
-        * SFExfce4-diskperf-plugin.spec: Initial spec
-        * SFExfce4-eyes-plugin.spec: Initial spec
-        * SFExfce4-fsguard-plugin.spec
-        * SFExfce4-genmon-plugin.spec: Initial spec
-        * SFExfce4-indicator-plugin.spec: Initial spec
-        * SFExfce4-linelight-plugin.spec: Initial spec
-        * SFExfce4-modemlights-plugin.spec: Initial spec
-        * SFExfce4-mount-plugin.spec: Initial spec
-        * SFExfce4-mpc-plugin.spec: Initial spec
-        * SFExfce4-netload-plugin.spec: Initial spec
-        * SFExfce4-notes-plugin.spec: Initial spec
-        * SFExfce4-places-plugin.spec: Initial spec
-        * SFExfce4-radio-plugin.spec: Initial spec
-        * SFExfce4-smartbookmark-plugin.spec: Initial spec
-        * SFExfce4-stopwatch-plugin.spec: Initial spec
-        * SFExfce4-systemload-plugin.spec: Initial spec
-        * SFExfce4-time-out-plugin.spec: Initial spec
-        * SFExfce4-timer-plugin.spec: Initial spec
-        * SFExfce4-verve-plugin.spec: Initial spec
-        * SFExfce4-wavelan-plugin.spec: Initial spec
-        * SFExfce4-weather-plugin.spec: Initial spec
-        * SFExfce4-xfapplet-plugin.spec: Initial spec
-        * SFExfce4-xkb-plugin.spec: Initial spec
-        * SFExfce4-xmms-plugin.spec: Initial spec
+	* SFExfce4-battery-plugin.spec: Initial spec
+	* SFExfce4-cddrive-plugin.spec: Initial spec
+	* SFExfce4-cellmodem-plugin.spec: Initial spec
+	* SFExfce4-clipman-plugin.spec: Initial spec
+	* SFExfce4-cpufreq-plugin.spec: Initial spec
+	* SFExfce4-cpugraph-plugin.spec: Initial spec
+	* SFExfce4-diskperf-plugin.spec: Initial spec
+	* SFExfce4-eyes-plugin.spec: Initial spec
+	* SFExfce4-fsguard-plugin.spec
+	* SFExfce4-genmon-plugin.spec: Initial spec
+	* SFExfce4-indicator-plugin.spec: Initial spec
+	* SFExfce4-linelight-plugin.spec: Initial spec
+	* SFExfce4-modemlights-plugin.spec: Initial spec
+	* SFExfce4-mount-plugin.spec: Initial spec
+	* SFExfce4-mpc-plugin.spec: Initial spec
+	* SFExfce4-netload-plugin.spec: Initial spec
+	* SFExfce4-notes-plugin.spec: Initial spec
+	* SFExfce4-places-plugin.spec: Initial spec
+	* SFExfce4-radio-plugin.spec: Initial spec
+	* SFExfce4-smartbookmark-plugin.spec: Initial spec
+	* SFExfce4-stopwatch-plugin.spec: Initial spec
+	* SFExfce4-systemload-plugin.spec: Initial spec
+	* SFExfce4-time-out-plugin.spec: Initial spec
+	* SFExfce4-timer-plugin.spec: Initial spec
+	* SFExfce4-verve-plugin.spec: Initial spec
+	* SFExfce4-wavelan-plugin.spec: Initial spec
+	* SFExfce4-weather-plugin.spec: Initial spec
+	* SFExfce4-xfapplet-plugin.spec: Initial spec
+	* SFExfce4-xkb-plugin.spec: Initial spec
+	* SFExfce4-xmms-plugin.spec: Initial spec
 	* Added patches/xfce4-cpugraph-plugin-01-solaris_support.diff
 	* Added patches/xfce4-cpugraph-plugin-02-fixmaxcpu.diff
 	* Added patches/xfce4-mpc-plugin-01-libnsl.diff
@@ -655,7 +661,8 @@
 
 2011-04-13  Alex Viskovatoff <herzen@imap.cc>
 
-	* SFEboost-gpp.spec: use new g++ libs pathname; build multithreaded libs
+	* SFEboost-gpp.spec: use new g++ libs pathname; build multithreaded
+	  libs
 	* SFEmpd.spec: bump to 0.16.2; add --without-encumbered option
 	* base-specs/icu.spec: update to 4.6.1
 	* SFEicu.spec: package pkgconfig files
