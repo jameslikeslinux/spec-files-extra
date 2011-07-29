@@ -73,8 +73,12 @@ Only _prefix get's set, except you again include base.inc like that
 14)
 re-visit dependencies on other perl modules and make them (Build)Requires in those spec files: SFEperl-net-dns.spec SFEperl-mail-spf.spec
 
-15)
+15) packages should record dependencies needed to work
 check dependencies on SFEgcc* for SFEkchmviewer.spec, ...
+check dependencies on "at least" the gcc runtime runtime-libraries. Programs 
+and other libs may rely on e.g. SFEgccruntime and other libs.
+*verify* that gcc-runtime-libraries are searched in the right place, /usr/gnu/,
+if they are independent of the exact gcc-compiler version.
 
 16)
 make up a file or a wiki page with current notes like "deprecated" and "recommeded"
