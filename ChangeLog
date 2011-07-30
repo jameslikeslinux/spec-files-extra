@@ -1,6 +1,7 @@
 2011-07-30 Milan Jurik <sfnet@xylab.cz>
 
 	* base-specs/boost.spec: bump to 1.47.0
+	* experimental/SFEopengrok.spec: moved from jucr, needs more work
 
 2010-07-27 Brian Cameron  <brian.cameron@oracle.com>
 
