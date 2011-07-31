@@ -110,7 +110,6 @@
 %define pnm_buildrequires_SUNWopenssl_include           library/security/openssl
 #handy alias based on typo
 %define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
-%define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_commands		library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_libraries		library/security/openssl
 %define pnm_buildrequires_SUNWopensslr			library/security/openssl
@@ -174,17 +173,18 @@
 #below: our target system is an older build SolarisExpress (up to including 130)
 %if %{SXCE}
 #spec file orginates from a system/autor using the old package names with SUNW prefix
-%define pnm_buildrequires_SUNWopenssl			SUNWopenssl-includes
+%define pnm_buildrequires_SUNWopenssl			SUNWopenssl-include
 %define pnm_requires_SUNWopenssl			SUNWopenssl-libraries
 
-%define pnm_buildrequires_openssl			SUNWopenssl-includes
+%define pnm_buildrequires_openssl			SUNWopenssl-include
 %define pnm_requires_openssl				SUNWopenssl-libraries
 
-%define pnm_buildrequires_library_security_openssl	SUNWopenssl-includes
+%define pnm_buildrequires_library_security_openssl	SUNWopenssl-include
 %define pnm_requires_library_security_openssl		SUNWopenssl-libraries
 
-%define pnm_buildrequires_SUNWopenssl_includes		SUNWopenssl-includes
-%define pnm_requires_SUNWopenssl_includes		SUNWopenssl-includes
+#note: if you search for SUNWopenssl-include, use SUNWopenssl_include !!
+%define pnm_buildrequires_SUNWopenssl_include		SUNWopenssl-include
+%define pnm_requires_SUNWopenssl_include		SUNWopenssl-include
 %define pnm_buildrequires_SUNWopenssl_libraries		SUNWopenssl-libraries
 %define pnm_requires_SUNWopenssl_libraries		SUNWopenssl-libraries
 
@@ -343,6 +343,19 @@
 %define pnm_buildrequires_php52_pgsql 		SUNWphp52u-psql
 %define pnm_requires_php52_pgsql		SUNWphp52u-psql
 #-suhosin -tcpwrap -xdebug skipped, can be added if needed
+
+
+##TODO## Add your packages here in case you specify an old
+# package name now with the pnm_buildrequires_SUNWoldname makro
+
+%define pnm_buildrequires_SUNWbash              SUNWbash
+%define pnm_requires_SUNWbash                   SUNWbash
+%define pnm_buildrequires_SUNWpcre              SUNWpcre
+%define pnm_requires_SUNWpcre                   SUNWpcre
+%define pnm_buildrequires_SUNWggrp              SUNWggrp
+%define pnm_requires_SUNWggrp                   SUNWggrp
+%define pnm_buildrequires_SUNWlibsasl           SUNWlibsasl
+%define pnm_requires_SUNWlibsasl                SUNWlibsasl
 
 %endif
 #END SXCE
@@ -685,6 +698,9 @@
 
 
 %changelog
+* Sun Jul 31 2011 - Thomas Wagner
+- add SVR4 package names for SUNWbash SUNWpcre SUNWggrp SUNWlibsasl
+- fix name *openssl-include  *openssl-includes
 * Wed Jul 20 2011 - Thomas Wagner
 - handle special macro name pnm_buildrequires_python_default pnm_requires_python_default
   and macros for python version.
