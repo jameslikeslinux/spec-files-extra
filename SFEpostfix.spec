@@ -34,6 +34,7 @@
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 
 #change these defaults if needed 
@@ -113,7 +114,7 @@
 Name:                    SFEpostfix
 Summary:                 postfix - Mailer System
 URL:                     http://postfix.org/
-Version:                 2.8.1
+Version:                 2.8.4
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
@@ -133,7 +134,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqires:
 #BuildRequires: SFEcpio
-BuildRequires: SUNWrpm
+#BuildRequires: SUNWrpm
 BuildRequires: SUNWggrp
 #SASL
 %if %(test %{with_sasl} -eq 1 && echo 1 || echo 0)
@@ -153,7 +154,10 @@ Requires: SFEcyrus-sasl
 Requires: %{name}-root
 
 #%config %class(preserve)
+%if %{os2nnn}
+%else
 Requires: SUNWswmt
+%endif
 
 %include default-depend.inc
 
@@ -229,10 +233,14 @@ cp -p %{SOURCE9} tmp/
 #other patches are above
 #%patch2 -p1
 
-#last step: change /bin/sh into /usr/bin/bash
+#change /bin/sh into /usr/bin/bash
 #alternatively we could search for executables, then if it starts with "#!/bin/sh" , change it
-perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
 
+#change /usr/bin/perl to /usr/perl5/bin/perl (ON Perl Style Guidelines)
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/usr/bin/perl,#\!/usr/perl%{perl_major_version}/bin/perl," `find . -type f -exec grep -q "^#\!.*/usr/bin/perl" {} \; -print`
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -873,8 +881,15 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sun Jul 31 2011 - Thomas Wagner
+- bump to 2.8.4
+- make all occurences /usr/bin/perl be /usr/perl%{perl_major_version}/bin/perl
+  (currently /usr/perl5/bin/perl)
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
+* Sat Jun 18 2011 - Thomas Wagner
+- use only on non-IPS systems: Requires: SUNWswmt
+- currently no unpacking of rpm archives, comment SUNWrpm
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
 - add %actions to create users and groups (including predefined numeric uid/gid)
