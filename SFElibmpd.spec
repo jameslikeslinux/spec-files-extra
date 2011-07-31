@@ -16,7 +16,7 @@
 Name:                SFElibmpd
 Summary:             libmpd for gmpc
 URL:                 http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki
-Licences:            GPLv2
+License:             GPLv2
 SUNW_Copyright:	     libmpd.copyright
 Version:             0.20.0
 #needed for download-URL:

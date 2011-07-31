@@ -24,7 +24,7 @@
 %define srcname lyx
 
 Name:		SFElyx
-Summary:	Graphical LaTeX front end: What You See Is What You Mean
+Summary:	Graphical LaTeX front end: What you see is what you mean
 URL:		http://www.lyx.org
 License:	GPLv2
 SUNW_Copyright:	lyx.copyright

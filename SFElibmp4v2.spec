@@ -14,6 +14,8 @@
 
 Name:                    SFElibmp4v2
 Summary:                 %{libmp4v2.summary}
+License:                 GPLv2
+SUNW_Copyright:          libmp4v2.copyright
 Version:                 %{libmp4v2.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build

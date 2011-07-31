@@ -17,10 +17,9 @@
 
 Name:		SFEllvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
-License:	BSD
 SUNW_Copyright:	llvm.copyright
 Version:	2.9
-License:        University of Illinois/NCSA Open Source License
+License:        BSD
 
 URL:		http://llvm.org/
 Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tgz

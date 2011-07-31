@@ -14,7 +14,8 @@ Summary:	Portable renderer for the ASS/SSA (Substation Alpha) subtitle format
 Group:		System/Multimedia Libraries
 URL:		http://code.google.com/p/libass/
 Version:	0.9.12
-License:	BSD
+License:	ISC
+SUNW_Copyright:	libass.copyright
 Source:		http://%srcname.googlecode.com/files/%srcname-%version.tar.xz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -76,5 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Sat Jul 16 2011 - Alex Viskovatoff
 - Initial spec

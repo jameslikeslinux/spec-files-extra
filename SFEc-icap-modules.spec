@@ -15,6 +15,8 @@
 
 Name:		SFEc-icap-modules
 Summary:	C-ICAP modules
+License:	GPLv2
+SUNW_Copyright:	c-icap-modules.copyright
 Version:	0.1.6
 Group:		System/Utilities
 URL:		http://c-icap.sourceforge.net/

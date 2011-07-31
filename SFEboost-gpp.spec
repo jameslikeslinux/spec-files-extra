@@ -15,6 +15,8 @@
 
 Name:                SFEboost-gpp
 Summary:             Free peer-reviewed portable C++ libraries (g++-built)
+License:             Boost License Version
+SUNW_Copyright:      boost.copyright
 Version:             %{boost.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -59,7 +61,7 @@ mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 # It's not worth figuring out how to get the Boost build system
 # to set the runpath correctly
 elfedit -e 'dyn:runpath /usr/ccs/lib:/lib:/usr/lib:/usr/gnu/lib:/usr/g++/lib' \
-        stage/lib/libboost_regex.so.1.46.1
+        stage/lib/libboost_regex.so.%version
 
 for i in stage/lib/*.so; do
   NAME=`basename $i`
@@ -102,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add License and SUNW_Copyright tags
 * Thu Jun 23 2011 - Alex Viskovatoff
 - set correct runpath for libboost_regex, so it finds ICU libraries
 * Sun Apr  3 2011 - Alex Viskovatoff

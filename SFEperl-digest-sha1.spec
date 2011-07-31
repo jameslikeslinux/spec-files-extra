@@ -15,6 +15,8 @@
 %include packagenamemacros.inc
 Name:                    SFEperl-%{module_package_name}
 Summary:                 %{module_name}-%{module_version} PERL module
+License:                 GPL+ or Artistic
+SUNW_Copyright:          digest-sha1.copyright
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/GAAS/%{module_name}-%{module_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
@@ -70,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

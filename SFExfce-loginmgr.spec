@@ -10,6 +10,8 @@
 Name:		SFExfce-loginmgr
 Summary:	gdm and dtlogin files to support Xfce
 URL:		http://www.opensolaris.org/
+License:	GPLv2
+SUNW_Copyright:	xfce-loginmgr.copyright
 Version:	4.8.0
 Source0:	Xinitrc.xfce
 Source1:	Xsession.xfce

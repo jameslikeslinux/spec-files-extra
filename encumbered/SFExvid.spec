@@ -27,7 +27,8 @@
 Name:		SFExvid
 Summary:	%{xvid.summary}
 Version:	%{xvid.version}
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	xvid.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 

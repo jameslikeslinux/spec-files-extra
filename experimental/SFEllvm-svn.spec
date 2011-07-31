@@ -56,8 +56,9 @@
 
 Name:		SFEllvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
+SUNW_Copyright:	llvm.copyright
 Version:	2.9.99.%revision
-License:        University of Illinois/NCSA Open Source License
+License:        BSD
 URL:		http://llvm.org/
 #Source:	http://llvm.org/releases/%{version}/%{src_name}-%{version}.tgz
 #Source1:	http://llvm.org/releases/%{version}/clang-%{version}.tgz
@@ -149,6 +150,8 @@ mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 %{_docdir}/llvm
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Jul 17 2011 - Alex Viskovatoff
 - fork new spec off SFEllvm.spec, using development version from SVN
 - do not hardcode gcc version: use /usr/gnu/bin/gcc

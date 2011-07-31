@@ -55,13 +55,11 @@ Requires: SUNWavahi-bridge-dsd
 BuildRequires: SFElibmpcdec-devel
 BuildRequires: SFElibmad-devel
 BuildRequires: SFEfaad2-devel
-BuildRequires: SFEffmpeg
 # libid3tag is not encumbered, but it is not used by flac or ogg
 BuildRequires: SFElibid3tag-devel
 Requires: SFElibmpcdec
 Requires: SFEfaad2
 Requires: SFElibmad
-Requires: SFEffmpeg
 Requires: SFElibid3tag
 %endif
 

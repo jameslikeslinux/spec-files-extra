@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 Name:		SFEbogofilter
-Summary:	A Bayesian spam filter.
+Summary:	A Bayesian spam filter
 Version:	1.2.2
 Source:		%{sf_download}/bogofilter/bogofilter-%{version}.tar.bz2
 URL:		http://bogofilter.sourceforge.net/

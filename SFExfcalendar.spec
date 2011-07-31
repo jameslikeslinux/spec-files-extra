@@ -11,6 +11,8 @@
 
 Name:		SFExfcalendar
 Summary:	Xfce Calendar
+License:	GPLv2
+SUNW_Copyright:	xfce-calendar.copyright
 Version:	4.8.1
 URL:		http://www.xfce.org/projects/orage
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2

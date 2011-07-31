@@ -22,6 +22,7 @@ Version:	0.10.6
 Summary:	Photo-realistic night sky renderer
 Group:		Applications/Games
 License:	GPLv2+
+SUNW_Copyright:	stellarium.copyright
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
 #Patch1:		stellarium-01-sunstudio.diff
@@ -118,6 +119,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Sat Jul 02 2011 - Alex Viskovatoff
 - fork new spec using gcc to build off SFEstellarium.spec
 * Mon Mar 07 2011 - Alex Viskovatoff

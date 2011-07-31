@@ -13,6 +13,7 @@ URL:		http://xournal.sourceforge.net
 Vendor:		Dennis Auroux
 Version:	0.4.5
 License:	GPLv2
+SUNW_Copyright:	xournal.copyright
 Source:		http://downloads.sourceforge.net/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch:		xournal-01-inline.diff
 

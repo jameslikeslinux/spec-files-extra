@@ -17,7 +17,7 @@ URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License: 	GPLv2
 Group:		User Interface/Desktops
-SUNW_Copyright: xfdesktop.copyright
+SUNW_Copyright: xfdesktop4.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

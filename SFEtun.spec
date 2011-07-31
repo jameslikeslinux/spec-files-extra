@@ -13,6 +13,10 @@
 
 Name:		SFEtun
 Summary:	Virtual Point-to-Point network device
+URL:		http://www.whiteboard.ne.jp/~admin2/tuntap/
+License:        GPLv2
+SUNW_Copyright:	tuntap.copyright
+Meta(info.upstream): Kazuyoshi Aizawa <admin2@whiteboard.ne.jp>
 Version:	1.1
 Source:		%{src_url}/%{src_name}.tar.gz
 SUNW_BaseDir:	%{_basedir}
@@ -99,6 +103,8 @@ driver name=tap
 %endif
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Wed May 12 2010 - Milan Jurik
 - update according the latest upstream
 - IPS support added

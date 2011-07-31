@@ -15,6 +15,8 @@
 
 Name:                    SFEperl-uri
 Summary:                 URI-%{uri_version} PERL module
+License:                 GPL+ or Artistic
+SUNW_Copyright:          perl-uri.copyright
 Version:                 %{perl_version}.%{uri_version}
 Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}

@@ -11,7 +11,8 @@
 Name:		SFElibstroke
 Summary:	A stroke translation library
 Version:	0.5.1
-License:	GPL
+License:	GPLv2
+SUNW_Copyright:	libstroke.copyright
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		libstroke-01-am15.diff
 Patch2:		libstroke-02-am18.diff

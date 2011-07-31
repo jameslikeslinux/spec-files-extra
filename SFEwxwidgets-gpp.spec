@@ -29,6 +29,8 @@ Name:                    SFEwxwidgets-gpp
 Summary:                 wxWidgets - Cross-Platform GUI Library (g++)
 Group:                   Desktop (GNOME)/Libraries
 URL:                     http://wxwidgets.org/
+License:                 wxWidgets
+SUNW_Copyright:          wxwidgets.copyright
 Version:                 %{src_ver}
 Source:			 %{sf_download}/wxwindows/%{pkg_src_name}-%{src_ver}.tar.bz2
 #Source:                  ftp://biolpc22.york.ac.uk/pub/2.9.1/%pkg_src_name-%src_ver.tar.bz2

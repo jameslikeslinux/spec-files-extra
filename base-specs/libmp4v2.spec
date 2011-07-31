@@ -9,7 +9,7 @@
 %define src_url		http://mp4v2.googlecode.com/files
 
 Name:                    libmp4v2
-Summary:                 The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems.
+Summary:                 Library providing an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems
 Version:                 %{src_ver}
 Source:                  %{src_url}/%{src_name}-%{version}.tar.bz2
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build

@@ -31,6 +31,7 @@ Summary:		%icu.summary (g++ built)
 Version:		%icu.version
 URL:			http://site.icu-project.org/
 License:		BSD.icu
+SUNW_Copyright:		icu.copyright
 SUNW_BaseDir:		%_basedir
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

@@ -13,7 +13,7 @@ URL:		http://www.parrot.org/
 Meta(info.upstream):	Parrot Developers <parrot-dev@lists.parrot.org>
 Version:	3.3.0
 License:	Artistic 2.0
-SUNW_Copyright:	
+SUNW_Copyright:	parrot.copyright
 Source:		ftp://ftp.parrot.org/pub/%srcname/releases/supported/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
