@@ -36,6 +36,8 @@ Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
 Patch1:		%patchprefix/qt-gc-sections.diff
 Patch2:		%patchprefix/qt-MathExtras.diff
 Patch3:		%patchprefix/qt-qmake.SFE.diff
+Patch7:		qt47/qt-471-shm.diff
+Patch8:		%patchprefix/QPixmap-warning.patch
 
 # This is required to build with gcc 4.6.1
 Patch6:		%patchprefix/qt-isnan.diff
@@ -63,6 +65,8 @@ Requires: SUNWxwxft
 # This package only provides libraries
 BuildRequires: database/mysql-51
 Requires: database/mysql-51
+BuildRequires: SUNWdbus
+Requires: SUNWdbus
 
 #detected by ldding the binaries
 Requires: database/mysql-51/library,image/library/libjpeg,image/library/libpng,image/library/libtiff,library/glib2,library/libxml2,library/zlib,service/opengl/ogl-select,system/library,system/library/c++/sunpro,system/library/math,x11/library/libice,x11/library/libsm,x11/library/libx11,x11/library/libxdamage,x11/library/libxext,x11/library/libxrender,x11/library/mesa 
@@ -93,6 +97,8 @@ tar xzf %{SOURCE1}
 %patch2
 %patch3
 %patch6 -p1
+%patch7
+%patch8 -p1
 %if %{run_autotests}
 %patch4
 %patch5
@@ -174,7 +180,7 @@ rm %buildroot%_libdir/lib*a
 
 # Eliminate QML imports stuff for now:
 # Who is Nokia to create a new subdirectory in /usr?
-rm -r %buildroot%_prefix/imports
+#rm -r %buildroot%_prefix/imports
 
 
 %clean
@@ -202,6 +208,8 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/pkgconfig/*
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/mkspecs
+%dir %attr (0755, root, other) %_prefix/imports
+%_prefix/imports/*
 
 %files -n %name-doc
 %defattr (-, root, bin)
@@ -212,6 +220,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 30 2011 - Alex Viskovatoff <hezen@imap.cc>
+- Add two patches fixing WebKit; stop deleting imports/
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <hezen@imap.cc>

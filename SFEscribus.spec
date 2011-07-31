@@ -26,7 +26,10 @@ BuildRoot:      %_tmppath/%name-%version-build
 
 BuildRequires: 	SFEqt47-gpp-devel
 Requires: 	SFEqt47-gpp
+BuildRequires:	SFElibiconv
 Requires:	SFElibiconv
+BuildRequires:	SUNWlcms
+Requires:	lcms
 
 BuildRequires: 	SFEcmake
 BuildRequires: 	SUNWPython
@@ -102,6 +105,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Tue Jul 26 2011 - Alex Viskovatoff
+- Add missing (build) dependency
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * 26 Jun 2011 - Alex Viskovatoff

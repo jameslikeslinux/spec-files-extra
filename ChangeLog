@@ -1,3 +1,20 @@
+2011-07-31 Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqt47-gpp.spec: add two WebKit patches; stop deleting imports/
+	* SFEarora.spec: build with gcc (to avoid building second Qt)
+	* SFEweechat.spec: don't link against aspell, which doesn't build
+	* SFEcairo-dock-plugins.spec: don't package %_datadir/vala-0.10
+	* SFEgajim.spec: bump to 0.14.4
+	* ffmpeg.spec: add --enable-version3 option, to make build succeed
+	* blas.spec: "-03" is not a gcc option
+	* orc.spec: revert to 0.4.11, to not break libschroedinger
+	* abiword.spec: suppress --no-undefined flag, rejected by gcc 4.6
+	* SFEabiword.spec: add missing (build) dependency
+	* SFEimagemagick.spec: add missing (build) dependency
+	* SFEscribus.spec: add missing (build) dependencies
+	* SFEopenttd.spec: add missing depedency on gcc
+	* SFEbullet.spec: add -fpermissive to CXXFLAGS for gcc 4.6
+
 2011-07-31 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEviking.spec: bump to 1.2.1

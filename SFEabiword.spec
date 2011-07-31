@@ -35,6 +35,7 @@ Requires:           SUNWgnome-spell
 Requires:           SUNWgnome-character-map
 Requires:           SUNWgnome-print
 Requires:           SUNWfontconfig
+Requires:           SUNWlibgoffice
 Requires:           %pnm_requires_perl_default
 Requires:           SUNWlibgsf
 Requires:           SUNWlibrsvg
@@ -47,6 +48,7 @@ BuildRequires:      SUNWlibpopt-devel
 BuildRequires:      SUNWgnome-spell-devel
 BuildRequires:      SUNWgnome-character-map-devel
 BuildRequires:      SUNWgnome-print-devel
+BuildRequires:      SUNWlibgoffice
 BuildRequires:      SUNWlibgsf-devel
 BuildRequires:      SFElibfribidi-devel
 BuildRequires:      SFEwv-devel

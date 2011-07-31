@@ -5,6 +5,9 @@
 # package are under the same license as the package itself.
 #
 
+# NOTE: -Denable_alsa_mixer="no" does not seem to work at the moment, so
+#	you must ensure that Alsa is not installed to get this to build.
+
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
@@ -105,7 +108,7 @@ rm -rf %{buildroot}
 %{_libdir}
 %dir %attr(0755, root, sys) %{_datadir}
 %{_datadir}/cairo-dock
-%{_datadir}/vala-0.10
+#%{_datadir}/vala-0.10
 
 %if %build_l10n
 %files l10n
@@ -115,6 +118,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jul 27 2011 - Alex Viskovatoff
+- don't package %{_datadir}/vala-0.10, which no longer gets created
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Wed Jul 13 2011 - Milan Jurik

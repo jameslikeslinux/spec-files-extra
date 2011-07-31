@@ -24,6 +24,8 @@ SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-build
 
 %include default-depend.inc
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 BuildRequires:  SUNWlibsdl-devel
 Requires:  SUNWlibsdl
 BuildRequires:  SUNWpng-devel
@@ -152,8 +154,10 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add missing dependency on SFEgcc
 * Sun Jul 24 2011 - Alex Viskovatoff
-- Add SUNW_Copyright
+- add SUNW_Copyright
 * Tue Jul 12 2011 - Milan Jurik
 - bump to 1.1.1
 * Sun May 22 2011 - Milan Jurik

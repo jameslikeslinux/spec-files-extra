@@ -47,7 +47,7 @@ export CPPFLAGS="-I/usr/X11/include"
 export CC=gcc
 export CXX=g++
 export CFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
-export CXXFLAGS="-O2 -fno-omit-frame-pointer -I%{_prefix}/X11/include "
+export CXXFLAGS="-O2 -fno-omit-frame-pointer -fpermissive -I%{_prefix}/X11/include "
 export LDFLAGS="-R%{_libdir} -L%{_libdir} -lX11 "
 
 ./autogen.sh
@@ -70,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Jul 26 2011 - Alex Viskovatoff
+- add -fpermissive to CXXFLAGS to allow build with gcc 4.6
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sat Feb 05 2011 - Milan Jurik

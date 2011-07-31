@@ -18,11 +18,13 @@ License:                ImageMagick License
 SUNW_Copyright:         imagemagick.copyright
 Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
 Group:			Graphics
-License:		ImageMagick License
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 %include perl-depend.inc
+
+BuildRequires:	SFEjasper-devel
+Requires:	SFEjasper
 
 %package devel
 Summary:                 %{summary} - development files
@@ -105,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- Add missing (build) dependency
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Jul 03 2011 - Ken Mays <kmays2000@gmail.com>

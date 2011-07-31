@@ -7,9 +7,11 @@
 %include Solaris.inc
 
 Name:		SFEgajim
-Summary:	Gajim Jabber client
+Summary:	Jabber client written in PyGTK
 Group:		Applications/Internet
-Version:	0.14.3
+License:	GPLv3
+SUNW_Copyright:	gajim.copyright
+Version:	0.14.4
 URL:		http://www.gajim.org/
 Source:		http://www.gajim.org/downloads/0.14/gajim-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -98,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jul 28 2011 - Alex Viskovatoff
+- bump to 0.14.4; add SUNW_Copyright
 * Tue Jun 21 2011 - Milan Jurik
 - bump to 0.14.3
 * Thu Jun 09 2011 - Milan Jurik

@@ -34,8 +34,8 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEcmake
-BuildRequires:	SFEaspell-devel
-Requires:	SFEaspell
+#BuildRequires:	SFEaspell-devel
+#Requires:	SFEaspell
 
 %if %build_l10n
 %package l10n
@@ -114,6 +114,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 27 2011 - Alex Viskovatoff
+- SFEaspell doesn't build, so don't try to link against it
 * Mon Jul 25 2011 - N.B.Prashanth
 - add SUNW_Copyright
 * Sun Mar 13 2011 - Alex Viskovatoff

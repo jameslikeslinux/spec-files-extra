@@ -57,6 +57,7 @@ bash ./configure	\
     --enable-pthreads	\
     --enable-libopencore-amrnb \
     --enable-libopencore-amrwb \
+    --enable-version3 \
     --disable-static	\
     --disable-mlib	\
     --enable-libschroedinger \
@@ -91,6 +92,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add --enable-version3 option to keep build from failing
 * Sun Jul 17 2011 - Alex Viskovatoff
 - update to 0.8, discarding all patches (all fail and apparently are superfluous)
 - remove obsolete flags from invocation of ./configure
