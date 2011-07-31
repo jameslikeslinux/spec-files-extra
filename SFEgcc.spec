@@ -392,7 +392,6 @@ ln -s ../../gcc/%major_minor/bin/c++
 # leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/%major_minor/bin/cpp
 ln -s ../../gcc/%major_minor/bin/g++
 ln -s ../../gcc/%major_minor/bin/gcc
-ln -s ../../gcc/%major_minor/bin/gccbug
 ln -s ../../gcc/%major_minor/bin/gcov
 ln -s ../../gcc/%major_minor/bin/gfortran
 #most likely not needed are those, you can specify in your spec file
