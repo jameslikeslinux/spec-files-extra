@@ -135,11 +135,23 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 #TODO: BuildReqires:
 #BuildRequires: SFEcpio
 #BuildRequires: SUNWrpm
-BuildRequires: SUNWggrp
+BuildRequires: SUNWzlib
+Requires: SUNWzlib
+BuildRequires: %{pnm_buildrequires_SUNWbash}
+Requires:      %{pnm_requires_SUNWbash}
+BuildRequires: %{pnm_buildrequires_perl_default}
+Requires:      %{pnm_requires_perl_default}
+BuildRequires: %{pnm_buildrequires_SUNWpcre}
+Requires:      %{pnm_requires_SUNWpcre}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+Requires:      %{pnm_requires_SUNWopenssl}
+
+BuildRequires: %{pnm_buildrequires_SUNWggrp}
+
 #SASL
 %if %(test %{with_sasl} -eq 1 && echo 1 || echo 0)
-BuildRequires: SUNWlibsasl
-Requires: SUNWlibsasl
+BuildRequires: %{pnm_buildrequires_SUNWlibsasl}
+Requires: %{pnm_buildrequires_SUNWlibsasl}
 %endif
 #SASL2 
 ##TODO## untested, needs the /gnu/ include and libdir below to get found and adjusments to %files section
@@ -885,6 +897,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 - bump to 2.8.4
 - make all occurences /usr/bin/perl be /usr/perl%{perl_major_version}/bin/perl
   (currently /usr/perl5/bin/perl)
+- use pnm_macros, %include packagenamemacros.inc (prev commit)
+- add (Build)Requires as pnm_macros: SUNWbash, %{pnm_requires_perl_default}, SUNWpcre, SUNWopenssl
+- add (Build)Requires SUNWzlib (change to pnm_macro later)
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * Sat Jun 18 2011 - Thomas Wagner
