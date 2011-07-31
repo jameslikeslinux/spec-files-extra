@@ -9,11 +9,10 @@ Name:		SFEviking
 License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
-Version:	1.1
+Version:	1.2.1
 URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
 License:	GPLv2
-Patch1:		viking-01-return.diff
 Patch2:		viking-02-wall.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_Copyright:	viking.copyright
@@ -24,7 +23,7 @@ BuildRequires:	SUNWgnome-common-devel
 BuildRequires:	SUNWgnome-doc-utils
 BuildRequires:	SUNWlxsl
 BuildRequires:	SUNWgawk
-BuildRequires:	library/perl-5/xml-parser
+BuildRequires:	SUNWperl-xml-parser
 BuildRequires:	SUNWcurl
 Requires:	SUNWcurl
 BuildRequires:	SFEgpsd-devel
@@ -40,7 +39,6 @@ Requires:	%{name}
 
 %prep
 %setup -q -n viking-%{version}
-%patch1 -p1
 %patch2 -p1
 
 %build
@@ -49,6 +47,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
+autoconf
 ./configure --prefix=%{_prefix} 
 
 make -j$CPUS
@@ -90,6 +89,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jul 31 2011 - Milan Jurik
+- bump to 1.2.1
 * Mon Jul 25 2011 - N.B.Prashanth
 - add SUNW_Copyright
 * Fri Feb 11 2011 - Milan Jurik
