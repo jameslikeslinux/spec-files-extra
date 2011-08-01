@@ -28,9 +28,6 @@
 %use lame = lame.spec
 %use toolame = toolame.spec
 
-%define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
-
-
 Name:                    SFElame
 Summary:                 MP3 encoders - lame and toolame
 Version:                 %{lame.version}
@@ -47,14 +44,6 @@ Requires: SFEgccruntime
 %else
 BuildRequires: SUNWgcc
 Requires: SUNWgccruntime
-%endif
-
-%if %SFElibsndfile
-BuildRequires:	SFElibsndfile-devel
-Requires:	SFElibsndfile
-%else
-BuildRequires:	SUNWlibsndfile
-Requires:	SUNWlibsndfile
 %endif
 
 BuildRequires: SUNWncurses-devel
