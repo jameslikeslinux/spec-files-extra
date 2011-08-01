@@ -101,7 +101,7 @@ rm -rf %name-%version
 
 
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/netatalk/*
+#%{_datadir}/netatalk/*
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
@@ -127,6 +127,7 @@ rm -rf %name-%version
 %changelog
 * Mon Aug  1 2011 - Thomas Wagner
 - bump to 2.2.0 in a separate commit, this is first stable 2.2.x for early adopters
+- fix %files
 * Mon Aug  1 2011 - Thomas Wagner
 - bump to 2.1.5
 * Sat Mar 20 2011 - Thomas Wagner
