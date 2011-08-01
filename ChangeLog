@@ -1,3 +1,7 @@
+2011-08-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgrsync.spec: bump to 1.2.0
+
 2011-07-31 Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqt47-gpp.spec: add two WebKit patches; stop deleting imports/
