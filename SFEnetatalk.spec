@@ -23,8 +23,8 @@ Vendor:         OpenSolaris Community
 
 %include default-depend.inc
 
-BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
-Requires: %{pnm_requires_SUNWgnu_dbm}
+BuildRequires: SFEbdb
+Requires: SFEbdb
 #make the root package to be installed first
 Requires: %name-root
 
@@ -125,6 +125,8 @@ rm -rf %name-%version
 
 
 %changelog
+* Mon Aug  1 2011 - Thomas Wagner
+- hard (Build)Requires SFEbdb (depdend resol. won't work with SUNWgnu_dbm)
 * Mon Aug  1 2011 - Thomas Wagner
 - bump to 2.2.0 in a separate commit, this is first stable 2.2.x for early adopters
 - fix %files
