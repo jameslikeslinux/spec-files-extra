@@ -24,6 +24,8 @@ Requires: SUNWgnome-base-libs
 Requires: %name-root
 BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
+BuildRequires:	SFElibgc-devel
+Requires:	SFElibgc
 
 %package root
 Summary:       %{summary} - / filesystem
@@ -52,8 +54,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=/usr/gcc/4.6/bin/gcc
-export CXX=/usr/gcc/4.6/bin/g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
