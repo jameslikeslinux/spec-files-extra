@@ -120,13 +120,14 @@ rm -rf %name-%version
 %defattr (-, root, sys)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/*
 %{_sysconfdir}/init.d/netatalk
-%dir %attr (0755, root, sys) %{_localstatedir}
+%dir %attr (0755, root, bin) %{_localstatedir}
 %dir %{_localstatedir}/spool/netatalk
 
 
 %changelog
 * Mon Aug  1 2011 - Thomas Wagner
 - hard (Build)Requires SFEbdb (depdend resol. won't work with SUNWgnu_dbm)
+- fix %files permissions for /var/spool
 * Mon Aug  1 2011 - Thomas Wagner
 - bump to 2.2.0 in a separate commit, this is first stable 2.2.x for early adopters
 - fix %files
