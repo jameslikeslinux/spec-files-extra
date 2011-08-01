@@ -123,3 +123,15 @@ check dependencies on mysql for SFEfreeradius.spec (pnm_macros? somthing like pn
 24)
 pkgbuild.wiki.sourcefore.net: add implementation note for SFE maintainers to 
 check the search order be /usr/g++/lib then all others like /usr/lib and /usr/gnu/lib
+
+25)
+add helper script to do this at the end of a pkgtool run as the last line in 
+section %install: use env info and read 
+/var/tmp/pkgbuild-$LOGNAME/<packagename>/*all*those*files*and*dirs*
+print-out a nice %files section with all the well-known-defaults which can then
+be included into the new spec file with the previously empty %files section.
+The user just re-runs the pkgbuild --short-circuit -bb SFEpackagename to see 
+if files are nicely catched. Eliminates / reduced the great try+error cycles
+when defining %files
+eventually "pkg" has a nice list of defaults in the code, else assemble from
+man filesystem or existing spec files
