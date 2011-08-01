@@ -118,9 +118,13 @@ rm -rf %name-%version
 
 %files root
 %defattr (-, root, sys)
+%attr (0755, root, sys) %dir %{_sysconfdir}
+%attr (0755, root, sys) %dir %{_sysconfdir}/init.d
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/*
 %{_sysconfdir}/init.d/netatalk
-%dir %attr (0755, root, bin) %{_localstatedir}
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_localstatedir}
+%dir %attr (0755, root, bin) %{_localstatedir}/spool
 %dir %{_localstatedir}/spool/netatalk
 
 
