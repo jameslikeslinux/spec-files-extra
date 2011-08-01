@@ -11,7 +11,7 @@
 
 Name:           SFEnetatalk
 Summary:        Open Source AFP fileserver
-Version:        2.1.2
+Version:        2.1.5
 Epoch:          1
 License:        GPLv3
 Copyright:	GPLv3
@@ -125,6 +125,8 @@ rm -rf %name-%version
 
 
 %changelog
+* Mon Aug  1 2011 - Thomas Wagner
+- bump to 2.1.5
 * Sat Mar 20 2011 - Thomas Wagner
 - fix permissions by rewriting %files section
 - remove static libs
