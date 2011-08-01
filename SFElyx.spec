@@ -38,11 +38,13 @@ BuildRequires:	SFEgcc
 BuildRequires:	SFEqt47-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
+BuildRequires:	runtime/python-26
 Requires:	SFEgccruntime
 Requires:	SFEqt47-gpp
 Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
+Requires:	runtime/python-26
 
 %if %build_l10n
 %package l10n
@@ -106,6 +108,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Jul 31 2011 - Alex Viskovatoff
+- Add missing (build) dependency
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Use system Boost; add SUNW_Copyright
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>

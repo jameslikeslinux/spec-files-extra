@@ -14,6 +14,8 @@
 	* SFEscribus.spec: add missing (build) dependencies
 	* SFEopenttd.spec: add missing depedency on gcc
 	* SFEbullet.spec: add -fpermissive to CXXFLAGS for gcc 4.6
+	* SFEboost-gpp.spec: set correct runpath for some shared libraries
+	* SFElyx.spec: add missing (build) dependency
 
 2011-07-31 Milan Jurik <sfnet@xylab.cz>
 

@@ -60,8 +60,14 @@ mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
 # It's not worth figuring out how to get the Boost build system
 # to set the runpath correctly
-elfedit -e 'dyn:runpath /usr/ccs/lib:/lib:/usr/lib:/usr/gnu/lib:/usr/g++/lib' \
-        stage/lib/libboost_regex.so.%version
+%define rpath 'dyn:runpath /lib:/usr/lib:/usr/gnu/lib:/usr/g++/lib'
+pushd stage/lib
+elfedit -e %rpath libboost_regex.so.%version
+elfedit -e %rpath libboost_graph.so.%version
+elfedit -e %rpath libboost_filesystem.so.%version
+elfedit -e %rpath libboost_wave.so.%version
+elfedit -e %rpath libboost_wserialization.so.%version
+popd
 
 for i in stage/lib/*.so; do
   NAME=`basename $i`
@@ -104,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sun Jun 31 2011 - Alex Viskovatoff
+- set correct runpath for some more shared libraries
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add License and SUNW_Copyright tags
 * Thu Jun 23 2011 - Alex Viskovatoff

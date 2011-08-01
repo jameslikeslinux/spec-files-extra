@@ -23,7 +23,7 @@
 
 %include packagenamemacros.inc
 
-Name:                SFEqt47-gpp
+Name:                SFEqt-gpp
 Summary:             Cross-platform development framework/toolkit
 Group:               Desktop (GNOME)/Libraries
 URL:                 http://trolltech.com/products/qt
@@ -220,8 +220,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sat Jul 30 2011 - Alex Viskovatoff <hezen@imap.cc>
+* Sun Jul 31 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Add two patches fixing WebKit; stop deleting imports/
+- Rename to SFEqt-gpp.spec
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <hezen@imap.cc>
