@@ -24,8 +24,9 @@ write pnm_macros to get perl584 or perl510 or other future versions properly (Bu
 20110618 update: basic functionality is now there, please test your personal SFEperl-<module> now (Osol134, OI, S11Express)
 
 6)
-once Solaris 11 Express build is out delivering a new perl version, check + adjust
-the build-number and remove corresponding ##TODO## in include/packagenames.define.allbuilds.inc
+#updated once Solaris 11 Express build is out delivering a new perl version, check + adjust
+#updated the build-number and remove corresponding ##TODO## in include/packagenames.define.allbuilds.inc
+testing now Solaris 11 (Express) Build >= 166 to use perl-512
 
 7)
 need one general license file for "perl" licensed packages. all specs can point to that file with SUNW_Copyright:
@@ -115,3 +116,10 @@ make usage note on the wiki and enter wiki url into the include file
 22)
 package wish list
 SFEmpack (see spec-files-jucr/specs/mpack.spec, clear dependencies)  #easy-jucr
+
+23)
+check dependencies on mysql for SFEfreeradius.spec (pnm_macros? somthing like pnm_mysql_default)
+
+24)
+pkgbuild.wiki.sourcefore.net: add implementation note for SFE maintainers to 
+check the search order be /usr/g++/lib then all others like /usr/lib and /usr/gnu/lib
