@@ -40,6 +40,12 @@ The source code is under a BSD License.
 %prep
 %setup -q -n unbound-%{version}
 
+%build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
 LDFLAGS="-lsocket -lnsl" \
 ./configure \
 	--prefix=%{_prefix} \
@@ -53,13 +59,7 @@ LDFLAGS="-lsocket -lnsl" \
 	--with-conf-file=%{_sysconfdir}/unbound/unbound.conf \
 	--with-pidfile=%{_localstatedir}/run/unbound.pid
 
-%build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
-
-make -j$CPU
+make -j$CPUS
 
 %install
 rm -rf %{buildroot}
