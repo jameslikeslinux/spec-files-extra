@@ -88,6 +88,17 @@
 %define pnm_requires_SUNWGtku				SUNWGtk
 %define pnm_requires_SUNWGtkr				SUNWGtk
 
+#kerberos
+%define pnm_buildrequires_service_security_kerberos_5  SUNWkrb
+%define pnm_requires_service_security_kerberos_5       SUNWkrb
+
+%define pnm_buildrequires_SUNWkrb 		SUNWkrb
+%define pnm_buildrequires_SUNWkrbr		SUNWkrb
+%define pnm_buildrequires_SUNWkrbu		SUNWkrb
+%define pnm_requires_SUNWkrb                    SUNWkrb
+%define pnm_requires_SUNWkrbr 			SUNWkrb
+%define pnm_requires_SUNWkrbu 			SUNWkrb
+
 %endif
 #END os2nnn
 
@@ -344,9 +355,7 @@
 %define pnm_requires_php52_pgsql		SUNWphp52u-psql
 #-suhosin -tcpwrap -xdebug skipped, can be added if needed
 
-
-##TODO## Add your packages here in case you specify an old
-# package name now with the pnm_buildrequires_SUNWoldname makro
+#various packages
 
 %define pnm_buildrequires_SUNWbash              SUNWbash
 %define pnm_requires_SUNWbash                   SUNWbash
@@ -356,6 +365,20 @@
 %define pnm_requires_SUNWggrp                   SUNWggrp
 %define pnm_buildrequires_SUNWlibsasl           SUNWlibsasl
 %define pnm_requires_SUNWlibsasl                SUNWlibsasl
+
+#kerberos
+%define pnm_buildrequires_service_security_kerberos_5  SUNWkrbu
+%define pnm_requires_service_security_kerberos_5       SUNWkrbu
+
+%define pnm_buildrequires_SUNWkrb 		SUNWkrbu
+%define pnm_buildrequires_SUNWkrbr		SUNWkrbr
+%define pnm_buildrequires_SUNWkrbu		SUNWkrbu
+%define pnm_requires_SUNWkrb                    SUNWkrbu
+%define pnm_requires_SUNWkrbr 			SUNWkrbr
+%define pnm_requires_SUNWkrbu 			SUNWkrbu
+
+##TODO## Add your packages here in case you specify an old
+# package name now with the pnm_buildrequires_SUNWoldname makro
 
 %endif
 #END SXCE
@@ -662,8 +685,6 @@
 %define python_major_minor_version 2.6
 %define python_major_minor_micro_version 2.6.4
 
-###TODO## not clear if we should require SUNWperl584core or SUNWperl584usr
-#both?
 #note: the name is subject to change if we find a better one
 #_default string is not meant to be a part of the package name...
 %define pnm_buildrequires_python_default	SUNWPython26-devel,SUNWPython26
@@ -763,12 +784,15 @@
 
 
 %changelog
+* Mon Aug  2 2011 - Thomas Wagner
 - handle special macro name pnm_buildrequires_mysql_default pnm_requires_mysql_default
   and macros for mysql version.
   add macro to point to the mysql_default_includedir and mysql_default_libdir.
   SUNWmysql51/SUNWmysql51u/database/mysql-51 is initially the only mysql-version
   for *all* osbuild / osdistro, to be extended as required later (for older 
   osbuild/osdistro, *or* for next mysql-versions 5.x or 6.x...)
+* Mon Aug  1 2011 - Thomas Wagner
+- handle SUNWkrb/SUNWkrbu/SUNWkrbr/service_security_kerberos_5
 * Sun Jul 31 2011 - Thomas Wagner
 - add SVR4 package names for SUNWbash SUNWpcre SUNWggrp SUNWlibsasl
 - fix name *openssl-include  *openssl-includes
