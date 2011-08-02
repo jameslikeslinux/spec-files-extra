@@ -137,7 +137,6 @@ export LDFLAGS="%_ldflags -pthreads"
            -nomake examples \
            -nomake demos \
 	   -webkit \
-           -no-exceptions \
            -sysconfdir %_sysconfdir \
            -L /usr/gnu/lib \
            -R /usr/gnu/lib \
@@ -222,6 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Jul 31 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Add two patches fixing WebKit; stop deleting imports/
+- Enable exceptions, so that libQtXmlPatterns gets built
 - Rename to SFEqt-gpp.spec
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright

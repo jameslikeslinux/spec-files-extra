@@ -10,7 +10,7 @@
 Name:		SFExournal
 Summary:	Note-taking and sketching application
 URL:		http://xournal.sourceforge.net
-Vendor:		Dennis Auroux
+Meta(info.upstream):	Dennis Auroux
 Version:	0.4.5
 License:	GPLv2
 SUNW_Copyright:	xournal.copyright

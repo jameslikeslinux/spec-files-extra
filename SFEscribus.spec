@@ -12,6 +12,7 @@
 
 Name:           SFEscribus
 Summary:        Graphical desktop publishing (DTP) application
+URL:		http://www.scribus.net/canvas/Scribus
 Group:		Applications/Office
 Version:        1.4.0
 #Source:	http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
@@ -24,8 +25,8 @@ BuildRoot:      %_tmppath/%name-%version-build
 %include	default-depend.inc
 #Requires:	%name-root
 
-BuildRequires: 	SFEqt47-gpp-devel
-Requires: 	SFEqt47-gpp
+BuildRequires: 	SFEqt-gpp-devel
+Requires: 	SFEqt-gpp
 BuildRequires:	SFElibiconv
 Requires:	SFElibiconv
 BuildRequires:	SUNWlcms
@@ -71,6 +72,9 @@ make -j$CPUS
 rm -rf %buildroot
 cd builddir
 make install DESTDIR=%buildroot INSTALL="%_bindir/ginstall -c -p"
+cd ..
+mkdir %buildroot%_datadir/applications
+cp %srcname.desktop %buildroot%_datadir/applications
 
 %clean
 rm -rf %buildroot
@@ -82,8 +86,8 @@ rm -rf %buildroot
 %dir %attr (0755, root, bin) %_libdir
 %dir %attr(0755, root, sys) %_datadir
 %dir %attr(0755, root, bin) %_includedir
-# Todo
-#%dir %attr(0755, root, other) %{_datadir}/applications
+%dir %attr(0755, root, other) %_datadir/applications
+%_datadir/applications/%srcname.desktop
 %_bindir/scribus
 #TODO
 #%{_datadir}/gnome/apps/Applications/scribus.desktop

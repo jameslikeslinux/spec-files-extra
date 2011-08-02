@@ -10,11 +10,12 @@
 %include packagenamemacros.inc
 
 Name:           SFEnetatalk
-Summary:        Open Source AFP fileserver
+Summary:        Open Source Apple Filing Protocol (AFP) fileserver
+Group:		System/Services
 Version:        2.2.0
 Epoch:          1
-License:        GPLv3
-Copyright:	GPLv3
+License:        MIT
+SUNW_Copyright:	netatalk.copyright
 Source:         %{sf_download}/netatalk/netatalk-%{version}.tar.bz2
 URL:            http://netatalk.sourceforge.net/
 Group:          Network
@@ -129,6 +130,8 @@ rm -rf %name-%version
 
 
 %changelog
+* Mon Aug  1 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Mon Aug  1 2011 - Thomas Wagner
 - hard (Build)Requires SFEbdb (depdend resol. won't work with SUNWgnu_dbm)
 - fix %files permissions for /var/spool

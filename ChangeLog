@@ -1,3 +1,10 @@
+2011-08-01 Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqt-gpp.spec: enable exceptions
+	* SFEqmpdclient.spec: initial spec
+	* SFElyx.spec: deliver desktop file so application appears in menu
+	* SFEscribus.spec: deliver desktop file
+
 2011-08-01 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgrsync.spec: bump to 1.2.0

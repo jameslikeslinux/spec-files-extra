@@ -39,7 +39,7 @@ BuildRequires: SUNWlcms-devel
 BuildRequires: SUNWgtkmm-devel
 BuildRequires: SUNWglibmm-devel
 BuildRequires: SUNWsigcpp-devel
-BuildRequires: SFEboost-devel
+BuildRequires: SFEboost-gpp-devel
 
 %if %build_l10n
 %package l10n

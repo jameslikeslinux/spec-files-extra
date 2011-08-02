@@ -30,17 +30,18 @@ License:	GPLv2
 SUNW_Copyright:	lyx.copyright
 Version:	2.0.0
 Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0.x/%srcname-%version.tar.xz
+Source1:	%srcname.desktop
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-gpp-devel
+BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
 BuildRequires:	runtime/python-26
 Requires:	SFEgccruntime
-Requires:	SFEqt47-gpp
+Requires:	SFEqt-gpp
 Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
@@ -80,6 +81,8 @@ make -j$CPUS
 rm -rf %buildroot
 
 make install DESTDIR=%buildroot
+mkdir %buildroot%_datadir/applications
+cp %SOURCE1 %buildroot%_datadir/applications
 
 %if %build_l10n
 %else
@@ -98,6 +101,8 @@ rm -rf %buildroot
 %dir %attr (-, root, sys) %_datadir
 %_datadir/%srcname
 %_mandir
+%dir %attr(0755, root, other) %_datadir/applications
+%_datadir/applications/%srcname.desktop
 
 %if %build_l10n
 %files l10n
