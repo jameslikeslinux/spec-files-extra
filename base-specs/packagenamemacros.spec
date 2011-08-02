@@ -88,12 +88,21 @@ packagenamemacros: osdistrelname   	%{osdistrelname}
 packagenamemacros: osdet299999 		%{osdet299999}
 packagenamemacros: pnm_buildrequires_perl_default: 		%{pnm_buildrequires_perl_default}
 packagenamemacros: pnm_requires_perl_default: 			%{pnm_requires_perl_default}
-packagenamemacros: perl_major_version number is: 		%{perl_major_version}
 packagenamemacros: perl_version number is:       		%{perl_version}
+packagenamemacros: perl_major_version number is: 		%{perl_major_version}
+packagenamemacros: perl_major_minor_version number is: 		%{perl_major_minor_version}
+packagenamemacros: perl_major_minor_micro_version number is: 	%{perl_major_minor_micro_version}
 packagenamemacros: _prefix/perl_path_vendor_perl	 	%{_prefix}/%{perl_path_vendor_perl}
 packagenamemacros: _prefix/perl_path_vendor_perl_version 	%{_prefix}/%{perl_path_vendor_perl_version}
 packagenamemacros: _prefix/perl_path_site_perl 			%{_prefix}/%{perl_path_site_perl}
 packagenamemacros: _prefix/perl_path_site_perl_version 		%{_prefix}/%{perl_path_site_perl_version}
+packagenamemacros: pnm_buildrequires_mysql_default		%{pnm_buildrequires_mysql_default}
+packagenamemacros: pnm_requires_mysql_default			%{pnm_requires_mysql_default}
+packagenamemacros: _prefix/mysql_default_includedir		%{_prefix}/%{mysql_default_includedir}
+packagenamemacros: _prefix/mysql_default_libdir			%{_prefix}/%{mysql_default_libdir}
+packagenamemacros: mysql_version				%{mysql_version}
+packagenamemacros: mysql_major_version				%{mysql_major_version}
+packagenamemacros: mysql_major_minor_version			%{mysql_major_minor_version}
 " >/dev/null
 
 
@@ -126,6 +135,9 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Tue Aug  2 2011 - Thomas Wagner
+- add mysql examples
+- display more perl versions
 * Sun Jul  3 2011 - Thomas Wagner
 - rename variables perl5_default to perl_default
 * Fri Jun 17 2011 - Thomas Wagner

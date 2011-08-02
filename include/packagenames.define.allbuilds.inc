@@ -547,10 +547,11 @@
 #START setting perl5, defaults  - Part 1 of 3
 #define perl defaults, primarily shared settings and default version, paths
 #for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
-#STRONG NOTE: below the osdistro and osbuild sections, there is *another*
-#section evaluating the resulting paths on the disk. We hope, that we
-#do not need to handle special cases there, e.g. an odd distro decides
-#to relocate to another path layout on disk....
+#STRONG NOTE: located *below* the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk, those are specific
+#to the perl version in use. We hope, that we do not need to handle special
+#cases there, e.g. this would be an odd distro deciding to relocate to 
+#another path layout on disk....
 
 #note: older Solaris releases did include "micro"-versionnumber in 
 #modules path, e.g. vendor_perl/5.8.4
@@ -627,7 +628,7 @@
 #END setting perl5, changes with specific builds and distros  - Part 2 of 3
 
 
-#START setting perl5, all builds  - Part 3 of 3
+#START setting perl5, all builds, evaluated paths  - Part 3 of 3
 # this is the section noted above which evaluates the resulting paths on the
 # disk for the defaults for perl or the distro specific changed values e.g.
 # more fresh perl version 5.8.4 -> 5.12 
@@ -647,7 +648,7 @@
 # echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10.0)
 %define perl_path_site_perl_version perl%{perl_major_version}/site_perl/%{perl_version}
 
-#END setting perl5, all builds  - Part 3 of 3
+#END setting perl5, all builds, evaluated paths  - Part 3 of 3
 
 
 #START setting Python, defaults  - Part 1 of 1
@@ -682,6 +683,70 @@
 #highlight that a value may be re-defined later on for special cases
 #END setting Python
 
+
+#START setting mysql, defaults  - Part 1 of 3
+#define mysql defaults, primarily shared settings and default version, paths
+#for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
+#STRONG NOTE: located *below* the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk, those are specific
+#to the mysql version in use. We hope, that we do not need to handle special
+#cases there, e.g. this would be an odd distro deciding to relocate to 
+#another path layout on disk....
+##TODO## Solaris 10's mysql versions *not yet* covered here
+
+#from SXCE on we have this:
+%define mysql_version 5.1
+%define mysql_major_version 5
+%define mysql_major_minor_version 5.1
+##not defined %define mysql_major_minor_micro_version 5.1.X
+
+#we simplify the veriants for mysql, we try to use only the newer one
+#for *all* consuming spec files.
+#include file /usr/mysql/5.1/include/mysql/mysql.h is in SUNWmysql51u
+%define pnm_buildrequires_mysql_default	SUNWmysql51u
+%define pnm_requires_mysql_default	SUNWmysql51u
+
+#END setting mysql, defaults  - Part 1 of 3
+
+#START setting mysql, changes with specific builds and distros  - Part 2 of 3
+#set mysql for Solaris11Express or OpenIndiana or OpenSolaris
+%if %{os2nnn}
+#older IPS systems
+%define pnm_buildrequires_mysql_default	SUNWmysql51
+%define pnm_requires_mysql_default	SUNWmysql51
+%if %( expr %{osbuild} '>=' 133 )
+#from build 133 and up we have
+#database/mysql-51
+%define pnm_buildrequires_mysql_default	database/mysql-51
+%define pnm_requires_mysql_default	database/mysql-51
+%endif
+#END >= 133
+%endif
+#END os2nnn
+
+#add more distro here
+
+#END setting mysql, changes with specific builds and distros  - Part 2 of 3
+
+#START setting mysql, all builds, evaluated paths  - Part 3 of 3
+# this is the section noted above which evaluates the resulting paths on the
+# disk for the defaults for mysql or the distro specific changed values e.g.
+# if a more fresh mysql version stores files somewehre else
+
+#set handy partial paths to default locations where important mysql files
+#are stored
+#note: simplyfication: %{_prefix} must be prepended by the spec file itself
+
+#example:
+#the mysql.h file would be found with CFLAGS="-I%{_prefix}/{%mysql_default_includedir}"
+%define mysql_default_includedir	mysql/%{mysql_major_minor_version}/include
+#more information: #include "mysql/mysql.h" -->> /usr/mysql/5.1/include/mysql/mysql.h 
+
+%define mysql_default_libdir	mysql/%{mysql_major_minor_version}/lib
+
+#END setting mysql, all builds, evaluated paths  - Part 3 of 3
+
+
 #  pkg contents -r -m system/header/header-audio
 # set name=pkg.fmri value=pkg://solaris/system/header/header-audio@0.5.11,5.11-0.163:20110410T085804Z
 # set name=variant.arch value=sparc value=i386
@@ -698,6 +763,12 @@
 
 
 %changelog
+- handle special macro name pnm_buildrequires_mysql_default pnm_requires_mysql_default
+  and macros for mysql version.
+  add macro to point to the mysql_default_includedir and mysql_default_libdir.
+  SUNWmysql51/SUNWmysql51u/database/mysql-51 is initially the only mysql-version
+  for *all* osbuild / osdistro, to be extended as required later (for older 
+  osbuild/osdistro, *or* for next mysql-versions 5.x or 6.x...)
 * Sun Jul 31 2011 - Thomas Wagner
 - add SVR4 package names for SUNWbash SUNWpcre SUNWggrp SUNWlibsasl
 - fix name *openssl-include  *openssl-includes
