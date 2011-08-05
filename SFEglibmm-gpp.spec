@@ -11,11 +11,15 @@
 
 %define cc_is_gcc 1
 %include base.inc
+%define _prefix /usr/g++
 
 %use glibmm = glibmm.spec
 
 Name:                    SFEglibmm-gpp
-Summary:                 glibmm - C++ Wrapper for the Glib2 Library (g++-built)
+Summary:                 C++ Wrapper for the Glib2 Library (g++-built)
+Group:                   Desktop (GNOME)/Libraries
+License:                 LGPLv2
+SUNW_Copyright:          glibmm.copyright
 Version:                 %{glibmm.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -25,7 +29,6 @@ Requires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-base-libs-devel
 Requires: SFEsigcpp-gpp
 BuildRequires: SFEsigcpp-gpp-devel
-BuildRequires: SUNWsigcpp-devel
 
 %package devel
 Summary:                 %{summary} - development files
@@ -43,12 +46,12 @@ mkdir %name-%version
 cd %{_builddir}/%name-%version
 
 %build
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
-export CXXFLAGS="%{gcc_cxx_optflags}"
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
+export CXXFLAGS="%{cxx_optflags}"
 export CFLAGS="%optflags"
-export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
-export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir}"
+export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig
+export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
 export PERL_PATH=/usr/perl5/bin/perl
 %glibmm.build -d %name-%version
 
@@ -63,33 +66,33 @@ rm -rf $RPM_BUILD_ROOT%{_cxx_libdir}/glibmm-2.4/proc/m4
 rm -rf $RPM_BUILD_ROOT%{_cxx_libdir}/glibmm-2.4/proc/pm
 rm -rf $RPM_BUILD_ROOT%{_cxx_libdir}/libglibmm_generate_extra_defs*.so*
 rm -rf $RPM_BUILD_ROOT%{_cxx_includedir}/glibmm-2.4/glibmm_generate_extra_defs
-
-# REMOVE l10n FILES - included in Solaris
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-
-# remove files included in SUNWglibmm-devel:
-rm -r $RPM_BUILD_ROOT%{_datadir}
-rm -r $RPM_BUILD_ROOT%{_includedir}
+rm -rf $RPM_BUILD_ROOT%_datadir/aclocal
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%dir %attr (0755, root, other) %{_cxx_libdir}/pkgconfig
-%{_cxx_libdir}/pkgconfig/*
-%{_cxx_libdir}/glibmm*
-%{_cxx_libdir}/giomm*
+%_includedir
+%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
+%{_libdir}/glibmm*
+%{_libdir}/giomm*
+%_datadir/doc/glibmm-2.4
+%_datadir/glibmm-2.4
+%_datadir/devhelp
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- use new g++ path layout; add SUNW_Copyright
 * Fri Nov 06 2009 - jchoi42@pha.jhu.edu
-- comment depreciated patch
+- comment deprecated patch
 * Fri Sep 25 2009 - jchoi42@pha.jhu.edu
 - specified giomm dir in %files section
 * Sun Jun 29 2008 - river@wikimedia.org

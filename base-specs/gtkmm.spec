@@ -8,12 +8,12 @@
 Name:         gtkmm
 License:      LGPL
 Group:        System/Libraries
-Version:      2.12.4
+Version:      2.20.3
 Release:      1
 Distribution: Java Desktop System
 Vendor:       Sun Microsystems, Inc.
 Summary:      gtkmm - C++ Interfaces for GTK+ and GNOME
-Source:       http://download.gnome.org/sources/gtkmm/2.12/gtkmm-%{version}.tar.bz2
+Source:       http://download.gnome.org/sources/gtkmm/2.20/gtkmm-%{version}.tar.bz2
 
 #date:2008-02-14 owner:bewitche type:feature  
 Patch1:       gtkmm-01-ignore-defs.diff
@@ -28,10 +28,10 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n gtkmm-%version
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
+#%patch4 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -41,13 +41,11 @@ fi
 
 # background.jpg is required by gtkmm-demo, but not in the right directory
 # we simply copy the file into the proper directory
-cp ./demos/background.jpg ./demos/gtk-demo
+#cp ./demos/background.jpg ./demos/gtk-demo
 
-automake --add-missing
-autoconf
+#automake --add-missing
+#autoconf
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_cxx_libdir}              \
-            --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir}
 make -j$CPUS 
 
@@ -55,7 +53,7 @@ make -j$CPUS
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
-mv $RPM_BUILD_ROOT%{_bindir}/demo $RPM_BUILD_ROOT%{_bindir}/gtkmm-demo
+#mv $RPM_BUILD_ROOT%{_bindir}/demo $RPM_BUILD_ROOT%{_bindir}/gtkmm-demo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,6 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- bump to 2.20.3
 * Fri Fe 22 2008 - damien.carbery@sun.com
 - Add glibmm-02-m4-macro to fix #423990. Use glibmm patch as issue is identical.
 * Thu Feb 14 2008 - chris.wang@sun.com

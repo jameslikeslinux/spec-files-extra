@@ -26,8 +26,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires: SUNWgmake
 BuildRequires: SUNWgnu-coreutils
 BuildRequires: SUNWgtar
-BuildRequires: SFEqt47-gpp-devel
-Requires: SFEqt47-gpp
+BuildRequires: SFEqt-gpp-devel
+Requires: SFEqt-gpp
 Requires: SUNWzlib
 
 

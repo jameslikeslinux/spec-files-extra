@@ -56,7 +56,7 @@ Version:		0.8.53
 %endif
 
 Name:			SFEnginx
-Summary:		Free, open-source, high-performance HTTP server and reverse proxy.
+Summary:		Free, open-source, high-performance HTTP server and reverse proxy
 Source:			http://nginx.org/download/%{sname}-%{version}.tar.gz
 Source1:		http-nginx
 Source2:		http-nginx.xml

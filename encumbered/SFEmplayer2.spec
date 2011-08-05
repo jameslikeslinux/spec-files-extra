@@ -67,10 +67,12 @@ BuildRequires: SFEffmpeg-devel
 Requires: SFEffmpeg
 Requires: SFEliveMedia
 Requires: SFElibcdio
+Requires: SFElibdvdnav
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
 BuildRequires: SFElibcdio-devel
+BuildRequires: SFElibdvdnav-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
 
@@ -220,6 +222,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Wed Aug  3 2011 - Alex Viskovatoff
+- Add missing (build) dependency on SFElibdvdnav
 * Fri Jul 22 2011 - Alex Viskovatoff
 - Default to not renaming mplayer to "mplayer2"; symlink to a DejaVu font
   which is available on all platforms; add SUNW_Copyright

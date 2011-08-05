@@ -12,11 +12,15 @@
 
 %define cc_is_gcc 1
 %include base.inc
+%define _basedir /usr/g++
 
 %use cairomm = cairomm.spec
 
 Name:                    SFEcairomm-gpp
-Summary:                 cairomm - C++ API for the Cairo Graphics Library (g++-built)
+Summary:                 C++ API for the Cairo Graphics Library (g++-built)
+Group:                   Desktop (GNOME)/Libraries
+License:                 LGPLv2
+SUNW_Copyright:          cairomm.copyright
 Version:                 %{cairomm.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -47,13 +51,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=gcc
-export CXX=g++
-export CXXFLAGS="%gcc_cxx_optflags"
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
+#export CPPFLAGS="-I/usr/g++/include"
+export CXXFLAGS="%cxx_optflags -I/usr/g++/include"
 export CFLAGS="%optflags"
 export PERL_PATH=/usr/perl5/bin/perl
-export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir}"
-export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
+export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 %cairomm.build -d %name-%version
 
 %install
@@ -63,23 +68,29 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -type f -name "*.a" -exec rm -f {} ';'
 
 # delete files already included in SUNWcairomm-devel:
-rm -r $RPM_BUILD_ROOT%{_datadir}
-rm -r $RPM_BUILD_ROOT%{_includedir}
+#rm -r $RPM_BUILD_ROOT%{_datadir}
+#rm -r $RPM_BUILD_ROOT%{_includedir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%dir %attr (0755, root, other) %{_cxx_libdir}/pkgconfig
-%{_cxx_libdir}/pkgconfig/*
+%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
+%_libdir/cairomm-1.0
+%_includedir
+%_datadir/doc/cairomm-1.0
+%_datadir/devhelp
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- use new g++ path layout add SUNW_Copyright
 * Wed Apr 23 2008 - laca@sun.com
 - create, re-work from SUNWcairomm.spec to build with g++

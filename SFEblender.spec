@@ -2,8 +2,8 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
-%define python_version 2.6
 %define src_version 2.49b
 %define src_url http://download.blender.org/source
 
@@ -25,12 +25,13 @@ Requires: 	SUNWilmbase
 %ifarch i386 amd64
 Requires: 	SUNWxorg-mesa
 %endif
-Requires: 	SUNWfreetype2
+# Don't require freetype2 as that blocks installation on Solaris 11
+#Requires: 	SUNWfreetype2
 Requires: 	SUNWpng
 BuildRequires: 	SUNWTiff
 BuildRequires: 	SUNWopensslr
 BuildRequires: 	SUNWlibsdl-devel
-BuildRequires: 	SUNWPython
+BuildRequires: 	%{pnm_buildrequires_python_default}
 
 %package root
 Summary:         %summary - platform dependent files, / filesystem
@@ -180,6 +181,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Wed Aug  3 2011 - Alex Viskovatoff
+- use packagenamemacros.inc for Python version; do not require freetype
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * May 18 2010 - G.D.

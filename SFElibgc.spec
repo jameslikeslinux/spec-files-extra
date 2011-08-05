@@ -14,6 +14,8 @@ Name:		SFElibgc
 Summary: 	The Boehm-Demers-Weiser conservative garbage collector
 Version: 	7.1
 URL: 		http://www.hpl.hp.com/personal/Hans_Boehm/gc/
+License:	MIT
+SUNW_Copyright:	gc.copyright
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Group: 		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
@@ -78,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Sun Jul 17 2011 - Milan Jurik
 - use GCC and enable pthreads support
 * Mon Mar 21 2011 - Milan Jurik

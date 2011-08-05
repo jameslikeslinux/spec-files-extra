@@ -1,3 +1,18 @@
+2011-08-05 Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEinkscape.spec: fix inkscape-01-combo.diff; use new g++ path
+	  layout;  use SFEgc; add missing dependency
+	* SFEsigcpp-gpp: use new g++ path layout; bump to 2.2.10
+	* SFEglibmm-gpp.spec: use new g++ path layout; bump to 2.24.2
+	* SFEcairomm-gpp.spec: use new g++ path layout; update to 1.8.6
+	* SFEpangomm-gpp.spec: use new g++ path layout; bump to 2.26.3
+	* SFEgtkmm-gpp.spec: use new g++ path layout; bump to 2.20.3
+	* SFEpoppler-gpp.spec: use new g++ path layout; update to 0.14.5
+	* SFEmplayer2.spec: add missing (build) dependency
+	* SFEblender.spec: use packagenamemacros.inc for Python version
+	* SFEaalib.spec: archive: system package is at newer version
+	* SFEgnomad2.spec: archive: base spec is missing
+
 2011-08-01 Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqt-gpp.spec: enable exceptions
