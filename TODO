@@ -135,3 +135,9 @@ if files are nicely catched. Eliminates / reduced the great try+error cycles
 when defining %files
 eventually "pkg" has a nice list of defaults in the code, else assemble from
 man filesystem or existing spec files
+
+26)
+SFEqt-gpp.spec - test QT itself for working properly (low priority)
+- re-visit package dependency with check-deps, add (Build)Requires if needed 
+- examine runtime library paths created by patched/unpached SFEgcc, especially
+  /usr/g++/lib appearing early - just to be sure (med priority)
