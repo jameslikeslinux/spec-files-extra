@@ -3,14 +3,8 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-# NOTE: The easiest way to make pkgtool find the patches used by this spec
-# is to install experimental/SFEpkgbuild.spec, and rename pkgbuild and pkgtool
-# in /opt/dtbld/bin to something else, so that your updated pkgbuild and
-# pkgtool are found instead.
-# Otherwise, build with
-# pkgtool build --patches=patches/qt47 SFEqt47-gpp.spec
-# If you use the --autodeps flag, use
-# pkgtool build --patches=patches:patches/qt47-gpp --autodeps SFEqt47.spec
+##TODO## verify new pnm_macro mysql dependencies on different osbuild/osdistro
+##TODO## re-visit disabled (Build)Requires with check-deps script
 
 %define _basedir /usr/g++
 %include Solaris.inc
@@ -18,7 +12,6 @@
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname qt-everywhere-opensource-src
-%define patchprefix qt-gpp
 %define run_autotests 0
 
 %include packagenamemacros.inc
@@ -32,21 +25,26 @@ Version:             4.7.3
 Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
 
 # These were obtained from http://solaris.bionicmutton.org/hg/kde4-specs-470/file/db0a8c7904f6/specs/gcc/patches/qt
+# patches only got new names on Aug  2 2011 and moved out of subdirectory patches/qt-gpp/
+Patch1:		qt-gpp-01-gc-sections.diff
+Patch2:		qt-gpp-02-MathExtras.diff
 # For Patch3, we use our own, which sets the SFE /usr/g++ paths
-Patch1:		%patchprefix/qt-gc-sections.diff
-Patch2:		%patchprefix/qt-MathExtras.diff
-Patch3:		%patchprefix/qt-qmake.SFE.diff
-Patch7:		qt47/qt-471-shm.diff
-Patch8:		%patchprefix/QPixmap-warning.patch
-
-# This is required to build with gcc 4.6.1
-Patch6:		%patchprefix/qt-isnan.diff
-
+# see pkgbuild.wiki.osurceforce.net for the directory layout (g++)
+Patch3:		qt-gpp-03-qmake.SFE.diff
 %if %{run_autotests}
-Patch4:		%patchprefix/qt-tests-auto-qwidget_window.diff
+Patch4:		qt-gpp-04-tests-auto-qwidget_window.diff
 #from upstream
-Patch5:		%patchprefix/qt-auto-tests-qhttpnetworkconnection.diff
+Patch5:		qt-gpp-05-auto-tests-qhttpnetworkconnection.diff
 %endif
+# patch2 and patch6: bundled webkit  std::isinf std::isnan ...
+# This is required to build with gcc 4.6.0/4.6.1 and up.
+# note the fixes found on the web aren't complete 
+# (gcc 4.5.3 *or* 4.6.1 works, never both)
+# our fix enables both. 
+Patch6:		qt-gpp-06-isnan.diff
+Patch7:		qt-gpp-07-471-shm.diff
+Patch8:		qt-gpp-08-QPixmap-warning.diff
+
 
 SUNW_Copyright:	     qt.copyright
 SUNW_BaseDir:        %_basedir
@@ -63,13 +61,10 @@ Requires: SUNWxwplt
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
 # This package only provides libraries
-BuildRequires: database/mysql-51
-Requires: database/mysql-51
+BuildRequires: %{pnm_buildrequires_mysql_default}
+Requires: %{pnm_requires_mysql_default}
 BuildRequires: SUNWdbus
 Requires: SUNWdbus
-
-#detected by ldding the binaries
-Requires: database/mysql-51/library,image/library/libjpeg,image/library/libpng,image/library/libtiff,library/glib2,library/libxml2,library/zlib,service/opengl/ogl-select,system/library,system/library/c++/sunpro,system/library/math,x11/library/libice,x11/library/libsm,x11/library/libx11,x11/library/libxdamage,x11/library/libxext,x11/library/libxrender,x11/library/mesa 
 
 %package -n %name-devel
 Summary:        %{summary} - development files
@@ -96,7 +91,7 @@ tar xzf %{SOURCE1}
 %patch1
 %patch2
 %patch3
-%patch6 -p1
+%patch6
 %patch7
 %patch8 -p1
 %if %{run_autotests}
@@ -108,16 +103,14 @@ tar xzf %{SOURCE1}
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-#%define extra_includes -I/usr/include/libmng -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng12 -I/usr/mysql/5.1/include/mysql
-%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I/usr/mysql/5.1/include/mysql
-%define extra_libs -L/usr/mysql/5.1/lib/mysql -R/usr/mysql/5.1/lib/mysql
+%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{_prefix}/{%mysql_default_include}
+%define extra_libs  -L%{_prefix}/{%mysql_default_libdir} -R%{_prefix}/{%mysql_default_libdir}
 
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export LD=/usr/gnu/bin/ld
 export CFLAGS="%optflags"
-#export CXXFLAGS="%cxx_optflags -pthreads -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14"
-export CXXFLAGS="%cxx_optflags -pthreads"
+export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
 export LDFLAGS="%_ldflags -pthreads"
 
 # Assume i386 CPU is not higher than Pentium
@@ -146,6 +139,8 @@ export LDFLAGS="%_ldflags -pthreads"
           -shared \
            %extra_includes \
            %extra_libs
+
+##TODO## make detection of opengl better, maybe leave switch out completely
 
 
 make -j$CPUS
@@ -219,6 +214,19 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug  6 2011 - Thomas Wagner
+- move patches out of subdir qt-gpp/ and rework patches,
+  works with unpatched pkgbuild 1.3.103
+- patch2 and patch6 tested with gcc 4.3.3/4.5.1/4.6.1
+- add  -fpermissive to CXXFLAGS
+- pnm_macro to specify mysql dependencies
+- removed dependencies, need check-deps and re-added those needed
+* Tue Aug  2 2011 - Thomas Wagner
+- relocate and rename patches to regular SFE naming convention name-<nn>-subject.diff
+  (no changes in content)
+- add mysql_default macros
+- rework (Build)Requires according to check-deps
+- rework patch6 qt-gpp-06-isnan.diff to only be effective for __GNUC__ >=4 __GNUC_MINOR__ >= 6
 * Sun Jul 31 2011 - Alex Viskovatoff <hezen@imap.cc>
 - Add two patches fixing WebKit; stop deleting imports/
 - Enable exceptions, so that libQtXmlPatterns gets built
