@@ -103,8 +103,8 @@ tar xzf %{SOURCE1}
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{_prefix}/{%mysql_default_include}
-%define extra_libs  -L%{_prefix}/{%mysql_default_libdir} -R%{_prefix}/{%mysql_default_libdir}
+%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{_prefix}/%{mysql_default_include}
+%define extra_libs  -L%{_prefix}/%{mysql_default_libdir} -R%{_prefix}/%{mysql_default_libdir}
 
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
@@ -214,6 +214,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug  8 2011 - Thomas Wagner
+- fix typo in mysql include and lib paths - "{}" in wrong position
 * Tue Aug  6 2011 - Thomas Wagner
 - move patches out of subdir qt-gpp/ and rework patches,
   works with unpatched pkgbuild 1.3.103
