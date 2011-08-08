@@ -9,25 +9,18 @@
 #00:58 < Hazelesque2> and it complains that SUNWxwplt matches multiple packages
 
 
-
-
-
-
-
-
-
 # NOTE EXPERIMENTAL - current stat: 1.1.4.1 compiles, really needs a smart solution for NAME_MAX
 #                     see patch header in Patch24 vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff,
 #                     needs review of disabled patches if they still apply to 1.1.4.1,
 #                     X consolidation for build 153 adds "x11-xcb" which is needed for vlc to
 #                     display video inside the main window (and more) - see http://twitter.com/#!/alanc/status/29060334076
 #                     and http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6667057 Fixed in: snv_153
-
+#                     on old osbuilds you get two separate windows. on new osbuild xcb helps with videodisplay inside the vlc
+#                     window
 
 
 # NOTE EXPERIMENTAL - does contain a few null pointer uses, so you might want to  " LD_PRELOAD=/usr/lib/0@0.so.1 vlc  "
-# NOTE EXPERIMENTAL - uses SFEqt45 which is build by: pkgtool build experimental/SFEqt45-gcc.spec (no autodeps for experimentalif you don't add experimental directory to your .pkgtoolrc specdirs-line !)
-#                     make SFEqt45 *before* vlc, manually
+# NOTE EXPERIMENTAL - uses SFEqt-gpp which is installed in the new location /usr/g++ (GNU C++ library) - needs patching
 # NOTE EXPERIMENTAL - patches from old revision are not all reviewd if they are still needed
 
 # tickets
@@ -69,12 +62,32 @@
 
 #we have new X-org with x11-xcb CR 6667057
 ##TODO## check if other solarish OS do have same x11-xcb integrated with build 153
-%define huhu $( echo %{osbuild} > /tmp/osdistro.txt )
 %if %( expr %{osbuild} '>=' 153 )
 %define enable_x11_xcb 1
 %else
 %define enable_x11_xcb 0
+#just in case it is unexpectedly present, use it
+%define enable_x11_xcb %(/usr/bin/pkginfo -q SUNWlibxcb && echo 1 || echo 0)
+%if %{enable_x11_xcb}
+BuildRequires: SUNWlibxcb
+Requires: SUNWlibxcb
 %endif
+%endif
+
+#just in case it is present, use SFElibxcb-devel anyways
+##%if %(/usr/bin/pkginfo -q SFElibxcb && echo 1 || echo 0)
+##%define enable_x11_xcb 1
+##BuildRequires: SFElibxcb-devel
+##Requires: SFElibxcb
+##%endif
+
+##TODO## temporarily disable building samba support (needs better detection
+#  where smbclient.so lives)
+%define enable_samba 0
+
+##TODO## temporarily disable building pulseaudio support
+%define enable_pulseaudio 0
+
 
 %define	src_name	vlc
 %define	src_url		http://download.videolan.org/pub/videolan/vlc
@@ -116,8 +129,6 @@ Patch24:               vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cp
 
 
 
-
-SUNW_BaseDir:           %{_basedir}
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -170,16 +181,14 @@ BuildRequires:  SFElibx264-devel
 Requires:       SFElibx264
 BuildRequires:  SFElibtar-devel
 Requires:       SFElibtar
-%if %{enable_x11_xcb}
-BuildRequires:  SFElibxcb-devel
-Requires:       SFElibxcb
-%endif
-BuildRequires:	SFElua
-Requires:	SFElua
+##TODO## maybe old osbuilds need SFElua
+#BuildRequires:	SFElua
+#Requires:	SFElua
+BuildRequires:	SUNWlua
+Requires:	SUNWlua
 
-##TODO## using gcc compiled qt 4.5.x from experimental/SFEqt45-gcc.s- must "pkgtool build" manually before, no autodeps available for specs in experimental/*
-BuildRequires:	SFEqt47-gpp-devel
-Requires:	SFEqt47-gpp
+BuildRequires:	SFEqt-gpp-devel
+Requires:	SFEqt-gpp
 
 %if %build_l10n
 %package l10n
@@ -273,17 +282,28 @@ export CFLAGS="$CFLAGS -O4"
 #export LD=/usr/gnu/bin/ld
 #export LDFLAGS="%_ldflags $X11LIB $GNULIB"
 ##TODO## experime
-export LDFLAGS="%_ldflags $X11LIB $GNULIB -lsocket -lxnet"
+#export LDFLAGS="%_ldflags $X11LIB $GNULIB -lsocket -lxnet"
+#export EXTRA_LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib $X11LIB $GNULIB -lsocket -lxnet"
+export EXTRA_LDFLAGS="$X11LIB $GNULIB -lsocket -lxnet"
+export LDFLAGS="%_ldflags"
 #export LDFLAGS="         $X11LIB $GNULIB -lsocket -lxnet"
 
 
 export CONFIG_SHELL=/usr/bin/bash
 
-ln -s /usr/include/libavcodec include/ffmpeg
+[ -L include/ffmpeg ] || ln -s /usr/include/libavcodec include/ffmpeg
 #rm ./configure
 #./bootstrap
 perl -w -pi.bak3 -e "s,#\!\s*/bin/sh,#\!/usr/bin/bash," configure
-export QTDIR=/usr/g++
+
+#let Qt modules in vlc have a good runtime search patch for libraries
+export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig 
+[ -d pkgconfig ] || mkdir pkgconfig
+#-L/usr/g++/lib -->> -L/usr/g++/lib -R/usr/g++/lib
+sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtGui.pc > pkgconfig/QtGui.pc
+sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtCore.pc > pkgconfig/QtCore.pc
+export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig 
+
 ./configure --prefix=%{_prefix}			\
 	    --bindir=%{_bindir}			\
 	    --mandir=%{_mandir}			\
@@ -304,6 +324,16 @@ export QTDIR=/usr/g++
             --enable-xcb                        \
 %else
             --disable-xcb                       \
+%endif
+%if %{enable_samba}
+            --enable-smb                        \
+%else
+            --disable-smb                        \
+%endif
+%if %{enable_pulseaudio}
+            --enable-pulse                        \
+%else
+            --disable-pulse                        \
 %endif
 %if %debug_build
 	    --enable-debug=yes			\
@@ -327,7 +357,10 @@ perl -w -pi.bakspatializer -e "s, spatializer , ," vlc-config
 
 #/bin/false
 
-gmake -j$CPUS 
+##TODO## investigate. Test if this goes away with new vlc version
+#sometimes it fails with a core dump at vlc-cache-gen, just try again.
+#does vlc-cache-gen work at all?
+gmake -j$CPUS  || gmake -j$CPUS 
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -427,10 +460,22 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Aug  6 2011 - Thomas Wagner
+- use Build(Requires) SFEqt-gpp(-devel) in /usr/g++, create local modified copy
+  of QtGui.pc QtGui.pc to include -R/usr/g++/lib as well (or libQt* not found)
+- ##TODO## temporarily disable building samba support (needs better detection 
+  where smbclient.so lives)
+- user QT4_LIBS and QT4_CFLAGS to override what pkg-config thinks (or at runtime
+  qt not found or get with -L and added -R compile errors
+- configure switches for xcb, samba (temp-disabled), pulseaudio (temp-disabled)
+- configure switch --disable-mmx (video_*) does not compile
+- ../bin/vlc-cache-gen (plugins) fails once, just re-run gmake in that case
+- adjust %files
 * Sat Mar 26 2011 - Thomas Wagner
-- use SFEqt47-gpp with new Path layout, set QTDIR=/usr/g++
+- use SFEqt47-gpp with new Path layout, add PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig fo find QT
 - add (Build)Requires:  SFElua
-*     Nov 11 2011 - Thomas Wagner
+- create symlink for ffmpeg only if not already there
+* Thu Nov 11 2010 - Thomas Wagner
 - bump tp 1.1.4.1
 - switch to gmake to have 3.81 version at least (old cbe 1.6.2 uses gmake 3.80)
 - adjust %install for icons (remove extra mkdir/copy), add new icon directories to %files
@@ -440,8 +485,8 @@ test -x $BASEDIR/lib/postrun || exit 0
 - remove patches ......
 - build with mmx
 - build with mpeg2
-- enable or disbale new xcb of xorg has x11-xcb integrated (%osbuild >= 153, CR 6667057)
-- add (Build)Requires:  SFElibxcb(-devel) if %osbuild >= 153
+- enable or disable new xcb of xorg has x11-xcb integrated (%osbuild >= 153, CR 6667057)
+- add (Build)Requires:  SUNWlibxcb(-devel) if %osbuild >= 153
 - note: ts.c:2455:21: error: implicit declaration of function 'dvbpsi_SDTServiceAddDescriptor'
   needs libdvbpsi >=0.1.6 - upgrade your package with SFElibdvbpsi.spec (updated to 0.1.7)
 * Aug 26 2009 - Gilles dauphin
