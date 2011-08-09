@@ -1,10 +1,14 @@
 usage: no ChangeLog for this TODO file needed. Just edit and commit with a very short note, e.g. solved 2) short_issue, added 5) pnm for perl5.x.x
 
+*YOU* do this:  svn up TODO, make your changes, then immediately commit with 
+    echo "TODO: added 67) headsup-mini-description" | svn commit -F - TODO
+
 1)
 SFEhplip.spec: pnm_macros for SFEcups/SUNWcups, SFEsane-backends/SUNWsanebackends/SUNWsanebackendu, eventually python version macro 2.4/2.6
 
 2)
 SFErsnapshot.spec: pnm_macros for SUNWsshu
+SFEsmf-grey.spec:  pnm_macros for SUNWsndm* / sendmail
 
 3)
 SFEp7zip.spec: check saprc build, especially enianness (old patch p7zip-01-makefile.diff)
@@ -141,3 +145,19 @@ SFEqt-gpp.spec - test QT itself for working properly (low priority)
 - re-visit package dependency with check-deps, add (Build)Requires if needed 
 - examine runtime library paths created by patched/unpached SFEgcc, especially
   /usr/g++/lib appearing early - just to be sure (med priority)
+
+29)
+Requires: SUNWgnome-python26-libs - check if this could be done similar to 
+pnm_python_default. Could be used by SFEpessulus.spec and possibly others
+SFEpygoocanvas.spec SFEsabayon.spec
+
+30)
+SFEtransmageddon.spec: use pnm_python_default  and *test* if it works
+
+#resolved# 31)
+#resolved# SFEqt-gpp.spec -> Qt*pc wrong setting mysql: Libs.private: -L/usr/gnu/lib -L/usr/g++/{mysql/5.1/lib}  ...
+
+32)
+check for identical/alias packages in SFE which have similar *new* packages in SUNW, create pnm_macro rules for them
+SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
+
