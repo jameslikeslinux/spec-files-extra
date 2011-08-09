@@ -161,3 +161,7 @@ SFEtransmageddon.spec: use pnm_python_default  and *test* if it works
 check for identical/alias packages in SFE which have similar *new* packages in SUNW, create pnm_macro rules for them
 SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
 
+33)
+pkgbuild.wiki: Review lonely pages in draft status and enhance them, link them:
+https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=Special:LonelyPages
+
