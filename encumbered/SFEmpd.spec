@@ -38,6 +38,11 @@ BuildRequires: SUNWgnome-audio-devel
 BuildRequires: SUNWflac-devel
 BuildRequires: SFElibshout
 BuildRequires: SFElibcdio
+BuildRequires: database/sqlite-3
+BuildRequires: SUNWglib2
+BuildRequires: SUNWlibsndfile
+BuildRequires: SUNWcurl
+BuildRequires: SFElame
 #TODO# BuildRequires: SFElibpulse-devel
 BuildRequires: SUNWavahi-bridge-dsd-devel
 ## MPD INSTALL file says AO "should be used only if there is no native plugin
@@ -49,6 +54,11 @@ Requires: SUNWgnome-audio
 Requires: SUNWflac
 Requires: SFElibshout
 Requires: SFElibcdio
+Requires: database/sqlite-3
+Requires: SUNWglib2
+Requires: SUNWlibsndfile
+Requires: SUNWcurl
+Requires: SFElame
 #TODO# Requires: SFElibpulse
 Requires: SUNWavahi-bridge-dsd
 %if %build_encumbered
@@ -62,6 +72,7 @@ Requires: SFEfaad2
 Requires: SFElibmad
 Requires: SFElibid3tag
 %endif
+
 
 %description
 Music Daemon to play common audio fileformats to audio devices or 
@@ -140,6 +151,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Aug  8 2011 - Alex Viskovatoff
+- Add missing (build) dependencies
 * Mon Jul 18 2011 - Alex Viskovatoff
 - ffmpeg currently breaks build, so disable it
 * Mon May 16 2011 - Alex Viskovatoff

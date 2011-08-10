@@ -68,6 +68,7 @@ Requires: SFEffmpeg
 Requires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibdvdnav
+Requires: driver/graphics/nvidia
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
@@ -75,6 +76,7 @@ BuildRequires: SFElibcdio-devel
 BuildRequires: SFElibdvdnav-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
+BuildRequires: driver/graphics/nvidia
 
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
@@ -143,9 +145,9 @@ export CFLAGS="-O2 -fomit-frame-pointer -D__hidden=\"\""
 %endif
 
 # SFEgcc adds /usr/gnu/lib to lib search path
-#export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
-export LDFLAGS="-liconv" 
-export CC=gcc
+export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
+#export LDFLAGS="-liconv" 
+export CC=/usr/gnu/bin/gcc
 
 bash ./configure				\
 	    --prefix=%_prefix			\
@@ -222,6 +224,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- Require driver/graphics/nvidia
 * Wed Aug  3 2011 - Alex Viskovatoff
 - Add missing (build) dependency on SFElibdvdnav
 * Fri Jul 22 2011 - Alex Viskovatoff

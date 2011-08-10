@@ -46,6 +46,8 @@ BuildRequires: SUNWlexpt
 Requires: SUNWlexpt
 BuildRequires: SUNWzlib
 Requires: SUNWzlib
+BuildRequires: SFElzo-devel
+Requires: SFElzo
 BuildRequires: SUNWogg-vorbis
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac
@@ -83,10 +85,10 @@ cd lib/libebml
 
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export USER_CXXFLAGS="%cxx_optflags -fpermissive -D_POSIX_PTHREAD_SEMANTICS"
-export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -L/usr/gnu/lib -R/usr/g++/lib -R/usr/gnu/lib"
 
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 --with-extra-includes=/usr/g++/include --with-boost-libdir=/usr/g++/lib \
@@ -143,6 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug  9 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Add missing (build) dependency
 * Sat Jul 23 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Bump to 4.9.1; add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <herzen@imap.cc>

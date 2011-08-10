@@ -33,14 +33,14 @@ Requires:      SFEglibmm-gpp
 Requires:      SFEsigcpp-gpp
 Requires:      SFEpoppler-gpp
 Requires:      SFEgsl
-Requires:      SFElibgc
+Requires:      SFElibgc-gpp
 Requires:      SUNWlcms
 BuildRequires: SFEgtkmm-gpp-devel
 BuildRequires: SFEglibmm-gpp-devel
 BuildRequires: SFEsigcpp-gpp-devel
 BuildRequires: SFEpoppler-gpp-devel
 BuildRequires: SFEgsl-devel
-BuildRequires: SFElibgc-devel
+BuildRequires: SFElibgc-gpp-devel
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWPython
 BuildRequires: SUNWlcms-devel
@@ -78,7 +78,7 @@ export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/g++/include -I%{_builddir}/%n
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 # we need -L/usr/lib so that /usr/lib/libgc.so is picked up instead of
 # SUNWspro's own libgc.so
-export LDFLAGS="%{_ldflags} -L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export LDFLAGS="%{_ldflags} -L/usr/gnu/lib -L/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
 
 # Build poppler because the inkscape build requires poppler's config.h
 %poppler.build
@@ -159,6 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Aug  9 2011 - Alex Viskovatoff
+- SFElibgc now goes in /usr/g++
 * Fri Aug  5 2011 - Alex Viskovatoff
 - fix inkscape-01-combo.diff; use new g++ path layout; add missing dependency
   on SFEpoppler; use SFEgc; add SUNW_Copyright

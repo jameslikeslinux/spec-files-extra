@@ -7,11 +7,14 @@
 %define cc_is_gcc 1
 %include base.inc
 
+# Avoid conflict with system library/gc
+%define _prefix %_basedir/g++
+
 %define src_name gc
 %define src_url http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/
 
-Name:		SFElibgc
-Summary: 	The Boehm-Demers-Weiser conservative garbage collector
+Name:		SFElibgc-gpp
+Summary: 	The Boehm-Demers-Weiser conservative garbage collector (g++-built)
 Version: 	7.1
 URL: 		http://www.hpl.hp.com/personal/Hans_Boehm/gc/
 License:	MIT
@@ -40,8 +43,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}		\

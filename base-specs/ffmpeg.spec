@@ -27,7 +27,8 @@ export CFLAGS="%optflags -Os -fno-rename-registers -fomit-frame-pointer -fno-PIC
 export CFLAGS="%optflags -Os -I%{xorg_inc} -I%{_includedir}"
 %endif
 #export LDFLAGS="%_ldflags %{xorg_lib_path} -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir}"
-export LDFLAGS="%_ldflags %{xorg_lib_path} -L%{_libdir} -R%{_libdir}"
+#export LDFLAGS="%_ldflags %{xorg_lib_path} -L%{_libdir} -R%{_libdir}"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib %{xorg_lib_path}"
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
         export LDFLAGS="$LDFLAGS -m64"
 fi
@@ -62,6 +63,7 @@ bash ./configure	\
     --disable-mlib	\
     --enable-libschroedinger \
     --enable-libopenjpeg \
+    --enable-vdpau	\
     --extra-ldflags=-mimpure-text \
     --enable-shared
 
@@ -92,6 +94,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Aug  9 2011 - Alex Viskovatoff
+- add --enable-vdpau, which can speed up decoding
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add --enable-version3 option to keep build from failing
 * Sun Jul 17 2011 - Alex Viskovatoff

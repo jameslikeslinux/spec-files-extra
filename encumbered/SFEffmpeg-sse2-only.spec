@@ -75,6 +75,8 @@ BuildRequires: SFEopenjpeg-devel
 Requires: SFEopenjpeg
 BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
+BuildRequires: driver/graphics/nvidia
+Requires: driver/graphics/nvidia
 
 %package devel
 Summary:                 %{summary} - development files
@@ -99,6 +101,7 @@ mkdir %name-%version/%base_arch
 rm -rf $RPM_BUILD_ROOT
 
 %ffmpeg.install -d %name-%version/%base_arch
+mkdir %buildroot%_docdir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -116,6 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/ffmpeg/*.ffpreset
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
+%dir %attr (0755, root, other) %dir %_docdir
 %doc -d %base_arch/ffmpeg-%version/doc developer.html faq.html ffmpeg.html ffplay.html ffprobe.html ffserver.html general.html libavfilter.html
 
 %files devel
@@ -135,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug  9 2011 - Alex Viskovatoff
+- Require driver/graphics/nvidia; correct attributes of %_docdir
 * Mon Jul 18 2011 - Alex Viskovatoff
 - Do not use x86_sse2.inc: it adds Sun Studio-specific flags
 * Sat Jul 16 2011 - Alex Viskovatoff

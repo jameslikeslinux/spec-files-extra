@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%define _prefix %_basedir/gnu
 %define srcname xchat
 
 Name:		SFE%srcname
@@ -105,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Aug  7 2011 - Alex Viskovatoff
+- install in %_basedir/gnu, to avoid conflict with system package
 * Mon Jul 25 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Sat Mar 12 2011 - Alex Viskovatoff

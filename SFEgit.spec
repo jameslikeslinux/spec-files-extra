@@ -15,6 +15,7 @@
 %define cc_is_gcc 1
 %define _gpp /usr/sfw/bin/g++
 %include base.inc
+%define _prefix %_basedir/gnu
 %include packagenamemacros.inc
 
 Name:                SFEgit
@@ -98,9 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 make install install-doc DESTDIR=$RPM_BUILD_ROOT INSTALL=install
 
-# move perl stuff to vendor_perl
-mkdir -p $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
-mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
+# move perl stuff to vendor_perl in /usr/gnu
+mkdir -p $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
+mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 
 # remove unwanted stuff like .packlist and perllocal.pod
 rm -r $RPM_BUILD_ROOT%{_libdir}/site_perl
@@ -141,6 +142,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Sun Aug  7 2011 - Alex Viskovatoff
+- install in %_basedir/gnu, to avoid conflict with system package
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>

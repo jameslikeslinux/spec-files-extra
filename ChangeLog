@@ -1,7 +1,21 @@
+2011-08-10 Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEinkscape.spec: adjust to SFElibgc now going in /usr/g++
+	* SFElibgc-gpp.spec: install in /usr/g++; rename from SFElibgc
+	* encumbered/SFEmplayer2.spec: require driver/graphics/nvidia
+	* encumbered/SFEffmpeg-sse2-only.spec: require nvidia
+	* SFEgit.spec: install in %_basedir/gnu
+	* SFErsync.spec: install in %_basedir/gnu
+	* SFEtransmission.spec: install in %_basedir/gnu
+	* SFExchat.spec: install in %_basedir/gnu
+	* encumbered/SFEmpd.spec: add missing (build) dependencies
+	* SFEmkvtoolnix.spec: add missing (build) dependency
+	* SFElzo.spec: package development files separately
+
 2011-08-05 Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEinkscape.spec: fix inkscape-01-combo.diff; use new g++ path
-	  layout;  use SFEgc; add missing dependency
+	  layout;  use SFElibgc; add missing dependency
 	* SFEsigcpp-gpp: use new g++ path layout; bump to 2.2.10
 	* SFEglibmm-gpp.spec: use new g++ path layout; bump to 2.24.2
 	* SFEcairomm-gpp.spec: use new g++ path layout; update to 1.8.6

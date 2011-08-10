@@ -21,6 +21,12 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{src_version}-build
 %include default-depend.inc
 
+%package devel
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
+%include default-depend.inc
+Requires: %name
+
 %prep
 %setup -q -n lzo-%src_version
 
@@ -30,7 +36,6 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
-
 
 export CFLAGS="%optflags"
 export LDFLAGS="%{_ldflags}"
@@ -56,13 +61,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/*
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
 %dir %attr (-, root, sys) %_datadir
 %dir %attr (-, root, other) %_docdir
 %_docdir/lzo
 
+%files devel
+%defattr (-, root, bin)
+%dir %attr (0755, root, bin) %_includedir
+%_includedir/lzo
+
 %changelog
+* Tue Aug  8 2011 - Alex Viskovatoff
+- Package development files separately
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sat Jun 25 2011 - Alex Viskovatoff
