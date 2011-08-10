@@ -3,8 +3,11 @@
 #
 # includes module(s): GNU emacs
 #
-%define _basedir /usr/gnu
 %include Solaris.inc
+
+# Avoid conflict with editor/gnu-emacs
+%include usr-gnu.inc
+
 %include packagenamemacros.inc
 
 Name:                    SFEemacs

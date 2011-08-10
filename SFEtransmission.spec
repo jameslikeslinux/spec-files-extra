@@ -4,7 +4,7 @@
 %include Solaris.inc
 %define cc_is_gcc 1 
 %include base.inc
-%define _prefix %_basedir/gnu
+%include usr-gnu.inc
 %define source_name transmission
 
 Name:                    SFEtransmission
@@ -129,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sun Aug  7 2011 - Alex Viskovatoff
-- install in %_basedir/gnu, to avoid conflict with system package
+- install in /usr/gnu, to avoid conflict with system package
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * Tue Jun 14 2011 - Alex Viskovatoff

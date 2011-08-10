@@ -11,7 +11,7 @@
 %include Solaris.inc
 
 # Avoid conflict with SUNWcmake
-%define _prefix %{_basedir}/gnu
+%include usr-gnu.inc
 
 Name:		SFEcmake
 Summary:	Cross platform make system

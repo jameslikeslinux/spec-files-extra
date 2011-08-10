@@ -4,7 +4,6 @@
 
 %include Solaris.inc
 %include usr-gnu.inc
-%define _prefix %_basedir/gnu
 
 Name:                    SFErsync
 Summary:                 rsync - fast incremental file transfer (%{_basedir}/gnu/bin/rsync)
@@ -66,8 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sun Aug  7 2011 - Alex Viskovatoff
-- install in %_basedir/gnu, to avoid conflict with system package
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * Fri Apr 01 20011 - Thomas Wagner
