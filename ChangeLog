@@ -4,10 +4,9 @@
 	* SFElibgc-gpp.spec: install in /usr/g++; rename from SFElibgc
 	* encumbered/SFEmplayer2.spec: require driver/graphics/nvidia
 	* encumbered/SFEffmpeg-sse2-only.spec: require nvidia
-	* SFEgit.spec: install in %_basedir/gnu
-	* SFErsync.spec: install in %_basedir/gnu
-	* SFEtransmission.spec: install in %_basedir/gnu
-	* SFExchat.spec: install in %_basedir/gnu
+	* SFEgit.spec: install in /usr/gnu
+	* SFEtransmission.spec: install in /usr/gnu
+	* SFExchat.spec: install in /usr/gnu
 	* encumbered/SFEmpd.spec: add missing (build) dependencies
 	* SFEmkvtoolnix.spec: add missing (build) dependency
 	* SFElzo.spec: package development files separately
