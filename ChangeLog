@@ -1,3 +1,8 @@
+2011-08-10  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEofflineimap.spec: Bump to 6.3.4, use packagenamemacros.inc
+	  for Python version
+
 2011-08-10 Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEinkscape.spec: adjust to SFElibgc now going in /usr/g++
