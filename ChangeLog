@@ -1,3 +1,7 @@
+2011-08-12  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEfvwm.spec: Fix directory permissions
+
 2011-08-10  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEofflineimap.spec: Bump to 6.3.4, use packagenamemacros.inc

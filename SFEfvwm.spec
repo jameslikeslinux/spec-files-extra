@@ -69,8 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_bindir}
 %{_libdir}
-#%dir %attr (0755, root, sys) %{_datadir}
-#%dir %attr (0755, root, other) %{_docdir}
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/*
 #%%doc -d %base_arch/fvwm-%version AUTHORS ChangeLog COPYING NEWS README
 #%_docdir/commands
@@ -89,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Aug 12 2011 - Knut Anders Hatlen
+- Fix directory permissions
 * Thu Jul 28 2011 - Alex Viskovatoff
 - Add SUNW_Copyright and some files that are placed in %_pkg_doc_dir
 * Mon Jul 11 2011 - Milan Jurik
