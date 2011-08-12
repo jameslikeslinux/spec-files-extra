@@ -9,7 +9,7 @@
 
 Name:                   fvwm
 Summary:                fvwm window manager
-Version:                2.5.31
+Version:                2.6.2
 Source:                 %{src_url}/%{name}-%{version}.tar.gz
 Patch1:			fvwm-01-png12.diff
 
@@ -50,6 +50,8 @@ fvwmdir=$RPM_BUILD_ROOT%{_datadir}/fvwm
 mv $fvwmdir/system.fvwm2rc-sample-95 $fvwmdir/system.fvwm2rc
 
 %changelog
+* Fri Aug 12 2011 - Knut Anders Hatlen
+- bump to 2.6.2
 * Mon Jul 11 2011 - Milan Jurik
 - bump to 2.5.31
 * Fri Apr 27 2006 - dougs@truemail.co.th
