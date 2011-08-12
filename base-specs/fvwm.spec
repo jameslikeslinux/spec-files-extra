@@ -40,7 +40,10 @@ autoconf --force
             --libdir=%{_libdir}			\
             --datadir=%{_datadir}		\
             --libexecdir=%{_libexecdir} 	\
-            --sysconfdir=%{_sysconfdir}
+            --sysconfdir=%{_sysconfdir}         \
+            --without-rplay-library             \
+            --without-gnome                     \
+            --disable-gtk
 
 make -j$CPUS 
 
@@ -52,6 +55,7 @@ mv $fvwmdir/system.fvwm2rc-sample-95 $fvwmdir/system.fvwm2rc
 %changelog
 * Fri Aug 12 2011 - Knut Anders Hatlen
 - bump to 2.6.2
+- update dependencies
 * Mon Jul 11 2011 - Milan Jurik
 - bump to 2.5.31
 * Fri Apr 27 2006 - dougs@truemail.co.th

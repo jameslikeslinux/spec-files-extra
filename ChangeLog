@@ -1,7 +1,7 @@
 2011-08-12  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
-	* SFEfvwm.spec: Fix directory permissions
-	* base-specs/fvwm.spec: Bump to 2.6.2
+	* SFEfvwm.spec: Fix directory permissions, update dependencies
+	* base-specs/fvwm.spec: Bump to 2.6.2, update dependencies
 
 2011-08-10  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 

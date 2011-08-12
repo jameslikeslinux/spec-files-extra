@@ -20,7 +20,35 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 Requires: SUNWgnu-readline
+Requires: SUNWfontconfig
+Requires: SUNWxwxft
+Requires: SUNWxwplt
+Requires: SUNWxwice
+Requires: SUNWlibms
+Requires: SUNWpng
+BuildRequires: SUNWpng-devel
+Requires: SUNWlibrsvg
+BuildRequires: SUNWlibrsvg-devel
+Requires: SUNWglib2
+BuildRequires: SUNWglib2-devel
+Requires: SUNWcairo
+BuildRequires: SUNWcairo-devel
+Requires: SUNWfreetype2
+Requires: SUNWlexpt
+Requires: SUNWlibcroco
+BuildRequires: SUNWlibcroco-devel
+Requires: SUNWgtk2
+BuildRequires: SUNWgtk2-devel
+Requires: SUNWlxml
+BuildRequires: SUNWlxml-devel
+Requires: SUNWpango
+BuildRequires: SUNWpango-devel
+Requires: SUNWpixman
+Requires: SUNWbzip
 Requires: SFElibstroke
+BuildRequires: SFElibstroke-devel
+Requires: SFElibfribidi
+BuildRequires: SFElibfribidi-devel
 
 %if %build_l10n
 %package l10n
@@ -91,6 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Aug 12 2011 - Knut Anders Hatlen
 - Fix directory permissions
+- Update dependencies
 * Thu Jul 28 2011 - Alex Viskovatoff
 - Add SUNW_Copyright and some files that are placed in %_pkg_doc_dir
 * Mon Jul 11 2011 - Milan Jurik
