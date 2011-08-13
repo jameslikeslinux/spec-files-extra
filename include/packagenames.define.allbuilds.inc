@@ -99,6 +99,19 @@
 %define pnm_requires_SUNWkrbr 			SUNWkrb
 %define pnm_requires_SUNWkrbu 			SUNWkrb
 
+#samba service/network/samba
+%define pnm_buildrequires_service_network_samba	SUNWsmba
+%define pnm_requires_service_network_samba	SUNWsmba
+%define pnm_buildrequires_SUNWsmba_devel	SUNWsmba
+%define pnm_buildrequires_SUNWsmba		SUNWsmba
+%define pnm_buildrequires_SUNWsmbar		SUNWsmba
+%define pnm_buildrequires_SUNWsmbau		SUNWsmba
+%define pnm_requires_SUNWsmba			SUNWsmba
+%define pnm_requires_SUNWsmbar			SUNWsmba
+%define pnm_requires_SUNWsmbau			SUNWsmba
+%define pnm_buildrequires_smba			SUNWsmba
+%define pnm_requires_smba			SUNWsmba
+
 %endif
 #END os2nnn
 
@@ -377,6 +390,20 @@
 %define pnm_requires_SUNWkrbr 			SUNWkrbr
 %define pnm_requires_SUNWkrbu 			SUNWkrbu
 
+#samba
+%define pnm_buildrequires_service_network_samba	SUNWsmbu
+%define pnm_requires_service_network_samba	SUNWsmbu
+%define pnm_buildrequires_SUNWsmba_devel 	SUNWsmbu
+%define pnm_buildrequires_SUNWsmba		SUNWsmbu
+%define pnm_buildrequires_SUNWsmbar		SUNWsmbr
+%define pnm_buildrequires_SUNWsmbau		SUNWsmbu
+%define pnm_requires_SUNWsmba			SUNWsmbu
+%define pnm_requires_SUNWsmbar			SUNWsmbr
+%define pnm_requires_SUNWsmbau			SUNWsmbu
+%define pnm_buildrequires_smba			SUNWsmbu
+%define pnm_requires_smba			SUNWsmbu
+
+
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
 
@@ -485,9 +512,37 @@
 %endif
 #END <107
 
+##TODO##define exact osbuild number where SUNWfreetype disappeared
+#rules: if osdistro does not know freetype2, then use SFEfreetype (2.x)
+#defaults for all builds < 133 (just to have somehting to start with)
 
-#http://mail.opensolaris.org/pipermail/opensolaris-announce/2008-October.txt
-#repo additions, SUNWlibmikmod
+#the default settings from the other p*inc files are valid or overwritten here
+%define pnm_buildrequires_SUNWfreetype2		SUNWfreetype2
+%define pnm_requires_SUNWfreetype2		SUNWfreetype2
+%define pnm_buildrequires_freetype2		SUNWfreetype2
+%define pnm_requires_freetype2			SUNWfreetype2
+#SFEfreetype replaced with SUNWfreetype2 
+#NOTE: no "2" at the end!
+%define pnm_buildrequires_SUNWfreetype_devel 	SUNWfreetype2
+%define pnm_requires_SUNWfreetype		SUNWfreetype2
+
+##TODO## which osbuild version is right?
+%if %( expr %{osbuild} '<' 133 )
+#replace requested SUNWfreetype2* with SFE version on older
+#osbuild version
+#NOTE: might adjust exact osbuild version later
+%define pnm_buildrequires_SUNWfreetype2_devel	SFEfreetype-devel
+%define pnm_buildrequires_SUNWfreetype2		SFEfreetype
+%define pnm_requires_SUNWfreetype2		SFEfreetype
+%define pnm_buildrequires_freetype2		SFEfreetype-devel
+%define pnm_requires_freetype2			SFEfreetype
+%define pnm_buildrequires_system_library_freetype_2	SFEfreetype-devel
+%define pnm_requires_system_library_freetype_2	SFEfreetype
+#SFE requested
+%define pnm_buildrequires_SFEfreetype_devel	SFEfreetype-devel
+%define pnm_requires_SFEfreetype		SFEfreetype
+%endif
+#END < 133
 
 #defaults for all builds >= 99 - let pkg do the names translation if needed
 %define pnm_buildrequires_SFElibmikmod		SUNWlibmikmod
@@ -519,6 +574,26 @@
 %endif
 #END <116
 
+
+
+#special case, pkgtool/pkgbuild can't see if packages are installed if
+#meta-package data/docbook is requested. up to 133 it was developer/documentation-tool/gtk-doc
+#NOTE we overwrite what the include for 134 has defined
+%if %( expr %{osbuild} '>=' 134 )
+#133 %define pnm_buildrequires_SUNWgtk_doc_devel	developer/documentation-tool/gtk-doc
+#133 %define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+#133 %define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+#134 %define pnm_buildrequires_SUNWgtk_doc	data/docbook
+#134 %define pnm_requires_SUNWgtk_doc		data/docbook
+
+%define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+%define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+%endif
+#END >= 134
+
+
+
+##TODO## volunteers may implement the rules noted below
 #2010-09-14 SUNWgraphviz removed from spec-files
 #a) when was SUNWgraphviz added
 #b) when was SUNWgraphviz removed from the builds
@@ -759,10 +834,11 @@
 #note: simplyfication: %{_prefix} must be prepended by the spec file itself
 
 #example:
-#the mysql.h file would be found with CFLAGS="-I%{_prefix}/{%mysql_default_includedir}"
+#the mysql.h file would be found with CFLAGS="-I%{_prefix}/%{mysql_default_includedir}"
 %define mysql_default_includedir	mysql/%{mysql_major_minor_version}/include
 #more information: #include "mysql/mysql.h" -->> /usr/mysql/5.1/include/mysql/mysql.h 
 
+#the mysql libs would be found with LDFLAGS and/or CFLAGS="-L%{_prefix}/%{mysql_default_libdir} -R%{_prefix}/%{mysql_default_libdir}"
 %define mysql_default_libdir	mysql/%{mysql_major_minor_version}/lib
 
 #END setting mysql, all builds, evaluated paths  - Part 3 of 3
@@ -784,6 +860,11 @@
 
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- handle SUNWsmba_devel/SUNWsmbau/SUNWsmbar/SUNWsmba/smba/service_network_samba
+- handle SUNWfreetype2/freetype2/SFEfreetype_devel/SFEfreetype/system_library_freetype_2
+- fix selected metapackage to get installed-detection with autodeps satisfied for
+  SUNWgtk_doc/developer_documentation_tool_gtk_doc/data_docbook (not fully tested)
 * Mon Aug  2 2011 - Thomas Wagner
 - handle special macro name pnm_buildrequires_mysql_default pnm_requires_mysql_default
   and macros for mysql version.
