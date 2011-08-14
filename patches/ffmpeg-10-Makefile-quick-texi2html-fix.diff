@@ -1,0 +1,16 @@
+
+remove options the texi2html doesn't know. probably this fix is incomplete
+and html index and such might not be built.
+or we need to use a updated texi2html.
+
+--- ffmpeg-0.8.2/Makefile.orig	2011-08-13 16:09:27.411986000 +0100
++++ ffmpeg-0.8.2/Makefile	2011-08-13 16:19:15.507677662 +0100
+@@ -123,7 +123,7 @@
+ doc/%.html: TAG = HTML
+ doc/%.html: doc/%.texi $(SRC_PATH_BARE)/doc/t2h.init
+ 	$(Q)$(TEXIDEP)
+-	$(M)texi2html -monolithic --init-file $(SRC_PATH_BARE)/doc/t2h.init --output $@ $<
++	$(M)texi2html -monolithic $<
+ 
+ doc/%.pod: TAG = POD
+ doc/%.pod: doc/%.texi

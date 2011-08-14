@@ -11,6 +11,9 @@
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
+##TODO## this is experimental: use pkgtool --with-runtime_cpudetect ...
+%define with_runtime_cpudetect %{?_with_runtime_cpudetect:1}%{?!_with_runtime_cpudetect:0}
+
 %if %arch_sse2
 %define arch_opt --cpu=i686 --enable-mmx --enable-mmx2
 %include x86_sse2.inc
@@ -150,12 +153,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}/%{sse2_arch}
 %{_libdir}/%{sse2_arch}/lib*.so*
 %endif
-%dir %attr (0755, root, sys) %dir %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/doc
+%{_datadir}/doc/*
 %dir %attr(0755, root, bin) %{_datadir}/ffmpeg
 %{_datadir}/ffmpeg/*.ffpreset
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
-%doc -d %base_arch/ffmpeg-%version/doc developer.html faq.html ffmpeg.html ffplay.html ffprobe.html ffserver.html general.html libavfilter.html
+#sometimes broken %doc -d %base_arch/ffmpeg-%version doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html
 
 %files devel
 %defattr (-, root, bin)
@@ -179,7 +184,32 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libpostproc
 %{_includedir}/libswscale
 
+
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- bump to 0.8.2
+- change in include/x86_sse2.inc to not set -xarch=sse2 in arch_ldadd 
+  for case cc_is_gcc == 1 - this avoids gcc errors in configure
+  "gcc: error: language arch=sse2 not recognized"
+- add switch with_runtime_cpudetect, by default set to off 
+  (Distro builders may switch this to on with pkgtool --with-runtime_cpudetect )
+##TODO## might need some testing if acceleration works on CPUs
+- comment %doc, manpages - files not present in 0.8.2
+- re-add patches removed with r3618, reworked,
+  patch9: configure gnuism, re-add manpages by pod2man if texi2html not available,
+  (reworked ffmpeg-02-configure.diff and ffmpeg-03-gnuisms.diff)
+  patch10: *new* get texi2html work again - fix probably incomplete or needs updated
+  texi2html, re-add %doc and manpages
+- allow parallel build gmake -j$CPUS
+- add patch11: ffmpeg-11-add-sys_videodev2_h.diff (reworked ffmpeg-03-v4l2.diff)
+##TODO## v4l2 patch11 incomplete, maybe needs more from ffmpeg-03-v4l2.diff, ffmpeg-07-new-v4l2.diff
+- for pod2man add in %install export PATH=/usr/perl5/bin:$PATH
+- fix perms for %{_datadir}/doc
+- replace %doc with manual install
+- make all /bin/sh script in source tree use /usr/bin/bash
+##TODO## patch11 incomplete, maybe needs more from ffmpeg-03-v4l2.diff, ffmpeg-07-new-v4l2.diff
+##TODO## verify build-time dependencies (texi2html, pod2man, others)
+##TODO## check if v4l patches still apply on Solaris
 * Sat Jul 16 2011 - Alex Viskovatoff
 - Add SFEyasm as a dependency; package documentation files
 - Add --disable-asm as option for i386 so that newer versions build

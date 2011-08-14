@@ -5,15 +5,24 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.8
+Version:                 0.8.2
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
+Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
+Patch10:		 ffmpeg-10-Makefile-quick-texi2html-fix.diff
+Patch11:		 ffmpeg-11-add-sys_videodev2_h.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
 
 %prep
 %setup -q -n ffmpeg-%version
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+
+
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -65,15 +74,28 @@ bash ./configure	\
     --enable-libopenjpeg \
     --enable-vdpau	\
     --extra-ldflags=-mimpure-text \
+%if %{with_runtime_cpudetect}
+    --enable-runtime-cpudetect \
+    --enable-sse \
+    --enable-ssse3 \
+%endif
     --enable-shared
 
-gmake 
+gmake -j$CPUS
 
 %install
+# for pod2man
+export PATH=/usr/perl5/bin:$PATH
 gmake install DESTDIR=$RPM_BUILD_ROOT BINDIR=$RPM_BUILD_ROOT%{_bindir}
 
 mkdir $RPM_BUILD_ROOT%{_libdir}/ffmpeg
 cp config.mak $RPM_BUILD_ROOT%{_libdir}/ffmpeg
+
+#workaround for occational not finding %doc files
+touch placeholder.html
+cp -p *.html doc/
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/%{name}
+cp -p doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html $RPM_BUILD_ROOT/%{_datadir}/doc/%{name}/
 
 # Create a ffmpeg.pc - Some apps need it
 cat > $RPM_BUILD_ROOT%{_libdir}/pkgconfig/ffmpeg.pc << EOM
@@ -94,6 +116,30 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- bump to 0.8.2
+- change in include/x86_sse2.inc to not set -xarch=sse2 in arch_ldadd 
+  for case cc_is_gcc == 1 - this avoids gcc errors in configure
+  "gcc: error: language arch=sse2 not recognized"
+- add switch with_runtime_cpudetect, by default set to off 
+  (Distro builders may switch this to on with pkgtool --with-runtime_cpudetect )
+##TODO## might need some testing if acceleration works on CPUs
+- comment %doc, manpages - files not present in 0.8.2
+- re-add patches removed with r3618, reworked,
+  patch9: configure gnuism, re-add manpages by pod2man if texi2html not available,
+  (reworked ffmpeg-02-configure.diff and ffmpeg-03-gnuisms.diff)
+  patch10: *new* get texi2html work again - fix probably incomplete or needs updated
+  texi2html, re-add %doc and manpages
+- allow parallel build gmake -j$CPUS
+- add patch11: ffmpeg-11-add-sys_videodev2_h.diff (reworked ffmpeg-03-v4l2.diff)
+##TODO## v4l2 patch11 incomplete, maybe needs more from ffmpeg-03-v4l2.diff, ffmpeg-07-new-v4l2.diff
+- for pod2man add in %install export PATH=/usr/perl5/bin:$PATH
+- fix perms for %{_datadir}/doc
+- replace %doc with manual install
+- make all /bin/sh script in source tree use /usr/bin/bash
+##TODO## patch11 incomplete, maybe needs more from ffmpeg-03-v4l2.diff, ffmpeg-07-new-v4l2.diff
+##TODO## verify build-time dependencies (texi2html, pod2man, others)
+##TODO## check if v4l patches still apply on Solaris
 * Tue Aug  9 2011 - Alex Viskovatoff
 - add --enable-vdpau, which can speed up decoding
 * Fri Jul 29 2011 - Alex Viskovatoff
