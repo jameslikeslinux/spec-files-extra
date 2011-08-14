@@ -93,6 +93,10 @@ rm -rf %{buildroot}
 %{_includedir}/*.h
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- fix build by:
+- use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
+- use CC/CXX /usr/gnu/bin/gcc g++
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Thu Jun 18 2010 - Milan Jurik

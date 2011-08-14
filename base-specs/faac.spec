@@ -24,13 +24,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="%{optflags} -I/usr/include/mp4v2"
 export CXXFLAGS="%{cxx_optflags} -I/usr/include/mp4v2"
 export LDFLAGS="-lmp4v2 -lm"
 
-sh bootstrap
+#sh bootstrap
+/usr/bin/libtoolize --force
 
 ./configure --prefix=%{_prefix} \
     --libdir=%{_libdir} \
@@ -49,6 +50,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- fix build by:
+- use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
+- use CC/CXX /usr/gnu/bin/gcc g++
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Thu Jun 18 2010 - Milan Jurik
