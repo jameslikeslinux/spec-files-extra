@@ -6,6 +6,19 @@
 
 ##TODO##  Make x264 executable link to SFEffmpeg
 
+# libx264 complains on yasm too old, just uninstall
+# the one you got with the CBE 1.6.x or 1.7.x release
+# pfexec pkgrm CBEyasm
+#The following package is currently installed:
+#   CBEyasm  Desktop CBE: Yet another assembler
+#            (i386) 0.6.2,REV=1.7.0
+#Do you want to remove this package? [y,n,?,q] y
+
+#or
+
+#pfexec pkg uninstall CBEyasm
+
+
 %include Solaris.inc
 
 # To enable the x264 executable to create mp4 files, GPAC is required: use
@@ -33,6 +46,7 @@ Version:                 %{libx264.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
