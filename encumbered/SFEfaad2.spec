@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- fix build by:
+- use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Fri Aug 21 2009 - Milan Jurik

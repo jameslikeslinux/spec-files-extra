@@ -37,7 +37,9 @@ export CXXFLAGS="-norunpath -xO5 -xlibmil -xlibmopt -features=tmplife"
 export CXXFLAGS="-norunpath -xO3 -xlibmil -xlibmopt -features=tmplife"
 %endif
 
-autoreconf --install
+#autoreconf --install
+/usr/bin/libtoolize --force
+
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
@@ -57,6 +59,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Aug 13 2011 - Thomas Wagner
+- fix build by:
+- use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
 * Sun Oct  3 2010 - Alex Viskovatoff
 - Use gmake.
 * Fri Aug 21 2009 - Milan Jurik
