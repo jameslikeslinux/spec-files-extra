@@ -27,6 +27,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SFEglibmm-gpp
 Requires: SFEcairomm-gpp
+Requires: SFEpangomm-gpp
 Requires: SUNWgnome-base-libs
 Requires: SUNWlibms
 Requires: SFEsigcpp-gpp
@@ -42,8 +43,8 @@ BuildRequires: SFEcairomm-gpp-devel
 BuildRequires: SFEpangomm-gpp-devel
 
 %package devel
-Summary:                 C++ Wrapper for the Gtk+ Library - developer files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 Requires: SUNWgnome-base-libs-devel

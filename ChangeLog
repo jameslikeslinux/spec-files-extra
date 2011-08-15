@@ -1,3 +1,9 @@
+2011-08-15 Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEgnote.spec: initial spec
+	* SFEpcre-gpp.spec: initial spec
+	* SFEgtkmm-gpp.spec: add missing dependency
+
 2011-08-15  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
 	* SFEfvwm.spec: Added build dependency

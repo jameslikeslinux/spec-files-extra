@@ -68,7 +68,7 @@ Requires: SFEffmpeg
 Requires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibdvdnav
-Requires: driver/graphics/nvidia
+#Requires: driver/graphics/nvidia
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif

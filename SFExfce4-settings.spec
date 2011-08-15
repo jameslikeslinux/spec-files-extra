@@ -89,14 +89,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 
 %files root
+%defattr (-, root, sys)
 %attr (0755, root, sys) %dir %{_sysconfdir}
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg
-%{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml/*
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/autostart
 %{_sysconfdir}/xdg/autostart/*
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4/xfconf
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml
+%{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml/*
 
 %if %build_l10n
 %files l10n

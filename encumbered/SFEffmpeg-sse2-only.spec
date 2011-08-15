@@ -76,7 +76,7 @@ Requires: SFEopenjpeg
 BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
 BuildRequires: driver/graphics/nvidia
-Requires: driver/graphics/nvidia
+#Requires: driver/graphics/nvidia
 
 %package devel
 Summary:                 %{summary} - development files

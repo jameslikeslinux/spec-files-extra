@@ -70,7 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %_includedir
 %dir %attr (0755, root, other) %_includedir/mpd
 %_includedir/mpd/*
-%_libdir/pkgconfig
+%dir %attr (0755, root, other) %_libdir/pkgconfig 
+%_libdir/pkgconfig/%srcname.pc
 %dir %attr (0755, root, sys) %_datadir
 %dir %attr (0755, root, other) %_datadir/doc
 %_datadir/doc/*

@@ -31,7 +31,14 @@ Patch4: icu-04-gnu99.diff
 export CFLAGS="%optflags"
 export CPPFLAGS=""
 %if %cc_is_gcc
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="%cxx_optflags"
+%if %opt_arch64
+export LDFLAGS="%_ldflags -L/usr/gnu/lib/%bld_arch -R/usr/gnu/lib/%bld_arch"
+%else
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
+%endif
 %else
 export LD=CC
 export CXXFLAGS="%cxx_optflags -library=stdcxx4"
@@ -44,12 +51,12 @@ PATH=%{_bindir}:$PATH
 # Kind of peculiar, but we need to avoid accidentally linking to the
 # already installed icu4c libraries in the system, so we push some
 # local directories to the front.
-PWD=`pwd`
-LOCAL_LIB="-L$PWD/source/lib -L$PWD/source/stubdata"
-CXXFLAGS="$LOCAL_LIB $CXXFLAGS"
-CFLAGS="$LOCAL_LIB $CFLAGS"
-LDFLAGS="$LOCAL_LIB $LDFLAGS"
-CPPFLAGS="$LOCAL_LIB $CPPFLAGS"
+# PWD=`pwd`
+# LOCAL_LIB="-L$PWD/source/lib -L$PWD/source/stubdata"
+# CXXFLAGS="$LOCAL_LIB $CXXFLAGS"
+# CFLAGS="$LOCAL_LIB $CFLAGS"
+# LDFLAGS="$LOCAL_LIB $LDFLAGS"
+# CPPFLAGS="$LOCAL_LIB $CPPFLAGS"
 
 # arch64.inc defines _bindir etc. but not _sbindir
 %if %opt_arch64
@@ -57,12 +64,13 @@ CPPFLAGS="$LOCAL_LIB $CPPFLAGS"
 %endif
 
 cd source
-chmod 0755 ./runConfigureICU
-%if %cc_is_gcc
-./runConfigureICU Solaris/GCC \
-%else
-./runConfigureICU Solaris \
-%endif
+# chmod 0755 ./runConfigureICU
+# %if %cc_is_gcc
+# ./runConfigureICU Solaris/GCC \
+# %else
+# ./runConfigureICU Solaris \
+# %endif
+./configure \
 	--prefix=%{_prefix} \
 	--bindir=%{_bindir}\
 	--sbindir=%{_sbindir} \
