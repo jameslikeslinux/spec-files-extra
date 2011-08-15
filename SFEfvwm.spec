@@ -45,6 +45,7 @@ Requires: SUNWpango
 BuildRequires: SUNWpango-devel
 Requires: SUNWpixman
 Requires: SUNWbzip
+BuildRequires: SUNWgnome-common-devel
 Requires: SFElibstroke
 BuildRequires: SFElibstroke-devel
 Requires: SFElibfribidi
@@ -117,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Aug 15 2011 - Knut Anders Hatlen
+- Added missing build dependency
 * Fri Aug 12 2011 - Knut Anders Hatlen
 - Fix directory permissions
 - Update dependencies

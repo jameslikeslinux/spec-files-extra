@@ -34,6 +34,10 @@ aclocal $ACLOCAL_FLAGS
 automake --add-missing
 autoconf --force
 
+# Force configure to run with /bin/bash to work around build failure
+# on snv_151a. The workaround does not appear to be needed in newer
+# builds (tested snv_171).
+/bin/bash \
 ./configure --prefix=%{_prefix}			\
 	    --bindir=%{_bindir}			\
 	    --mandir=%{_mandir}			\
@@ -53,6 +57,8 @@ fvwmdir=$RPM_BUILD_ROOT%{_datadir}/fvwm
 mv $fvwmdir/system.fvwm2rc-sample-95 $fvwmdir/system.fvwm2rc
 
 %changelog
+* Mon Aug 15 2011 - Knut Anders Hatlen
+- Run configure with /bin/bash
 * Fri Aug 12 2011 - Knut Anders Hatlen
 - bump to 2.6.2
 - update dependencies
