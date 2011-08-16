@@ -9,7 +9,8 @@ Group:                   System
 #Version:                 %(date +%Y.%m.%d)
 #Source:                  http://www.codemonkey.org.uk/projects/x86info/x86info-git-snapshot.tar.gz
 Version:                 1.21
-Source:                  http://www.codemonkey.org.uk/projects/x86info/x86info-%version.tgz
+Source:                  http://codemonkey.org.uk/projects/x86info/old/x86info-1.21.tgz
+
 
 
 SUNW_BaseDir:            %{_basedir}
@@ -49,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 16 2011 - Thomas Wagner
+- change Source URL, newer releases 1.22-1.29 need patching
 * Sun Dev 21 2008 - Thomas Wagner
 - remove snapshot-date
 - bump to 1.21
