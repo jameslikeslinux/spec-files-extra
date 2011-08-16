@@ -484,6 +484,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Aug 16 2011 - Thomas Wagner
+- first version of reworked gcc-03-gnulib.diff where user can
+  define libdirs everywhere in RUNPATH, e.g. /usr/g++/lib:/usr/gnu/lib:/usr/lib
+  please test results with  dump -Lv /usr/g++/lib/libQtNetwork.so | grep RUNPATH
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Jul 17 2011 - Alex Viskovatoff
