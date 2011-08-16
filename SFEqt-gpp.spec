@@ -112,7 +112,7 @@ export CXX=/usr/gnu/bin/g++
 export LD=/usr/gnu/bin/ld
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
-export LDFLAGS="%_ldflags -pthreads"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
 
 # Assume i386 CPU is not higher than Pentium
 # This can be changed locally if your CPU is newer
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 16 2011 - Thomas Wagner
+- need -R /usr/g++/lib and -R /usr/gnu/lib earlier in RUNPATH, via LDFLAGS,
+  needs updated SFEgcc patch gcc-03-gnulib.diff to work
 * Tue Aug  8 2011 - Thomas Wagner
 - fix typo in mysql include and lib paths - "{}" in wrong position, correct variable name
 - define standard_prefix /usr , used for mysql paths
