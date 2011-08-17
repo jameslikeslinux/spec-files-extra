@@ -9,7 +9,7 @@ Group:                   System
 #Version:                 %(date +%Y.%m.%d)
 #Source:                  http://www.codemonkey.org.uk/projects/x86info/x86info-git-snapshot.tar.gz
 Version:                 1.21
-Source:                  http://codemonkey.org.uk/projects/x86info/old/x86info-1.21.tgz
+Source:                  http://codemonkey.org.uk/projects/x86info/old/x86info-%{version}.tgz
 
 
 
