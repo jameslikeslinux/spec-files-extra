@@ -31,9 +31,9 @@ export PATH=/usr/perl5/bin:$PATH
 export CC=/usr/gnu/bin/gcc
 # All this is necessary to free up enough registers on x86
 %ifarch i386
-export CFLAGS="%optflags -Os -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
+export CFLAGS="%optflags -Os %{extra_gcc_flags} -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
 %else
-export CFLAGS="%optflags -Os -I%{xorg_inc} -I%{_includedir}"
+export CFLAGS="%optflags -Os %{extra_gcc_flags} -I%{xorg_inc} -I%{_includedir}"
 %endif
 #export LDFLAGS="%_ldflags %{xorg_lib_path} -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir}"
 #export LDFLAGS="%_ldflags %{xorg_lib_path} -L%{_libdir} -R%{_libdir}"
@@ -74,11 +74,6 @@ bash ./configure	\
     --enable-libopenjpeg \
     --enable-vdpau	\
     --extra-ldflags=-mimpure-text \
-%if %{with_runtime_cpudetect}
-    --enable-runtime-cpudetect \
-    --enable-sse \
-    --enable-ssse3 \
-%endif
     --enable-shared
 
 gmake -j$CPUS
@@ -116,6 +111,20 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 17 2011 - Thomas Wagner
+- %arch_sse2 change minimum-CPU i686 to prescott, add --enable-sse --enable-ssse2
+- for arch i86 by default --enable-runtime-cpudetect, add extra_gcc_flags -msse
+  to have asm being lucky with XMM_CLOBBERS, remove --disable-asm (asm active again)
+- remove build-time pkgtool commandline option --with-runtime_cpudetect (now 
+  always enabled for i86)
+- Implementation note: Programs using pentium_pro+mmx must request these libs 
+  with isaexec (see what ffmpeg binary does via /usr/lib/isaexec) or in other
+  progams tell the linker to select the library for you, via 
+  export LD_OPTIONS='-f libavcodec.so.53:libavdevice.so.53:libavfilter.so.2:
+  libavformat.so.53:libavutil.so.51:libswscale.so.2:libpostproc.so.51'
+  and -R this early in LD_FLAGS="-R%{_libdir}/\$ISALIST %_ldflags"
+  At least put ISALIST before any other -R/usr/lib !
+  For debug use       LD_DEBUG=libs program_to_test
 * Sat Aug 13 2011 - Thomas Wagner
 - bump to 0.8.2
 - change in include/x86_sse2.inc to not set -xarch=sse2 in arch_ldadd 

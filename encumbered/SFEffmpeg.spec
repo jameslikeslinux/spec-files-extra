@@ -11,11 +11,11 @@
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
-##TODO## this is experimental: use pkgtool --with-runtime_cpudetect ...
-%define with_runtime_cpudetect %{?_with_runtime_cpudetect:1}%{?!_with_runtime_cpudetect:0}
-
 %if %arch_sse2
-%define arch_opt --cpu=i686 --enable-mmx --enable-mmx2
+#%define arch_opt --cpu=i686 --enable-mmx --enable-mmx2 --enable-sse --enable-sse
+%define arch_opt --cpu=prescott --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
+#make this empty
+%define extra_gcc_flags
 %include x86_sse2.inc
 %use ffmpeg_sse2 = ffmpeg.spec
 %endif
@@ -25,7 +25,10 @@
 %endif
 
 %ifarch i386
-%define arch_opt --disable-asm
+#with -msse (gcc) you can have asm XMM_CLOBBERS accepted
+#read line 00079 in http://www.libav.org/doxygen/master/x86__cpu_8h_source.html 
+%define extra_gcc_flags -msse
+%define arch_opt --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3 
 %endif
 
 %include base.inc
@@ -186,6 +189,20 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 17 2011 - Thomas Wagner
+- %arch_sse2 change minimum-CPU i686 to prescott, add --enable-sse --enable-ssse2
+- for arch i86 by default --enable-runtime-cpudetect, add extra_gcc_flags -msse
+  to have asm being lucky with XMM_CLOBBERS, remove --disable-asm (asm active again)
+- remove build-time pkgtool commandline option --with-runtime_cpudetect (now 
+  always enabled for i86)
+- Implementation note: Programs using pentium_pro+mmx must request these libs 
+  with isaexec (see what ffmpeg binary does via /usr/lib/isaexec) or in other
+  progams tell the linker to select the library for you, via 
+  export LD_OPTIONS='-f libavcodec.so.53:libavdevice.so.53:libavfilter.so.2:
+  libavformat.so.53:libavutil.so.51:libswscale.so.2:libpostproc.so.51'
+  and -R this early in LD_FLAGS="-R%{_libdir}/\$ISALIST %_ldflags"
+  At least put ISALIST before any other -R/usr/lib !
+  For debug use       LD_DEBUG=libs program_to_test
 * Sat Aug 13 2011 - Thomas Wagner
 - bump to 0.8.2
 - change in include/x86_sse2.inc to not set -xarch=sse2 in arch_ldadd 
