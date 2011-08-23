@@ -12,7 +12,7 @@ Name:                SFEclamav
 Summary:             Unix anti-virus scanner
 License:             GPLv2
 SUNW_Copyright:      clamav.copyright
-Version:             0.97.1
+Version:             0.97.2
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
 Group:               System/Utilities
@@ -114,6 +114,8 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 
 
 %changelog
+* Tue Aug 23 2011 - Milan Jurik
+- bump to 0.97.2
 * Thu Jul 28 2011 - Alex Viskovatoff
 - add SUNW_Copyright and package some files in /usr/share/doc/clamav
 * Tue Jul 12 2011 - Milan Jurik
