@@ -4,8 +4,9 @@
 # includes module(s): vlc
 #
 
-##NOTE##  works with gcc    4.6.1
-##NOTE##  FAILS with gcc    4.5.5.x
+##NOTE##  works/tested with gcc    4.6.1  Solaris 11 (Express) Build 170
+##NOTE##  works/tested with gcc    4.5.3  OI148
+##NOTE##  works/tested with gcc    4.5.2  SXCE (130)
 
 ##TODO##
 
@@ -384,11 +385,11 @@ export CXX=/usr/gnu/bin/g++
 # Ticket #3040 (closed defect: fixed) https://trac.videolan.org/vlc/ticket/3040
 # need to define _XPG4_2 on Solaris
 
-export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__ -L/lib -R/lib"
-export CFLAGS="%optflags -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__ -L/lib -R/lib"
+export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
+export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
 
 #give these flags only to the C-Pre-Processor
-export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__"
+export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__"
 
 %if %debug_build
 export CFLAGS="$CFLAGS -g"
@@ -591,6 +592,7 @@ test -x $BASEDIR/lib/postrun || exit 0
 - --disable twolame for a while, might not be necessary (re-check this).
   Check matching IPS package name, then re-enable if needed and uncomment (Build)Requires
 - hardcode /usr/bin at the beginning of $PATH (or fails with archiver error)
+- remove -D_XPG6 - gcc 4.5.x works again
 * Mon Aug 15 2011 - Thomas Wagner
 - bump to 1.1.11
 ##TODO## make ffmpeg optimized libs be found in pentiumpro+mmx libdir
