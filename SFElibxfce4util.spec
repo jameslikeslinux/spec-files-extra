@@ -21,6 +21,8 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires:  SUNWglib2
+Requires:       SUNWglib2
 BuildRequires:	SFExfce4-dev-tools
 Requires:	SFExfce4-dev-tools
 BuildRequires:	SUNWgtk-doc

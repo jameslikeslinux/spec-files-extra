@@ -12,7 +12,7 @@
 
 Name:		SFExfdesktop
 Summary:	Desktop manager for the Xfce Desktop Environment
-Version:	4.8.1
+Version:	4.8.2
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License: 	GPLv2
@@ -128,6 +128,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.2
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik

@@ -22,6 +22,36 @@ SUNW_Copyright:	xfce4-session.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SUNWgnome-config 
+BuildRequires: SUNWgnome-panel 
+BuildRequires: SUNWlibatk 
+BuildRequires: SUNWcairo 
+BuildRequires: SUNWgtk2 
+BuildRequires: SFElibxfce4util 
+BuildRequires: SUNWpango 
+BuildRequires: SUNWglib2 
+BuildRequires: SUNWlibgnome-keyring 
+BuildRequires: SUNWfontconfig
+BuildRequires: SUNWfreetype2 
+BuildRequires: SUNWdbus-libs
+BuildRequires: SUNWdbus-glib 
+BuildRequires: SUNWlibms 
+BuildRequires: SUNWxwice 
+Requires: SUNWgnome-config 
+Requires: SUNWgnome-panel 
+Requires: SUNWlibatk 
+Requires: SUNWcairo 
+Requires: SUNWgtk2 
+Requires: SFElibxfce4util 
+Requires: SUNWpango 
+Requires: SUNWglib2 
+Requires: SUNWlibgnome-keyring 
+Requires: SUNWfontconfig
+Requires: SUNWfreetype2 
+Requires: SUNWdbus-libs
+Requires: SUNWdbus-glib 
+Requires: SUNWlibms 
+Requires: SUNWxwice 
 BuildRequires:	SFExfce4-dev-tools
 BuildRequires:	SFElibxfcegui4-devel
 Requires:	SFElibxfcegui4
@@ -161,6 +191,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- Added required dependencies for other build systemss
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik

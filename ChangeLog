@@ -1,3 +1,13 @@
+2011-08-23 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibxfcegui4.spec: Minor dep fixes
+	* SFExfce4-session.spec: Minor dep fixes
+	* SFExfce4-panel.spec: Bump to 4.8.4
+	* SFExfdesktop.spec: Bump to 4.8.2
+	* SFExfce-utils.spec: Bump to 4.8.2
+	* SFElibexo.spec: Bump to 0.6.2
+	* SFEgarcon.spec: Bump to 0.1.8
+
 2011-08-23 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEclamav.spec: bump to 0.97.2, move docs to doc package and fix

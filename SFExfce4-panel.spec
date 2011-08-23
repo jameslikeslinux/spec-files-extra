@@ -12,7 +12,7 @@
 
 Name:		SFExfce4-panel
 Summary:	Xfce Panel
-Version:	4.8.3
+Version:	4.8.4
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -147,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.4
 * Mon Jul 25 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
