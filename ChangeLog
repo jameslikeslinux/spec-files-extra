@@ -1,6 +1,7 @@
 2011-08-23 Milan Jurik <sfnet@xylab.cz>
 
-	* SFEclamav.spec: bump to 0.97.2
+	* SFEclamav.spec: bump to 0.97.2, move docs to doc package and fix
+	  docdir group
 
 2011-08-15 Alex Viskovatoff <herzen@imap.cc>
 
