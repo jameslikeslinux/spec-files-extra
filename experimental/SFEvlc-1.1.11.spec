@@ -4,6 +4,82 @@
 # includes module(s): vlc
 #
 
+##NOTE##  works with gcc    4.6.1
+##NOTE##  FAILS with gcc    4.5.5.x
+
+##TODO##
+
+#see this notes below, we might want those features compiled in,
+#then we need to put BuildRequires and maybe need to make new 
+#additional spec files 
+
+# pkgbuild: checking for TAGLIB... no
+# pkgbuild: configure: WARNING: TagLib library not found
+# pkgbuild: checking liveMedia_version.hh usability... no
+# pkgbuild: checking liveMedia_version.hh presence... no
+# pkgbuild: checking for liveMedia_version.hh... no
+# pkgbuild: checking liveMedia.hh usability... no
+# pkgbuild: checking liveMedia.hh presence... no
+# pkgbuild: checking for liveMedia.hh... no
+
+# pkgbuild: configure: WARNING: The development files for liveMedia (live555) can't be found
+# pkgbuild: checking for DC1394... no
+# pkgbuild: configure: WARNING: Library libraw1394 >= 2.0.1 libdc1394-2 >= 2.1.0 needed for dc1394 was not found
+# pkgbuild: checking for DV... no
+# pkgbuild: configure: WARNING: Library libraw1394 >= 2.0.1 libavc1394 >= 0.5.3 needed for dv was not found
+
+# pkgbuild: checking for dvdnav-config... /usr/ccs/bin/dvdnav-config
+# pkgbuild: checking for dvdnav_get_video_resolution in -ldvdnav... no
+
+# pkgbuild: checking for dvbpsi/dr.h... yes
+# pkgbuild: checking for dvbpsi_GenSDTSections in -ldvbpsi... yes
+# pkgbuild: checking for LIBV4L... no
+# pkgbuild: configure: WARNING: LibV4L support disabled because libv4l development headers were not found
+# pkgbuild: checking linux/videodev2.h usability... no
+# pkgbuild: checking linux/videodev2.h presence... no
+# pkgbuild: checking for linux/videodev2.h... no
+# pkgbuild: checking sys/videoio.h usability... no
+# pkgbuild: checking sys/videoio.h presence... no
+# pkgbuild: checking for sys/videoio.h... no
+# pkgbuild: checking for LIBV4L2... no
+
+# pkgbuild: checking for SHOUT... no
+# pkgbuild: configure: WARNING: Library shout >= 2.1 needed for shout was not found
+# 
+# #unknown features, do we need this?
+# pkgbuild: checking ebml/EbmlVersion.h usability... no
+# pkgbuild: checking ebml/EbmlVersion.h presence... no
+# pkgbuild: checking for ebml/EbmlVersion.h... no
+# pkgbuild: checking for LIBMODPLUG... no
+# pkgbuild: configure: WARNING: libmodplug not found or a broken version (0.8.8.0) was found!
+# 
+# pkgbuild: checking for POSTPROC... yes
+# pkgbuild: checking postproc/postprocess.h usability... no
+# pkgbuild: checking postproc/postprocess.h presence... no
+# pkgbuild: checking for postproc/postprocess.h... no
+# 
+# pkgbuild: checking for DIRAC... no
+# pkgbuild: configure: WARNING: Library dirac >= 0.10.0 needed for dirac was not found
+# 
+# pkgbuild: checking for FLUIDSYNTH... no
+# pkgbuild: configure: WARNING: Library fluidsynth needed for fluidsynth was not found
+# 
+# pkgbuild: configure: WARNING: ZVBI library not found. Enabling the telx module instead
+# pkgbuild: checking for LIBASS... no
+# pkgbuild: configure: WARNING: LIBASS library not found
+# pkgbuild: checking for KATE... no
+# pkgbuild: checking kate/kate.h usability... no
+# pkgbuild: checking kate/kate.h presence... no
+# pkgbuild: checking for kate/kate.h... no
+# pkgbuild: checking for TIGER... no
+# 
+# 
+# pkgbuild: checking Carbon/Carbon.h usability... no
+# pkgbuild: checking Carbon/Carbon.h presence... no
+# pkgbuild: checking for Carbon/Carbon.h... no
+# 
+# 
+
 ##TODO## check (Build)Requires  SUNWlibgcrypt SUNWlibproxy SUNWgnome-vfs SUNWlibrsvg SFEfreetype SFEtwolame SFEgccruntime SUNWavahi-bridge-dsd SFElibgpg-error
 
 
@@ -211,7 +287,7 @@ BuildRequires: SUNWlibgcrypt
 BuildRequires: SUNWlibproxy
 BuildRequires: SUNWgnome-vfs
 BuildRequires: SUNWlibrsvg
-BuildRequires: SFEtwolame
+#BuildRequires: SFEtwolame
 BuildRequires: SFEgcc
 BuildRequires: SUNWavahi-bridge-dsd
 #BuildRequires: SFElibgpg-error
@@ -220,7 +296,7 @@ Requires: SUNWlibgcrypt
 Requires: SUNWlibproxy
 Requires: SUNWgnome-vfs
 Requires: SUNWlibrsvg
-Requires: SFEtwolame
+#Requires: SFEtwolame
 Requires: SFEgccruntime
 Requires: SUNWavahi-bridge-dsd
 #Requires: SFElibgpg-error
@@ -303,26 +379,15 @@ GNULIB="-L/usr/gnu/lib -R/usr/gnu/lib"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal -I ./m4"
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
-#export CXXFLAGS="%cxx_optflags"
-#export CFLAGS="%optflags -D_XOPEN_SOURCE=500 -D__C99FEATURES__ -D__EXTENSIONS__"
-#export CPPFLAGS="-D_XOPEN_SOURCE=500 -D__C99FEATURES__ -D__EXTENSIONS__ -I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include"
 #
 #notes to flags:
 # Ticket #3040 (closed defect: fixed) https://trac.videolan.org/vlc/ticket/3040
 # need to define _XPG4_2 on Solaris
-#
-#this page mentions Solaris *FLAGS etc.
-#export CFLAGS="-D _XPG4_2 -D __SunOS -D __STDC_ISO_10646__ -D __EXTENSIONS__ -features=extensions -fast"
-#export CXXFLAGS="%cxx_optflags  -fpermissive -D_XPG4_2 -D__C99FEATURES__ -D__EXTENSIONS__ -L/lib -R/lib"
-#export CXXFLAGS="%cxx_optflags  -fpermissive -D_XPG4_2 -D_XPG6 -D__C99FEATURES__ -D__EXTENSIONS__ -L/lib -R/lib"
-export CXXFLAGS="%cxx_optflags  -fpermissive -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__ -L/lib -R/lib"
-#export CFLAGS="%optflags -D_XPG4_2 -D__C99FEATURES__ -D__EXTENSIONS__ -D__STDC_ISO_10646__ -L/lib -R/lib"
-#export CFLAGS="%optflags -D_XPG4_2 -D__C99FEATURES__ -D__EXTENSIONS__ -L/lib -R/lib"
-#export CFLAGS="%optflags -D_XPG4_2 -D_XPG6 -D__C99FEATURES__ -D__EXTENSIONS__ -L/lib -R/lib"
+
+export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__ -L/lib -R/lib"
 export CFLAGS="%optflags -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__ -L/lib -R/lib"
+
 #give these flags only to the C-Pre-Processor
-#export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__C99FEATURES__ -D__STDC_ISO_10646__ -D__EXTENSIONS__"
-#export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D_XPG6 -D__C99FEATURES__ -D__STDC_ISO_10646__ -D__EXTENSIONS__"
 export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D_XPG6 -D__EXTENSIONS__"
 
 %if %debug_build
@@ -336,16 +401,21 @@ export CFLAGS="$CFLAGS -O4"
 ##TODO## experime
 #export LDFLAGS="%_ldflags $X11LIB $GNULIB -lsocket -lxnet"
 #export EXTRA_LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib $X11LIB $GNULIB -lsocket -lxnet"
+export LD=/opt/dtbld/bin/ld-wrapper
+export AR=/usr/bin/ar
+export PATH=/usr/bin:$PATH
 export EXTRA_LDFLAGS="$X11LIB $GNULIB -lsocket -lxnet"
-export LDFLAGS="%_ldflags"
-#export LDFLAGS="         $X11LIB $GNULIB -lsocket -lxnet"
+#let the runpath be determined dynamicly at runtime to get a better optimized library then
+#the default one, currently for ffmpeg:
+#paused export LD_OPTIONS='-f libavcodec.so.53 -f libavdevice.so.53 -f libavfilter.so.2 -f libavformat.so.53 -f libavutil.so.51 -f libswscale.so.2 -f libpostproc.so.51'
+#export LD_FLAGS="-R%{_libdir}/\$ISALIST %_ldflags"
+export LD_FLAGS="%_ldflags"
+#export LD_FLAGS="         $X11LIB $GNULIB -lsocket -lxnet"
 
 
 export CONFIG_SHELL=/usr/bin/bash
 
 [ -L include/ffmpeg ] || ln -s /usr/include/libavcodec include/ffmpeg
-#rm ./configure
-#./bootstrap
 perl -w -pi.bak3 -e "s,#\!\s*/bin/sh,#\!/usr/bin/bash," configure
 
 #let Qt modules in vlc have a good runtime search patch for libraries
@@ -371,6 +441,8 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 	    --enable-real			\
 	    --enable-realrtsp			\
             --disable-dvb                       \
+            --disable-portaudio                 \
+            --disable-twolame                   \
 %if %{enable_x11_xcb}
             --enable-xcb                        \
 %else
@@ -412,7 +484,7 @@ printf '%%%s/\/intl\/libintl.a/-lintl/\nwq\n' | ex - vlc-config
 ##TODO## investigate. Test if this goes away with new vlc version
 #sometimes it fails with a core dump at vlc-cache-gen, just try again.
 #does vlc-cache-gen work at all?
-gmake -j$CPUS  || gmake -j$CPUS 
+gmake -j$CPUS  || gmake || gmake
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -512,6 +584,13 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Aug 23 2011 - Thomas Wagner
+- --disable-portaudio (might pkg-config add the switch -mt ? breaks vlc build)
+- add LD=/opt/dtbld/bin/ld-wrapper to prevent gnu-ld jump in
+- add AR=/usr/bin/ar to prevent gnu-ar jump in
+- --disable twolame for a while, might not be necessary (re-check this).
+  Check matching IPS package name, then re-enable if needed and uncomment (Build)Requires
+- hardcode /usr/bin at the beginning of $PATH (or fails with archiver error)
 * Mon Aug 15 2011 - Thomas Wagner
 - bump to 1.1.11
 ##TODO## make ffmpeg optimized libs be found in pentiumpro+mmx libdir
