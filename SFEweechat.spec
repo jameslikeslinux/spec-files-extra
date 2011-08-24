@@ -22,12 +22,12 @@ Name:		SFE%srcname
 Summary:	Lightweight console IRC client
 URL:		http://www.weechat.org/
 Vendor:		Sebastien Helleu <flashcode@flashtux.org>
-Version:	0.3.4
+Version:	0.3.5
 License:	GPLv3+
 Source:		http://www.weechat.org/files/src/%srcname-%version.tar.bz2
 Patch1:		weechat-01-fix-strftime.diff
 Patch2:		weechat-02-remove-date-time.diff
-Patch3:		weechat-03-fix-array-overflow.diff
+# Patch3:	weechat-03-fix-array-overflow.diff
 SUNW_Copyright:	weechat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -60,7 +60,7 @@ Sebastien Helleu <flashcode@flashtux.org>
 %setup -q -n %srcname-%version
 %patch1 -p1
 %patch2 -p0
-%patch3 -p1
+# %patch3 -p1
 mkdir build
 
 
@@ -114,6 +114,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.3.5
 * Wed Jul 27 2011 - Alex Viskovatoff
 - SFEaspell doesn't build, so don't try to link against it
 * Mon Jul 25 2011 - N.B.Prashanth

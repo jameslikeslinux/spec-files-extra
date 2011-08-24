@@ -7,7 +7,7 @@
 
 %define src_name	ImageMagick
 %define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
-%define major		6.7.0
+%define major		6.7.1
 %define minor		10
 #%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
 
@@ -107,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.1-10
 * Fri Jul 29 2011 - Alex Viskovatoff
 - Add missing (build) dependency
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>

@@ -9,8 +9,8 @@
 
 Name:		SFEfltk2
 Summary:	A C++ user interface toolkit
-Version:	2.0.x-r8411
-IPS_component_version: 2.0.0.0.8411
+Version:	2.0.x-r8514
+IPS_component_version: 2.0.0.0.8514
 Source:		ftp://ftp.easysw.com/pub/%{src_name}/snapshots/%{src_name}-%{version}.tar.bz2
 URL:		http://www.fltk.org/
 License:	FLTK and LGPLv2
@@ -93,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8514
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Jun 11 2011 - Alex Viskovatoff

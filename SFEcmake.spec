@@ -15,7 +15,7 @@
 
 Name:		SFEcmake
 Summary:	Cross platform make system
-Version:	2.8.4
+Version:	2.8.5
 License:	BSD3c
 SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
@@ -69,6 +69,8 @@ rm -rf %{buildroot}
 %{_docdir}/cmake
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.8.5
 * Sat Mar  5 2011 - Alex Viskovatoff
 - bump to 2.8.4; install documentation files in cmake's own directory
 * Thu Feb 10 2011 - Thomas Wagner

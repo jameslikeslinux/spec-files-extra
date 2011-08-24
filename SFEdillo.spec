@@ -10,7 +10,7 @@
 
 Name:		SFEdillo
 Summary:	Lightweight browser
-Version:	2.2
+Version:	2.2.1
 Patch1:		dillo-01-dynarray.diff
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 URL:		http://www.dillo.org/
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.2.1
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Jun 13 2010 - Milan Jurik

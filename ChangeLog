@@ -1,3 +1,13 @@
+2011-08-24 Ken Mays <kmays2000@gmail.com>
+
+	* SFEcmake.spec: Bump to 2.8.5
+	* SFEdillo.spec: Bump to 2.2.1
+	* SFEfltk2.spec: Bump to 8514
+	* patches/fltk2-01-scandir.diff: Fixed configure.in patch for r8815
+	* SFEimagemagick.spec: Bump to 6.7.1-10
+	* SFEweechat.spec: Bump to 0.3.5
+	* patches/weechat-03-fix-array-overflow.diff: Already implemented
+
 2011-08-23 Ken Mays <kmays2000@gmail.com>
 
 	* SFElibxfcegui4.spec: Minor dep fixes
