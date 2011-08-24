@@ -1,3 +1,8 @@
+2010-08-24 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.4.
+	* patches/lightdm-02-vala.diff: Remove patch no longer needed.
+
 2011-08-24 Ken Mays <kmays2000@gmail.com>
 
 	* SFEcmake.spec: Bump to 2.8.5

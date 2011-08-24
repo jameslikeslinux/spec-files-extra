@@ -63,3 +63,12 @@
  
  CLEANFILES = \
  	test-qt-greeter_moc.cpp
+--- lightdm-0.9.4/utils/Makefile.am-orig	2011-08-24 12:45:59.093772069 -0500
++++ lightdm-0.9.4/utils/Makefile.am	2011-08-24 12:52:36.208255904 -0500
+@@ -1,5 +1,6 @@
+ bin_PROGRAMS = dm-tool
+ libexec_PROGRAMS = lightdm-set-defaults
++pkglibexecdir = $(libexecdir)/@PACKAGE@
+ dist_pkglibexec_SCRIPTS = gdmflexiserver
+ 
+ dm_tool_SOURCES = \

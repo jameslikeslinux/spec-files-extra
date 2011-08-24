@@ -10,12 +10,11 @@
 Name:                    SFElightdm
 License:                 GPLv3
 SUNW_Copyright:	         lightdm.copyright
-Version:                 0.9.2
+Version:                 0.9.4
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
 Patch1:                  lightdm-01-compile.diff
-Patch2:                  lightdm-02-vala.diff
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
 Summary:                 Light Display Manager
@@ -65,7 +64,6 @@ SUNW_BaseDir:            %{_basedir}
 %prep
 %setup -q -n lightdm-%version
 %patch1 -p1
-%patch2 -p1
 
 %build
 libtoolize --force
@@ -105,11 +103,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%dir %attr (0755, root, bin) %{_bindir}
+%{_bindir}/*
 %dir %attr (0755, root, bin) %{_sbindir}
 %attr (0755, root, bin)%{_sbindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, bin) %{_libdir}/lib*.so*
 %dir %attr (0755, root, bin) %{_libdir}/girepository-1.0
+%dir %attr (0755, root, bin) %{_libdir}/lightdm/*
+%dir %attr (0755, root, bin) %{_libdir}/lightdm-set-defaults
 %{_libdir}/girepository-1.0/*
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gir-1.0/*
@@ -146,6 +148,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Aug 24 2011 - brian.cameron@oracle.com
+- Bump to 0.9.4.
+* Wed Jul 27 2011 - brian.cameron@oracle.com
+- Bump to 0.9.2.
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Tue Jul 19 2011 - Brian Cameron  <brian.cameron@oracle.com>
