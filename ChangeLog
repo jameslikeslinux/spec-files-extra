@@ -1,3 +1,13 @@
+2011-08-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEgtksourceviewmm-gpp.spec: initial spec
+	* SFElibevent2.spec: install in /usr/gnu
+	* SFEffmpeg-sse2-only.spec: adapt to changes made to ffmpeg.spec
+	* ffmpeg.spec: directory names do not contain useless string "SFE"
+	* qt-gpp-03-qmake.SFE.diff: set QMAKE_LFLAGS_RPATH correctly
+	* SFEgnotes.spec: install GNOME_GnoteApplet.server
+	* SFEghc.spec: bump to 7.2.1
+
 2010-08-24 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.4.
@@ -51,7 +61,7 @@
 	* SFEofflineimap.spec: Bump to 6.3.4, use packagenamemacros.inc
 	  for Python version
 
-2011-08-10 Alex Viskovatoff <herzen@imap.cc>
+2011-08-10  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEinkscape.spec: adjust to SFElibgc now going in /usr/g++
 	* SFElibgc-gpp.spec: install in /usr/g++; rename from SFElibgc
@@ -64,7 +74,7 @@
 	* SFEmkvtoolnix.spec: add missing (build) dependency
 	* SFElzo.spec: package development files separately
 
-2011-08-05 Alex Viskovatoff <herzen@imap.cc>
+2011-08-05  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEinkscape.spec: fix inkscape-01-combo.diff; use new g++ path
 	  layout;  use SFElibgc; add missing dependency
@@ -79,7 +89,7 @@
 	* SFEaalib.spec: archive: system package is at newer version
 	* SFEgnomad2.spec: archive: base spec is missing
 
-2011-08-01 Alex Viskovatoff <herzen@imap.cc>
+2011-08-01  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqt-gpp.spec: enable exceptions
 	* SFEqmpdclient.spec: initial spec
@@ -90,7 +100,7 @@
 
 	* SFEgrsync.spec: bump to 1.2.0
 
-2011-07-31 Alex Viskovatoff <herzen@imap.cc>
+2011-07-31  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqt47-gpp.spec: add two WebKit patches; stop deleting imports/
 	* SFEarora.spec: build with gcc (to avoid building second Qt)
@@ -123,7 +133,7 @@
 
 	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.2.
 
-2011-07-24 Alex Viskovatoff <herzen@immap.cc>
+2011-07-24  Alex Viskovatoff <herzen@immap.cc>
 
 	* SFEmkvtoolnix.spec: bump to 4.9.1
 	* SFElyx.spec: use system (SFE) Boost
@@ -136,7 +146,7 @@
 
 	* SFElibcdio.spec: de-gcc spec
 
-2011-07-20 Alex Viskovatoff <herzen@immap.cc>
+2011-07-20  Alex Viskovatoff <herzen@immap.cc>
 
 	* experimental/SFEllvm-subversion.spec: fork new spec off
 	  SFEllvm.spec, using development version from SVN
@@ -150,7 +160,7 @@
 	  support for pnm_buildrequires_python_default,
 	  pnm_requires_python_default -> SUNWPython26
 
-2011-07-19 Alex Viskovatoff <herzen@immap.cc>
+2011-07-19  Alex Viskovatoff <herzen@immap.cc>
 
 	* SFEgcc-45.spec: move SFEgcc-46.spec out of archive and downgrade
 	  to gcc 4.5.3; disable patch which adds /usr/gnu/lib to runpath
@@ -176,7 +186,7 @@
 	  patches/lightdm-04-vt.diff: Removed patches that are no longer
 	  needed.
 
-2011-07-17 Alex Viskovatoff <herzen@immap.cc>
+2011-07-17  Alex Viskovatoff <herzen@immap.cc>
 
 	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i386
 	* SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
@@ -249,7 +259,7 @@
 
 	* SFEcpio.spec: bump to 2.11; Fixed %files section
 
-2011-07-12 Alex Viskovatoff <herzen@immap.cc>
+2011-07-12  Alex Viskovatoff <herzen@immap.cc>
 
 	* SFElibast.spec: build with SFEgcc instead of gcc-3
 	* SFElibcdio.spec: build with SFEgcc instead of gcc-3

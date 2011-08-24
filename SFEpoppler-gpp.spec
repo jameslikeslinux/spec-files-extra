@@ -51,7 +51,7 @@ export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="%cxx_optflags -fpermissive"
 export CFLAGS="%optflags"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
-export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R /usr/g++/lib"
+export LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib"
 export PERL_PATH=/usr/perl5/bin/perl
 %poppler.build -d %name-%version
 
@@ -60,6 +60,14 @@ rm -rf $RPM_BUILD_ROOT
 %poppler.install -d %name-%version
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -type f -name "*.a" -exec rm -f {} ';'
+
+# RUNPATH ends up getting incorrectly set, with /usr/g++/lib behind /usr/lib
+%define rpath 'dyn:runpath /usr/g++/lib:/usr/gnu/lib'
+pushd %buildroot%_libdir
+elfedit -e %rpath libpoppler-cpp.so.0.1.0
+elfedit -e %rpath libpoppler-glib.so.5.0.0
+elfedit -e %rpath libpoppler.so.7.0.0
+popd
 
 # REMOVE l10n FILES - included in Solaris
 #rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
@@ -83,6 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 %_includedir
+%dir %attr (0755, root, sys) %{_datadir}
 %_datadir/gtk-doc
 
 %changelog

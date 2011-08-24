@@ -64,6 +64,7 @@ install -d -m 755 %{buildroot}%{_bindir}
 install -m 0755 tmux %{buildroot}%{_bindir}/tmux
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -m 0644 tmux.1 %{buildroot}%{_mandir}/man1/tmux.1
+mkdir %buildroot%_docdir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,6 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, bin)
 %_bindir/tmux
 %dir %attr (-, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
 %doc CHANGES FAQ NOTES TODO
 %doc examples/screen-keys.conf examples/t-williams.conf examples/vim-keys.conf
 %doc examples/h-boetes.conf examples/tmux.vim examples/n-marriott.conf

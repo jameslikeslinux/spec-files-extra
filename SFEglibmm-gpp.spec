@@ -51,7 +51,7 @@ export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="%{cxx_optflags}"
 export CFLAGS="%optflags"
 export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig
-export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export LDFLAGS="-L/usr/g++/lib:/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"
 export PERL_PATH=/usr/perl5/bin/perl
 %glibmm.build -d %name-%version
 
@@ -84,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %{_libdir}/glibmm*
 %{_libdir}/giomm*
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
 %_datadir/doc/glibmm-2.4
 %_datadir/glibmm-2.4
 %_datadir/devhelp

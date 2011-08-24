@@ -61,7 +61,7 @@ fi
 #export LDFLAGS=%_ldflags
 
 # Enabling Python breaks linking (ld: fatal: library -lutil: not found)
-./configure --prefix=%_prefix -sysconfdir=%_sysconfdir --disable-python
+./configure --prefix=%_prefix -sysconfdir=%_std_sysconfdir --disable-python
 gmake -j$CPUS
 
 
@@ -92,16 +92,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files root
 %defattr (-, root, sys)
-%dir %attr (0755, root, sys) %_sysconfdir
-%dir %attr (0755, root, sys) %_sysconfdir/gconf
-%dir %attr (0755, root, sys) %_sysconfdir/gconf/schemas
-%attr (0755, root, sys) %_sysconfdir/gconf/schemas/apps_xchat_url_handler.schemas
+%dir %attr (0755, root, sys) %_std_sysconfdir
+%dir %attr (0755, root, sys) %_std_sysconfdir/gconf
+%dir %attr (0755, root, sys) %_std_sysconfdir/gconf/schemas
+%attr (0755, root, sys) %_std_sysconfdir/gconf/schemas/apps_xchat_url_handler.schemas
 
 %if %build_l10n
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
-%attr (-, root, other) %_datadir/locale
+# Do not set the group attribute correctly, so as not to conflict with system packages (e.g., gnu-binutils)
+#%attr (-, root, other) %_datadir/locale
+%_datadir/locale
 %endif
 
 

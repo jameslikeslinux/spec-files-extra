@@ -23,7 +23,7 @@
 
 Name:		SFEghc 
 Summary:	The Glorious Glasgow Haskell Compiler
-Version:	6.12.3
+Version:	7.2.1
 Release:	1
 License:	GHC License
 SUNW_Copyright:	ghc.copyright
@@ -66,7 +66,7 @@ Haskell home page at http://haskell.org/.
 BuildRequires: 	SUNWgcc
 BuildRequires:	SUNWgsed
 BuildRequires:	SFExz
-Requires: 	SUNWgccruntime
+#Requires: 	SUNWgccruntime
 
 %if %SFEgmp
 BuildRequires: SFEgmp-devel
@@ -204,6 +204,8 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %changelog
+* Sat Aug 20 2011 - Alex Viskovatoff
+- Bump to 7.2.1
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Wed Apr 20 2011 - Alex Viskovatoff

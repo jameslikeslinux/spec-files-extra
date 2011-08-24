@@ -35,9 +35,7 @@ export CFLAGS="%optflags -Os %{extra_gcc_flags} -fno-rename-registers -fomit-fra
 %else
 export CFLAGS="%optflags -Os %{extra_gcc_flags} -I%{xorg_inc} -I%{_includedir}"
 %endif
-#export LDFLAGS="%_ldflags %{xorg_lib_path} -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir}"
-#export LDFLAGS="%_ldflags %{xorg_lib_path} -L%{_libdir} -R%{_libdir}"
-export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib %{xorg_lib_path}"
+export LDFLAGS="%_ldflags %{xorg_lib_path}"
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
         export LDFLAGS="$LDFLAGS -m64"
 fi
@@ -86,11 +84,11 @@ gmake install DESTDIR=$RPM_BUILD_ROOT BINDIR=$RPM_BUILD_ROOT%{_bindir}
 mkdir $RPM_BUILD_ROOT%{_libdir}/ffmpeg
 cp config.mak $RPM_BUILD_ROOT%{_libdir}/ffmpeg
 
-#workaround for occational not finding %doc files
+#workaround for occasional not finding of %doc files
 touch placeholder.html
 cp -p *.html doc/
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/%{name}
-cp -p doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html $RPM_BUILD_ROOT/%{_datadir}/doc/%{name}/
+mkdir -p %buildroot%_docdir/ffmpeg
+cp -p doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html %buildroot%_docdir/ffmpeg
 
 # Create a ffmpeg.pc - Some apps need it
 cat > $RPM_BUILD_ROOT%{_libdir}/pkgconfig/ffmpeg.pc << EOM

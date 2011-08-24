@@ -106,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
+# The following is correct, but setting the group correctly conflicts with gnu-binutils
+#%attr (-, root, other) %_datadir/locale
 %{_datadir}/locale
 %endif
 

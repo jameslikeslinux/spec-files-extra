@@ -57,11 +57,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,bin)
-%{_prefix}/%perl_path_vendor_perl_version
-%dir %attr(0755,root,sys) %{_datadir}
-%{_mandir}
-%dir %attr(0755,root,sys) %{_bindir}
-%{_bindir}/xpath
+%_prefix/%perl_path_vendor_perl_version
+%dir %attr(0755,root,sys) %_datadir
+%_mandir
+%_bindir/xpath
 
 %changelog
 * Tue Jul 26 2011 - N.B.Prashanth

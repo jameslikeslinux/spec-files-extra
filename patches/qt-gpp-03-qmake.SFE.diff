@@ -1,5 +1,5 @@
 --- mkspecs/solaris-g++/qmake.conf.orig	2011-03-30 06:16:35.000000000 +0100
-+++ mkspecs/solaris-g++/qmake.conf	2011-06-24 21:35:30.730243234 +0100
++++ mkspecs/solaris-g++/qmake.conf	2011-08-17 15:52:40.883067160 +0100
 @@ -28,7 +28,7 @@
  QMAKE_CFLAGS_SHLIB	= -fPIC
  QMAKE_CFLAGS_STATIC_LIB	= $$QMAKE_CFLAGS_SHLIB
@@ -26,3 +26,12 @@
  QMAKE_INCDIR_OPENGL	= /usr/openwin/include
  QMAKE_LIBDIR_OPENGL	= /usr/openwin/lib
  
+@@ -63,7 +63,7 @@
+ QMAKE_LFLAGS_SONAME	= -h$$LITERAL_WHITESPACE
+ QMAKE_LFLAGS_THREAD	=
+ QMAKE_LFLAGS_NOUNDEF	= -z defs
+-QMAKE_LFLAGS_RPATH	= -Wl,-R,
++QMAKE_LFLAGS_RPATH	= -R
+ 
+ QMAKE_LIBS		=
+ QMAKE_LIBS_DYNLOAD	= -ldl

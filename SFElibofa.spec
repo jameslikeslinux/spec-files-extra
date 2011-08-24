@@ -9,7 +9,7 @@
 #replaced by packagenamemacros %define SFEfftw   %(/usr/bin/pkginfo -q SFEfftw && echo 1 || echo 0)
 
 Name:		SFElibofa
-Summary:	library for accesing MusicBrainz servers
+Summary:	Library for accesing MusicBrainz servers
 Version:	0.9.3
 License:	LGPL
 Source:		http://musicip-libofa.googlecode.com/files/libofa-%{version}.tar.gz

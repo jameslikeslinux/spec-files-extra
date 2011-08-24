@@ -38,16 +38,16 @@ Requires:	SFEpcre-gpp
 
 Requires: %name-root
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 Requires: %name
 
 %if %build_l10n
 %package l10n
-Summary:        %summary - l10n files
-SUNW_BaseDir:   %_basedir
+Summary:	%summary - l10n files
+SUNW_BaseDir:	%_basedir
 %include default-depend.inc
-Requires:       %name
+Requires:	%name
 %endif
 
 
@@ -63,7 +63,8 @@ export CXX=/usr/gnu/bin/g++
 export CPPFLAGS="-I/usr/g++/include -I/usr/include/ext2fs -I/usr/include/pcre"
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads"
-export LDFLAGS="%_ldflags -pthreads -L/usr/gnu/lib -L/usr/lib/ext2fs -L/usr/g++/lib -R/usr/gnu/lib:/usr/lib/ext2fs:/usr/g++/lib"
+# system libuuid doesn't define uuid_unparse_lower, so use one from e2fsprogs
+export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -L/usr/lib/ext2fs -L/usr/gnu/lib -R/usr/g++/lib:/usr/lib/ext2fs:/usr/gnu/lib"
 export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig
 
 ./configure --prefix=%_prefix --sysconfdir=%_sysconfdir --with-boost=/usr/g++ --disable-static
@@ -78,11 +79,14 @@ make install DESTDIR=%buildroot
 rmdir %buildroot/usr/libexec
 rm %buildroot/%_libdir/gnote/addins/%version/*.la
 
+mkdir -p %buildroot%_libdir/bonobo/servers
+sed -e 's|@libexecdir@/@wrapper@|/usr/bin/gnote|' \
+    -e 's|_value|value|g' data/GNOME_GnoteApplet.server.in.in > \
+    %buildroot%_libdir/bonobo/servers/GNOME_GnoteApplet.server
+
 %if %build_l10n
 %else
 rm -rf %buildroot%_datadir/locale
-cd %buildroot%_datadir/gnome/help
-rm -r cs  de  el  es  fr  sl  sv  zh_CN
 %endif
 
 %clean
@@ -101,6 +105,7 @@ rm -rf %buildroot
 %_datadir/omf/%srcname
 %dir %attr(0755, root, other) %_datadir/gnome
 %_datadir/gnome/help/%srcname/C
+%_libdir/bonobo/servers/GNOME_GnoteApplet.server
 
 %files root
 %defattr (-, root, sys)
@@ -109,6 +114,7 @@ rm -rf %buildroot
 %dir %attr (-, root, sys) %_sysconfdir/gconf/schemas
 %attr (-, root, sys) %_sysconfdir/gconf/schemas/%srcname.schemas
 
+%dir %attr (-, root, other) %_datadir/icons
 %dir %attr (-, root, other) %_datadir/icons/hicolor
 %dir %attr (-, root, other) %_datadir/icons/hicolor/scalable
 %dir %attr (-, root, other) %_datadir/icons/hicolor/scalable/apps
@@ -147,5 +153,7 @@ rm -rf %buildroot
 
 
 %changelog
+* Thu Aug 18 2011 - Alex Viskovatoff
+- Install GNOME_GnoteApplet.server
 * Sun Aug 14 2011 - Alex Viskovatoff
 - Initial spec

@@ -8,6 +8,7 @@
 %define cc_is_gcc 1
 %include base.inc
 %include packagenamemacros.inc
+%define with_runtime_cpudetect 1
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
@@ -16,8 +17,8 @@
 %endif
 
 %ifarch i386
-%define arch_opt --cpu=prescott --disable-ssse3
-%define optflags %_gcc_opt_level -march=prescott -mfpmath=sse -Xlinker -i -fno-omit-frame-pointer %gcc_picflags
+%define arch_opt --cpu=prescott --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
+%define extra_gcc_flags
 %endif
 
 %use ffmpeg = ffmpeg.spec

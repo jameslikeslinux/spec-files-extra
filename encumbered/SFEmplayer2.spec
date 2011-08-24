@@ -204,6 +204,7 @@ groff -mman -Tutf8 -rLL=78n man1/mplayer.1 | col -bxp > cat1/mplayer.1
 
 rm -rf %buildroot/%_libdir
 rm -rf %buildroot/%_sysconfdir
+mkdir %buildroot%_docdir
 
 %clean
 rm -rf %buildroot
@@ -212,9 +213,10 @@ rm -rf %buildroot
 %files
 %define _pkg_docdir %_docdir/mplayer
 %defattr (-, root, bin)
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
 %doc README AUTHORS LICENSE
 %_bindir/*
-%dir %attr (0755, root, sys) %_datadir
 %_mandir/man1
 %_mandir/cat1
 %if %rename

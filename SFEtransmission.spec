@@ -2,7 +2,7 @@
 # spec file for package SFEtransmission
 #
 %include Solaris.inc
-%define cc_is_gcc 1 
+%define cc_is_gcc 1
 %include base.inc
 %include usr-gnu.inc
 %define source_name transmission
@@ -28,12 +28,8 @@ Requires: SUNWdbus-glib
 Requires: SUNWopenssl-libraries
 Requires: SUNWcurl
 Requires: SFElibevent2
-%if %option_with_gnu_iconv
-Requires: SUNWgnu-libiconv
+Requires: SFElibiconv
 Requires: SUNWgnu-gettext
-%else
-Requires: SUNWuiu8
-%endif
 
 
 %if %build_l10n
@@ -50,15 +46,17 @@ Requires:        %{name}
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 #export CFLAGS="%optflags -mt -D__inline=inline -xc99"
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
-%if %option_with_gnu_iconv
-export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
-export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
-%endif
+#export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
+#export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
+export CFLAGS="$CFLAGS -I/usr/gnu/include"
+export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -liconv"
+export PKG_CONFIG_PATH=/usr/gnu/lib/pkgconfig
 
 ./configure --prefix=%{_prefix}   \
             --datadir=%{_datadir} \
@@ -124,7 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
-%attr (-, root, other) %{_datadir}/locale
+# Do not set the group attribute correctly, so as not to conflict with system packages (e.g., gnu-binutils)
+#%attr (-, root, other) %{_datadir}/locale
+%{_datadir}/locale
 %endif
 
 %changelog

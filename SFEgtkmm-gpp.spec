@@ -66,7 +66,7 @@ mkdir %name-%version
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export CFLAGS="%optflags"
-export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export LDFLAGS="-L/usr/g++/lib:/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"
 export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 %gtkmm.build -d %name-%version
@@ -102,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gtkmm*
 %{_libdir}/gdkmm*
 %_includedir
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
 %_datadir/doc/gtkmm-2.4
 %_datadir/gtkmm-2.4
 %_datadir/devhelp

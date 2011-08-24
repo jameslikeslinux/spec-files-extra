@@ -60,7 +60,7 @@ mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
 # It's not worth figuring out how to get the Boost build system
 # to set the runpath correctly
-%define rpath 'dyn:runpath /lib:/usr/lib:/usr/gnu/lib:/usr/g++/lib'
+%define rpath 'dyn:runpath /usr/g++/lib:/usr/gnu/lib'
 pushd stage/lib
 elfedit -e %rpath libboost_regex.so.%version
 elfedit -e %rpath libboost_graph.so.%version

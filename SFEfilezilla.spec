@@ -11,7 +11,10 @@
 #
 
 %include Solaris.inc
-%use filezilla = filezilla.spec
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
+%%use filezilla = filezilla.spec
 
 Name:               SFEfilezilla
 Summary:            FileZilla FTP client
@@ -29,6 +32,7 @@ Requires: SUNWgnome-config
 Requires: SUNWgnutls
 Requires: SUNWgnu-idn
 Requires: SUNWwxwidgets
+Requires: SUNWxdg-utils
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWgnome-vfs-devel
@@ -37,6 +41,7 @@ BuildRequires: SUNWgnome-config-devel
 BuildRequires: SUNWgnutls-devel
 BuildRequires: SUNWgnu-idn
 BuildRequires: SUNWwxwidgets-devel
+BuildRequires: SUNWxdg-utils
 
 %if %build_l10n
 %package l10n
@@ -53,10 +58,12 @@ mkdir -p %name-%version
 
 %build
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
-export CFLAGS="-I%{_includedir} -I%{_includedir}/idn %optflags"
-export CXXFLAGS="-I%{_includedir} -I%{_includedir}/idn"
-export LDFLAGS="-L%{_libdir} -R%{_libdir}"
-export RPM_OPT_FLAGS="$CFLAGS"
+export CC=gcc
+export CXX=g++
+export CPPFLAGS="-I/usr/include/g++ -I%{_includedir}/idn"
+export CFLAGS="%optflags"
+export CXXFLAGS="%cxx_optflags -fpermissive"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 %filezilla.build -d %name-%version
 
 %install

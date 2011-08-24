@@ -57,7 +57,7 @@ export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export CFLAGS="%optflags"
 export RPM_OPT_FLAGS="$CFLAGS"
-export LDFLAGS="-L/usr/gnu/lib:/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export LDFLAGS="-L/usr/g++/lib -L/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"
 export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %{_libdir}/pangomm*
 %_includedir
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
 %_datadir/doc/pangomm-1.4
 %_datadir/devhelp
 
