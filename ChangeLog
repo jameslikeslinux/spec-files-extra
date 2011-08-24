@@ -7,6 +7,8 @@
 	* SFEimagemagick.spec: Bump to 6.7.1-10
 	* SFEweechat.spec: Bump to 0.3.5
 	* patches/weechat-03-fix-array-overflow.diff: Already implemented
+	* /experimental/SFEwebkitgtk-1.5.2.spec: Revising for 1.5.2 build
+	* SFEnasm.spec: Bump to 2.10rc8
 
 2011-08-23 Ken Mays <kmays2000@gmail.com>
 
