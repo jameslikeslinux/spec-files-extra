@@ -17,8 +17,8 @@
 
 	* SFEcmake.spec: Bump to 2.8.5
 	* SFEdillo.spec: Bump to 2.2.1
-	* SFEfltk2.spec: Bump to 8514
-	* patches/fltk2-01-scandir.diff: Fixed configure.in patch for r8815
+	* SFEfltk2.spec: Bump to 2.0.x-alpha-r8800
+	* patches/fltk2-01-scandir.diff: Fixed configure.in patch for r8800
 	* SFEimagemagick.spec: Bump to 6.7.1-10
 	* SFEweechat.spec: Bump to 0.3.5
 	* patches/weechat-03-fix-array-overflow.diff: Already implemented
