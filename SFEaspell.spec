@@ -25,6 +25,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 Requires:      SUNWlibC
 Requires:      SUNWlibms
 Requires:      SUNWlibmsr
+Requires:      SUNWncurses
 Requires:      %pnm_requires_perl_default
 BuildConflicts:	SUNWaspell
 
@@ -71,7 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 #%doc COPYING README
 #%doc manual/aspell.html
 %{_mandir}/*/*
-%{_bindir}/spell
+%{_bindir}/aspell
 %{_bindir}/aspell-import
 %{_bindir}/run-with-aspell
 %{_bindir}/word-list-compress
@@ -79,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/pre*
 %{_bindir}/pspell-config
 %{_libdir}/lib*.so*
-%{_libdir}/aspell
+%{_libdir}/aspell/*
 
 %files devel
 %defattr (-, root, bin)

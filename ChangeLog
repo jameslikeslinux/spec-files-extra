@@ -24,6 +24,9 @@
 	* patches/weechat-03-fix-array-overflow.diff: Already implemented
 	* /experimental/SFEwebkitgtk-1.5.2.spec: Revising for 1.5.2 build
 	* SFEnasm.spec: Bump to 2.10rc8
+	* base-specs/aspell-en.spec: Bump to 7.1-0
+	* base-specs/aspell.spec: Bump to 0.60.6.1
+	* SFEaspell.spec: Minor fixes, validated build with GCC 3.4.3
 
 2011-08-23 Ken Mays <kmays2000@gmail.com>
 
