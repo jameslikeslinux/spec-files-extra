@@ -57,7 +57,9 @@ export LDFLAGS="%{_ldflags} $X11LIB $GNULIB $EXTRALIB"
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir} \
-	    --enable-shared
+	    --enable-shared \
+            --enable-cairo \ 
+            --enable-x11multithread
 
 make -j$CPUS
 
