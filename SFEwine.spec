@@ -4,6 +4,9 @@
 # includes module(s): wine
 #
 # Owner: lewellyn
+#
+# Confirmed build of Wine 1.3.26 on oi_151/GCC 3.4.3 08/26/11 - Ken Mays.
+#
 %include Solaris.inc
 
 %define src_url		%{sf_download}/%{sname}
@@ -16,7 +19,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.3.11
+# 	%define version 1.3.26
 # %endif
 
 #%if %{!?version:1}
@@ -25,7 +28,7 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                1.3.21
+Version:                1.3.26
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -93,6 +96,8 @@ Requires:       SFElibgsm
 Requires:       SFEmpg123
 BuildRequires:  SFEopenal-devel
 Requires:       SFEopenal
+Requires:       system/header/header-audio
+
 # Following are for winetricks, not wine directly.
 Requires:       SFEcabextract
 
@@ -119,7 +124,7 @@ export CXX="/usr/gnu/bin/g++"
 # I retuned for GCC 4.5.3/4.6 optimizations for wider usage. (kmays)
 #
 
-export CFLAGS="-g -Os -march=pentium4 -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 
+export CFLAGS="-g -Os -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 
 export LDFLAGS="-L/lib -R/lib -L/usr/lib -R/usr/lib %{xorg_lib_path} %{gnu_lib_path} %{sfw_lib_path}"
 export LD=/usr/ccs/bin/ld
 
@@ -172,6 +177,7 @@ export LD=/usr/ccs/bin/ld
 	    --with-xslt			\
 	    --with-xxf86vm		\
 	    --with-x
+
 make -j$CPUS || make
 
 %install
@@ -273,6 +279,11 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+
+* Fri Aug 26 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.26
+- Test build completed cleanly on oi_151 with GCC 3.4.3
+
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped Wine 1.3.21 with fixed links to Wine-Gecko 1.2.0.
 - Needs more rework resolution to Bugs #2963445,2874868,2019193. 
