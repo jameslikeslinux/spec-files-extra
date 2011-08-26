@@ -1,6 +1,7 @@
 2011-08-26 Ken Mays <kmays2000@gmail.com>
 
 	* SFEwine.spec: Bump to 1.3.26
+	* /experimental/SFEblender-2.59.spec: Bump to 2.59
 
 2011-08-25 Ken Mays <kmays2000@gmail.com>
 
