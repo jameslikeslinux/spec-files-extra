@@ -4,6 +4,9 @@
 # includes module(s): vlc
 #
 
+##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
+#        then you *first* uninstall the old copy of vlc and re-try. 
+
 ##NOTE##  works/tested with gcc    4.6.1  Solaris 11 (Express) Build 170
 ##NOTE##  works/tested with gcc    4.5.3  OI148
 ##NOTE##  works/tested with gcc    4.5.2  SXCE (130)
@@ -386,7 +389,7 @@ export CXX=/usr/gnu/bin/g++
 # need to define _XPG4_2 on Solaris
 
 export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
-export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
+export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib $GNULIB"
 
 #give these flags only to the C-Pre-Processor
 export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__"
@@ -486,6 +489,9 @@ printf '%%%s/\/intl\/libintl.a/-lintl/\nwq\n' | ex - vlc-config
 #sometimes it fails with a core dump at vlc-cache-gen, just try again.
 #does vlc-cache-gen work at all?
 gmake -j$CPUS  || gmake || gmake
+##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
+#        then you *first* uninstall the old copy of vlc and re-try. 
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -585,6 +591,11 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Aug 26 2011 - Thomas Wagner
+- add $GNULIB to CFLAGS, trying to avoid ldd /usr/bin/vlc print that 
+  libgcc_s.so.1 not found (vlc works anyways, modules might pull that in)
+- add note: if vlc is installed on the system, then vlc-cache-gen core dumps
+  workaround: *uninstall* the existing vlc from the system, then re-run the spec
 * Thu Aug 23 2011 - Thomas Wagner
 - --disable-portaudio (might pkg-config add the switch -mt ? breaks vlc build)
 - add LD=/opt/dtbld/bin/ld-wrapper to prevent gnu-ld jump in
