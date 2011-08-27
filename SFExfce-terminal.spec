@@ -13,7 +13,7 @@ Name:		SFExfce-terminal
 Summary:	Xfce terminal
 License:	GPLv2
 SUNW_Copyright:	xfce-terminal.copyright
-Version:	0.4.7
+Version:	0.4.8
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -132,6 +132,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.4.8
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
