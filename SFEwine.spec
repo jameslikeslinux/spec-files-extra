@@ -28,7 +28,7 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                1.3.26
+Version:                1.3.27
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -39,8 +39,9 @@ Source1:                http://winetricks.org/winetricks
 #
 # See http://wiki.winehq.org/Gecko for which version to use.
 #
-Source2:                %{src_url}/%{sname}/%{sname}_gecko-1.2.0-x86.msi
-Source2:    		http://kegel.com/wine/wisotool
+Source2:                %{src_url}/%{sname}/%{sname}_gecko-1.3-x86.msi
+Source3:		%{src_url}/%{sname}/%{sname}_gecko-1.3-x86_64.msi
+Source4:    		http://kegel.com/wine/wisotool
 Source100:              wine.directory
 Source101:              winetricks.desktop
 Source102:              wine-appwiz.desktop
@@ -190,9 +191,11 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_bindir} # winetricks
 rm %{SOURCE1} # So it's freshly downloaded next time, as it's straight from svn
 
-# Now we deal with Gecko.
+# Now we deal with Gecko & wisotool.
 mkdir $RPM_BUILD_ROOT%{_datadir}/%{sname}/gecko
 install %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/%{sname}/gecko/ # gecko
+install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}/%{sname}/gecko/ # gecko-64
+install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/%{sname}/gecko/ # wisotool
 
 # Next, deal with the icons.
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
@@ -279,6 +282,11 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+
+* Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.27
+- Compiled cleanly on oi_151.
+- Added wine_gecko-1.3-x86_64.msi 
 
 * Fri Aug 26 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.26

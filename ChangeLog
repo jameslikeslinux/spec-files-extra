@@ -4,6 +4,7 @@
 	* SFExfce-panel.spec: Bump to 4.8.5
 	* SFEaspell.spec: Sent to archive
 	* SFEaspell-en.spec: Sent to archive
+	* SFEwine.spec: Bump to 1.3.27 w/ wine_gecko-1.3-x86_64.msi
 
 2011-08-26 Ken Mays <kmays2000@gmail.com>
 
