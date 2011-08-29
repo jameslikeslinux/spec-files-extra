@@ -1,3 +1,9 @@
+2011-08-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqbittorrent.spec: initial spec
+	* SFElibtorrent-rasterbar.spec: initial.spec
+	* libx264.spec: update tarball
+
 2011-08-27 Ken Mays <kmays2000@gmail.com>
 
 	* SFExfce-terminal.spec: Bump to 0.4.8
@@ -61,7 +67,7 @@
 	* SFEclamav.spec: bump to 0.97.2, move docs to doc package and fix
 	  docdir group
 
-2011-08-15 Alex Viskovatoff <herzen@imap.cc>
+2011-08-15  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEgnote.spec: initial spec
 	* SFEpcre-gpp.spec: initial spec

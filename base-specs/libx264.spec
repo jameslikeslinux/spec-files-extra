@@ -4,7 +4,7 @@
 # includes module(s): libx264
 #
 
-%define snap             20110714
+%define snap             20110827
 %define snaph            2245
 %define src_name         x264-snapshot
 %define src_url          http://download.videolan.org/pub/videolan/x264/snapshots
@@ -48,7 +48,8 @@ CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags -lm -L/lib -R/lib"
+#export LDFLAGS="%_ldflags -lm -L/lib -R/lib"
+export LDFLAGS="%_ldflags -lm"
 
 if $( echo "%_libdir" | /usr/xpg4/bin/grep -q %_arch64 ) ; then
         export LDFLAGS="$LDFLAGS -m64"
@@ -83,6 +84,10 @@ rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Aug 28 2011 - Alex Viskovatoff
+- update to new tarball
+* Fri Jul 15 2011 - Alex Viskovatoff
+- update to new tarball
 * Thu Apr 27 2011 - Alex Viskovatoff
 - update to new tarball, reworking one patch
 * Fri Apr  1 2011 - Alex Viskovatoff
