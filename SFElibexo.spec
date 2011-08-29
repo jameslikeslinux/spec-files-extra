@@ -11,7 +11,7 @@
 %define python_version 2.6
 
 %define src_name exo
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/exo/0.6/
 
 Name:		SFElibexo
 Summary:	Application library for the Xfce desktop environment
@@ -159,6 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Aug 29 2011 - Milan Jurik
+- fix download URL
 * Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 0.6.2
 * Wed Jul 20 2011 - Alex Viskovatoff
