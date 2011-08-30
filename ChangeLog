@@ -1,3 +1,7 @@
+2011-08-29 Ken Mays <kmays2000@gmail.com>
+
+        * SFEwine.spec: Added SFE-vlc (media/vlc) for Skype 5.5
+
 2011-08-28  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEqbittorrent.spec: initial spec

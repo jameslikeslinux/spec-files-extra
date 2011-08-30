@@ -19,7 +19,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.3.26
+# 	%define version 1.3.27
 # %endif
 
 #%if %{!?version:1}
@@ -98,6 +98,10 @@ Requires:       SFEmpg123
 BuildRequires:  SFEopenal-devel
 Requires:       SFEopenal
 Requires:       system/header/header-audio
+#
+# VLC library (OpenIndiana SFE-IPS)
+# SFEvlc-1.1.11
+# Requires:     media/vlc
 
 # Following are for winetricks, not wine directly.
 Requires:       SFEcabextract
@@ -282,6 +286,9 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+
+* Tue Aug 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Enabling SFE-vlc fixes Skype 5.5 & MediaMonkey 3.2.4 
 
 * Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.27
