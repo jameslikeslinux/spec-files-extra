@@ -7,19 +7,19 @@
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
-%define _prefix /usr/g++
+%define _prefix %_basedir/g++
 %define srcname libtorrent-rasterbar
 
 Name:		SFElibtorrent-rasterbar
 Summary:	Feature complete C++ bittorrent implementation focusing on efficiency and scalability
 Group:		System/Libraries
 URL:		http://www.rasterbar.com/products/libtorrent/
-Vendor:		Max Kellermann <arvid@rasterbar.com>
+Meta(info.upstream):	Arvid Norberg <arvid@rasterbar.com>
 Version:	0.15.7
-License:	Generic open source
+License:	BSD
 Source:		http://libtorrent.googlecode.com/files/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
-BuildRoot:	%_tmppath/%name-%version-build
+BuildRoot:	%_tmppath/%srcname-%version-build
 %include default-depend.inc
 
 
@@ -49,20 +49,17 @@ export CPPFLAGS="-pthreads -I/usr/g++/include"
 export CXXFLAGS="%cxx_optflags"
 export LDFLAGS="%_ldflags -pthreads -lxnet -L/usr/g++/lib -R/usr/g++/lib"
 
-./configure --prefix=%_prefix --libdir=%_libdir --with-boost=/usr/g++ --disable-static --with-libgeoip
+./configure --prefix=%_prefix --bindir=%_basedir/bin --libdir=%_libdir --with-boost=/usr/g++ --disable-static --with-libgeoip --enable-examples
 
 gmake -j$CPUS
-#gmake V=1
-#gmake
 
 %install
 rm -rf %buildroot
 gmake install DESTDIR=%buildroot
-rmdir  %buildroot%_bindir
 rm %buildroot%_libdir/*.la
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
@@ -70,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/lib*.so*
 %dir %attr (0755, root, other) %_libdir/pkgconfig
 %_libdir/pkgconfig/*
+%_basedir/bin
 
 %files devel
 %defattr (-, root, bin)
@@ -78,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 29 2011 - Alex Viskovatoff
+- Build examples
 * Sun Aug 28 2011 - Alex Viskovatoff
 - Build with gcc
 * Tue Jan 18 2011 - Alex Viskovatoff
