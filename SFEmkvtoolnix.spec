@@ -4,13 +4,12 @@
 # includes module: mkvtoolnix
 #
 
-# TODO: Get mmg (the GUI front end) to build
-
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname mkvtoolnix
+%define _pkg_docdir %_docdir/%srcname
 %define with_SUNWruby %(pkginfo -q SFEruby && echo 0 || echo 1)
 
 Name:		SFEmkvtoolnix
@@ -33,7 +32,7 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 %if %with_SUNWruby
-BuildRequires: SUNWruby18r
+BuildRequires: runtime/ruby-18
 %endif
 
 # Starting with 4.7.0, MKVToolnix only links statically
@@ -85,10 +84,10 @@ cd lib/libebml
 
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export USER_CXXFLAGS="%cxx_optflags -fpermissive -D_POSIX_PTHREAD_SEMANTICS"
-export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -L/usr/gnu/lib -R/usr/g++/lib -R/usr/gnu/lib"
+export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
 
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 --with-extra-includes=/usr/g++/include --with-boost-libdir=/usr/g++/lib \
@@ -96,28 +95,27 @@ CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 ./drake -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-./drake install DESTDIR=$RPM_BUILD_ROOT
+./drake install DESTDIR=%buildroot
 
 %if %build_l10n
 %else
-rm -rf $RPM_BUILD_ROOT%_datadir/locale
-rm -rf $RPM_BUILD_ROOT%_docdir/%srcname/guide/zh_CN
+rm -rf %buildroot%_datadir/locale
+rm -rf %buildroot%_docdir/%srcname/guide/zh_CN
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
-%define _pkg_docdir %_docdir/%srcname
 %defattr (-, root, bin)
+%dir %attr (-, root, other) %_docdir
 %doc ChangeLog README AUTHORS
 %_bindir
 %dir %attr (-, root, sys) %_datadir
 %_mandir
-#%dir %attr (-, root, other) %_docdir
 %_docdir/%srcname/guide
 %dir %attr (-, root, other) %_datadir/applications
 %_datadir/applications/mkvinfo.desktop

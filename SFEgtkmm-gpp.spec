@@ -32,10 +32,6 @@ Requires: SUNWgnome-base-libs
 Requires: SUNWlibms
 Requires: SFEsigcpp-gpp
 Requires: SUNWlibC
-Requires: SFEgccruntime
-BuildRequires: SUNWsigcpp-devel
-BuildRequires: SUNWglibmm-devel
-BuildRequires: SUNWcairomm-devel
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SFEsigcpp-gpp-devel
 BuildRequires: SFEglibmm-gpp-devel
@@ -63,10 +59,10 @@ mkdir %name-%version
 %gtkmm.prep -d %name-%version
 
 %build
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
-export LDFLAGS="-L/usr/g++/lib:/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"
+export LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib"
 export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 %gtkmm.build -d %name-%version

@@ -37,8 +37,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CPPFLAGS="-I%{xorg_inc}"
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 %if %{is64}
 export CFLAGS="%{gcc_optflags64}"
 export CXXFLAGS="%{gcc_cxx_optflags64} -fpermissive"
