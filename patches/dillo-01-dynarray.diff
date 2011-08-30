@@ -1,33 +1,17 @@
---- dillo-2.2/dw/fltkui.cc	Sun Jun 13 14:52:34 2010
-+++ dillo-2.2-patch/dw/fltkui.cc	Sun Jun 13 14:52:20 2010
-@@ -989,8 +989,10 @@
+--- dillo-2.2.1/dw/fltkui.cc.orig	2011-07-15 14:06:50.000000000 +0100
++++ dillo-2.2.1/dw/fltkui.cc	2011-08-30 22:23:21.322287767 +0100
+@@ -989,9 +989,11 @@ template <class I> void FltkSelectionRes
           itemWidget->set_selected();
           if (setSelectedItems ()) {
              // Handle multiple item selection.
--            int pos[widgetStack->stack->size ()];
-+//            int pos[widgetStack->stack->size ()];
-+            int *pos = NULL;
-             int i;
-+            pos = new int[widgetStack->stack->size ()];
-             Iterator <TypedPointer < ::fltk::Menu> > it;
+-            int *pos = new int[widgetStack->stack->size ()];
+-            int i;
+-            Iterator <TypedPointer < ::fltk::Menu> > it;
++            // int *pos = new int[widgetStack->stack->size ()];
++	 int *pos = NULL;            
++	 int i;
++	 pos = new int[widgetStack->stack->size ()];           
++	    Iterator <TypedPointer < ::fltk::Menu> > it;
              for (it = widgetStack->stack->iterator (),
                      i = widgetStack->stack->size () - 1;
-@@ -1000,6 +1002,7 @@
-                pos[i] =  p->getTypedValue()->children () - 1;
-             }
-             widgetStack->widget->set_item (pos, widgetStack->stack->size ());
-+            delete [] pos;
-          }
-       }
-    }
---- dillo-2.2/dpi/downloads.cc	Sun Jun 13 14:55:18 2010
-+++ dillo-2.2-patch/dpi/downloads.cc	Sun Jun 13 14:55:13 2010
-@@ -593,7 +593,7 @@
- static void read_log_cb(int fd_in, void *data)
- {
-    DLItem *dl_item = (DLItem *)data;
--   int BufLen = 4096;
-+   const int BufLen = 4096;
-    char Buf[BufLen];
-    ssize_t st;
-    int ret = -1;
+                  it.hasNext ();
