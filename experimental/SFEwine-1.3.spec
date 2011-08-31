@@ -39,8 +39,8 @@ Source1:                http://winetricks.org/winetricks
 #
 # See http://wiki.winehq.org/Gecko for which version to use.
 #
-Source2:                %{src_url}/%{sname}/%{sname}_gecko-1.3-x86.msi
-Source3:		%{src_url}/%{sname}/%{sname}_gecko-1.3-x86_64.msi
+Source2:                %{src_url}/%{sname}_gecko-1.3-x86.msi
+Source3:		%{src_url}/%{sname}_gecko-1.3-x86_64.msi
 Source4:    		http://kegel.com/wine/wisotool
 Source100:              wine.directory
 Source101:              winetricks.desktop
@@ -286,30 +286,25 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
-
+* Wed Aug 31 2011 - Thomas Wagner
+- fix download URL for Source2 + Source3 wine_gecko-1.3-x86.msi + wine_gecko-1.3-x86_64.msi
 * Tue Aug 30 2011 - Ken Mays <kmays2000@gmail.com>
 - Enabling SFE-vlc fixes Skype 5.5 & MediaMonkey 3.2.4 
-
 * Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.27
 - Compiled cleanly on oi_151.
 - Added wine_gecko-1.3-x86_64.msi 
-
 * Fri Aug 26 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.26
 - Test build completed cleanly on oi_151 with GCC 3.4.3
-
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped Wine 1.3.21 with fixed links to Wine-Gecko 1.2.0.
 - Needs more rework resolution to Bugs #2963445,2874868,2019193. 
 - Relaxed GCC optimizations for wider CPU compatibility (Pentium4 and higher)
-
 * Fri Mar 19 2010 - matt@greenviolet.net
 - Remove patch for Wine bug 20714. 1.1.41 has a fix.
- 
 * Fri Mar 05 2010 - matt@greenviolet.net
 - Add wine-gecko.
-
 * Wed Mar 03 2010 - matt@greenviolet.net
 - Package SVG icons locally.
 - Add new icon for wine folders.
