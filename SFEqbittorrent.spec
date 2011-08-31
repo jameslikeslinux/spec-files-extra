@@ -28,9 +28,11 @@ BuildRoot:	%_tmppath/%name-%version-build
 
 BuildRequires:	SFEgcc
 BuildRequires:	SFEqt-gpp-devel
+BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SFElibtorrent-rasterbar-devel
 Requires:	SFEgccruntime
 Requires:	SFEqt-gpp
+Requires:	SFEboost-gpp
 Requires:	SFElibtorrent-rasterbar
 Requires: 	%pnm_requires_python_default
 
@@ -114,5 +116,7 @@ rm -rf %buildroot
 
 
 %changelog
+* Tue Aug 30 2011 - Alex Viskovatoff
+- Add missing dependency on Boost
 * Sun Aug 28 2011 - Alex Viskovatoff
 - Initial spec
