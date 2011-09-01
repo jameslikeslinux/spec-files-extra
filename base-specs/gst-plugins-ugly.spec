@@ -16,6 +16,7 @@ Group:          Libraries/Multimedia
 Summary:        GStreamer Streaming-media framework plug-ins - restricted redistribution.
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-%{version}.tar.bz2
+Patch1:		gst-plugins-ugly-01-x264.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 Docdir:         %{_defaultdocdir}/doc
 Autoreqprov:    on
@@ -33,6 +34,7 @@ plug-ins.
 
 %prep
 %setup -n gst-plugins-ugly-%{version} -q
+%patch1 -p1
 
 %build
 CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
@@ -111,6 +113,7 @@ GStreamer support libraries header files.
 %changelog
 * Thu Sep 01 2011 - Milan Jurik
 - bump to 0.10.18
+- enable x264 support again because gst-ffmpeg x264 support is unstable
 * Thu Apr 28 2011 - Alex Viskovatoff
 - disable x264, since it breaks build (x264 decoder support is provided by ffmpeg)
 * Sun Feb 06 2011 - Milan Jurik

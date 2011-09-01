@@ -20,7 +20,7 @@ SUNW_Copyright: transmageddon.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWPython
+Requires: SUNWPython26
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: library/perl-5/xml-parser
 
