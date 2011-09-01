@@ -5,7 +5,7 @@
 
 Name:           SFEmpg123
 Summary:        mpg123 - fast console MPEG Audio Player and decoder library
-Version:        1.9.0
+Version:        1.13.3
 URL:            http://www.mpg123.org/
 Source:         %{sf_download}/mpg123/mpg123/%{version}/mpg123-%{version}.tar.bz2
 License:        LGPL,GPL
@@ -18,7 +18,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Requires:       SUNWltdl
 Requires:       SUNWlibsdl
 Requires:       SUNWlibms
-Requires:       SUNWgnome-audio
+BuildRequires:	SUNWaudh
+BuildRequires:	SUNWgnome-common-devel
 Requires:       %{name}-devel
 
 %description
@@ -44,7 +45,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CFLAGS="-D_FILE_OFFSET_BITS=64 -fast -xtarget=generic -g -xipo"
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix}         \
             --bindir=%{_bindir}         \
@@ -54,17 +56,22 @@ export CFLAGS="-D_FILE_OFFSET_BITS=64 -fast -xtarget=generic -g -xipo"
             --libexecdir=%{_libexecdir} \
             --sysconfdir=%{_sysconfdir} \
             --enable-shared             \
-            --enable-static             \
+            --disable-static            \
             --enable-int-quality=yes    \
-            --enable-ipv6=yes           \
-            --with-cpu=i586_dither
+            --enable-fifo=yes		\
+            --enable-network=yes	\
+            --with-optimization=3	\
+            --with-default-audio=oss	\
+            --enable-ipv6=yes 		\
+            --with-optimization=0
 
 make -j$CPUS 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
-rm $RPM_BUILD_ROOT%{_libdir}/mpg123/output_*.a
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/mpg123/output_*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -75,7 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_libdir}/libmpg123.so.*
-%{_libdir}/mpg123/output_*.la
 %{_libdir}/mpg123/output_*.so
 
 %files devel
@@ -83,10 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/libmpg123.pc
 %{_includedir}
-%{_libdir}/libmpg123.a
-%{_libdir}/libmpg123.la
 %{_libdir}/libmpg123.so
 
 %changelog
+* Thu Sep 01 2011 - Milan Jurik
+- bump to 1.13.3
 * Mon Aug 25 2009 - matt@greenviolet.net
 - Initial version
