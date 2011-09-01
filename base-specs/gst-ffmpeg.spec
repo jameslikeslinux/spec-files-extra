@@ -9,7 +9,7 @@
 #
 Name:           gst-ffmpeg
 License:        LGPL
-Version:        0.10.11
+Version:        0.10.12
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -17,7 +17,7 @@ Group:          Libraries/Multimedia
 Summary:        GStreamer Streaming-media framework plug-ins - FFmpeg.
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-%{version}.tar.bz2
-Patch3:         gst-ffmpeg-03-xvidmain.diff
+Patch2:         gst-ffmpeg-02-warning.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 Docdir:         %{_defaultdocdir}/doc
 Autoreqprov:    on
@@ -34,7 +34,7 @@ plug-ins.
 
 %prep
 %setup -n gst-ffmpeg-%{version} -q
-%patch3 -p1
+%patch2 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -42,17 +42,17 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
-CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
-FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+#export CC=/usr/gnu/bin/gcc
+export CFLAGS=
+export CXXFLAGS=
+export LDFLAGS=
 CONFIG_SHELL=/bin/bash \
 bash ./configure \
   --prefix=%{_prefix}	\
   --sysconfdir=%{_sysconfdir} \
   --mandir=%{_mandir}   \
   %{arch_opt}	\
-  %{gtk_doc_option}	\
-  --with-system-ffmpeg
+  %{gtk_doc_option}
 
 make -j$CPUS
 
@@ -99,6 +99,9 @@ GStreamer support libraries header files.
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Sep 01 2011 - Milan Jurik
+- bump to 0.10.12
+- use internal ffmpeg
 * Sun Feb 06 2011 - Milan Jurik
 - bump to 0.10.11
 * Thu Jun 10 2010 - Albert Lee <trisk@opensolaris.org>

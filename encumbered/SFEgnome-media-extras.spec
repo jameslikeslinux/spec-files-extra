@@ -37,8 +37,8 @@ Requires: SUNWlxml
 Requires: SUNWzlib
 Requires: SUNWfreetype2
 BuildRequires: SUNWbison
-BuildRequires: SUNWPython
-BuildRequires: SUNWPython-extra
+BuildRequires: SUNWPython26
+BuildRequires: SUNWPython26-extra
 BuildRequires: SUNWgtk-doc
 BuildRequires: SUNWgnome-xml-share 
 Requires: SUNWgnome-libs
@@ -158,6 +158,9 @@ BuildRequires: SFEamrnb-devel
 Requires: SFEamrwb
 BuildRequires: SFEamrwb-devel
 %endif
+# To use ffmpeg bundled with gst-ffmpeg
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -278,6 +281,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Sep 01 2011 - Milan Jurik
+- python 2.6
 * Sat Mar 19 2011 - Milan Jurik
 - add VP8 plugin support
 * Sun Feb 06 2011 - Milan Jurik
