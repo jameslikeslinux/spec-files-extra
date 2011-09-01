@@ -12,7 +12,7 @@
 %define python_version 2.6
 
 Name:		SFEpicard
-Version:	0.14
+Version:	0.15.1
 Summary:	MusicBrainz Picard
 License:	GPLv2
 Url:		http://musicbrainz.org/doc/MusicBrainz_Picard
@@ -71,6 +71,9 @@ if [ -d $RPM_BUILD_ROOT%{_libdir}/python%{python_version}/site-packages ] ; then
 	rmdir $RPM_BUILD_ROOT%{_libdir}/python%{python_version}/site-packages
 fi
 
+# fr_CA is symlinked to fr in Solaris
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fr_CA
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -86,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,other) %{_datadir}/locale
 
 %changelog
+* Mon Aug 01 2011 - James Lee <jlee@thestaticvoid.com>
+- Bump to 0.15.1.
 * Tue Jun 28 2011 - James Lee <jlee@thestaticvoid.com>
 - Prepare for SFE inclusion.
 * Sat Feb 13 2010 - James Lee <jlee@thestaticvoid.com>
