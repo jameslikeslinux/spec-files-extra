@@ -15,8 +15,7 @@ Version:                 %snap
 Source:                  %src_url/%src_name-%snap-%snaph.tar.bz2
 Source1:                 libx264-replacement-version.sh
 URL:                     http://www.videolan.org/developers/x264.html
-#Patch1:	         libx264-01-gccisms.diff
-#Patch2:                 libx264-02-version.diff
+Patch2:                 libx264-02-version.diff
 #Patch3:                 libx264-03-ld.diff
 #Patch4:                 libx264-04-ginstall.diff
 #Patch5:                 libx264-05-ssse3.diff
@@ -27,13 +26,10 @@ BuildRoot:               %_tmppath/%name-%version-build
 %prep
 %setup -q -n %src_name-%snap-%snaph
 
-# replaces patch2 libx264-02-version.diff
-cp %SOURCE1 version.sh
 
 #unused
 #%patch1 -p1
-#obsoleted by Source1
-#%patch2 -p1
+%patch2 -p1
 #obsolete
 #%patch3 -p1
 #obsolete 
@@ -84,6 +80,8 @@ rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Sep 01 2011 - Milan Jurik
+- fix version.sh
 * Sun Aug 28 2011 - Alex Viskovatoff
 - update to new tarball
 * Fri Jul 15 2011 - Alex Viskovatoff
