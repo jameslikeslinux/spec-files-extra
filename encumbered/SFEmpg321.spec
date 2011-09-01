@@ -5,21 +5,24 @@
 
 %include Solaris.inc
 
+%define src_version 0.2.13-3
+
 Name:                SFEmpg321
 Summary:             A fully free clone of mpg123, a command-line mp3 player
-Version:             0.2.10
-Source:              %{sf_download}/mpg321/mpg321-%{version}.tar.gz
+Version:             0.2.13.3
+Source:              %{sf_download}/mpg321/mpg321-%{src_version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SFElibao-devel
 Requires: SFElibao
-Requires: SFElibid3tag
 BuildRequires: SFElibmad-devel
+Requires: SFElibmad
 
 %prep
-%setup -q -n mpg321-%version
+%setup -q -n mpg321
 
 %build
 
@@ -33,7 +36,9 @@ export CFLAGS="%optflags"
 export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix}  \
-            --mandir=%{_mandir}
+            --mandir=%{_mandir}  \
+            --enable-ipv6        \
+            --disable-mpg123-symlink
 
 make -j$CPUS
 
@@ -53,6 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
-* 
+* Thu Sep 01 2011 - Milan Jurik
+- bump to 0.2.13-3 
 * Mon Sep 25 2006 - Eric Boutilier
 - Initial spec
