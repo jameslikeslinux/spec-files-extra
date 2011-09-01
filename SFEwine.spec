@@ -10,13 +10,13 @@
 
 # To attempt building a certain wine version, as opposed to the latest
 # Wine version available from Sourceforge, pass the version as an argument.
-# example version number: 1.1.27
-# $ pkgtool build SFEwine --define 'version 1.1.27'
+# example version number: 1.1.44
+# $ pkgtool build SFEwine --define 'version 1.1.44'
 
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.1.38
+# 	%define version 1.2.3
 # %endif
 
 %if %{!?version:1}
@@ -89,6 +89,8 @@ Requires:       SFElibgsm
 Requires:       SFEmpg123
 BuildRequires:  SFEopenal-devel
 Requires:       SFEopenal
+Requires:	SUNWaudh
+
 # Following are for winetricks, not wine directly.
 Requires:       SFEcabextract
 
@@ -263,6 +265,9 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Tue Aug 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Tested Wine 1.1.44 build for OpenIndiana SFE-IPS packaging
+
 * Fri Mar 19 2010 - matt@greenviolet.net
 - Remove patch for Wine bug 20714. 1.1.41 has a fix.
  

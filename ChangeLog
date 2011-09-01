@@ -1,3 +1,10 @@
+2011-09-01 Ken Mays <kmays2000@gmail.com>
+
+	* Archived KDE3* specs
+	* Moved xfce4-plugins specs to experimental
+	* SFEstellarium.spec: Bump to 0.11.0
+	* Created stellarium-0.11.0-01-sunstudio.diff SS12 patch
+
 2011-09-01 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEmpg123.spec: bump to 1.13.3
