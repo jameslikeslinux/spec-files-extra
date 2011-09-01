@@ -2,6 +2,8 @@
 # spec file for package SFEmpg123.spec
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 Name:           SFEmpg123
 Summary:        mpg123 - fast console MPEG Audio Player and decoder library
@@ -47,7 +49,7 @@ fi
 
 export CFLAGS="%{optflags}"
 export LDFLAGS="%{_ldflags}"
-
+export CC=gcc
 ./configure --prefix=%{_prefix}         \
             --bindir=%{_bindir}         \
             --mandir=%{_mandir}         \

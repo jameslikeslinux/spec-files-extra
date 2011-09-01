@@ -20,6 +20,8 @@ BuildRequires: SFElibao-devel
 Requires: SFElibao
 BuildRequires: SFElibmad-devel
 Requires: SFElibmad
+BuildRequires: SFElibid3tag-devel
+Requires: SFElibid3tag
 
 %prep
 %setup -q -n mpg321
