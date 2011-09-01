@@ -13,7 +13,6 @@ Name:                    libx264
 Summary:                 H.264 encoder library
 Version:                 %snap
 Source:                  %src_url/%src_name-%snap-%snaph.tar.bz2
-Source1:                 libx264-replacement-version.sh
 URL:                     http://www.videolan.org/developers/x264.html
 Patch2:                 libx264-02-version.diff
 #Patch3:                 libx264-03-ld.diff
