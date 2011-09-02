@@ -9,6 +9,7 @@ SFEhplip.spec: pnm_macros for SFEcups/SUNWcups, SFEsane-backends/SUNWsanebackend
 2)
 SFErsnapshot.spec: pnm_macros for SUNWsshu
 SFEsmf-grey.spec:  pnm_macros for SUNWsndm* / sendmail
+SFEwine.spec: pnm_macros for audio headers
 
 3)
 SFEp7zip.spec: check saprc build, especially enianness (old patch p7zip-01-makefile.diff)
@@ -165,3 +166,11 @@ SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
 pkgbuild.wiki: Review lonely pages in draft status and enhance them, link them:
 https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=Special:LonelyPages
 
+34)
+bug: %define _gpp is used to find the right runtime libs, this is pointing to 
+non-existing directory in some cases
+include/base.inc, include/arch64.inc, %if cc_is_gcc equals 1
+ %define _gpp_version %(%{?_gpp:%_gpp}%{!?_gpp:g++} --version | head -1 | cut -f3 -d' ')
+ %define _cxx_libdir        %{_prefix}/lib/g++/%{_gpp_version}
+checks: _prefix can be set to /usr or to /usr/gnu .
+our g++ lives for gcc 3.x in place A and for SFEgcc 4.x.x in place B
