@@ -5,6 +5,10 @@
 
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
+
 %define src_name	OpenSceneGraph
 
 %define SUNWcmake      %(/usr/bin/pkginfo -q SUNWcmake && echo 1 || echo 0)
@@ -12,44 +16,17 @@
 Name:                   SFEosg
 Summary:                High performance real-time graphics toolkit
 Group:			Applications/Graphics
-Version:                2.9.7
-Source:                  http://www.openscenegraph.org/downloads/developer_releases/OpenSceneGraph-%{version}.zip
+Version:                3.0.1
+Source:                 http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-%{version}/source/OpenSceneGraph-%{version}.zip 
 URL:			http:///www.openscenegraph.org/
-Patch9:			OpenSceneGraph-09-boost-concept-check.diff
+#Patch9:			OpenSceneGraph-09-boost-concept-check.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
-# TODO convert to b134 name
-#Requires: libGL
-#Requires: libGLU
-#Requires: libXmu
-#Requires: libX11
-#Requires: Inventor
-#Requires: freeglut
-#Requires: libjpeg
-#Requires: libungif
-#Requires: libtiff
-#Requires: libpng
-#Requires: doxygen graphviz
-#Requires: cmake
-# TODO : look at patch : Wx is compiled with SunStudio on OpenSolaris
-# and it is not compatible with g++ 43. GD 20100507
-#Requires: wxGTK
-#Requires: curl
-#
-#Requires: qt
-#
-#dRequires: SDL
-#
-#Requires: fltk
-
 %include default-depend.inc
 
-%if %SUNWcmake
-BuildRequires: SUNWcmake
-%else
-BuildRequires: SFEcmake
-%endif
+# <km> Note: Prefer >= cmake 2.8.4
+BuildRequires:	SFEcmake
 
 %description
 The OpenSceneGraph is an OpenSource, cross platform graphics toolkit for the
@@ -63,7 +40,7 @@ for rapid development of graphics applications.
 
 %prep
 %setup -q -c -n %{src_name}-%{version}
-%patch9 -p0
+#%patch9 -p0
 
 %build
 
@@ -73,12 +50,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
+export CC=/usr/gnu/bin/cc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%_prefix/X11/include"
 export CXXFLAGS="-I%_prefix/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
-#export SDLMAIN_LIBRARY="/usr/lib/libSDL.so"
 export SDLMAIN_LIBRARY="/usr/lib"
 export SDL_LIBRARY="SDL"
 export CMAKE_LIBRARY_PATH="/opt/SFE/lib:/usr/lib"
@@ -132,5 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Sep 02 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 3.0.1
+- Built with oi_151 & GCC 4.6.1
 * May 2010 - Gilles Dauphin
 - Initial version

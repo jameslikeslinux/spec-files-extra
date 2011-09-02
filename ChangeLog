@@ -1,3 +1,9 @@
+2011-09-02 Ken Mays <kmays2000@gmail.com>
+
+        * SFEflightgear.spec: Bump to 2.4.0
+	* SFEsimgear20.spec: Bump to 2.4.0 
+	* SFEosg.spec: Bump to 3.0.1
+
 2011-09-01 Ken Mays <kmays2000@gmail.com>
 
 	* Archived KDE3* specs
