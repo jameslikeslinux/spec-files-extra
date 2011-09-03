@@ -174,3 +174,7 @@ include/base.inc, include/arch64.inc, %if cc_is_gcc equals 1
  %define _cxx_libdir        %{_prefix}/lib/g++/%{_gpp_version}
 checks: _prefix can be set to /usr or to /usr/gnu .
 our g++ lives for gcc 3.x in place A and for SFEgcc 4.x.x in place B
+
+35)
+reverse SFEgccruntime and SFEgcc to make pkgtool --autodeps find the spec file providing the runtime
+remove intermediate symlink SFEgccruntime.spec -> SFEgcc.spec
