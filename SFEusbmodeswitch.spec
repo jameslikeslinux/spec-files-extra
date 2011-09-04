@@ -11,10 +11,10 @@
 %include base.inc
 
 %define	src_name	usb-modeswitch
-%define	src_date	20110227
+%define	src_date	20110805
 
 Name:		SFEusbmodeswitch
-Version:	1.1.7
+Version:	1.1.9
 Summary:	A mode switching tool for controlling multiple-device USB gear
 Group:		System/Utilities
 License:	GPLv2+
@@ -79,6 +79,8 @@ rm -rf %{buildroot}
 %{_localstatedir}/lib/usb_modeswitch
 
 %changelog
+* Sun Sep 04 2011 - Milan Jurik
+- bump to 1.1.9
 * Sat Mar 05 2011 - Milan Jurik
 - bump to 1.1.7
 * Mon Jan 24 2011 - Milan Jurik
