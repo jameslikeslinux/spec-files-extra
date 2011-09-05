@@ -1,5 +1,5 @@
-
-- Initiafile for package SFEwine.spec
+#
+# spec file for package SFEwine.spec
 #
 # includes module(s): wine
 #
@@ -265,6 +265,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Tue Sep 06 2011 - Milan Jurik
+- fix spec
 * Tue Aug 30 2011 - Ken Mays <kmays2000@gmail.com>
 - Tested Wine 1.1.44 build for OpenIndiana SFE-IPS packaging
 
@@ -446,4 +448,3 @@ rm -rf $RPM_BUILD_ROOT
 - Fixed Summary
 * Sun Apr 22 2007 - dougs@truemail.co.th
 - Initial version
- version
