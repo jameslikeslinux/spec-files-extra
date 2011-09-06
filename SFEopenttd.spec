@@ -6,13 +6,12 @@
 %include base.inc
 
 %define src_name openttd
-%define src_version 1.1.1
 
 Name:           SFEopenttd
-Version:        1.1.1
+Version:        1.1.2
 Summary:        Transport system simulation game
-Source:         http://binaries.openttd.org/releases/%{src_version}/%{src_name}-%{src_version}-source.tar.gz
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.4/opengfx-0.3.4.zip
+Source:         http://binaries.openttd.org/releases/%{version}/%{src_name}-%{version}-source.tar.gz
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.5/opengfx-0.3.5.zip
 Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
@@ -52,7 +51,7 @@ were inspired by TTDPatch while others are original.
 
 
 %prep
-%setup -q -n openttd-%{src_version}
+%setup -q -n openttd-%{version}
 
 
 %build
@@ -154,6 +153,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Tue Sep 06 2011 - Milan Jurik
+- bump to 1.1.2, opengfx 0.3.5
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add missing dependency on SFEgcc
 * Sun Jul 24 2011 - Alex Viskovatoff

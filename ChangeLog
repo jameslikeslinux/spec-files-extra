@@ -1,3 +1,7 @@
+2011-09-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenttd.spec: bump to 1.1.2
+
 2011-09-04 Milan Jurik <sfnet@xylab.cz>
 
         * SFEusbmodeswitch.spec: bump to 1.1.9
