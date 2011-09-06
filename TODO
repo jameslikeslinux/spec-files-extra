@@ -178,3 +178,21 @@ our g++ lives for gcc 3.x in place A and for SFEgcc 4.x.x in place B
 35)
 reverse SFEgccruntime and SFEgcc to make pkgtool --autodeps find the spec file providing the runtime
 remove intermediate symlink SFEgccruntime.spec -> SFEgcc.spec
+
+36)
+make these spec files dual 32/64 bit:
+  SFEqt-gpp (cost: somewhat larger)  (owner:  TBD, volunteers?)
+ 
+37) 
+overhaul SFEphp*spec. base pacakge and extensions, get base and extensions in 
+sync, version bump, use pnm_macros ( change database/postgres-90/library, 
+database/postgres-90/developer SUNWphp52r SUNWphp52u ) Note: postgres base
+package name and spec-filename should read: SFE or SUNWpostgr-90 like the
+older versions did. IPS name set with IPS_package_name: database/postgres-90 ... )
+
+38)
+postgres*.spec make SVR4 ready (Solaris 10) and provide IPS package names
+with IPS_package_name: database/postgres-90 ... 
+would it make sense to keep subpackages in sync with SUNWpostgr-84(-****) ?
+use pnm_macros for dependencies which aren't recoded with legacy
+SUNWpackagename in IPS repositories of OI or Solaris 11 (Express)
