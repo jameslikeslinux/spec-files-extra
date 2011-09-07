@@ -72,3 +72,13 @@
  dist_pkglibexec_SCRIPTS = gdmflexiserver
  
  dm_tool_SOURCES = \
+--- lightdm-0.9.5/src/seat.c-orig	2011-09-07 11:03:00.429241981 -0500
++++ lightdm-0.9.5/src/seat.c	2011-09-07 11:03:13.517648466 -0500
+@@ -11,6 +11,7 @@
+ 
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/wait.h>
+ 
+ #include "seat.h"
+ #include "display.h"

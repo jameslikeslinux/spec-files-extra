@@ -1,14 +1,18 @@
+2010-09-07 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.5.
+
 2011-09-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEopenttd.spec: bump to 1.1.2
 
 2011-09-04 Milan Jurik <sfnet@xylab.cz>
 
-        * SFEusbmodeswitch.spec: bump to 1.1.9
+	* SFEusbmodeswitch.spec: bump to 1.1.9
 
 2011-09-02 Ken Mays <kmays2000@gmail.com>
 
-        * SFEflightgear.spec: Bump to 2.4.0
+	* SFEflightgear.spec: Bump to 2.4.0
 	* SFEsimgear20.spec: Bump to 2.4.0 
 	* SFEosg.spec: Bump to 3.0.1
 
@@ -26,7 +30,7 @@
 
 2011-08-30 Ken Mays <kmays2000@gmail.com>
 
-        * SFEwine.spec: Working spec for Wine 1.1.44
+	* SFEwine.spec: Working spec for Wine 1.1.44
 	* experimental/SFEwine-1.3.spec: Test spec for Wine 1.3.x builds 
 	* patches/dillo-01-dynarray.diff: Updated for Dillo 2.2.1
 

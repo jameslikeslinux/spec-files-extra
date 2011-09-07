@@ -10,7 +10,7 @@
 Name:                    SFElightdm
 License:                 GPLv3
 SUNW_Copyright:	         lightdm.copyright
-Version:                 0.9.4
+Version:                 0.9.5
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
@@ -44,12 +44,12 @@ Requires:                SUNWgtk2
 Requires:                SUNWconsolekit
 Requires:                SUNWdbus-glib
 Requires:                SUNWlibxklavier
-#Requires:                SFEwebkitgtk
+Requires:                SUNWgobject-introspection
 BuildRequires:           SUNWglib2-devel
 BuildRequires:           SUNWgtk2-devel
 BuildRequires:           SUNWdbus-glib-devel
 BuildRequires:           SUNWlibxklavier-devel
-#BuildRequires:           SFEwebkitgtk-devel
+BuildRequires:           SUNWgobject-introspection
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -116,7 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gir-1.0/*
 %{_datadir}/gtk-doc/*
+%{_datadir}/lightdm-gtk-greeter
 %{_datadir}/vala
+%{_datadir}/xgreeters
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/lightdm.1
@@ -148,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Sep 07 2011 - brian.cameron@oracle.com
+- Bump to 0.9.5.
 * Wed Aug 24 2011 - brian.cameron@oracle.com
 - Bump to 0.9.4.
 * Wed Jul 27 2011 - brian.cameron@oracle.com
