@@ -10,7 +10,7 @@
 
 Name:                    SFEclaws-mail
 Summary:                 Claws-Mail is an e-mail client (and news reader) based on GTK+
-Version:                 3.7.9
+Version:                 3.7.10
 License:                 GPLv3+
 SUNW_Copyright:          claws-mail.copyright
 Source:                  %{sf_download}/sylpheed-claws/%{src_name}-%{version}.tar.bz2
@@ -152,6 +152,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 14 2011 - kmays2000@gmail.com
+- Bumped to 3.7.10
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Apr 24 2011 - Milan Jurik

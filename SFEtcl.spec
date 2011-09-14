@@ -7,7 +7,7 @@
 
 Name:                SFEtcl
 Summary:             Tcl - Tool Command Language
-Version:             8.5.9
+Version:             8.5.10
 Source:              %{sf_download}/tcl/tcl%{version}-src.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8.5.10
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 8.5.9
 * Sun Nov 18 2007 - shivakumar.gn@gmail.com

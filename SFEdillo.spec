@@ -4,6 +4,9 @@
 # includes module(s): dillo
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 
 %define src_name	dillo
 %define src_url		http://www.dillo.org/download
@@ -33,6 +36,9 @@ SUNW_BaseDir:	/
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
+export CC="/usr/gnu/bin/gcc"
+export CXX="/usr/gnu/bin/g++"
+
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -41,8 +47,8 @@ fi
 
 libtoolize --force
 
-export CFLAGS="%optflags -I/usr/sfw/include"
-export LDFLAGS="%_ldflags -Lusr/sfw/lib -Rusr/sfw/lib"
+export CFLAGS="-Os -I/usr/sfw/include"
+export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
 ./configure --prefix=%{_prefix}		\
 	    --bindir=%{_bindir}		\
 	    --mandir=%{_mandir}		\
@@ -79,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Minor fixes
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.2.1
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>

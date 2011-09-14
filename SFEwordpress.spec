@@ -14,8 +14,9 @@
 
 Name:                SFEwordpress
 Summary:             Wordpress
-Version:             3.1.2
-Source:              http://wordpress.org/wordpress-%{version}%{src_name_minor_extra}.zip
+Version:             3.2.1
+Source:              http://wordpress.org/wordpress-3.2.1.tar.gz
+#Source:              http://wordpress.org/wordpress-%{version}%{src_name_minor_extra}.zip
 License:	     GPLv2
 SUNW_Copyright:	     wordpress.copyright
 SUNW_BaseDir:        /
@@ -79,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.2.1 
 * Mon Jul 25 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Thu Apr 26 2011 - Thomas Wagner

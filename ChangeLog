@@ -1,4 +1,12 @@
-2010-09-07 Brian Cameron  <brian.cameron@oracle.com>
+2011-09-14 Ken Mays <kmays2000@gmail.com>
+
+        * SFEslypheed.spec: Bump to 3.1.2
+        * SFEclaws-mail.spec: Bump to 3.7.10
+        * SFEwordpress.spec: Bump to 3.2.1
+	* SFEdillo: Minor fixes
+	* SFEtcl.spec: Bump to 8.5.10
+
+2011-09-07 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.5.
 
