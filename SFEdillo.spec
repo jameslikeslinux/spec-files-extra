@@ -36,8 +36,8 @@ SUNW_BaseDir:	/
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
-export CC="/usr/gnu/bin/gcc"
-export CXX="/usr/gnu/bin/g++"
+export CC="/usr/bin/gcc"
+export CXX="/usr/bin/g++"
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`

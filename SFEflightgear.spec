@@ -5,9 +5,8 @@
 #
 
 %include Solaris.inc
-
 %define cc_is_gcc 1
-%define _gpp /usr/gcc/4.6/bin/g++
+%define _gpp /usr/bin/g++
 
 %define src_name	flightgear
 %define src_url		ftp://ftp.kingmont.com/flightsims/flightgear/Source
@@ -58,8 +57,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gcc/bin/gcc
-export CXX=/usr/gcc/bin/g++
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include"
 export CXXFLAGS="-I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -L/usr/X11/lib -R/usr/X11/lib"
@@ -96,6 +95,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sept 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Minor tweaks
 * Fri Sept 02 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.4.0
 * Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>

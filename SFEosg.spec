@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
+%define _gpp /usr/bin/g++
 %include base.inc
 
 %define src_name	OpenSceneGraph
@@ -50,8 +50,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
 export CFLAGS="-I%_prefix/X11/include"
 export CXXFLAGS="-I%_prefix/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
