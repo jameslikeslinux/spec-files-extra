@@ -1,3 +1,11 @@
+2011-09-14  Thomas Wagner  <tom68@users.sourceforge.net>
+        * experimental/SFEgcc-runpath.spec patches/gcc-05-LINK_LIBGCC_SPEC.diff:
+          rework for clean runpath, add patch gcc-05-* to always find libgcc_s.so.1
+          libstdc++.so.6 in our location, add doc to gcc-03-*, 
+          this is project part 1 of 2"
+        * SFEosg.spec, SFEflightgear.spec, SFEdillo.spec, 
+          SFEsimgear20.spec: back to SFE default compiler location /usr/gnu/bin/gcc
+
 2011-09-14 Ken Mays <kmays2000@gmail.com>
 
 	* SFEimagemagick.spec: Bump to 6.7.2-6
