@@ -36,14 +36,14 @@ SUNW_BaseDir:	/
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
-export CC="/usr/bin/gcc"
-export CXX="/usr/bin/g++"
-
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
+
+export CC="/usr/gnu/bin/gcc"
+export CXX="/usr/gnu/bin/g++"
 
 libtoolize --force
 
@@ -85,7 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
-* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+* Wed Sep 14 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Minor fixes
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.2.1

@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 %define cc_is_gcc 1
-%define _gpp /usr/bin/g++
+%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 %define src_name	OpenSceneGraph
@@ -50,8 +50,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/bin/gcc
-export CXX=/usr/bin/g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%_prefix/X11/include"
 export CXXFLAGS="-I%_prefix/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
@@ -108,6 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Sep 14 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
 * Fri Sep 02 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 3.0.1
 - Built with oi_151 & GCC 4.6.1

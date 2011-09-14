@@ -7,7 +7,7 @@
 %include Solaris.inc
 
 %define cc_is_gcc 1
-%define _gpp /usr/bin/g++
+%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 %define src_name	simgear
@@ -39,8 +39,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/bin/cc
-export CXX=/usr/bin/g++
+export CC=/usr/gnu/bin/cc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include -I%{_includedir}"
 export CXXFLAGS="-I%{_prefix}/X11/include -I%{_includedir}"
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
@@ -69,7 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a*
 
 %changelog
-* Fri 02 Sept 2011 - Ken Mays <kmays2000@gmail.com>
+* Fri 14 Sep 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
+* Fri 02 Sep 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.4.0 
 - Built with oi_151 & GCC 4.6.1
 * May 2010 - Gilles Dauphin
