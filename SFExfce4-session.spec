@@ -12,7 +12,7 @@
 
 Name:		SFExfce4-session
 Summary:	Xfce Session manager
-Version:	4.8.1
+Version:	4.8.2
 URL:		http://www.xfce.org/
 License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -191,6 +191,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.2
 * Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
 - Added required dependencies for other build systemss
 * Tue Jul 26 2011 - N.B.Prashanth

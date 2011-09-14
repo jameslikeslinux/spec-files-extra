@@ -9,7 +9,7 @@
 %define src_url http://archive.xfce.org/src/xfce/%{src_name}/0.1/
 
 Name:		SFEgarcon
-Version:	0.1.8
+Version:	0.1.9
 Summary:	Implementation of the freedesktop.org menu specification
 License:	LGPLv2+ and GFDLv1.1
 SUNW_Copyright:	garcon.copyright
@@ -117,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.1.9
 * Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 0.1.8
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
