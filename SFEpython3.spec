@@ -4,8 +4,8 @@
 #
 
 %define _name Python
-%define version 3.2
-%define unmangled_version 3.2
+%define version 3.2.2
+%define unmangled_version 3.2.2
 %define release 1
 
 %include Solaris.inc
@@ -17,7 +17,7 @@ Version: %{version}
 Release: %{release}
 License: PSF license
 Source: http://www.python.org/ftp/python/%{unmangled_version}/%{_name}-%{unmangled_version}.tar.bz2
-Url: http://www.python.org/3.2
+Url: http://www.python.org/download/releases/3.2.2
 Group: Development/Libraries
 %include default-depend.inc
 
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/python3.2m/*
 
 %changelog
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 3.2.2
 * Wed June 29, 2011 - A Hettinger <ahettinger@prominic.net>
 - Initial .spec
 * Sun Jul 3, 2011 - A Hettinger <ahettinger@prominic.net>
