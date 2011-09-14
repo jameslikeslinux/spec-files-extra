@@ -1,0 +1,133 @@
+#THIS DOC IS EARLY DRAFT STATE AND MIGHT CONTAIN TYPOS, ERRORS, EAT YOUR CAT, ...#
+
+Note: the order of %D and -R/path/to/lib does not change the order in
+the resulting binary. E.g. you can't achive with -R/usr/g++/lib that
+the resulting binary has a runpath like /usr/g++/lib, instead this
+would be prevented by a hardcoded -R/usr/gnu/lib and result in 
+something like runpath /usr/gnu/lib:/usr/lib:/usr/g++/lib.
+<to-be-verified-if-still-applies> If you always want the runtime 
+in front of the runpath/rpath, do make
+sure to specify all libdirs *AND* put the runtime-LIB at the very
+beginning yourself! </to-be-verified-if-still-applies>
+
+Side-Note: No cross-compiling, it is disregarded in our case. It might
+work if you set cross-compile switches, but you are on your own.
+Same for relocating stuff after package install, some paths aren't
+anymore prefixed by "R" which is used internally as kind of a macro
+or variable.
+
+Side-Note: We do this to have full control over what user-space 
+libdirs are in use. The order of specifying them is in some cases 
+very important because you might have to libs of the same name, 
+but you need them for instance compiled with the gnu C++ compiler
+and those ones are stored currently in /usr/g++/lib . So you *need*
+this directory searched *first* and then the other ones where the
+ncompatible libraries are stored (compiled by e.g. Studio compiler,
+and stored in the directory /usr/lib)
+(Example: use QT g++ compiled lib that way:
+  -R/usr/gcc/lib:/usr/g++/lib  ->> compiler runtime from /usr/gcc/lib
+                                   and g++ compiled application lib
+                                   from /usr/g++/lib  )
+
+Side-Note: the path coded into the gcc internal setting "link_libgcc"
+(where libgcc_s.so and libstdc++.so are searched) is currently ether
+/usr/gcc/4.6/lib *or* /usr/gcc/lib (*or* optionally /usr/gnu/lib)
+(the last maybe deprecated - it is reduces flexibility because you 
+might search for libgcc_s.so and automaticly include this directory
+into searched for other libraries as well - this might be unwanted
+to find those files!)
+
+Side-Note: this patch enables a gcc or g++ compiled and linked program
+to find libgcc_s.so.1 and libstdc++.so.6 themselves!
+(example: g++ -o testbinary_finds_libstdc++ test.cpp  # libstdc++.so.6
+lives in /usr/gcc/4.6/lib and is found there)
+
+
+Usage-Tips:
+============
+If you link with "ld", then specify -R/usr/gcc/4.6/lib:/usr/gnu/lib:/usr/lib
+in that order is the compiler lib directory *first*, make sure that
+at least the runtime is put first.
+
+Choose one of of these methods to get runtime found in the right
+place: (you want libgcc_so.1 be found, and really the file *you*
+intended to be found :-) )
+(examples apply to libgcc_s.so.1 and libstdc++.so.6 as well as
+other compiler runtime libs)
+##TODO## add example where libgcc_s.so.1 appears to be loaded
+#        when debugged LD_DEBUG=libs ./testbin64_libgccrpath
+
+Method 1)
+specify *no* (*NO*!!!) -R to the gcc commandline if gcc should do 
+the linking.
+/usr/gnu/bin/gcc -m64 -o testbin64_libgccrpath  test.c
+
+dump -Lv testbin64_libgccrpath | grep PATH
+
+  **** DYNAMIC SECTION INFORMATION ****
+.dynamic:
+[INDEX] Tag         Value
+[...]
+[4]     RUNPATH         /usr/gcc/4.6/lib/amd64
+[5]     RPATH           /usr/gcc/4.6/lib/amd64
+(note: now clean! there is *no* pollution any more with /usr/gnu/lib)
+(you can add one with -R if you need)
+
+
+Background: the gcc internal setting named link_libgcc which is displayed 
+with gcc -dumpspecs does put the runpath/rpath displayed above
+into all binaries you compile. Once you specify additional -R/path/to/libdir
+then those extra runpaths are inserted at front of runpath/rpath.
+(Don't poison your system with lingering around "libgcc_s.so.1" and
+"libstdc++.so.6" without and reason)
+
+*link_libgcc:
+%{m64:-R /usr/gcc/4.6/lib/amd64:/usr/gcc/lib/amd64 %D}%{!m64:-R /usr/gcc/4.6/lib:/usr/gcc/lib %D}
+
+
+ ---  OR  ---
+
+Method 2)
+specify *all* library directories in the order you need them. Usually
+you *want* the runtime found first like in this example:
+/usr/gnu/bin/gcc -m64 -o testbin64_libgccrpath   \ 
+                 -R/usr/gcc/4.6/lib/amd64:/usr/gnu/lib/amd64  \ 
+                 test.c
+
+dump -Lv testbin64_libgccrpath | grep PATH
+
+  **** DYNAMIC SECTION INFORMATION ****
+.dynamic:
+[INDEX] Tag         Value
+[...]
+[4]     RUNPATH         /usr/gcc/4.6/lib/amd64:/usr/gnu/lib/amd64
+[5]     RPATH           /usr/gcc/4.6/lib/amd64:/usr/gnu/lib/amd64
+(note: now there is one /usr/gnu/lib/amd64, you did specify one
+explicitly, and you told the order for searches)
+
+This ensures, that libgcc_s.so.1 is found first in /usr/gcc/4.6/lib/amd64
+and not one of the other copies lingering around in other lib directories
+
+
+Setting the LINK_LIBGCC_SPEC  is borrowed from the pkgsrc project where they
+set theyr compiler to find runtimes in theyr private filesystem tree.
+
+MD_EXEC_PREFIX is preparing to search for compiler tools (not already in use,
+except there would be other symlinks there, e.g. ln -s /usr/gcc/4.6/bin/gcc /usr/gcc/bin/gcc
+
+--- gcc-4.6.1/gcc/config/i386/sol2-10.h.orig2	2011-09-04 14:11:55.630203689 +0200
++++ gcc-4.6.1/gcc/config/i386/sol2-10.h	2011-09-04 14:23:37.527910080 +0200
+@@ -131,6 +131,13 @@
+ #define LINK_ARCH_SPEC TARGET_LD_EMULATION \
+ 		       "%{m64:" LINK_ARCH64_SPEC "}%{!m64:" LINK_ARCH32_SPEC "}"
+ 
++/* #undef LINK_LIBGCC_SPECIAL_1 */
++/* #define LINK_LIBGCC_SPECIAL_1=1 */
++#undef LINK_LIBGCC_SPEC
++#define LINK_LIBGCC_SPEC "%{m64:" "-R /usr/gcc/4.6/lib/amd64:/usr/gcc/lib/amd64 %D" "}%{!m64:" "-R /usr/gcc/4.6/lib:/usr/gcc/lib %D" "}"
++#undef MD_EXEC_PREFIX
++#define MD_EXEC_PREFIX "/usr/gcc/bin/"
++#define LINK_ELIMINATE_DUPLICATE_LDIRECTORIES 0
+ /* We do not need to search a special directory for startup files.  */
+ #undef MD_STARTFILE_PREFIX
+ 

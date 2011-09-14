@@ -1,3 +1,78 @@
+#THIS DOC IS EARLY DRAFT STATE AND MIGHT CONTAIN TYPOS, ERRORS, EAT YOUR CAT, ...#
+
+##TODO## read below, is /usr/ucblib on Solaris 10 (all versions) in use or not?
+
+This patch is needed to enable a multi-architecture directory
+layout. Therefore you can read instead /64/ then /amd64/ or
+/sparcv9/ which is needed if the share the same filesystem tree.
+
+If a binary or library is stored in the same filesystemtree,
+then you can use isaexec to decide which binary to use.
+
+ isaexec looks up the architecture (i86, amd64, sparcv9, sparc....)
+ and continues loading the right binary matching the archiecture.
+ The linker code then would as well use libraries matching the 
+ chosen architecture (e.g. amd64) and search for libaries in those
+ subdirectories.
+
+ example:
+ call /sharednfspath/tools/bin/mybinary 
+      which is (hard)linked to /usr/lib/isaexec
+
+ the architecture is looked up, in this example amd64
+ then isaexec loads this binary:
+      /sharednfspath/tools/bin/amd64/mybinary 
+
+
+*hardcoded -R runpath removed now* START
+An older release of this patch contained code that *hardcoded* the runpath
+as -R %R/usr/ucblib:%R/usr/ccs/lib:%R/lib:%R/usr/lib:%R/usr/gnu/lib
+The template for this patch is partly a historic patch from the Sun
+gcc-3 compiler adapted for at that time for the gcc-4 and as well 
+including /usr/gnu/lib to find gcc's runtime libary which has
+symlinks there which point to the compiler runtime libs in 
+/usr/gcc/<major.minor>/lib directory. The idea was to *find* the 
+runtime in any case and another different reason was to *find* all
+sorts of libs stored e.g. in the directory /usr/gnu/lib which is 
+*not* searched by the "ld" linker by default.
+But this hardcoding of those directories has a big downside, the 
+user looses the ability to build a binary or a library with the
+search order for libraries via runpath in an order the *user* needs.
+Example: /usr/q++/lib:/usr/lib  to find a lib of the *same* filename
+first in the q++ path and not hitting an incompatible file somewhere
+else.
+
+Therefore, the "-R" was removed almost entirely (/usr/ucblib is left,
+might go away some day if we don't need it any more on Oracle 
+Solaris 10 or later releases).
+*hardcoded -R runpath removed now* END
+
+
+*only for reference* START
+****another patch, gcc-07-LINK_SPEC.diff **** START
+Another patch takes care that the binaries and libraries compiled
+with *this* gcc version are found in a predefined directory, totally
+free of other libaries.
+Currently this is e.g. /usr/gcc/4.6/lib/libgcc_s.so.1 and with 
+multilib enabled this might be 
+/usr/gcc/4.6/lib/gcc/i386-pc-solaris2.11/4.6.1/amd64/libgcc_s.so.1
+(could become default in the future)
+
+Another directory is now predefined where runtime libs are searched.
+A set of symbolic links to the runtime libs in /usr/gcc/lib/ is to 
+be placed there. Symlinks to the compiler binaries like gcc and g++
+go into /usr/gcc/bin/<gcc|g++> . This was the System can be upgraded
+to a much more fresh gcc version and use updated runtime libs but
+still use old programs linked to the older version of the libs.
+The need the interface of a more fresh runtime lib being compatile
+to older binaries.
+****another patch, gcc-07-LINK_SPEC.diff **** END
+*only for reference* END
+
+ 
+
+
+
 --- gcc-4.5.2/gcc/config/sol2.h	2010-04-16 15:33:58.000000000 +0200
 +++ gcc-4.5.2/gcc/config/sol2.h	2011-03-04 20:41:27.986156059 +0100
 @@ -156,12 +156,12 @@
