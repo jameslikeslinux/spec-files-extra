@@ -50,7 +50,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gnu/bin/cc
+export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%_prefix/X11/include"
 export CXXFLAGS="-I%_prefix/X11/include"

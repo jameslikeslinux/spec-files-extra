@@ -58,8 +58,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gcc/4.6/bin/gcc
-export CXX=/usr/gcc/4.6/bin/g++
+export CC=/usr/gcc/bin/gcc
+export CXX=/usr/gcc/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include"
 export CXXFLAGS="-I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -L/usr/X11/lib -R/usr/X11/lib"

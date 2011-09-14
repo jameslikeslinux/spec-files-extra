@@ -19,7 +19,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.3.27
+# 	%define version 1.3.28
 # %endif
 
 #%if %{!?version:1}
@@ -28,7 +28,7 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                1.3.27
+Version:                1.3.28
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -286,6 +286,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.28
 * Wed Aug 31 2011 - Thomas Wagner
 - fix download URL for Source2 + Source3 wine_gecko-1.3-x86.msi + wine_gecko-1.3-x86_64.msi
 * Tue Aug 30 2011 - Ken Mays <kmays2000@gmail.com>
