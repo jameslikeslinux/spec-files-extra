@@ -196,3 +196,15 @@ with IPS_package_name: database/postgres-90 ...
 would it make sense to keep subpackages in sync with SUNWpostgr-84(-****) ?
 use pnm_macros for dependencies which aren't recoded with legacy
 SUNWpackagename in IPS repositories of OI or Solaris 11 (Express)
+
+39)
+make new SFElv2.spec http://lv2plug.in http://lv2plug.in/spec/
+make new SFElv2-swh-plugins.spec - find tarball / calculate package version
+     number from e.g. git checkout_number. use e.g. 0.0.<calced_number>   https://github.com/swh/lv2
+
+40)
+test some stacks of spec files with the SFEgcc-runpath.spec experimental compiler,
+this should result in gcc compiled packages using libgcc_s.so.1 and libstdc++.so.6
+from /usr/gcc/4.6/lib/* or fallback shared directory /usr/gcc/lib
+dump -Lv <binary|library.so.n> print RUNPATH /usr/gcc/4.6/lib:/usr/gcc/lib first
+ldd <binary|library.so.n> no unresolved dependencies on libs and gcc runtime from /usr/gcc/4.6/lib
