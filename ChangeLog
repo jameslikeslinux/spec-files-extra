@@ -1,3 +1,7 @@
+2011-09-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.13
+
 2011-09-14  Thomas Wagner  <tom68@users.sourceforge.net>
         * experimental/SFEgcc-runpath.spec patches/gcc-05-LINK_LIBGCC_SPEC.diff:
           rework for clean runpath, add patch gcc-05-* to always find libgcc_s.so.1
