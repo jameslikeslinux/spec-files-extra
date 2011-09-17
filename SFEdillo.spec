@@ -13,8 +13,8 @@
 
 Name:		SFEdillo
 Summary:	Lightweight browser
-Version:	2.2.1
-Patch1:		dillo-01-dynarray.diff
+Version:	3.0
+#Patch1:		dillo-01-dynarray.diff
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 URL:		http://www.dillo.org/
 License:	GPLv3+
@@ -34,7 +34,7 @@ SUNW_BaseDir:	/
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
+#%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -85,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 3.0
 * Wed Sep 14 2011 - Thomas Wagner
 - back to SFE default compiler location /usr/gnu/bin/gcc
   agreed with Ken on IRC

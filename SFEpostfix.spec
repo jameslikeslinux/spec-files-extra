@@ -114,7 +114,7 @@
 Name:                    SFEpostfix
 Summary:                 postfix - Mailer System
 URL:                     http://postfix.org/
-Version:                 2.8.4
+Version:                 2.8.5
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
@@ -893,6 +893,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.5
 * Sun Jul 31 2011 - Thomas Wagner
 - bump to 2.8.4
 - make all occurences /usr/bin/perl be /usr/perl%{perl_major_version}/bin/perl
