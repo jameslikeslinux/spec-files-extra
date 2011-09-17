@@ -3,10 +3,12 @@
 	SFEabiword.spec: add missing dependency on runtime/gcc
 	SFEemacs.spec: bump to 23.3a
 
-2011-09-14 Ken Mays <kmays2000@gmail.com>
+2011-09-17 Ken Mays <kmays2000@gmail.com>
 
         * SFEpostfix.spec: Bump to 2.8.5
 	* Provided fix to postfix.xml manifest for SMF issue (#1519)
+	* SFEgnucash.spec: Bump to 2.4.7
+	* base-specs/gnucash-docs.spec: Bump to 2.4.1
 
 2011-09-16 Milan Jurik <sfnet@xylab.cz>
 
