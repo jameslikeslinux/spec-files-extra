@@ -12,10 +12,10 @@
 
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
-Version:                 23.3
+Version:                 23.3.1
 License:                 GPLv3+
 SUNW_Copyright:          emacs.copyright
-%define emacs_version    23.3
+%define emacs_version    23.3a
 Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%{emacs_version}.tar.bz2
 Patch1:                  emacs-01-sound.diff
 URL:                     http://www.gnu.org/software/emacs/emacs.html
@@ -147,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Mon Sep 12 2011 - Alex Viskovatoff
+- bump to version 23.3a
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Mon Jun 27 2011 - Alex Viskovatoff

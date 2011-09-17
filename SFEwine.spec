@@ -110,7 +110,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
-export CC="/usr/gnu/bin/gcc"
+export CC=gcc
 # Solaris requires a Pentium, hence -march=i586.
 # Most desktop users on OpenSolaris probably have a recent Intel. Hence -mtune=prescott.
 export CFLAGS="-g -Os -march=i586 -mtune=prescott -pipe -fno-omit-frame-pointer -I/usr/include -I%{xorg_inc} -I%{gnu_inc} -I%{sfw_inc} -Xlinker -i" 

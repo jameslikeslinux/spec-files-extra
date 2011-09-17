@@ -6,7 +6,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname gnote
 
@@ -14,7 +13,7 @@ Name:		SFEgnote
 Summary:	Desktop notetaking application for Unix cloned from Tomboy
 URL:		http://live.gnome.org/Gnote
 License:	GPLv3
-#SUNW_Copyright:	%srcname.copyright
+SUNW_Copyright:	%srcname.copyright
 Version:	0.7.5
 Source:		http://ftp.gnome.org/pub/GNOME/sources/%srcname/0.7/%srcname-%version.tar.xz
 SUNW_BaseDir:	%_basedir
@@ -58,13 +57,13 @@ Requires:	%name
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CPPFLAGS="-I/usr/g++/include -I/usr/include/ext2fs -I/usr/include/pcre"
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads"
 # system libuuid doesn't define uuid_unparse_lower, so use one from e2fsprogs
-export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -L/usr/lib/ext2fs -L/usr/gnu/lib -R/usr/g++/lib:/usr/lib/ext2fs:/usr/gnu/lib"
+export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -L/usr/lib/ext2fs -R/usr/g++/lib:/usr/lib/ext2fs"
 export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig
 
 ./configure --prefix=%_prefix --sysconfdir=%_sysconfdir --with-boost=/usr/g++ --disable-static
@@ -153,6 +152,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Tue Sep 13 2011 - Alex Viskovatoff
+- Add SUNW_copyright
 * Thu Aug 18 2011 - Alex Viskovatoff
 - Install GNOME_GnoteApplet.server
 * Sun Aug 14 2011 - Alex Viskovatoff

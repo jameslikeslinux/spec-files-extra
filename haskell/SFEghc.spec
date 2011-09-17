@@ -22,7 +22,7 @@
 %define bootstrap 6.12.3
 
 Name:		SFEghc 
-Summary:	The Glorious Glasgow Haskell Compiler
+Summary:	The Glorious Glasgow Haskell Compilation System
 Version:	7.2.1
 Release:	1
 License:	GHC License
@@ -37,9 +37,7 @@ BuildRoot:	%_tmppath/%name-%version-build
 
 %description
 Haskell is the standard lazy purely functional programming language.
-The current language version is Haskell 98, agreed in December 1998,
-with a revised version published in January 2003. The Haskell 2000
-report was published in July 2010.
+The current language version is Haskell 2010, published in July 2010.
 
 GHC is a state-of-the-art programming suite for Haskell. Included is
 an optimising compiler generating good code for a variety of
@@ -137,7 +135,7 @@ chmod +x configure
 # Note GHC conf does not support differing host/target (i.e., cross-compiling)
 ./configure --prefix=%_prefix \
     --with-ghc=/var/tmp/ghc-%bootstrap-bin/bin/ghc \
-    --with-gcc=/usr/bin/gcc --with-ld=/usr/bin/ld \
+    --with-gcc=/usr/sfw/bin/gcc --with-ld=/usr/bin/ld \
 %if %{is_s10}
     --with-gmp-includes=/usr/gnu/include    \
     --with-gmp-libraries=/usr/gnu/lib

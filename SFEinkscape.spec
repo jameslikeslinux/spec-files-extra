@@ -71,14 +71,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags -I%{_builddir}/%name-%version/poppler-%{poppler.version} -I%{_builddir}/%name-%version/poppler-%{poppler.version}/poppler"
 export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/g++/include -I%{_builddir}/%name-%version/poppler-%{poppler.version} -I%{_builddir}/%name-%version/poppler-%{poppler.version}/poppler"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 # we need -L/usr/lib so that /usr/lib/libgc.so is picked up instead of
 # SUNWspro's own libgc.so
-export LDFLAGS="%{_ldflags} -L/usr/gnu/lib -L/usr/g++/lib -R/usr/gnu/lib -R/usr/g++/lib"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
 
 # Build poppler because the inkscape build requires poppler's config.h
 %poppler.build

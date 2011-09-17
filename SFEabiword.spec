@@ -20,11 +20,13 @@ Version:            %{default_pkg_version}
 URL:                http://www.abisource.com/
 License:            GPLv2
 SUNW_BaseDir:       %{_basedir}
-SUNW_Copyright:      %{name}.copyright
+SUNW_Copyright:     %{name}.copyright
 Group:		    Office/Spreadsheet
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires:      SFEgcc
+Requires:           SFEgccruntime
 Requires:           SUNWuiu8
 Requires:           SUNWzlib
 Requires:           SUNWgnome-base-libs
@@ -120,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_cxx_libdir}/pkgconfig/*
 
 %changelog
+* Wed Sep 14 2011 - Alex Viskovatoff
+- Add missing dependency on runtime/gcc
 * Fri Nov 12 2010 - Alex Viskovatoff
 - Abiword has an internal spell checker, so do not require SFEaspell
   but require library/myspell/dictionary/en (with SUNW name)
