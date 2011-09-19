@@ -1,3 +1,7 @@
+2011-09-19 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscummvm.spec: bump to 1.3.1
+
 2011-09-17  Alex Viskovatoff <herzen@imap.cc>
 
 	SFEabiword.spec: add missing dependency on runtime/gcc
