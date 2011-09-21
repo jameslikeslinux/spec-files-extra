@@ -208,3 +208,11 @@ this should result in gcc compiled packages using libgcc_s.so.1 and libstdc++.so
 from /usr/gcc/4.6/lib/* or fallback shared directory /usr/gcc/lib
 dump -Lv <binary|library.so.n> print RUNPATH /usr/gcc/4.6/lib:/usr/gcc/lib first
 ldd <binary|library.so.n> no unresolved dependencies on libs and gcc runtime from /usr/gcc/4.6/lib
+
+41)
+check if those package should better go to /usr/gnu, remember checking other packages
+to still find those packages in the new location:
+SFEwxwidgets: The following packages all deliver file actions to usr/include/wx-2.8/wx/dir.h:
+  pkg://localhost/SFEwxwidgets@2.8.10,5.11-0.170:20110921T212701Z
+  pkg://solaris/library/graphics/wxwidgets@2.8.12,5.11-0.172:20110815T100013Z
+
