@@ -17,6 +17,7 @@ URL:		http://www.xfce.org/
 License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
+Patch2:		xfce4-session-simple-splash-remove-shadows.diff
 Group:		User Interface/Desktops
 SUNW_Copyright:	xfce4-session.copyright
 SUNW_BaseDir:	%{_basedir}
@@ -84,7 +85,7 @@ Requires:	%{name}
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
-
+%patch2 -p1
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -102,6 +103,7 @@ export PATH=/usr/gnu/bin:$PATH
 	--datadir=%{_datadir}		\
 	--mandir=%{_mandir}		\
 	--sysconfdir=%{_sysconfdir}	\
+	--enable-session-screenshots    \
 	--enable-gnome			\
 	--enable-libgnome-keyring	\
 	--disable-static
