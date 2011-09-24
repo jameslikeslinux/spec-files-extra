@@ -11,7 +11,7 @@
 
 Name:		SFExfce4-settings
 Summary:	Various gtk widgets for xfce
-Version:	4.8.2
+Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
@@ -107,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 4.8.3
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Tue Jun 07 2011 - kmays2000@gmail.com

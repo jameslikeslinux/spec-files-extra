@@ -13,7 +13,7 @@ Name:		SFElibxfce4util
 Summary:	Utility library for the Xfce desktop environment
 License:	LGPLv2+
 SUNW_Copyright:	libxfce4util.copyright
-Version:	4.8.1
+Version:	4.8.2
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -100,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 4.8.2
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik
