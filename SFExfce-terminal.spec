@@ -132,8 +132,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
-* Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
-- bump to 0.4.8
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 0.4.8
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
