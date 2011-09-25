@@ -3,6 +3,7 @@
 	* SFEtumbler.spec: fix build
 	* SFEfltk2.spec: fix Sun Studio build
 	* SFEfltk.spec: bump to 1.3.0
+	* SFElibxfce4util.spec: fix download URL
 
 2011-09-25 Ken Mays <kmays2000@gmail.com>
 

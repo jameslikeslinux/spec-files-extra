@@ -7,7 +7,7 @@
 %include Solaris.inc
 
 %define src_name libxfce4util
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/libxfce4util/4.8
 
 Name:		SFElibxfce4util
 Summary:	Utility library for the Xfce desktop environment
@@ -100,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Sep 25 2011 -Milan Jurik
+- fix download URL
 * Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Backed to 4.8.2
 * Sat Jul 23 2011 - Alex Viskovatoff
