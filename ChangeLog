@@ -1,6 +1,7 @@
 2011-09-25 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtumbler.spec: fix build
+	* SFEfltk2.spec: fix Sun Studio build
 
 2011-09-25 Ken Mays <kmays2000@gmail.com>
 

@@ -17,6 +17,7 @@ License:	FLTK and LGPLv2
 SUNW_Copyright:	fltk2.copyright
 Group:		Development/Libraries
 Patch1:		fltk2-01-scandir.diff
+Patch2:		fltk2-02-sunstudio.diff
 Patch3:		fltk2-03-test.diff
 Patch7:		fltk2-07-soname.diff
 SUNW_BaseDir:	%{_basedir}
@@ -36,6 +37,7 @@ Requires:		 %name
 %prep
 %setup -q -n fltk-%{version}
 %patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch7 -p1
 
@@ -95,6 +97,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3
 
 %changelog
+* Sun Sep 25 2011 - Milan Jurik
+- fix Sun Studio build
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 8800
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
