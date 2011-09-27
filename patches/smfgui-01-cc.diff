@@ -1,0 +1,30 @@
+--- smfgui_0.9.5.2_src/makefile	2011-09-26 12:32:45.000000000 +0200
++++ smfgui_0.9.5.2_src/makefile	2011-09-27 11:03:37.752057000 +0200
+@@ -2,19 +2,22 @@
+ APP=smfgui
+ objects=analisis.o callbacks.o interface.o main.o
+ CFLAGS = -std=c99
++CC=gcc
++CXX=g++
++
+ all:	$(APP)
+ 
+ $(APP): $(objects)
+-	g++ `pkg-config --libs gtk+-2.0` $(objects) -o$@
++	$(CXX) `pkg-config --libs gtk+-2.0` $(objects) -o $@
+ 
+ analisis.o: analisis.c analisis.h
+-	gcc $(GTKFLAGS) $(CFLAGS) -c analisis.c -o$@
++	$(CC) $(GTKFLAGS) $(CFLAGS) -c analisis.c -o $@
+ callbacks.o: callbacks.cpp callbacks.h interface.h analisis.h
+-	g++ $(GTKFLAGS) -c callbacks.cpp -o$@
++	$(CXX) $(GTKFLAGS) -c callbacks.cpp -o $@
+ interface.o: interface.c interface.h callbacks.h
+-	gcc $(GTKFLAGS)  -c interface.c -o$@
++	$(CC) $(GTKFLAGS)  -c interface.c -o $@
+ main.o: main.c interface.h
+-	gcc $(GTKFLAGS) -c main.c -o$@
++	$(CC) $(GTKFLAGS) -c main.c -o $@
+ 
+ clean:
+ 	rm -f $(APP) $(objects) *~
