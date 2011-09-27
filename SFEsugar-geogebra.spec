@@ -11,7 +11,7 @@ Name:                    SFEsugar-geogebra
 Summary:                 Sugar GeoGebra
 URL:                     http://www.sugarlabs.org/
 Version:                 4 
-Source:                  http://download.sugarlabs.org/sources/honey/GeoGebra/Moon-%{version}.tar.bz2
+Source:                  http://download.sugarlabs.org/sources/honey/GeoGebra/GeoGebra-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 

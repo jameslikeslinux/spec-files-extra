@@ -74,5 +74,5 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Created with 3.

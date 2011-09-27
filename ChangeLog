@@ -14,6 +14,7 @@
         * SFEsugar-colors.spec: Bumped to 15
         * SFEsugar-datastore.spec: Bumped to 0.93.2
         * SFEsugar-erikos.spec: Bumped to 3
+	* SFEsugar-finance.spec: Initial.spec
         * SFEsugar-flipsticks.spec: Bumped to 8
         * SFEsugar-geogebra.spec: Initial spec
         * SFEsugar-getiabooks.spec: Bumped to 3
@@ -23,17 +24,20 @@
         * SFEsugar-jukebox.spec: Bumped to 20
         * SFEsugar-labyrinth.spec: Bumped to 7
         * SFEsugar-measure.spec: Bumped to 33
+	* SFEsugar-memorize.spec: Initial spec
         * SFEsugar-moon.spec: Bumped to 12
         * SFEsugar-napier.spec: Initial spec
         * SFEsugar-paint.spec: Bumped to 25
         * SFEsugar-physics.spec: Bumped to 8
         * SFEsugar-pippy.spec: Bumped to 41
         * SFEsugar-presence-service.spec: Bumped to 0.90.2
+	* SFEsugar-pukllanapac.spec: Initial spec
         * SFEsugar-read.spec: Bumped to 88
         * SFEsugar-readetexts.spec: Bumped to 17
         * SFEsugar-record.spec: Bumped to 87
         * SFEsugar-ruler.spec: Bumped to 12
         * SFEsugar-sliderule.spec: Bumped to 22
+	* SFEsugar-storybuilder.spec: Initial spec
         * SFEsugar-terminal.spec: Bumped to 34
         * SFEsugar-toolkit.spec: Bumped to 0.93.4
         * SFEsugar-turtleart.spec: Bumped to 115

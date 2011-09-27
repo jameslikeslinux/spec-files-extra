@@ -1,23 +1,32 @@
 #
-# spec file for package SFEsugar-napier
+# spec file for package SFEsugar-storybuilder
 #
-# includes module(s): sugar-napier
+# includes module(s): sugar-storybuilder
 #
 
 %define pythonver 2.6
 
 %include Solaris.inc
-Name:                    SFEsugar-napier
-Summary:                 Sugar Napier
+Name:                    SFEsugar-storybuilder
+Summary:                 Sugar StoryBuilder
 URL:                     http://www.sugarlabs.org/
-Version:                 3 
-Source:                  http://download.sugarlabs.org/sources/honey/Napier/Napier-%{version}.tar.bz2
+Version:                 15 
+Source:                  http://download.sugarlabs.org/sources/honey/StoryBuilder/StoryBuilder-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires:                SFEsugar
 BuildRequires:           SFEsugar
+Requires: 		 SFEsugar-toolkit
+BuildRequires: 		 SFEsugar-toolkit
+#
+#This project requiress Python Mozilla bindings (PyXPCOM) that enables Python to
+#used inside of Mozilla applications like XULRunner. 
+#
+#Requires: 		 python-pygame
+#BuildRequires:		 python-xpcom192
+#BuildRequires:		 mozilla-xulrunner192
 
 %if %build_l10n
 %package l10n
@@ -28,7 +37,7 @@ Requires:     %{name}
 %endif
 
 %prep
-%setup -q -n Napier-%version
+%setup -q -n StoryBuilder-%version
 
 %build
 export PYTHON=/usr/bin/python%{pythonver}
@@ -68,11 +77,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
 %attr (-, root, other) %{_datadir}/locale
-%dir %attr (0755, root, other) %{_datadir}/gnome
-%{_datadir}/gnome/help/*/[a-z]*
-%{_datadir}/omf/*/*-[a-z]*.omf
+%dir %{_datadir}/sugar/activities/StoryBuilder.activity
+%{_datadir}/sugar/activities/StoryBuilder.activity/*
+%{_datadir}/locale/bi
+%{_datadir}/locale/bi/LC_MESSAGES
+%{_datadir}/locale/cpp
+%{_datadir}/locale/cpp/LC_MESSAGES
+%{_datadir}/locale/na
+%{_datadir}/locale/na/LC_MESSAGES
 %endif
 
 %changelog
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
-- Created with 3.
+- Requires Pygame & PyXPCOM
+- Created with 15.
