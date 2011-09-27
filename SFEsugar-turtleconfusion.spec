@@ -1,17 +1,17 @@
 #
-# spec file for package SFEsugar-clock
+# spec file for package SFEsugar-turtleconfusion
 #
-# includes module(s): sugar-clock
+# includes module(s): sugar-turtleconfusion
 #
 
 %define pythonver 2.6
 
 %include Solaris.inc
-Name:                    SFEsugar-clock
-Summary:                 Sugar Clock
+Name:                    SFEsugar-turtleconfusion
+Summary:                 Sugar TurtleConfusion
 URL:                     http://www.sugarlabs.org/
 Version:                 6 
-Source:                  http://download.sugarlabs.org/sources/honey/Clock/Clock-%{version}.tar.bz2
+Source:                  http://download.sugarlabs.org/sources/honey/TurtleConfusion/Moon-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
@@ -28,7 +28,7 @@ Requires:     %{name}
 %endif
 
 %prep
-%setup -q -n Clock-%version
+%setup -q -n TurtleConfusion-%version
 
 %build
 export PYTHON=/usr/bin/python%{pythonver}
@@ -75,6 +75,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
-- Bump to 6.
-* Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>
-- Created with 5.
+- Created with 6.

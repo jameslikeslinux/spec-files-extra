@@ -10,7 +10,7 @@
 Name:                    SFEsugar-infoslicer
 Summary:                 Sugar InfoSlicer
 URL:                     http://www.sugarlabs.org/
-Version:                 8 
+Version:                 9 
 Source:                  http://download.sugarlabs.org/sources/honey/InfoSlicer/InfoSlicer-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 9.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Created with 8.

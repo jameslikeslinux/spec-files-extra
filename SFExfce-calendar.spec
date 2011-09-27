@@ -9,7 +9,7 @@
 %define src_name orage
 %define src_url http://archive.xfce.org/src/apps/orage/4.8/
 
-Name:		SFExfcalendar
+Name:		SFExfce-calendar
 Summary:	Xfce Calendar
 License:	GPLv2
 SUNW_Copyright:	xfce-calendar.copyright
@@ -129,6 +129,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sun Sep 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Changed name from SFExfcalendar to SFExfce-calendar
 * Sun Sep 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 4.8.2
 * Tue Jul 26 2011 - N.B.Prashanth

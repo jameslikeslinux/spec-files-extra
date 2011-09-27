@@ -10,7 +10,7 @@
 Name:                    SFEsugar-calculate
 Summary:                 Sugar Calculate
 URL:                     http://www.sugarlabs.org/
-Version:                 34
+Version:                 37
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/Calculate/Calculate-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 37.
 * Sat Oct 23 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 34.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>

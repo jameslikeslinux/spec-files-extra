@@ -1,3 +1,48 @@
+2011-09-27 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce-calendar.spec: Changed from SFExfcalendar
+	Updated to Sugar Desktop Environment v0.93.5
+        * SFEsugar-abacus.spec: Bumped to 23
+        * SFEsugar-artwork.spec: Bumped to 0.93.4
+        * SFEsugar-base.spec: Bumped to 0.93.2
+        * SFEsugar-bounce.spec: Bumped to 7
+        * SFEsugar-calculate.spec: Bumped to 37
+        * SFEsugar-cardsort.spec: Bumped to 5
+        * SFEsugar-cartoonbuilder.spec: Bumped to 3
+        * SFEsugar-chat.spec: Bumped to 71
+        * SFEsugar-clock.spec: Bumped to 6
+        * SFEsugar-colors.spec: Bumped to 15
+        * SFEsugar-datastore.spec: Bumped to 0.93.2
+        * SFEsugar-erikos.spec: Bumped to 3
+        * SFEsugar-flipsticks.spec: Bumped to 8
+        * SFEsugar-geogebra.spec: Initial spec
+        * SFEsugar-getiabooks.spec: Bumped to 3
+        * SFEsugar-imageviewer.spec: Bumped to 27
+        * SFEsugar-infoslicer.spec: Bumped to 9
+        * SFEsugar-irc.spec: Bumped to 10
+        * SFEsugar-jukebox.spec: Bumped to 20
+        * SFEsugar-labyrinth.spec: Bumped to 7
+        * SFEsugar-measure.spec: Bumped to 33
+        * SFEsugar-moon.spec: Bumped to 12
+        * SFEsugar-napier.spec: Initial spec
+        * SFEsugar-paint.spec: Bumped to 25
+        * SFEsugar-physics.spec: Bumped to 8
+        * SFEsugar-pippy.spec: Bumped to 41
+        * SFEsugar-presence-service.spec: Bumped to 0.90.2
+        * SFEsugar-read.spec: Bumped to 88
+        * SFEsugar-readetexts.spec: Bumped to 17
+        * SFEsugar-record.spec: Bumped to 87
+        * SFEsugar-ruler.spec: Bumped to 12
+        * SFEsugar-sliderule.spec: Bumped to 22
+        * SFEsugar-terminal.spec: Bumped to 34
+        * SFEsugar-toolkit.spec: Bumped to 0.93.4
+        * SFEsugar-turtleart.spec: Bumped to 115
+        * SFEsugar-turtleconfusion.spec: Initial spec
+        * SFEsugar-typingturtle.spec: Bumped to 17
+        * SFEsugar-visualmatch.spec: Bumped to 29
+        * SFEsugar-xoeditor.spec: Bumped to 2
+        * SFEsugar.spec: Bumped to 0.93.5        
+
 2011-09-27 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEsmfgui.spec: bump to 0.9.5.2
