@@ -9,10 +9,9 @@
 
 Name:		SFEsmfgui
 Summary:	SMF GUI
-Version:	0.9.5.2
+Version:	0.9.5.3
 URL:		http://smfgui.sourceforge.net/
 Source:		%{sf_download}/%{src_name}/%{src_name}_%{version}_src.tar.gz
-Patch1:		smfgui-01-cc.diff
 License:	CDDL
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -21,7 +20,6 @@ BuildRequires:	SUNWgnome-common-devel
 
 %prep
 %setup -q -n %{src_name}_%{version}_src
-%patch1 -p1
 
 %build
 make -j $CPUS
@@ -40,6 +38,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Sep 27 2011 - Milan Jurik
-- bump to 0.9.5.2
+- bump to 0.9.5.3
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec
