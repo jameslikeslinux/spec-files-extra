@@ -19,7 +19,7 @@ Summary:                 Vector graphics editor
 Group:                   Applications/Graphics and Imaging
 License:                 GPLv2
 SUNW_Copyright:          inkscape.copyright
-Version:                 0.48.1
+Version:                 0.48.2
 Source:                  %{sf_download}/inkscape/inkscape-%{version}.tar.gz
 URL:                     http://www.inkscape.org
 Patch1:                  inkscape-01-combo.diff
@@ -159,6 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.48.2
 * Tue Aug  9 2011 - Alex Viskovatoff
 - SFElibgc now goes in /usr/g++
 * Fri Aug  5 2011 - Alex Viskovatoff
