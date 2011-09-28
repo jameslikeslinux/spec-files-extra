@@ -1,3 +1,11 @@
+2011-09-28 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEmono.spec: bump to 2.10.5
+	* patches/mono-02-sgen.diff: updated for 2.10.5
+	* SFEgtk-sharp.spec: bump to 2.12.11
+	* SFEmono-addins.spec: bump to 0.6.1
+	* SFEgecko-sharp.spec: bump to 2.0-0.13
+
 2011-09-27 Ken Mays <kmays2000@gmail.com>
         * SFEdovecot: Bump to 2.0.15	
 	* SFEinkscape.spec: Bump to 0.48.2
