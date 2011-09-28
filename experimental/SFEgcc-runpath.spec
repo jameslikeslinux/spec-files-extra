@@ -172,7 +172,28 @@
 %define SFElibmpc 1
 %endif
 
-%define major_minor 4.6
+#if you want a specific version of gcc be built, then change the default setting
+#below *or* specify the number on the command line (gcc_version), example see below
+
+# To set a specific gcc version to be build, do this from *outside*
+# complete build/package/pkg install/:
+# pkgtool build --define 'gcc_version 4.6.1' SFEgcc.spec     (experimental/SFEgcc-runpath.spec)
+# or run a install/packageing test cycle
+# pkgbuild -short-circuit --define 'gcc_version 4.6.1' -bi SFEgcc
+# pkgbuild -short-circuit --define 'gcc_version 4.6.1' -bb SFEgcc
+
+%if %{!?gcc_version:1}
+#make version bump *here* - this is the default version being built
+%define version 4.6.1
+%else
+#gcc version is already defined from *outside*, from the pkgtool command line
+%define version %{gcc_version}
+%endif
+#special handling of version / gcc_version
+
+#%define major_minor 4.6   .... use 4.6.1 and remove the third++ part
+%define major_minor %( echo %{version} | sed -e 's/\(^[0-9]*\.[0-9]*\)\..*/\1/' )
+
 #transform 4.6. -> 46
 %define majorminornumber %( echo %{major_minor} | sed -e 's/\.//g' )
 %define _prefix /usr/gcc/%major_minor
@@ -192,7 +213,8 @@
 Name:                SFEgcc
 #IPS_package_name:   
 Summary:             GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
-Version:             4.6.1
+#see above, %{version} is set elsewhere
+#Version:             4.6.1
 License:             GPLv3+
 SUNW_Copyright:      gcc.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
@@ -760,6 +782,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Thomas Wagner
+- add version control form outside, so you can build and version
+  (if the patches apply cleanly). Note: only one micro version at
+  a time is supported by the naming schema: 4.6.1 -> SFEgcc-46
+  4.5.3 -> SFEgcc-45, and not at the same time 4.5.2 -> SFEgcc-45.
+  Always send to the repo last, what then should be the version
+  providing the symlinks in /usr/gnu/<bin|lib>
+  e.g. first 4.5.3 then second 4.6.1 -> you get SFEgcc symlinks to 4.6.1 version
 * Thu Sep 22 2011 - Thomas Wagner
 - automate symlinks to be created in for instance /usr/gnu/bin or /usr/gcc/bin
   as requested at compile time by the configure line --enable-languages=c,c++,fortran,objc
