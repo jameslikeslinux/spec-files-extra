@@ -63,8 +63,8 @@ Haskell home page at http://haskell.org/.
 
 BuildRequires: 	SUNWgcc
 BuildRequires:	SUNWgsed
-BuildRequires:	SFExz
-#Requires: 	SUNWgccruntime
+#BuildRequires:	SFExz
+Requires: 	SUNWgcc
 
 %if %SFEgmp
 BuildRequires: SFEgmp-devel

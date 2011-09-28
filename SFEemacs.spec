@@ -16,7 +16,8 @@ Version:                 23.3.1
 License:                 GPLv3+
 SUNW_Copyright:          emacs.copyright
 %define emacs_version    23.3a
-Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%{emacs_version}.tar.bz2
+%define src_version      23.3
+Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%emacs_version.tar.bz2
 Patch1:                  emacs-01-sound.diff
 URL:                     http://www.gnu.org/software/emacs/emacs.html
 SUNW_BaseDir:            %{_basedir}
@@ -60,7 +61,7 @@ SUNW_BaseDir:            /
 %include default-depend.inc
 
 %prep
-%setup -q -n emacs-%version
+%setup -q -n emacs-%src_version
 %patch1 -p1
 
 %build

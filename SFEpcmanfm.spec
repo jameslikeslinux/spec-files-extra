@@ -85,10 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pcmanfm/*
 
 %files root
-%attr (0755, root, sys) %dir %{_sysconfdir}
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg/pcmanfm
-%{_sysconfdir}/xdg/pcmanfm/*
+%defattr (0755, root, sys)
+%dir %_sysconfdir
+%dir %_sysconfdir/xdg
+%_sysconfdir/xdg/pcmanfm
 
 %if %build_l10n
 %files l10n
@@ -98,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Sep 28 2011 - Alex Viskovatoff
+- Fix %files root
 * Sun Jul 24 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Wed Jun 08 2011 - brian.cameron@oracle.com

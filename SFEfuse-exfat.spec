@@ -15,6 +15,7 @@ Name:                    SFEfuse-exfat
 Summary:                 Free exFAT file system implementation
 Version:                 0.9.2
 License:                 GPLv3
+SUNW_copyright:          fuse-exfat.copyright
 Source:			 http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
 Url:                     http://code.google.com/p/exfat/
 SUNW_BaseDir:            %{_basedir}
@@ -71,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/fs/exfat/*
 
 %changelog
+* Tue Sep 27 2011 - Alex Viskovatoff
+- Add SUNW_copyright
 * Fri Sep 21 2010 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.9.2, drop upstreamed patches
 - Support SFEfusefs

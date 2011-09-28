@@ -6,7 +6,11 @@
 %include Solaris.inc
 
 Name:                    SFElibdvdcss
-Summary:                 libdvdcss  - a simple library designed for accessing DVDs like a block device without having to bother about the decryption.
+Summary:                 A simple library designed for accessing DVDs like a block device without having to bother about decryption
+Group:                   System/Multimedia Libraries
+URL:                     http://www.videolan.org/developers/libdvdcss.html
+License:                 GPLv2
+SUNW_copyright:          libdvdcss.copyright
 Version:                 1.2.10
 Source:                  http://download.videolan.org/pub/libdvdcss/%{version}/libdvdcss-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}

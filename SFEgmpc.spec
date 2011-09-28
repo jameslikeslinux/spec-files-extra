@@ -70,24 +70,18 @@ Requires:                %{name}
 %setup -q -n %srcname-%version
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-  CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-#export LDFLAGS="%_ldflags -lnsl -lsocket -lz"
-export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -lxnet -lz"
+export LDFLAGS="%_ldflags -lxnet -lz"
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 %if %option_with_gnu_iconv
 export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
 %endif
 
-#TODO: check --disable-sm 
 CC=$CC CXX=$CXX CFLAGS="$CFLAGS" XGETTEXT=/bin/gxgettext MSGFMT=/bin/gmsgfmt \
-./configure --prefix=%{_prefix} \
-            #--disable-sm
+./configure --prefix=%_prefix
 gmake -j$CPUS
 
 %install
@@ -98,7 +92,6 @@ test -d $RPM_BUILD_ROOT%{_docdir} || mkdir $RPM_BUILD_ROOT%{_docdir}
 
 %if %{build_l10n}
 %else
-#rmdir $RPM_BUILD_ROOT/%{_datadir}/locale
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %endif
 
@@ -169,6 +162,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 19 2011 - Alex Viskovatoff
+- Conform to the SFE practice of letting the environment choose the gcc
 * Thu Aug 11 2011 - Alex Viskovatoff
 - Fix directory attributes
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>

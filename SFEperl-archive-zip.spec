@@ -18,8 +18,6 @@ Version:	1.30
 IPS_component_version: 1.30
 Summary:	Provides an interface to ZIP archive files
 License:	Artistic
-Distribution:   OpenSolaris
-Vendor:         OpenSolaris Community
 Url:		http://search.cpan.org/~adamk/%{tarball_name}-%{tarball_version}
 SUNW_Basedir:	%{_basedir}
 SUNW_Copyright: %{name}.copyright

@@ -73,7 +73,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=gcc
+export CC=/usr/sfw/bin/gcc
 export CFLAGS="%gcc_optflags"
 export FUSE_MODULE_CFLAGS="-D_FILE_OFFSET_BITS=64 -I/usr/include/fuse"
 export FUSE_MODULE_LIBS="-pthread -lfuse"
@@ -127,6 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep 27 2011 - Alex Viskovatoff
+- Build with gcc-3, as does not duild with gcc 4.6
 * Thu Jul 07 2011 - Alex Viskovatoff
 - Revert the previous change, so the package gets built
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>

@@ -81,7 +81,8 @@ export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
             --datadir=%{_datadir} \
             --libdir=%{_libdir} \
             --bindir=%{_bindir} \
-            --sysconfdir=%{_sysconfdir}
+            --sysconfdir=%{_sysconfdir} \
+            --disable-mp4
 
 make -j$CPUS
 
@@ -129,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 28 2011 - Alex Viskovatoff
+- disable mp4, which breaks the build
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Oct 17 2010 - Alex Viskovatoff
