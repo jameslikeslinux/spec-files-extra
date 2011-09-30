@@ -8,7 +8,7 @@
 %define python_version  2.6
 
 Name:		SFEpython26-django
-Version:	1.3
+Version:	1.3.1
 Summary:	A high-level Python Web framework that enables Rapid Development
 License:	BSD
 Group:		Development/Languages/Python
@@ -17,8 +17,8 @@ Source:		http://media.djangoproject.com/releases/1.3/Django-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires: SUNWPython
-Requires: SUNWPython
+BuildRequires: SUNWPython26-devel
+Requires: SUNWPython26
 
 %prep
 %setup -q -n Django-%version
@@ -45,6 +45,8 @@ rm -rf %{buildroot}
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
+* Fri Sep 30 2011 - Milan Jurik
+- bump to 1.3.1
 * Fri Mar 25 2011 - Milan Jurik
 - bump to 1.3
 * Tue Mar 01 2011 - Milan Jurik
