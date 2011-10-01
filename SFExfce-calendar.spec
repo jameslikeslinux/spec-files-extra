@@ -117,6 +117,9 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/apps
 %{_datadir}/icons/hicolor/48x48/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/160x160
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/160x160/apps
+%{_datadir}/icons/hicolor/160x160/apps/*
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/scalable
 %dir %attr (0755, root, other) %{_datadir}/icons/hicolor/scalable/apps
 %{_datadir}/icons/hicolor/scalable/apps/*
