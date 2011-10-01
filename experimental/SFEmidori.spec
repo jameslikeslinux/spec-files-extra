@@ -26,9 +26,10 @@ Summary:        Lightweight Webkit-based Web Browser
 Url:            http://twotoasts.de/index.php?/pages/midori_summary.html
 Group:          Productivity/Networking/Web/Browsers
 Source:         http://archive.xfce.org/src/apps/%{name}/0.3/%{name}-%{version}.tar.bz2
-# Update to at least SQLite 3.7.7.1 (get older one from kde4sol-dev) 
-# http://solaris.bionicmutton.org/pkg/4.6.0//en/index.shtml
-# Requires at least WebKitGTK+ and Vala 0.13.1
+
+# Requires at least WebKitGTK+ and Vala for Midori 0.4.x
+
+Requires: 		SFEwebkitgtk
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -47,8 +48,8 @@ features are:
 %setup -q
 
 %build
-export CC=/usr/gnu/bin/cc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export PATH=/usr/g++/bin:$PATH:/usr/perl5/bin
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -D__C99FEATURES__"
@@ -112,30 +113,20 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %files
 %defattr(0755, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
-%doc %{_defaultdocdir}/%{name}
 %{_bindir}/%{name}
 %dir %{_libdir}/midori
 %{_libdir}/midori/*.so
-%dir %{_sysconfdir}/xdg/midori
-%config(noreplace) %{_sysconfdir}/xdg/midori/search
+%dir %attr (0755, root, bin) %{_sysconfdir}
+%config(noreplace) %{_sysconfdir}/xdg/midori
+#%config(noreplace) %{_sysconfdir}/xdg/midori/search
 %{_datadir}/%{name}/
+%{_datadir}/doc/midori/*
 %{_datadir}/applications/%{name}.desktop
-%dir %attr (0755, root, other) %{_datadir}/icons
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16/status
-#%{_datadir}/icons/hicolor/16x16/status/*
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22/status
-#%{_datadir}/icons/hicolor/22x22/status/*
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24/status
-#%{_datadir}/icons/hicolor/24x24/status/*
-%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48
 %{_datadir}/icons/hicolor/*/status/news-feed.*
 %{_datadir}/icons/hicolor/*/categories/extension.*
 %{_datadir}/icons/hicolor/scalable/apps/midori.*
 %{_datadir}/icons/hicolor/*/apps/midori.png
+
 %if %build_l10n
 %files l10n
 %defattr (-, root, bin)
