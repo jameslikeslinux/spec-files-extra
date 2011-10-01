@@ -17,7 +17,6 @@ URL:		http://www.xfce.org/
 License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
-Patch2:		xfce4-session-simple-splash-remove-shadows.diff
 Group:		User Interface/Desktops
 SUNW_Copyright:	xfce4-session.copyright
 SUNW_BaseDir:	%{_basedir}
@@ -85,7 +84,6 @@ Requires:	%{name}
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
-%patch2 -p1
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -193,6 +191,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Fri Sep 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Made splash patch optional
 * Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 4.8.2
 * Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
