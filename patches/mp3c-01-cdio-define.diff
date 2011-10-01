@@ -1,0 +1,155 @@
+diff -ur mp3c-0.31/src/iocd.c mp3c-0.31_compiled_hurra/src/iocd.c
+--- mp3c-0.31/src/iocd.c	2001-05-18 17:09:37.000000000 +0200
++++ mp3c-0.31_compiled_hurra/src/iocd.c	2011-06-03 14:27:52.186702852 +0200
+@@ -30,8 +30,9 @@
+ #include <stdio.h>
+ #include "mp3creat.h"
+ 
++#define HAVE_LINUX_CDROM_H
+ #ifdef HAVE_LINUX_CDROM_H
+-#include <linux/cdrom.h>
++#include <sys/cdio.h>
+ #endif
+ #ifdef HAVE_SYS_CDIO_H
+ #include <sys/cdio.h>
+@@ -118,11 +119,7 @@
+ {
+   int tmp;
+ 
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl_cdrom(CDROMEJECT);
+-#else
+-  tmp = ioctl_cdrom(CDIOCEJECT);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) return 1;
+   return 0; /* Eject ok */
+ }
+@@ -132,11 +129,7 @@
+ {
+   int tmp;
+ 
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl_cdrom(CDROMCLOSETRAY);
+-#else
+-  tmp = ioctl_cdrom(CDIOCCLOSE);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) return 1; /* closing the tray failed... */
+   return 0;              /* Tray closed */
+ }
+@@ -159,11 +152,7 @@
+     closeing_needed = TRUE;
+   }
+   
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl(cd_drv, CDROMREADTOCHDR, &tochdr); /* read header of toc */
+-#else
+-  tmp = ioctl(cd_drv, CDIOREADTOCHEADER, &tochdr); /* read header of toc */
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) {
+     if(closeing_needed) close_cdrom();
+     return -1;
+@@ -184,16 +173,10 @@
+ #endif /* !CDROM_LEADOUT */
+ 
+   tocentry.starting_track = CDROM_LEADOUT;
+-  tocentry.address_format = CD_MSF_FORMAT;
++  tocentry.address_format = CDROM_LBA;
+ #endif /* !HAVE_LINUX_CDROM_H */
+   
+-#ifdef HAVE_LINUX_CDROM_H
+   if(ioctl(cd_drv, CDROMREADTOCENTRY, &tocentry) != 0) {
+-#else
+-  tocentry.data = &cddata;
+-  tocentry.data_len = sizeof(cddata);
+-  if(ioctl(cd_drv, CDIOREADTOCENTRYS, &tocentry) != 0) {
+-#endif /* !HAVE_LINUX_CDROM_H */
+     if(closeing_needed) close_cdrom();
+     return -1;
+   }
+@@ -209,17 +192,10 @@
+ #endif /* !HAVE_LINUX_CDROM_H */
+ 
+   for(i=track_last;i>=track_first;i--) {
+-#ifdef HAVE_LINUX_CDROM_H
+     tocentry.cdte_track = i;
+     tocentry.cdte_format = CDROM_MSF;
+     
+     if(ioctl(cd_drv, CDROMREADTOCENTRY, &tocentry) != 0) {
+-#else
+-    tocentry.starting_track = i;
+-    tocentry.address_format = CD_MSF_FORMAT;
+-
+-    if(ioctl(cd_drv, CDIOREADTOCENTRYS, &tocentry) == -1) {
+-#endif /* !HAVE_LINUX_CDROM_H */
+       if(closeing_needed) close_cdrom();
+       return -1;
+     }
+@@ -244,11 +220,8 @@
+ {
+   int tmp;
+ 
+-#ifdef HAVE_LINUX_CDROM_H
+-  tmp = ioctl_cdrom(CDROMRESET);
+-#else
+-  tmp = ioctl_cdrom(CDIOCRESET);
+-#endif /* !HAVE_LINUX_CDROM_H */
++  /* tmp = ioctl_cdrom(CDROMRESET);*/
++  tmp = 0;
+   return tmp;
+ }
+ 
+@@ -273,18 +246,10 @@
+     if(open_cdrom() < 0) {
+       return -1;
+     }
+-#ifdef HAVE_LINUX_CDROM_H
+     tmp = ioctl(cd_drv, CDROMPLAYTRKIND, &ti);
+-#else
+-    tmp = ioctl(cd_drv, CDIOCPLAYTRACKS, &ti);
+-#endif /* !HAVE_LINUX_CDROM_H */
+     close_cdrom();
+   } else {
+-#ifdef HAVE_LINUX_CDROM_H
+     tmp = ioctl(cd_drv, CDROMPLAYTRKIND, &ti);
+-#else
+-    tmp = ioctl(cd_drv, CDIOCPLAYTRACKS, &ti);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   }
+   if(tmp != 0) return -1;
+   return 0;
+@@ -294,11 +259,7 @@
+ int stop_cd ()
+ {
+   int tmp;
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl_cdrom(CDROMSTOP);
+-#else
+-  tmp = ioctl_cdrom(CDIOCSTOP);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) return -1;
+   return 0;
+ }
+@@ -308,11 +269,7 @@
+ {
+   int tmp;
+ 
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl_cdrom(CDROMPAUSE);
+-#else
+-  tmp = ioctl_cdrom(CDIOCPAUSE);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) return -1;
+   return 0;
+ }
+@@ -322,11 +279,7 @@
+ {
+   int tmp;
+ 
+-#ifdef HAVE_LINUX_CDROM_H
+   tmp = ioctl_cdrom(CDROMRESUME);
+-#else
+-  tmp = ioctl_cdrom(CDIOCRESUME);
+-#endif /* !HAVE_LINUX_CDROM_H */
+   if(tmp != 0) return -1;
+   return 0;
+ }
