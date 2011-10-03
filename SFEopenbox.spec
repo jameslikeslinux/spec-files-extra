@@ -11,13 +11,15 @@ Name:                    SFEopenbox
 Summary:                 A free window manager for the X Window System
 License:                 GPLv2
 SUNW_Copyright:          openbox.copyright
-Version:                 3.4.11.2
+Version:                 3.5.0
 Source:                  http://icculus.org/openbox/releases/openbox-%{version}.tar.gz
 URL:                     http://icculus.org/openbox/index.php/Main_Page
 
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+BuildRequires:		 SFEimlib2
 
 %if %build_l10n
 %package l10n
@@ -44,7 +46,7 @@ fi
 export LDFLAGS="-lsocket"
 
 autoconf
-./configure --prefix=%{_prefix} --libdir=%{_libdir} --sysconfdir=%{_sysconfdir}
+./configure --prefix=%{_prefix} --libdir=%{_libdir} --libexecdir=%{_libexecdir} --sysconfdir=%{_sysconfdir}
 make -j$CPUS 
 
 %install
@@ -68,8 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*so*
-%dir %attr (0755, root, bin) %{_libdir}/openbox
-%{_libdir}/openbox/*
+%{_libdir}/openbox*autostart
+#%dir %attr (0755, root, bin) %{_libdir}/openbox
+#%{_libdir}/openbox/*
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 %dir %attr (0755, root, bin) %{_includedir}
@@ -103,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Oct 2 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 3.5.0
 * Sun Jul 24 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Jun 10 2010 - pradhap (at) gmail.com
