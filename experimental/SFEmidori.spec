@@ -20,7 +20,7 @@
 %define srcname midori
 
 Name:           SFEmidori
-Version:        0.3.6
+Version:        0.4.0
 Release:        1
 License:        LGPLv2.1
 SUNW_copyright: midori.copyright
@@ -28,11 +28,10 @@ Summary:        Lightweight Webkit-based Web Browser
 Url:            http://twotoasts.de/index.php?/pages/midori_summary.html
 Meta(info.upstream): Christian Dywan <christian@twotoasts.de>
 Group:          Applications/Internet
-Source:         http://archive.xfce.org/src/apps/%srcname/0.3/%srcname-%version.tar.bz2
-
-# Requires at least WebKitGTK+ and Vala for Midori 0.4.x
+Source:         http://archive.xfce.org/src/apps/%srcname/0.4/%srcname-%version.tar.bz2
 
 Requires: 		SFEwebkitgtk
+Requires:               developer/vala
 
 BuildRoot:      %{_tmppath}/%{srcname}-%{version}-build
 
@@ -79,7 +78,6 @@ export PYTHON=/usr/bin/python
     --mandir=%{_mandir} \
     --docdir=%{_docdir}/%{srcname} \
     --enable-addons \
-    --disable-vala
 
 ./waf build -v --nocache %{?_smp_mflags}
  
@@ -128,7 +126,6 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %dir %attr (0755, root, sys) %_sysconfdir
 %dir %attr (0755, root, sys) %_sysconfdir/xdg
 %config(noreplace) %{_sysconfdir}/xdg/midori
-#%config(noreplace) %{_sysconfdir}/xdg/midori/search
 %{_datadir}/%{srcname}/
 %{_datadir}/doc/midori/*
 %{_datadir}/applications/%{srcname}.desktop
@@ -140,6 +137,11 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/icons/hicolor/*/categories/extension.*
 %{_datadir}/icons/hicolor/scalable/apps/midori.*
 %{_datadir}/icons/hicolor/*/apps/midori.png
+%{_includedir}/midori-0.4
+%dir %{_datadir}/gir-1.0
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
+%{_datadir}/vala/vapi/history-list.*
 
 %if %build_l10n
 %files l10n
@@ -149,6 +151,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif 
  
 %changelog
+* Sun Oct 1 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.4.0
 * Sun Oct  1 2011 - Alex Viskovatoff
 - Fix packaging; add SUNW_copyright
 - Midori runs but is broken, displaying wierd characters instead of "://"
