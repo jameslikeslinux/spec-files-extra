@@ -1,3 +1,10 @@
+2011-10-05 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce4-netload-plugin.spec: Bump to 1.0.0
+	* SFExfce4-screenshooter.spec: Initial spec (1.7.9)
+	* SFExfce4-ristretto.spec: Initial spec (0.0.93)
+	* SFExfce4-weather-plugin.spec: Bump to 0.7.4
+
 2011-10-04 Ken Mays <kmays2000@gmail.com>
 
 	* SFEgnumeric-gpp.spec: Revised to 1.10.7
