@@ -1,3 +1,10 @@
+2011-10-05  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEemacs.spec: info files should go in /usr/gnu
+	* SFExfwm4.spec: bump to 4.8.2
+	* SFEmidori.spec: fix file attributes
+	* SFEtmux.spec: SFElibevent2 is in /usr/gnu; update to 1.5
+
 2011-10-05 Ken Mays <kmays2000@gmail.com>
 
 	* SFExfce4-netload-plugin.spec: Bump to 1.0.0

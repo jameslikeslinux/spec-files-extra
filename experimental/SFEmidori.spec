@@ -129,6 +129,12 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/%{srcname}/
 %{_datadir}/doc/midori/*
 %{_datadir}/applications/%{srcname}.desktop
+%dir %attr (0755, root, bin) %_includedir
+%{_includedir}/midori-0.4
+%dir %{_datadir}/gir-1.0
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
+%{_datadir}/vala/vapi/history-list.*
 %defattr(0755, root, other)
 %dir %attr (0755, root, sys) %_prefix
 %dir %attr (0755, root, bin) %_libdir
@@ -137,11 +143,6 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/icons/hicolor/*/categories/extension.*
 %{_datadir}/icons/hicolor/scalable/apps/midori.*
 %{_datadir}/icons/hicolor/*/apps/midori.png
-%{_includedir}/midori-0.4
-%dir %{_datadir}/gir-1.0
-%dir %{_datadir}/vala
-%dir %{_datadir}/vala/vapi
-%{_datadir}/vala/vapi/history-list.*
 
 %if %build_l10n
 %files l10n
@@ -151,7 +152,9 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif 
  
 %changelog
-* Sun Oct 1 2011 - Ken Mays <kmays2000@gmail.com>
+* Mon Oct  3 2011 - Alex Viskovatoff
+- Fix file attributes
+* Sun Oct  2 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.4.0
 * Sun Oct  1 2011 - Alex Viskovatoff
 - Fix packaging; add SUNW_copyright

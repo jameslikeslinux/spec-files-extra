@@ -12,7 +12,7 @@
 
 Name:           SFE%srcname
 Summary:        Terminal multiplexer
-Version:        1.4
+Version:        1.5
 License:        ISC ; BSD3c ; BSD 2-Clause
 Url:            http://tmux.sourceforge.net/
 Source:         %{sf_download}/tmux/%{srcname}-%{version}.tar.gz
@@ -53,8 +53,11 @@ to (display and accept keyboard input from) multiple clients.
 
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
-export CFLAGS="%optflags -I/usr/include/event2"
-export LDFLAGS="%_ldflags"
+
+export CFLAGS="%optflags -I/usr/gnu/include"
+# Need to supply -lcurses, because otherwise, it tries to link against ncurses,
+# leading to "Undefined Symbol: delterm" error
+export LDFLAGS="%_ldflags -lcurses -L/usr/gnu/lib -R/usr/gnu/lib"
 ./configure
 make -j$CPUS
 
@@ -81,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct  2 2011 - Alex Viskovatoff
+- Adapt to SFElibevent2 being moved to /usr/gnu; update to 1.5
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * Sun Apr 10 2011 - Alex Viskovatoff

@@ -7,6 +7,7 @@
 
 # Avoid conflict with editor/gnu-emacs
 %include usr-gnu.inc
+%define _infodir %_datadir/info
 
 %include packagenamemacros.inc
 
@@ -105,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, root)
+%dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
@@ -148,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Sun Oct  2 2011 - Alex Viskovatoff
+- Work around usr-gnu.inc not placing info dir in /usr/gnu
 * Mon Sep 12 2011 - Alex Viskovatoff
 - bump to version 23.3a
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
