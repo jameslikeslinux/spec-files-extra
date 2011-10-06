@@ -1,6 +1,7 @@
 2011-10-06 Ken Mays <kmays2000@gmail.com>
 
 	* SFExen.spec: Initial spec (experimental, xen 4.1.1)
+	* SFExfce4-cpugraph-plugin.spec (experimental, 1.0.1)
 
 2011-10-06 Milan Jurik <sfnet@xylab.cz>
 
