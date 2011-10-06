@@ -8,6 +8,9 @@
 	* SFEtun.spec: add IPS package name
 	* SFEopenconnect.spec: bump to 3.13, add IPS package name
 	* SFEliveMedia.spec: clean up, add IPS package name
+	* SFElibiconv.spec: bump to 1.14, add IPS package name
+	* SFElibcddb.spec: clean up, add IPS package name
+	* SFElibcdio.spec: clean up, add IPS package name
 
 2011-10-06 Brian Cameron  <brian.cameron@oracle.com>
 

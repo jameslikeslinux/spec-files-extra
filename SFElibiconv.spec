@@ -12,37 +12,35 @@
 %define workaround_gnu_share_doc_group %( /usr/bin/ls -dl /usr/gnu/share/doc | grep " root.*bin " > /dev/null 2>&1 && echo bin || echo other )
 
 
-Name:                SFElibiconv
-Summary:             GNU iconv - Code set conversion
-License:             LGPLv2
-SUNW_Copyright:	     libiconv.copyright
-URL:                 http://www.gnu.org/s/libiconv/
-Version:             1.13.1
-Source:              http://ftp.gnu.org/pub/gnu/libiconv/libiconv-%{version}.tar.gz
-Patch2:              libiconv-02-646.diff
-Patch3:              libiconv-03-intmax.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibiconv
+IPS_Package_Name:	library/libiconv 
+Summary:	GNU iconv - Code set conversion
+Group:		System/Libraries
+License:	LGPLv2
+SUNW_Copyright:	libiconv.copyright
+URL:		http://www.gnu.org/s/libiconv/
+Version:	1.14
+Source:		http://ftp.gnu.org/pub/gnu/libiconv/libiconv-%{version}.tar.gz
+Patch2:		libiconv-02-646.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires: %name
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
+Requires:	%name
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires:                %{name}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
 %endif
 
 %prep
 %setup -q -n libiconv-%version
 %patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -112,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- bump to 1.14, add IPS package name
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Wed Feb 23 2011 - Milan Jurik
