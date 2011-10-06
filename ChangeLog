@@ -1,3 +1,7 @@
+2011-10-06 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnumeric.spec: Bump to 1.10.17.
+
 2011-10-05  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEemacs.spec: info files should go in /usr/gnu
