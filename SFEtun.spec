@@ -12,6 +12,7 @@
 %define drv_base %{usr_kernel}/drv
 
 Name:		SFEtun
+IPS_Package_Name:	system/network/tuntap
 Summary:	Virtual Point-to-Point network device
 URL:		http://www.whiteboard.ne.jp/~admin2/tuntap/
 License:        GPLv2
@@ -103,6 +104,8 @@ driver name=tap
 %endif
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- add IPS package name
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add SUNW_Copyright
 * Wed May 12 2010 - Milan Jurik

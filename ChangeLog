@@ -1,3 +1,8 @@
+2011-10-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEtun.spec: add IPS package name
+	* SFEopenconnect.spec: bump to 3.13, add IPS package name
+
 2011-10-06 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEgnumeric.spec: Bump to 1.10.17.
