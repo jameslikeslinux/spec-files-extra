@@ -6,11 +6,11 @@
 %include Solaris.inc
 
 %define src_name ristretto
-%define src_url http://archive.xfce.org/src/apps/ristretto/0.0/
+%define src_url http://archive.xfce.org/src/apps/ristretto/0.1/
 
-Name:           SFExfce-ristretto
+Name:           SFExfce4-ristretto
 Summary:        Image Viewer
-Version:        0.0.93
+Version:        0.1.0
 URL:            http://www.xfce.org/
 Source:         %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:   %{_basedir}
@@ -21,20 +21,12 @@ BuildRequires:  SUNWlibexif
 BuildRequires:  SFElibxfce4ui
 BuildRequires:  SFEthunar
 BuildRequires:  SFExfce4-dev-tools 
-Patch1: 	ristretto-01-window.diff
-Patch2:		ristretto-02-string.diff
-Patch3: 	ristretto-03-main.diff
-Patch4:		ristretto-04-makefile.diff
  
 %description
 Ristretto is a simple image viewer for Xfce
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -70,5 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale
 
 %changelog
+* Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.1.0
 * Tue Oct 5 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial spec (0.0.93) 

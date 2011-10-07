@@ -1,5 +1,6 @@
 2011-10-07 Ken Mays <kmays2000@gmail.com>
 
+	* SFExfce4-ristretto.spec: Bump to 0.1.0
 	* SFEthunar-archive-plugin.spec:  Bump to 0.3.0
 	* SFExfce4-notes-plugin.spec: Bump to 1.6.4
 	* SFExfce4-battery-plugin.spec:  Initial spec (1.0.0)  
