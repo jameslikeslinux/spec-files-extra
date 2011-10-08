@@ -1,0 +1,11 @@
+--- xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.c	2011-01-23 01:04:33.000000000 +0000
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.c	2011-10-08 22:53:25.776584885 +0100
+@@ -136,7 +136,7 @@ cpufreq_restart_timeout (void)
+ 	g_source_remove (cpuFreq->timeoutHandle);
+ 	cpuFreq->timeoutHandle = g_timeout_add_seconds (
+ 			cpuFreq->options->timeout,
+-			(GSourceFunc)cpufreq_update_cpus,
++			NULL,
+ 			NULL);
+ }
+ 
