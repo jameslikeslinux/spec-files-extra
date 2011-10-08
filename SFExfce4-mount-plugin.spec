@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Inital spec for mount-plugin for XFCE by Ken Mays
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
@@ -10,7 +10,7 @@
 Name:			SFExfce4-mount-plugin
 Summary:		Mount/Unmount utility applet for Xfce
 Version:		0.5.5
-URL:			http://www.xfce.org/
+URL:			http://goodies.xfce.org/projects/panel-plugins/xfce4-mount-plugin
 Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-mount-plugin/0.5/xfce4-mount-plugin-%{version}.tar.bz2
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
@@ -30,7 +30,7 @@ Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
 
 %prep
-%setup -q -n xfce4-weather-plugin-%{version}
+%setup -q -n xfce4-mount-plugin-%{version}
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,7 +38,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -I/usr/include/sys"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -47,7 +47,6 @@ export LDFLAGS="%_ldflags"
             --mandir=%{_mandir} \
             --sysconfdir=%{_sysconfdir} \
 	    --with-locales-dir=%{_datadir}/locale \
-            --enable-gtk-doc \
             --disable-static
 
 make -j $CPUS
@@ -73,14 +72,9 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 
 %files
 %defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/xfce4
-%dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/xfce4
-%defattr(-,root,other)
-%{_datadir}/locale
-%{_datadir}/icons
+%{_libdir}
+%{_datadir}
 
 %changelog
 * Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Initial version
+- Initial version (0.5.5)
