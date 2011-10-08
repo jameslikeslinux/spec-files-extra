@@ -1,3 +1,11 @@
+2011-10-08 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce4-clipman-plugin.spec: Initial spec (1.1.3)
+	* SFExfce4-eyes-plugin.spec: Initial spec (2.3.0)
+	* SFExfce4-diskperf-plugin.spec: Initial spec (4.4.1)
+	* SFExfce4-systemload-plugin.spec: Initial spec (0.4.2)
+	* SFEthunar-vcs-plugin.spec: Initial spec (0.1.4)
+
 2011-10-07 Ken Mays <kmays2000@gmail.com>
 
 	* SFExfce4-ristretto.spec: Bump to 0.1.0
