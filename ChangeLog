@@ -5,6 +5,13 @@
 	* SFExfce4-diskperf-plugin.spec: Initial spec (4.4.1)
 	* SFExfce4-systemload-plugin.spec: Initial spec (0.4.2)
 	* SFEthunar-vcs-plugin.spec: Initial spec (0.1.4)
+	* SFExfce4-qcklaunch-plugin.spec: Initial spec (1.9.4)   
+	* SFExfce4-timer-plugin.spec: Initial spec (0.6.2)
+	* SFExfce4-smartbmark-plugin.spec: Initial spec (0.4.2)  
+	* SFExfce4-xfswitch-plugin.spec: Initial spec (0.0.1)
+	* SFExfce4-time-out-plugin.spec: Initial spec (1.0.0)    
+	* SFExfce4-xmms-plugin.spec: Initial spec (0.5.3)
+	* SFEthunar.spec: Bump to 1.2.3 (stable)
 
 2011-10-07 Ken Mays <kmays2000@gmail.com>
 
