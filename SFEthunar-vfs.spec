@@ -13,6 +13,7 @@ Summary:	Thunar VFS
 Version:	1.2.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+Patch1:		thunar-vfs-plugin-01-freespace.diff
 Group:		User Interface/Desktops
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -46,7 +47,7 @@ Requires:	%{name}
 
 %prep
 %setup -q -n %{src_name}-%{version}
-
+%patch1 -p1
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -106,5 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Oct 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Added patch for disk avail space calculation bug
 * Sat Mar 26 2011 - Milan Jurik
 - Initial version

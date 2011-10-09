@@ -14,6 +14,7 @@
         * SFExfce4-timer-plugin.spec: Initial spec (0.6.2)
         * SFExfce4-xfswitch-plugin.spec: Initial spec (0.0.1)
         * SFExfce4-xmms-plugin.spec: Initial spec (0.5.3)
+	* SFEthunar-vfs.spec: Added patch to resolve Xfce Bug #5561
 
 2011-10-07 Ken Mays <kmays2000@gmail.com>
 

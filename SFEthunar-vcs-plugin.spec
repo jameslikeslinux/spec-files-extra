@@ -11,7 +11,6 @@ Summary:		Thunar Version Control System (SVN/GIT) plugin for Xfce
 Version:		0.1.4
 URL:			http://goodies.xfce.org/projects/thunar-plugins/thunar-vcs-plugin
 Source0:		http://archive.xfce.org/src/thunar-plugins/thunar-vcs-plugin/0.1/thunar-vcs-plugin-%{version}.tar.bz2
-Patch1:			thunar-vcs-plugin-01-freespace.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/thunar-vcs-plugin-%{version}
@@ -35,7 +34,6 @@ Requires:		SUNWgit
 
 %prep
 %setup -q -n thunar-vcs-plugin-%{version}
-%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
