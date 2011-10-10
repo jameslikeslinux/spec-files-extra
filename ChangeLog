@@ -15,6 +15,7 @@
 	* encumbered/SFEtwolame.spec: bump to 0.3.13, add IPS package name
 	* SFEladspa.spec: add IPS package name
 	* SFElibdvdread.spec: add IPS package name
+	* SFElibdvdnav.spec: add IPS package name
 
 2011-10-08 Ken Mays <kmays2000@gmail.com>
 
