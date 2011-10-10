@@ -11,6 +11,7 @@
 	* encumbered/SFElibdvdcss.spec: add IPS package name
 	* encumbered/SFElibmad.spec: add IPS package name
 	* encumbered/SFEliba52.spec: add IPS package name
+	* encumbered/SFElibmpcdec.spec: add IPS package name
 
 2011-10-08 Ken Mays <kmays2000@gmail.com>
 
