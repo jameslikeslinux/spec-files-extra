@@ -7,6 +7,7 @@
 %include osdistro.inc
 
 Name:                SFEnasm
+IPS_Package_Name:	developer/nasm 
 Summary:             Portable, modular 80x86 assembler
 License:             BSD
 SUNW_Copyright:      nasm.copyright
@@ -100,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/nasm/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.10rc8
 * Sun Jul 24 2011 - Alex Viskovatoff
