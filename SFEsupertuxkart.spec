@@ -58,14 +58,21 @@ race courses (Standard race track, Dessert, Mathclass, etc). Full information
 on how to add your own race courses is included. During the race you can pick
 up powerups such as: (homing) missiles, magnets and portable zippers.
 
-#%package data
-#Summary:	%{summary}
-#Group:		Applications/Games
-#Requires:	%{name} = %{version}
-#BuildArch:	noarch
-#
-#%description data
-#This package contains the data files for SuperTuxKart, as well as the add-on pack.
+%package data
+Summary:	%{summary} - data files
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
+
+%description data
+This package contains the data files for SuperTuxKart, as well as the add-on pack.
+
+%if %build_l10n
+%package l10n
+Summary:        %{summary} - l10n files
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
+Requires: %name
+%endif
 
 %prep
 %setup -q -n %{src_name}-%{src_version}
@@ -94,7 +101,6 @@ export ac_cv_member_struct_msghdr_msg_flags=no
 ./configure --prefix=%{_prefix} --mandir=%{_mandir}
 make
 
-
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -104,16 +110,17 @@ mv $RPM_BUILD_ROOT%{_prefix}/games/%{src_name} $RPM_BUILD_ROOT%{_bindir}
 mv $RPM_BUILD_ROOT%{_datadir}/games/%{src_name}/data/po $RPM_BUILD_ROOT%{_datadir}/locale
 rmdir $RPM_BUILD_ROOT%{_prefix}/games
 
-# TODO something goes wrong here
-#rm $RPM_BUILD_ROOT%{_datadir}/locale/*.po
-#rm $RPM_BUILD_ROOT%{_datadir}/locale/%{src_name}.pot
-#ln -s ../../locale $RPM_BUILD_ROOT%{_datadir}/games/%{src_name}/data/po
-#%find_lang %{src_name}
+%if %build_l10n
+# usr/share/locale/fr_CA should be in fr
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fr_CA
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
 
 %files
 %defattr(-,root,bin)
@@ -127,12 +134,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_datadir}/doc
 %{_datadir}/doc/*
 
-#%files data
-#%defattr(-,root,bin)
-#%dir %attr (0755, root, sys) %{_prefix}
-#%dir %attr (0755, root, sys) %{_datadir}
+%files data
+%defattr(-,root,bin)
+%dir %attr (0755, root, sys) %{_prefix}
+%dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/games/%{src_name}
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
 %attr (-, root, other) %{_datadir}/locale
+%endif
 
 %changelog
 Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
