@@ -17,6 +17,7 @@
 	* SFElibdvdread.spec: add IPS package name
 	* SFElibdvdnav.spec: add IPS package name
 	* encumbered/SFElibgsm.spec: add IPS package name
+	* encumbered/SFEopencore-amr.spec: add IPS package name
 
 2011-10-08 Ken Mays <kmays2000@gmail.com>
 
