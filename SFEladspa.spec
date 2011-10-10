@@ -9,6 +9,7 @@
 %define src_url		http://www.ladspa.org/download
 
 Name:                   SFEladspa
+IPS_Package_Name:	library/audio/ladspa 
 Summary:                Linux Audio Developers Simple Plugin API
 Version:                1.13
 License:                LGPLv2.1+
@@ -71,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Aug 09 2009 - Thomas Wagner
