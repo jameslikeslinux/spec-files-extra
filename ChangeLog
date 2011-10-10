@@ -7,6 +7,7 @@
 	* base-specs/libmpc.spec: bump to 0.9
 	* SFEgcc.spec: add IPS package name
 	* SFElibfribidi.spec: add IPS package name
+	* encumbered/SFElame.spec: add IPS package name, remove GCC dependency
 
 2011-10-08 Ken Mays <kmays2000@gmail.com>
 
