@@ -19,6 +19,7 @@
 %use libgsm = libgsm.spec
 
 Name:		SFElibgsm
+IPS_Package_Name:	library/audio/libgsm
 Summary:	%{libgsm.summary}
 Version:	%{libgsm.version}
 License:	%{libgsm.license}
@@ -110,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sun Nov 28 2010 - Milan Jurik
