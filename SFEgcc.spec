@@ -97,25 +97,25 @@
 %define _gnu_bindir %{_basedir}/gnu/bin
 %define _gnu_libdir %{_basedir}/gnu/lib
 
-Name:                SFEgccruntime
-Summary:             GNU gcc runtime libraries required by applications
-Version:             4.6.1
-License:             GPLv3+
-SUNW_Copyright:      gcc.copyright
-Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
-Patch1:              gcc-01-libtool-rpath.diff
+Name:		SFEgccruntime
+IPS_Package_Name:	system/library/gcc-runtime
+Summary:	GNU gcc runtime libraries required by applications
+Version:	4.6.1
+License:	GPLv3+
+SUNW_Copyright:	gcc.copyright
+Source:		ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
+Patch1:		gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
-Patch2:              gcc-02-handle_pragma_pack_push_pop.diff
+Patch2:		gcc-02-handle_pragma_pack_push_pop.diff
 %else
 %endif
-Patch3:              gcc-03-gnulib.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Patch3:		gcc-03-gnulib.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFElibiconv-devel
-Requires:      SFElibiconv
-BuildRequires: SUNWbash
+BuildRequires:	SFElibiconv-devel
+Requires:	SFElibiconv
 
 %if %SFEgmp
 BuildRequires: SFEgmp-devel
@@ -158,9 +158,10 @@ Requires: SUNWbinutils
 Requires: SUNWpostrun
 
 %package -n SFEgcc
-Summary:                 GNU gcc
-Version:                 %{version}
-SUNW_BaseDir:            %{_basedir}
+IPS_Package_Name:	developer/gcc
+Summary:	GNU gcc
+Version:	%{version}
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 
