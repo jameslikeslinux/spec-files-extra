@@ -24,15 +24,17 @@
 %define SFEgmp 1
 
 
-Name:                SFEmpfr
-Summary:             C library for multiple-precision floating-point computations
-License:             GPLv3
-SUNW_Copyright:	     mpfr.copyright
-URL:                 http://www.mpfr.org/
-Version:             2.4.2
-Source:              http://ftp.gnu.org/gnu/mpfr/mpfr-%{version}.tar.bz2
-SUNW_BaseDir:        %{_basedir}/%{_subdir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEmpfr
+IPS_Package_Name:	sfe/library/mpfr
+Summary:	C library for multiple-precision floating-point computations
+Group:		Development/Libraries
+License:	GPLv3
+SUNW_Copyright:	mpfr.copyright
+URL:		http://www.mpfr.org/
+Version:	3.1.0
+Source:		http://ftp.gnu.org/gnu/mpfr/mpfr-%{version}.tar.bz2
+SUNW_BaseDir:	%{_basedir}/%{_subdir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %if %SFEgmp
@@ -50,10 +52,10 @@ Requires: SUNWgnu-mp
 Requires: SUNWpostrun
 
 %package devel
-Summary:                 %{summary} - developer files
-SUNW_BaseDir:            %{_basedir}/%{_subdir}
+Summary:	%{summary} - developer files
+SUNW_BaseDir:	%{_basedir}/%{_subdir}
 %include default-depend.inc
-Requires: %name
+Requires:	%name
 
 %prep
 %setup -q -c -n %name-%version
@@ -186,6 +188,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- bump to 3.1.0, add IPS package name with sfe prefix to avoid collision
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Tue Jun 15 2010 - Thomas Wagner
