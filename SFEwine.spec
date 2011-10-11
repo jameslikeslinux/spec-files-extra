@@ -28,14 +28,14 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
+IPS_package_name:       desktop/wine
+Group:                  Desktop (GNOME)/Sessions
 Version:                1.3.30
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
 # See: http://lists.freedesktop.org/archives/tango-artists/2009-July/001973.html
 # Also: http://www.airwebreathe.org.uk/wine-icon/
-#
-Source1:                http://winetricks.org/winetricks
 #
 # See http://wiki.winehq.org/Gecko for which version to use.
 #
@@ -280,6 +280,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Mon Oct 11 2011 - Alex Viskovatoff
+- Add IPS_package_name
 * Mon Oct 11 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.30
 * Mon Oct 3 2011 - Ken Mays <kmays2000@gmail.com>
