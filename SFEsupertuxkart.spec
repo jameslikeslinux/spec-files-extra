@@ -4,7 +4,7 @@
 %include Solaris.inc
 
 %define src_name supertuxkart
-%define src_version 0.7.1.b
+%define src_version 0.7.2
 
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define SFEplib_gpp %(/usr/bin/pkginfo -q SFEplib-gpp && echo 1 || echo 0)
@@ -12,14 +12,13 @@
 
 
 Name:           SFEsupertuxkart
-Version:        0.7.1.0.1
+Version:        0.7.2
 Summary:        Kids 3D go-kart racing game featuring Tux
 Group:          Amusements/Games
 License:        GPLv2+ and GPLv3 and CC-BY-SA
 URL:            http://supertuxkart.sourceforge.net/
 Source0:        %{sf_download}/%{src_name}/%{src_name}-%{src_version}-src.tar.bz2
 Source2:	%{sf_download}/%{src_name}/STK_0.7_Karts_AddonsPack.7z
-Patch1:		supertuxkart-01-sunstudio.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %if %SFEplib_gpp
@@ -76,7 +75,6 @@ Requires: %name
 
 %prep
 %setup -q -n %{src_name}-%{src_version}
-%patch1 -p1
 # some cleanups
 chmod -x AUTHORS COPYING ChangeLog README TODO
 chmod -x `find -name "*.cpp" -o -name "*.hpp"`
@@ -148,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+Tue Oct 11 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.7.2
+- Removed legacy Sun Studio patch
 Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 0.7.1.b
 - New addon STK_0.7_Karts_AddonsPack.7z

@@ -19,7 +19,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.3.29
+# 	%define version 1.3.30
 # %endif
 
 #%if %{!?version:1}
@@ -28,7 +28,7 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                1.3.29
+Version:                1.3.30
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -98,7 +98,7 @@ Requires:       system/header/header-audio
 
 #
 # VLC library (OpenIndiana SFE-IPS)
-# SFEvlc-1.1.11
+# SFEvlc >=1.1.11
 Requires:     media/vlc
 #
 
@@ -280,6 +280,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Mon Oct 11 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.30
 * Mon Oct 3 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.29
 * Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
