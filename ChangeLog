@@ -1,3 +1,9 @@
+2011-10-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenjpeg.spec: bump to 1.4, add IPS package name
+	* SFEautomake-111.spec: initial spec
+	* SFEcmake.spec: bump to 2.8.6, add IPS package name
+
 2011-10-10 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEmpfr.spec: bump to 3.1.0, add IPS package name

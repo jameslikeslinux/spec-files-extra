@@ -14,8 +14,9 @@
 %include usr-gnu.inc
 
 Name:		SFEcmake
+IPS_Package_Name:	sfe/developer/build/cmake 
 Summary:	Cross platform make system
-Version:	2.8.5
+Version:	2.8.6
 License:	BSD3c
 SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
@@ -25,9 +26,6 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-BuildRequires:          SUNWgsed
-Requires:               SUNWlibC
-Requires:               SUNWlibmsr
 
 %prep
 %setup -q -n cmake-%{version}
@@ -63,12 +61,15 @@ rm -rf %{buildroot}
 %defattr (-, root, bin)
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/aclocal
 %{_datadir}/cmake-*
 %{_mandir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/cmake
 
 %changelog
+* Tue Oct 11 2011 - Milan Jurik
+- bump to 2.8.6, add IPS package name
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.8.5
 * Sat Mar  5 2011 - Alex Viskovatoff
