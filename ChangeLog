@@ -9,6 +9,8 @@
 	* SFEautomake-111.spec: initial spec
 	* SFEcmake.spec: bump to 2.8.6, add IPS package name
 	* SFEopenal.spec: bump to 1.13, add IPS package name
+	* base-specs/xvid.spec: bump to 1.3.2
+	* encumbered/SFExvid.spec: add IPS package name
 
 2011-10-10 Milan Jurik <sfnet@xylab.cz>
 

@@ -25,6 +25,7 @@
 %use xvid = xvid.spec
 
 Name:		SFExvid
+IPS_Package_Name:	library/video/xvid 
 Summary:	%{xvid.summary}
 Version:	%{xvid.version}
 License:	GPLv2+
@@ -97,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Tue Oct 11 2011 - Mila Jurik
+- add IPS package name
 * Sun Jul 10 2011 - Alex Viskovatoff
 - build with SFEgcc by default
 * Wed Mar 03 2010 - Milan Jurik
