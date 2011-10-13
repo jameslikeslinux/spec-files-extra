@@ -328,15 +328,17 @@ export CXX=g++
 export CONFIG_SHELL=/usr/bin/ksh
 export CPP="cc -E -Xs"
 export CFLAGS="-O"
-# for stage2 and stage3 GCC
-#export BOOT_CFLAGS="%gcc_optflags -Os -Xlinker -i %gcc_picflags"
 
 #we don't want %gnu_lib_path in resulting runtime, so try it in BOOT*
 export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags %gnu_lib_path"
+#cc1 can't find lingmp.so and friends
+export BOOT_LDLAGS="%_ldflags -R%{_prefix}/%major_minor/lib %gnu_lib_path"
 
 # for target libraries (built with bootstrapped GCC)
 export CFLAGS_FOR_TARGET="-O2 -Xlinker -i %gcc_picflags"
 export LDFLAGS="%_ldflags"
+#cc1 can't find lingmp.so and friends
+export LD_FLAGS_FOR_TARGET="%_ldflags"
 export LD_OPTIONS="%ld_options"
 
 # For pod2man
@@ -513,7 +515,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 
-#SFEgcc-Â%{majorminornumber}, other packages see below
+#SFEgcc-%{majorminornumber}, other packages see below
 
 %files -n SFEgcc-%{majorminornumber}
 %defattr (-, root, bin)
@@ -590,6 +592,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thr Oct 13 2011 - Thomas Wagner
+- add to LDLAGS_FOR_TARGET %_ldflags or cc1 can't find libs in bootstrapping the compiler
 * Wed Oct 11 2011 - Thomas Wagner
 - add IPS_package_names
 - little cleaning up: remove development comments
