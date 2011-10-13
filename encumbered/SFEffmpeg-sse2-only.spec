@@ -76,6 +76,8 @@ BuildRequires: SFEopenjpeg-devel
 Requires: SFEopenjpeg
 BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
+BuildRequires: SFErtmpdump-devel
+Requires: SFErtmpdump
 BuildRequires: driver/graphics/nvidia
 #Requires: driver/graphics/nvidia
 
@@ -102,7 +104,6 @@ mkdir %name-%version/%base_arch
 rm -rf $RPM_BUILD_ROOT
 
 %ffmpeg.install -d %name-%version/%base_arch
-mkdir %buildroot%_docdir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -140,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Oct 12 2011 - Alex Viskovatoff
+- Add dependency on SFErtmpdump, since librtmp is now enabled
 * Tue Aug  9 2011 - Alex Viskovatoff
 - Require driver/graphics/nvidia; correct attributes of %_docdir
 * Mon Jul 18 2011 - Alex Viskovatoff

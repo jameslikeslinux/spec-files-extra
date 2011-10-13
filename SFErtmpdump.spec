@@ -12,6 +12,11 @@
 
 Name:                SFErtmpdump
 Summary:             RTMPdump -- a toolkit for RTMP streams
+IPS_package_name:    video/rtmpdump
+Group:               Applications/Sound and Video
+License:             GPLv2+, LGPLv2+
+SUNW_copyright:      rtmpdump.copyright
+URL:                 http://rtmpdump.mplayerhq.hu/
 Version:             2.3
 Source:              http://rtmpdump.mplayerhq.hu/download/rtmpdump-%{version}.tgz
 Patch1:              rtmpdump-01-lsocket.diff
@@ -60,6 +65,11 @@ rm -r ${RPM_BUILD_ROOT}%{_prefix}/sbin
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}
 mv ${RPM_BUILD_ROOT}%{_prefix}/man/* ${RPM_BUILD_ROOT}%{_mandir}
 rm -r ${RPM_BUILD_ROOT}%{_prefix}/man
+
+cd %buildroot%_libdir/pkgconfig
+sed 's/libssl,libcrypto/openssl/' librtmp.pc > librtmp.pc.new
+mv librtmp.pc.new librtmp.pc
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -71,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so*
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
-#%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/rtmpdump.1
@@ -87,5 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Oct 12 2011 - Alex Viskovatoff
+- Fix librtmp.pc; add SUNW_copyright and IPS_package_name
 * Dec 28 2010 - jchoi42@pha.jhu.edu
 - Initial spec

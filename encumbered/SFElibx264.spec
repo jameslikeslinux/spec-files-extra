@@ -47,6 +47,8 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires:		SUNWgnu-mpfr
+
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
@@ -158,6 +160,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Oct 12 2011 - Alex Viskovatoff
+- Add new build dependency on library/mpfr
 * Thu Jul 21 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Wed Nov 10 2010 - Alex Viskovatoff

@@ -5,7 +5,7 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.8.2
+Version:                 0.8.5
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
@@ -28,7 +28,7 @@ perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec gr
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 # for pod2man
 export PATH=/usr/perl5/bin:$PATH
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 # All this is necessary to free up enough registers on x86
 %ifarch i386
 export CFLAGS="%optflags -Os %{extra_gcc_flags} -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
@@ -70,6 +70,7 @@ bash ./configure	\
     --disable-mlib	\
     --enable-libschroedinger \
     --enable-libopenjpeg \
+    --enable-librtmp \
     --enable-vdpau	\
     --extra-ldflags=-mimpure-text \
     --enable-shared
@@ -109,6 +110,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Oct 12 2011 - Alex Viskovatoff
+- bump to 0.8.5; enable librtmp; do not hardcode path of gcc
 * Wed Aug 17 2011 - Thomas Wagner
 - %arch_sse2 change minimum-CPU i686 to prescott, add --enable-sse --enable-ssse2
 - for arch i86 by default --enable-runtime-cpudetect, add extra_gcc_flags -msse

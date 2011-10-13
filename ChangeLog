@@ -1,5 +1,10 @@
-2011-10-11  Alex Viskovatoff <herzen@imap.cc>
+2011-10-13  Alex Viskovatoff <herzen@imap.cc>
 
+	* SFEffmpeg-sse2-only.spec: add dependency on SFErtmpdump
+	* ffmpeg.spec: bump to 0.8.5; enable librtmp
+	* SFErtmpdump.spec: fix librtmp.pc; add IPS_package_name
+	* SFElibx264.spec: add new build dependency on library/mpfr
+	* libx264.spec: update to new tarball
 	* SFEgraphicsmagick.spec: add IPS_package_name
 	* SFEwine.spec: add IPS_package_name
 
