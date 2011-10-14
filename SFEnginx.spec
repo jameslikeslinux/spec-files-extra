@@ -252,6 +252,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 14 2011 - Thomas Wagner
+- fix syntax in http-nginx.xml SMF manifest , no functional SMF testing done
 * Thr Mar 17 2011 - Thomas Wagner
 - fix packaging ownergroup of directories to smf manifest 
 - fix directory and files permissions in %files root for /lib/..., method, manifest
