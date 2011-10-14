@@ -2,6 +2,7 @@
 
 	* SFEdrupal.spec: Bump to 7.8
 	* SFElighttpd.spec: Bump to 1.4.29
+	* SFEphp.spec: Bump to 5.3.8
 
 2011-10-13  Alex Viskovatoff <herzen@imap.cc>
 
