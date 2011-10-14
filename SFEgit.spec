@@ -25,9 +25,7 @@ Version:             1.7.7
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
-#Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
 Source:              http://git-core.googlecode.com/files/git-%{version}.tar.gz
-# http://git-core.googlecode.com/files/git-1.7.7.tar.gz
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
 Patch3:              git-03-xmlto.diff
