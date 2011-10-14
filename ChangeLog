@@ -1,5 +1,6 @@
 2011-10-14 Ken Mays <kmays2000@gmail.com>
 
+	* SFEdrupal.spec: Bump to 7.8
 	* SFElighttpd.spec: Bump to 1.4.29
 
 2011-10-13  Alex Viskovatoff <herzen@imap.cc>
