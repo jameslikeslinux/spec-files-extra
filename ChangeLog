@@ -5,6 +5,7 @@
 	* SFErtmpdump.spec: fix librtmp.pc; add IPS_package_name
 	* SFElibx264.spec: add new build dependency on library/mpfr
 	* libx264.spec: update to new tarball
+	* SFEgit.spec: bump to 1.7.7; add IPS_package_name
 	* SFEgraphicsmagick.spec: add IPS_package_name
 	* SFEwine.spec: add IPS_package_name
 

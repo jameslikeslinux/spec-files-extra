@@ -19,12 +19,15 @@
 %include packagenamemacros.inc
 
 Name:                SFEgit
+IPS_Package_Name:    developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.5.4
+Version:             1.7.7
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
-Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
+#Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
+Source:              http://git-core.googlecode.com/files/git-%{version}.tar.gz
+# http://git-core.googlecode.com/files/git-1.7.7.tar.gz
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
 Patch3:              git-03-xmlto.diff
@@ -142,6 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Wed Oct 13 2011 - Alex Viskovatoff
+- Bump to 1.7.7; add IPS_package_name
 * Sun Aug  7 2011 - Alex Viskovatoff
 - install in /usr/gnu, to avoid conflict with system package
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
