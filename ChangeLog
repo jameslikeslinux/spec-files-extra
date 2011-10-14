@@ -1,3 +1,7 @@
+2011-10-14 Ken Mays <kmays2000@gmail.com>
+
+	* SFElighttpd.spec: Bump to 1.4.29
+
 2011-10-13  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFEffmpeg-sse2-only.spec: add dependency on SFErtmpdump

@@ -1,24 +1,24 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Copyright (c) 2011 Oracle Corporation
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp g++
+%include base.inc
 
 Name:                SFElighttpd
-Summary:             A light httpd
-Version:             1.4.19
-Source:              http://www.lighttpd.net/download/lighttpd-%{version}.tar.gz
+Summary:             Lighttpd Web Server
+IPS_package_name:    web/server/lighttpd-14
+Version:             1.4.29
+Source:              http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.gz 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SUNWpcre-devel
+BuildRequires: SUNWpcre
 Requires: SUNWpcre
-Requires: SUNWopenssl-commands
-BuildRequires: SUNWopenssl-commands
-# The line above pretty much guarantees that the other SUNWopenssl*
-# will be installed as well
 
 %prep
 %setup -q -n lighttpd-%version
@@ -29,11 +29,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+export CC=gcc
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
 
 ./configure --prefix=%{_prefix}  \
-            --with-openssl="/usr/sfw" \
             --mandir=%{_mandir}
 
 make -j$CPUS
@@ -50,8 +50,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/spawn-fcgi
 %dir %attr (0755, root, bin) %{_sbindir}
 %{_sbindir}/lighttpd
 %{_sbindir}/lighttpd-angel
@@ -59,11 +57,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/mod*.so*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
-%dir %attr (0755, root, bin) %{_mandir}/man1
-%{_mandir}/man1/lighttpd.1  
-%{_mandir}/man1/spawn-fcgi.1
+%{_mandir}/man8/*.8
 
 %changelog
+* Fri Oct 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4.29
 * Wed May 14 2008 - Ananth Shrinivas <ananth@sun.com>
 - Lighty has moved light years ahead. Bump to 1.4.19 
 * Sun Mar 04 2007 - Eric Boutilier
