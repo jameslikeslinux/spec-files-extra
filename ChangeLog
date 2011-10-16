@@ -9,6 +9,7 @@
 	* encumbered/SFElibx264.spec: add IPS package name,
 	  keep SFEgpac as mandatory
 	* base-specs/libx264.spec: fix multicore build
+	* SFEgiflib.spec: add IPS package name
 
 2011-10-14 Ken Mays <kmays2000@gmail.com>
 
