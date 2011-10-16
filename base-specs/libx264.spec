@@ -9,32 +9,20 @@
 %define src_name         x264-snapshot
 %define src_url          http://download.videolan.org/pub/videolan/x264/snapshots
 
-Name:                    libx264
-Summary:                 H.264 encoder library
-Version:                 %snap
-Source:                  %src_url/%src_name-%snap-%snaph.tar.bz2
-URL:                     http://www.videolan.org/developers/x264.html
-Patch2:                 libx264-02-version.diff
-#Patch3:                 libx264-03-ld.diff
-#Patch4:                 libx264-04-ginstall.diff
-#Patch5:                 libx264-05-ssse3.diff
-Patch6:                  libx264-06-gpac.diff
-Patch7:                  libx264-07-soname.diff
-BuildRoot:               %_tmppath/%name-%version-build
+Name:		libx264
+Summary:	H.264 encoder library
+Version:	0.%snap
+Source:		%src_url/%src_name-%snap-%snaph.tar.bz2
+URL:		http://www.videolan.org/developers/x264.html
+Patch2:		libx264-02-version.diff
+Patch6:		libx264-06-gpac.diff
+Patch7:		libx264-07-soname.diff
+BuildRoot:	%_tmppath/%name-%version-build
 
 %prep
 %setup -q -n %src_name-%snap-%snaph
 
-
-#unused
-#%patch1 -p1
 %patch2 -p1
-#obsolete
-#%patch3 -p1
-#obsolete 
-#%patch4 -p1
-#review needed? 
-#%patch5 -p1
 %patch6 -p1
 %patch7 -p1
 
@@ -69,7 +57,7 @@ fi
     --extra-ldflags="$LDFLAGS"	\
     --enable-shared
 
-make
+make -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -79,6 +67,8 @@ rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- fix multicore build
 * Wed Oct 12 2011 - Alex Viskovatoff
 - update to new tarball
 * Thu Sep 01 2011 - Milan Jurik

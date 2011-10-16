@@ -21,12 +21,6 @@
 
 %include Solaris.inc
 
-# To enable the x264 executable to create mp4 files, GPAC is required: use
-#   pkgtool build --with-mp4 <spec>
-# But x264 can create Matroska files, and mp4 has no advantages over
-# Matroska whereas Matroska has features mp4 lacks.
-%define with_gpac %{?_with_mp4:1}%{?!_with_mp4:0}
-
 %define cc_is_gcc 1 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -37,6 +31,7 @@
 %use libx264 = libx264.spec
 
 Name:                    SFElibx264
+IPS_Package_Name:	library/video/x264 
 Summary:                 %{libx264.summary}
 Group:                   System/Multimedia Libraries
 License:                 GPLv2
@@ -53,10 +48,8 @@ BuildRequires:		SUNWgnu-mpfr
 BuildRequires: SFEyasm
 %endif
 
-%if %with_gpac
 BuildRequires: SFEgpac-devel
 Requires: SFEgpac
-%endif
 
 %description
 x264 is a free software library and application for encoding video streams into
@@ -160,6 +153,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name, keep SFEgpac as mandatory
 * Wed Oct 12 2011 - Alex Viskovatoff
 - Add new build dependency on library/mpfr
 * Thu Jul 21 2011 - Alex Viskovatoff

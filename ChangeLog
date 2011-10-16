@@ -6,6 +6,9 @@
 	* SFElibmp4v2.spec: add IPS package name
 	* base-specs/libmp4v2.spec: fix sun studio build
 	* encumbered/SFEfaad2.spec: add IPS package name, fix build 
+	* encumbered/SFElibx264.spec: add IPS package name,
+	  keep SFEgpac as mandatory
+	* base-specs/libx264.spec: fix multicore build
 
 2011-10-14 Ken Mays <kmays2000@gmail.com>
 
