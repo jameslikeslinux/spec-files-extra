@@ -13,6 +13,7 @@
 %use faad2 = faad2.spec
 
 Name:                    SFEfaad2
+IPS_Package_Name:	library/audio/faad2 
 Summary:                 %{faad2.summary}
 Group:                   libraries/multimedia
 Version:                 %{faad2.version}
@@ -78,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Sat Aug 13 2011 - Thomas Wagner
 - fix build by:
 - use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
