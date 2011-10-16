@@ -1,6 +1,7 @@
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEfreeglut.spec: add IPS package name
+	* SFEyasm.spec: add IPS package name
 
 2011-10-14 Ken Mays <kmays2000@gmail.com>
 

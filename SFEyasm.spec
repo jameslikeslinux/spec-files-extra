@@ -9,6 +9,7 @@
 %define src_url		http://www.tortall.net/projects/yasm/releases
 
 Name:                   SFEyasm
+IPS_Package_Name:	developer/yasm
 Summary:                Yet another assembler
 Version:                1.1.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
@@ -46,9 +47,8 @@ fi
             --libdir=%{_libdir}		\
             --datadir=%{_datadir}	\
             --libexecdir=%{_libexecdir} \
-            --sysconfdir=%{_sysconfdir} \
-            --enable-shared		\
-	    --disable-static
+            --sysconfdir=%{_sysconfdir}
+
 make -j$CPUS 
 
 %install
@@ -71,6 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Thu Nov 4 2010 - Alex Viskovatoff
 - Update to 1.1.0
 * Wed Jun 2 2008 - oboril.lukas@gmail.com
