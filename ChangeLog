@@ -3,6 +3,8 @@
 	* SFEfreeglut.spec: add IPS package name
 	* SFEyasm.spec: add IPS package name
 	* encumbered/SFEgpac.spec: add IPS package name
+	* SFElibmp4v2.spec: add IPS package name
+	* base-specs/libmp4v2.spec: fix sun studio build
 
 2011-10-14 Ken Mays <kmays2000@gmail.com>
 

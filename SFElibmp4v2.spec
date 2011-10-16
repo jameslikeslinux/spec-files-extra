@@ -13,6 +13,7 @@
 %use libmp4v2 = libmp4v2.spec
 
 Name:                    SFElibmp4v2
+IPS_Package_Name:	library/video/libmp4v2
 Summary:                 %{libmp4v2.summary}
 License:                 GPLv2
 SUNW_Copyright:          libmp4v2.copyright
@@ -79,5 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Fri Aug 21 2009 - Milan Jurik
 - Initial version
