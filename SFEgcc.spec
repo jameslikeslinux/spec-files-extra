@@ -118,8 +118,9 @@
 %endif
 #special handling of version / gcc_version
 
-#%define major_minor 4.6   .... use 4.6.1 and remove the third++ part
-%define major_minor %( echo %{version} | sed -e 's/\(^[0-9]*\.[0-9]*\)\..*/\1/' )
+%define major_minor 4.6
+# breaks build   .... use 4.6.1 and remove the third++ part
+#%define major_minor %( echo %{version} | sed -e 's/\(^[0-9]*\.[0-9]*\)\..*/\1/' )
 
 #transform 4.6. -> 46
 %define majorminornumber %( echo %{major_minor} | sed -e 's/\.//g' )
