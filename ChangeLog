@@ -29,6 +29,7 @@
 	* SFEsdl-ttf.spec: add IPS package name
 	* SFEphysfs.spec: add IPS package name
 	* SFEsdl-gfx.spec: add IPS package name
+	* SFElzo.spec: add IPS package name, bump to 2.06
 
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>

@@ -5,15 +5,16 @@
 
 %include Solaris.inc
 
-%define src_version  2.05
+%define src_version  2.06
 
 Name:                SFElzo
+IPS_Package_Name:	library/lzo
 Summary:             Lossless data compression library
 License:             GPLv2
 SUNW_Copyright:	     lzo.copyright
 URL:                 http://www.oberhumer.com/opensource/lzo/
 Meta(info.upstream): Markus F.X.J. Oberhumer <markus@oberhumer.com>
-Version:             2.5
+Version:             2.6
 Group:               System/Libraries
 Source:              http://www.oberhumer.com/opensource/lzo/download/lzo-%{src_version}.tar.gz
 
@@ -71,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %_includedir/lzo
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+- bump to 2.06
 * Tue Aug  8 2011 - Alex Viskovatoff
 - Package development files separately
 * Sat Jul 23 2011 - Alex Viskovatoff
