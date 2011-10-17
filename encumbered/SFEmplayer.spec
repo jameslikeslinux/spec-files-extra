@@ -27,15 +27,18 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:		SFEmplayer
+IPS_Package_Name:	media/mplayer
 Summary:	mplayer - The Movie Player
 Version:	1.0.0.0.4
 %define tarball_version 1.0rc4
 URL:		http://www.mplayerhq.hu/
 Source:		http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{tarball_version}.tar.bz2
-Source3:	http://www.mplayerhq.hu/MPlayer/skins/Blue-1.7.tar.bz2
+Source2:	http://www.mplayerhq.hu/MPlayer/skins/XFce4-1.0.tar.bz2
+Source3:	http://www.mplayerhq.hu/MPlayer/skins/Blue-1.8.tar.bz2
 Source4:	http://www.mplayerhq.hu/MPlayer/skins/Abyss-1.7.tar.bz2
 Source5:	http://www.mplayerhq.hu/MPlayer/skins/neutron-1.5.tar.bz2
 Source6:	http://www.mplayerhq.hu/MPlayer/skins/proton-1.2.tar.bz2
+Source7:	http://www.mplayerhq.hu/MPlayer/skins/brushedGnome-1.0.tar.bz2
 Patch1:		mplayer-01-cddb.diff
 Patch11:	mplayer-11-cpudetect.diff
 Patch12:	mplayer-12-realplayer.diff
@@ -206,10 +209,12 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mplayer/codecs
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/mplayer/skins
 (
 	cd $RPM_BUILD_ROOT%{_datadir}/mplayer/skins
+	gtar fxj %SOURCE2
 	gtar fxj %SOURCE3
 	gtar fxj %SOURCE4
 	gtar fxj %SOURCE5
 	gtar fxj %SOURCE6
+	gtar fxj %SOURCE7
 	ln -s Blue default
 )
 ln -s /usr/share/fonts/TrueType/freefont/FreeSerif.ttf $RPM_BUILD_ROOT%{_datadir}/mplayer/subfont.ttf
@@ -237,6 +242,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun Feb 06 2011 - Milan Jurik
 - use system libdvdread, faac as optional
 - clean up dependencies
