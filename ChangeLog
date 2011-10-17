@@ -1,3 +1,9 @@
+2011-10-17 Ken Mays <kmays2000@gmail.com>
+
+	* SFElighttpd.spec: Added MySQL 5.1 support
+	* SFEwine.spec: Added V4L for Skype 5.6
+	* SFExfce-loginmgr.spec: Migrated from OSOL to SFE
+
 2011-10-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEorc.spec: add IPS package name

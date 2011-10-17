@@ -34,7 +34,11 @@ export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
 
 ./configure --prefix=%{_prefix}  \
-            --mandir=%{_mandir}
+            --mandir=%{_mandir}  \
+            --with-openssl=/usr --with-attr --with-fam --with--gdbm \
+            --with-kerberos5 --with-ldap --with-lua --with-memcache \
+	    --with-mysql=/usr/mysql/5.1/bin/mysql_config \
+	    --with-pcre --with-webdav-locks --with-webdav-props
 
 make -j$CPUS
 
@@ -60,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*.8
 
 %changelog
+* Fri Oct 16 2011 - Ken Mays <kmays2000@gmail.com>
+- Updated for MySql 5.1 package.
 * Fri Oct 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.4.29
 * Wed May 14 2008 - Ananth Shrinivas <ananth@sun.com>
