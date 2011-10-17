@@ -11,9 +11,10 @@
 %include base.inc
 
 %define	src_name	usb-modeswitch
-%define	src_date	20110805
+%define	src_date	20111012
 
 Name:		SFEusbmodeswitch
+IPS_Package_Name:	system/network/usbmodeswitch
 Version:	1.1.9
 Summary:	A mode switching tool for controlling multiple-device USB gear
 Group:		System/Utilities
@@ -21,7 +22,7 @@ License:	GPLv2+
 URL:		http://www.draisberghof.de/usb_modeswitch/
 Source:		http://www.draisberghof.de/usb_modeswitch/%{src_name}-%{version}.tar.bz2
 Source1:	http://www.draisberghof.de/usb_modeswitch/%{src_name}-data-%{src_date}.tar.bz2
-Source2:	http://www.draisberghof.de/usb_modeswitch/device_reference.txt.gz
+Source2:	http://www.draisberghof.de/usb_modeswitch/device_reference.txt
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -79,6 +80,8 @@ rm -rf %{buildroot}
 %{_localstatedir}/lib/usb_modeswitch
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name, bump data package
 * Sun Sep 04 2011 - Milan Jurik
 - bump to 1.1.9
 * Sat Mar 05 2011 - Milan Jurik

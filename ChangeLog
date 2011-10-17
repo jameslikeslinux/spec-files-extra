@@ -12,6 +12,7 @@
 	* SFEaaphoto.spec: add IPS package name
 	* SFEe2fsprogs.spec: add IPS package name
 	* SFEforemost.spec: add IPS package name
+	* SFEusbmodeswitch.spec: add IPS package name, bump data package
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 
