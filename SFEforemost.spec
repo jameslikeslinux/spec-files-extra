@@ -8,6 +8,7 @@
 %include Solaris.inc
 
 Name:           SFEforemost
+IPS_Package_Name:	system/file-system/foremost
 Summary:        Foremost is a console program to recover files based on their headers, footers, and internal data structures
 Version:        1.5.7
 URL:		http://foremost.sourceforge.net/
@@ -65,5 +66,7 @@ rm -rf %{buildroot}
 %{_sysconfdir}/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Mon Feb 23 2011 - Milan Jurik
 - Initial spec

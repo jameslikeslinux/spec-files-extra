@@ -12,6 +12,7 @@
 
 
 Name:                SFEe2fsprogs
+IPS_Package_Name:	system/file-system/e2fsprogs
 License:             GPLv2+
 Summary:             Ext2 Filesystems Utilities
 Version:             1.41.14
@@ -197,6 +198,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue Feb 08 2011 - Milan Jurik

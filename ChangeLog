@@ -10,6 +10,8 @@
 	* SFEliferea.spec: add IPS package name
 	* SFEjasper.spec: add IPS package name
 	* SFEaaphoto.spec: add IPS package name
+	* SFEe2fsprogs.spec: add IPS package name
+	* SFEforemost.spec: add IPS package name
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 
