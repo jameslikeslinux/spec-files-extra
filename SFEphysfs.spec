@@ -9,6 +9,7 @@
 %define src_url		http://icculus.org/physfs/downloads
 
 Name:                   SFEphysfs
+IPS_Package_Name:	developer/physfs
 Summary:                Yet another assembler
 Version:                1.1.1
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
@@ -63,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Sat Jun 14 2008 - andras.barna@gmail.com

@@ -20,6 +20,16 @@
 	* SFEforemost.spec: add IPS package name
 	* SFEusbmodeswitch.spec: add IPS package name, bump data package
 	* SFEboost.spec: add IPS package name
+	* SFEsdl-mixer.spec: add IPS package name
+	* SFEsdl-sound.spec: add IPS package name
+	* SFEsdl-net.spec: add IPS package name
+	* SFEsdl-image.spec: add IPS package name
+	* SFEsdl-pango.spec: add IPS package name
+	* SFEsdl-perl.spec: add IPS package name
+	* SFEsdl-ttf.spec: add IPS package name
+	* SFEphysfs.spec: add IPS package name
+	* SFEsdl-gfx.spec: add IPS package name
+
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 

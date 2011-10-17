@@ -20,6 +20,7 @@
 %define SUNWlibsdl	%(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-net
+IPS_Package_Name:	library/network/sdl-net
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 SUNW_BaseDir:		%{_basedir}
@@ -104,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun Dec  7 2008 - Gilles Dauphin
 - can't find %doc
 * Tue Jun  5 2007 - Doug Scott

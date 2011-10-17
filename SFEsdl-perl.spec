@@ -4,10 +4,10 @@
 # includes module(s): sdl-perl
 #
 %include Solaris.inc
-
-%define SFEsdl  %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
+%include packagenamemacros.inc
 
 Name:                    SFEsdl-perl
+IPS_Package_Name:	library/perl-5/sdl
 Summary:                 SDL Perl is a multimedia binding for Perl, using the Simple DirectMedia Layer and OpenGL.
 Version:                 1.20.0
 Source:                  http://zarb.org/~gc/t/SDL_perl-%{version}.tar.gz
@@ -21,14 +21,9 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-%if %SFEsdl
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%else
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%endif
-BuildRequires:	SUNWperl584usr
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires:           SUNWlibsdl-devel
 Requires:                SUNWlibsdl
 BuildRequires:           SFEsdl-image-devel
@@ -63,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_basedir}/perl5/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Mon Apr 12 2010 - Milan Jurik
 - adding missing SDL build deps
 * Sun Apr 11 2010 - Milan Jurik

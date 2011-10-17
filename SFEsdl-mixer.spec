@@ -21,6 +21,7 @@
 %define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
 
 Name:			%{sdl.name}
+IPS_Package_Name:	library/audio/sdl-mixer
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 URL:			%{sdl.url}
@@ -137,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Thu Feb 03 2011 - Milan Jurik
