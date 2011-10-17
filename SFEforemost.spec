@@ -39,9 +39,9 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_bindir}
 install -m 755 foremost %{buildroot}/%{_bindir}
 
-mkdir -p %{buildroot}/%{_mandir}
+mkdir -p %{buildroot}/%{_mandir}/man1
 gzcat foremost.8.gz > foremost.1
-install -m 444 foremost.1 %{buildroot}/%{_mandir}/man1
+install -m 444 foremost.1 %{buildroot}/%{_mandir}/man1/foremost.1
 
 mkdir -p %{buildroot}/%{_sysconfdir}
 install -m 444 foremost.conf %{buildroot}/%{_sysconfdir}
@@ -68,5 +68,6 @@ rm -rf %{buildroot}
 %changelog
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
+- fix manpage install
 * Mon Feb 23 2011 - Milan Jurik
 - Initial spec
