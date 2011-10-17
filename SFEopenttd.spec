@@ -8,10 +8,11 @@
 %define src_name openttd
 
 Name:           SFEopenttd
-Version:        1.1.2
+IPS_Package_Name:	games/openttd
+Version:        1.1.3
 Summary:        Transport system simulation game
 Source:         http://binaries.openttd.org/releases/%{version}/%{src_name}-%{version}-source.tar.gz
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.5/opengfx-0.3.5.zip
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.7/opengfx-0.3.7.zip
 Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
@@ -39,8 +40,8 @@ Requires:  SUNWfreetype2
 BuildRequires: SUNWdoxygen
 Requires: SFElzo
 BuildRequires: SFElzo
-Requires: SFExz
-BuildRequires: SFExz
+Requires: compress/xz
+BuildRequires: compress/xz
 BuildRequires:	SUNWgsed
 BuildRequires:	SUNWgnome-desktop-prefs
 
@@ -153,6 +154,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+- bump to 1.1.3, opengfx 0.3.7
 * Tue Sep 06 2011 - Milan Jurik
 - bump to 1.1.2, opengfx 0.3.5
 * Fri Jul 29 2011 - Alex Viskovatoff

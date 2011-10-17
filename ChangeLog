@@ -30,7 +30,7 @@
 	* SFEphysfs.spec: add IPS package name
 	* SFEsdl-gfx.spec: add IPS package name
 	* SFElzo.spec: add IPS package name, bump to 2.06
-
+	* SFEopenttd.spec: add IPS package name, bump to 1.1.3, opengfx 0.3.7
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 
