@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:		SFEliferea
+IPS_Package_Name:	web/browser/liferea
 Summary:	Liferea - aggregator for online news feeds
 Version:	1.6.6
 Source:		%{sf_download}/project/liferea/Liferea\ Stable/%{version}/liferea-%{version}b.tar.gz
@@ -169,6 +170,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Web Jul 13 2011 - N.B.Prashanth
 - bump to 1.6.6
 * Wed Dec 01 2010 - Milan Jurik
