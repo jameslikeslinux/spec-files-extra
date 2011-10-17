@@ -185,7 +185,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_bindir}/orcc
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/aclocal
+%dir %attr (0755, root, other) %{_datadir}/aclocal
+%{_datadir}/aclocal/orc.m4
 
 %changelog
 * Mon Oct 17 2011 - Milan Jurik
