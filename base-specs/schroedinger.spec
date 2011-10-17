@@ -1,15 +1,19 @@
-Version:        1.0.9
+Version:        1.0.10
 Summary:        Library for decoding and encoding video in the Dirac format
 
 Group:          Applications/Multimedia
 License:        LGPL/MIT/MPL
 URL:            http://diracvideo.org/
 Source:         http://diracvideo.org/download/schroedinger/schroedinger-%{version}.tar.gz
+Patch1:		schroedinger-01-return.diff
+Patch2:		schroedinger-02-testsuite.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n schroedinger-%{version}
 perl -i.orig -lpe 'if ($. == 1){s/^.*$/#!\/bin\/bash/}' configure
+%patch1 -p1
+%patch2 -p1
 
 %build
 export CFLAGS="%optflags"
@@ -25,6 +29,7 @@ export PKG_CONFIG_PATH="%{_prefix}/lib/pkgconfig"
             --libdir=%{_libdir}                 \
             --datadir=%{_datadir}               \
             --mandir=%{_mandir}                 \
+            --enable-gtk-doc                    \
             --enable-shared                     \
             --disable-static
 
@@ -39,6 +44,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-0.10/*.{a,la}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- bump to 1.0.10
 * Tue Jul 13 2010 - Thomas Wagner
 - change shell of configure to be real bash
 * Apr 2010 - Gilles Dauphin

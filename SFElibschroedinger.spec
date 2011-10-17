@@ -23,6 +23,7 @@
 
 
 Name:           SFElibschroedinger
+IPS_Package_Name:	library/video/libschroedinger 
 Version:        %{schroedinger.version}
 Summary:        %{schroedinger.summary}
 
@@ -41,6 +42,7 @@ Requires:       SFEorc
 BuildRequires:  SUNWgtk-doc
 BuildRequires:  SUNWliboil
 BuildRequires:  SUNWgnome-media-devel
+BuildRequires:	SUNWgtk-doc
 
 %package devel
 Summary:                 %{summary} - development files
@@ -139,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/schroedinger
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Thu Jul 21 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sat Oct 30 2010 - Thomas Wagner

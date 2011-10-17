@@ -23,6 +23,7 @@
 %define src_name orc
 
 Name:		%{orc.name}
+IPS_Package_Name:	system/library/orc 
 Version:	%{orc.version}
 Summary:	%{orc.summary}
 
@@ -183,9 +184,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/pkgconfig/*.pc
 %endif
 %{_bindir}/orcc
-
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/aclocal
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun Jul 24 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Dec 02 2010 - Milan Jurik
