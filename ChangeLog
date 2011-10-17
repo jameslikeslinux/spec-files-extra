@@ -6,6 +6,7 @@
 	* base-specs/schroedinger.spec: bump to 1.0.10
 	* encumbered/SFEfaac.spec: add IPS package name
 	* encumbered/SFEmplayer.spec: add IPS package name
+	* SFEwebkitgtk.spec: add IPS package name
 
 2011-10-16 Milan Jurik <sfnet@xylab.cz>
 
