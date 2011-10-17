@@ -13,7 +13,7 @@
 %use faad2 = faad2.spec
 
 Name:                    SFEfaad2
-IPS_Package_Name:	library/audio/faad2 
+IPS_Package_Name:	audio/faad2 
 Summary:                 %{faad2.summary}
 Group:                   libraries/multimedia
 Version:                 %{faad2.version}

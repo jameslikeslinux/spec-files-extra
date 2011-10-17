@@ -12,11 +12,15 @@ Group:		Applications/Multimedia
 URL:		http://www.audiocoding.com/
 Source:		%{sf_download}/faac/faac-src/faac-%{version}.tar.gz
 Patch1:		faac-01-mp4v2.diff
+Patch2:		faac-02-wall.diff
+Patch3:		faac-03-stdc.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n faac-%{version}
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -24,14 +28,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
 export CFLAGS="%{optflags} -I/usr/include/mp4v2"
 export CXXFLAGS="%{cxx_optflags} -I/usr/include/mp4v2"
 export LDFLAGS="-lmp4v2 -lm"
 
-#sh bootstrap
-/usr/bin/libtoolize --force
+sh bootstrap
 
 ./configure --prefix=%{_prefix} \
     --libdir=%{_libdir} \
@@ -50,6 +51,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- revert previous change to unbreak build
 * Sat Aug 13 2011 - Thomas Wagner
 - fix build by:
 - use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/

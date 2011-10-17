@@ -4,7 +4,6 @@
 # includes module(s): faac
 #
 %include Solaris.inc
-%define cc_is_gcc 1
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -15,6 +14,7 @@
 %use faac = faac.spec
 
 Name:		SFEfaac
+IPS_Package_Name:	audio/faac 
 Summary:	%{faac.summary}
 Version:	%{faac.version}
 License:	%{faac.license}
@@ -93,6 +93,9 @@ rm -rf %{buildroot}
 %{_includedir}/*.h
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- revert previous change to unbreak build
+- add IPS package name
 * Sat Aug 13 2011 - Thomas Wagner
 - fix build by:
 - use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
