@@ -8,8 +8,11 @@
 %use boost = boost.spec
 
 Name:                SFEboost
+IPS_Package_Name:	system/library/boost 
 Summary:             Boost - free peer-reviewed portable C++ source libraries
 License:             Boost License Version
+Group:		System/Libraries
+URL:		http://www.boost.org/
 SUNW_Copyright:      boost.copyright
 Version:	     %{boost.version}
 SUNW_BaseDir:        %{_basedir}
@@ -82,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Fri Jan 11 2011 - Milan Jurik
