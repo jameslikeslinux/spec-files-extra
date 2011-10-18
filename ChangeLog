@@ -1,3 +1,7 @@
+2011-10-18 Ken Mays <kmays2000@gmail.com>
+
+	* SFEvlc-1.1.12.spec: Renamed for current build review
+
 2011-10-17 Ken Mays <kmays2000@gmail.com>
 
 	* SFElighttpd.spec: Added MySQL 5.1 support

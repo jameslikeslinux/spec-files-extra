@@ -179,26 +179,26 @@ Requires: SUNWlibxcb
 %define	src_url		http://download.videolan.org/pub/videolan/vlc
 
 Name:                   SFEvlc
-Summary:                vlc - the cross-platform media player and streaming server
-Version:                 1.1.11
+Summary:                vlc - multimedia player and streaming server
+Version:                1.1.12
 Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.bz2
 #Patch1:                 vlc-01-configure-no-pipe.diff
 #obsoleted by ticket #3027 Solaris does not have AF_LOCAL - define AF_LOCAL as AF_UNIX
-#Patch2:                 vlc-02-solaris.diff-1.0.1
+#Patch2:                vlc-02-solaris.diff-1.0.1
 Patch3:                 vlc-03-1141-oss.diff
 Patch4:                 vlc-04-solaris_specific.diff
 Patch5:                 vlc-05-solaris-cmds.diff-1.0.1
 Patch6:                 vlc-06-intl.diff-1.0.1
-Patch7:                        vlc-07-live.diff-1.0.1
-Patch8:                        vlc-08-osdmenu_path.diff-1.0.1
+Patch7:                 vlc-07-live.diff-1.0.1
+Patch8:                 vlc-08-osdmenu_path.diff-1.0.1
 #pausiert ##TODO## ##FIXME## Patch9:                   vlc-09-pic-mmx.diff
-Patch10:               vlc-10-real_codecs_path.diff-1.0.1
-Patch12:               vlc-12-for-int-loop.diff-1.0.1
+Patch10:                vlc-10-real_codecs_path.diff-1.0.1
+Patch12:                vlc-12-for-int-loop.diff-1.0.1
 #Patch13:               vlc-13-x264-git-20090404.diff
 #https://trac.videolan.org/vlc/ticket/3028
 #Fixed by [23414d6]
-Patch14:               vlc-14-modules-access-file.c-disable_have_fstatfs.diff
-Patch16:               vlc-16-modules.c-file_offset_bits_ticket_3031.diff
+Patch14:                vlc-14-modules-access-file.c-disable_have_fstatfs.diff
+Patch16:                vlc-16-modules.c-file_offset_bits_ticket_3031.diff
 #seems only relevant to older SunOS releases (5.10, eventuall older builds of 5.11)
 ##TODO## need rework to test for already existing dirfd else define 
 #Patch17:               vlc-17-dirfd-missing-ticket-3029-Fixed-by-c438250.diff
@@ -591,6 +591,9 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Oct 18 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 1.11.12
+- Reviewed for Crash issues and PulseAudio 1.0 support
 * Fri Aug 26 2011 - Thomas Wagner
 - add $GNULIB to CFLAGS, trying to avoid ldd /usr/bin/vlc print that 
   libgcc_s.so.1 not found (vlc works anyways, modules might pull that in)
