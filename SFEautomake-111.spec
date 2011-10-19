@@ -35,9 +35,10 @@ make -j$CPUS
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
-rm -f %{buildroot}/%{_bindir}/aclocal
-rm -f %{buildroot}/%{_bindir}/automake
-rm -rf %{buildroot}/%{_infodir}
+/bin/rm -f %{buildroot}/%{_bindir}/aclocal
+/bin/rm -f %{buildroot}/%{_bindir}/automake
+/bin/rm -rf %{buildroot}/%{_infodir}
+/bin/rm -rf %{buildroot}/%{_datadir}/doc
 
 %clean
 rm -rf %{buildroot}
@@ -48,10 +49,11 @@ rm -rf %{buildroot}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/aclocal-1.11
 %{_datadir}/automake-1.11
-%dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/*
 %{_mandir}
 
 %changelog
 * Tue Oct 11 2011 - Milan Jurik
 - Initial spec
+* Wed Oct 19 2011 - brian.cameron@oracle.com
+- Do not install %{_datadir}/doc since it conflicts with the installed 
+  automake if installed via IPS.
