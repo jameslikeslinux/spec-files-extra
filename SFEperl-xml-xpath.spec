@@ -57,12 +57,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,bin)
+%_bindir/xpath
 %_prefix/%perl_path_vendor_perl_version
 %dir %attr(0755,root,sys) %_datadir
 %_mandir
-%_bindir/xpath
 
 %changelog
+* Sun Oct 16 2011 - Alex Viskovatoff
+- Fix directory attributes
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Fri Jul  8 2011 - Alex Viskovatoff

@@ -1,9 +1,15 @@
+2011-10-19  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFElibx264-no-mp4.spec: fork new spec off SFElibx264.spec
+	* SFEmkvtoolnix.spec: bump to 5.0.1
+	* SFEperl-xml-xpath.spec: fix directory attributes
+
 2011-10-19 Ken Mays <kmays2000@gmail.com>
 
 	* SFEvlc-1.1.12.spec: Patches updated for current build
         * vlc-26-1112-postaudio-fix.diff: Added
 	* vlc-23-1114-dirfd.diff: Fixed
-	
+
 2011-10-18 Ken Mays <kmays2000@gmail.com>
 
 	* SFEvlc-1.1.12.spec: Renamed for current build review
@@ -154,13 +160,6 @@
 2011-10-06 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEgnumeric.spec: Bump to 1.10.17.
-
-2011-10-05  Alex Viskovatoff <herzen@imap.cc>
-
-	* SFEemacs.spec: info files should go in /usr/gnu
-	* SFExfwm4.spec: bump to 4.8.2
-	* SFEmidori.spec: fix file attributes
-	* SFEtmux.spec: SFElibevent2 is in /usr/gnu; update to 1.5
 
 2011-10-05  Alex Viskovatoff <herzen@imap.cc>
 

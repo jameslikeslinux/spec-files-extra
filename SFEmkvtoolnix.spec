@@ -6,7 +6,7 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
+%define _gpp /usr/bin/g++
 %include base.inc
 %define srcname mkvtoolnix
 %define _pkg_docdir %_docdir/%srcname
@@ -17,7 +17,7 @@ Summary:	Tools for the Matroska video container
 Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
-Version:	4.9.1
+Version:	5.0.1
 License:	GPLv2
 SUNW_Copyright:	mkvtoolnix.copyright
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
@@ -143,6 +143,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Fri Oct 14 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 5.0.1
 * Tue Aug  9 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Add missing (build) dependency
 * Sat Jul 23 2011 - Alex Viskovatoff <herzen@imap.cc>
