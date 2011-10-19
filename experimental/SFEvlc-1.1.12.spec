@@ -3,13 +3,14 @@
 #
 # includes module(s): vlc
 #
-# Renovation work for vlc 1.1.12 By Ken Mays 10/17/2011
+# Work done for vlc 1.1.12 By Ken Mays 10/17/2011
+#
 
 ##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
 #        then you *first* uninstall the old copy of vlc and re-try. 
 
 ##NOTE##  works/tested with gcc    4.6.1  oi_151a
-##NOTE##  works/tested with gcc    4.6.1  Solaris 11 Express
+##NOTE##  works/tested with gcc    4.6.1  Solaris 11 
 
 ##TODO##
 #see this notes below, we might want those features compiled in,
@@ -46,12 +47,6 @@
 #configure: WARNING: Library libmtp >= 1.0.0 needed for mtp was not found
 #configure: WARNING: Library libosso needed for osso_screensaver was not found
 
- 
- 
-# Legacy notes below
-##TODO## check (Build)Requires  SUNWlibgcrypt SUNWlibproxy SUNWgnome-vfs SUNWlibrsvg SFEfreetype SFEtwolame SFEgccruntime SUNWavahi-bridge-dsd SFElibgpg-error
-
-
 ##TODO##
 #'t find: SFElibdts developer/documentation-tool/gtk SUNWsmbau SUNWgtk
 #00:58 < Hazelesque2> and it complains that SUNWxwplt matches multiple packages
@@ -60,19 +55,18 @@
 #then re-run the resolveipspackages script
 
 
-# NOTE EXPERIMENTAL - current stat: 1.1.4.1 compiles, really needs a smart solution for NAME_MAX
-#                     see patch header in Patch24 vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff,
-#                     needs review of disabled patches if they still apply to 1.1.4.1,
-#                     X consolidation for build 153 adds "x11-xcb" which is needed for vlc to
-#                     display video inside the main window (and more) - see http://twitter.com/#!/alanc/status/29060334076
-#                     and http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6667057 Fixed in: snv_153
-#                     on old osbuilds you get two separate windows. on new osbuild xcb helps with videodisplay inside the vlc
-#                     window
-
+# NOTE EXPERIMENTAL
+# current stat: Really needs a smart solution for NAME_MAX
+# see patch header in Patch24 vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
+#
+# X consolidation for build 153 adds "x11-xcb" which is needed for vlc to
+# display video inside the main window (and more) - see http://twitter.com/#!/alanc/status/29060334076
+# and http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6667057 Fixed in: snv_153
+# on old osbuilds you get two separate windows. on new osbuild xcb helps with videodisplay
+# inside the vlc window
 
 # NOTE EXPERIMENTAL - does contain a few null pointer uses, so you might want to  " LD_PRELOAD=/usr/lib/0@0.so.1 vlc  "
 # NOTE EXPERIMENTAL - uses SFEqt-gpp which is installed in the new location /usr/g++ (GNU C++ library) - needs patching
-# NOTE EXPERIMENTAL - patches from old revision are not all reviewd if they are still needed
 
 # tickets
 #
@@ -132,8 +126,8 @@ Requires: SUNWlibxcb
 ##Requires: SFElibxcb
 ##%endif
 
-##TODO## temporarily disable building samba support (needs better detection
-#  where smbclient.so lives)
+##TODO## Samba lives /usr/sfw/include and /usr/lib/samba
+#  Disabled for now
 %define enable_samba 0
 
 ##TODO## temporarily disable building pulseaudio support
@@ -147,38 +141,15 @@ Name:                   SFEvlc
 Summary:                vlc - multimedia player and streaming server
 Version:                1.1.12
 Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.bz2
-#Patch1:                 vlc-01-configure-no-pipe.diff
-#obsoleted by ticket #3027 Solaris does not have AF_LOCAL - define AF_LOCAL as AF_UNIX
-#Patch2:                vlc-02-solaris.diff-1.0.1
 Patch3:                 vlc-03-1141-oss.diff
-Patch4:                 vlc-04-solaris_specific.diff
-Patch5:                 vlc-05-solaris-cmds.diff-1.0.1
-Patch6:                 vlc-06-intl.diff-1.0.1
-Patch7:                 vlc-07-live.diff-1.0.1
-Patch8:                 vlc-08-osdmenu_path.diff-1.0.1
-#pausiert ##TODO## ##FIXME## Patch9:                   vlc-09-pic-mmx.diff
-Patch10:                vlc-10-real_codecs_path.diff-1.0.1
-Patch12:                vlc-12-for-int-loop.diff-1.0.1
-#Patch13:               vlc-13-x264-git-20090404.diff
-#https://trac.videolan.org/vlc/ticket/3028
-#Fixed by [23414d6]
-Patch14:                vlc-14-modules-access-file.c-disable_have_fstatfs.diff
-Patch16:                vlc-16-modules.c-file_offset_bits_ticket_3031.diff
-#seems only relevant to older SunOS releases (5.10, eventuall older builds of 5.11)
-##TODO## need rework to test for already existing dirfd else define 
-#Patch17:               vlc-17-dirfd-missing-ticket-3029-Fixed-by-c438250.diff
-#Patch17:               vlc-17-1114-dirfd.diff
-Patch18:               vlc-18-empty-struct.diff-1.0.1
-Patch21:               vlc-21-1114-filesystem.c-NAME_MAX.diff
-Patch22:               vlc-22-remove-dirent.h-checks.diff
-Patch23:               vlc-23-1114-dirfd.diff
-Patch24:               vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
+Patch21:                vlc-21-1114-filesystem.c-NAME_MAX.diff
+Patch22:                vlc-22-remove-dirent.h-checks.diff
+Patch23:                vlc-23-1114-dirfd.diff
+Patch24:                vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
 ##TODO## vlc-25-1111 needs a better solution
-Patch25:               vlc-25-1111-hack-define-posix_fadvise.diff
-
-#note: ts.c:2455:21: error: implicit declaration of function 'dvbpsi_SDTServiceAddDescriptor'
-#needs libdvbpsi >=0.1.6
-
+Patch25:                vlc-25-1111-hack-define-posix_fadvise.diff
+##TODO## Patch26 due to possible PortAudio support
+Patch26:                vlc-26-1112-postaudio-fix.diff
 
 IPS_package_name: media/vlc
 
@@ -305,6 +276,7 @@ Requires:                %{name}
 %patch23 -p1
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 perl -w -pi.bak -e "s,#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "#\!.*/bin/sh" {} \; -print | egrep -v "/libtool"`
 
@@ -344,7 +316,7 @@ export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R
 export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib $GNULIB -L/usr/lib/live/liveMedia"
 
 #give these flags only to the C-Pre-Processor
-export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__ -I/usr/lib/live/liveMedia/include"
+export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__ -I/usr/sfw/include -I/usr/lib/live/liveMedia/include"
 
 
 %if %debug_build
@@ -401,13 +373,10 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
             --enable-snapshot                   \
             --enable-aa                         \
             --enable-oss                        \
-            --enable-pvr                        \
             --enable-shine                      \
             --enable-omxil                      \
             --enable-switcher                   \
             --enable-faad                       \
-            --enable-omapfb                     \
-            --enable-svgalib                    \
 
 %if %{enable_x11_xcb}
             --enable-xcb                        \
@@ -438,22 +407,7 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 printf '%%%s/\/intl\/libintl.a/-lintl/\nwq\n' | ex - vlc-config
 %endif
 
-# spatializer fails to compile, disable for now
-#  Ticket #3037 (reopened defect) https://trac.videolan.org/vlc/ticket/3037
-#  spatializer does not compile on Solaris
-#####perl -w -pi.bakspatializer -e "s, spatializer , ," vlc-config
-##TODO## experime
-#perl -w -pi.bak420 -e "s, (i420_rgb_mmx|i420_ymga|i420_ymga_mmx|i420_yuy2|i420_yuy2_mmx|i422_i420|i422_yuy2|i422_yuy2_mmx|yuy2_i420|yuy2_i422) ,," vlc-config
-
-#/bin/false
-
-##TODO## investigate. Test if this goes away with new vlc version
-#sometimes it fails with a core dump at vlc-cache-gen, just try again.
-#does vlc-cache-gen work at all?
 gmake -j$CPUS  || gmake || gmake
-##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
-#        then you *first* uninstall the old copy of vlc and re-try. 
-
 
 %install
 rm -rf $RPM_BUILD_ROOT

@@ -1,12 +1,14 @@
---- vlc-1.1.4.1/modules/audio_output/oss.c.orig	2010-09-24 11:31:59.000000000 +0200
-+++ vlc-1.1.4.1/modules/audio_output/oss.c	2010-11-06 23:35:32.537525437 +0100
-@@ -32,6 +32,9 @@
- #endif
- 
- #include <fcntl.h>                                       /* open(), O_WRONLY */
-+#ifdef sun
-+#include <sys/file.h>
-+#endif
- #include <sys/ioctl.h>                                            /* ioctl() */
- #include <unistd.h>                                      /* write(), close() */
- 
+*** vlc-1.1.12/modules/audio_output/oss.c.orig	Tue Jul 12 19:11:24 2011
+--- vlc-1.1.12/modules/audio_output/oss.c	Wed Oct 19 16:06:08 2011
+***************
+*** 32,37 ****
+--- 32,40 ----
+  #endif
+  
+  #include <fcntl.h>                                       /* open(), O_WRONLY */
++ #ifdef sun
++ #include <sys/file.h>
++ #endif
+  #include <sys/ioctl.h>                                            /* ioctl() */
+  #include <unistd.h>                                      /* write(), close() */
+  
