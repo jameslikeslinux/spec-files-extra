@@ -3,87 +3,52 @@
 #
 # includes module(s): vlc
 #
+# Renovation work for vlc 1.1.12 By Ken Mays 10/17/2011
 
 ##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
 #        then you *first* uninstall the old copy of vlc and re-try. 
 
-##NOTE##  works/tested with gcc    4.6.1  Solaris 11 (Express) Build 170
-##NOTE##  works/tested with gcc    4.5.3  OI148
-##NOTE##  works/tested with gcc    4.5.2  SXCE (130)
+##NOTE##  works/tested with gcc    4.6.1  oi_151a
+##NOTE##  works/tested with gcc    4.6.1  Solaris 11 Express
 
 ##TODO##
-
 #see this notes below, we might want those features compiled in,
 #then we need to put BuildRequires and maybe need to make new 
 #additional spec files 
 
-# pkgbuild: checking for TAGLIB... no
-# pkgbuild: configure: WARNING: TagLib library not found
-# pkgbuild: checking liveMedia_version.hh usability... no
-# pkgbuild: checking liveMedia_version.hh presence... no
-# pkgbuild: checking for liveMedia_version.hh... no
-# pkgbuild: checking liveMedia.hh usability... no
-# pkgbuild: checking liveMedia.hh presence... no
-# pkgbuild: checking for liveMedia.hh... no
+# This is from vlc-1.1.12 <kmays>
+#configure: WARNING: lua5.1 not found, trying lua >= 5.1 instead
+#configure: WARNING: The development files for liveMedia (live555) can't be found
+#configure: WARNING: Library libraw1394 >= 2.0.1 libdc1394-2 >= 2.1.0 needed for dc1394 was not found
+#configure: WARNING: Library libraw1394 >= 2.0.1 libavc1394 >= 0.5.3 needed for dv was not found
+#configure: WARNING: LibV4L support disabled because libv4l development headers were not found
+#configure: WARNING: LibV4L2 support disabled because libv4l2 development headers  were not found
+#configure: WARNING: linux-dvb headers not found
+#configure: WARNING: linux-dvb headers not found
+#configure: WARNING: Library shout >= 2.1 needed for shout was not found
+#configure: WARNING: libmodplug not found or a broken version (0.8.8.0) was found!
+#configure: WARNING: libva not found
+#configure: WARNING: Library dirac >= 0.10.0 needed for dirac was not found
+#configure: WARNING: Library fluidsynth needed for fluidsynth was not found
+#configure: WARNING: ZVBI library not found. Enabling the telx module instead
+#configure: WARNING: LIBASS library not found
+#configure: WARNING: Not building Roku HD1000 compatible video output
+#configure: WARNING: Not building Roku HD1000 compatible video output
+#configure: WARNING: Library caca >= 0.99.beta14 needed for caca was not found
+#configure: WARNING: Library libpulse >= 0.9.11 needed for pulse was not found
+#configure: WARNING: It is STRONGLY advised to update to pulse 0.9.22
+#configure: WARNING: Library portaudio-2.0 needed for portaudio was not found
+#configure: WARNING: Library alsa >= 1.0.0 needed for alsa was not found
+#configure: WARNING: Library jack needed for jack was not found
+#configure: WARNING: Library libgoom2 needed for goom was not found
+#configure: WARNING: libprojectM library not found
+#configure: WARNING: Library libudev >= 142 needed for udev was not found
+#configure: WARNING: Library libmtp >= 1.0.0 needed for mtp was not found
+#configure: WARNING: Library libosso needed for osso_screensaver was not found
 
-# pkgbuild: configure: WARNING: The development files for liveMedia (live555) can't be found
-# pkgbuild: checking for DC1394... no
-# pkgbuild: configure: WARNING: Library libraw1394 >= 2.0.1 libdc1394-2 >= 2.1.0 needed for dc1394 was not found
-# pkgbuild: checking for DV... no
-# pkgbuild: configure: WARNING: Library libraw1394 >= 2.0.1 libavc1394 >= 0.5.3 needed for dv was not found
-
-# pkgbuild: checking for dvdnav-config... /usr/ccs/bin/dvdnav-config
-# pkgbuild: checking for dvdnav_get_video_resolution in -ldvdnav... no
-
-# pkgbuild: checking for dvbpsi/dr.h... yes
-# pkgbuild: checking for dvbpsi_GenSDTSections in -ldvbpsi... yes
-# pkgbuild: checking for LIBV4L... no
-# pkgbuild: configure: WARNING: LibV4L support disabled because libv4l development headers were not found
-# pkgbuild: checking linux/videodev2.h usability... no
-# pkgbuild: checking linux/videodev2.h presence... no
-# pkgbuild: checking for linux/videodev2.h... no
-# pkgbuild: checking sys/videoio.h usability... no
-# pkgbuild: checking sys/videoio.h presence... no
-# pkgbuild: checking for sys/videoio.h... no
-# pkgbuild: checking for LIBV4L2... no
-
-# pkgbuild: checking for SHOUT... no
-# pkgbuild: configure: WARNING: Library shout >= 2.1 needed for shout was not found
-# 
-# #unknown features, do we need this?
-# pkgbuild: checking ebml/EbmlVersion.h usability... no
-# pkgbuild: checking ebml/EbmlVersion.h presence... no
-# pkgbuild: checking for ebml/EbmlVersion.h... no
-# pkgbuild: checking for LIBMODPLUG... no
-# pkgbuild: configure: WARNING: libmodplug not found or a broken version (0.8.8.0) was found!
-# 
-# pkgbuild: checking for POSTPROC... yes
-# pkgbuild: checking postproc/postprocess.h usability... no
-# pkgbuild: checking postproc/postprocess.h presence... no
-# pkgbuild: checking for postproc/postprocess.h... no
-# 
-# pkgbuild: checking for DIRAC... no
-# pkgbuild: configure: WARNING: Library dirac >= 0.10.0 needed for dirac was not found
-# 
-# pkgbuild: checking for FLUIDSYNTH... no
-# pkgbuild: configure: WARNING: Library fluidsynth needed for fluidsynth was not found
-# 
-# pkgbuild: configure: WARNING: ZVBI library not found. Enabling the telx module instead
-# pkgbuild: checking for LIBASS... no
-# pkgbuild: configure: WARNING: LIBASS library not found
-# pkgbuild: checking for KATE... no
-# pkgbuild: checking kate/kate.h usability... no
-# pkgbuild: checking kate/kate.h presence... no
-# pkgbuild: checking for kate/kate.h... no
-# pkgbuild: checking for TIGER... no
-# 
-# 
-# pkgbuild: checking Carbon/Carbon.h usability... no
-# pkgbuild: checking Carbon/Carbon.h presence... no
-# pkgbuild: checking for Carbon/Carbon.h... no
-# 
-# 
-
+ 
+ 
+# Legacy notes below
 ##TODO## check (Build)Requires  SUNWlibgcrypt SUNWlibproxy SUNWgnome-vfs SUNWlibrsvg SFEfreetype SFEtwolame SFEgccruntime SUNWavahi-bridge-dsd SFElibgpg-error
 
 
@@ -280,31 +245,34 @@ BuildRequires:  SFElibx264-devel
 Requires:       SFElibx264
 BuildRequires:  SFElibtar-devel
 Requires:       SFElibtar
-##TODO## maybe old osbuilds need SFElua
-#BuildRequires:	SFElua
-#Requires:	SFElua
 BuildRequires:	SUNWlua
 Requires:	SUNWlua
-##TODO## check (Build)Requires  SUNWlibgcrypt SUNWlibproxy SUNWgnome-vfs SUNWlibrsvg SFEfreetype SFEtwolame SFEgccruntime SUNWavahi-bridge-dsd SFElibgpg-error
-
 BuildRequires: SUNWlibgcrypt
 BuildRequires: SUNWlibproxy
 BuildRequires: SUNWgnome-vfs
 BuildRequires: SUNWlibrsvg
-#BuildRequires: SFEtwolame
+BuildRequires: SFEtwolame
 BuildRequires: SFEgcc
 BuildRequires: SUNWavahi-bridge-dsd
-#BuildRequires: SFElibgpg-error
 BuildRequires: SUNWlibgpg-error
 Requires: SUNWlibgcrypt
 Requires: SUNWlibproxy
 Requires: SUNWgnome-vfs
 Requires: SUNWlibrsvg
-#Requires: SFEtwolame
+Requires: SFEtwolame
 Requires: SFEgccruntime
 Requires: SUNWavahi-bridge-dsd
-#Requires: SFElibgpg-error
 Requires: SUNWlibgpg-error
+BuildRequires: SFEtwolame-devel
+Requires: SFEtwolame
+BuildRequires: SFEtaglib-devel
+Requires: SFEtaglib 
+BuildRequires: SFElibid3tag-devel
+Requires: SFElibid3tag
+BuildRequires: SFEfaad2-devel
+Requires: SFEfaad2
+BuildRequires: SFElame-devel
+Requires: SFElame
 
 BuildRequires: %{pnm_buildrequires_SUNWltdl}
 Requires: %{pnm_requires_SUNWltdl}
@@ -331,23 +299,7 @@ Requires:                %{name}
 
 %prep
 %setup -q -n vlc-%version
-#%patch1 -p1
-#obsolete ticket 3027 - %patch2 -p1
 %patch3 -p1
-##1.1.4.1 %patch4 -p1
-##1.1.4.1 %patch5 -p1
-##1.1.4.1 %patch6 -p1
-##1.1.4.1 %patch7 -p1
-##1.1.4.1 %patch8 -p1
-#%patch9 -p1
-##1.1.4.1 %patch10 -p1
-##1.1.4.1 %patch12 -p1
-##1.1.4.1 %patch14 -p1
-##1.1.4.1 %patch16 -p1
-##1.1.4.1 %patch18 -p1
-#seems only relevant to older SunOS releases (5.10, eventuall older builds of 5.11)
-##TODO## need rework to test for already existing dirfd else define 
-#%patch17 -p1
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
@@ -389,10 +341,11 @@ export CXX=/usr/gnu/bin/g++
 # need to define _XPG4_2 on Solaris
 
 export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
-export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib $GNULIB"
+export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib $GNULIB -L/usr/lib/live/liveMedia"
 
 #give these flags only to the C-Pre-Processor
-export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__"
+export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__ -I/usr/lib/live/liveMedia/include"
+
 
 %if %debug_build
 export CFLAGS="$CFLAGS -g"
@@ -429,24 +382,33 @@ sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtGui.pc > pk
 sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtCore.pc > pkgconfig/QtCore.pc
 export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 
+./configure --prefix=%{_prefix}                 \
+            --bindir=%{_bindir}                 \
+            --mandir=%{_mandir}                 \
+            --libdir=%{_libdir}                 \
+            --libexecdir=%{_libexecdir}         \
+            --sysconfdir=%{_sysconfdir}         \
+            --enable-shared                     \
+            --disable-static                    \
+            --enable-live555                    \
+            --enable-ffmpeg                     \
+            --enable-real                       \
+            --enable-realrtsp                   \
+            --enable-id3tag                     \
+            --enable-merge-ffmpeg               \
+            --enable-tremor                     \
+            --enable-asademux                   \
+            --enable-snapshot                   \
+            --enable-aa                         \
+            --enable-oss                        \
+            --enable-pvr                        \
+            --enable-shine                      \
+            --enable-omxil                      \
+            --enable-switcher                   \
+            --enable-faad                       \
+            --enable-omapfb                     \
+            --enable-svgalib                    \
 
-./configure --prefix=%{_prefix}			\
-	    --bindir=%{_bindir}			\
-	    --mandir=%{_mandir}			\
-            --libdir=%{_libdir}			\
-            --libexecdir=%{_libexecdir}		\
-            --sysconfdir=%{_sysconfdir}		\
-	    --enable-shared			\
-	    --disable-static			\
-	    --enable-mkv			\
-	    --enable-live555			\
-	    --enable-ffmpeg			\
-	    --enable-xvid			\
-	    --enable-real			\
-	    --enable-realrtsp			\
-            --disable-dvb                       \
-            --disable-portaudio                 \
-            --disable-twolame                   \
 %if %{enable_x11_xcb}
             --enable-xcb                        \
 %else
@@ -591,9 +553,12 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Oct 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Major review and analysis
 * Tue Oct 18 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 1.11.12
-- Reviewed for Crash issues and PulseAudio 1.0 support
+- Reviewed for Crash issues and future PulseAudio 1.0 support
+- Resolves security issue in the HTTP and RTSP server components
 * Fri Aug 26 2011 - Thomas Wagner
 - add $GNULIB to CFLAGS, trying to avoid ldd /usr/bin/vlc print that 
   libgcc_s.so.1 not found (vlc works anyways, modules might pull that in)

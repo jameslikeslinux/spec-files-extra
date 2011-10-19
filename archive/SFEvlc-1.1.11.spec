@@ -180,7 +180,7 @@ Requires: SUNWlibxcb
 
 Name:                   SFEvlc
 Summary:                vlc - multimedia player and streaming server
-Version:                1.1.12
+Version:                1.1.11
 Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.bz2
 #Patch1:                 vlc-01-configure-no-pipe.diff
 #obsoleted by ticket #3027 Solaris does not have AF_LOCAL - define AF_LOCAL as AF_UNIX
@@ -591,9 +591,6 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
-* Tue Oct 18 2011 - Ken Mays <kmays2000@gmail.com>
-- Bumped to 1.11.12
-- Reviewed for Crash issues and PulseAudio 1.0 support
 * Fri Aug 26 2011 - Thomas Wagner
 - add $GNULIB to CFLAGS, trying to avoid ldd /usr/bin/vlc print that 
   libgcc_s.so.1 not found (vlc works anyways, modules might pull that in)
