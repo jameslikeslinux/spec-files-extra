@@ -8,13 +8,12 @@
 %include base.inc
 
 Name:                    SFElibdvdnav
-IPS_Package_Name:	library/video/libdvdnav 
 Summary:                 DVD navigation library
-Version:                 4.1.3
+Version:                 4.2.0
 License:                 GPLv2+
 SUNW_Copyright:	         libdvdnav.copyright
-URL:                     http://dvd.sourceforge.net/
-Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdnav-%{version}.tar.bz2
+URL:                     http://dvdnav.mplayerhq.hu
+Source:                  http://dvdnav.mplayerhq.hu/releases/libdvdnav-%{version}.tar.bz2
 Patch1:                  libdvdnav-01-Wall.diff
 SUNW_BaseDir:            %{_basedir}
 buildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -34,7 +33,7 @@ BuildRequires: SFElibdvdread-devel
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal -I ."
@@ -80,8 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
-* Mon Oct 10 2011 - Milan Jurik
-- add IPS package name
+* Thu Oct 20 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 4.2.0
 * Fri Jul 22 2011 - Alex Viskovatoff
 - Build with gcc, so that mplayer2 can play DVDs
 * Wed Jul 20 2011 - Alex Viskovatoff
