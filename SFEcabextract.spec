@@ -9,6 +9,7 @@
 %define src_url		http://www.cabextract.org.uk
 
 Name:                   SFEcabextract
+IPS_Package_Name:	archiver/cabextract
 Summary:                CAB file extractor
 Version:                1.4
 License:                GPLv3+

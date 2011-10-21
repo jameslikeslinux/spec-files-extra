@@ -9,7 +9,9 @@
 %define src_url http://www.webdav.org/cadaver/
 
 Name:		SFEcadaver
+IPS_Package_Name:	web/cadaver
 Summary:	command-line WebDAV client for Unix
+Group:		Applications/Internet
 Version:	0.23.3
 License:	GPLv2+ and LGPLv2+
 SUNW_Copyright:	cadaver.copyright
