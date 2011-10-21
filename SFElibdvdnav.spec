@@ -8,6 +8,7 @@
 %include base.inc
 
 Name:                    SFElibdvdnav
+IPS_Package_Name:	 library/video/libdvdnav 
 Summary:                 DVD navigation library
 Version:                 4.2.0
 License:                 GPLv2+
@@ -81,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Oct 20 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 4.2.0
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
 * Fri Jul 22 2011 - Alex Viskovatoff
 - Build with gcc, so that mplayer2 can play DVDs
 * Wed Jul 20 2011 - Alex Viskovatoff
