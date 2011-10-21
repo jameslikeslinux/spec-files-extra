@@ -15,6 +15,7 @@
 %use ggz_client_libs = ggz-client-libs.spec
 
 Name:                    SFElibggz
+IPS_Package_Name:	games/library/ggz
 Meta(info.classification): %{classification_prefix}:Applications/Games
 Summary:                 GGZ Gaming Zone
 Version:                 %{default_pkg_version}
