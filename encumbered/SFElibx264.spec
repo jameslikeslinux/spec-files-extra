@@ -30,6 +30,8 @@
 %include base.inc
 %use libx264 = libx264.spec
 
+%define with_gpac %(pkginfo -q SFEgpac && echo 1 || echo 0)
+
 Name:                    SFElibx264
 IPS_Package_Name:	library/video/x264 
 Summary:                 %{libx264.summary}
@@ -48,8 +50,10 @@ BuildRequires:		SUNWgnu-mpfr
 BuildRequires: SFEyasm
 %endif
 
+%if %with_gpac
 BuildRequires: SFEgpac-devel
 Requires: SFEgpac
+%endif
 
 %description
 x264 is a free software library and application for encoding video streams into
@@ -153,6 +157,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 21 2011 - Milan Jurik
+- autodetect gpac
 * Sun Oct 16 2011 - Milan Jurik
 - add IPS package name, keep SFEgpac as mandatory
 * Wed Oct 12 2011 - Alex Viskovatoff

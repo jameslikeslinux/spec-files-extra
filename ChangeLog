@@ -1,3 +1,7 @@
+2011-10-21 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFElibx264.spec: autodetect gpac
+
 2011-10-20 Ken Mays <kmays2000@gmail.com>
 
 	* SFElibdvdnav.spec: Bump to 4.2.0
