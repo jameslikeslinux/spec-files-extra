@@ -11,7 +11,7 @@
 %define _prefix /usr/postgres
 %define _var_prefix /var/postgres
 %define tarball_name     postgresql
-%define tarball_version  9.1.0
+%define tarball_version  9.1.1
 %define major_version	 9.1
 
 %define _basedir         %{_prefix}/%{major_version}
@@ -19,7 +19,7 @@
 Name:                    SFEpostgres-91
 IPS_package_name:        database/postgres-91
 Summary:	         PostgreSQL client tools
-Version:                 9.1.0
+Version:                 9.1.1
 License:		 PostgreSQL
 Url:                     http://www.postgresql.org/
 Source:			 http://wwwmaster.postgresql.org/redir/311/h/source/v%{tarball_version}/%{tarball_name}-%{tarball_version}.tar.bz2
