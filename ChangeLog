@@ -1,3 +1,22 @@
+2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnome-shell.spec, patches/gnome-shell-01-compile.diff: Bump to
+	  3.2.1.
+	* SFEgnome-shell-extensions.spec: Bump to 3.2.0.
+	* SFEcaribou.spec: Add new spec, version 0.4.1.
+	* SFEspidermonkey.spec, patches/spidermonkey-01-js-ctypes.diff,
+	  patches/spidermonkey-02-jsfunc.diff,
+	  patches/spidermonkey-03-methodjit-sparc.diff,
+	  patches/spidermonkey-04-jemalloc.diff,
+	  patches/spidermonkey-05-pgo-ss12_2.diff,
+	  patches/spidermonkey-06-use-system-libffi.diff,
+	  patches/spidermonkey-07-makefile.diff: Add spec-file for the 
+	  Mozilla SpiderMonkey JavaScript Engine (js185).
+	* SFEmutter.spec, patches/mutter-03-compile.diff: Bump to 3.2.1.
+	* SFEgjs.spec, patches/gjs-01-solaris.diff: Bump to 1.30.0.  Rework
+	  patch.
+	* base-specs/telepathy-glib.spec: Bump to 0.16.0.
+
 2011-10-22 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEfreeciv.spec: bump to 2.3.0

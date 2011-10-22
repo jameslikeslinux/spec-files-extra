@@ -6,16 +6,20 @@
 %include Solaris.inc
 Name:                    SFEgjs
 Summary:                 GNOME JavaScript bindings
-Version:                 0.7.14
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/gjs/0.7/gjs-%{version}.tar.bz2
+Version:                 1.30.0
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/gjs/1.30/gjs-%{version}.tar.bz2
 # see b.g.o 619721 and 595447
 Patch1:                  gjs-01-solaris.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-BuildRequires:           SUNWfirefox-devel
+BuildRequires:           SUNWglib2-devel
+BuildRequires:           SUNWdbus-glib-devel
 BuildRequires:           SUNWgobject-introspection-devel
-Requires:                SUNWfirefox
+BuildRequires:           SUNWspidermonkey-devel
+Requires:                SUNWglib2
+Requires:                SUNWdbus-glib
 Requires:                SUNWgobject-introspection
+Requires:                SUNWspidermonkey
 # Need nspr.pc file in SUNWprd
 BuildRequires:           SUNWprd
 %include default-depend.inc
@@ -57,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/*.so*
+%{_libdir}/gjs/*
 %{_libdir}/gjs-1.0/*
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gjs-1.0/*
@@ -70,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Thu Oct 20 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.30.0.
 * Tue Jul 05 2011 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 0.7.14.
 * Fri Oct 22 2010 - Brian Cameron <brian.cameron@oracle.com>

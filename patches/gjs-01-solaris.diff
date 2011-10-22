@@ -1,14 +1,3 @@
---- gjs/gi/arg.c-orig	2009-07-07 10:14:05.794424000 -0500
-+++ gjs/gi/arg.c	2009-07-07 10:14:33.936556000 -0500
-@@ -461,7 +461,7 @@ gjs_array_to_intarray(JSContext   *conte
- {
-     /* nasty union types in an attempt to unify the various int types */
-     union { guint32 u; gint32 i; } intval;
--    union { guint8 u8[0]; guint16 u16[0]; guint32 u32[0]; } *result;
-+    union { guint8 *u8; guint16 *u16; guint32 *u32; } *result;
-     unsigned i;
- 
-     result = g_malloc0(length * intsize);
 --- gjs/gjs-dbus/dbus.c-orig	2009-07-07 10:15:25.363639000 -0500
 +++ gjs/gjs-dbus/dbus.c	2009-07-07 10:18:08.124492000 -0500
 @@ -1609,7 +1609,7 @@ typedef struct {
@@ -95,27 +84,25 @@
  void
 --- gjs-0.6/Makefile.am-orig	2010-04-27 05:04:19.043692872 -0500
 +++ gjs-0.6/Makefile.am	2010-04-27 05:04:25.898641234 -0500
-@@ -69,9 +69,9 @@ libgjs_la_CFLAGS = 		\
+@@ -89,8 +89,7 @@ libgjs_la_CFLAGS = 		\
+ 	$(AM_CFLAGS)
  libgjs_la_LDFLAGS = 		\
  	-export-symbols-regex "^[^_]" -version-info 0:0:0	\
- 	-no-undefined \
--	-R $(FIREFOX_JS_LIBDIR) -rdynamic
-+	-R $(FIREFOX_JS_LIBDIR)
- libgjs_la_LIBADD = 		\
--	$(GJS_LIBS)
-+	$(GJS_LIBS) -lxpcom
- 
- libgjs_la_SOURCES =		\
- 	gjs/byteArray.c		\
-@@ -123,7 +123,7 @@ gjs_console_CFLAGS = 		\
- gjs_console_LDADD =		\
-          $(GOBJECT_LIBS)           \
-          libgjs.la
--gjs_console_LDFLAGS = -R $(FIREFOX_JS_LIBDIR) -rdynamic
-+gjs_console_LDFLAGS = -R $(FIREFOX_JS_LIBDIR)
- gjs_console_SOURCES = gjs/console.c
- 
- install-exec-hook:
+-	-no-undefined \
+-	-rdynamic
++	-no-undefined
+ if HAVE_FIREFOX_JS_LIBDIR
+ libgjs_la_LDFLAGS += -R $(FIREFOX_JS_LIBDIR) 
+ endif
+@@ -179,7 +178,7 @@ gjs_console_LDADD =		\
+ 	$(JS_LIBS)		\
+ 	$(GOBJECT_LIBS)		\
+ 	libgjs.la
+-gjs_console_LDFLAGS = -rdynamic
++gjs_console_LDFLAGS =
+ if HAVE_FIREFOX_JS_LIBDIR
+ gjs_console_LDFLAGS += -R $(FIREFOX_JS_LIBDIR)
+ endif
 --- gjs-0.7/gjs/native.h        2010-04-18 02:55:15.000000000 +0200
 +++ gjs-0.7-sunpro/gjs/native.h 2010-05-26 14:29:17.761796993 +0200
 @@ -65,8 +65,18 @@
@@ -138,51 +125,3 @@
      register_native_module (void)                                            \
      {                                                                        \
          gjs_register_native_module(module_id_string, module_func, flags); \
---- gjs-0.7/configure.ac-orig	2011-07-05 18:57:01.769551129 -0500
-+++ gjs-0.7/configure.ac	2011-07-05 18:57:05.567325299 -0500
-@@ -155,23 +155,25 @@ else
-   AC_MSG_ERROR([$JS_PACKAGE >= 1.9.2 is required])
- fi
- 
--AC_CHECK_LIB([mozjs], [JS_GetStringBytes], AC_DEFINE([HAVE_JS_GETSTRINGBYTES], [1], [Define if we still have JS_GetStringBytes]),, [$JS_LIBS])
--AC_CHECK_LIB([mozjs], [JS_GetFunctionName], AC_DEFINE([HAVE_JS_GETFUNCTIONNAME], [1], [Define if we still have JS_GetFunctionName]),, [$JS_LIBS])
--AC_CHECK_LIB([mozjs], [JS_GetStringChars], AC_DEFINE([HAVE_JS_GETSTRINGCHARS], [1], [Define if we still have JS_GetStringChars]),, [$JS_LIBS])
--AC_CHECK_LIB([mozjs], [JS_StrictPropertyStub], AC_DEFINE([HAVE_JS_STRICTPROPERTYSTUB], [1], [Define if we have JS_StrictPropertyStub]),, [$JS_LIBS])
--AC_CHECK_LIB([mozjs], [JS_GetGlobalForScopeChain], AC_DEFINE([HAVE_JS_GETGLOBALFORSCOPECHAIN], [1], [Define if we have JS_GetGlobalForScopeChain]),, [$JS_LIBS])
-+JS_LIBS="$JS_LIBS -lxpcom"
-+
-+AC_CHECK_LIB([xul], [JS_GetStringBytes], AC_DEFINE([HAVE_JS_GETSTRINGBYTES], [1], [Define if we still have JS_GetStringBytes]),, [$JS_LIBS])
-+AC_CHECK_LIB([xul], [JS_GetFunctionName], AC_DEFINE([HAVE_JS_GETFUNCTIONNAME], [1], [Define if we still have JS_GetFunctionName]),, [$JS_LIBS])
-+AC_CHECK_LIB([xul], [JS_GetStringChars], AC_DEFINE([HAVE_JS_GETSTRINGCHARS], [1], [Define if we still have JS_GetStringChars]),, [$JS_LIBS])
-+AC_CHECK_LIB([xul], [JS_StrictPropertyStub], AC_DEFINE([HAVE_JS_STRICTPROPERTYSTUB], [1], [Define if we have JS_StrictPropertyStub]),, [$JS_LIBS])
-+AC_CHECK_LIB([xul], [JS_GetGlobalForScopeChain], AC_DEFINE([HAVE_JS_GETGLOBALFORSCOPECHAIN], [1], [Define if we have JS_GetGlobalForScopeChain]),, [$JS_LIBS])
- 
- AC_MSG_CHECKING([for mozilla-js >= 2 ])
- if `$PKG_CONFIG --exists $JS_PACKAGE '>=' 2`; then
-   AC_MSG_RESULT([yes])
-   AC_DEFINE(HAVE_MOZJS_2, [1], [Define if mozilla-js is at least 2])
--  AC_CHECK_LIB([mozjs], [JS_FreezeObject], AC_DEFINE([HAVE_JS_FREEZEOBJECT], [1], [Define if we have JS_FreezeObject]),
-+  AC_CHECK_LIB([xul], [JS_FreezeObject], AC_DEFINE([HAVE_JS_FREEZEOBJECT], [1], [Define if we have JS_FreezeObject]),
-               , [$JS_LIBS])
--  AC_CHECK_LIB([mozjs], [JS_IsScriptFrame], AC_DEFINE([HAVE_JS_ISSCRIPTFRAME], [1], [Define if we have JS_IsScriptFrame]),
-+  AC_CHECK_LIB([xul], [JS_IsScriptFrame], AC_DEFINE([HAVE_JS_ISSCRIPTFRAME], [1], [Define if we have JS_IsScriptFrame]),
-               , [$JS_LIBS])
--  AC_CHECK_LIB([mozjs], [JS_EndPC], AC_DEFINE([HAVE_JS_ENDPC], [1], [Define if we have JS_EndPC]),
-+  AC_CHECK_LIB([xul], [JS_EndPC], AC_DEFINE([HAVE_JS_ENDPC], [1], [Define if we have JS_EndPC]),
-               , [$JS_LIBS])
--  AC_CHECK_LIB([mozjs], [JS_NewCompartmentAndGlobalObject],
-+  AC_CHECK_LIB([xul], [JS_NewCompartmentAndGlobalObject],
-               AC_DEFINE([HAVE_JS_NEWCOMPARTMENTANDGLOBALOBJECT], [1], [Define if we have JS_NewCompartmentAndGlobalObject]),
-               , [$JS_LIBS])
- 
---- gjs-0.7.14/gjs-internals-1.0.pc.in-orig	2011-07-06 23:06:46.816045989 -0500
-+++ gjs-0.7.14/gjs-internals-1.0.pc.in	2011-07-06 23:07:09.373093173 -0500
-@@ -11,7 +11,7 @@ jsnativedir=@gjsnativedir@
- mozjslibdir=@FIREFOX_JS_LIBDIR@
- 
- Cflags: -I${includedir}/gjs-1.0 @JS_EXTRA_CFLAGS@
--Libs: -Wl,--rpath=${mozjslibdir}
-+Libs: 
- Requires: gjs-1.0 gobject-introspection-1.0 @JS_PACKAGE@
- 
- Name: gjs-internals-1.0

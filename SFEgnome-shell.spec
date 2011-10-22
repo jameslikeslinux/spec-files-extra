@@ -9,8 +9,8 @@
 %include Solaris.inc
 Name:                    SFEgnome-shell
 Summary:                 GNOME Shell
-Version:                 3.1.3
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/3.1/gnome-shell-%{version}.tar.bz2
+Version:                 3.2.1
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/3.2/gnome-shell-%{version}.tar.bz2
 Patch1:                  gnome-shell-01-compile.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -18,21 +18,21 @@ BuildRequires:           SUNWPython26-devel
 BuildRequires:           SUNWdbus-glib-devel
 BuildRequires:           SUNWgtk3-devel
 BuildRequires:           SUNWgnome-media-devel
-BuildRequires:           SUNWgnome-panel-devel
 BuildRequires:           SUNWlibrsvg-devel
 BuildRequires:           SUNWclutter-devel
 BuildRequires:           SUNWgobject-introspection-devel
 BuildRequires:           SFEgjs-devel
+BuildRequires:           SFEcaribou-devel
 BuildRequires:           SFElibtelepathy-devel
 BuildRequires:           SFEtelepathy-logger-devel
 Requires:                SUNWPython26
 Requires:                SUNWdbus-glib
 Requires:                SUNWgtk3
 Requires:                SUNWgnome-media
-Requires:                SUNWgnome-panel
 Requires:                SUNWlibrsvg
 Requires:                SUNWclutter
 Requires:                SUNWgobject-introspection
+BuildRequires:           SFEcaribou
 Requires:                SFEgjs
 Requires:                SFEmutter
 Requires:                SFElibtelepathy
@@ -68,7 +68,8 @@ autoconf
    --prefix=%{_prefix} \
    --libexecdir=%{_libexecdir} \
    --mandir=%{_mandir} \
-   --sysconfdir=%{_sysconfdir}
+   --sysconfdir=%{_sysconfdir} \
+   --without-ca-certificates
 make
 
 %install
@@ -99,10 +100,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/gnome-shell
+%{_libdir}/gnome-shell-hotplug-sniffer
 %{_libdir}/gnome-shell-perf-helper
+%{_libdir}/mozilla
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+%{_datadir}/dbus-1
 %{_datadir}/glib-2.0
 %{_datadir}/gnome-shell
 %dir %attr(0755, root, bin) %{_mandir}
@@ -122,6 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Oct 21 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.2.1.
 * Wed Jul 06 2011 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 3.1.3.
 * Fri Oct 22 2010 - Brian Cameron <brian.cameron@oracle.com>

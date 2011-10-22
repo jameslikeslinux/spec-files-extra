@@ -9,8 +9,8 @@
 %include Solaris.inc
 Name:                    SFEgnome-shell-extensions
 Summary:                 GNOME Shell
-Version:                 3.1.3
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.1/gnome-shell-extensions-%{version}.tar.bz2
+Version:                 3.2.0
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell-extensions/3.2/gnome-shell-extensions-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           SUNWPython26-devel
@@ -30,8 +30,8 @@ Requires:                %{name}
 %setup -q -n gnome-shell-extensions-%version
 
 %build
-
 export PYTHON=/usr/bin/python%{pythonver}
+
 automake-1.11 -a -c -f
 autoconf
 ./configure \
@@ -75,5 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Oct 21 2011 - brian.cameron@oracle.com
+- Bump to 3.2.0.
 * Wed Jul 13 2011 - brian.cameron@oracle.com
 - Created with version 3.1.3.
