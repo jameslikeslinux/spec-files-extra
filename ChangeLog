@@ -1,5 +1,10 @@
 2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
 
+	* SFEgnome-shell.spec, patches/gnome-shell-02-fixclick.diff:  Add
+	  patch to workaround an issue that makes GNOME Shell not very usable.
+
+2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
+
 	* SFEgnome-shell.spec, patches/gnome-shell-01-compile.diff: Bump to
 	  3.2.1.
 	* SFEgnome-shell-extensions.spec: Bump to 3.2.0.

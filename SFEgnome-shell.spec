@@ -4,6 +4,11 @@
 # includes module(s): gnome-shell
 #
 
+# Note, to build GNOME Shell, you need to build the GNOME 3 modules from
+# spec-files.  To access.
+#
+# svn co svn+ssh://anon@svn.opensolaris.org/svn/jds/spec-files/trunk
+
 %define pythonver 2.6
 
 %include Solaris.inc
@@ -11,7 +16,15 @@ Name:                    SFEgnome-shell
 Summary:                 GNOME Shell
 Version:                 3.2.1
 Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/3.2/gnome-shell-%{version}.tar.bz2
+# This patch is not well written, and could use work.
+#
 Patch1:                  gnome-shell-01-compile.diff
+# This patch is wrong, and hides the fact that Shell.get_event_state() seems
+# to not work.  But without this patch, GNOME Shell is really not very usable.
+# Without this patch, clicking on anything in the Activities window or typing
+# in the Activities does not do anything.
+#
+Patch2:                  gnome-shell-02-fixclick.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           SUNWPython26-devel
@@ -55,6 +68,7 @@ Requires:                %{name}
 %prep
 %setup -q -n gnome-shell-%version
 %patch1 -p1
+%patch2 -p1
 
 %build
 
