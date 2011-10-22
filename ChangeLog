@@ -1,3 +1,7 @@
+2011-10-22 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.31
+
 2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEgnome-shell.spec, patches/gnome-shell-02-fixclick.diff:  Add
