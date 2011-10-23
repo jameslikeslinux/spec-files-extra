@@ -33,7 +33,7 @@
 %use ffmpeg = ffmpeg.spec
 
 Name:                    SFEffmpeg
-IPS_Package_Name:	library/video/ffmpeg
+IPS_Package_Name:	video/ffmpeg
 Summary:                 %{ffmpeg.summary}
 Version:                 %{ffmpeg.version}
 License:                 GPLv2+ and LGPLv2.1+
