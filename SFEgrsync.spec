@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Summary:	GTK+ frontend for rsync 
+IPS_Package_Name:	desktop/network/grsync
 Name:		SFEgrsync
 Version:	1.2.0
 License:	GPLv2
