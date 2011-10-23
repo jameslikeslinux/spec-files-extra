@@ -8,6 +8,7 @@
 	* base-specs/libvpx.spec: bump to 0.9.7-p1
 	* base-specs/libmms.spec: bump to 0.6.2
 	* SFEpython26-genshi.spec: bump to 0.6
+	* SFEassaultcube.spec: bump to 1.1.0.4
 
 2011-10-22 Ken Mays <kmays2000@gmail.com>
 
