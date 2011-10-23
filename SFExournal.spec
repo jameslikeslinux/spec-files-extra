@@ -8,7 +8,9 @@
 %define srcname xournal
 
 Name:		SFExournal
+IPS_Package_Name:	desktop/note-taking/xournal
 Summary:	Note-taking and sketching application
+Group:		Applications/Office
 URL:		http://xournal.sourceforge.net
 Meta(info.upstream):	Dennis Auroux
 Version:	0.4.5
