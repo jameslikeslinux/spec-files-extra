@@ -5,6 +5,7 @@
 	* encumbered/SFEffmpeg.spec: add IPS package name, add rtmp dep
 	* SFEtaglib.spec: bump to 1.7
 	* SFEsoundtouch.spec: bump to 1.6.0
+	* base-specs/libvpx.spec: bump to 0.9.7-p1
 
 2011-10-22 Ken Mays <kmays2000@gmail.com>
 

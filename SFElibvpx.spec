@@ -20,6 +20,7 @@
 %use libvpx = libvpx.spec
 
 Name:		SFElibvpx
+IPS_Package_Name:	library/video/libvpx
 Summary:	The VP8 Codec SDK
 Group:		System/Multimedia Libraries
 Version:	%{libvpx.version}
