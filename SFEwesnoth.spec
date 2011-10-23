@@ -14,9 +14,8 @@
 
 %define src_version 1.6.5
 
-%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
-
 Name:                    	SFEwesnoth
+IPS_Package_Name:	games/wesnoth
 Summary:                 	Battle for Wesnoth is a fantasy turn-based strategy game
 Version:                 	1.6.5
 License:			GPLv2
@@ -39,13 +38,8 @@ Patch10:		        wesnoth-10-fixstd.diff
 
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SFEsdl
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%else
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%endif
 BuildRequires:		SFEsdl-mixer-devel
 BuildRequires:		SFEsdl-ttf-devel
 BuildRequires:		SFEsdl-net-devel
