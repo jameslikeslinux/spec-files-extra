@@ -2,6 +2,7 @@
 
 	* include/arch64.inc: use -m64 instead of -xarch=generic64
 	* encumbered/SFElibgsm.spec: fix multiarch
+	* encumbered/SFEffmpeg.spec: add IPS package name, add rtmp dep
 
 2011-10-22 Ken Mays <kmays2000@gmail.com>
 

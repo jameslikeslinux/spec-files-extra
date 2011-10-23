@@ -9,8 +9,6 @@
 %include base.inc
 %include packagenamemacros.inc
 
-%define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
-
 %if %arch_sse2
 #%define arch_opt --cpu=i686 --enable-mmx --enable-mmx2 --enable-sse --enable-sse
 %define arch_opt --cpu=prescott --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
@@ -35,6 +33,7 @@
 %use ffmpeg = ffmpeg.spec
 
 Name:                    SFEffmpeg
+IPS_Package_Name:	library/video/ffmpeg
 Summary:                 %{ffmpeg.summary}
 Version:                 %{ffmpeg.version}
 License:                 GPLv2+ and LGPLv2.1+
@@ -55,13 +54,8 @@ BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWxwinc
 Requires: SUNWxwrtl
 Requires: SUNWzlib
-%if %SUNWlibsdl
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%else
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%endif
 BuildRequires: SFElibgsm-devel
 Requires: SFElibgsm
 BuildRequires: SFExvid-devel
@@ -87,6 +81,8 @@ BuildRequires: SFEopenjpeg-devel
 Requires: SFEopenjpeg
 BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
+BuildRequires: SFErtmpdump-devel
+Requires: SFErtmpdump
 
 %package devel
 Summary:                 %{summary} - development files
@@ -189,6 +185,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- add IPS package name
+- add rtmp dep
 * Wed Aug 17 2011 - Thomas Wagner
 - %arch_sse2 change minimum-CPU i686 to prescott, add --enable-sse --enable-ssse2
 - for arch i86 by default --enable-runtime-cpudetect, add extra_gcc_flags -msse
