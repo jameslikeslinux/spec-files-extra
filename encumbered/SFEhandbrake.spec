@@ -16,7 +16,9 @@
 %use handbrake = handbrake.spec
 
 Name:                    SFEhandbrake
+IPS_Package_Name:	video/handbrake
 Summary:                 handbrake - multiplatform, multithreaded video transcoder
+URL:		http://handbrake.fr/
 Version:                 %{handbrake.version}
 
 SUNW_BaseDir:            %{_basedir}
@@ -38,6 +40,7 @@ BuildRequires: SFEffmpeg-devel
 BuildRequires: SFElibx264-devel
 BuildRequires: SFElibao-devel
 BuildRequires: SFElibiconv-devel
+BuildRequires: SFEyasm
 
 Requires:       %{pnm_requires_SUNWlibmikmod}
 BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod}
