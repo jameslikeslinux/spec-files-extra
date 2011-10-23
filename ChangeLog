@@ -1,6 +1,7 @@
 2011-10-23 Milan Jurik <sfnet@xylab.cz>
 
 	* include/arch64.inc: use -m64 instead of -xarch=generic64
+	* encumbered/SFElibgsm.spec: fix multiarch
 
 2011-10-22 Ken Mays <kmays2000@gmail.com>
 
