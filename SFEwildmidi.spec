@@ -6,8 +6,9 @@
 %include Solaris.inc
 
 Name:		SFEwildmidi
-Summary:	wildmidi - software MIDI synthesizer
-Group:		Audio
+IPS_Package_Name:	media/wildmidi
+Summary:	Software MIDI synthesizer
+Group:		Applications/Sound and Video
 Version:	0.2.3.4
 License:	LGPLv3
 Source:		%{sf_download}/wildmidi/wildmidi-%{version}.tar.gz

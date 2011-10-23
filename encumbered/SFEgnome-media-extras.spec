@@ -15,7 +15,6 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 %define with_amrnb %(pkginfo -q SFEamrnb && echo 1 || echo 0)
 %define with_amrwb %(pkginfo -q SFEamrwb && echo 1 || echo 0)
-%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define NVDAgraphics %(/usr/bin/pkginfo -q NVDAgraphics && echo 1 || echo 0)
 
 %use gst_ffmpeg = gst-ffmpeg.spec
@@ -24,11 +23,13 @@
 
 %define gst_minmaj %(echo %{gst_plugins_ugly.version} | cut -f1,2 -d.)
 
-Name:                    SFEgnome-media-extras
-Summary:                 GNOME streaming media framework - extra plugins
-Version:                 %{default_pkg_version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgnome-media-extras
+IPS_Package_Name:	gnome/media/gnome-media-extras
+Summary:	GNOME streaming media framework - extra plugins
+Group:		Applications/Sound and Video
+Version:	%{default_pkg_version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 
@@ -102,13 +103,8 @@ BuildRequires: SUNWmusicbrainz-devel
 #BuildRequires: SUNWlibrsvg-devel
 Requires: SUNWxorg-clientlibs
 BuildRequires: SUNWxorg-clientlibs
-%if %SFEsdl
-Requires: SFEsdl
-BuildRequires: SFEsdl-devel
-%else
 Requires: SUNWlibsdl
 BuildRequires:  SUNWlibsdl-devel
-%endif
 %if %NVDAgraphics
 # VDPAU
 BuildRequires: NVDAgraphics
