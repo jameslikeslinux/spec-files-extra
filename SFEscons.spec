@@ -8,7 +8,9 @@
 %include packagenamemacros.inc
 
 Name:                    SFEscons
+IPS_Package_Name:	developer/build/scons
 Summary:                 SCons - a software construction tool (make replacement)
+Group:		Development/Distribution Tools
 Version:                 2.1.0
 URL:                     http://www.scons.org/
 License:                 MIT
