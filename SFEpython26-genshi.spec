@@ -10,13 +10,14 @@
 %define src_name        Genshi
 %define python_version  2.6
 
-Name:                   SFEpython26-genshi
-Summary:                Python library that provides components for parsing, generating, and processing HTML, XML or Text
-URL:                    http://www.genshitemplates.org
-Version:                0.4.4
-Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+Name:		SFEpython26-genshi
+IPS_Package_Name:	library/python-2/python-genshi-26
+Summary:	Python library that provides components for parsing, generating, and processing HTML, XML or Text
+URL:		http://genshi.edgewall.org/
+Version:	0.6
+Source:		%{src_url}/%{src_name}-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: %{pnm_buildrequires_SUNWgnome_python26_libs}
@@ -52,6 +53,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- bump to 0.6
 * Fri Mar 18 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWlibpigment_python26_devel}
 * Thu Jun 24 2010 - Thomas Wagner
