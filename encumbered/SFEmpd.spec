@@ -24,7 +24,7 @@ Summary:             Daemon for remote access music playing & managing playlists
 License:             GPLv2
 SUNW_Copyright:	     mpd.copyright
 Meta(info.upstream): Max Kellermann <max@duempel.org>
-Version:             0.16.2
+Version:             0.16.5
 Source:              http://downloads.sourceforge.net/musicpd/%srcname-%version.tar.bz2
 
 SUNW_BaseDir:        %{_basedir}
@@ -42,7 +42,6 @@ BuildRequires: database/sqlite-3
 BuildRequires: SUNWglib2
 BuildRequires: SUNWlibsndfile
 BuildRequires: SUNWcurl
-BuildRequires: SFElame
 #TODO# BuildRequires: SFElibpulse-devel
 BuildRequires: SUNWavahi-bridge-dsd-devel
 ## MPD INSTALL file says AO "should be used only if there is no native plugin
@@ -58,18 +57,21 @@ Requires: database/sqlite-3
 Requires: SUNWglib2
 Requires: SUNWlibsndfile
 Requires: SUNWcurl
-Requires: SFElame
 #TODO# Requires: SFElibpulse
 Requires: SUNWavahi-bridge-dsd
 %if %build_encumbered
 BuildRequires: SFElibmpcdec-devel
-BuildRequires: SFElibmad-devel
+BuildRequires: SFEmpg123-devel
 BuildRequires: SFEfaad2-devel
+BuildRequires: SFElame-devel
+BuildRequires: SFEtwolame-devel
 # libid3tag is not encumbered, but it is not used by flac or ogg
 BuildRequires: SFElibid3tag-devel
 Requires: SFElibmpcdec
 Requires: SFEfaad2
-Requires: SFElibmad
+Requires: SFElame
+Requires: SFEtwolame
+Requires: SFEmpg123
 Requires: SFElibid3tag
 %endif
 
@@ -103,9 +105,10 @@ export LDFLAGS="%_ldflags"
 	    --enable-shout       \
             --disable-alsa       \
             --disable-ffmpeg     \
-%if %build_encumbered
-%else
             --disable-mad        \
+%if %build_encumbered
+            --enable-mpg123      \
+%else
             --disable-mpg123     \
             --disable-aac        \
             --disable-mpc        \
@@ -151,6 +154,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Wed Oct 19 2011 - Alex Viskovotoff
+- Use mpg123 instead of libmad for mp3s, since libmad is for integer-only CPUs
 * Mon Aug  8 2011 - Alex Viskovatoff
 - Add missing (build) dependencies
 * Mon Jul 18 2011 - Alex Viskovatoff

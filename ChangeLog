@@ -11,6 +11,7 @@
         * libx264.spec: update to new tarball; change version numbering
         * SFElibx264-no-mp4.spec: delete redundant spec
         * SFEmplayer2.spec: add missing dep; disable libmad
+	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
 
 2011-10-24  Alex Viskovatoff <herzen@imap.cc>
 
