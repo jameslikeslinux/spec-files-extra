@@ -23,14 +23,14 @@
 %include base.inc
 
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
-%define with_ladspa %(pkginfo -q SFEladspa && echo 1 || echo 0)
+#%define with_ladspa %(pkginfo -q SFEladspa && echo 1 || echo 0)
 %define with_openal %(pkginfo -q SFEopenal && echo 1 || echo 0)
-%define with_mad %(pkginfo -q SFElibmad && echo 1 || echo 0)
-%define with_liba52 %(pkginfo -q SFEliba52 && echo 1 || echo 0)
-%define with_mpcdec %(pkginfo -q SFElibmpcdec && echo 1 || echo 0)
+#%define with_liba52 %(pkginfo -q SFEliba52 && echo 1 || echo 0)
+#%define with_mpcdec %(pkginfo -q SFElibmpcdec && echo 1 || echo 0)
 %define with_openjpeg %(pkginfo -q SFEopenjpeg && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
-%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
+#%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
+%define with_alsa 0
 
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
@@ -42,7 +42,7 @@ Version:                 2.0.99
 URL:                     http://www.mplayer2.org/
 #Source:                 http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
 # Use the development version, since current release is incompatible
-# with the new ffmpeg interface
+# with the new ffmpeg API
 Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
 Patch1:                  mplayer-snap-01-shell.diff
 Patch3:                  mplayer-snap-03-ldflags.diff
@@ -55,8 +55,7 @@ BuildRoot:               %_tmppath/%name-build
 Requires: SUNWsmbau
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
-# OI 151 is at a newer version than S11X, so this dependency blocks installation on S11X
-#Requires: SUNWfreetype2
+Requires: SUNWfreetype2
 Requires: SUNWspeex
 Requires: SUNWjpg
 Requires: SUNWpng
@@ -68,6 +67,8 @@ Requires: SFEffmpeg
 Requires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibdvdnav
+BuildRequires: SFEfaad2-devel
+Requires: SFEfaad2
 #Requires: driver/graphics/nvidia
 %ifarch i386 amd64
 BuildRequires: SFEyasm
@@ -94,8 +95,8 @@ BuildRequires: SFElibfribidi-devel
 %endif
 Requires: SFEladspa
 BuildRequires: SFEladspa-devel
-Requires: SFElibmad
-BuildRequires: SFElibmad-devel
+Requires: SFEmpg123
+BuildRequires: SFEmpg123-devel
 Requires: SFEliba52
 BuildRequires: SFEliba52-devel
 %if %with_openal
@@ -144,10 +145,8 @@ dbgflag=--disable-debug
 export CFLAGS="-O2 -fomit-frame-pointer -D__hidden=\"\""
 %endif
 
-# SFEgcc adds /usr/gnu/lib to lib search path
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
-#export LDFLAGS="-liconv" 
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 
 bash ./configure				\
 	    --prefix=%_prefix			\
@@ -158,11 +157,13 @@ bash ./configure				\
             --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
             --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
-            --enable-faad		\
+            --enable-faad			\
+            --disable-mad			\
+            --enable-3dnow			\
+            --enable-3dnowext			\
             --enable-live			\
 	    --enable-rpath			\
 	    --enable-crash-debug		\
-            --enable-dynamic-plugins            \
 	    $dbgflag
 
 gmake -j$CPUS 
@@ -226,6 +227,10 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Wed Oct 19 2011 - Alex Viskovatoff
+- Enable 3dnow and 3dnowext; add missing (build) dependency on SFEmpg123
+- Disable libmad (only used on integer-only platforms, unsupported by SFE)
+- Remove --enable-dynamic-plugins (deprecated by upstream)
 * Fri Aug  5 2011 - Alex Viskovatoff
 - Require driver/graphics/nvidia
 * Wed Aug  3 2011 - Alex Viskovatoff

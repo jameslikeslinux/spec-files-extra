@@ -17,7 +17,7 @@
 %endif
 
 %ifarch i386
-%define arch_opt --cpu=prescott --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
+%define arch_opt --cpu=pentiumpro --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3 --enable-amd3dnow --enable-amd3dnowext
 %define extra_gcc_flags
 %endif
 
@@ -57,8 +57,6 @@ BuildRequires: SFExvid-devel
 Requires: SFExvid
 BuildRequires: SFElibx264-devel
 Requires: SFElibx264
-BuildRequires: SFEfaad2-devel
-Requires: SFEfaad2
 BuildRequires: SFEfaac-devel
 Requires: SFEfaac
 BuildRequires: SFElame-devel
@@ -141,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Oct 19 2011 - Alex Viskovatoff
+- Remove dependency on SFEfaad2, which ffmpeg does not use
+- Set cpu to pentiumpro and enable amd3dnow and amd3dnowext
 * Wed Oct 12 2011 - Alex Viskovatoff
 - Add dependency on SFErtmpdump, since librtmp is now enabled
 * Tue Aug  9 2011 - Alex Viskovatoff

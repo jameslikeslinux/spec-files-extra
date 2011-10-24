@@ -72,7 +72,6 @@ bash ./configure	\
     --enable-libopenjpeg \
     --enable-librtmp \
     --enable-vdpau	\
-    --extra-ldflags=-mimpure-text \
     --enable-shared
 
 gmake -j$CPUS
@@ -110,6 +109,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Oct 23 2011 - Alex Viskovatoff
+- remove --extra-ldflags=-mimpure-text
 * Wed Oct 12 2011 - Alex Viskovatoff
 - bump to 0.8.5; enable librtmp; do not hardcode path of gcc
 * Wed Aug 17 2011 - Thomas Wagner
