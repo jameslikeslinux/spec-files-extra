@@ -61,7 +61,6 @@ export LDFLAGS="%{_ldflags}"
             --enable-network=yes	\
             --with-cpu=sse		\
             --with-default-audio=oss	\
-            --with-audio=oss		\
             --with-module-suffix=.so	\
             --enable-ipv6=yes 		\
             --with-optimization=1
