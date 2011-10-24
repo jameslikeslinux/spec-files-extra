@@ -3,6 +3,7 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
+%define pythonver 2.6
 
 %include Solaris.inc
 
@@ -84,13 +85,20 @@ gmake install DESTDIR=$RPM_BUILD_ROOT
 /bin/rm -rf $RPM_BUILD_ROOT%{_datadir}/gtk-doc
 %endif
 
-/bin/rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-
 %if %build_l10n
 %else
 # REMOVE l10n FILES
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
+
+# move to vendor-packages
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/python%{pythonver}/vendor-packages
+mv $RPM_BUILD_ROOT%{_libdir}/python%{pythonver}/site-packages/* \
+   $RPM_BUILD_ROOT%{_libdir}/python%{pythonver}/vendor-packages/
+rmdir $RPM_BUILD_ROOT%{_libdir}/python%{pythonver}/site-packages
+
+find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
+find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.pyo" -exec rm -f {} ';'
 
 %clean
 rm -rf $RPM_BUILD_ROOT
