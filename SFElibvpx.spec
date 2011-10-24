@@ -52,7 +52,7 @@ mkdir %name-%version/%{base_arch}
 %libvpx.prep -d %name-%version/%{base_arch}
 
 %build
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 
 %ifarch amd64
 %libvpx_64.build -d %name-%version/%_arch64

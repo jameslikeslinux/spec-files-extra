@@ -12,6 +12,8 @@
         * SFElibx264-no-mp4.spec: delete redundant spec
         * SFEmplayer2.spec: add missing dep; disable libmad
 	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
+	* SFErtmpdump.spec: move to encumbered/
+	* SFExulrunner.spec import spec from BeleniX into experimental/
 
 2011-10-24  Alex Viskovatoff <herzen@imap.cc>
 
