@@ -19,8 +19,6 @@
 %endif
 
 %include base.inc
-# arch64.inc defines opt_arch64 as 1, but base.inc doesn't define it as 0
-%define opt_arch64 0
 %use icu = icu.spec
 
 Name:			SFEicu
