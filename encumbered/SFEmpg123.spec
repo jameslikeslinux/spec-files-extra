@@ -4,8 +4,9 @@
 %include Solaris.inc
 
 Name:           SFEmpg123
-Summary:        mpg123 - fast console MPEG Audio Player and decoder library
-Version:        1.13.3
+IPS_package_name: audio/mpg123
+Summary:        Fast console MPEG Audio Player and decoder library
+Version:        1.13.4
 URL:            http://www.mpg123.org/
 Source:         %{sf_download}/mpg123/mpg123/%{version}/mpg123-%{version}.tar.bz2
 License:        LGPL,GPL
@@ -30,7 +31,7 @@ data to stdout, gapless playback of MP3 files, a decoder library for use
 with other applications, and much more.
 
 %package devel
-Summary:        mpg123 - developer files, /usr
+Summary:        mpg123 - developer files
 Group:          Development/Libraries
 SUNW_BaseDir:   %{_basedir}
 Requires:       %name
@@ -40,13 +41,12 @@ Requires:       %name
 %setup -q -n mpg123-%version
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CFLAGS="%{optflags}"
+#export CFLAGS="%{optflags}"
+export CFLAGS="-i -xO4 -xspace -xstrconst -xarch=sse -mr -xregs=no%frameptr"
 export LDFLAGS="%{_ldflags}"
+# Build fails with --with-optimization set to > 1
 ./configure --prefix=%{_prefix}         \
             --bindir=%{_bindir}         \
             --mandir=%{_mandir}         \
@@ -59,10 +59,12 @@ export LDFLAGS="%{_ldflags}"
             --enable-int-quality=yes    \
             --enable-fifo=yes		\
             --enable-network=yes	\
-            --with-cpu=generic_fpu	\
+            --with-cpu=sse		\
             --with-default-audio=oss	\
+            --with-audio=oss		\
+            --with-module-suffix=.so	\
             --enable-ipv6=yes 		\
-            --with-optimization=0
+            --with-optimization=1
 
 make -j$CPUS 
 
@@ -91,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libmpg123.so
 
 %changelog
+* Mon Oct 24 2011 - Alex Viskovatoff
+- bump to 1.13.4; make executable functional; xarch=sse; add IPS_package_name
 * Thu Sep 01 2011 - Milan Jurik
 - bump to 1.13.3
 * Mon Aug 25 2009 - matt@greenviolet.net

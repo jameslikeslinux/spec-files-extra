@@ -1,3 +1,8 @@
+2011-10-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmpg123.spec: bump to 1.13.4; fix executable; use xarch=sse;
+	  add IPS_package_name
+
 2011-10-24 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEt1lib.spec: initial spec
@@ -35,7 +40,7 @@
 	  patches/spidermonkey-04-jemalloc.diff,
 	  patches/spidermonkey-05-pgo-ss12_2.diff,
 	  patches/spidermonkey-06-use-system-libffi.diff,
-	  patches/spidermonkey-07-makefile.diff: Add spec-file for the 
+	  patches/spidermonkey-07-makefile.diff: Add spec-file for the
 	  Mozilla SpiderMonkey JavaScript Engine (js185).
 	* SFEmutter.spec, patches/mutter-03-compile.diff: Bump to 3.2.1.
 	* SFEgjs.spec, patches/gjs-01-solaris.diff: Bump to 1.30.0.  Rework
@@ -53,7 +58,7 @@
 2011-10-20 Ken Mays <kmays2000@gmail.com>
 
 	* SFElibdvdnav.spec: Bump to 4.2.0
-	* SFElibdvdplay.spec: Bump to 4.2.0
+	* SFElibdvdread.spec: Bump to 4.2.0
 
 2011-10-19  Alex Viskovatoff <herzen@imap.cc>
 
