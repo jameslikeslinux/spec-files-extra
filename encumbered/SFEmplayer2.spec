@@ -29,9 +29,7 @@
 #%define with_mpcdec %(pkginfo -q SFElibmpcdec && echo 1 || echo 0)
 %define with_openjpeg %(pkginfo -q SFEopenjpeg && echo 1 || echo 0)
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
-#%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
-%define with_alsa 0
-
+%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                    SFEmplayer2

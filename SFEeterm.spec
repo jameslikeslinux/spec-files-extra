@@ -5,7 +5,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 Name:                SFEeterm
@@ -36,8 +35,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # This source is gcc-centric, therefore...
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 
 #export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"

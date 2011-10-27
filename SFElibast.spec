@@ -43,7 +43,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # This source is gcc-centric, therefore...
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 export CFLAGS="%optflags"
 #export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
 %if %option_with_fox
