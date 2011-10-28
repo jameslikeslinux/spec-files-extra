@@ -1,3 +1,8 @@
+2011-10-27 Ken Mays <kmays2000@gmail.com>
+
+	* SFEbdb.spec: Reverted to 4.8.30
+	* experimental/SFEbdb-5.2.36.spec: Test version 
+
 2011-10-24 Brian Cameron  <brian.cameron@oracle.com>
 
 	* SFEcaribou.spec: Improve packaging.

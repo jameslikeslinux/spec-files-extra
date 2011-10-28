@@ -10,7 +10,7 @@
 
 Name:		SFEbdb
 Summary:	Berkeley DB
-Version:	4.8.30
+Version:	5.2.36
 License:        BSD3c
 SUNW_Copyright: bdb.copyright
 Source:		http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/*
 
 %changelog
+* Fri Sep 30 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 5.2.36
 * Wed Mar 30 2011 - Milan Jurik
 - bump to 4.8.30
 * Thu Feb 03 2011 - Milan Jurik
@@ -82,4 +84,3 @@ rm -rf $RPM_BUILD_ROOT
 - Add URL.
 * Tue Nov 07 2006 - glynn.foster@sun.com
 - Initial spec file
-
