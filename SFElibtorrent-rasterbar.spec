@@ -11,12 +11,14 @@
 %define srcname libtorrent-rasterbar
 
 Name:		SFElibtorrent-rasterbar
+IPS_package_name: library/g++/libtorrent-rasterbar
 Summary:	Feature complete C++ bittorrent implementation focusing on efficiency and scalability
 Group:		System/Libraries
 URL:		http://www.rasterbar.com/products/libtorrent/
 Meta(info.upstream):	Arvid Norberg <arvid@rasterbar.com>
-Version:	0.15.7
-License:	BSD
+Version:	0.15.8
+License:	BSD with advertising
+SUNW_copyright:	%srcname.copyright
 Source:		http://libtorrent.googlecode.com/files/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%srcname-%version-build
@@ -76,6 +78,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Thu Oct 27 2011 - Alex Viskovatoff
+- Bump to 0.15.8; add SUNW_copyright and IPS_package_name
 * Mon Aug 29 2011 - Alex Viskovatoff
 - Build examples
 * Sun Aug 28 2011 - Alex Viskovatoff

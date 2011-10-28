@@ -1,7 +1,16 @@
+2011-10-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFElibtorrent-rasterbar.spec: bump to 0.15.8; add IPS_package_name
+	* SFEqbittorrent.spec: update to 2.9.1, disabling one patch;
+	  add IPS_package_name
+	* SFEmultitail.spec: update to 5.2.8; add IPS_package_name
+	* SFEsmplayer2.spec: fork spec off SFEsmplayer.spec
+	* SFEmpdscribble.spec: bump to 0.22
+
 2011-10-27 Ken Mays <kmays2000@gmail.com>
 
 	* SFEbdb.spec: Reverted to 4.8.30
-	* experimental/SFEbdb-5.2.36.spec: Test version 
+	* experimental/SFEbdb-5.2.36.spec: Test version
 
 2011-10-24 Brian Cameron  <brian.cameron@oracle.com>
 
@@ -139,7 +148,7 @@
 	* encumbered/SFEgpac.spec: add IPS package name
 	* SFElibmp4v2.spec: add IPS package name
 	* base-specs/libmp4v2.spec: fix sun studio build
-	* encumbered/SFEfaad2.spec: add IPS package name, fix build 
+	* encumbered/SFEfaad2.spec: add IPS package name, fix build
 	* encumbered/SFElibx264.spec: add IPS package name,
 	  keep SFEgpac as mandatory
 	* base-specs/libx264.spec: fix multicore build

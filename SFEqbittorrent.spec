@@ -11,13 +11,15 @@
 %define srcname qbittorrent
 
 Name:		SFEqbittorrent
+IPS_package_name: desktop/torrent/qbittorrent
 Summary:	Free Software alternative to utorrent using Qt
 Group:		Applications/Internet
 URL:		http://qbittorrent.sourceforge.net/
+Meta(info.upstream): Christophe Dumez <chris@qbittorrent.org>
 License:	GPLv2
-#SUNW_Copyright:	%srcname.copyright
+SUNW_Copyright:	%srcname.copyright
 Group:		Applications/Internet
-Version:	2.8.4
+Version:	2.9.1
 Source:		%sf_download/project/%srcname/%srcname/%srcname-%version/%srcname-%version.tar.gz
 Patch1:		qbittorrent-01-filesystemwatcher.diff
 Patch2:		qbittorrent-02-misc.diff
@@ -40,7 +42,7 @@ Requires: 	%pnm_requires_python_default
 %prep
 %setup -q -n %srcname-%version
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -116,6 +118,9 @@ rm -rf %buildroot
 
 
 %changelog
+* Thu Oct 27 2011 - Alex Viskovatoff
+- Update to 2.9.1, disabling one patch
+- Add SUNW_copyright and IPS_package_name
 * Tue Aug 30 2011 - Alex Viskovatoff
 - Add missing dependency on Boost
 * Sun Aug 28 2011 - Alex Viskovatoff
