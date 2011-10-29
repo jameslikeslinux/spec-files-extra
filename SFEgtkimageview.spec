@@ -11,6 +11,7 @@
 %define osbuild %(uname -v | sed -e 's/[A-z_]//g')
 
 Name:           SFEgtkimageview
+IPS_Package_Name:	image/library/gtkimageview
 Summary:        Image metadata library
 Version:        %{default_pkg_version}
 License:        LGPLv2.1+

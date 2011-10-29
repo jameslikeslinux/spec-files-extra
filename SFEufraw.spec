@@ -9,6 +9,7 @@
 %include packagenamemacros.inc
 
 Name:		SFEufraw
+IPS_Package_Name:	image/ufraw
 Summary:	Ufraw - Raw Photo Converter
 Group:		Graphics
 Version:	0.18
