@@ -86,8 +86,8 @@ The group to change to when executing the
   start/stop/refresh methods (example: 'webservd') [] webservd
 
 Manifest written to memcached.xml
-You can validate the XML file with ßvccfg validate memcached.xml"
-And create the SMF service with ßvccfg import memcached.xml"
+You can validate the XML file with svccfg validate memcached.xml"
+And create the SMF service with svccfg import memcached.xml"
 
 %prep
 %setup -q -n %src_name-%version
