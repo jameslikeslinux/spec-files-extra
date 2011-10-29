@@ -8,11 +8,10 @@
 
 %include Solaris.inc
 Name:                    SFEgeoclue
+IPS_Package_Name:	system/library/geoclue
 License:                 LGPL v2
 Group:                   Libraries/Multimedia
 Version:                 0.12.0
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
 Summary:                 Geoinformation Server
 Source:                  http://folks.o-hand.com/jku/geoclue-releases/geoclue-%{version}.tar.gz
 Patch1:                  geoclue-01-Wall.diff
@@ -25,8 +24,9 @@ Requires:                SUNWglib2
 Requires:                SUNWdbus-glib
 BuildRequires:           SUNWglib2-devel
 BuildRequires:           SUNWdbus-glib-devel
-BuildRequires:           SFEgpsd-devel
-Requires:                SFEgpsd
+# New gpsd unsupported
+#BuildRequires:           SFEgpsd-devel
+#Requires:                SFEgpsd
 BuildRequires:           SUNWlxsl
 BuildRequires:           SUNWgtk-doc
 
@@ -46,6 +46,7 @@ SUNW_BaseDir:            %{_basedir}
 	--bindir=%{_bindir}	    \
 	--libexecdir=%{_libexecdir} \
 	--mandir=%{_mandir}	    \
+	--enable-gpsd=no	\
 	--enable-gtk-doc
 make
 
@@ -77,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libexecdir}/geoclue-plazes
 %{_libexecdir}/geoclue-skyhook
 %{_libexecdir}/geoclue-yahoo
-%{_libexecdir}/geoclue-gpsd
+#%{_libexecdir}/geoclue-gpsd
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/dbus-1/services/*
 %{_datadir}/geoclue-providers
@@ -93,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- disable gpsd because it does not support new version
 * Fri Jan 07 2011 - Milan Jurik
 - add missing deps
 * Tue Apr 27 2010 - Brian Cameron  <brian.cameron@sun.com>
