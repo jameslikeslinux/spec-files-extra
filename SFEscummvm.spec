@@ -9,6 +9,7 @@
 %define with_libmpeg2 %(pkginfo -q SFElibmpeg2 && echo 1 || echo 0)
 
 Name:                    SFEscummvm
+IPS_Package_Name:	games/scummvm
 Summary:                 ScummVM - emulator for classic graphical games
 Version:                 1.3.1
 Group:                   System/Emulators/Other
