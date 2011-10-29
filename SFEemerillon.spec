@@ -7,37 +7,35 @@
 #
 
 %include Solaris.inc
-Name:                    SFEemerillon
-License:                 GPL v3
-Group:                   Libraries/Multimedia
-Version:                 0.1.2
-Source:                  http://download.gnome.org/sources/emerillon/0.1/emerillon-%{version}.tar.bz2
-Patch1:                  emerillon-01-rest.diff
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
-Summary:                 Map Viewer
-URL:                     http://www.novopia.com/emerillon/
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-SUNW_BaseDir:            %{_basedir}
+Name:		SFEemerillon
+IPS_Package_Name:	desktop/emerillon
+License:	GPLv3
+Group:		Libraries/Multimedia
+Version:	0.1.2
+Source:		http://download.gnome.org/sources/emerillon/0.1/emerillon-%{version}.tar.bz2
+Patch1:		emerillon-01-rest.diff
+Summary:	Map Viewer
+URL:		http://www.novopia.com/emerillon/
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
-Requires:                SUNWglib2
-Requires:                SUNWgtk2
-Requires:                SUNWdbus-glib
-Requires:                SUNWgnome-config
-Requires:                SFElibchamplain
-Requires:                SFEgeoclue
-Requires:                SFElibrest
-Requires:                SFEethos
-BuildRequires:           SUNWglib2-devel
-BuildRequires:           SUNWgtk2-devel
-BuildRequires:           SUNWdbus-glib-devel
-BuildRequires:           SUNWgnome-config-devel
-BuildRequires:           SFElibchamplain-devel
-BuildRequires:           SFEgeoclue-devel
-BuildRequires:           SFElibrest-devel
-BuildRequires:           SFEethos-devel
-BuildRequires:           SUNWgtk-doc
+Requires:	SUNWglib2
+Requires:	SUNWgtk2
+Requires:	SUNWdbus-glib
+Requires:	SUNWgnome-config
+Requires:	SUNWlibchamplain
+Requires:	SFElibrest
+Requires:	SFEethos
+Requires:	SFEgeoclue
+BuildRequires:	SUNWglib2-devel
+BuildRequires:	SUNWgtk2-devel
+BuildRequires:	SUNWdbus-glib-devel
+BuildRequires:	SUNWgnome-config-devel
+BuildRequires:	SUNWlibchamplain-devel
+BuildRequires:	SFElibrest-devel
+BuildRequires:	SFEethos-devel
+BuildRequires:	SUNWgtk-doc
 
 %package root
 Summary:		 %{summary} - / filesystem
