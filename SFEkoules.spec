@@ -6,6 +6,7 @@
 %define src_version 1.4
 
 Name:		SFEkoules
+IPS_Package_Name:	games/koules
 Summary:	Battle for Earth - koules
 Version:	%{src_version}
 License:	GPLv2
