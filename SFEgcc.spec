@@ -111,7 +111,7 @@
 
 %if %{!?gcc_version:1}
 #make version bump *here* - this is the default version being built
-%define version 4.6.1
+%define version 4.6.2
 %else
 #gcc version is already defined from *outside*, from the pkgtool command line
 %define version %{gcc_version}
@@ -590,6 +590,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- bump to 4.6.2
 * Thr Oct 13 2011 - Thomas Wagner
 - add to LDFLAGS %gnu_lib_path or cc1 can't find libs in bootstrapping the compiler
 - remove typo in LDFLAGS_FOR_TARGET="%_ldflags"

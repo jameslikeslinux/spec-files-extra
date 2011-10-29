@@ -1,3 +1,7 @@
+2011-10-29 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgcc.spec: bump to 4.6.2
+
 2011-10-28  Alex Viskovatoff <herzen@imap.cc>
 
 	* SFElibtorrent-rasterbar.spec: bump to 0.15.8; add IPS_package_name
