@@ -10,13 +10,14 @@
 %define pythonver 2.6
 
 Name:		SFEgpsd
-Version:	2.95
+IPS_Package_Name:	system/library/gpsd
+Version:	2.96
 Summary:	Service daemon for mediating access to a GPS
 Group:		System Environment/Daemons
 License:	BSD
 SUNW_Copyright:	gpsd.copyright
 URL:		http://developer.berlios.de/projects/gpsd/
-Source:		http://download.berlios.de/%{src_name}/%{src_name}-%{version}.tar.gz
+Source:		http://download.berlios.de/%{src_name}/%{src_name}-%{version}bis.tar.gz
 Patch1:		gpsd-01-sunstudio.diff
 Patch2:		gpsd-02-solaris.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -78,7 +79,6 @@ export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib %{_ldflags}"
 
 ./configure --prefix=%{_prefix} \
 	--enable-dbus \
-	--enable-raw \
 	--enable-squelch \
 	--disable-libQgpsmm \
 	--disable-static
@@ -111,7 +111,7 @@ rm -rf %{buildroot}
 %{_bindir}/gpsmon
 %{_bindir}/gpsctl
 %{_libdir}/libgps*.so.*
-%{_libdir}/python%{pythonver}/site-packages/gps*
+%{_libdir}/python%{pythonver}/site-packages
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_mandir}/man8/gpsd.8*
@@ -126,17 +126,13 @@ rm -rf %{buildroot}
 %{_libdir}/libgps*.so
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/python%{pythonver}/site-packages/gps/fake*
-%{_includedir}/gps.h
-%{_includedir}/libgpsmm.h
-%{_includedir}/gpsd.h
+%{_includedir}
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_mandir}/man1/gpsfake.1*
 %{_mandir}/man3/libgps.3*
 %{_mandir}/man3/libgpsmm.3*
 %{_mandir}/man3/libgpsd.3*
-%{_mandir}/man5/rtcm-104.5*
 %{_mandir}/man5/srec.5*
 
 %files clients
@@ -165,6 +161,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- bump to 2.96
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Wed Dec 29 2010 - Milan Jurik

@@ -3,6 +3,7 @@
 	* SFEgcc.spec: bump to 4.6.2
 	* SFExpdf.spec: initial spec
 	* SFEzziplib.spec: bump to 0.13.60
+	* SFEgpsd.spec: bump to 2.96
 
 2011-10-28  Alex Viskovatoff <herzen@imap.cc>
 
