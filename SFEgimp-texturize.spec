@@ -8,10 +8,12 @@
 %include base.inc
 
 Name:		SFEgimp-texturize
+IPS_Package_Name:	image/editor/gimp/plugin/gimp-texturize
 Summary:	Cross-platform development framework/toolkit
 Group:		Applications/Graphics
 Version:	2.1
 Source:		%{sf_download}/gimp-texturize/texturize-%{version}_src.tgz
+URL:		http://gimp-texturize.sourceforge.net/
 License:	GPLv2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
