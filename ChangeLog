@@ -5,6 +5,7 @@
 	* SFEzziplib.spec: bump to 0.13.60
 	* SFEgpsd.spec: bump to 2.96
 	* SFElibrest.spec: bump to 0.7.11
+	* SFEchrpath.spec: initial spec
 
 2011-10-28  Alex Viskovatoff <herzen@imap.cc>
 
