@@ -9,6 +9,7 @@
 %define src_version 010315
 
 Name:		SFElbreakout
+IPS_Package_Name:	games/lbreakout
 Summary:	LBreakout is a breakout-style arcade game in the manner of Arkanoid.
 Version:	0.10315
 Source:		%{sf_download}/lgames/lbreakout-%{src_version}.tar.gz
