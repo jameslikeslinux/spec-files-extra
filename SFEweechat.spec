@@ -22,20 +22,19 @@ Name:		SFE%srcname
 Summary:	Lightweight console IRC client
 URL:		http://www.weechat.org/
 Vendor:		Sebastien Helleu <flashcode@flashtux.org>
-Version:	0.3.5
+Version:	0.3.6
 License:	GPLv3+
 Source:		http://www.weechat.org/files/src/%srcname-%version.tar.bz2
 Patch1:		weechat-01-fix-strftime.diff
 Patch2:		weechat-02-remove-date-time.diff
-# Patch3:	weechat-03-fix-array-overflow.diff
 SUNW_Copyright:	weechat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEcmake
-#BuildRequires:	SFEaspell-devel
-#Requires:	SFEaspell
+Requires:       runtime/tcl-8	
+Requires:	runtime/ruby-18
 
 %if %build_l10n
 %package l10n
@@ -60,7 +59,6 @@ Sebastien Helleu <flashcode@flashtux.org>
 %setup -q -n %srcname-%version
 %patch1 -p1
 %patch2 -p0
-# %patch3 -p1
 mkdir build
 
 
@@ -78,6 +76,7 @@ cd build
 cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses -erroff" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet -L/usr/gnu/lib -L/usr/ruby/1.8/lib -R/usr/gnu/lib:/usr/ruby/1.8/lib" ..
 #cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet -L/usr/gnu/lib -L/usr/ruby/1.8/lib -R/usr/gnu/lib:/usr/ruby/1.8/lib" ..
 #cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet %gnu_lib_path" ..
+
 gmake -j$CPUS
 
 
@@ -114,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.3.6
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.3.5
 * Wed Jul 27 2011 - Alex Viskovatoff

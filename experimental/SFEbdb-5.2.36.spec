@@ -18,6 +18,7 @@ URL:		http://www.oracle.com/technology/software/products/berkeley-db/index.html
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+Requires:	runtime/tcl-8 
 
 %prep
 %setup -q -n db-%version
@@ -29,6 +30,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 export CFLAGS="%optflags"
 export LDFLAGS="%{_ldflags}"
+export JAVA_HOME=/usr/java
+
 cd build_unix
 ../dist/configure                           \
         --prefix=%{_prefix}                 \
@@ -36,11 +39,19 @@ cd build_unix
         --mandir=%{_mandir}                 \
         --datadir=%{_datadir}               \
         --infodir=%{_datadir}/info          \
+	--enable-shared	    		    \
+	--enable-cxx		 	    \
+	--enable-java			    \
+	--enable-sql			    \
+	--enable-sql_codegen		    \
+	--enable-tcl			    \
+	--with-tcl=/usr/lib		    \
+	--enable-dbm			    \
+	--enable-test			    \
+	--with-jdk=/usr/java		    \
+	--enable-stl			    \
 	--enable-compat185		    \
-        --disable-static                    \
-        --enable-shared
-
-
+	--disable-static
 
 make -j$CPUS 
 
@@ -49,7 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 cd build_unix
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
-#rm $RPM_BUILD_ROOT%{_libdir}/*.a
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/share/doc
 mv $RPM_BUILD_ROOT%{_prefix}/docs $RPM_BUILD_ROOT%{_prefix}/share/doc/bdb
 
@@ -62,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/db*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/libdb*
+%{_libdir}/*.jar
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -69,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/*
 
 %changelog
+* Sun Oct 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Added TCL optional requirement and additional flags
 * Fri Sep 30 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 5.2.36
 * Wed Mar 30 2011 - Milan Jurik
