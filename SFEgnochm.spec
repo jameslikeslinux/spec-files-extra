@@ -6,14 +6,15 @@
 %include Solaris.inc
 
 %define	src_name gnochm
-%define	src_url	http://nchc.dl.sourceforge.net/sourceforge/gnochm
 
-Name:                SFEgnochm
-Summary:             Gnome CHM viewer
-Version:             0.9.11
-Source:              %{src_url}/%{src_name}-%{version}.tar.gz
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgnochm
+IPS_Package_Name:	desktop/chm-viewer/gnochm
+Summary:	Gnome CHM viewer
+Version:	0.9.11
+URL:		http://gnochm.sourceforge.net/index.html
+Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires: SUNWperl-xml-parser
 Requires: SFEchmlib
@@ -21,8 +22,8 @@ Requires: SUNWgnome-python26-extras
 Requires: SFEpychm
 
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 
 %prep
