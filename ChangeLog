@@ -2,6 +2,8 @@
 
 	* experimental/SFEbdb-5.2.36.spec: Production release
 	* SFEweechat.spec: Bump to 0.3.6
+	* patches/weechat-03-fix-size-TIOCGWINSZ.diff: Added
+	* patches/weechat-04-fix-aspell.diff: Added for Enchant support
 
 2011-10-30 Milan Jurik <sfnet@xylab.cz>
 

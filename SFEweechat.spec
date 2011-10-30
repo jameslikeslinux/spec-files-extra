@@ -12,7 +12,7 @@
 # NOTE: It is not clear if spell checking works.  WeeChat is aware of aspell,
 # at least.
 
-# TODO: Update and use the patch below to use Enchant instead of aspell:
+# Note: Update and use the patch below to use Enchant instead of aspell:
 # http://savannah.nongnu.org/patch/?6858
 
 %include Solaris.inc
@@ -27,14 +27,17 @@ License:	GPLv3+
 Source:		http://www.weechat.org/files/src/%srcname-%version.tar.bz2
 Patch1:		weechat-01-fix-strftime.diff
 Patch2:		weechat-02-remove-date-time.diff
+Patch3:		weechat-03-fix-size-TIOCGWINSZ.diff
+Patch4:		weechat-04-fix-aspell.diff
 SUNW_Copyright:	weechat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires:	SFEcmake
+Requires:	SFEcmake
 Requires:       runtime/tcl-8	
 Requires:	runtime/ruby-18
+Requires:	runtime/lua
 
 %if %build_l10n
 %package l10n
@@ -59,10 +62,15 @@ Sebastien Helleu <flashcode@flashtux.org>
 %setup -q -n %srcname-%version
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
+#%patch4 -p1
+
 mkdir build
 
-
 %build
+
+export LIBS="-L/usr/gnu/lib -lncurses -L/usr/lib"
+export CPPFLAGS="-I/usr/include/ncurses -I/usr/include"
 
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
@@ -115,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Oct 30 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.3.6
+- Patched TIOCGWINSZ and Aspell issue (use Enchant)
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.3.5
 * Wed Jul 27 2011 - Alex Viskovatoff
