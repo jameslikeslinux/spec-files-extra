@@ -6,6 +6,7 @@
 
 %include Solaris.inc
 Name:		SFEviking
+IPS_Package_Name:	desktop/map/viking
 License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
@@ -13,6 +14,7 @@ Version:	1.2.1
 URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
 License:	GPLv2
+Patch1:		viking-01-gpsd-2.96.diff
 Patch2:		viking-02-wall.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_Copyright:	viking.copyright
@@ -39,6 +41,7 @@ Requires:	%{name}
 
 %prep
 %setup -q -n viking-%{version}
+%patch1 -p1
 %patch2 -p1
 
 %build
@@ -89,6 +92,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Oct 30 2011 - Milan Jurik
+- fix for gpsd 2.96
 * Sun Jul 31 2011 - Milan Jurik
 - bump to 1.2.1
 * Mon Jul 25 2011 - N.B.Prashanth
