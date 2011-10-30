@@ -6,8 +6,10 @@
 %include Solaris.inc
 
 Name:                SFEchmlib
+IPS_Package_Name:	library/desktop/chmlib
 Summary:             A library for reading Microsoft .CHM files.
 Version:             0.40
+Group:		Desktop (GNOME)/Libraries
 License:             LGPLv2.1+ and GPLv2+
 SUNW_Copyright:      chmlib.copyright
 Source:              http://www.jedrea.com/chmlib/chmlib-%{version}.tar.gz
