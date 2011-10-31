@@ -1,3 +1,7 @@
+2011-10-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEteckit.spec: initial spec
+
 2011-10-30 Ken Mays <kmays2000@gmail.com>
 
 	* experimental/SFEbdb-5.2.36.spec: Production release
