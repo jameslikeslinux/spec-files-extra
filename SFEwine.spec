@@ -162,7 +162,6 @@ export LD=/usr/ccs/bin/ld
 	    --with-png			\
 	    --with-pthread		\
 	    --with-sane			\
-	    --with-v4l			\
 	    --with-xcomposite		\
 	    --with-xcursor		\
 	    --with-xinerama		\
