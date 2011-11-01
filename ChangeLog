@@ -1,3 +1,7 @@
+2011-10-31 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdrupal7.spec: Bump to 7.9
+
 2011-10-31 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEteckit.spec: initial spec

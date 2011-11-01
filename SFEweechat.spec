@@ -34,10 +34,11 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-Requires:	SFEcmake
-Requires:       runtime/tcl-8	
-Requires:	runtime/ruby-18
-Requires:	runtime/lua
+#Requires:	SFEcmake
+#Requires:      runtime/tcl-8	
+#Requires:	runtime/ruby-18
+#Requires:	runtime/lua
+#Requires:	library/spell-checking/enchant
 
 %if %build_l10n
 %package l10n
@@ -74,16 +75,26 @@ export CPPFLAGS="-I/usr/include/ncurses -I/usr/include"
 
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-sed 's| -Wall -W -Werror-implicit-function-declaration||' CMakeLists.txt > foo
-mv foo CMakeLists.txt
+#sed 's| -Wall -W -Werror-implicit-function-declaration||' CMakeLists.txt > foo
+#mv foo CMakeLists.txt
 cd build
 
 
 # Removing -erroff makes the build fail.
 # Which is strange, since erroff supresses warnings, not errors.
-cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses -erroff" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet -L/usr/gnu/lib -L/usr/ruby/1.8/lib -R/usr/gnu/lib:/usr/ruby/1.8/lib" ..
+#cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses -erroff" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet -L/usr/gnu/lib -L/usr/ruby/1.8/lib -R/usr/gnu/lib:/usr/ruby/1.8/lib" ..
 #cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet -L/usr/gnu/lib -L/usr/ruby/1.8/lib -R/usr/gnu/lib:/usr/ruby/1.8/lib" ..
 #cmake -DPREFIX=/usr -DCMAKE_C_FLAGS="%optflags -I/usr/include/ncurses" -DCMAKE_EXE_LINKER_FLAGS="%_ldflags -lxnet %gnu_lib_path" ..
+
+export CFLAGS="%optflags"
+export LDFLAGS="%{_ldflags}"
+
+../configure --prefix=%{_prefix} \
+             --mandir=%{_mandir} \
+	     --includedir=%{_includedir} \
+	     --disable-ncurses	 \
+             --enable-gtk        \
+             --disable-static
 
 gmake -j$CPUS
 
@@ -91,7 +102,8 @@ gmake -j$CPUS
 %install
 rm -rf $RPM_BUILD_ROOT
 cd build
-gmake install DESTDIR=%buildroot INSTALL="%_bindir/ginstall -c -p"
+#gmake install DESTDIR=%buildroot INSTALL="%_bindir/ginstall -c -p"
+#make install DESTDIR=%{buildroot}
 
 %if %build_l10n
 %else
@@ -103,14 +115,23 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr (-, root, bin)
-%_bindir/weechat-curses
-%_libdir/%srcname
-%dir %attr (-, root, other) %_libdir/pkgconfig
-%_libdir/pkgconfig/%srcname.pc
-%_includedir/%srcname
-%dir %attr (-, root, sys) %_datadir
-%_mandir/man1/weechat-curses.1
+%defattr (-, root, bin, 0755)
+#%_bindir/weechat-curses
+#%_libdir/%srcname
+#%dir %attr (-, root, other) %_libdir/pkgconfig
+#%_libdir/pkgconfig/%srcname.pc
+#%_includedir/%srcname
+#%dir %attr (-, root, sys) %_datadir
+#%_mandir/man1/weechat-curses.1
+#%doc AUTHORS ChangeLog COPYING INSTALL NEWS README UPGRADE_0.3
+%doc %{_docdir}/%srcname/*.html
+%{_mandir}/man1/%srcname-curses.1*
+%{_bindir}/%srcname-curses
+%{_libdir}/%%srcname/plugins/*
+%{_libdir}/pkgconfig/weechat.pc
+%attr (-, root, bin) %_includedir/%srcname
+%{_includedir}/%srcname
+%{_includedir}/%srcname/weechat-plugin.h
 
 %if %build_l10n
 %files l10n
