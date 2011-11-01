@@ -13,7 +13,7 @@
 
 Name:                    SFEfuse-exfat
 Summary:                 Free exFAT file system implementation
-Version:                 0.9.2
+Version:                 0.9.5
 License:                 GPLv3
 SUNW_copyright:          fuse-exfat.copyright
 Source:			 http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
@@ -56,10 +56,13 @@ scons -j $CPUS CC="$CC" CFLAGS="$CFLAGS" CPPPATH="$CPPPATH"
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/fs/exfat
-cp fsck/exfatck $RPM_BUILD_ROOT%{_sbindir}
+mkdir -p $RPM_BUILD_ROOT%{_mandir}
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man/man8
+#cp fsck/exfatck $RPM_BUILD_ROOT%{_sbindir}
 cp fuse/mount.exfat-fuse $RPM_BUILD_ROOT%{_sbindir}
+cp fuse/mount.exfat-fuse.8 $RPM_BUILD_ROOT%{_mandir}/man/man8
 ln -s %{_sbindir}/mount.exfat-fuse $RPM_BUILD_ROOT%{_libdir}/fs/exfat/mount
-ln -s %{_sbindir}/exfatck $RPM_BUILD_ROOT%{_libdir}/fs/exfat/fsck
+#ln -s %{_sbindir}/exfatck $RPM_BUILD_ROOT%{_libdir}/fs/exfat/fsck
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -70,8 +73,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_libdir}/fs
 %dir %attr (0755, root, sys) %{_libdir}/fs/exfat
 %{_libdir}/fs/exfat/*
+%{_mandir}/man/man8/*.8
 
 %changelog
+* Tue Nov 1 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.9.5
+- Tested on oi_151 and libfuse 20100615
 * Tue Sep 27 2011 - Alex Viskovatoff
 - Add SUNW_copyright
 * Fri Sep 21 2010 - Albert Lee <trisk@opensolaris.org>

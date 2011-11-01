@@ -1,3 +1,7 @@
+2011-11-1 Ken Mays <kmays2000@gmail.com>
+
+        * SFEfuse-exfat.spec: Bump to 0.9.5
+
 2011-10-31 Ken Mays <kmays2000@gmail.com>
 
 	* SFEdrupal7.spec: Bump to 7.9
