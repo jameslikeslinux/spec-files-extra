@@ -19,6 +19,7 @@ Source:         %{sf_download}/tmux/%{srcname}-%{version}.tar.gz
 # owner:gber date:2010-10-06 type:bug
 # include netdb.h which defines MAXHOSTNAMELEN
 Patch1:         tmux-01-include-netdb.h.diff
+Patch2:         tmux-02-u-for-process-group.patch
 Group:          Applications/System Utilities
 Distribution:   OpenIndiana
 Vendor:         OpenIndiana Community
@@ -50,6 +51,7 @@ to (display and accept keyboard input from) multiple clients.
 %prep
 %setup -q -n %{srcname}-%{version}
 %patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -84,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 31 2011 - Alex Viskovatoff
+- Add patch fixing window name updates in statusbar for debug OS builds
 * Sun Oct  2 2011 - Alex Viskovatoff
 - Adapt to SFElibevent2 being moved to /usr/gnu; update to 1.5
 * Mon Jul 25 2011 - N.B.Prashanth
