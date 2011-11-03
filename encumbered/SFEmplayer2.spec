@@ -22,6 +22,8 @@
 %define cc_is_gcc 1
 %include base.inc
 
+%define snap 20111029
+
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
 #%define with_ladspa %(pkginfo -q SFEladspa && echo 1 || echo 0)
 %define with_openal %(pkginfo -q SFEopenal && echo 1 || echo 0)
@@ -36,13 +38,13 @@ Name:                    SFEmplayer2
 Summary:                 MPlayer fork with some additional features
 License:                 GPLv3
 SUNW_Copyright:	         mplayer2.copyright
-Version:                 2.0.99
+Version:                 2.0.0.%snap
+#Version:                2.0.99
 URL:                     http://www.mplayer2.org/
 #Source:                 http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
 # Use the development version, since current release is incompatible
 # with the new ffmpeg API
 Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
-Patch1:                  mplayer-snap-01-shell.diff
 Patch3:                  mplayer-snap-03-ldflags.diff
 Patch4:                  mplayer-snap-04-realplayer.diff
 Patch5:                  mplayer-snap-05-cpudetect.diff
@@ -126,7 +128,6 @@ Requires: SUNWttf-dejavu
 %prep
 #%setup -q -n mplayer2-%version
 %setup -q -n mplayer2-master
-%patch1 -p0
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -140,27 +141,31 @@ dbgflag=--enable-debug
 export CFLAGS="-g -D__hidden=\"\""
 %else
 dbgflag=--disable-debug
-export CFLAGS="-O2 -fomit-frame-pointer -D__hidden=\"\""
+export CFLAGS="-O2 -march=prescott -fomit-frame-pointer -D__hidden=\"\""
 %endif
 
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
 export CC=gcc
 
+# Enabling gl makes mplayer crash before printing anything 
+# when built with gcc 4.6.2 (OK on gcc 4.6.1).  Even with
+# 4.6.1, using -vo gl produces crashes when it tries to play.
 bash ./configure				\
 	    --prefix=%_prefix			\
 	    --mandir=%_mandir			\
             --libdir=%_libdir			\
             --confdir=%_sysconfdir		\
-            --enable-menu			\
             --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
             --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
             --enable-faad			\
             --disable-mad			\
+            --disable-gl			\
             --enable-3dnow			\
             --enable-3dnowext			\
             --enable-live			\
-	    --enable-rpath			\
+            --enable-rpath			\
+            --enable-runtime-cpudetection	\
 	    --enable-crash-debug		\
 	    $dbgflag
 
@@ -225,6 +230,9 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Sun Oct 30 2011 - Alex Viskovatoff
+- Update tarball and switch to new versioning scheme
+- Disable gt (causes crashes with gcc 4.6.2) and enable runtime cpu detection
 * Wed Oct 19 2011 - Alex Viskovatoff
 - Enable 3dnow and 3dnowext; add missing (build) dependency on SFEmpg123
 - Disable libmad (only used on integer-only platforms, unsupported by SFE)

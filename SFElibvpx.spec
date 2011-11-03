@@ -73,13 +73,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%{_libdir}
+%_libdir/libvpx.so*
+%ifarch amd64
+%_libdir/%_arch64/libvpx.so*
+%endif
 
 %files devel
 %defattr (-, root, bin)
-%{_includedir}
+%_includedir
+%dir %attr (0755, root, other) %_libdir/pkgconfig
+%_libdir/pkgconfig/vpx.pc
+%ifarch amd64
+%dir %attr (0755, root, other) %_libdir/%_arch64/pkgconfig
+%_libdir/%_arch64/pkgconfig/vpx.pc
+%endif
 
 %changelog
+* Tue Nov  1 2011 - Alex Viskovatoff
+- Fix directory attributes
 * Thu Jul 21 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Mar 17 2011 - Milan Jurik

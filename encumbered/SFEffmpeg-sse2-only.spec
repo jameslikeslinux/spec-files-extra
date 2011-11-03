@@ -11,6 +11,7 @@
 %define with_runtime_cpudetect 1
 
 %define SUNWlibsdl %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
+%define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
 %ifarch sparc
 %define arch_opt --disable-optimizations
@@ -57,6 +58,8 @@ BuildRequires: SFExvid-devel
 Requires: SFExvid
 BuildRequires: SFElibx264-devel
 Requires: SFElibx264
+BuildRequires: SFElibvpx-devel
+Requires: SFElibvpx
 BuildRequires: SFEfaac-devel
 Requires: SFEfaac
 BuildRequires: SFElame-devel
@@ -78,6 +81,10 @@ BuildRequires: SFErtmpdump-devel
 Requires: SFErtmpdump
 BuildRequires: driver/graphics/nvidia
 #Requires: driver/graphics/nvidia
+%if %with_alsa
+BuildRequires: SFEalsa-lib
+Requires: SFEalsa-lib
+%endif
 
 %package devel
 Summary:                 %{summary} - development files
@@ -139,6 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov  1 2011 - Alex Viskovatoff
+- Add dependency on libvpx and conditional dependency on alsa-lib
 * Wed Oct 19 2011 - Alex Viskovatoff
 - Remove dependency on SFEfaad2, which ffmpeg does not use
 - Set cpu to pentiumpro and enable amd3dnow and amd3dnowext

@@ -60,6 +60,7 @@ bash ./configure	\
     --enable-libtheora	\
     --enable-libmp3lame	\
     --enable-libvorbis	\
+    --enable-libvpx	\
     --enable-x11grab	\
     --enable-libspeex   \
     --enable-pthreads	\
@@ -109,6 +110,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov  1 2011 - Alex Viskovatoff
+- enable libvpx
 * Sun Oct 23 2011 - Alex Viskovatoff
 - remove --extra-ldflags=-mimpure-text
 * Wed Oct 12 2011 - Alex Viskovatoff
