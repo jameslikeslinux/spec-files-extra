@@ -20,7 +20,7 @@
 %define	src_name audacity
 
 Name:		SFEaudacity
-IPS_Package_Name:	media/audacity
+IPS_Package_Name:	audio/editor/audacity
 Summary:	Free, Cross-Platform Sound Editor
 Group:		Applications/Sound and Video
 Version:	1.3.13
