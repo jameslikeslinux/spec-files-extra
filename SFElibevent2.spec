@@ -44,6 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm ${RPM_BUILD_ROOT}%{_libdir}/libevent*.la
+mkdir -p %buildroot%_docdir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
