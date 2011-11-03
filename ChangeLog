@@ -1,3 +1,7 @@
+2011-11-3 Ken Mays <kmays2000@gmail.com>
+
+        * experimental/SFEntfs-3g-2011.10.9-RC.spec: Bump to 2011.10.9-RC
+
 2011-11-1 Ken Mays <kmays2000@gmail.com>
 
         * SFEfuse-exfat.spec: Bump to 0.9.5
