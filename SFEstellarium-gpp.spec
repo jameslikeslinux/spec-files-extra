@@ -14,7 +14,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 Name:		SFEstellarium
@@ -64,8 +63,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # pod2man
-export CC=/usr/gnu/bin/cc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export PATH=/usr/g++/bin:$PATH:/usr/perl5/bin
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -D__C99FEATURES__"

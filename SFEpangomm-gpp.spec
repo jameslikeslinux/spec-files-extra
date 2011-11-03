@@ -53,8 +53,8 @@ mkdir %name-%version
 #gzcat %SOURCE0 | tar -xf -
 
 %build
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export RPM_OPT_FLAGS="$CFLAGS"
 export LDFLAGS="-L/usr/g++/lib -L/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"

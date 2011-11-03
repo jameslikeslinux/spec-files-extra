@@ -46,8 +46,8 @@ mkdir %name-%version
 cd %{_builddir}/%name-%version
 
 %build
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CXXFLAGS="%{cxx_optflags}"
 export CFLAGS="%optflags"
 export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig

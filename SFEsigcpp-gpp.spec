@@ -43,8 +43,8 @@ mkdir %name-%version
 cd %{_builddir}/%name-%version
 
 %build
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CXXFLAGS="%cxx_optflags"
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"

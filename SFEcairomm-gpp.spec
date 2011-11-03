@@ -51,8 +51,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 #export CPPFLAGS="-I/usr/g++/include"
 export CXXFLAGS="%cxx_optflags -I/usr/g++/include"
 export CFLAGS="%optflags"
