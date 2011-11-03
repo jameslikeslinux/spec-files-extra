@@ -6,7 +6,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname scribus
 
@@ -16,7 +15,7 @@ URL:		http://www.scribus.net/canvas/Scribus
 Group:		Applications/Office
 Version:        1.4.0
 #Source:	http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
-Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc5/%srcname-%version.rc5.tar.bz2
+Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc6/%srcname-%version.rc6.tar.bz2
 License:	GPLv2
 Patch1:		scribus-01-math_c99.diff
 SUNW_BaseDir:   %_basedir
@@ -44,7 +43,7 @@ Scribus is a GUI desktop publishing (DTP) application for Unix/Linux.
 
 
 %prep
-%setup -q -n %srcname-%version.rc5
+%setup -q -n %srcname-%version.rc6
 %patch1 -p1
 mkdir builddir
 
@@ -109,6 +108,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Wed Nov  2 2011 - Alex Viskovatoff
+- Bump to 1.4.0.rc6
 * Tue Jul 26 2011 - Alex Viskovatoff
 - Add missing (build) dependency
 * Mon Jul 25 2011 - N.B.Prashanth

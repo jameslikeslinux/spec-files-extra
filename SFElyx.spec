@@ -19,7 +19,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname lyx
 
@@ -28,8 +27,8 @@ Summary:	Graphical LaTeX front end: What you see is what you mean
 URL:		http://www.lyx.org
 License:	GPLv2
 SUNW_Copyright:	lyx.copyright
-Version:	2.0.0
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0.x/%srcname-%version.tar.xz
+Version:	2.0.1
+Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.xz
 Source1:	%srcname.desktop
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
