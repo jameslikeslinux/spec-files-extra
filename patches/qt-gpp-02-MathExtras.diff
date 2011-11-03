@@ -4,8 +4,8 @@
  inline float rad2grad(float r) { return r * 200.0f / piFloat; }
  inline float grad2rad(float g) { return g * piFloat / 200.0f; }
  
--#if !COMPILER(MSVC) && !COMPILER(RVCT) && !OS(ANDROID) && !COMPILER(WINSCW)
-+#if !COMPILER(MSVC) && !(COMPILER(RVCT) && PLATFORM(BREWMP)) && !OS(SOLARIS) && !OS(SYMBIAN)
+-#if !COMPILER(MSVC) && !OS(ANDROID) && !OS(SYMBIAN)
++#if !COMPILER(MSVC) && !OS(ANDROID) && !OS(SYMBIAN) && !OS(SOLARIS)
  using std::isfinite;
  using std::isinf;
  using std::isnan;

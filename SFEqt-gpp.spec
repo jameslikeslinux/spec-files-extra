@@ -10,7 +10,6 @@
 %define standard_prefix /usr
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname qt-everywhere-opensource-src
 %define run_autotests 0
@@ -22,7 +21,7 @@ Summary:             Cross-platform development framework/toolkit
 Group:               Desktop (GNOME)/Libraries
 URL:                 http://trolltech.com/products/qt
 License:             LGPLv2
-Version:             4.7.3
+Version:             4.7.4
 Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
 
 # These were obtained from http://solaris.bionicmutton.org/hg/kde4-specs-470/file/db0a8c7904f6/specs/gcc/patches/qt
@@ -45,6 +44,7 @@ Patch5:		qt-gpp-05-auto-tests-qhttpnetworkconnection.diff
 Patch6:		qt-gpp-06-isnan.diff
 Patch7:		qt-gpp-07-471-shm.diff
 Patch8:		qt-gpp-08-QPixmap-warning.diff
+Patch9:		qt-gpp-09-qdbus.patch
 
 
 SUNW_Copyright:	     qt.copyright
@@ -95,6 +95,7 @@ tar xzf %{SOURCE1}
 %patch6
 %patch7
 %patch8 -p1
+%patch9
 %if %{run_autotests}
 %patch4
 %patch5
@@ -107,14 +108,14 @@ CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 %define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{standard_prefix}/%{mysql_default_includedir}
 %define extra_libs  -L%{standard_prefix}/%{mysql_default_libdir} -R%{standard_prefix}/%{mysql_default_libdir}
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export LD=/usr/gnu/bin/ld
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
 export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
 
-# Assume i386 CPU is not higher than Pentium
+# Assume i386 CPU is not higher than Pentium 4
 # This can be changed locally if your CPU is newer
 ./configure -prefix %_prefix \
            -confirm-license \
@@ -215,6 +216,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov  2 2011 - Alex Viskovatoff
+- update to 4.7.4, reworking two patches and adding another
 * Tue Aug 16 2011 - Thomas Wagner
 - need -R /usr/g++/lib and -R /usr/gnu/lib earlier in RUNPATH, via LDFLAGS,
   needs updated SFEgcc patch gcc-03-gnulib.diff to work

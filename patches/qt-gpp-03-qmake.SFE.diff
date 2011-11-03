@@ -1,5 +1,5 @@
---- mkspecs/solaris-g++/qmake.conf.orig	2011-03-30 06:16:35.000000000 +0100
-+++ mkspecs/solaris-g++/qmake.conf	2011-08-17 15:52:40.883067160 +0100
+--- mkspecs/solaris-g++/qmake.conf.orig	2011-09-12 06:49:28.000000000 +0000
++++ mkspecs/solaris-g++/qmake.conf	2011-10-27 22:10:41.160650935 +0000
 @@ -28,7 +28,7 @@
  QMAKE_CFLAGS_SHLIB	= -fPIC
  QMAKE_CFLAGS_STATIC_LIB	= $$QMAKE_CFLAGS_SHLIB
@@ -9,23 +9,21 @@
  
  QMAKE_CXX		= g++
  QMAKE_CXXFLAGS		= $$QMAKE_CFLAGS
-@@ -42,12 +42,12 @@
+@@ -42,10 +42,10 @@
  QMAKE_CXXFLAGS_YACC	= $$QMAKE_CFLAGS_YACC
  QMAKE_CXXFLAGS_THREAD	= $$QMAKE_CFLAGS_THREAD
  
 -QMAKE_INCDIR		= /usr/sfw/include
 -QMAKE_LIBDIR		= /usr/sfw/lib
+-QMAKE_INCDIR_X11	= /usr/openwin/include
+-QMAKE_LIBDIR_X11	= /usr/openwin/lib
 +QMAKE_INCDIR		= /usr/g++/include
 +QMAKE_LIBDIR		= /usr/g++/lib
- QMAKE_INCDIR_X11	= /usr/openwin/include
- QMAKE_LIBDIR_X11	= /usr/openwin/lib
--QMAKE_INCDIR_QT		= $$[QT_INSTALL_HEADERS]
--QMAKE_LIBDIR_QT		= $$[QT_INSTALL_LIBS]
-+QMAKE_INCDIR_QT		= /usr/g++/include/qt
-+QMAKE_LIBDIR_QT		= /usr/g++/lib
++QMAKE_INCDIR_X11	= /usr/X11R6/include
++QMAKE_LIBDIR_X11	= /usr/X11R6/lib
+ QMAKE_INCDIR_QT		= $$[QT_INSTALL_HEADERS]
+ QMAKE_LIBDIR_QT		= $$[QT_INSTALL_LIBS]
  QMAKE_INCDIR_OPENGL	= /usr/openwin/include
- QMAKE_LIBDIR_OPENGL	= /usr/openwin/lib
- 
 @@ -63,7 +63,7 @@
  QMAKE_LFLAGS_SONAME	= -h$$LITERAL_WHITESPACE
  QMAKE_LFLAGS_THREAD	=
