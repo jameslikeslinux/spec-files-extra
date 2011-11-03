@@ -24,19 +24,18 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%srcname-%version-build
 %include default-depend.inc
 
-
-%package devel
-Summary:        %summary - development files
-SUNW_BaseDir:   %_basedir
-%include default-depend.inc
-Requires: %name
-
 BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SFEboost-gpp-devel
 Requires:	SFEboost-gpp
 BuildRequires:	SFEgeoip-devel
 Requires:	SFEgeoip
+
+%package devel
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
+%include default-depend.inc
+Requires: %name
 
 
 %prep
@@ -78,6 +77,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Oct 29 2011 - Alex Viskovatoff
+- Fix dependencies
 * Thu Oct 27 2011 - Alex Viskovatoff
 - Bump to 0.15.8; add SUNW_copyright and IPS_package_name
 * Mon Aug 29 2011 - Alex Viskovatoff

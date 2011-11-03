@@ -21,18 +21,17 @@ SUNW_BaseDir:	%{_basedir}
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:         	SFE%{src_name}
-Summary:      	Easytag :  EasyTAG - Tag editor for MP3, Ogg Vorbis files and more
+IPS_package_name: audio/easytag
+Summary:      	Tag editor for MP3, Ogg Vorbis files and more
 Version:      	%{src_version}
 Release:      	%{pkg_release}
 License:      	GPLv2+
 SUNW_Copyright: easytag.copyright
-Group:          Entertainment
+Group:          Applications/Sound and Video
 Source:         %{sf_download}/easytag/%{src_name}-%{version}.tar.bz2
 Patch1:        	easytag-01-configure.diff
-Vendor:       	http://easytag.sourceforge.net
 URL:            http://easytag.sourceforge.net
-Packager:     	Shivakumar GN
-BuildRoot:		%{_tmppath}/%{src_name}-%{version}-build
+BuildRoot:      %{_tmppath}/%{src_name}-%{version}-build
 
 #Requires:      
 #BuildRequires: 
