@@ -8,11 +8,13 @@
 %define src_name unpaper
 
 Name:		SFEunpaper
-Summary:	unpaper - post-processing scanned and photocopied book pages
+IPS_Package_Name:	image/editor/unpaper
+Summary:	Post-processing scanned and photocopied book pages
 Version:	0.3
 URL:		http://unpaper.berlios.de/
 Source:		http://download.berlios.de/unpaper/%{src_name}-bin-%{version}.tar.gz
 License:	GPLv2
+Group:		Applications/Graphics and Imaging
 SUNW_Copyright:	unpaper.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
