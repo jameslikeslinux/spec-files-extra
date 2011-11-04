@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 )
 
 %actions
-driver name=fuse
+driver name=fuse devlink=type=ddi_pseudo;name=fuse\t\D perms="* 0666 root sys"
 
 %files
 %defattr (-, root, bin)
@@ -79,6 +79,8 @@ driver name=fuse
 %endif
 
 %changelog
+* Fri Nov 04 2011 - Guido Berhoerster <gber@openindiana.org>
+- fixed driver action to create devlinks entry
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Thu Jul 07 2011 - Alex Viskovatoff
