@@ -6,7 +6,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname kchmviewer
 
@@ -22,10 +21,10 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SFEqt47-gpp-devel
+BuildRequires: SFEqt-gpp-devel
 BuildRequires: SFEchmlib
 
-Requires: SFEqt47-gpp
+Requires: SFEqt-gpp
 Requires: SFEchmlib
 Requires: SUNWzlib
 

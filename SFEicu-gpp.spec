@@ -14,7 +14,6 @@
 %define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %ifarch amd64 sparcv9
 %include arch64.inc
