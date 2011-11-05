@@ -30,7 +30,7 @@ Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
 IPS_package_name:       desktop/wine
 Group:                  Desktop (GNOME)/Sessions
-Version:                1.3.31
+Version:                1.3.32
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -95,12 +95,6 @@ Requires:       SFElibgsm
 Requires:       SFEmpg123
 Requires:       SFEopenal
 Requires:       system/header/header-audio
-
-#
-# VLC library (OpenIndiana SFE-IPS)
-# SFEvlc >=1.1.11
-Requires:     media/vlc
-#
 
 # Following are for winetricks, not wine directly.
 Requires:       SFEcabextract
@@ -265,10 +259,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, other)
 %{_datadir}/applications
 %{_includedir}/wine
-#%dir %attr (0755, root, other) %{_datadir}/pixmaps
-#%{_datadir}/pixmaps/*
-#%dir %attr (0755, root, other) %{_datadir}/icons
-#%{_datadir}/icons/*
 
 #%files devel
 #%defattr (-, root, bin)
@@ -279,6 +269,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Sat Nov 5 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.32
 * Mon Oct 22 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.31
 * Mon Oct 11 2011 - Alex Viskovatoff
