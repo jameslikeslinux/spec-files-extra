@@ -1,6 +1,7 @@
 2011-11-05 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEc-ares.spec: bump to 1.7.5
+	* base-specs/xmlrpc-epi.spec: bump to 0.54.2
 
 2011-11-5 Ken Mays <kmays2000@gmail.com>
 
