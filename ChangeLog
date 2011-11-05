@@ -1,3 +1,7 @@
+2011-11-05 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEc-ares.spec: bump to 1.7.5
+
 2011-11-5 Ken Mays <kmays2000@gmail.com>
 
         * SFEwine.spec: Bump to 1.3.32
