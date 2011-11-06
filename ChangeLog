@@ -1,3 +1,7 @@
+2011-11-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEliblinebreak.spec: bump to 2.1
+
 2011-11-05 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEc-ares.spec: bump to 1.7.5
