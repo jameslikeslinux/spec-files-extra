@@ -16,6 +16,7 @@ Group:		Applications/Publishing
 License:	GPLv2
 URL:		http://www.fbreader.org/
 Source:		http://www.fbreader.org/files/sources/fbreader-sources-%{version}.tgz
+Patch1:		fbreader-01-cflags.diff
 Patch2:		fbreader-02-p.diff
 Patch3:		fbreader-03-gcc46.diff
 SUNW_BaseDir:	%{_basedir}
@@ -37,6 +38,7 @@ FBReader is an e-book reader for various platforms.
 
 %prep
 %setup -q -n %{src_name}-%{version}
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 
@@ -61,7 +63,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/FBReader.png
 %{_datadir}/pixmaps/FBReader
 %{_datadir}/zlibrary
-%{_libdir}
 
 %changelog
 * Thu Jul 15 2010 - Milan Jurik
