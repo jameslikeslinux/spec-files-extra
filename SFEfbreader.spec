@@ -9,14 +9,15 @@
 %define src_name fbreader
 
 Name:		SFEfbreader
+IPS_Package_Name:	desktop/fbreader
 Version:	0.12.10
 Summary:	E-book reader
 Group:		Applications/Publishing
 License:	GPLv2
 URL:		http://www.fbreader.org/
-Source:		http://www.fbreader.org/%{src_name}-sources-%{version}.tgz
-Patch1:		fbreader-01-cflags.diff
+Source:		http://www.fbreader.org/files/sources/fbreader-sources-%{version}.tgz
 Patch2:		fbreader-02-p.diff
+Patch3:		fbreader-03-gcc46.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -36,16 +37,11 @@ FBReader is an e-book reader for various platforms.
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
-
-make -j$CPUS
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -65,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/FBReader.png
 %{_datadir}/pixmaps/FBReader
 %{_datadir}/zlibrary
+%{_libdir}
 
 %changelog
 * Thu Jul 15 2010 - Milan Jurik
