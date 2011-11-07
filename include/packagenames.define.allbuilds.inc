@@ -591,6 +591,21 @@
 %endif
 #END >= 134
 
+#special case, pkgtool/pkgbuild can't see if packages are installed if
+#meta-package x11/client is requested. up to 143 it was TBD
+#NOTE we overwrite what the include for 133 / 134 has defined (target was x11/client)
+%if %( expr %{osbuild} '>=' 144 )
+%define pnm_buildrequires_x11_clients compatibility/packages/SUNWxwplt
+%define pnm_requires_x11_clients compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt_devel compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_xwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_xwplt compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+%endif
+#END >= 144
 
 
 ##TODO## volunteers may implement the rules noted below
@@ -860,6 +875,8 @@
 
 
 %changelog
+* Mon Nov  7 2011 - Thomas Wagner
+- handle cases x11/client not being resolved properly pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt (>=144)
 * Sat Aug 13 2011 - Thomas Wagner
 - handle SUNWsmba_devel/SUNWsmbau/SUNWsmbar/SUNWsmba/smba/service_network_samba
 - handle SUNWfreetype2/freetype2/SFEfreetype_devel/SFEfreetype/system_library_freetype_2
