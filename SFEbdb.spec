@@ -9,7 +9,9 @@
 %include usr-gnu.inc
 
 Name:		SFEbdb
+IPS_Package_Name:	sfe/database/bdb
 Summary:	Berkeley DB
+Group:		System/Databases
 Version:	4.8.30
 License:        BSD3c
 SUNW_Copyright: bdb.copyright
