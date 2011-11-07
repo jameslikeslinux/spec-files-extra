@@ -1,6 +1,7 @@
 2011-11-07 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEsilgraphite.spec: initial spec
+	* base-specs/icu.spec: bump to 4.8.1.1
 
 2011-11-06 Milan Jurik <sfnet@xylab.cz>
 

@@ -24,6 +24,7 @@
 %use icu = icu.spec
 
 Name:			SFEicu-gpp
+IPS_Package_Name:	library/g++/icu
 Summary:		%icu.summary (g++ built)
 Version:		%icu.version
 URL:			http://site.icu-project.org/

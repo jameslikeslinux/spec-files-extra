@@ -7,11 +7,11 @@
 # license. See the file LICENSE.MIT for details.
 
 %define tarball_name    icu4c
-%define tarball_version 4_6_1
+%define tarball_version 4_8_1_1
 
 Name:                   icu
 Summary:                International Components for Unicode
-Version:                4.6.1
+Version:                4.8.1.1
 Source:			http://download.icu-project.org/files/%tarball_name/%version/%tarball_name-%tarball_version-src.tgz
 
 Patch1: icu-01-qt-bug-7702.diff
@@ -118,6 +118,8 @@ ${MAKE} install DESTDIR=${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Nov 07 2011 - Milan Jurik
+- bump to 4.8.1.1
 * Mon Apr 11 2011 - Alex Viskovatoff
 - Revert the previous change: that breaks the build
 - Update to 4.6.1
