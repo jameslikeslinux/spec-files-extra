@@ -2,6 +2,7 @@
 
 	* SFEsilgraphite.spec: initial spec
 	* base-specs/icu.spec: bump to 4.8.1.1
+	* base-specs/ffmpeg.spec: bump to 0.8.6
 
 2011-11-06 Milan Jurik <sfnet@xylab.cz>
 

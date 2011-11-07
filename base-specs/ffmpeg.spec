@@ -5,7 +5,7 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.8.5
+Version:                 0.8.6
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
@@ -110,6 +110,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Nov 07 2011 - Milan Jurik
+- bump to 0.8.6
 * Tue Nov  1 2011 - Alex Viskovatoff
 - enable libvpx
 * Sun Oct 23 2011 - Alex Viskovatoff
