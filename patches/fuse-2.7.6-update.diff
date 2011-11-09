@@ -169,3 +169,82 @@
 + */
 +int ulockmgr_op(int fd, int cmd, struct flock *lock, const void *owner,
 +		size_t owner_len);
+--- ../../libfuse/fuse_loop_mt.c	2010-06-15 15:46:54.000000000 +0100
++++ fuse_loop_mt.c	2011-09-13 08:23:14.000000000 +0100
+@@ -2,7 +2,7 @@
+     FUSE: Filesystem in Userspace
+     Copyright (C) 2001-2007  Miklos Szeredi <miklos@szeredi.hu>
+ 
+-    This program can be distributed under the terms of the GNU LGPL.
++  This program can be distributed under the terms of the GNU LGPLv2.
+     See the file COPYING.LIB.
+ */
+ 
+@@ -19,6 +19,9 @@
+ #include <errno.h>
+ #include <sys/time.h>
+ 
++/* Environment var controlling the thread stack size */
++#define ENVNAME_THREAD_STACK "FUSE_THREAD_STACK"
++
+ struct fuse_worker {
+     struct fuse_worker *prev;
+     struct fuse_worker *next;
+@@ -67,7 +70,11 @@
+     while (!fuse_session_exited(mt->se)) {
+         int isforget = 0;
+         struct fuse_chan *ch = mt->prevch;
+-        int res = fuse_chan_recv(&ch, w->buf, w->bufsize);
++		int res;
++
++		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
++		res = fuse_chan_recv(&ch, w->buf, w->bufsize);
++		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
+         if (res == -EINTR)
+             continue;
+         if (res <= 0) {
+@@ -121,6 +128,7 @@
+     }
+ 
+     sem_post(&mt->finish);
++	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+     pause();
+ 
+     return NULL;
+@@ -131,6 +139,8 @@
+     sigset_t oldset;
+     sigset_t newset;
+     int res;
++	pthread_attr_t attr;
++	char *stack_size;
+     struct fuse_worker *w = malloc(sizeof(struct fuse_worker));
+     if (!w) {
+         fprintf(stderr, "fuse: failed to allocate worker structure\n");
+@@ -146,6 +156,12 @@
+         return -1;
+     }
+ 
++	/* Override default stack size */
++	pthread_attr_init(&attr);
++	stack_size = getenv(ENVNAME_THREAD_STACK);
++	if (stack_size && pthread_attr_setstacksize(&attr, atoi(stack_size)))
++		fprintf(stderr, "fuse: invalid stack size: %s\n", stack_size);
++
+     /* Disallow signal reception in worker threads */
+     sigemptyset(&newset);
+     sigaddset(&newset, SIGTERM);
+@@ -153,10 +169,12 @@
+     sigaddset(&newset, SIGHUP);
+     sigaddset(&newset, SIGQUIT);
+     pthread_sigmask(SIG_BLOCK, &newset, &oldset);
+-    res = pthread_create(&w->thread_id, NULL, fuse_do_work, w);
++	res = pthread_create(&w->thread_id, &attr, fuse_do_work, w);
+     pthread_sigmask(SIG_SETMASK, &oldset, NULL);
++	pthread_attr_destroy(&attr);
+     if (res != 0) {
+-        fprintf(stderr, "fuse: error creating thread: %s\n", strerror(res));
++		fprintf(stderr, "fuse: error creating thread: %s\n",
++			strerror(res));
+         free(w->buf);
+         free(w);
+         return -1;
