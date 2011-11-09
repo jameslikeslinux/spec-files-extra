@@ -1,3 +1,8 @@
+2011-11-09 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibfuse.spec: Bumped to 2.7.6
+	* Added patches/fuse-2.7.6-update.diff
+
 2011-11-07 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEsilgraphite.spec: initial spec

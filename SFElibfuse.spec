@@ -1,5 +1,5 @@
 #
-# spec file for package SFElibnids.spec
+# spec file for package SFElibfuse.spec
 #
 %include Solaris.inc
 
@@ -20,7 +20,7 @@ Source2:	libfuse.prof_attr
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%name-%version
 %include default-depend.inc
-
+Patch0:		fuse-2.7.6-update.diff
 Requires:	%{name}-root
 Requires:	SFEfusefs
 BuildRequires:	SFEfusefs
@@ -49,6 +49,7 @@ This package contains root files for libfuse.
 
 %prep
 %setup -q -n %{src_name}
+%patch0 -p0
 
 %build
 export MAKE=/usr/ccs/bin/make
@@ -106,11 +107,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 9 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to fuse 2.7.6
+- Added ulockmgr.h
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
-* Thu Jul 07 2011 - Alex Viskovatoff
-- Revert the previous change, so the package gets built
-* Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
-- Bump to 2011.4.12
 * Wed Jun 19 2010 - Milan Jurik
 - Initial spec
