@@ -28,7 +28,7 @@
 
 Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
-Version:                1.3.28
+Version:                1.3.32
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -288,6 +288,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sat Nov 12 2011 - Mike Kosarev <russiane39@gmail.com>
 - Fix building
+- Bump to 1.3.32
 * Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.28
 * Wed Aug 31 2011 - Thomas Wagner
