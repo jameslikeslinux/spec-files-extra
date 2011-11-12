@@ -279,9 +279,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr (-, root, bin)
-%{_includedir}
+#%{_includedir}
 %{_includedir}/wine
-%{_libdir}/wine/*.def
+#%{_libdir}/wine/*.def
 %dir %attr (0755, root, sys) %{_datadir}
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
