@@ -185,6 +185,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Nov 13 2011 - Michael Kosarev
+- add libvpx dependency
 * Sun Oct 23 2011 - Milan Jurik
 - add IPS package name
 - add rtmp dep
