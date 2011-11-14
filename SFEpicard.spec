@@ -12,7 +12,7 @@
 %define python_version 2.6
 
 Name:		SFEpicard
-Version:	0.15.1
+Version:	0.16
 Summary:	MusicBrainz Picard
 License:	GPLv2
 Url:		http://musicbrainz.org/doc/MusicBrainz_Picard
@@ -89,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,other) %{_datadir}/locale
 
 %changelog
+* Mon Nov 14 2011 - James Lee <jlee@thestaticvoid.com>
+- Bump to 0.16.
 * Mon Aug 01 2011 - James Lee <jlee@thestaticvoid.com>
 - Bump to 0.15.1.
 * Tue Jun 28 2011 - James Lee <jlee@thestaticvoid.com>

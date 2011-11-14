@@ -13,7 +13,7 @@ Name:                SFEqt4
 Summary:             Cross-platform development framework/toolkit
 URL:                 http://trolltech.com/products/qt
 License:             LGPLv2
-Version:             4.6.3
+Version:             4.6.4
 Group:               Development/Libraries
 Source:              ftp://ftp.trolltech.com/qt/source/%{srcname}-%{version}.tar.gz
 Patch3:              qt-03-libpng14.diff
@@ -23,7 +23,7 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 #FIXME: Requires: SUNWxorg-mesa
 # Guarantee X/freetype environment concisely (hopefully):
-Requires: SUNWGtku
+Requires: SUNWgtk2
 Requires: SUNWxwplt
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
@@ -47,9 +47,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 ##TODO## check build flags if they better be jds cbe default and make sure they are honored by configure
-export CFLAGS="%optflags"
-
-export CXXFLAGS="%cxx_optflags -library=stlport4"
+export CFLAGS="%optflags -D_XOPEN_VERSION=500"
+export CXXFLAGS="%cxx_optflags -library=stlport4 -D_XOPEN_VERSION=500"
 export LDFLAGS="%_ldflags -library=stlport4"
 
 # STL support does not work with stdcxx4
@@ -107,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Nov 14 2011 - James Lee <jlee@thestaticvoid.com>
+- Update dependency on GTK to GTK2.
+- Bump to 4.6.4.
 * Thu Jun 30 2011 - James Lee <jlee@thestaticvoid.com>
 - Link with libCrun as Qt is loaded dynamically by PyQt and Python, which is
   not linked with libCrun on Solaris.  See:

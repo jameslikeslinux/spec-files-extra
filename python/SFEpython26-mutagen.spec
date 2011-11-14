@@ -17,8 +17,8 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires:               SUNWPython
-BuildRequires:          SUNWPython-devel
+Requires:               SUNWPython26
+BuildRequires:          SUNWPython26-devel
 
 %define python_version  2.6
 
@@ -55,7 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
-* Tue Dec 28 2011 - James Lee <jlee@thestaticvoid.com>
+* Mon Nov 14 2011 - James Lee <jlee@thestaticvoid.com>
+- Correct dependency on SUNWPython26
+* Tue Dec 28 2010 - James Lee <jlee@thestaticvoid.com>
 - Bump to 1.20.
 - Build for Python 2.6.
 * Tue Dec 25 2007 - Ananth Shrinivas <ananth@sun.com>
