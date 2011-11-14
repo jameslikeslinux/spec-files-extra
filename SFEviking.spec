@@ -10,7 +10,7 @@ IPS_Package_Name:	desktop/map/viking
 License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
-Version:	1.2.1
+Version:	1.2.2
 URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
 License:	GPLv2
@@ -92,6 +92,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Nov 14 2011 - Milan Jurik
+- bump to 1.2.2
 * Sun Oct 30 2011 - Milan Jurik
 - fix for gpsd 2.96
 * Sun Jul 31 2011 - Milan Jurik
