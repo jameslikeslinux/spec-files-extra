@@ -10,7 +10,7 @@
 Name:                    SFEsugar-read
 Summary:                 Sugar Read
 URL:                     http://www.sugarlabs.org/
-Version:                 78 
+Version:                 88 
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/Read/Read-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 88.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>
 - Created with 78.

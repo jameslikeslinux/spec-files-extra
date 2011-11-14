@@ -7,12 +7,14 @@
 %define src_url		%{sf_download}/%{src_name}
 
 Name:                   SFEsmartmontools
+IPS_Package_Name:	storage/smartmontools
 Summary:                S.M.A.R.T. monitoring tools
-Version:                5.40
-Group:                  Utility
+Version:                5.42
+Group:                  Applications/System Utilities
 License:                GPLv2
 URL:                    http://smartmontools.sourceforge.net/
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
+SUNW_Copyright:		smartmontools.copyright
 SUNW_BaseDir:           %{_prefix}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -53,8 +55,6 @@ make -j$CPUS
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-mv $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d $RPM_BUILD_ROOT%{_sysconfdir}/init.d
-rmdir $RPM_BUILD_ROOT%{_sysconfdir}/rc.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/smartd.conf
 
 %changelog
+* Sun Oct 30 2011 - Milan Jurik
+- bump to 5.42
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Wed Dec 01 2010 - Milan Jurik
 - bump to 5.40
 * Tue Jun 15 2010 - Milan Jurik

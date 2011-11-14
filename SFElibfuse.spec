@@ -1,22 +1,26 @@
 #
-# spec file for package SFElibnids.spec
+# spec file for package SFElibfuse.spec
 #
 %include Solaris.inc
 
 %define src_name libfuse
+%define src_url http://hub.opensolaris.org/bin/download/Project+fuse/files
+%define tarball_version 20100615
 
 Name:		SFElibfuse
 Summary:	Library for FUSE
-Version:	2.8.5
+License:	LGPLv2
+SUNW_Copyright:	libfuse.copyright
+Version:	0.%{tarball_version}
 Group:		System Environment/Libraries
-URL:		http://sourceforge.net/projects/fuse/files/fuse-2.X/
-Source:		%{src_url}/%{version}/fuse-%{version}.tar.gz
+URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
+Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
 Source1:	libfuse.exec_attr
 Source2:	libfuse.prof_attr
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%name-%version
 %include default-depend.inc
-
+Patch0:		fuse-2.7.6-update.diff
 Requires:	%{name}-root
 Requires:	SFEfusefs
 BuildRequires:	SFEfusefs
@@ -45,6 +49,7 @@ This package contains root files for libfuse.
 
 %prep
 %setup -q -n %{src_name}
+%patch0 -p0
 
 %build
 export MAKE=/usr/ccs/bin/make
@@ -102,7 +107,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
-- Bumped to 2.8.5
+* Wed Nov 9 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to fuse 2.7.6
+- Added ulockmgr.h
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Jun 19 2010 - Milan Jurik
 - Initial spec

@@ -5,14 +5,16 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 %define srcname arora
 
 Name:		SFEarora
 Summary:	Lightweight Web browser using QtWebKit
 URL:		http://code.google.com/p/arora
-Vendor:		Benjamin C. Meyer
+License:	GPLv2
+SUNW_Copyright:	arora.copyright
 Version:	0.11.0
-License:	GPL
 Source:		http://%srcname.googlecode.com/files/%srcname-%version.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -21,9 +23,9 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires: SUNWgmake
 BuildRequires: SUNWgnu-coreutils
 BuildRequires: SUNWgtar
-BuildRequires: SFEqt47-devel
+BuildRequires: SFEqt-gpp-devel
 
-Requires: SFEqt47
+Requires: SFEqt-gpp
 Requires: SUNWzlib
 
 
@@ -46,9 +48,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export PATH=/usr/stdcxx/bin:$PATH
-export QMAKESPEC=solaris-cc-stdcxx
-export QTDIR=/usr/stdcxx
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
+export PATH=/usr/g++/bin:$PATH
+export QMAKESPEC=solaris-g++
+export QTDIR=/usr/g++
 qmake PREFIX=$RPM_BUILD_ROOT%_basedir
 gmake -j$CPUS
 
@@ -100,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- Build with gcc (to avoid building a second Qt); add SUNW_Copyright
 * Thu Jan 27 2011 - Alex Viskovatoff
 - Accommodate to Qt being in /usr/stdcxx; define QMAKESPEC and QTDIR
 * Sat Dec 11 2010 - Alex Viskovatoff

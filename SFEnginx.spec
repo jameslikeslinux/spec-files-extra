@@ -56,7 +56,7 @@ Version:		0.8.53
 %endif
 
 Name:			SFEnginx
-Summary:		Free, open-source, high-performance HTTP server and reverse proxy.
+Summary:		Free, open-source, high-performance HTTP server and reverse proxy
 Source:			http://nginx.org/download/%{sname}-%{version}.tar.gz
 Source1:		http-nginx
 Source2:		http-nginx.xml
@@ -252,6 +252,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 14 2011 - Thomas Wagner
+- fix syntax in http-nginx.xml SMF manifest , no functional SMF testing done
 * Thr Mar 17 2011 - Thomas Wagner
 - fix packaging ownergroup of directories to smf manifest 
 - fix directory and files permissions in %files root for /lib/..., method, manifest

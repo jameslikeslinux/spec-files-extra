@@ -4,15 +4,18 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define python_version 2.6
-%define perl_version 5.8.4
 
 %define SFEfreetype %(/usr/bin/pkginfo -q SFEfreetype && echo 1 || echo 0)
 
 Name:                SFEgraphviz
 Summary:             Graph drawing tools and libraries
+Group:               Applications/Graphics and Imaging
 Version:             2.26.3
+License:             CPL-1.0
+SUNW_Copyright:      graphviz.copyright
 Source:              http://www.graphviz.org/pub/graphviz/ARCHIVE/graphviz-%{version}.tar.gz
 URL:                 http://www.graphviz.org
 SUNW_BaseDir:        %{_basedir}
@@ -42,7 +45,7 @@ BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWlibtool
 BuildRequires: SUNWPython-devel
 BuildRequires: SUNWTcl
-BuildRequires: SUNWperl584core
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWruby18u
 BuildRequires: SUNWswig
 BuildRequires: SUNWgnome-common-devel
@@ -128,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/graphviz/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Jul 17 2010 - Milan Jurik
 - fix build and packaging
 * Sun Apr 11 2010 - Milan Jurik

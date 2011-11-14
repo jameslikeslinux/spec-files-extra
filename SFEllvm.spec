@@ -8,6 +8,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
@@ -16,8 +17,9 @@
 
 Name:		SFEllvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
+SUNW_Copyright:	llvm.copyright
 Version:	2.9
-License:        University of Illinois/NCSA Open Source License
+License:        BSD
 
 URL:		http://llvm.org/
 Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tgz
@@ -31,13 +33,13 @@ SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 
 BuildRequires:	SUNWlibtool
-BuildRequires:	SUNWperl584usr
+BuildRequires:	%pnm_buildrequires_perl_default
 BuildRequires:	SUNWgroff
 BuildRequires:	SUNWbison
 BuildRequires:	SUNWflexlex
 BuildRequires:	SUNWgmake
-BuildRequires:	SFEgcc
-Requires:	SFEgccruntime
+BuildRequires:	SFEgcc-45
+Requires:	SFEgcc-45-runtime
 
 %description
 LLVM is a compiler infrastructure designed for compile-time, link-time, runtime,
@@ -45,9 +47,8 @@ and idle-time optimization of programs from arbitrary programming languages.
 LLVM is written in C++ and has been developed since 2000 at the University of
 Illinois and Apple. It currently supports compilation of C and C++ programs,
 using front-ends derived from GCC 4.0.1. A new front-end for the C family of
-languages is in development. The compiler infrastructure
-includes mirror sets of programming tools as well as libraries with equivalent
-functionality.
+languages is in development. The compiler infrastructure includes mirror sets of
+programming tools as well as libraries with equivalent functionality.
 
 %prep
 %setup -q -n %{src_name}-%{version}
@@ -65,7 +66,7 @@ export CC="/usr/gcc/4.5/bin/gcc"
 export CXX="/usr/gcc/4.5/bin/g++"
 
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
+export LDFLAGS="%_ldflags -L/usr/gcc/4.5/lib -R/usr/gcc/4.5/lib"
 
 export PATH=$PATH:/usr/perl5/bin
 
@@ -104,6 +105,8 @@ mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 %{_docdir}/llvm
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - bump to 2.9, add clang
 *                 - Thomas Wagner

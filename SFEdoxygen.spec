@@ -14,6 +14,8 @@
 
 Name:               SFEdoxygen
 Summary:            Doxygen is a documentation system for various languages
+License:            GPLv2
+SUNW_Copyright:     doxygen.copyright
 Version:            %{doxygen.version}
 SUNW_BaseDir:       %{_basedir}
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
@@ -42,6 +44,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 28 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Mon Jul 18 2011 - Alex Viskovatoff
+- add -features=tmplrefstatic for compilation with CC to fix build
 * Tue Jun 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.4
 * Mon Jul 30 2007 - markwright@internode.on.net

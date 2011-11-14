@@ -1,0 +1,84 @@
+--- lightdm-0.4.4/src/lightdm.c-orig	2011-07-19 11:04:25.053333794 -0500
++++ lightdm-0.4.4/src/lightdm.c	2011-07-19 11:05:13.888291514 -0500
+@@ -17,6 +17,7 @@
+ #include <glib/gi18n.h>
+ #include <unistd.h>
+ #include <fcntl.h>
++#include <sys/stat.h>
+ 
+ #include "configuration.h"
+ #include "display-manager.h"
+--- lightdm-0.4.4/tests/src/Makefile.am-orig	2011-07-19 11:12:45.912942352 -0500
++++ lightdm-0.4.4/tests/src/Makefile.am	2011-07-19 11:14:55.971351465 -0500
+@@ -12,7 +12,7 @@ test_runner_CFLAGS = \
+ 	-DBUILDDIR=\"$(abs_top_builddir)\"
+ test_runner_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(GIO_LIBS)
++	$(GIO_LIBS) -lsocket -lnsl
+ 
+ test_xserver_SOURCES = test-xserver.c status.c status.h
+ test_xserver_CFLAGS = \
+@@ -25,7 +25,7 @@ test_xserver_LDADD = \
+ 	$(GOBJECT_LIBS) \
+ 	$(GLIB_LIBS) \
+ 	$(GIO_LIBS) \
+-	$(GIO_UNIX_LIBS)
++	$(GIO_UNIX_LIBS) -lsocket -lnsl
+ 
+ test_gobject_greeter_SOURCES = test-gobject-greeter.c status.c status.h
+ test_gobject_greeter_CFLAGS = \
+@@ -33,7 +33,7 @@ test_gobject_greeter_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS) \
+ 	$(GOBJECT_CFLAGS) \
+-	$(XCB_CFLAGS)
++	$(XCB_CFLAGS) -lsocket -lnsl
+ test_gobject_greeter_LDADD = \
+ 	-L$(top_builddir)/liblightdm-gobject \
+ 	-llightdm-gobject-1 \
+@@ -46,7 +46,7 @@ test_guest_account_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ test_guest_account_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ test-qt-greeter_moc.cpp: test-qt-greeter.h
+ 	moc $< -o $@
+@@ -66,14 +66,14 @@ test_session_CFLAGS = \
+ 	$(XCB_CFLAGS)
+ test_session_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ plymouth_SOURCES = plymouth.c status.c status.h
+ plymouth_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ plymouth_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ CLEANFILES = \
+ 	test-qt-greeter_moc.cpp
+--- lightdm-0.9.4/utils/Makefile.am-orig	2011-08-24 12:45:59.093772069 -0500
++++ lightdm-0.9.4/utils/Makefile.am	2011-08-24 12:52:36.208255904 -0500
+@@ -1,5 +1,6 @@
+ bin_PROGRAMS = dm-tool
+ libexec_PROGRAMS = lightdm-set-defaults
++pkglibexecdir = $(libexecdir)/@PACKAGE@
+ dist_pkglibexec_SCRIPTS = gdmflexiserver
+ 
+ dm_tool_SOURCES = \
+--- lightdm-0.9.5/src/seat.c-orig	2011-09-07 11:03:00.429241981 -0500
++++ lightdm-0.9.5/src/seat.c	2011-09-07 11:03:13.517648466 -0500
+@@ -11,6 +11,7 @@
+ 
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/wait.h>
+ 
+ #include "seat.h"
+ #include "display.h"

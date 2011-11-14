@@ -10,6 +10,7 @@ Summary:                 scalpel - A Frugal, High Performance File Carver
 URL:                     http://www.digitalforensicssolutions.com/Scalpel/
 Version:                 1.60
 License:                 GPLv2
+SUNW_Copyright:		 scalpel.copyright
 Source:                  http://www.digitalforensicssolutions.com/Scalpel/%{src_name}-%{version}.tar.gz
 Patch1:                  scalpel-01-add-SOLARIS-add-timersub.diff
 
@@ -55,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Wed Feb 23 2011 - Milan Jurik
 - fix packaging (doc is not part of tarball)
 * Sun May 18 2008  - Thomas Wagner

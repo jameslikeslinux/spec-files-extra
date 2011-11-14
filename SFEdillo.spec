@@ -4,17 +4,21 @@
 # includes module(s): dillo
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
 
 %define src_name	dillo
 %define src_url		http://www.dillo.org/download
 
 Name:		SFEdillo
 Summary:	Lightweight browser
-Version:	2.2
-Patch1:		dillo-01-dynarray.diff
+Version:	3.0
+#Patch1:		dillo-01-dynarray.diff
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 URL:		http://www.dillo.org/
-License:	GPLv3
+License:	GPLv3+
+SUNW_Copyright:	dillo.copyright
 Group:		Applications/Internet
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -30,7 +34,7 @@ SUNW_BaseDir:	/
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
+#%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,10 +42,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
+export CC="/usr/gnu/bin/gcc"
+export CXX="/usr/gnu/bin/g++"
+
 libtoolize --force
 
-export CFLAGS="%optflags -I/usr/sfw/include"
-export LDFLAGS="%_ldflags -Lusr/sfw/lib -Rusr/sfw/lib"
+export CFLAGS="-Os -I/usr/sfw/include"
+export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
 ./configure --prefix=%{_prefix}		\
 	    --bindir=%{_bindir}		\
 	    --mandir=%{_mandir}		\
@@ -78,6 +85,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 3.0
+* Wed Sep 14 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Minor fixes
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.2.1
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun 13 2010 - Milan Jurik
 - bump to 2.2
 * Sun Nov 18 2007 - daymobrew@users.sourceforge.net

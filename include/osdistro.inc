@@ -71,6 +71,12 @@
 %define osdistro 1
 
 %define osbuild %(uname -v | sed -e 's/[A-z_]//g')
+#special handling for release builds: uname -v prints 11.0 or similar 
+#which might correspond to build 175 (needs refinement)
+%if %( uname -v | egrep '^11\.[0-9]' > /dev/null && echo 1 || echo 0 )
+##TODO## be more precise later, for build 173 and 174 and later SRU
+%define osbuild 175
+%endif 
 
 # see if we are on old SVR4 release
 %define SXCE %( egrep "Solaris Express Community Edition" /etc/release > /dev/null 2>&1 && echo 1 || echo 0 )
@@ -350,6 +356,8 @@
 
 
 %changelog
+* Mon Nov  7 2011 - Thomas Wagner
+- add Support for builds (173)(174) as osbuild=175 Oracle Solaris 11 11/11
 * Fri Jun 17 2011 - Thomas Wagner
 - changed osdistrelname "OI147" to read "OpenIndiana", "os2010.11" to read "Solaris11Express"
 - added boolean flags for: openindiana solaris11express oi201009 oi201100 s11ex201011 s11ex201100

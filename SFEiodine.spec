@@ -10,6 +10,9 @@
 Name:                SFEiodine
 Summary:             iodine - IP over DNS is now easy
 Version:             0.5.99.1
+License:             MIT
+SUNW_Copyright:      iodine.copyright
+URL:                 http://code.kryo.se/iodine/
 Source:              http://code.kryo.se/iodine/iodine-%{src_version}.tar.gz
 Patch1:              iodine-01-solaris.diff
 Patch2:              iodine-02-nogcc.diff
@@ -19,6 +22,11 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWzlib
 Requires: SFEtun
+
+%description
+iodine is a piece of software that lets you tunnel IPv4 data through a DNS
+server. This can be usable in different situations where internet access is
+firewalled, but DNS queries are allowed.
 
 %prep
 %setup -q -n iodine-%{src_version}
@@ -53,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Fri Mar 25 2011 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.6.0-rc1
 - Add patch1, patch2

@@ -14,9 +14,23 @@ Summary:	Volume control plugin for the Xfce 4 panel
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License:	GPLv2
+SUNW_Copyright: xfce4-mixer.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SUNWgnome-media 
+BuildRequires: SUNWcairo 
+BuildRequires: SUNWgtk2
+BuildRequires: SFElibxfce4util 
+BuildRequires: SUNWglib2 
+BuildRequires: SFElibxfce4ui 
+Requires: SUNWgnome-media 
+Requires: SUNWcairo 
+Requires: SUNWgtk2
+Requires: SFElibxfce4util 
+Requires: SUNWglib2 
+Requires: SFElibxfce4ui 
 BuildRequires:	SUNWgnome-base-libs-devel
 BuildRequires:	SFExfce4-dev-tools
 BuildRequires:	SFExfce4-panel-devel
@@ -105,6 +119,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat Mar 26 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Sun Aug 16 2009 - sobotkap@gmail.com

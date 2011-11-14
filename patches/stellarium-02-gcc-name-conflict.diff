@@ -1,0 +1,15 @@
+--- stellarium-0.10.6/src/core/modules/Skybright.cpp.orig	2010-12-05 16:31:00.000000000 +0000
++++ stellarium-0.10.6/src/core/modules/Skybright.cpp	2011-07-03 00:02:22.110227066 +0100
+@@ -103,10 +103,10 @@
+ 
+ 	// Daylight brightness
+ 	const float distSun = StelUtils::fastAcos(cosDistSun);
+-	const float FS = 18886.28f / (distSun*distSun + 0.0007f)
++	const float _FS = 18886.28f / (distSun*distSun + 0.0007f)
+ 	               + pow10(6.15f - (distSun+0.001f)* 1.43239f)
+ 	               + 229086.77f * ( 1.06f + cosDistSun*cosDistSun );
+-	const float b_daylight = 9.289663e-12 * (1.f - bKX) * (FS * C4 + 440000.f * (1.f - C4));
++	const float b_daylight = 9.289663e-12 * (1.f - bKX) * (_FS * C4 + 440000.f * (1.f - C4));
+ 
+ 	//Twilight brightness
+ 	const float b_twilight = pow10(bTwilightTerm + 0.063661977f * StelUtils::fastAcos(cosDistZenith)/(K> 0.05f ? K : 0.05f)) * (1.7453293f / distSun) * (1.f-bKX);

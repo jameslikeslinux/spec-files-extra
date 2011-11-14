@@ -6,12 +6,14 @@
 %include Solaris.inc
 
 Name:                    SFExcircuit
-Summary:                 xcircuit - electrical circuit schematic diagram drawing program
+Summary:                 Electrical circuit schematic diagram drawing program
+Group:                   Applications/Graphics and Imaging
 Version:                 3.7.26
 Group:                   Utility
 Source:                  http://opencircuitdesign.com/xcircuit/archive/xcircuit-%{version}.tgz
+License:		 GPLv2
 SUNW_BaseDir:            %{_basedir}
-SUNW_Copyright:          %{name}.copyright
+SUNW_Copyright:          xcircuit.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWxwrtl
@@ -54,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Jun 16 2011 - N.B.Prashanth<nbprash.mit@gmail.com>
 - Bump to 3.7.26
 * Sun Jul 23 2006 - laca@sun.com

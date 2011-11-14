@@ -20,6 +20,7 @@
 %define SUNWlibsdl	%(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-sound
+IPS_Package_Name:	library/audio/sdl-sound
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 SUNW_BaseDir:		%{_basedir}
@@ -34,8 +35,8 @@ Requires: SFEsdl
 %endif
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
-BuildRequires: SFElibmikmod-devel
-Requires: SFElibmikmod
+BuildRequires: SUNWlibmikmod-devel
+Requires: SUNWlibmikmod
 BuildRequires: SUNWflac-devel
 Requires: SUNWflac
 BuildRequires: SUNWspeex-devel
@@ -121,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL/
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun May 16 2010 - Milan Jurik
 - added missing build dependencies
 * Tue Mar 02 2010 - matt@greenviolet.net

@@ -9,11 +9,13 @@
 
 Name:		SFEsakura
 Summary:	Lightweight terminal emulator based on GTK and VTE
+Group:		Applications/System Utilities
 URL:		http://www.pleyades.net/david/sakura.php
 Version:	2.3.8
 License:	GPLv2
 Source:		http://www.pleyades.net/david/projects/%srcname/%srcname-%version.tar.bz2
 %include default-depend.inc
+SUNW_Copyright: sakura.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 BuildRequires:	SFEcmake
@@ -86,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Mar 15 2011 - Alex Viskovatoff
 - Use SFEcmake
 * Wed Dec  8 2010 - Alex Viskovatoff

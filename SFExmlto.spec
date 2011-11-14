@@ -11,9 +11,10 @@ Group:                   Utility
 Version:                 0.0.23
 URL:                     http://fedorahosted.org/xmlto/
 Source:                  http://fedorahosted.org/releases/x/m/xmlto/xmlto-%{version}.tar.bz2
+License: 		 GPLv2
 Patch1:                  xmlto-01-find.diff
 Patch2:                  xmlto-02-Makefile-disable-validation.diff
-SUNW_Copyright:          %{name}.copyright
+SUNW_Copyright:          xmlto.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -64,6 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Tue Apr 05 2011 - Thomas Wagner
 - commit missing patch2 after removing typo 
 * Sat Mar 26 2011 - Thomas Wagner

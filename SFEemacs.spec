@@ -5,11 +5,20 @@
 #
 %include Solaris.inc
 
+# Avoid conflict with editor/gnu-emacs
+%include usr-gnu.inc
+%define _infodir %_datadir/info
+
+%include packagenamemacros.inc
+
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
-Version:                 23.3
-%define emacs_version    23.3
-Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%{emacs_version}.tar.bz2
+Version:                 23.3.1
+License:                 GPLv3+
+SUNW_Copyright:          emacs.copyright
+%define emacs_version    23.3a
+%define src_version      23.3
+Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%emacs_version.tar.bz2
 Patch1:                  emacs-01-sound.diff
 URL:                     http://www.gnu.org/software/emacs/emacs.html
 SUNW_BaseDir:            %{_basedir}
@@ -27,7 +36,7 @@ Requires: SUNWpng
 Requires: SUNWjpg
 Requires: SUNWlibms
 Requires: SUNWzlib
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWtexi
 Requires: SUNWdbus
 Requires: SFEalsa-lib
@@ -53,7 +62,7 @@ SUNW_BaseDir:            /
 %include default-depend.inc
 
 %prep
-%setup -q -n emacs-%version
+%setup -q -n emacs-%src_version
 %patch1 -p1
 
 %build
@@ -97,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, root)
+%dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
@@ -140,6 +150,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Sun Oct  2 2011 - Alex Viskovatoff
+- Work around usr-gnu.inc not placing info dir in /usr/gnu
+* Mon Sep 12 2011 - Alex Viskovatoff
+- bump to version 23.3a
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Mon Jun 27 2011 - Alex Viskovatoff
+- Install in /usr/gnu so as not to conflict with system gnu-emacs
 * Sun Apr 12 2011 - Alex Viskovatoff
 - Add missing build dependencies
 * Thu Mar 17 2011 - Alex Viskovatoff

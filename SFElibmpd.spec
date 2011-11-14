@@ -15,6 +15,9 @@
 
 Name:                SFElibmpd
 Summary:             libmpd for gmpc
+URL:                 http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki
+License:             GPLv2
+SUNW_Copyright:	     libmpd.copyright
 Version:             0.20.0
 #needed for download-URL:
 %define gmpc_version 0.20.0
@@ -83,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Oct  2 2010 - Alex Viskovatoff
 - bump to 0.20.0; use gmake
 * Sat Dec 20 2008 - Thomas Wagner

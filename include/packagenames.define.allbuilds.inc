@@ -88,6 +88,30 @@
 %define pnm_requires_SUNWGtku				SUNWGtk
 %define pnm_requires_SUNWGtkr				SUNWGtk
 
+#kerberos
+%define pnm_buildrequires_service_security_kerberos_5  SUNWkrb
+%define pnm_requires_service_security_kerberos_5       SUNWkrb
+
+%define pnm_buildrequires_SUNWkrb 		SUNWkrb
+%define pnm_buildrequires_SUNWkrbr		SUNWkrb
+%define pnm_buildrequires_SUNWkrbu		SUNWkrb
+%define pnm_requires_SUNWkrb                    SUNWkrb
+%define pnm_requires_SUNWkrbr 			SUNWkrb
+%define pnm_requires_SUNWkrbu 			SUNWkrb
+
+#samba service/network/samba
+%define pnm_buildrequires_service_network_samba	SUNWsmba
+%define pnm_requires_service_network_samba	SUNWsmba
+%define pnm_buildrequires_SUNWsmba_devel	SUNWsmba
+%define pnm_buildrequires_SUNWsmba		SUNWsmba
+%define pnm_buildrequires_SUNWsmbar		SUNWsmba
+%define pnm_buildrequires_SUNWsmbau		SUNWsmba
+%define pnm_requires_SUNWsmba			SUNWsmba
+%define pnm_requires_SUNWsmbar			SUNWsmba
+%define pnm_requires_SUNWsmbau			SUNWsmba
+%define pnm_buildrequires_smba			SUNWsmba
+%define pnm_requires_smba			SUNWsmba
+
 %endif
 #END os2nnn
 
@@ -109,7 +133,6 @@
 %define pnm_buildrequires_SUNWopenssl			library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_include           library/security/openssl
 #handy alias based on typo
-%define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_includes		library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_commands		library/security/openssl
 %define pnm_buildrequires_SUNWopenssl_libraries		library/security/openssl
@@ -174,17 +197,18 @@
 #below: our target system is an older build SolarisExpress (up to including 130)
 %if %{SXCE}
 #spec file orginates from a system/autor using the old package names with SUNW prefix
-%define pnm_buildrequires_SUNWopenssl			SUNWopenssl-includes
+%define pnm_buildrequires_SUNWopenssl			SUNWopenssl-include
 %define pnm_requires_SUNWopenssl			SUNWopenssl-libraries
 
-%define pnm_buildrequires_openssl			SUNWopenssl-includes
+%define pnm_buildrequires_openssl			SUNWopenssl-include
 %define pnm_requires_openssl				SUNWopenssl-libraries
 
-%define pnm_buildrequires_library_security_openssl	SUNWopenssl-includes
+%define pnm_buildrequires_library_security_openssl	SUNWopenssl-include
 %define pnm_requires_library_security_openssl		SUNWopenssl-libraries
 
-%define pnm_buildrequires_SUNWopenssl_includes		SUNWopenssl-includes
-%define pnm_requires_SUNWopenssl_includes		SUNWopenssl-includes
+#note: if you search for SUNWopenssl-include, use SUNWopenssl_include !!
+%define pnm_buildrequires_SUNWopenssl_include		SUNWopenssl-include
+%define pnm_requires_SUNWopenssl_include		SUNWopenssl-include
 %define pnm_buildrequires_SUNWopenssl_libraries		SUNWopenssl-libraries
 %define pnm_requires_SUNWopenssl_libraries		SUNWopenssl-libraries
 
@@ -230,6 +254,159 @@
 %define pnm_requires_SUNWghostscriptr			SUNWghostscriptr
 %define pnm_buildrequires_SUNWghostscriptu		SUNWghostscriptu
 %define pnm_requires_SUNWghostscriptu			SUNWghostscriptu
+
+#Apache on a SXCE or S10  host
+
+##ignored, too old SUNWapchd
+##ignored, too old SUNWapchr
+##ignored, too old SUNWapchu
+#config files of modules are prerequisite to the modules, so only list modules here
+
+%define pnm_buildrequires_SUNWapch22r 		SUNWapch22r
+%define pnm_requires_SUNWapch22r		SUNWapch22r
+
+%define pnm_buildrequires_SUNWapch22u		SUNWapch22u
+%define pnm_requires_SUNWapch22u		SUNWapch22u
+
+%define pnm_buildrequires_SUNWapch22		SUNWapch22u
+%define pnm_requires_SUNWapch22			SUNWapch22u
+
+%define pnm_buildrequires_apch22		SUNWapch22u
+%define pnm_requires_apch22			SUNWapch22u
+
+#doc
+%define pnm_buildrequires_SUNWapch22d		SUNWapch22d
+%define pnm_requires_SUNWapch22d		SUNWapch22d
+%define pnm_buildrequires_apch22d		SUNWapch22d
+%define pnm_requires_apch22d			SUNWapch22d
+
+%define pnm_buildrequires_SUNWapch22m_dtrace	SUNWapch22m-dtrace
+%define pnm_requires_SUNWapch22m_dtrace		SUNWapch22m-dtrace
+%define pnm_buildrequires_apch22m_dtrace	SUNWapch22m-dtrace
+%define pnm_requires_apch22m_dtrace		SUNWapch22m-dtrace
+
+%define pnm_buildrequires_SUNWapch22m_fcgid	SUNWapch22m-fcgid
+%define pnm_requires_SUNWapch22m_fcgid		SUNWapch22m-fcgid
+%define pnm_buildrequires_apch22m_fcgid		SUNWapch22m-fcgid
+%define pnm_requires_apch22m_fcgid		SUNWapch22m-fcgid
+
+%define pnm_buildrequires_SUNWapch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_requires_SUNWapch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_buildrequires_apch22m_proxy_html	SUNWapch22m-proxy-html
+%define pnm_requires_apch22m_proxy_html		SUNWapch22m-proxy-html
+
+%define pnm_buildrequires_SUNWapch22m_php52	SUNWapch22m-php52
+%define pnm_requires_SUNWapch22m_php52		SUNWapch22m-php52
+%define pnm_buildrequires_apch22m_php52		SUNWapch22m-php52
+%define pnm_requires_apch22m_php52		SUNWapch22m-php52
+
+%define pnm_buildrequires_SUNWapch22m_security	SUNWapch22m-security
+%define pnm_requires_SUNWapch22m_security	SUNWapch22m-security
+%define pnm_buildrequires_apch22m_security	SUNWapch22m-security
+%define pnm_requires_apch22m_security		SUNWapch22m-security
+
+%define pnm_buildrequires_SUNWapch22m_sed	SUNWapch22m-sed
+%define pnm_requires_SUNWapch22m_sed		SUNWapch22m-sed
+%define pnm_buildrequires_apch22m_sed		SUNWapch22m-sed
+%define pnm_requires_apch22m_sed		SUNWapch22m-sed
+
+%define pnm_buildrequires_SUNWapch22m_jk	SUNWapch22m-jk
+%define pnm_requires_SUNWapch22m_jk		SUNWapch22m-jk
+%define pnm_buildrequires_apch22m_jk		SUNWapch22m-jk
+%define pnm_requires_apch22m_jk			SUNWapch22m-jk
+
+%define pnm_buildrequires_SUNWapch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_requires_SUNWapch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_buildrequires_apch22m_xml2enc	SUNWapch22m-xml2enc
+%define pnm_requires_apch22m_xml2enc		SUNWapch22m-xml2enc
+
+# php
+#SUNWphp52d/          SUNWphp52r-mysql/    SUNWphp52r-xdebug/   SUNWphp52u-mysql/    SUNWphp52u-xdebug/
+#SUNWphp52r/          SUNWphp52r-pear/     SUNWphp52u/          SUNWphp52u-pear/     
+#SUNWphp52r-apc/      SUNWphp52r-pgsql/    SUNWphp52u-apc/      SUNWphp52u-pgsql/    
+#SUNWphp52r-idn/      SUNWphp52r-suhosin/  SUNWphp52u-idn/      SUNWphp52u-suhosin/  
+#SUNWphp52r-memcache/ SUNWphp52r-tcpwrap/  SUNWphp52u-memcache/ SUNWphp52u-tcpwrap/  
+
+
+%define pnm_buildrequires_SUNWphp52u		SUNWphp52u
+%define pnm_requires_SUNWphp52u			SUNWphp52u
+%define pnm_buildrequires_SUNWphp52		SUNWphp52u
+%define pnm_requires_SUNWphp52			SUNWphp52u
+
+%define pnm_buildrequires_SUNWphp52r		SUNWphp52r
+%define pnm_requires_SUNWphp52r			SUNWphp52r
+
+%define pnm_buildrequires_SUNWphp52d		SUNWphp52d
+%define pnm_requires_SUNWphp52d			SUNWphp52d
+
+
+%define pnm_buildrequires_SUNWphp52r_mysql	SUNWphp52r-mysql
+%define pnm_requires_SUNWphp52r_mysql		SUNWphp52r-mysql
+
+%define pnm_buildrequires_SUNWphp52u_mysql	SUNWphp52u-mysql
+%define pnm_requires_SUNWphp52u_mysql		SUNWphp52u-mysql
+
+%define pnm_buildrequires_SUNWphp52_mysql	SUNWphp52u-mysql
+%define pnm_requires_SUNWphp52_mysql		SUNWphp52u-mysql
+
+%define pnm_buildrequires_php52_mysql		SUNWphp52u-mysql
+%define pnm_requires_php52_mysql		SUNWphp52u-mysql
+
+#-apc -idn -memcache skipped, can be added if needed
+%define pnm_buildrequires_SUNWphp52_pear	SUNWphp52u-pear
+%define pnm_requires_SUNWphp52_pear		SUNWphp52u-pear
+%define pnm_buildrequires_php52_pear 		SUNWphp52u-pear
+%define pnm_requires_php52_pear 		SUNWphp52u-pear
+
+%define pnm_buildrequires_SUNWphp52_pgsql 	SUNWphp52u-psql
+%define pnm_requires_SUNWphp52_pgsql 		SUNWphp52u-psql
+%define pnm_buildrequires_SUNWphp52u_pgsql 	SUNWphp52u-psql
+%define pnm_requires_SUNWphp52u_pgsql 		SUNWphp52u-psql
+%define pnm_buildrequires_SUNWphp52r_pgsql 	SUNWphp52r-psql
+%define pnm_requires_SUNWphp52r_pgsql 		SUNWphp52r-psql
+%define pnm_buildrequires_php52_pgsql 		SUNWphp52u-psql
+%define pnm_requires_php52_pgsql		SUNWphp52u-psql
+#-suhosin -tcpwrap -xdebug skipped, can be added if needed
+
+#various packages
+
+%define pnm_buildrequires_SUNWbash              SUNWbash
+%define pnm_requires_SUNWbash                   SUNWbash
+%define pnm_buildrequires_SUNWpcre              SUNWpcre
+%define pnm_requires_SUNWpcre                   SUNWpcre
+%define pnm_buildrequires_SUNWggrp              SUNWggrp
+%define pnm_requires_SUNWggrp                   SUNWggrp
+%define pnm_buildrequires_SUNWlibsasl           SUNWlibsasl
+%define pnm_requires_SUNWlibsasl                SUNWlibsasl
+
+#kerberos
+%define pnm_buildrequires_service_security_kerberos_5  SUNWkrbu
+%define pnm_requires_service_security_kerberos_5       SUNWkrbu
+
+%define pnm_buildrequires_SUNWkrb 		SUNWkrbu
+%define pnm_buildrequires_SUNWkrbr		SUNWkrbr
+%define pnm_buildrequires_SUNWkrbu		SUNWkrbu
+%define pnm_requires_SUNWkrb                    SUNWkrbu
+%define pnm_requires_SUNWkrbr 			SUNWkrbr
+%define pnm_requires_SUNWkrbu 			SUNWkrbu
+
+#samba
+%define pnm_buildrequires_service_network_samba	SUNWsmbu
+%define pnm_requires_service_network_samba	SUNWsmbu
+%define pnm_buildrequires_SUNWsmba_devel 	SUNWsmbu
+%define pnm_buildrequires_SUNWsmba		SUNWsmbu
+%define pnm_buildrequires_SUNWsmbar		SUNWsmbr
+%define pnm_buildrequires_SUNWsmbau		SUNWsmbu
+%define pnm_requires_SUNWsmba			SUNWsmbu
+%define pnm_requires_SUNWsmbar			SUNWsmbr
+%define pnm_requires_SUNWsmbau			SUNWsmbu
+%define pnm_buildrequires_smba			SUNWsmbu
+%define pnm_requires_smba			SUNWsmbu
+
+
+##TODO## Add your packages here in case you specify an old
+# package name now with the pnm_buildrequires_SUNWoldname makro
+
 %endif
 #END SXCE
 
@@ -335,9 +512,37 @@
 %endif
 #END <107
 
+##TODO##define exact osbuild number where SUNWfreetype disappeared
+#rules: if osdistro does not know freetype2, then use SFEfreetype (2.x)
+#defaults for all builds < 133 (just to have somehting to start with)
 
-#http://mail.opensolaris.org/pipermail/opensolaris-announce/2008-October.txt
-#repo additions, SUNWlibmikmod
+#the default settings from the other p*inc files are valid or overwritten here
+%define pnm_buildrequires_SUNWfreetype2		SUNWfreetype2
+%define pnm_requires_SUNWfreetype2		SUNWfreetype2
+%define pnm_buildrequires_freetype2		SUNWfreetype2
+%define pnm_requires_freetype2			SUNWfreetype2
+#SFEfreetype replaced with SUNWfreetype2 
+#NOTE: no "2" at the end!
+%define pnm_buildrequires_SUNWfreetype_devel 	SUNWfreetype2
+%define pnm_requires_SUNWfreetype		SUNWfreetype2
+
+##TODO## which osbuild version is right?
+%if %( expr %{osbuild} '<' 133 )
+#replace requested SUNWfreetype2* with SFE version on older
+#osbuild version
+#NOTE: might adjust exact osbuild version later
+%define pnm_buildrequires_SUNWfreetype2_devel	SFEfreetype-devel
+%define pnm_buildrequires_SUNWfreetype2		SFEfreetype
+%define pnm_requires_SUNWfreetype2		SFEfreetype
+%define pnm_buildrequires_freetype2		SFEfreetype-devel
+%define pnm_requires_freetype2			SFEfreetype
+%define pnm_buildrequires_system_library_freetype_2	SFEfreetype-devel
+%define pnm_requires_system_library_freetype_2	SFEfreetype
+#SFE requested
+%define pnm_buildrequires_SFEfreetype_devel	SFEfreetype-devel
+%define pnm_requires_SFEfreetype		SFEfreetype
+%endif
+#END < 133
 
 #defaults for all builds >= 99 - let pkg do the names translation if needed
 %define pnm_buildrequires_SFElibmikmod		SUNWlibmikmod
@@ -369,6 +574,46 @@
 %endif
 #END <116
 
+
+
+#special case, pkgtool/pkgbuild can't see if packages are installed if
+#meta-package data/docbook is requested. up to 133 it was developer/documentation-tool/gtk-doc
+#NOTE we overwrite what the include for 134 has defined
+%if %( expr %{osbuild} '>=' 134 )
+#133 %define pnm_buildrequires_SUNWgtk_doc_devel	developer/documentation-tool/gtk-doc
+#133 %define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+#133 %define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+#134 %define pnm_buildrequires_SUNWgtk_doc	data/docbook
+#134 %define pnm_requires_SUNWgtk_doc		data/docbook
+
+%define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+%define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+%endif
+#END >= 134
+
+#special case, pkgtool/pkgbuild can't see if packages are installed if
+#meta-package x11/client is requested. up to 143 it was TBD
+#NOTE we overwrite what the include for 133 / 134 has defined (target was x11/client)
+%if %( expr %{osbuild} '>=' 144 )
+%define pnm_buildrequires_x11_clients compatibility/packages/SUNWxwplt
+%define pnm_requires_x11_clients compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt_devel compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_xwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_xwplt compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_requires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+%endif
+#END >= 144
+
+
+##TODO## volunteers may implement the rules noted below
+#2010-09-14 SUNWgraphviz removed from spec-files
+#a) when was SUNWgraphviz added
+#b) when was SUNWgraphviz removed from the builds
+#%if %( expr %{osbuild} '>' 000 )
+#%endif
 
 #packages no longer available, we could bail out or just require a core package
 #to continue for now, we just set a already existing package name, the spec file 
@@ -413,12 +658,13 @@
 #END solaris11express
 
 #START setting perl5, defaults  - Part 1 of 3
-#define perl defaults, primarily shared settings and default
+#define perl defaults, primarily shared settings and default version, paths
 #for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
-#STRONG NOTE: below the osdistro and osbuild sections, there is *another*
-#section evaluating the resulting paths on the disk. We hope, that we
-#do not need to handle special cases there, e.g. an odd distro decides
-#to relocate to another path layout on disk....
+#STRONG NOTE: located *below* the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk, those are specific
+#to the perl version in use. We hope, that we do not need to handle special
+#cases there, e.g. this would be an odd distro deciding to relocate to 
+#another path layout on disk....
 
 #note: older Solaris releases did include "micro"-versionnumber in 
 #modules path, e.g. vendor_perl/5.8.4
@@ -495,7 +741,7 @@
 #END setting perl5, changes with specific builds and distros  - Part 2 of 3
 
 
-#START setting perl5, all builds  - Part 3 of 3
+#START setting perl5, all builds, evaluated paths  - Part 3 of 3
 # this is the section noted above which evaluates the resulting paths on the
 # disk for the defaults for perl or the distro specific changed values e.g.
 # more fresh perl version 5.8.4 -> 5.12 
@@ -515,7 +761,102 @@
 # echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10.0)
 %define perl_path_site_perl_version perl%{perl_major_version}/site_perl/%{perl_version}
 
-#END setting perl5, all builds  - Part 3 of 3
+#END setting perl5, all builds, evaluated paths  - Part 3 of 3
+
+
+#START setting Python, defaults  - Part 1 of 1
+#define Python defaults, primarily shared settings and default versions and paths
+#NOTE: we start initially only with setting Python 2.6 for *ALL* osbuild / osdistro
+#this is to be extended in the future as required (for older osbuild/osdistro, *or* 
+#for next Python 2.x or 3.x)
+
+%define python_version 2.6
+%define python_major_version 2
+%define python_major_minor_version 2.6
+%define python_major_minor_micro_version 2.6.4
+
+#note: the name is subject to change if we find a better one
+#_default string is not meant to be a part of the package name...
+%define pnm_buildrequires_python_default	SUNWPython26-devel,SUNWPython26
+%define pnm_requires_python_default	SUNWPython26
+
+# add sub-packagenames like "SUNWPython26-extra" and "-cherrypy" to the end, see examples:
+#  BuildRequires:	%{pnm_buildrequires_python_default}-extra 
+#  Requires:		%{pnm_requires_python_default}-extra 
+#  BuildRequires:	%{pnm_buildrequires_python_default}-cherrypy
+#  Requires:		%{pnm_requires_python_default}-cherrypy
+
+#BIG NOTE read the "perl" examples in this file *IF* you want to 
+#extend the logic to define a new osbuild/osdistro or switch to
+#another Python version, e.g. 2.7 or 3.0 only for specific osbuild/osdistro
+#combinations.
+#Mind to write the same comments as for the perl section "Part n of m" to 
+#highlight that a value may be re-defined later on for special cases
+#END setting Python
+
+
+#START setting mysql, defaults  - Part 1 of 3
+#define mysql defaults, primarily shared settings and default version, paths
+#for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
+#STRONG NOTE: located *below* the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk, those are specific
+#to the mysql version in use. We hope, that we do not need to handle special
+#cases there, e.g. this would be an odd distro deciding to relocate to 
+#another path layout on disk....
+##TODO## Solaris 10's mysql versions *not yet* covered here
+
+#from SXCE on we have this:
+%define mysql_version 5.1
+%define mysql_major_version 5
+%define mysql_major_minor_version 5.1
+##not defined %define mysql_major_minor_micro_version 5.1.X
+
+#we simplify the veriants for mysql, we try to use only the newer one
+#for *all* consuming spec files.
+#include file /usr/mysql/5.1/include/mysql/mysql.h is in SUNWmysql51u
+%define pnm_buildrequires_mysql_default	SUNWmysql51u
+%define pnm_requires_mysql_default	SUNWmysql51u
+
+#END setting mysql, defaults  - Part 1 of 3
+
+#START setting mysql, changes with specific builds and distros  - Part 2 of 3
+#set mysql for Solaris11Express or OpenIndiana or OpenSolaris
+%if %{os2nnn}
+#older IPS systems
+%define pnm_buildrequires_mysql_default	SUNWmysql51
+%define pnm_requires_mysql_default	SUNWmysql51
+%if %( expr %{osbuild} '>=' 133 )
+#from build 133 and up we have
+#database/mysql-51
+%define pnm_buildrequires_mysql_default	database/mysql-51
+%define pnm_requires_mysql_default	database/mysql-51
+%endif
+#END >= 133
+%endif
+#END os2nnn
+
+#add more distro here
+
+#END setting mysql, changes with specific builds and distros  - Part 2 of 3
+
+#START setting mysql, all builds, evaluated paths  - Part 3 of 3
+# this is the section noted above which evaluates the resulting paths on the
+# disk for the defaults for mysql or the distro specific changed values e.g.
+# if a more fresh mysql version stores files somewehre else
+
+#set handy partial paths to default locations where important mysql files
+#are stored
+#note: simplyfication: %{_prefix} must be prepended by the spec file itself
+
+#example:
+#the mysql.h file would be found with CFLAGS="-I%{_prefix}/%{mysql_default_includedir}"
+%define mysql_default_includedir	mysql/%{mysql_major_minor_version}/include
+#more information: #include "mysql/mysql.h" -->> /usr/mysql/5.1/include/mysql/mysql.h 
+
+#the mysql libs would be found with LDFLAGS and/or CFLAGS="-L%{_prefix}/%{mysql_default_libdir} -R%{_prefix}/%{mysql_default_libdir}"
+%define mysql_default_libdir	mysql/%{mysql_major_minor_version}/lib
+
+#END setting mysql, all builds, evaluated paths  - Part 3 of 3
 
 
 #  pkg contents -r -m system/header/header-audio
@@ -534,6 +875,33 @@
 
 
 %changelog
+* Mon Nov  7 2011 - Thomas Wagner
+- handle cases x11/client not being resolved properly pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt (>=144)
+* Sat Aug 13 2011 - Thomas Wagner
+- handle SUNWsmba_devel/SUNWsmbau/SUNWsmbar/SUNWsmba/smba/service_network_samba
+- handle SUNWfreetype2/freetype2/SFEfreetype_devel/SFEfreetype/system_library_freetype_2
+- fix selected metapackage to get installed-detection with autodeps satisfied for
+  SUNWgtk_doc/developer_documentation_tool_gtk_doc/data_docbook (not fully tested)
+* Mon Aug  2 2011 - Thomas Wagner
+- handle special macro name pnm_buildrequires_mysql_default pnm_requires_mysql_default
+  and macros for mysql version.
+  add macro to point to the mysql_default_includedir and mysql_default_libdir.
+  SUNWmysql51/SUNWmysql51u/database/mysql-51 is initially the only mysql-version
+  for *all* osbuild / osdistro, to be extended as required later (for older 
+  osbuild/osdistro, *or* for next mysql-versions 5.x or 6.x...)
+* Mon Aug  1 2011 - Thomas Wagner
+- handle SUNWkrb/SUNWkrbu/SUNWkrbr/service_security_kerberos_5
+* Sun Jul 31 2011 - Thomas Wagner
+- add SVR4 package names for SUNWbash SUNWpcre SUNWggrp SUNWlibsasl
+- fix name *openssl-include  *openssl-includes
+* Wed Jul 20 2011 - Thomas Wagner
+- handle special macro name pnm_buildrequires_python_default pnm_requires_python_default
+  and macros for python version.
+  SUNWPython26 is initially the only Python-version for *all* osbuild / osdistro, to
+  be extended as required later (for older osbuild/osdistro, *or* for next Python 2.x or 3.x)
+* Sat Jul 16 2011 - Thomas Wagner
+- handle SUNWapch22** (subset only. old SXCE/IPS_old/IPS_new_names)
+- handle SUNWphp52**  (subset only. old SXCE/IPS_old/IPS_new_names)
 * Thu Jun 23 2011 - Thomas Wagner
 - enhance default (Build)Requires pnm_buildrequires_perl_default to include both
   SUNWperl584core, SUNWperl584usr. Only affects older distributions

@@ -6,14 +6,17 @@
 #
 %include Solaris.inc
 
-%define src_name	SimGear
-%define src_url		ftp://ftp.de.simgear.org/pub/simgear/Source
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+%include base.inc
+
+%define src_name	simgear
+%define src_url		http://mirrors.ibiblio.org/pub/mirrors/simgear/ftp/Source 
 
 Name:                   SFESimGear20
 Summary:                Simulator Construction Tools
-Version:                2.0.0
-Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
-#Source1:		SimGear_Props.cxx
+Version:                2.4.0
+Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:           %{_basedir}
 Group:			Applications/Games
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -23,27 +26,11 @@ Requires:		SFEopenal
 BuildRequires:		SFEfreealut-devel
 Requires:		SFEfreealut
 Requires:		SFEplib-gpp
+# <km> Note: Use OpenSceneGraph 3.0.1  
 Requires:		SFEosg
-
-# that's a nightmare with g++
-#I patch the following file in the system:
-#/usr/gcc/4.3/include/c++/4.3.3/i386-pc-solaris2.11/bits/c++config.h
-#/usr/gcc/4.3/include/c++/4.3.3/i386-pc-solaris2.11/amd64/bits/c++config.h
-#with the ending: #undef _GLIBCXX_CONCEPT_CHECKS
-# if youy want to compile do it
-# don't forget to reverse.
-
-# Requires:		SFEgcc43-patch-WARNING
 
 %prep
 %setup -q -c -n  %{name}
-#%patch1 -p0
-#%patch2 -p0
-# It does not compile if filename is props.cxx
-# Maybe a bug in Studio12 or maybe, maybe, in openat(2)/readdir(3C)
-# TODO: find the bug or what I don't understand...
-#rm %{src_name}-%{version}/simgear/props/props.cxx
-#cp %{SOURCE1} %{src_name}-%{version}/simgear/props/Props.cxx
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -52,8 +39,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
+export CC=/usr/gnu/bin/cc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include -I%{_includedir}"
 export CXXFLAGS="-I%{_prefix}/X11/include -I%{_includedir}"
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
@@ -82,5 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a*
 
 %changelog
+* Fri 14 Sep 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
+* Fri 02 Sep 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.0 
+- Built with oi_151 & GCC 4.6.1
 * May 2010 - Gilles Dauphin
 - Initial version for 2.0

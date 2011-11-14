@@ -15,12 +15,15 @@
 
 Name:                    SFEperl-uri
 Summary:                 URI-%{uri_version} PERL module
+License:                 GPL+ or Artistic
+SUNW_Copyright:          perl-uri.copyright
 Version:                 %{perl_version}.%{uri_version}
 Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  %{pnm_buildrequires_perl_default}
-Requires:  	%{pnm_requires_perl_default}
+BuildRequires:           %{pnm_buildrequires_perl_default}
+Requires:                %{pnm_requires_perl_default}
+BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -73,6 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
+- BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
 * Mon Mar 21 2011 - Milan Jurik
 - bump to 1.58
 * Wed Aug 19 2009 - hcoomes@insightbb.com

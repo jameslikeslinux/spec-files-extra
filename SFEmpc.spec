@@ -6,7 +6,10 @@
 %include Solaris.inc
 
 Name:                SFEmpc
-Summary:             Command line tool and client for MPD - Music Player Daemon
+Summary:             Command line tool and client for Music Player Daemon
+License:             GPLv2
+SUNW_Copyright:	     mpc.copyright
+Meta(info.upstream): Max Kellermann <max@duempel.org>
 Version:             0.20
 Source:              http://downloads.sourceforge.net/project/musicpd/mpc/0.20/mpc-%version.tar.bz2
 SUNW_BaseDir:        %{_basedir}
@@ -70,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Bump to 0.20; use libxnet
 * Wed Oct 25 2006 - Eric Boutilier

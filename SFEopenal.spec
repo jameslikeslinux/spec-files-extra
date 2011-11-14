@@ -11,20 +11,19 @@
 #%define src_url		http://connect.creativelabs.com/openal/Downloads
 %define src_url		http://kcat.strangesoft.net/openal-releases/
 
-%define SFEcmake	%(/usr/bin/pkginfo -q SFEcmake && echo 1 || echo 0)
 %define with_libaudioio	%(pkginfo -q SFElibaudioio && echo 1 || echo 0)
 
-Name:                   SFEopenal
-Summary:                OpenAL is a cross-platform 3D audio API
-Version:                1.12.854
-Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
-URL:			http://connect.creativelabs.com/openal/
-#Patch1:			openal-new-01.diff
-Patch2:			openal-cmake-02.diff
-SUNW_BaseDir:           %{_basedir}
+Name:		SFEopenal
+IPS_Package_Name:	library/audio/openal
+Summary:	OpenAL is a cross-platform 3D audio API
+Version:	1.13
+Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+URL:		http://connect.creativelabs.com/openal/
+Patch1:		openal-01-cmake.diff
+SUNW_BaseDir:	%{_basedir}
 # GPL now
 #SUNW_Copyright:		openal_license.txt
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SFEcmake
@@ -35,12 +34,6 @@ BuildRequires: SUNWaudh
 %if %with_libaudioio
 BuildRequires: SFElibaudioio-devel
 Requires: SFElibaudioio
-%endif
-
-%if %SFEcmake
-BuildRequires: SFEcmake
-%else
-BuildRequires: SUNWcmake
 %endif
 
 #%ifarch i386
@@ -56,8 +49,7 @@ SUNW_BaseDir:            %{_prefix}
 rm -rf openal-soft*
 bzcat %{SOURCE} | gtar xf -
 cd openal-soft*
-#%patch1 -p1
-%patch2 -p1
+%patch1 -p1
 cd ..
 
 %build
@@ -67,8 +59,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-CC=cc
-export CC
 cd build
 cmake -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%_prefix -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 ..
 make
@@ -78,10 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{src_name}-%{version}
 cd build
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}
-export DESTDIR=$RPM_BUILD_ROOT
-make install
-#mv ./sfw_stage/* $RPM_BUILD_ROOT/%{_prefix}
-#rm $RPM_BUILD_ROOT/%{_libdir}/lib*.*a
+make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -100,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Oct 11 2011 - Milan Jurik
+- bump to 1.13
+- add IPS package name
 * Fri Feb 11 2011 - Thomas Wagner
 - BuildRequire SFEcmake (avoid /usr/bin/cmake with ./sfw_stage in it)
 * Mon Jan 17 2011 - Thomas Wagner

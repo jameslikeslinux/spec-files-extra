@@ -1,17 +1,17 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Initial xfce-systemload-plugin spec for Solaris 11 by Ken Mays
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-
-%define xfce_version 4.8.0
+%define cc_is_gcc 1
 
 Name:			SFExfce4-systemload-plugin
-Summary:		System load applet for Xfce
+Summary:		System load plugin for Xfce
 Version:		1.0.0
-URL:			http://www.xfce.org/
+URL:			http://goodies.xfce.org/projects/panel-plugins/xfce4-systemload-plugin
 Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-systemload-plugin/1.0/xfce4-systemload-plugin-%{version}.tar.bz2
+Patch1:			xfce4-systemload-plugin-01-solaris.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -30,7 +30,8 @@ Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
 
 %prep
-%setup -q -n xfce4-weather-plugin-%{version}
+%setup -q -n xfce4-systemload-plugin-%{version}
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,7 +39,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CC=gcc
+export CFLAGS="%optflags -lkstat"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -79,8 +81,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/xfce4
 %defattr(-,root,other)
 %{_datadir}/locale
-%{_datadir}/icons
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Initial version
+* Wed Oct 5 2011 - Ken Mays <kmays2000@gmail.com>
+- Initial version (v1.0.0)

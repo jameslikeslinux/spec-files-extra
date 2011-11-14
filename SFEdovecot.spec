@@ -17,17 +17,20 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-Name:                    SFEdovecot
-Summary:                 dovecot - A Maildir based pop3/imap email daemon
-URL:                     http://www.dovecot.org
+Name:		SFEdovecot
+IPS_Package_Name:	service/network/imap/dovecot
+Summary:	dovecot - A Maildir based pop3/imap email daemon
+URL:		http://www.dovecot.org
 #note: see downloadversion above
-Version:                 2.0.11
-Source:                  http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
-Source2:		dovecot.xml
+Version:	2.0.15
+License:	LGPLv2.1+ and MIT
+SUNW_Copyright:	dovecot.copyright
+Source:		http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
+Source2:	dovecot.xml
 
 
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWzlib
 Requires: SUNWzlib
@@ -47,9 +50,9 @@ Requires: %{pnm_requires_SUNWopenssl_libraries}
 
 Requires: %name-root
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
-Requires: %name
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
+Requires:	%name
 
 %description
 Dovecot IMAP and POP3 Email Server. Also usable for SMTP_AUTH.
@@ -156,6 +159,12 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.0.15
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jul 03 2011 - Knut Anders Hatlen
+- bump to 2.0.13
 * Wed Mar 16 2011 - Thomas Wagner
 - add dependencies (Build)Requires SUNWbzip SUNWlexpt SUNWgnu-idn SUNWcurl
 * Tue Mar 15 2011 - Thomas Wagner

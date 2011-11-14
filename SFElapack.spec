@@ -19,6 +19,8 @@
 Name:		SFElapack
 Summary:	%{lapack.summary}
 Version:	%{lapack.version}
+License:	Lapack License
+SUNW_Copyright:	lapack.copyright
 Group:		%{lapack.group}
 URL:		%{lapack.url}
 SUNW_BaseDir:	%{_basedir}
@@ -71,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue May 25 2010 - Milan Jurik
 - disable multiarch support, not stable with Sun studio Fortran and unsupported with gfortran yet
 * Mon May 24 2010 - Milan Jurik

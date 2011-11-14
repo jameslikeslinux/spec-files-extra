@@ -1,6 +1,6 @@
---- gpsd-2.95/libgpsd_core.c	Fri Jun 11 21:45:37 2010
-+++ gpsd-2.95-patch/libgpsd_core.c	Tue Dec 28 20:25:56 2010
-@@ -848,3 +848,48 @@
+--- gpsd-2.96/libgpsd_core.c	Fri Mar 18 16:41:04 2011
++++ gpsd-2.96-patch/libgpsd_core.c	Sat Oct 29 16:02:19 2011
+@@ -1597,3 +1597,48 @@
      out->satellites_visible = 0;
      clear_dop(&out->dop);
  }
@@ -49,20 +49,21 @@
 +}
 +#endif
 +
---- gpsd-2.95/gpsctl.c	Fri Jun 11 11:21:42 2010
-+++ gpsd-2.95-patch/gpsctl.c	Tue Dec 28 20:28:44 2010
-@@ -4,6 +4,8 @@
+--- gpsd-2.96/gpsctl.c	Tue Mar 15 04:34:32 2011
++++ gpsd-2.96-patch/gpsctl.c	Sat Oct 29 16:03:57 2011
+@@ -4,6 +4,9 @@
   * BSD terms apply: see the file COPYING in the distribution root for details.
   *
   */
++
 +#define BSD_COMP
 +
  #include <stdio.h>
  #include <stdlib.h>
- #include <sys/types.h>
---- gpsd-2.95/gpspipe.c	Fri Jun 11 11:21:42 2010
-+++ gpsd-2.95-patch/gpspipe.c	Tue Dec 28 20:30:37 2010
-@@ -49,6 +49,7 @@
+ #include <stdbool.h>
+--- gpsd-2.96/gpspipe.c	Thu Jan 13 14:36:18 2011
++++ gpsd-2.96-patch/gpspipe.c	Sat Oct 29 16:02:19 2011
+@@ -45,6 +45,7 @@
  
  static struct gps_data_t gpsdata;
  static void spinner(unsigned int, unsigned int);
@@ -70,7 +71,7 @@
  
  /* NMEA-0183 standard baud rate */
  #define BAUDRATE B4800
-@@ -406,3 +407,16 @@
+@@ -384,3 +385,16 @@
      (void)fflush(stderr);
      return;
  }
@@ -87,3 +88,14 @@
 +}
 +#endif
 +
+--- gpsd-2.96/gpxlogger.c	Tue Mar 15 04:34:32 2011
++++ gpsd-2.96-patch/gpxlogger.c	Sat Oct 29 16:10:30 2011
+@@ -353,7 +353,7 @@
+     while ((ch = getopt(argc, argv, "dD:f:hi:m:V")) != -1) {
+ 	switch (ch) {
+ 	case 'd':
+-	    openlog(basename(progname), LOG_PID | LOG_PERROR, LOG_DAEMON);
++	    openlog(basename(progname), LOG_PID | LOG_ERR, LOG_DAEMON);
+ 	    daemonize = true;
+ 	    break;
+ #ifdef CLIENTDEBUG_ENABLE

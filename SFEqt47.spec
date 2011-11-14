@@ -107,6 +107,7 @@ Patch39: 	     qt47/qt-4.7.1-qiconvcodec.diff
 Patch40:	     qt47/qt-471-shm.diff
 Patch41:	     qt47/solaris-g++-qmake-conf.diff
 SUNW_BaseDir:        %{_basedir}
+SUNW_Copyright:      qt.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
@@ -276,6 +277,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Wed Mar 30 2011 - Alex Viskovatoff
 - create separate doc package
 * Tue Mar 29 2011 - Thomas Wagner

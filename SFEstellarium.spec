@@ -11,13 +11,14 @@
 %include stdcxx.inc
 
 Name:		SFEstellarium
-Version:	0.10.6
+Version:	0.11.0
 Summary:	Photo-realistic nightsky renderer
 Group:		Amusements/Graphics
 License:	GPLv2+
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
-Patch1:		stellarium-01-sunstudio.diff
+Patch1:		stellarium-0.11.0-01-sunstudio.diff
+SUNW_Copyright:	stellarium.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -102,6 +103,11 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu Sep 1 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.11.0
+- Created stellarium-0.11.0-01-sunstudio.diff for 0.11.0
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Mon Mar  7 2011 - Alex Viskovatoff
 - use SFEcmake; boost is not a dependency
 * Tue Feb 08 2011 - Milan Jurik

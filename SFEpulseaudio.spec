@@ -22,14 +22,18 @@ Patch1:		pulseaudio-01-default.pa.diff
 Patch2:		pulseaudio-02-esdcompat.diff
 # This patch is very rough, but gets the code to compile.
 Patch3:         pulseaudio-03-solaris.diff
+Patch4:         pulseaudio-04-xcb.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+Requires: SFElibatomic-ops
+BuildRequires: SFElibatomic-ops
+
 #TODO are dependencies complete? 
 %if %SFElibsndfile
-BuildRequires: SFElibsndfile-devel
-Requires: SFElibsndfile
+BuildRequires:  SFElibsndfile-devel
+Requires:       SFElibsndfile
 %else
 BuildRequires:	SUNWlibsndfile
 Requires:	SUNWlibsndfile
@@ -65,6 +69,7 @@ Requires:                %{name}
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 perl -pi -e 's,/bin/sh,/bin/ksh,' src/daemon/esdcompat.in
 
 %build

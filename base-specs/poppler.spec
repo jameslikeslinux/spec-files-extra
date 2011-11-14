@@ -11,7 +11,7 @@
 Name:         poppler
 License:      GPL
 Group:        System/Libraries
-Version:      0.6.2
+Version:      0.14.5
 Release:      1 
 Distribution: Java Desktop System
 Vendor:       Sun Microsystems, Inc.
@@ -98,7 +98,7 @@ rendering.
 
 %prep
 %setup -q
-%patch1 -p1
+#%patch1 -p1
 
 %build
 %ifos linux
@@ -112,28 +112,30 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-libtoolize --force
-aclocal $ACLOCAL_FLAGS -I . -I m4
-autoheader
-automake -a -c -f
-autoconf
-CFLAGS="$RPM_OPT_FLAGS"			\
+#libtoolize --force
+#aclocal $ACLOCAL_FLAGS -I . -I m4
+#autoheader
+#automake -a -c -f
+#autoconf
+#CFLAGS="$RPM_OPT_FLAGS"		\
 ./configure --prefix=%{_prefix}		\
 	    --datadir=%{_datadir}       \
-            --libdir=%{_cxx_libdir}     \
+            --libdir=%{_libdir}         \
 	    --sysconfdir=%{_sysconfdir} \
 	    --enable-poppler-glib	\
             --disable-poppler-qt        \
             --disable-poppler-qt4       \
+            --disable-static            \
 	    --mandir=%{_mandir}	        \
             --enable-zlib               \
             %{gtk_doc_option}
+
 make -j $CPUS
 
 %install
 make DESTDIR=$RPM_BUILD_ROOT install
-rm $RPM_BUILD_ROOT%{_cxx_libdir}/*.a
-rm $RPM_BUILD_ROOT%{_cxx_libdir}/*.la
+#rm $RPM_BUILD_ROOT%{_libdir}/*.a
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
 rm $RPM_BUILD_ROOT%{_bindir}/pdftoabw
 
 %clean
@@ -159,6 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- Update to 0.14.5
 * Tue Dec 04 2007 - damien.carbery@sun.com
 - Bump to 0.6.2.
 * Fri Oct 19 2007 - damien.carbery@sun.com

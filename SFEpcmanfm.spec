@@ -9,6 +9,9 @@
 
 Name:                    SFEpcmanfm
 Summary:                 LXDE lightweight file manager
+License:                 GPLv2
+SUNW_Copyright:          pcmanfm.copyright
+Meta(info.upstream):     洪任諭 Hong Jen Yee <pcman.tw@gmail.com>
 Version:                 0.9.8
 Source:                  http://downloads.sourceforge.net/pcmanfm/pcmanfm-%{version}.tar.gz
 Patch1:                  pcmanfm-01-Wall.diff
@@ -82,10 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pcmanfm/*
 
 %files root
-%attr (0755, root, sys) %dir %{_sysconfdir}
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg/pcmanfm
-%{_sysconfdir}/xdg/pcmanfm/*
+%defattr (0755, root, sys)
+%dir %_sysconfdir
+%dir %_sysconfdir/xdg
+%_sysconfdir/xdg/pcmanfm
 
 %if %build_l10n
 %files l10n
@@ -95,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Sep 28 2011 - Alex Viskovatoff
+- Fix %files root
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Jun 08 2011 - brian.cameron@oracle.com
 - Bump to 0.9.8.
 * Thu Sep 16 2010 - brian.cameron@oracle.com

@@ -8,7 +8,7 @@
 
 Name:           doxygen
 License:        GPL
-Version:        1.7.4
+Version:        1.7.5.1
 URL:            http://www.doxygen.org/
 Summary:        Doxygen is a documentation system for various programming languages
 Source:         %{sf_download}/doxygen/doxygen-%{version}.src.tar.gz
@@ -53,7 +53,7 @@ export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sf
 %define platform solaris-g++
 %else
 %define platform solaris-cc
-export CXX="$CXX -norunpath"
+export CXX="$CXX -norunpath -features=tmplrefstatic"
 %endif
 
 ./configure --prefix %{_prefix}		\
@@ -74,6 +74,8 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -exec rm -f {} ';'
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.5.1
 * Tue Jun 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.4.
 * Tue Nov 16 2010 - Matt Lewandowsky <matt@greenviolet.net>

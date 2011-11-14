@@ -1,5 +1,5 @@
---- x264-snapshot-20101029-2245/version.sh.orig	Fri Oct 29 16:45:07 2010
-+++ x264-snapshot-20101029-2245/version.sh	Fri Oct 29 22:40:36 2010
+--- x264-snapshot-20110827-2245/version.sh	2011-09-01 20:19:22.418374638 +0200
++++ x264-snapshot-20110827-2245/version.sh	2011-09-01 20:18:52.652811257 +0200
 @@ -1,20 +1,5 @@
  #!/bin/bash
 -git rev-list HEAD | sort > config.git-hash
@@ -15,12 +15,10 @@
 -    VER="$VER $(git rev-list HEAD -n 1 | cut -c 1-7)"
 -    echo "#define X264_VERSION \" r$VER\""
 -else
--    echo "#define X264_VERSION \"\""
++VER="git-2245M"
+     echo "#define X264_VERSION \"\""
 -    VER="x"
 -fi
 -rm -f config.git-hash
-+VER="git-2245M"
-+    echo "#define X264_VERSION \" r$VER\"" >> config.h
  API=`grep '#define X264_BUILD' < x264.h | sed -e 's/.* \([1-9][0-9]*\).*/\1/'`
--echo "#define X264_POINTVER \"0.$API.$VER\""
-+echo "#define X264_POINTVER \"0.$API.$VER\"" >> config.h
+ echo "#define X264_POINTVER \"0.$API.$VER\""

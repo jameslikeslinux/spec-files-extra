@@ -23,18 +23,18 @@
      set_modal (TRUE);                      //Window
      sp_transientize((GtkWidget *)gobj());  //Make transient
 
---- inkscape-0.48.1/src/2geom/isnan.h.orig	Tue Jul 13 05:48:40 2010
-+++ inkscape-0.48.1/src/2geom/isnan.h	Fri Apr 22 19:17:33 2011
-@@ -68,7 +68,7 @@
+--- inkscape-0.48.1/src/2geom/isnan.h.orig	2010-07-13 04:48:40.691600000 +0100
++++ inkscape-0.48.1/src/2geom/isnan.h	2011-08-03 03:00:12.990775645 +0100
+@@ -68,8 +68,6 @@
  # define IS_NAN(_a) (_isnan(_a)) 	/* Win32 definition */
  #elif defined(isnan) || defined(__FreeBSD__) || defined(__osf__)
  # define IS_NAN(_a) (isnan(_a))		/* GNU definition */
 -#elif defined (SOLARIS_2_8) && __GNUC__ == 3 && __GNUC_MINOR__ == 2
-+#elif defined (__SVR4) && defined (__sun)
- # define IS_NAN(_a) (isnan(_a))		/* GNU definition */
+-# define IS_NAN(_a) (isnan(_a))		/* GNU definition */
  #else
  # define IS_NAN(_a) (std::isnan(_a))
-@@ -89,7 +89,7 @@
+ #endif
+@@ -89,7 +87,7 @@
  # define IS_FINITE(_a) (isfinite(_a))
  #elif defined(__osf__)
  # define IS_FINITE(_a) (finite(_a) && !IS_NAN(_a))
@@ -43,7 +43,6 @@
  #include  <ieeefp.h>
  #define IS_FINITE(_a) (finite(_a) && !IS_NAN(_a))
  #else
-
 --- inkscape-0.48.1/src/2geom/convex-cover.cpp.orig Tue Jul 13 05:48:40 2010
 +++ inkscape-0.48.1/src/2geom/convex-cover.cpp	Fri Apr 22 19:02:18 2011
 @@ -34,6 +34,9 @@

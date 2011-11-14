@@ -13,9 +13,12 @@
 %use faad2 = faad2.spec
 
 Name:                    SFEfaad2
+IPS_Package_Name:	audio/faad2 
 Summary:                 %{faad2.summary}
 Group:                   libraries/multimedia
 Version:                 %{faad2.version}
+License:                 GPLv2+
+SUNW_Copyright:          faad2.copyright
 URL:                     http://www.audiocoding.com/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -76,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
+* Sat Aug 13 2011 - Thomas Wagner
+- fix build by:
+- use /usr/bin/libtoolize and not new SFE version from /usr/gnu/bin/
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Fri Aug 21 2009 - Milan Jurik
 - multiarch support
 * Fri May 23 2008 - michal.bielicki <at> voiceworks.pl

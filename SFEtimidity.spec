@@ -9,8 +9,9 @@
 %define src_name TiMidity++
 
 Name:		SFEtimidity
+IPS_Package_Name:	media/timidity
 Summary:	Software sound renderer (MIDI sequencer, MOD player)
-Group:		Audio
+Group:		Applications/Sound and Video
 Version:	2.13.2
 License:	GPLv2
 Source:		%{sf_download}/timidity/%{src_name}/%{src_name}-2.13.2/%{src_name}-%{version}.tar.gz
@@ -19,6 +20,7 @@ Patch2:		timidity-02-inttypes.diff
 Patch3:		timidity-10-freeinst.diff
 URL:		http://timidity.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright: timidity.copyright
 SUNW_Basedir:	%{_prefix}
 
 %include default-depend.inc
@@ -82,12 +84,17 @@ SUNW_Basedir:	/
 %patch3 -p1
 
 %build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+     CPUS=1
+fi
+
 ./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} \
 	--with-default-path=%{_sysconfdir}/timidity \
 	--mandir=%{_mandir} \
 	--enable-audio=oss,sun,vorbis --enable-network \
 	--enable-gtk --enable-spectrogram --with-x
-make
+make -j$CPUS
 
 %install
 rm -rf %{buildroot}
@@ -144,6 +151,8 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/timidity/timidity.cfg
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Dec 26 2010 - Milan Jurik
 - from jucr to SFE
 * Fri Jul 31 2009 - milan.cermak@sun.com

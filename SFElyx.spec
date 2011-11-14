@@ -19,31 +19,32 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname lyx
 
 Name:		SFElyx
-Summary:	Graphical LaTeX front end: What You See Is What You Mean
+Summary:	Graphical LaTeX front end: What you see is what you mean
 URL:		http://www.lyx.org
-Vendor:		LyX Team
-License:	GPL
-#Version:	1.6.8
-#Source:	ftp://ftp.lyx.org/pub/lyx/stable/1.6.x/%srcname-%version.tar.bz2
-Version:	2.0.0
-Source:		ftp://ftp.lyx.org/pub/lyx/devel/%srcname-2.0/rc2/%srcname-%{version}rc2.tar.xz
+License:	GPLv2
+SUNW_Copyright:	lyx.copyright
+Version:	2.0.1
+Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.xz
+Source1:	%srcname.desktop
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-gpp-devel
+BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
+BuildRequires:	runtime/python-26
 Requires:	SFEgccruntime
-Requires:	SFEqt47-gpp
+Requires:	SFEqt-gpp
+Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
+Requires:	runtime/python-26
 
 %if %build_l10n
 %package l10n
@@ -55,23 +56,22 @@ Requires:       %name
 
 
 %prep
-#%setup -q -n %srcname-%version
-%setup -q -n %srcname-%{version}rc2
+%setup -q -n %srcname-%version
 
 
 %build
 CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-# The LyX code is really nasty to Sun Studio
 export CC=gcc
 export CXX=g++
+export CPPFLAGS="-I/usr/g++/include -I/usr/g++/include/qt"
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -pthreads -I/usr/g++/include -L/usr/gnu/lib -R/usr/gnu/lib"
-export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -R/usr/g++/lib"
+export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
+export LDFLAGS="%_ldflags -pthreads -lxnet -L/usr/g++/lib -R/usr/g++/lib"
 
 # SFEhunspell is built with CC, so SFElyx can't link against it
 # aspell is deprecated
-./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-aspell --without-hunspell
+./configure --prefix=%_prefix --with-qt4-dir=/usr/g++ --without-included-boost --without-aspell --without-hunspell
 
 make -j$CPUS
 
@@ -80,6 +80,8 @@ make -j$CPUS
 rm -rf %buildroot
 
 make install DESTDIR=%buildroot
+mkdir %buildroot%_datadir/applications
+cp %SOURCE1 %buildroot%_datadir/applications
 
 %if %build_l10n
 %else
@@ -98,6 +100,8 @@ rm -rf %buildroot
 %dir %attr (-, root, sys) %_datadir
 %_datadir/%srcname
 %_mandir
+%dir %attr(0755, root, other) %_datadir/applications
+%_datadir/applications/%srcname.desktop
 
 %if %build_l10n
 %files l10n
@@ -108,6 +112,10 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Jul 31 2011 - Alex Viskovatoff
+- Add missing (build) dependency
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Use system Boost; add SUNW_Copyright
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Disable aspell; LyX can use library/spell-checking/enchant
 * Wed Mar 30 2011 - Alex Viskovatoff

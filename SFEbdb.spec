@@ -9,8 +9,12 @@
 %include usr-gnu.inc
 
 Name:		SFEbdb
+IPS_Package_Name:	sfe/database/bdb
 Summary:	Berkeley DB
+Group:		System/Databases
 Version:	4.8.30
+License:        BSD3c
+SUNW_Copyright: bdb.copyright
 Source:		http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 URL:		http://www.oracle.com/technology/software/products/berkeley-db/index.html
 SUNW_BaseDir:	%{_basedir}
@@ -80,3 +84,4 @@ rm -rf $RPM_BUILD_ROOT
 - Add URL.
 * Tue Nov 07 2006 - glynn.foster@sun.com
 - Initial spec file
+

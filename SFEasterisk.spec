@@ -15,7 +15,8 @@
 Name:         	SFE%{src_name}
 Summary:      	Asterisk : Complete IP PBX in software
 Version:      	%{src_version}
-License:      	GPL
+License:      	GPLv2
+SUNW_Copyright: asterisk.copyright
 Group:          Communication
 Source:         http://downloads.digium.com/pub/asterisk/releases/%{src_name}-%{version}.tar.gz
 Patch1:        	asterisk-01-oss.diff
@@ -109,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Mar 19 2011 - Milan Jurik
 - bump to 1.8.3.2
 * Wed Feb 02 2011 - Milan Jurik

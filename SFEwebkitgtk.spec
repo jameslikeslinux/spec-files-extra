@@ -8,12 +8,13 @@
 #we are on OpenSolaris (or on SXCE or Solaris 10)
 %define OS2nnn %( egrep "OpenSolaris 20[0-9][0-9]" /etc/release > /dev/null  && echo 1 || echo 0) 
 
-Name:                    SFEwebkitgtk
-Summary:                 WetKit, an open source web browser engine that's used by Safari, Dashboard, Mail, and many other OS X applications.
-Version:                 1.2.7
-Source:                  http://www.webkitgtk.org/webkit-%{version}.tar.gz
-# Source-md5:	22af6591b124610a8df55c7a87989349
-URL:                     http://www.webkitgtk.org/
+Name:		SFEwebkitgtk
+IPS_Package_Name:	library/desktop/webkitgtk 
+Summary:	WetKit, an open source web browser engine that's used by Safari, Dashboard, Mail, and many other OS X applications.
+Group:		Desktop (GNOME)/Libraries
+Version:	1.2.7
+Source:		http://www.webkitgtk.org/webkit-%{version}.tar.gz
+URL:		http://www.webkitgtk.org/
 
 Patch1:                 webkit-01-configure-and-makefile.diff
 Patch2:                 webkit-02-mmap.diff
@@ -143,7 +144,7 @@ autoconf
             --sysconfdir=%{_sysconfdir}         \
 	    --mandir=%{_mandir}                 \
 	    --datadir=%{_datadir}               \
-            --infodir=%{_datadir}/info  
+            --infodir=%{_datadir}/info
 
 
 make -j$CPUS
@@ -189,6 +190,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun Mar 20 2011 - Milan Jurik
 - bump to 1.2.7, locale package
 * Thu Aug 26 2010 - brian.cameron@oracle.com

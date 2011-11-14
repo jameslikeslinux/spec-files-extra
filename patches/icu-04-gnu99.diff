@@ -1,0 +1,11 @@
+--- icu/source/configure.orig	2010-10-07 04:34:53.000000000 +0100
++++ icu/source/configure	2011-06-23 21:16:16.402899465 +0100
+@@ -7459,7 +7459,7 @@
+     if test "$ac_cv_c_compiler_gnu" = yes; then
+         OLD_CFLAGS="${CFLAGS}"
+         OLD_CXXFLAGS="${CXXFLAGS}"
+-        CFLAGS="${CFLAGS} -std=gnu99 -D_GCC_"
++        CFLAGS="${CFLAGS} -std=c++0x -D_GCC_"
+         CXXFLAGS="${CXXFLAGS} -std=c++0x"
+         cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */

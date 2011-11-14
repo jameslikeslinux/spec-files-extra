@@ -33,6 +33,7 @@
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 
 #change these defaults if needed 
@@ -112,9 +113,10 @@
 Name:                    SFEpostfix
 Summary:                 postfix - Mailer System
 URL:                     http://postfix.org/
-Version:                 2.8.3
+Version:                 2.8.5
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
+License:		 IBM Public License v1.0
 Source3:                 postfix.xml
 Source5:                 postfix-spamassassin-wiki.apache.org-filter.sh
 Source6:		 http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
@@ -126,16 +128,29 @@ Source9:		 postfix-saslauthd.conf
 Patch3:			postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
+SUNW_Copyright:		postfix.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqires:
 #BuildRequires: SFEcpio
-BuildRequires: SUNWrpm
-BuildRequires: SUNWggrp
+#BuildRequires: SUNWrpm
+BuildRequires: SUNWzlib
+Requires: SUNWzlib
+BuildRequires: %{pnm_buildrequires_SUNWbash}
+Requires:      %{pnm_requires_SUNWbash}
+BuildRequires: %{pnm_buildrequires_perl_default}
+Requires:      %{pnm_requires_perl_default}
+BuildRequires: %{pnm_buildrequires_SUNWpcre}
+Requires:      %{pnm_requires_SUNWpcre}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+Requires:      %{pnm_requires_SUNWopenssl}
+
+BuildRequires: %{pnm_buildrequires_SUNWggrp}
+
 #SASL
 %if %(test %{with_sasl} -eq 1 && echo 1 || echo 0)
-BuildRequires: SUNWlibsasl
-Requires: SUNWlibsasl
+BuildRequires: %{pnm_buildrequires_SUNWlibsasl}
+Requires: %{pnm_buildrequires_SUNWlibsasl}
 %endif
 #SASL2 
 ##TODO## untested, needs the /gnu/ include and libdir below to get found and adjusments to %files section
@@ -150,7 +165,10 @@ Requires: SFEcyrus-sasl
 Requires: %{name}-root
 
 #%config %class(preserve)
+%if %{os2nnn}
+%else
 Requires: SUNWswmt
+%endif
 
 %if %{requires_db}
 BuildRequires: SFEbdb
@@ -237,10 +255,14 @@ cp -p %{SOURCE9} tmp/
 #other patches are above
 #%patch2 -p1
 
-#last step: change /bin/sh into /usr/bin/bash
+#change /bin/sh into /usr/bin/bash
 #alternatively we could search for executables, then if it starts with "#!/bin/sh" , change it
-perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
 
+#change /usr/bin/perl to /usr/perl5/bin/perl (ON Perl Style Guidelines)
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/usr/bin/perl,#\!/usr/perl%{perl_major_version}/bin/perl," `find . -type f -exec grep -q "^#\!.*/usr/bin/perl" {} \; -print`
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -886,6 +908,17 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.5
+* Sun Jul 31 2011 - Thomas Wagner
+- bump to 2.8.4
+- make all occurences /usr/bin/perl be /usr/perl%{perl_major_version}/bin/perl
+  (currently /usr/perl5/bin/perl)
+- use pnm_macros, %include packagenamemacros.inc (prev commit)
+- add (Build)Requires as pnm_macros: SUNWbash, %{pnm_requires_perl_default}, SUNWpcre, SUNWopenssl
+- add (Build)Requires SUNWzlib (change to pnm_macro later)
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Fri Jul 01 2011 - James Lee <jlee@thestaticvoid.com>
 - Bump to 2.8.3.
 - Include dependency on SFEbdb for 'hash' postmap support.
@@ -896,6 +929,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
   'preserve=renamenew' attribute gets set in the IPS manifest.
 - Change owner of /var/spool/postfix to root, as recommended by
   'postfix check'.
+* Sat Jun 18 2011 - Thomas Wagner
+- use only on non-IPS systems: Requires: SUNWswmt
+- currently no unpacking of rpm archives, comment SUNWrpm
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
 - add %actions to create users and groups (including predefined numeric uid/gid)

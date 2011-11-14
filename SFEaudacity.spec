@@ -19,23 +19,25 @@
 
 %define	src_name audacity
 
-Name:                SFEaudacity
-Summary:             Free, Cross-Platform Sound Editor
-Version:             1.3.13
-Source:              http://audacity.googlecode.com/files/%{src_name}-minsrc-%{version}-beta.tar.bz2
+Name:		SFEaudacity
+IPS_Package_Name:	audio/editor/audacity
+Summary:	Free, Cross-Platform Sound Editor
+Group:		Applications/Sound and Video
+Version:	1.3.13
+License:	GPLv2+
+SUNW_Copyright:	audacity.copyright
+Source:		http://audacity.googlecode.com/files/%{src_name}-minsrc-%{version}-beta.tar.bz2
 # bug 1910699
-Patch1:              audacity-01-addgtklibs.diff
-Patch2:              audacity-02-nyquist.diff
-Patch3:              audacity-03-portaudio.diff
-Patch4:              audacity-04-memorybarrier.diff
-Patch5:              audacity-05-header.diff
-Patch6:              audacity-06-error-dialog.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Patch1:		audacity-01-addgtklibs.diff
+Patch2:		audacity-02-nyquist.diff
+Patch3:		audacity-03-portaudio.diff
+Patch4:		audacity-04-memorybarrier.diff
+Patch5:		audacity-05-header.diff
+Patch6:		audacity-06-error-dialog.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFEtaglib-devel
-Requires: SFEtaglib
 BuildRequires: SFEladspa-devel
 Requires: SFEladspa
 BuildRequires: SFEsoundtouch-devel
@@ -280,6 +282,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed May 19 2011 - Brian Cameron
 - Bump to 1.3.13.
 * Tue Apr 27 2010 - Brian Cameron

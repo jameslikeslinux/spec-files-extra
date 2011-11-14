@@ -1,0 +1,5 @@
+--- lbreakout2-2.6.3/configure.in	Tue Mar  8 09:31:40 2011
++++ lbreakout2-2.6.3-patch/configure.in	Sat Oct 29 22:04:58 2011
+@@ -25,1 +25,1 @@
+-CFLAGS="-Wall $CFLAGS $SDL_CFLAGS"
++CFLAGS="$CFLAGS $SDL_CFLAGS"

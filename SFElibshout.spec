@@ -15,7 +15,10 @@
 %define src_url		http://downloads.xiph.org/releases/libshout
 
 Name:                   SFElibshout
-Summary:                libshout, Library which can be used to write a source client like ices
+Summary:                Library for broadcasting to an Icecast streaming media server
+License:                LGPLv2
+SUNW_Copyright:	        libshout.copyright
+URL:                    http://www.icecast.org/download.php
 Version:                2.2.2
 Source:                 %{src_url}/libshout-%{version}.tar.gz
 SUNW_BaseDir:           %{_basedir}
@@ -103,6 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Oct  3 2010 - Alex Viskovatoff
 - Use gmake.
 * Tue Jul 28 2009 - oliver.mauras@gmail.com

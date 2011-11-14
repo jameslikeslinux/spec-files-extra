@@ -6,21 +6,25 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-%define src_url		ftp://ftp.imagemagick.org/pub/%src_name
-%define major		6.7.0
-%define minor		4
-#%define src_url         %{sf_download}/project/imagemagick/%{major}-sources
+%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
+%define major		6.7.2
+%define minor		6
+#%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
 
 Name:                   SFEimagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
-Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.7z
+License:                ImageMagick License
+SUNW_Copyright:         imagemagick.copyright
+Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
 Group:			Graphics
-License:		ImageMagick License
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 %include perl-depend.inc
+
+BuildRequires:	SFEjasper-devel
+Requires:	SFEjasper
 
 %package devel
 Summary:                 %{summary} - development files
@@ -103,6 +107,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.2-6
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.1-10
+* Fri Jul 29 2011 - Alex Viskovatoff
+- Add missing (build) dependency
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jul 03 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.0-10
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.0-4
 * Tue Apr 12 2011 - Alex Viskovatoff

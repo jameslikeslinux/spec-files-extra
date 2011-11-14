@@ -24,18 +24,13 @@ BuildRequires:      SUNWgnome-media-devel
 Requires:           SUNWgnome-media
 BuildRequires:      SUNWlibnotify
 Requires:           SUNWlibnotify
-BuildRequires:      SUNWgtk-doc
-BuildRequires:      SFEtaglib-devel
 Requires:           SFEtaglib
 BuildRequires:      SFElibxfce4util
-BuildRequires:      SFElibxfcegui4-devel
 BuildRequires:      SFElibxfcegui4 
 Buildrequires:      SFExfce4-dev-tools
+Requires:	    developer/documentation-tool/gtk-doc
 Patch1:		    parole-0.2.0.6-add-uri-scheme-handler-support.diff
 Patch2:             parole-0.2.0.6-fix-lib-linking-order.diff
-
-# For future reference
-# BuildRequires: SFElibxfcegui4
 
 Requires:    %{name}-root
 
@@ -81,7 +76,7 @@ export PATH=/usr/gnu/bin:$PATH
     --datadir=%{_datadir}        \
     --mandir=%{_mandir}        \
     --sysconfdir=%{_sysconfdir}     \
-    --enable-gtk-doc 
+    --disable-gtk-doc-html 
 
 make -j $CPUS
 
@@ -105,15 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO 
 %{_bindir}/parole 
 %dir %{_libdir}/parole-0 
-%{_libdir}/parole-0/*.so 
+%{_libdir}/parole-0/* 
+%{_datadir}/parole/parole-plugins-0/*.desktop
 %{_datadir}/applications/parole.desktop 
 %{_datadir}/icons/hicolor/*/apps/parole.png 
 %{_datadir}/icons/hicolor/scalable/apps/parole.svg 
-%{_datadir}/parole 
-%{_datadir}/parole/pixmaps 
-%{_datadir}/parole/pixmaps/parole.png 
+%{_datadir}/parole/pixmaps/* 
 %{_includedir}/parole/ 
-%{_datadir}/gtk-doc/html/Parole-Plugins 
+#%{_datadir}/gtk-doc/html/Parole-Plugins 
 
 
 %changelog

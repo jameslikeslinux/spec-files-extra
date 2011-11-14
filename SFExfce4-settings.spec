@@ -11,10 +11,12 @@
 
 Name:		SFExfce4-settings
 Summary:	Various gtk widgets for xfce
-Version:	4.8.2
+Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+License:	GPLv2
 Group:		User Interface/Desktops
+SUNW_Copyright: xfce4-settings.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -87,14 +89,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 
 %files root
+%defattr (-, root, sys)
 %attr (0755, root, sys) %dir %{_sysconfdir}
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg
-%{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml/*
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/autostart
 %{_sysconfdir}/xdg/autostart/*
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4/xfconf
 %dir %attr (0755, root, sys) %{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml
+%{_sysconfdir}/xdg/xfce4/xfconf/xfce-perchannel-xml/*
 
 %if %build_l10n
 %files l10n
@@ -104,6 +107,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 4.8.3
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Tue Jun 07 2011 - kmays2000@gmail.com
 - Backed to 4.8.2
 * Mon Jun 06 2011 - kmays2000@gmail.com

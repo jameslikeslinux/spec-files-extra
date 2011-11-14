@@ -6,25 +6,30 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname scribus
 
 Name:           SFEscribus
 Summary:        Graphical desktop publishing (DTP) application
+URL:		http://www.scribus.net/canvas/Scribus
 Group:		Applications/Office
 Version:        1.4.0
 #Source:	http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version/%srcname-%version.tar.bz2
-Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc3/%srcname-%version.rc3.tar.bz2
+Source:		http://jaist.dl.sourceforge.net/project/%srcname/scribus-devel/%version.rc6/%srcname-%version.rc6.tar.bz2
+License:	GPLv2
 Patch1:		scribus-01-math_c99.diff
 SUNW_BaseDir:   %_basedir
+SUNW_Copyright: scribus.copyright
 BuildRoot:      %_tmppath/%name-%version-build
 %include	default-depend.inc
 #Requires:	%name-root
 
-BuildRequires: 	SFEqt47-gpp-devel
-Requires: 	SFEqt47-gpp
+BuildRequires: 	SFEqt-gpp-devel
+Requires: 	SFEqt-gpp
+BuildRequires:	SFElibiconv
 Requires:	SFElibiconv
+BuildRequires:	SUNWlcms
+Requires:	lcms
 
 BuildRequires: 	SFEcmake
 BuildRequires: 	SUNWPython
@@ -38,7 +43,7 @@ Scribus is a GUI desktop publishing (DTP) application for Unix/Linux.
 
 
 %prep
-%setup -q -n %srcname-%version.rc3
+%setup -q -n %srcname-%version.rc6
 %patch1 -p1
 mkdir builddir
 
@@ -66,6 +71,9 @@ make -j$CPUS
 rm -rf %buildroot
 cd builddir
 make install DESTDIR=%buildroot INSTALL="%_bindir/ginstall -c -p"
+cd ..
+mkdir %buildroot%_datadir/applications
+cp %srcname.desktop %buildroot%_datadir/applications
 
 %clean
 rm -rf %buildroot
@@ -77,8 +85,8 @@ rm -rf %buildroot
 %dir %attr (0755, root, bin) %_libdir
 %dir %attr(0755, root, sys) %_datadir
 %dir %attr(0755, root, bin) %_includedir
-# Todo
-#%dir %attr(0755, root, other) %{_datadir}/applications
+%dir %attr(0755, root, other) %_datadir/applications
+%_datadir/applications/%srcname.desktop
 %_bindir/scribus
 #TODO
 #%{_datadir}/gnome/apps/Applications/scribus.desktop
@@ -100,6 +108,14 @@ rm -rf %buildroot
 
 
 %changelog
+* Wed Nov  2 2011 - Alex Viskovatoff
+- Bump to 1.4.0.rc6
+* Tue Jul 26 2011 - Alex Viskovatoff
+- Add missing (build) dependency
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
+* 26 Jun 2011 - Alex Viskovatoff
+- Bump to 1.4.0.rc5
 * 13 Apr 2011 - Alex Viskovatoff
 - Update to 1.4.0.rc3; fix version name
 * 29 Mar 2011 - Alex Viskovatoff

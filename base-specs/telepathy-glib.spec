@@ -11,13 +11,12 @@
 Name:			telepathy-glib
 License:		GPL
 Group:			Applications/Internet
-Version:		0.13.1
+Version:		0.16.0
 Release:	 	1
 Distribution:		Java Desktop System
 Vendor:			Sun Microsystems, Inc.
 Summary:		A GLib-based helper library for clients and connection managers	
 Source:			http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.gz
-Patch1:                 telepathy-glib-01-void.diff
 URL:			http://telepathy.freedesktop.org/wiki/Telepathy%20GLib
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 Docdir:			%{_defaultdocdir}/telepathy-glib
@@ -38,7 +37,6 @@ Requires:     %name = %version
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 %ifos linux
@@ -94,6 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_includedir}/telepathy-1.0/*
 
 %changelog
+* Fri Oct 21 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.16.0.
+* Wed Jul 06 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.15.2.
 * Sun Feb 13 2011 - Milan Jurik
 - fix multiarch build
 * Oct 09 2010 - jeff.cai@oracle.com

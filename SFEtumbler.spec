@@ -10,10 +10,11 @@
  
 Name:           SFEtumbler
 Summary:        Thumbnail management for Xfce
-Version:        0.1.21
+Version:        0.1.22
 URL:            http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Patch1:		tumbler-01-sunstudio.diff
+License:	LGPLv2+
+SUNW_Copyright:	tumbler.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -50,7 +51,6 @@ Requires:	%{name}
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -114,5 +114,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
  
 %changelog
+* Sun Sep 25 2011 - Milan Jurik
+- fix build
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 0.1.22
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Wed Apr 13 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial spec

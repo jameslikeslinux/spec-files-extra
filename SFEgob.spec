@@ -15,10 +15,12 @@
 %use gob = gob2.spec
 
 Name:               SFEgob
-Summary:            gob - The GObject Builder
+Summary:            The GObject Builder
 Version:            %{gob.version}
 IPS_package_name:   developer/build/gob2
 Meta(info.classification): %{classification_prefix}:Development/GNOME and GTK+
+License:            GPLv2
+SUNW_Copyright:     gob2.copyright
 SUNW_BaseDir:       %{_basedir}
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

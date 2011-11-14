@@ -6,15 +6,16 @@
 %include Solaris.inc
 
 %define python_version 2.6
-%define tarball_version 2.3.1
+%define tarball_version 2.4b5
 
 Name:			SFEbzr
 Summary:		Bazaar Source Code Management System
-License:		GPL
+License:		GPLv2+
+SUNW_Copyright:		bzr.copyright
 Group:			system/dscm
-Version:		2.3.1
+Version:		2.4
 Distribution:		spec-files-extra
-Source:                 http://launchpad.net/bzr/2.3/%{version}/+download/bzr-%{tarball_version}.tar.gz
+Source:                 http://launchpad.net/bzr/%{version}/%{tarball_version}/+download/bzr-%{tarball_version}.tar.gz
 URL:			http://bazaar-vcs.org
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:		%{_prefix}
@@ -61,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/bzr.1
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Tue Jul 19 2011 - brian.cameron@oracle.com
+- Bump to 2.4.
 * Fri May 13 2011 - knut.hatlen@oracle.com
 - Fix Python 2.6 dependencies.
 * Thu Apr 28 2011 - knut.hatlen@oracle.com

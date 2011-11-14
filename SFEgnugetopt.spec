@@ -11,6 +11,8 @@
  
 Name:                   SFEgnugetopt
 Summary:                getopt - a GNU getopt(3) compatible getopt utility
+License:                GPLv2
+SUNW_Copyright:         gnugetopt.copyright
 Version:                1.1.4
 Group:			Utility
 URL:                    http://software.frodo.looijaard.name/getopt/
@@ -53,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Sun Sep 19 2010 - Milan Jurik
 - reintroducing as SFEgnugetopt
 * Tue Oct 14 2008 - michal.bielicki@halokwadrat.de

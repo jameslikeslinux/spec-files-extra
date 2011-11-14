@@ -9,13 +9,15 @@
 
 Name:		SFEfltk2
 Summary:	A C++ user interface toolkit
-Version:	2.0.x-r7722
-IPS_component_version: 2.0.0.0.7722
+Version:	2.0.x-alpha-r8800
+IPS_component_version: 2.0.0.0.8800
 Source:		ftp://ftp.easysw.com/pub/%{src_name}/snapshots/%{src_name}-%{version}.tar.bz2
 URL:		http://www.fltk.org/
-License:	FLTK
+License:	FLTK and LGPLv2
+SUNW_Copyright:	fltk2.copyright
 Group:		Development/Libraries
 Patch1:		fltk2-01-scandir.diff
+Patch2:		fltk2-02-sunstudio.diff
 Patch3:		fltk2-03-test.diff
 Patch7:		fltk2-07-soname.diff
 SUNW_BaseDir:	%{_basedir}
@@ -35,6 +37,7 @@ Requires:		 %name
 %prep
 %setup -q -n fltk-%{version}
 %patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch7 -p1
 
@@ -56,7 +59,9 @@ export LDFLAGS="%{_ldflags} $X11LIB $GNULIB $EXTRALIB"
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir} \
-	    --enable-shared
+	    --enable-shared \
+            --enable-cairo \
+            --enable-x11multithread
 
 make -j$CPUS
 
@@ -92,6 +97,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3
 
 %changelog
+* Sun Sep 25 2011 - Milan Jurik
+- fix Sun Studio build
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8800
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jun 11 2011 - Alex Viskovatoff
+- bump to 8411
 * Fri Apr 16 2011 - Alex Viskovatoff
 - bump to 7722
 * Sat Jun 12 2010 - Milan Jurik

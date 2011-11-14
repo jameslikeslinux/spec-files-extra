@@ -1,0 +1,110 @@
+Copyright Holders:
+
+	William Pitcock <nenolod@sacredspiral.co.uk>
+    	Patrick McFarland <pmcfarland@adterrasperaspera.com>
+    	Jonathan Schleifer <js@h3c.de>
+    	Pippijn van Steenhoven <pippijn@one09.net>
+    	Jilles Tjoelker <jilles@stack.nl>
+	Giacomo Lozito <james -at- develia.org>
+	Takuji Nishimura and Makoto Matsumoto
+
+License (for everything except the exceptions listed below):
+
+	Copyright for all files:
+	© 2007 William Pitcock <nenolod -at- sacredspiral.co.uk>
+
+	Additional copyright on examples/patriciatest/patriciatest.c:
+	© 2008 Jilles Tjoelker
+
+	Additional copyright on mowgli_patricia.*:
+	© 2007-2008 Jilles Tjoelker
+
+	Additional copyright on mowgli_heap.*:
+	© 2005-2006 Theo Julienne <terminal -at- atheme.org>
+
+	Additional copyright on mowgli_dictionary.*:
+	© 2007 Jilles Tjoelker <jilles -at- stack.nl>
+
+	Additional copyright on mowgli_string.*:
+	© 2007 Pippijn van Steenhoven <pippijn -at- one09.net>
+
+	Additional copyright on mowgli_hook.*:
+	© 2007 Giacomo Lozito <james -at- develia.org>
+
+	Additional copyright for algorithm in mowgli_random.c:
+	© 1999-2007 Takuji Nishimura and Makoto Matsumoto
+
+	Additional copyright on buildsys.mk.in and m4/buildsys.m4:
+	© 2007, Jonathan Schleifer <js-buildsys@webkeks.org>
+
+    Atheme License (ISC derivate):
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice is present in all copies.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License (for src/libmowgli/win32_dlfcn.c and win32_dlfcn.h):
+
+	© 2007 Ramiro Polla
+
+    This package is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
+
+    This package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this package; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU Lesser General
+Public License can be found in `/usr/share/common-licenses/LGPL'.
+
+License (for all .c files in src/examples/*):
+
+	© 2007 William Pitcock <nenolod -at- sacredspiral.co.uk>
+
+	Additional copyright for algorithm in randomtest.c:
+	© 1999-2007 Takuji Nishimura and Makoto Matsumoto
+
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions are
+	met:
+
+	1. Redistributions of source code must retain the above copyright notice,
+   	this list of conditions and the following disclaimer.
+
+	2. Redistributions in binary form must reproduce the above copyright
+	   notice, this list of conditions and the following disclaimer in the
+	   documentation and/or other materials provided with the distribution.
+
+	3. The name of the author may not be used to endorse or promote products
+	   derived from this software without specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+	IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+	INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+	(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+	HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+	STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+	IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+	POSSIBILITY OF SUCH DAMAGE.

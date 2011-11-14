@@ -24,7 +24,7 @@ cd BLAS
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
   make CC=cc CXX=CC F77=f77 FORTRAN=f77 LOADER=f77 PLAT="" OPTS="-03 -m64"
 else
-  make F77=gfortran FORTRAN=gfortran LOADER=gfortran PLAT="" OPTS="-03"
+  make F77=gfortran FORTRAN=gfortran LOADER=gfortran PLAT="" OPTS="-O3"
 fi
 
 %install
@@ -37,6 +37,8 @@ install -m 0755 libblas.a $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jul 30 2011 - Alex Viskovatoff
+- "-03" is not a gcc option
 * Tue May 25 2010 - Milan Jurik
 - disable multiarch support, not stable with Sun studio Fortran and unsupported with gfortran yet
 * Mon May 24 2010 - Milan Jurik

@@ -13,6 +13,10 @@
 
 Name:                   SFEgraphicsmagick
 Summary:                GraphicsMagick - Image Manipulation Utilities and Libraries
+IPS_Package_Name:       image/editor/graphicsmagick
+Group:                  Applications/Graphics and Imaging
+License:                MIT
+SUNW_copyright:         graphicsmagick.copyright
 Version:                1.3.12
 URL:			http://www.graphicsmagick.org/
 Source:                 %{sf_download}/graphicsmagick/GraphicsMagick-%{version}.tar.bz2
@@ -46,7 +50,7 @@ fi
 
  
 export CPPFLAGS="-I/usr/sfw/include/freetype2 -I/usr/X11/include"
-export LDFLAGS="%_ldflags -L/usr/sfw/lib -L/usr/X11/lib -R/usr/sfw/lib -R/usr/X11/lib"
+export LDFLAGS="%_ldflags -L/usr/X11/lib -R/usr/X11/lib"
 if [ "x`basename $CC`" = xgcc ]
 then
 	%error "Building this spec with GCC is not supported."
@@ -61,6 +65,7 @@ export CFLAGS="%optflags -xCC"
             --sysconfdir=%{_sysconfdir} \
             --with-perl			\
             --with-modules		\
+            --with-quantum-depth=16     \
             --enable-shared		\
 	    --disable-static
 
@@ -101,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 10 2011 - Alex Viskovatoff
+- add --with-quantum-depth=16 (enables all features; changes library ABI)
+- add SUNW_copyright and IPS_package_name
 * Tue Feb  3 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWsane_backend}
   Requires to %{pnm_requires_SUNWsane_backend}

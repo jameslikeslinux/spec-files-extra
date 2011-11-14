@@ -8,9 +8,9 @@
 Name:         SFEgtk-sharp
 License:      Other
 Group:        System/Libraries
-Version:      2.10.2
+Version:      2.12.11
 Summary:      gtk# - .NET bindings for the gtk+
-Source:       http://go-mono.com/sources/gtk-sharp-2.10/gtk-sharp-%{version}.tar.bz2
+Source:       http://download.mono-project.com/sources/gtk-sharp212/gtk-sharp-%{version}.tar.bz2
 Patch1:       gtk-sharp-01-fix-prototype.diff
 %define gtk_sharp_1_version 1.0.10
 Source1:      http://go-mono.com/sources/gtk-sharp/gtk-sharp-%{gtk_sharp_1_version}.tar.gz
@@ -22,7 +22,7 @@ Autoreqprov:  on
 
 BuildRequires: SUNWgnome-base-libs
 BuildRequires: SFEmono-devel
-BuildRequires: SFEmonodoc
+#BuildRequires: SFEmonodoc
 Requires: SUNWgnome-base-libs
 Requires: SFEmono
 
@@ -45,6 +45,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 export PATH=/usr/mono/bin:$PATH
 export CFLAGS="%optflags"
+export CFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
 export LDFLAGS="%_ldflags"
 
 cd gtk-sharp-%{gtk_sharp_1_version}
@@ -95,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gapi
 
 %changelog
+* Sun Sep 18 2011 - jchoi42@pha.jhu.edu
+- Bump to 2.12.11
 * Tue Oct 16 2007 - laca@sun.com
 - disable parallel build of gtk#-2 -- breaks the build of the docs
 * Sun Sep 02 2007 - trisk@acm.jhu.edu

@@ -4,51 +4,40 @@
 # includes module(s): libx264
 #
 
-%define snap             20110427
+# NOTE:  At present, the CLI (x264 executable) is not very useful, since it
+#	 cannot link to libavcodec and libavformat, which means that it can
+#	 only process raw video streams.
+
+%define x264_build       119
+%define snap             20111022
 %define snaph            2245
 %define src_name         x264-snapshot
 %define src_url          http://download.videolan.org/pub/videolan/x264/snapshots
 
-Name:                    libx264
-Summary:                 H264 encoder library
-Version:                 %snap
-Source:                  %src_url/%src_name-%snap-%snaph.tar.bz2
-Source1:                 libx264-replacement-version.sh
-URL:                     http://www.videolan.org/developers/x264.html
-#Patch1:	         libx264-01-gccisms.diff
-#Patch2:                 libx264-02-version.diff
-#Patch3:                 libx264-03-ld.diff
-#Patch4:                 libx264-04-ginstall.diff
-#Patch5:                 libx264-05-ssse3.diff
-Patch6:                  libx264-06-gpac.diff
-Patch7:                  libx264-07-soname.diff
-BuildRoot:               %_tmppath/%name-%version-build
+Name:		libx264
+Summary:	H.264 encoder library
+Version:	0.%x264_build.0.%snap
+Source:		%src_url/%src_name-%snap-%snaph.tar.bz2
+URL:		http://www.videolan.org/developers/x264.html
+Patch2:		libx264-02-version.diff
+Patch6:		libx264-06-gpac.diff
+#Patch7:		libx264-07-soname.diff
+BuildRoot:	%_tmppath/%name-%version-build
 
 %prep
 %setup -q -n %src_name-%snap-%snaph
 
-# replaces patch2 libx264-02-version.diff
-cp %SOURCE1 version.sh
-
-#unused
-#%patch1 -p1
-#obsoleted by Source1
-#%patch2 -p1
-#obsolete
-#%patch3 -p1
-#obsolete 
-#%patch4 -p1
-#review needed? 
-#%patch5 -p1
+%patch2 -p1
 %patch6 -p1
-%patch7 -p1
+#%patch7 -p1
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags -lm -L/lib -R/lib"
+#export LDFLAGS="%_ldflags -lm -L/lib -R/lib"
+export LDFLAGS="%_ldflags -lm"
 
 if $( echo "%_libdir" | /usr/xpg4/bin/grep -q %_arch64 ) ; then
         export LDFLAGS="$LDFLAGS -m64"
@@ -71,9 +60,11 @@ fi
     --enable-pic		\
     --extra-cflags="$CFLAGS"	\
     --extra-ldflags="$LDFLAGS"	\
+    --system-libx264           \
+    --enable-visualize         \
     --enable-shared
 
-make
+make -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -83,6 +74,19 @@ rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Oct 23 2011 - Alex Viskovatoff
+- update to new tarball, disabling obsolete patch libx264-07-soname.diff
+- add %x264_build to version number; link CLI to system libx264
+* Sun Oct 16 2011 - Milan Jurik
+- fix multicore build
+* Wed Oct 12 2011 - Alex Viskovatoff
+- update to new tarball
+* Thu Sep 01 2011 - Milan Jurik
+- fix version.sh
+* Sun Aug 28 2011 - Alex Viskovatoff
+- update to new tarball
+* Fri Jul 15 2011 - Alex Viskovatoff
+- update to new tarball
 * Thu Apr 27 2011 - Alex Viskovatoff
 - update to new tarball, reworking one patch
 * Fri Apr  1 2011 - Alex Viskovatoff

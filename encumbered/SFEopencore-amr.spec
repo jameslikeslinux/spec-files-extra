@@ -20,9 +20,12 @@
 %use opencoreamr = opencore-amr.spec
 
 Name:		SFEopencore-amr
+IPS_Package_Name:	codec/opencore-amr
 Summary:	%{opencoreamr.summary}
 Version:	%{opencoreamr.version}
 URL:		%{opencoreamr.url}
+License:	ASL 2.0
+SUNW_Copyright:	opencore-amr.copyright
 
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -112,5 +115,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Oct 16 2009 - Milan Jurik
 - Initial spec

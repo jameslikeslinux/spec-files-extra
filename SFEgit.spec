@@ -15,12 +15,17 @@
 %define cc_is_gcc 1
 %define _gpp /usr/sfw/bin/g++
 %include base.inc
+%include usr-gnu.inc
+%include packagenamemacros.inc
 
 Name:                SFEgit
+IPS_Package_Name:    developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.5.4
+Version:             1.7.7
+License:             GPLv2
+SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
-Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
+Source:              http://git-core.googlecode.com/files/git-%{version}.tar.gz
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
 Patch3:              git-03-xmlto.diff
@@ -33,7 +38,7 @@ Requires: SUNWsshu
 Requires: SUNWopenssl-libraries
 Requires: SUNWlexpt
 Requires: SUNWcurl
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWPython
 Requires: SUNWbash
 Requires: SUNWlexpt
@@ -43,7 +48,6 @@ Requires: SUNWgnu-diffutils
 Requires: SFEdiffutils
 %endif
 Requires: SUNWTk
-%define perl_version 5.8.4
 BuildRequires: SFEasciidoc
 BuildRequires: SFExmlto
 
@@ -96,9 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 
 make install install-doc DESTDIR=$RPM_BUILD_ROOT INSTALL=install
 
-# move perl stuff to vendor_perl
-mkdir -p $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
-mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
+# move perl stuff to vendor_perl in /usr/gnu
+mkdir -p $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
+mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 
 # remove unwanted stuff like .packlist and perllocal.pod
 rm -r $RPM_BUILD_ROOT%{_libdir}/site_perl
@@ -139,6 +143,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Wed Oct 13 2011 - Alex Viskovatoff
+- Bump to 1.7.7; add IPS_package_name
+* Sun Aug  7 2011 - Alex Viskovatoff
+- install in /usr/gnu, to avoid conflict with system package
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.5.4
 * Sat Apr 16 2011 - Alex Viskovatoff

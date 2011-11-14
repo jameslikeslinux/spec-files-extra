@@ -1,0 +1,929 @@
+--- gnome-shell-3.2.1/js/ui/main.js-orig	2011-10-21 19:44:48.433393737 -0500
++++ gnome-shell-3.2.1/js/ui/main.js	2011-10-21 19:47:47.536602118 -0500
+@@ -27,7 +27,9 @@ const PlaceDisplay = imports.ui.placeDis
+ const RunDialog = imports.ui.runDialog;
+ const Layout = imports.ui.layout;
+ const LookingGlass = imports.ui.lookingGlass;
++/*
+ const NetworkAgent = imports.ui.networkAgent;
++*/
+ const NotificationDaemon = imports.ui.notificationDaemon;
+ const WindowAttentionHandler = imports.ui.windowAttentionHandler;
+ const Scripting = imports.ui.scripting;
+@@ -78,13 +80,15 @@ let background = null;
+ function _createUserSession() {
+     // Load the calendar server. Note that we are careful about
+     // not loading any events until the user presses the clock
+-    global.launch_calendar_server();
++    // global.launch_calendar_server();
+ 
+     placesManager = new PlaceDisplay.PlacesManager();
+     telepathyClient = new TelepathyClient.Client();
+     automountManager = new AutomountManager.AutomountManager();
+     autorunManager = new AutorunManager.AutorunManager();
++/*
+     networkAgent = new NetworkAgent.NetworkAgent();
++*/
+ }
+ 
+ function _createGDMSession() {
+--- gnome-shell-3.2.1/js/ui/userMenu.js-orig	2011-10-21 19:46:21.270874785 -0500
++++ gnome-shell-3.2.1/js/ui/userMenu.js	2011-10-21 19:47:47.532068133 -0500
+@@ -9,7 +9,9 @@ const Pango = imports.gi.Pango;
+ const Shell = imports.gi.Shell;
+ const St = imports.gi.St;
+ const Tp = imports.gi.TelepathyGLib;
++/*
+ const UPowerGlib = imports.gi.UPowerGlib;
++*/
+ 
+ const GnomeSession = imports.misc.gnomeSession;
+ const Main = imports.ui.main;
+@@ -417,7 +419,9 @@ UserMenuButton.prototype = {
+ 
+         this._account_mgr = Tp.AccountManager.dup()
+ 
++/*
+         this._upClient = new UPowerGlib.Client();
++*/
+         this._screenSaverProxy = new ScreenSaver.ScreenSaverProxy();
+         this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
+ 
+@@ -486,7 +490,9 @@ UserMenuButton.prototype = {
+         this._lockdownSettings.connect('changed::' + DISABLE_LOG_OUT_KEY,
+                                        Lang.bind(this, this._updateHaveShutdown));
+ 
++/*
+         this._upClient.connect('notify::can-suspend', Lang.bind(this, this._updateSuspendOrPowerOff));
++*/
+     },
+ 
+     _onDestroy: function() {
+@@ -536,7 +542,9 @@ UserMenuButton.prototype = {
+     },
+ 
+     _updateSuspendOrPowerOff: function() {
++/*
+         this._haveSuspend = this._upClient.get_can_suspend();
++*/
+ 
+         if (!this._suspendOrPowerOffItem)
+             return;
+@@ -693,7 +701,9 @@ UserMenuButton.prototype = {
+             this._suspendOrPowerOffItem.state == PopupMenu.PopupAlternatingMenuItemState.DEFAULT) {
+             // Ensure we only suspend after the screensaver has activated
+             this._screenSaverProxy.SetActiveRemote(true, Lang.bind(this, function() {
++/*
+                 this._upClient.suspend_sync(null);
++*/
+             }));
+         } else {
+             this._session.ShutdownRemote();
+--- gnome-shell-3.2.1/js/ui/networkAgent.js-orig	2011-10-21 19:46:14.339403846 -0500
++++ gnome-shell-3.2.1/js/ui/networkAgent.js	2011-10-21 19:47:47.529974247 -0500
+@@ -22,8 +22,10 @@
+ const Clutter = imports.gi.Clutter;
+ const Gio = imports.gi.Gio;
+ const Lang = imports.lang;
++/*
+ const NetworkManager = imports.gi.NetworkManager;
+ const NMClient = imports.gi.NMClient;
++*/
+ const Pango = imports.gi.Pango;
+ const Shell = imports.gi.Shell;
+ const St = imports.gi.St;
+@@ -206,6 +208,7 @@ NetworkSecretDialog.prototype = {
+ 
+     _validateStaticWep: function(secret) {
+         let value = secret.value;
++/*
+         if (secret.wep_key_type == NetworkManager.WepKeyType.KEY) {
+             if (value.length == 10 || value.length == 26) {
+ 		for (let i = 0; i < value.length; i++) {
+@@ -227,6 +230,8 @@ NetworkSecretDialog.prototype = {
+ 	        return false;
+ 	}
+         return true;
++*/
++        return false;
+     },
+ 
+     _getWirelessSecrets: function(secrets, wirelessSetting) {
+@@ -319,6 +324,7 @@ NetworkSecretDialog.prototype = {
+ 
+         switch (connectionType) {
+         case '802-11-wireless':
++/*
+             wirelessSetting = this._connection.get_setting_wireless();
+             ssid = NetworkManager.utils_ssid_to_utf8(wirelessSetting.get_ssid());
+             content.title = _("Authentication required by wireless network");
+@@ -352,6 +358,7 @@ NetworkSecretDialog.prototype = {
+             content.message = _("A password is required to connect to '%s'.").format(connectionSetting.get_id());
+             this._getMobileSecrets(content.secrets, connectionType);
+             break;
++*/
+         default:
+             log('Invalid connection type: ' + connectionType);
+         };
+--- gnome-shell-3.2.1/js/ui/contactDisplay.js-orig	2011-10-21 19:46:42.446984736 -0500
++++ gnome-shell-3.2.1/js/ui/contactDisplay.js	2011-10-21 19:47:47.534958305 -0500
+@@ -1,6 +1,8 @@
+ // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
+ 
++/*
+ const Folks = imports.gi.Folks
++*/
+ const Lang = imports.lang;
+ const Meta = imports.gi.Meta;
+ const Shell = imports.gi.Shell;
+@@ -82,6 +84,7 @@ Contact.prototype = {
+         let iconName;
+ 
+         switch(presence) {
++/*
+           case Folks.PresenceType.AVAILABLE:
+             text = _("Available");
+             iconName = 'user-available';
+@@ -95,6 +98,7 @@ Contact.prototype = {
+             text = _("Busy");
+             iconName = 'user-busy';
+             break;
++*/
+           default:
+             text = _("Offline");
+             iconName = 'user-offline';
+--- gnome-shell-3.2.1/js/ui/magnifier.js-orig	2011-10-21 19:47:02.751557216 -0500
++++ gnome-shell-3.2.1/js/ui/magnifier.js	2011-10-21 19:47:47.540027779 -0500
+@@ -71,7 +71,9 @@ Magnifier.prototype = {
+         // magnification settings.
+ 
+         let mask;
++/*
+         [this.xMouse, this.yMouse, mask] = global.get_pointer();
++*/
+ 
+         let aZoomRegion = new ZoomRegion(this, this._cursorRoot);
+         this._zoomRegions.push(aZoomRegion);
+--- gnome-shell-3.2.1/js/ui/extensionSystem.js-orig	2011-10-21 19:46:30.528329521 -0500
++++ gnome-shell-3.2.1/js/ui/extensionSystem.js	2011-10-21 19:47:47.533876590 -0500
+@@ -8,7 +8,9 @@ const GLib = imports.gi.GLib;
+ const Gio = imports.gi.Gio;
+ const St = imports.gi.St;
+ const Shell = imports.gi.Shell;
++/*
+ const Soup = imports.gi.Soup;
++*/
+ 
+ const Config = imports.misc.config;
+ const FileUtils = imports.misc.fileUtils;
+@@ -37,14 +39,18 @@ const REPOSITORY_URL_BASE = 'https://ext
+ const REPOSITORY_URL_DOWNLOAD = REPOSITORY_URL_BASE + '/download-extension/%s.shell-extension.zip';
+ const REPOSITORY_URL_INFO =     REPOSITORY_URL_BASE + '/extension-info/';
+ 
++/*
+ const _httpSession = new Soup.SessionAsync();
++*/
+ 
+ // The unfortunate state of gjs, gobject-introspection and libsoup
+ // means that I have to do a hack to add a feature.
+ // See: https://bugzilla.gnome.org/show_bug.cgi?id=655189 for context.
+ 
++/*
+ if (Soup.Session.prototype.add_feature != null)
+     Soup.Session.prototype.add_feature.call(_httpSession, new Soup.ProxyResolverDefault());
++*/
+ 
+ function _getCertFile() {
+     let localCert = GLib.build_filenamev([global.userdatadir, 'extensions.gnome.org.crt']);
+@@ -54,7 +60,9 @@ function _getCertFile() {
+         return Config.SHELL_SYSTEM_CA_FILE;
+ }
+ 
++/*
+ _httpSession.ssl_ca_file = _getCertFile();
++*/
+ 
+ // Maps uuid -> metadata object
+ const extensionMeta = {};
+@@ -117,6 +125,7 @@ function installExtensionFromUUID(uuid, 
+                    shell_version: Config.PACKAGE_VERSION,
+                    api_version: API_VERSION.toString() };
+ 
++/*
+     let message = Soup.form_request_new_from_hash('GET', REPOSITORY_URL_INFO, params);
+ 
+     _httpSession.queue_message(message,
+@@ -125,6 +134,7 @@ function installExtensionFromUUID(uuid, 
+                                    let dialog = new InstallExtensionDialog(uuid, version_tag, info.name);
+                                    dialog.open(global.get_current_time());
+                                });
++*/
+ }
+ 
+ function uninstallExtensionFromUUID(uuid) {
+@@ -159,10 +169,12 @@ function uninstallExtensionFromUUID(uuid
+ }
+ 
+ function gotExtensionZipFile(session, message, uuid) {
++/*
+     if (message.status_code != Soup.KnownStatusCode.OK) {
+         logExtensionError(uuid, 'downloading extension: ' + message.status_code);
+         return;
+     }
++*/
+ 
+     // FIXME: use a GFile mkstemp-type method once one exists
+     let fd, tmpzip;
+@@ -519,12 +531,14 @@ InstallExtensionDialog.prototype = {
+                        api_version: API_VERSION.toString() };
+ 
+         let url = REPOSITORY_URL_DOWNLOAD.format(this._uuid);
++/*
+         let message = Soup.form_request_new_from_hash('GET', url, params);
+ 
+         _httpSession.queue_message(message,
+                                    Lang.bind(this, function(session, message) {
+                                        gotExtensionZipFile(session, message, this._uuid);
+                                    }));
++*/
+ 
+         this.close(global.get_current_time());
+     }
+--- gnome-shell-3.2.1/js/ui/polkitAuthenticationAgent.js-orig	2011-10-21 19:44:22.022140562 -0500
++++ gnome-shell-3.2.1/js/ui/polkitAuthenticationAgent.js	2011-10-21 19:47:29.507931128 -0500
+@@ -29,8 +29,8 @@ const St = imports.gi.St;
+ const Pango = imports.gi.Pango;
+ const Gio = imports.gi.Gio;
+ const Mainloop = imports.mainloop;
+-const Polkit = imports.gi.Polkit;
+-const PolkitAgent = imports.gi.PolkitAgent;
++/* const Polkit = imports.gi.Polkit; 
++const PolkitAgent = imports.gi.PolkitAgent; */
+ 
+ const ModalDialog = imports.ui.modalDialog;
+ const ShellEntry = imports.ui.shellEntry;
+@@ -180,11 +180,15 @@ AuthenticationDialog.prototype = {
+ 
+         this._doneEmitted = false;
+ 
++/*
+         this._identityToAuth = Polkit.UnixUser.new_for_name(userName);
++*/
+         this._cookie = cookie;
+ 
++/*
+         this._session = new PolkitAgent.Session({ identity: this._identityToAuth,
+                                                   cookie: this._cookie });
++*/
+         this._session.connect('completed', Lang.bind(this, this._onSessionCompleted));
+         this._session.connect('request', Lang.bind(this, this._onSessionRequest));
+         this._session.connect('show-error', Lang.bind(this, this._onSessionShowError));
+--- gnome-shell-3.2.1/js/ui/dateMenu.js-orig	2011-10-21 19:46:55.716963408 -0500
++++ gnome-shell-3.2.1/js/ui/dateMenu.js	2011-10-21 19:47:47.537734150 -0500
+@@ -15,7 +15,9 @@ const Main = imports.ui.main;
+ const PanelMenu = imports.ui.panelMenu;
+ const PopupMenu = imports.ui.popupMenu;
+ const Calendar = imports.ui.calendar;
++/*
+ const UPowerGlib = imports.gi.UPowerGlib;
++*/
+ 
+ // in org.gnome.desktop.interface
+ const CLOCK_FORMAT_KEY        = 'clock-format';
+@@ -160,8 +162,10 @@ DateMenuButton.prototype = {
+         this._clockSettings.connect('changed', Lang.bind(this, this._updateClockAndDate));
+ 
+         // https://bugzilla.gnome.org/show_bug.cgi?id=655129
++/*
+         this._upClient = new UPowerGlib.Client();
+         this._upClient.connect('notify-resume', Lang.bind(this, this._updateClockAndDate));
++*/
+ 
+         // Start the clock
+         this._updateClockAndDate();
+--- gnome-shell-3.2.1/js/ui/status/volume.js-orig	2011-10-21 19:44:29.599587256 -0500
++++ gnome-shell-3.2.1/js/ui/status/volume.js	2011-10-21 19:47:29.509144539 -0500
+@@ -5,7 +5,9 @@ const DBus = imports.dbus;
+ const Lang = imports.lang;
+ const Mainloop = imports.mainloop;
+ const Shell = imports.gi.Shell;
++/*
+ const Gvc = imports.gi.Gvc;
++*/
+ const Signals = imports.signals;
+ const St = imports.gi.St;
+ 
+@@ -28,6 +30,7 @@ Indicator.prototype = {
+     _init: function() {
+         PanelMenu.SystemStatusButton.prototype._init.call(this, 'audio-volume-muted', null);
+ 
++/*
+         this._control = new Gvc.MixerControl({ name: 'GNOME Shell Volume Control' });
+         this._control.connect('state-changed', Lang.bind(this, this._onControlStateChanged));
+         this._control.connect('default-sink-changed', Lang.bind(this, this._readOutput));
+@@ -63,6 +66,7 @@ Indicator.prototype = {
+ 
+         this.actor.connect('scroll-event', Lang.bind(this, this._onScrollEvent));
+         this._control.open();
++*/
+     },
+ 
+     _onScrollEvent: function(actor, event) {
+--- gnome-shell-3.2.1/js/ui/status/network.js-orig	2011-10-21 19:44:35.896258420 -0500
++++ gnome-shell-3.2.1/js/ui/status/network.js	2011-10-21 19:47:29.512890546 -0500
+@@ -5,8 +5,10 @@ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ const Lang = imports.lang;
+ const Mainloop = imports.mainloop;
++/*
+ const NetworkManager = imports.gi.NetworkManager;
+ const NMClient = imports.gi.NMClient;
++*/
+ const Shell = imports.gi.Shell;
+ const Signals = imports.signals;
+ const St = imports.gi.St;
+@@ -37,9 +39,11 @@ const NMAccessPointSecurity = {
+ };
+ 
+ // small optimization, to avoid using [] all the time
++/*
+ const NM80211Mode = NetworkManager['80211Mode'];
+ const NM80211ApFlags = NetworkManager['80211ApFlags'];
+ const NM80211ApSecurityFlags = NetworkManager['80211ApSecurityFlags'];
++*/
+ 
+ // number of wireless networks that should be visible
+ // (the remaining are placed into More...)
+@@ -1558,6 +1562,7 @@ NMApplet.prototype = {
+     _init: function() {
+         PanelMenu.SystemStatusButton.prototype._init.call(this, 'network-error');
+ 
++/*
+         this._client = NMClient.Client.new();
+ 
+         this._statusSection = new PopupMenu.PopupMenuSection();
+@@ -1666,6 +1671,7 @@ NMApplet.prototype = {
+                 this._settings.connect('new-connection', Lang.bind(this, this._newConnection));
+             }
+         }));
++*/
+     },
+ 
+     _ensureSource: function() {
+--- gnome-shell-3.2.1/js/gdm/powerMenu.js-orig	2011-10-21 19:46:03.012905089 -0500
++++ gnome-shell-3.2.1/js/gdm/powerMenu.js	2011-10-21 19:47:47.528209777 -0500
+@@ -19,7 +19,9 @@
+  */
+ 
+ const Lang = imports.lang;
++/*
+ const UPowerGlib = imports.gi.UPowerGlib;
++*/
+ 
+ const ConsoleKit = imports.gdm.consoleKit;
+ const PanelMenu = imports.ui.panelMenu;
+@@ -35,12 +37,16 @@ PowerMenuButton.prototype = {
+     _init: function() {
+         PanelMenu.SystemStatusButton.prototype._init.call(this, 'system-shutdown', null);
+         this._consoleKitManager = new ConsoleKit.ConsoleKitManager();
++/*
+         this._upClient = new UPowerGlib.Client();
++*/
+ 
+         this._createSubMenu();
+ 
++/*
+         this._upClient.connect('notify::can-suspend',
+                                Lang.bind(this, this._updateHaveSuspend));
++*/
+         this._updateHaveSuspend();
+ 
+         // ConsoleKit doesn't send notifications when shutdown/reboot
+@@ -100,7 +106,9 @@ PowerMenuButton.prototype = {
+     },
+ 
+     _updateHaveSuspend: function() {
++/*
+         this._haveSuspend = this._upClient.get_can_suspend();
++*/
+ 
+         if (this._haveSuspend)
+             this._suspendItem.actor.show();
+@@ -130,8 +138,10 @@ PowerMenuButton.prototype = {
+     },
+ 
+     _onActivateSuspend: function() {
++/*
+         if (this._haveSuspend)
+             this._upClient.suspend_sync(null);
++*/
+     },
+ 
+     _onActivateRestart: function() {
+--- gnome-shell-3.2.1/configure.ac-orig	2011-10-21 19:44:07.891932933 -0500
++++ gnome-shell-3.2.1/configure.ac	2011-10-21 19:47:31.381911141 -0500
+@@ -83,7 +83,6 @@ STARTUP_NOTIFICATION_MIN_VERSION=0.11
+ PKG_CHECK_MODULES(GNOME_SHELL, gio-2.0 >= $GIO_MIN_VERSION
+                                gio-unix-2.0 dbus-glib-1 libxml-2.0
+                                gtk+-3.0 >= $GTK_MIN_VERSION
+-                               folks >= $FOLKS_MIN_VERSION
+                                libmutter >= $MUTTER_MIN_VERSION
+                                gjs-internals-1.0 >= $GJS_MIN_VERSION
+ 			       libgnome-menu-3.0 $recorder_modules gconf-2.0
+@@ -95,8 +94,44 @@ PKG_CHECK_MODULES(GNOME_SHELL, gio-2.0 >
+ 			       libcanberra
+                                telepathy-glib >= $TELEPATHY_GLIB_MIN_VERSION
+                                telepathy-logger-0.2 >= $TELEPATHY_LOGGER_MIN_VERSION
+-                               polkit-agent-1 >= $POLKIT_MIN_VERSION xfixes
+-                               libnm-glib libnm-util gnome-keyring-1)
++                               xfixes
++                               gnome-keyring-1)
++
++PKG_CHECK_MODULES(FOLKS,
++        folks >= $FOLKS_MIN_VERSION,
++        have_folks=yes,
++        have_folks=no)
++if test "x$have_folks" = "xyes" ; then
++  AC_DEFINE(HAVE_FOLKS, [], [Define if we have folks])
++fi
++AM_CONDITIONAL(HAVE_FOLKS, test x$have_folks = xyes)
++AC_SUBST(HAVE_FOLKS)
++AC_SUBST(FOLKS_CFLAGS)
++AC_SUBST(FOLKS_LIBS)
++
++PKG_CHECK_MODULES(LIBNM,
++        libnm-glib libnm-util,
++        have_libnm=yes,
++        have_libnm=no)
++if test "x$have_libnm" = "xyes" ; then
++  AC_DEFINE(HAVE_LIBNM, [], [Define if we have libnm])
++fi
++AM_CONDITIONAL(HAVE_LIBNM, test x$have_libnm = xyes)
++AC_SUBST(HAVE_LIBNM)
++AC_SUBST(LIBNM_CFLAGS)
++AC_SUBST(LIBNM_LIBS)
++
++PKG_CHECK_MODULES(POLKIT,
++        polkit-agent-1 >= $POLKIT_MIN_VERSION,
++        have_polkit=yes,
++        have_polkit=no)
++if test "x$have_polkit" = "xyes" ; then
++  AC_DEFINE(HAVE_POLKIT, [], [Define if we have polkit])
++fi
++AM_CONDITIONAL(HAVE_POLKIT, test x$have_polkit = xyes)
++AC_SUBST(HAVE_POLKIT)
++AC_SUBST(POLKIT_CFLAGS)
++AC_SUBST(POLKIT_LIBS)
+ 
+ PKG_CHECK_MODULES(SHELL_PERF_HELPER, gtk+-3.0 gio-2.0)
+ 
+@@ -114,8 +149,8 @@ AC_SUBST(JHBUILD_TYPELIBDIR)
+ 
+ saved_CFLAGS=$CFLAGS
+ saved_LIBS=$LIBS
+-CFLAGS=$GNOME_SHELL_CFLAGS
+-LIBS=$GNOME_SHELL_LIBS
++CFLAGS=$GNOME_SHELL_CFLAGS $POLKIT_CFLAGS $FOLKS_CFLAGS $LIBNM_CFLAGS
++LIBS=$GNOME_SHELL_LIBS $POLKIT_LIBS $FOLKS_LIBS $LIBNM_LIBS
+ AC_CHECK_FUNCS(JS_NewGlobalObject XFixesCreatePointerBarrier)
+ CFLAGS=$saved_CFLAGS
+ LIBS=$saved_LIBS
+@@ -123,9 +158,20 @@ LIBS=$saved_LIBS
+ PKG_CHECK_MODULES(ST, clutter-1.0 gtk+-3.0 libcroco-0.6 >= 0.6.2 gnome-desktop-3.0 >= 2.90.0 x11)
+ PKG_CHECK_MODULES(GDMUSER, dbus-glib-1 gtk+-3.0)
+ PKG_CHECK_MODULES(TRAY, gtk+-3.0)
+-PKG_CHECK_MODULES(GVC, libpulse libpulse-mainloop-glib gobject-2.0)
+ PKG_CHECK_MODULES(DESKTOP_SCHEMAS, gsettings-desktop-schemas >= 0.1.7)
+ 
++PKG_CHECK_MODULES(GVC,
++        libpulse libpulse-mainloop-glib gobject-2.0,
++        have_pulse=yes,
++        have_pulse=no)
++if test "x$have_pulse" = "xyes" ; then
++  AC_DEFINE(HAVE_PULSE, [], [Define if we have libpulse])
++fi
++AM_CONDITIONAL(HAVE_PULSE, test x$have_pulse = xyes)
++AC_SUBST(HAVE_PULSE)
++AC_SUBST(GVC_CFLAGS)
++AC_SUBST(GVC_LIBS)
++
+ AC_MSG_CHECKING([for bluetooth support])
+ PKG_CHECK_EXISTS([gnome-bluetooth-1.0 >= 3.1.0],
+         [BLUETOOTH_DIR=`$PKG_CONFIG --variable=applet_libdir gnome-bluetooth-1.0`
+@@ -139,7 +185,15 @@ PKG_CHECK_EXISTS([gnome-bluetooth-1.0 >=
+ 	 AC_SUBST([HAVE_BLUETOOTH],[0])
+ 	 AC_MSG_RESULT([no])])
+ 
+-PKG_CHECK_MODULES(CALENDAR_SERVER, libecal-1.2 >= $LIBECAL_MIN_VERSION libedataserver-1.2 >= $LIBEDATASERVER_MIN_VERSION libedataserverui-3.0 >= $LIBEDATASERVERUI_MIN_VERSION gio-2.0)
++PKG_CHECK_MODULES(CALENDAR_SERVER,
++        libecal-1.2 >= $LIBECAL_MIN_VERSION libedataserver-1.2 >= $LIBEDATASERVER_MIN_VERSION libedataserverui-3.0 >= $LIBEDATASERVERUI_MIN_VERSION gio-2.0,
++        have_evolution=yes,
++        have_evolution=no)
++if test "x$have_evolution" = "xyes" ; then
++  AC_DEFINE(HAVE_EVOLUTION, [], [Define if we have Evolution])
++fi
++AM_CONDITIONAL(HAVE_EVOLUTION, test x$have_evolution = xyes)
++AC_SUBST(HAVE_EVOLUTION)
+ AC_SUBST(CALENDAR_SERVER_CFLAGS)
+ AC_SUBST(CALENDAR_SERVER_LIBS)
+ 
+--- gnome-shell-3.2.1/src/Makefile-calendar-server.am-orig	2011-10-21 19:43:58.382152560 -0500
++++ gnome-shell-3.2.1/src/Makefile-calendar-server.am	2011-10-21 19:47:29.504588921 -0500
+@@ -13,7 +13,6 @@ gnome_shell_calendar_server_CFLAGS =		\
+ 	-DPREFIX=\""$(prefix)"\"		\
+ 	-DLIBDIR=\""$(libdir)"\"		\
+ 	-DDATADIR=\""$(datadir)"\"		\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"ShellCalendarServer\"	\
+ 	$(CALENDAR_SERVER_CFLAGS)		\
+ 	$(NULL)
+--- gnome-shell-3.2.1/src/shell-polkit-authentication-agent.c-orig	2011-10-21 19:43:24.546064994 -0500
++++ gnome-shell-3.2.1/src/shell-polkit-authentication-agent.c	2011-10-21 19:47:29.502411402 -0500
+@@ -13,7 +13,11 @@
+ #include "shell-marshal.h"
+ 
+ #define POLKIT_AGENT_I_KNOW_API_IS_SUBJECT_TO_CHANGE
++#ifdef HAVE_POLKIT
+ #include <polkitagent/polkitagent.h>
++#else
++#include "gio/gio.h"
++#endif
+ #include "shell-polkit-authentication-agent.h"
+ 
+ #include <glib/gi18n.h>
+@@ -54,14 +58,22 @@ print_debug (const gchar *str, ...)
+ 
+ struct _ShellPolkitAuthenticationAgentClass
+ {
++#if HAVE_POLKIT
+   PolkitAgentListenerClass parent_class;
++#else
++  GObjectClass parent_class;
++#endif
+ };
+ 
+ struct _AuthRequest;
+ typedef struct _AuthRequest AuthRequest;
+ 
+ struct _ShellPolkitAuthenticationAgent {
++#if HAVE_POLKIT
+   PolkitAgentListener parent_instance;
++#else
++  GObject parent_instance;
++#endif
+ 
+   GList *scheduled_requests;
+ 
+@@ -78,8 +90,13 @@ enum
+ 
+ static guint signals[LAST_SIGNAL] = { 0 };
+ 
++#if HAVE_POLKIT
+ G_DEFINE_TYPE (ShellPolkitAuthenticationAgent, shell_polkit_authentication_agent, POLKIT_AGENT_TYPE_LISTENER);
++#else
++G_DEFINE_TYPE (ShellPolkitAuthenticationAgent, shell_polkit_authentication_agent, G_TYPE_OBJECT);
++#endif
+ 
++#if HAVE_POLKIT
+ static void initiate_authentication (PolkitAgentListener  *listener,
+                                      const gchar          *action_id,
+                                      const gchar          *message,
+@@ -94,43 +111,57 @@ static void initiate_authentication (Pol
+ static gboolean initiate_authentication_finish (PolkitAgentListener  *listener,
+                                                 GAsyncResult         *res,
+                                                 GError              **error);
++#endif
+ 
+ static void
+ shell_polkit_authentication_agent_init (ShellPolkitAuthenticationAgent *agent)
+ {
+-  gpointer handle;
++  gpointer handle = NULL;
++#if HAVE_POLKIT
+   PolkitSubject *subject;
++#else
++  gpointer subject = NULL;
++#endif
+   GError *error;
+ 
+   subject = NULL;
+-
+   error = NULL;
++
++#ifdef HAVE_POLKIT
+   subject = polkit_unix_session_new_for_process_sync (getpid (),
+                                                       NULL, /* GCancellable* */
+                                                       &error);
++#endif
++
+   if (subject == NULL)
+     {
++#ifdef HAVE_POLKIT
+       g_warning ("Error getting session for the process we are in: %s (%s %d)",
+                  error->message,
+                  g_quark_to_string (error->domain),
+                  error->code);
+       g_error_free (error);
++#endif
+       goto out;
+     }
+ 
++#ifdef HAVE_POLKIT
+   handle = polkit_agent_listener_register (POLKIT_AGENT_LISTENER (agent),
+                                            POLKIT_AGENT_REGISTER_FLAGS_NONE,
+                                            subject,
+                                            NULL, /* use default object path */
+                                            NULL, /* GCancellable */
+                                            &error);
++#endif
+   if (handle == NULL)
+     {
++#ifdef HAVE_POLKIT
+       g_warning ("Error registering polkit authentication agent: %s (%s %d)",
+                  error->message,
+                  g_quark_to_string (error->domain),
+                  error->code);
+       g_error_free (error);
++#endif
+       goto out;
+     }
+ 
+@@ -157,14 +188,18 @@ static void
+ shell_polkit_authentication_agent_class_init (ShellPolkitAuthenticationAgentClass *klass)
+ {
+   GObjectClass *gobject_class;
++#if HAVE_POLKIT
+   PolkitAgentListenerClass *listener_class;
++#endif
+ 
+   gobject_class = G_OBJECT_CLASS (klass);
+   gobject_class->finalize = shell_polkit_authentication_agent_finalize;
+ 
++#if HAVE_POLKIT
+   listener_class = POLKIT_AGENT_LISTENER_CLASS (klass);
+   listener_class->initiate_authentication = initiate_authentication;
+   listener_class->initiate_authentication_finish = initiate_authentication_finish;
++#endif
+ 
+   signals[INITIATE_SIGNAL] =
+     g_signal_new ("initiate",
+@@ -210,7 +245,9 @@ struct _AuthRequest {
+   gchar          *action_id;
+   gchar          *message;
+   gchar          *icon_name;
++#if HAVE_POLKIT
+   PolkitDetails  *details;
++#endif
+   gchar          *cookie;
+   GList          *identities;
+ 
+@@ -224,7 +261,9 @@ auth_request_free (AuthRequest *request)
+   g_free (request->action_id);
+   g_free (request->message);
+   g_free (request->icon_name);
++#if HAVE_POLKIT
+   g_object_unref (request->details);
++#endif
+   g_list_foreach (request->identities, (GFunc) g_object_unref, NULL);
+   g_list_free (request->identities);
+   g_object_unref (request->simple);
+@@ -234,6 +273,7 @@ auth_request_free (AuthRequest *request)
+ static void
+ auth_request_initiate (AuthRequest *request)
+ {
++#if HAVE_POLKIT
+   gchar **user_names;
+   GPtrArray *p;
+   GList *l;
+@@ -282,6 +322,7 @@ auth_request_initiate (AuthRequest *requ
+                  request->cookie,
+                  user_names);
+   g_strfreev (user_names);
++#endif
+ }
+ 
+ static void auth_request_complete (AuthRequest *request,
+@@ -327,11 +368,13 @@ auth_request_complete (AuthRequest *requ
+ {
+   ShellPolkitAuthenticationAgent *agent = request->agent;
+ 
++#if HAVE_POLKIT
+   if (dismissed)
+     g_simple_async_result_set_error (request->simple,
+                                      POLKIT_ERROR,
+                                      POLKIT_ERROR_CANCELLED,
+                                      _("Authentication dialog was dismissed by the user"));
++#endif
+ 
+   if (agent->current_request == request)
+     {
+@@ -372,6 +415,7 @@ maybe_process_next_request (ShellPolkitA
+     }
+ }
+ 
++#if HAVE_POLKIT
+ static void
+ initiate_authentication (PolkitAgentListener  *listener,
+                          const gchar          *action_id,
+@@ -423,6 +467,7 @@ initiate_authentication_finish (PolkitAg
+   else
+     return TRUE;
+ }
++#endif
+ 
+ void
+ shell_polkit_authentication_agent_complete (ShellPolkitAuthenticationAgent *agent,
+@@ -433,3 +478,4 @@ shell_polkit_authentication_agent_comple
+ 
+   auth_request_complete (agent->current_request, dismissed);
+ }
++
+--- gnome-shell-3.2.1/src/shell-contact-system.c-orig	2011-10-21 19:45:21.479753357 -0500
++++ gnome-shell-3.2.1/src/shell-contact-system.c	2011-10-21 19:47:31.383009285 -0500
+@@ -7,9 +7,13 @@
+ 
+ #include <glib.h>
+ #include <glib/gprintf.h>
++#if HAVE_FOLKS
+ #include <gee.h>
++#endif
+ #include <clutter/clutter.h>
++#if HAVE_FOLKS
+ #include <folks/folks.h>
++#endif
+ 
+ #include "shell-global.h"
+ #include "shell-util.h"
+@@ -30,9 +34,11 @@ prepare_individual_aggregator_cb (GObjec
+                                   GAsyncResult  *res,
+                                   gpointer      user_data)
+ {
++#if HAVE_FOLKS
+   FolksIndividualAggregator *aggregator = FOLKS_INDIVIDUAL_AGGREGATOR (obj);
+ 
+   folks_individual_aggregator_prepare_finish (aggregator, res, NULL);
++#endif
+ }
+ 
+ 
+@@ -44,7 +50,11 @@ typedef struct {
+ } ContactSearchResult;
+ 
+ struct _ShellContactSystemPrivate {
++#if HAVE_FOLKS
+     FolksIndividualAggregator *aggregator;
++#else
++    gpointer aggregator;
++#endif
+ };
+ 
+ static void
+@@ -59,8 +69,11 @@ shell_contact_system_constructed (GObjec
+    * Therefore, we will simply retrieve the "individuals" property which
+    * represents a snapshot of the individuals in the aggregator.
+    */
++
++#if HAVE_FOLKS
+   self->priv->aggregator = folks_individual_aggregator_new ();
+   folks_individual_aggregator_prepare (self->priv->aggregator, prepare_individual_aggregator_cb, NULL);
++#endif
+ }
+ 
+ static void
+@@ -109,6 +122,7 @@ normalize_terms (GSList *terms)
+   return normalized_terms;
+ }
+ 
++#if HAVE_FOLKS
+ static guint
+ do_match (ShellContactSystem  *self,
+           FolksIndividual     *individual,
+@@ -258,6 +272,7 @@ do_match (ShellContactSystem  *self,
+ 
+   return weight;
+ }
++#endif
+ 
+ static gint
+ compare_results (gconstpointer a,
+@@ -321,6 +336,7 @@ shell_contact_system_get_default (void)
+   return instance;
+ }
+ 
++#if HAVE_FOLKS
+ /**
+  * shell_contact_system_get_all:
+  * @self: A #ShellContactSystem
+@@ -465,6 +481,7 @@ shell_contact_system_initial_search (She
+ 
+   return sort_and_prepare_results (results);
+ }
++#endif
+ 
+ /**
+  * shell_contact_system_subsearch:
+@@ -483,5 +500,9 @@ shell_contact_system_subsearch (ShellCon
+                                 GSList              *previous_results,
+                                 GSList              *terms)
+ {
++#if HAVE_FOLKS
+   return shell_contact_system_initial_search (self, terms);
++#else
++  return NULL;
++#endif
+ }
+--- gnome-shell-3.2.1/src/Makefile.am-orig	2011-10-21 19:45:09.301754967 -0500
++++ gnome-shell-3.2.1/src/Makefile.am	2011-10-21 19:47:31.382383534 -0500
+@@ -71,7 +71,9 @@ CLEANFILES += gnome-shell $(bin_SCRIPTS)
+ include Makefile-st.am
+ include Makefile-tray.am
+ include Makefile-gvc.am
++if HAVE_EVOLUTION
+ include Makefile-calendar-server.am
++endif
+ include Makefile-hotplug-sniffer.am
+ 
+ gnome_shell_cflags =				\
+@@ -110,7 +112,6 @@ shell_public_headers_h =		\
+ 	shell-global.h			\
+ 	shell-mobile-providers.h	\
+ 	shell-mount-operation.h		\
+-	shell-network-agent.h		\
+ 	shell-perf-log.h		\
+ 	shell-slicer.h			\
+ 	shell-stack.h			\
+@@ -147,7 +148,6 @@ libgnome_shell_la_SOURCES =		\
+ 	shell-global.c			\
+ 	shell-mobile-providers.c	\
+ 	shell-mount-operation.c		\
+-	shell-network-agent.c		\
+ 	shell-perf-log.c		\
+ 	shell-polkit-authentication-agent.h	\
+ 	shell-polkit-authentication-agent.c	\
+@@ -272,7 +272,7 @@ libgnome_shell_la_LIBADD =		\
+ libgnome_shell_la_CPPFLAGS = $(gnome_shell_cflags)
+ 
+ Shell-0.1.gir: libgnome-shell.la St-1.0.gir
+-Shell_0_1_gir_INCLUDES = Clutter-1.0 ClutterX11-1.0 Meta-3.0 TelepathyGLib-0.12 TelepathyLogger-0.2 Soup-2.4 GMenu-3.0 NetworkManager-1.0 NMClient-1.0 Folks-0.6
++Shell_0_1_gir_INCLUDES = Clutter-1.0 ClutterX11-1.0 Meta-3.0 TelepathyGLib-0.12 TelepathyLogger-0.2 Soup-2.4 GMenu-3.0
+ Shell_0_1_gir_CFLAGS = $(libgnome_shell_la_CPPFLAGS) -I $(srcdir)
+ Shell_0_1_gir_LIBS = libgnome-shell.la
+ Shell_0_1_gir_FILES = $(libgnome_shell_la_gir_sources)
+--- gnome-shell-3.2.1/src/Makefile-st.am-orig	2011-10-21 19:43:46.258629338 -0500
++++ gnome-shell-3.2.1/src/Makefile-st.am	2011-10-21 19:47:29.503318683 -0500
+@@ -2,7 +2,6 @@ st_cflags =					\
+ 	-I$(top_srcdir)/src			\
+ 	-DPREFIX=\""$(prefix)"\"		\
+ 	-DLIBDIR=\""$(libdir)"\"		\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"St\"			\
+ 	-DST_COMPILATION			\
+ 	-DPACKAGE_DATA_DIR=\"$(pkgdatadir)\"	\
+--- gnome-shell-3.2.1/src/shell-contact-system.h-orig	2011-10-21 19:45:38.896214087 -0500
++++ gnome-shell-3.2.1/src/shell-contact-system.h	2011-10-21 19:47:31.384091883 -0500
+@@ -4,7 +4,9 @@
+ 
+ #include <clutter/clutter.h>
+ #include <gio/gio.h>
++#if HAVE_FOLKS
+ #include <folks/folks.h>
++#endif
+ 
+ #define SHELL_TYPE_CONTACT_SYSTEM             (shell_contact_system_get_type ())
+ #define SHELL_CONTACT_SYSTEM(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SHELL_TYPE_CONTACT_SYSTEM, ShellContactSystem))
+@@ -35,6 +37,7 @@ GType shell_contact_system_get_type (voi
+ 
+ ShellContactSystem * shell_contact_system_get_default (void);
+ 
++#if HAVE_FOLKS
+ GeeMap *shell_contact_system_get_all (ShellContactSystem *self);
+ 
+ FolksIndividual *shell_contact_system_get_individual (ShellContactSystem  *self,
+@@ -42,6 +45,7 @@ FolksIndividual *shell_contact_system_ge
+ 
+ char * shell_contact_system_get_email_for_display (ShellContactSystem *self,
+                                                    FolksIndividual    *individual);
++#endif
+ 
+ GSList * shell_contact_system_initial_search (ShellContactSystem  *shell,
+                                               GSList              *terms);
+--- gnome-shell-3.2.1/src/shell-app.c-orig	2011-10-21 19:45:27.732423953 -0500
++++ gnome-shell-3.2.1/src/shell-app.c	2011-10-21 19:47:31.383742666 -0500
+@@ -535,7 +535,7 @@ shell_app_activate_window (ShellApp     
+ void
+ shell_app_activate (ShellApp      *app)
+ {
+-  return shell_app_activate_full (app, -1, 0);
++  shell_app_activate_full (app, -1, 0);
+ }
+ 
+ /**
+--- gnome-shell-3.2.1/src/Makefile-tray.am-orig	2011-10-21 19:43:10.218981756 -0500
++++ gnome-shell-3.2.1/src/Makefile-tray.am	2011-10-21 19:47:29.499778530 -0500
+@@ -1,6 +1,5 @@
+ tray_cflags =					\
+ 	-I$(top_srcdir)/src			\
+-	-DG_DISABLE_DEPRECATED			\
+ 	-DG_LOG_DOMAIN=\"notification_area\"	\
+ 	$(TRAY_CFLAGS)				\
+ 	$(NULL)

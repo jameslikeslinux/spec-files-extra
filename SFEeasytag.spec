@@ -21,17 +21,17 @@ SUNW_BaseDir:	%{_basedir}
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:         	SFE%{src_name}
-Summary:      	Easytag :  EasyTAG - Tag editor for MP3, Ogg Vorbis files and more
+IPS_package_name: audio/easytag
+Summary:      	Tag editor for MP3, Ogg Vorbis files and more
 Version:      	%{src_version}
 Release:      	%{pkg_release}
-License:      	GPL
-Group:          Entertainment
+License:      	GPLv2+
+SUNW_Copyright: easytag.copyright
+Group:          Applications/Sound and Video
 Source:         %{sf_download}/easytag/%{src_name}-%{version}.tar.bz2
 Patch1:        	easytag-01-configure.diff
-Vendor:       	http://easytag.sourceforge.net
 URL:            http://easytag.sourceforge.net
-Packager:     	Shivakumar GN
-BuildRoot:		%{_tmppath}/%{src_name}-%{version}-build
+BuildRoot:      %{_tmppath}/%{src_name}-%{version}-build
 
 #Requires:      
 #BuildRequires: 
@@ -80,7 +80,8 @@ export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
             --datadir=%{_datadir} \
             --libdir=%{_libdir} \
             --bindir=%{_bindir} \
-            --sysconfdir=%{_sysconfdir}
+            --sysconfdir=%{_sysconfdir} \
+            --disable-mp4
 
 make -j$CPUS
 
@@ -128,6 +129,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 28 2011 - Alex Viskovatoff
+- disable mp4, which breaks the build
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Oct 17 2010 - Alex Viskovatoff
 - Do not run autoconf: that breaks the build and is not required for tarballs
 - Patch configure instead of configure.in, just removing references to stdc++

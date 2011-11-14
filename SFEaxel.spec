@@ -12,7 +12,8 @@
 Name:		SFEaxel
 Summary:      	HTTP/FTP download manager 
 Version:       	2.4
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright: axel.copyright
 Url: 		http://axel.alioth.debian.org/
 Source:	 	http://alioth.debian.org/frs/download.php/3015/axel-2.4.tar.gz
 Group:		Applications/Accessories
@@ -60,5 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, root) %{_sysconfdir}/axelrc
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Apr 10 2010 - nbprash.mit@gmail.com
 - Initial setup.

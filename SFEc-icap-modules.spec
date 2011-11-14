@@ -15,7 +15,9 @@
 
 Name:		SFEc-icap-modules
 Summary:	C-ICAP modules
-Version:	0.1.4
+License:	GPLv2
+SUNW_Copyright:	c-icap-modules.copyright
+Version:	0.1.6
 Group:		System/Utilities
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
@@ -76,5 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 0.1.6
 * Tue Mar 29 2011 - Milan Jurik
 - initial spec

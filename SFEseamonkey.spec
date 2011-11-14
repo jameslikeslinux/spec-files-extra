@@ -1,7 +1,7 @@
 #
 # spec file for package SFEseamonkey
 #
-# SFEseamonkey-2.1.en-US.opensolaris-x86_64.tar.bz2
+# SFEseamonkey-2.2.en-US.opensolaris-x86_64.tar.bz2
 #
 # License: MPLv1.1 or GPLv2+ or LGPLv2+
 
@@ -10,7 +10,7 @@
 Name:          SFEseamonkey
 Summary:       Mozilla Seamonkey - All-in-one internet application suite
 Url:           http://www.mozilla.org/projects/seamonkey
-Version:       2.1
+Version:       2.2
 Source:        http://releases.mozilla.org/pub/mozilla.org/seamonkey/releases/%{version}/seamonkey-%{version}.source.tar.bz2
 URL:           http://www.mozilla.org/projects/seamonkey/
 SUNW_BaseDir:  %{_basedir}
@@ -162,6 +162,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Jul 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.2
 * Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.1
 - Added SFEhunspell and additional config options 

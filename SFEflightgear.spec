@@ -3,31 +3,34 @@
 # Gilles Dauphin
 #
 #
-%include Solaris.inc
 
-%define src_name	FlightGear
+%include Solaris.inc
+%define cc_is_gcc 1
+%define _gpp /usr/gnu/bin/g++
+
+%define src_name	flightgear
 %define src_url		ftp://ftp.kingmont.com/flightsims/flightgear/Source
 
 #
 # Mirror:
-# ftp://ftp.de.flightgear.org/pub/fgfs/Source/FlightGear-2.0.0.tar.gz
-# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/FlightGear-2.0.0.tar.gz
+# ftp://ftp.de.flightgear.org/pub/fgfs/Source/flightgear-2.4.0.tar.bz2 
+# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/flightgear-2.4.0.tar.bz2
 #
 # TODO: make package with:
 # http://www.flightgear.org/Docs/getstart/getstart.html
 # http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Docs/getstart.pdf
 #
 # FlightGear Scenery package (Main Mirror)
-# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.0.0.tar.bz2
+# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.4.0.tar.bz2
 r.bz2
 
 Name:                   SFEFlightGear
 Summary:                The multi-platform flight simulator development project
-Version:                2.0.0
-Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
-Source1:		ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-%{version}.tar.bz2
+Version:                2.4.0
+Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
+Source1:		ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-%{version}.tar.bz2 
 Group:			Applications/Games
-Patch1:			FlightGear20-04.diff
+#Patch1:			FlightGear20-04.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -36,7 +39,6 @@ BuildRequires:		SFEopenal-devel
 Requires:		SFEopenal
 BuildRequires:		SFEfreealut-devel
 Requires:		SFEfreealut
-# Take care: needed freeglut-2.6.0-rc1
 BuildRequires:		SFEfreeglut-devel
 Requires:		SFEfreeglut
 Requires:		SFESimGear20
@@ -44,10 +46,9 @@ Requires:		SFEplib-gpp
 Requires:		SFEboost
 Requires:		SFEosg
 
-
 %prep
 %setup -q -c -n  %{name}
-%patch1 -p0
+#%patch1 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -56,8 +57,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 cd %{src_name}-%{version}
-export CC=/usr/gcc/4.6/bin/gcc
-export CXX=/usr/gcc/4.6/bin/g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include"
 export CXXFLAGS="-I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -L/usr/X11/lib -R/usr/X11/lib"
@@ -94,6 +95,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Sep 14 2011 - Thomas Wagner
+- back to SFE default compiler location /usr/gnu/bin/gcc
+  agreed with Ken on IRC
+* Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- Minor tweaks
+* Fri Sep 02 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.0
 * Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
 - Cleanup and Summary fixes 
 * May 2010 - G.D.

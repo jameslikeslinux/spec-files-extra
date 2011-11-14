@@ -1,20 +1,21 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Initial spec for xfce-diskperf-plugin
+# By Ken Mays
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-
-%define xfce_version 4.8.0
+%define cc_is_gcc 1
 
 Name:			SFExfce4-diskperf-plugin
-Summary:		Disk/partition performance applet for Xfce
+Summary:		Disk performance plugin for Xfce
 Version:		2.3.0
-URL:			http://www.xfce.org/
+URL:			http://goodies.xfce.org/projects/panel-plugins/xfce4-diskperf-plugin
 Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-diskperf-plugin/2.3/xfce4-diskperf-plugin-%{version}.tar.bz2
+Patch1:			xfce4-diskperf-plugin-01-solaris.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
-BuildRoot:		%{_tmppath}/%{name}-%{version}-build
+BuildRoot:		%{_tmppath}/xfce4-diskperf-plugin-%{version}-build
 BuildRequires:		SUNWgnome-component-devel
 Requires:		SUNWgnome-component
 BuildRequires:		SUNWgnome-base-libs-devel
@@ -30,7 +31,8 @@ Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
 
 %prep
-%setup -q -n xfce4-weather-plugin-%{version}
+%setup -q -n xfce4-diskperf-plugin-%{version}
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,8 +40,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CC=gcc
+export CFLAGS="%optflags -lkstat"
 export LDFLAGS="%_ldflags"
+
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
             --libexecdir=%{_libexecdir} \
@@ -47,7 +51,6 @@ export LDFLAGS="%_ldflags"
             --mandir=%{_mandir} \
             --sysconfdir=%{_sysconfdir} \
 	    --with-locales-dir=%{_datadir}/locale \
-            --enable-gtk-doc \
             --disable-static
 
 make -j $CPUS
@@ -79,8 +82,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/xfce4
 %defattr(-,root,other)
 %{_datadir}/locale
-%{_datadir}/icons
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Initial version
+* Wed Oct 5 2011 - Ken Mays <kmays2000@gmail.com>
+- Initial version (v2.3.0)

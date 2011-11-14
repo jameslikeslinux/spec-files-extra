@@ -1,25 +1,29 @@
 #
-# Copyright (c) 2008 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
-#
 #
 
 %include Solaris.inc
 
 Name:                SFEmultitail
-License:             GPL
-Summary:             MultiTail follows files in style, it is tail on steroids.
-Version:             5.2.0
+Summary:             MultiTail follows files in style; it is tail on steroids.
+Version:             5.2.8
+IPS_package_name:    text/multitail
+Group:               Applications/System Utilities
 URL:                 http://www.vanheusden.com/multitail/
+Meta(info.upstream): Folkert van Heusden <folkert@vanheusden.com>
+License:             Freely redistributable without restriction
+SUNW_copyright:      multitail.copyright
 Source:              http://www.vanheusden.com/multitail/multitail-%{version}.tgz
-Patch1:              multitail-01-makefiles.diff
+#Already in the source: Patch1:              multitail-01-makefiles.diff
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SFEncurses
-BuildRequires: SFEncurses-devel
+Requires: library/ncurses
+BuildRequires: library/ncurses
+BuildRequires: system/library/math/header-math
+BuildRequires: developer/object-file
 
 %package root
 Summary:                 %{summary} - root
@@ -28,7 +32,7 @@ SUNW_BaseDir:            /
 
 %prep
 %setup -q -n multitail-%version
-%patch1 -p1
+#Already in the source %patch1 -p1
 
 %build
 
@@ -37,6 +41,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+export LD_LIBRARY_PATH="/usr/lib:/lib:/usr/gnu/lib"
 export EXTRA_CFLAGS="%optflags -I%{gnu_inc} -D__C99FEATURES__"
 export EXTRA_LDFLAGS="%_ldflags %{gnu_lib_path}"
 
@@ -78,5 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/*
 
 %changelog
+* Thu Oct 27 2011 - Alex Viskovatoff
+- Add SUNW_copyright and IPS_package_name
+* Thu Oct 27 2011 - predrag.zecevic@2e-systems.com
+- Bump to 5.2.8 and fix for OpenIndiana
 * Mon Jan 28 2008 - moinak.ghosh@sun.com
 - Initial spec.

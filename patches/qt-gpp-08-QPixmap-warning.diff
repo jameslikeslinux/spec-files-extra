@@ -1,0 +1,36 @@
+From 4a93814a1d7d09e78829fd73eba74169c1bd2200 Mon Sep 17 00:00:00 2001
+From: =?utf-8?q?Samuel=20R=C3=B8dal?= <samuel.rodal@nokia.com>
+Date: Tue, 26 Apr 2011 17:20:11 +0200
+Subject: [PATCH] Removed warning from QPixmap::handle().
+
+With the new fromX11Pixmap function there are valid use-cases where
+checking the handle() is useful also with the raster graphicssystem.
+
+Reviewed-by: Thiago Macieira
+(cherry picked from commit 1124f41253edd0e03704db72b0e1b6b4b518bd0f)
+---
+ src/gui/image/qpixmap.cpp |    8 ++------
+ 1 files changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/src/gui/image/qpixmap.cpp b/src/gui/image/qpixmap.cpp
+index 34804e5..c34f6ac 100644
+--- a/src/gui/image/qpixmap.cpp
++++ b/src/gui/image/qpixmap.cpp
+@@ -1224,12 +1224,8 @@ Qt::HANDLE QPixmap::handle() const
+ {
+ #if defined(Q_WS_X11)
+     const QPixmapData *pd = pixmapData();
+-    if (pd) {
+-        if (pd->classId() == QPixmapData::X11Class)
+-            return static_cast<const QX11PixmapData*>(pd)->handle();
+-        else
+-            qWarning("QPixmap::handle(): Pixmap is not an X11 class pixmap");
+-    }
++    if (pd && pd->classId() == QPixmapData::X11Class)
++        return static_cast<const QX11PixmapData*>(pd)->handle();
+ #endif
+     return 0;
+ }
+-- 
+1.6.1
+

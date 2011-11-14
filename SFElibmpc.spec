@@ -24,8 +24,12 @@
 %define SFEmpfr	1
 
 Name:		SFElibmpc
+IPS_Package_Name:	sfe/library/mpc
 Summary:	%{libmpc.summary}
+Group:		Development/Libraries
 URL:		%{libmpc.url}
+License:	LGPLv2
+SUNW_Copyright:	libmpc.copyright
 Version:	%{libmpc.version}
 SUNW_BaseDir:	%{_basedir}/%{_subdir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -130,6 +134,10 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Mar 12 2011 - Thomas Wagner
 - make SFEgmp and SFEmpfr a hard requirement to overide autodetect 
   (always use SFEgmp/SFEmpfr/SFElibmpc for SFEgcc with --autodeps)

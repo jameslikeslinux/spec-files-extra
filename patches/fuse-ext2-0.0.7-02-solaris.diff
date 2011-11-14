@@ -1,0 +1,13 @@
+--- fuse-ext2-0.0.7/fuse-ext2/fuse-ext2.h.orig	2011-11-09 23:00:33.691960917 +0000
++++ fuse-ext2-0.0.7/fuse-ext2/fuse-ext2.h	2011-11-09 23:01:49.820968310 +0000
+@@ -30,8 +30,9 @@
+ #include <assert.h>
+ #include <dirent.h>
+ #include <errno.h>
++#include <unistd.h>
+ 
+-#include <fuse.h>
++#include <fuse/fuse.h>
+ #include <ext2fs/ext2fs.h>
+ 
+ #if !defined(FUSE_VERSION) || (FUSE_VERSION < 26)

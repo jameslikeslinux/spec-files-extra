@@ -4,18 +4,20 @@
 # includes module: djvulibre
 #
 
-%define _basedir /usr/stdcxx
+%define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
+%define _cxx_libdir /usr/g++/lib
 %define srcname djvulibre
 
 Name:		SFEdjvulibre
 Summary:	Open source implementation of DjVu
-URL:		http://djvu.sourceforge
+URL:		http://djvu.sourceforge.net
 Vendor:		The original inventors of DjVu
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	djvulibre.copyright
 Version:	3.5.24
 Source:		%sf_download/project/djvu/DjVuLibre/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -108,6 +110,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jun 12 2011 - Alex Viskovatoff
+- Qt gcc libs are now in their own place
 * Tue Apr 12 2011 - Alex Viskovatoff
 - Bump to 3.5.24
 * Tue Feb  8 2011 - Alex Viskovatoff

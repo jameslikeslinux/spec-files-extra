@@ -13,7 +13,7 @@ Name:           gnucash
 Summary:        GnuCash is an application to keep track of your finances.
 License:        GPL
 Group:          Office
-Version:        2.4.6
+Version:        2.4.7
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -155,6 +155,8 @@ fi
 %{_includedir}/gnucash
 
 %changelog
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.7
 * Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.4.6
 - Revised patches

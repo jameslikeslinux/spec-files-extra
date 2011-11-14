@@ -79,8 +79,8 @@ gmake -j$CPUS
 export CFLAGS
 cd ../%{tarball_name}-%{tarball_version}-64
 
-export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
-export CXXFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xc99=none -xCC"
+export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -Kpic -xregs=no%frameptr -xc99=none -xCC"
+export CXXFLAGS="-m64 -i -xO4 -xspace -xstrconst -Kpic -xregs=no%frameptr -xc99=none -xCC"
 export LDFLAGS="%_ldflags"
 ./configure \
  --prefix=%{_prefix}\
@@ -133,6 +133,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/include/*
 
 %changelog
+* Sun Jul 31 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- omit -fast option.
 * Sun Jun  5 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - Fix dependency using pnm.
 * Sat Mar 26 JST 2011 TAKI, Yasushi <taki@justplayer.com>

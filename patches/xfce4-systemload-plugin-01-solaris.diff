@@ -1,0 +1,173 @@
+--- xfce4-systemload-plugin-1.0.0/panel-plugin/cpu.c.orig	2010-12-09 16:04:10.000000000 +0000
++++ xfce4-systemload-plugin-1.0.0/panel-plugin/cpu.c	2011-10-08 17:01:57.195888231 +0100
+@@ -252,6 +252,62 @@ gulong read_cpuload()
+ 
+     return cpu_used;
+ }
++#elif defined(__sun__)
++
++#include <kstat.h>
++kstat_ctl_t *kc;
++gulong cpu_used;
++gulong oldtotal = 0;
++gulong oldused = 0;
++
++void init_stats()
++{
++       kc = kstat_open();
++}
++
++gulong read_cpuload()
++{
++    gulong used, total;
++    kstat_t *ksp;
++    kstat_named_t *knp;
++
++    if (!kc)
++    {
++       init_stats();
++    }
++    kstat_chain_update(kc);
++    used = 0;
++    total = 0;
++    for (ksp = kc->kc_chain; ksp != NULL; ksp = ksp->ks_next)
++    {
++        if (!strcmp(ksp->ks_module, "cpu") && !strcmp(ksp->ks_name, "sys"))
++       {
++           kstat_read(kc, ksp, NULL);
++           knp = kstat_data_lookup(ksp, "cpu_ticks_user");
++           used += knp->value.ui64;
++           total += knp->value.ui64;
++           knp = kstat_data_lookup(ksp, "cpu_ticks_kernel");
++           used += knp->value.ui64;
++           total += knp->value.ui64;
++           knp = kstat_data_lookup(ksp, "cpu_ticks_idle");
++           total += knp->value.ui64;
++       }
++    }
++
++    printf("CPU: %d %d %d %d\n", used, oldused, total, oldtotal);
++
++    if ((total - oldtotal) != 0)
++    {
++        cpu_used = (100 * (double)(used - oldused)) / (double)(total - oldtotal);
++    }
++    else
++    {
++        cpu_used = 0;
++    }
++    oldused = used;
++    oldtotal = total;
++    return cpu_used;
++}  
+ 
+ #else
+ #error "Your platform is not yet supported"
+--- xfce4-systemload-plugin-1.0.0/panel-plugin/memswap.c.orig	2010-12-09 16:04:10.000000000 +0000
++++ xfce4-systemload-plugin-1.0.0/panel-plugin/memswap.c	2011-10-08 16:50:14.004764333 +0100
+@@ -467,7 +467,68 @@ gint read_memswap(gulong *mem, gulong *s
+     return 0;
+ }
+ 
++#elif defined (__sun__)
++
++#include <sys/stat.h>
++#include <sys/swap.h>
++#include <kstat.h>
++kstat_ctl_t *kc;
++
++static size_t MTotal = 0;
++static size_t MFree = 0;
++static size_t MUsed = 0;
++static size_t STotal = 0;
++static size_t SFree = 0;
++static size_t SUsed = 0;
++
++void mem_init_stats()
++{
++	kc = kstat_open();
++}
++
++gint read_memswap(gulong *mem, gulong *swap, gulong *MT, gulong *MU, gulong *ST, gulong *SU)
++{
++    long pagesize;
++    struct anoninfo swapinfo;
++    kstat_t *ksp;
++    kstat_named_t *knp;
++
++    pagesize = (long)(sysconf(_SC_PAGESIZE));
++
++    /* FIXME use real numbers, not fake data */
++    if (!kc)
++    {
++        mem_init_stats();
++    }
++
++    if (ksp = kstat_lookup(kc, "unix", 0, "system_pages"))
++    {
++        kstat_read(kc, ksp, NULL);
++	knp = kstat_data_lookup(ksp, "physmem");
++	MTotal = (pagesize * knp->value.ui64) >> 10;
++	knp = kstat_data_lookup(ksp, "freemem");
++	MUsed = MTotal - ((pagesize * knp->value.ui64) >> 10);
++    }
++    if (swapctl(SC_AINFO, &swapinfo) == 0) {
++        STotal = (swapinfo.ani_max * pagesize) >> 10;
++	SUsed = ((swapinfo.ani_max - swapinfo.ani_free) * pagesize) >> 10;
++	*swap = SUsed * 100 / STotal;
++    } else {
++        STotal = 0;
++	SUsed = 0;
++	*swap = 0;
++    }
++
++    *mem = MUsed * 100 / MTotal;
++
++    *MT = MTotal;
++    *MU = MUsed;
++    *ST = STotal;
++    *SU = SUsed;
++
++    return 0;
++}
++
+ #else
+-#error "Your platform is not yet support"
++#error "Your platform is not yet supported"
+ #endif
+-
+--- xfce4-systemload-plugin-1.0.0/panel-plugin/uptime.c.orig	2010-12-09 16:04:10.000000000 +0000
++++ xfce4-systemload-plugin-1.0.0/panel-plugin/uptime.c	2011-10-08 16:50:14.008626112 +0100
+@@ -110,4 +110,32 @@ gulong read_uptime()
+    return uptime;
+ }
+ 
++#elif defined(__sun__)
++
++#include <kstat.h>
++
++gulong read_uptime()
++{
++   kstat_ctl_t *kc;
++   kstat_t *ks;
++   kstat_named_t *boottime;
++   time_t now;
++   gulong uptime;
++
++   if (((kc = kstat_open()) != 0) && ((ks = kstat_lookup(kc, "unix", 0, "system_misc")) != NULL) && (kstat_read(kc, ks, NULL) != -1) && ((boottime = kstat_data_lookup(ks, "boot_time")) != NULL)) {
++      time(&now);
++      uptime = now - boottime->value.ul;
++      kstat_close(kc);
++   }
++   else
++   {
++       g_warning("Cannot get boot_time");
++       uptime = 0;
++   }
++
++   return uptime;
++}
++
++#else
++#error "Your platform is not yet supported"
+ #endif

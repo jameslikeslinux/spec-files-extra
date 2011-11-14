@@ -12,10 +12,12 @@
 
 Name:		SFExfce4-panel
 Summary:	Xfce Panel
-Version:	4.8.3
+Version:	4.8.6
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
+License:	GPLv2+
+SUNW_Copyright: xfce4-panel.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -28,7 +30,7 @@ BuildRequires:	SFElibxfcegui4-devel
 Requires:	SFElibxfcegui4
 BuildRequires:	SFElibxfce4ui-devel
 Requires:	SFElibxfce4ui
-BuildRequires:	SUNWperl-xml-parser
+BuildRequires:	library/perl-5/xml-parser
 Requires:	SFEgarcon
 BuildRequires:	SFEgarcon-devel
 Requires:	SFElibexo
@@ -145,6 +147,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Sep 22 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.6
+* Sat Aug 27 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.5
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.4
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Wed Apr 9 2011 - kmays2000@gmail.com

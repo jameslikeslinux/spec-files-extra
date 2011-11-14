@@ -17,8 +17,6 @@
 %define module_package_name libwww-perl
 #still unused: %define module_name_minor Pcalc
 
-%define perl_version 5.8.4
-
 %include Solaris.inc
 %include packagenamemacros.inc
 
@@ -28,8 +26,8 @@ Version:                 %{perl_version}.%{module_version}
 Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWperl584core
-BuildRequires:           SUNWperl584core
+Requires:                %{pnm_requires_perl_default}
+BuildRequires:           %{pnm_buildrequires_perl_default}
 BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 Requires:                SFEperl-compress-zlib
 Requires:                SFEperl-html-parser

@@ -8,6 +8,7 @@
 %define src_name lensfun
 
 Name:		SFElensfun
+IPS_Package_Name:	image/library/lensfun
 Version:	0.2.5
 Summary:	A library to rectify the defects introduced by your photographic equipment
 License:	LGPLv3
@@ -18,7 +19,7 @@ Patch1:		lensfun-01-sunstudio.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
-BuildRequires: SFEdoxygen
+BuildRequires: SUNWdoxygen
 Requires: SUNWglib2
 BuildRequires: SUNWglib2
 Requires: SUNWpng

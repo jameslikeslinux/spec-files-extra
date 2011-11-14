@@ -7,15 +7,15 @@
 %include Solaris.inc
 
 %define src_name Thunar
-#%define src_url http://archive.xfce.org/xfce/4.8/src/
-%define src_url http://archive.xfce.org/src/xfce/thunar/1.3/
+%define src_url http://archive.xfce.org/src/xfce/thunar/1.2/
 
 Name:		SFEthunar
 Summary:	Thunar File Manager
-Version:	1.3.0
+Version:	1.2.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-
+License:	GPLv2
+SUNW_Copyright:	thunar.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -171,9 +171,13 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sat Oct 8 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 1.2.3
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
-* Sat Apr 9 2011 - kmays2000@gmail.com
+* Sat Apr 9 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 1.3.0
 * Thu Mar 24 2011 - Milan Jurik
 - bump to 1.2.0, move to SFE from osol xfce

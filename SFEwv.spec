@@ -19,6 +19,8 @@ Source:              %{sf_download}/wvware/wv-%{version}.tar.gz
 Patch1:              wv-01-solaris-iconv.diff
 # owner:halton date:2007-09-18 bugid:11196 type:bug
 Patch2:              wv-02-w3m-dump.diff
+License:	     GPLv3
+SUNW_Copyright:	     wv.copyright
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -94,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Tue May 04 2010 - Milan Jurik
 - added missing build dependency
 * Mon Apr 14 2008 - nonsea@users.sourceforge.net

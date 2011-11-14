@@ -6,10 +6,13 @@
 %include Solaris.inc
 
 %define	src_name clamav
+%define _pkg_docdir %_docdir/%src_name
 
 Name:                SFEclamav
-Summary:             Unix Anti-virus scanner
-Version:             0.97
+Summary:             Unix anti-virus scanner
+License:             GPLv2
+SUNW_Copyright:      clamav.copyright
+Version:             0.97.2
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
 Group:               System/Utilities
@@ -31,6 +34,12 @@ Requires: %name
 Summary:                 %{summary} - / filesystem
 SUNW_BaseDir:            /
 %include default-depend.inc
+
+%package doc
+Summary:                 %{summary} - Documentation
+SUNW_BaseDir:            %{_prefix}
+%include default-depend.inc
+Requires: %name
 
 %prep
 %setup -q -n %{src_name}-%version
@@ -95,7 +104,7 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %{_mandir}
 
 %files devel
-%defattr (-, root, bin)
+%defattr (-, root, bin) 
 %{_includedir}
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
@@ -107,8 +116,21 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %dir %attr (0775, clamav, clamav) %{_localstatedir}/clamav
 %{_localstatedir}/clamav/*.cvd
 
+%files doc
+%defattr (-, root, bin)
+%doc FAQ README ChangeLog COPYING COPYING.LGPL COPYING.bzip2 COPYING.file COPYING.getopt COPYING.llvm COPYING.lzma COPYING.regex COPYING.sha256 COPYING.unrar COPYING.zlib
+%doc -d docs clamav-mirror-howto.pdf clamdoc.pdf phishsigs_howto.pdf signatures.pdf
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Tue Aug 23 2011 - Milan Jurik
+- bump to 0.97.2
+- move docs to doc package and fix docdir group
+* Thu Jul 28 2011 - Alex Viskovatoff
+- add SUNW_Copyright and package some files in /usr/share/doc/clamav
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 0.97.1
 * Sun Feb 13 2011 - Milan Jurik
 - bump to 0.97
 * Tue Nov 30 2010 - Milan Jurik

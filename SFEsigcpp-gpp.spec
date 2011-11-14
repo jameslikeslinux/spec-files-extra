@@ -12,18 +12,23 @@
 
 %define cc_is_gcc 1
 %include base.inc
+%define _prefix %_basedir/g++
 
 %use sigcpp = sigcpp.spec
 
 Name:                    SFEsigcpp-gpp
-Summary:                 Libsigc++ - a library that implements typesafe callback system for standard C++ (g++-built)
+Summary:                 Library that implements typesafe callback system for standard C++ (g++-built)
+Group:                   Development/C++
+URL:                     http://libsigc.sourceforge.net/
+License:                 LGPLv2
+SUNW_Copyright:          sigcpp.copyright
 Version:                 %{sigcpp.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires: SUNWlibC
-Requires: SUNWgccruntime
+BuildRequires: SFEgccruntime
+Requires: SFEgccruntime
 
 %package devel
 Summary:                 %{summary} - development files
@@ -38,38 +43,41 @@ mkdir %name-%version
 cd %{_builddir}/%name-%version
 
 %build
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
-export CXXFLAGS="%{gcc_cxx_optflags}"
+export CC=gcc
+export CXX=g++
+export CXXFLAGS="%cxx_optflags"
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 %sigcpp.build -d %name-%version
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %sigcpp.install -d %name-%version
-rm $RPM_BUILD_ROOT%{_cxx_libdir}/lib*a
-# comes with SUNWsigcpp-devel
-rm -r $RPM_BUILD_ROOT%{_datadir}
-# comes with SUNWsigcpp-devel
-rm -r $RPM_BUILD_ROOT%{_includedir}
+rm $RPM_BUILD_ROOT%{_libdir}/lib*a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%dir %attr (0755, root, other) %{_cxx_libdir}/pkgconfig
-%{_cxx_libdir}/pkgconfig/*
-%{_cxx_libdir}/sigc++*
+%_includedir
+%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
+%{_libdir}/sigc++*
+%dir %attr (-, root, sys) %_datadir
+%dir %attr (-, root, other) %_datadir/doc
+%_datadir/doc/%{sigcpp.name}-%{sigcpp.major_minor}
+%_datadir/devhelp
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- use new g++ path layout; add SUNW_Copyright
 * Thu Jun 26 2008 - river@wikimedia.org
 - need to use SFW gcc, not SFE because flags depend on Sun ld
 * Wed Apr 23 2008 - laca@sun.com

@@ -1,0 +1,11 @@
+--- thunar-vfs-1.2.0/thunar-vfs/thunar-vfs-io-local.c.old	2011-10-09 01:10:22.024674206 +0100
++++ thunar-vfs-1.2.0/thunar-vfs/thunar-vfs-io-local.c	2011-10-09 01:11:24.996657675 +0100
+@@ -219,7 +219,7 @@ _thunar_vfs_io_local_get_free_space (con
+ 
+   /* return the free space */
+   if (G_LIKELY (succeed && free_space_return != NULL))
+-    *free_space_return = ((ThunarVfsFileSize) statfsb.f_bavail * (ThunarVfsFileSize) statfsb.f_bsize);
++    *free_space_return = ((ThunarVfsFileSize) statfsb.f_bavail * (ThunarVfsFileSize) statfsb.f_frsize);
+ 
+   return succeed;
+ }

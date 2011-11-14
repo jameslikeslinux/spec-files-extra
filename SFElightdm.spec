@@ -8,22 +8,35 @@
 
 %include Solaris.inc
 Name:                    SFElightdm
-License:                 GPL v3
-Version:                 0.3.4
+License:                 GPLv3
+SUNW_Copyright:	         lightdm.copyright
+Version:                 0.9.5
 Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
-Patch1:                  lightdm-01-branding.diff
-Patch2:                  lightdm-02-vala.diff
-Patch3:                  lightdm-03-compile.diff
-# This patch gets the code to compile, but does not implement VT support.
-Patch4:                  lightdm-04-vt.diff
+Patch1:                  lightdm-01-compile.diff
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
-Summary:                 Light Display manager
-URL:                     https://launchpad.net/~robert-ancell/+archive/lightdm
+Summary:                 Light Display Manager
+URL:                     https://launchpad.net/~lightdm-team/+archive/ppa
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:            %{_basedir}
+
+%description
+
+LightDM is a cross-desktop display manager that aims to be the standard display
+manager for the X.org X server. The motivation for this project is there have
+been many new display managers written since XDM (often based on the XDM
+source). The main difference between these projects is in the GUIs (e.g.
+different toolkits) and performance - this could be better accomplished with a
+common display manager that allows these differences.
+
+Key features are:
+
+A well-defined greeter API allowing multiple GUIs
+Support for all display manager use cases, with plugins where appropriate
+Low code complexity
+Fast performance 
 
 %include default-depend.inc
 Requires:                SUNWglib2
@@ -31,12 +44,12 @@ Requires:                SUNWgtk2
 Requires:                SUNWconsolekit
 Requires:                SUNWdbus-glib
 Requires:                SUNWlibxklavier
-#Requires:                SFEwebkitgtk
+Requires:                SUNWgobject-introspection
 BuildRequires:           SUNWglib2-devel
 BuildRequires:           SUNWgtk2-devel
 BuildRequires:           SUNWdbus-glib-devel
 BuildRequires:           SUNWlibxklavier-devel
-#BuildRequires:           SFEwebkitgtk-devel
+BuildRequires:           SUNWgobject-introspection
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -51,9 +64,6 @@ SUNW_BaseDir:            %{_basedir}
 %prep
 %setup -q -n lightdm-%version
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 libtoolize --force
@@ -94,19 +104,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
-%attr (0755, root, bin)%{_bindir}/*
+%{_bindir}/*
+%dir %attr (0755, root, bin) %{_sbindir}
+%attr (0755, root, bin)%{_sbindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, bin) %{_libdir}/lib*.so*
 %dir %attr (0755, root, bin) %{_libdir}/girepository-1.0
+%dir %attr (0755, root, bin) %{_libdir}/lightdm/*
+%dir %attr (0755, root, bin) %{_libdir}/lightdm-set-defaults
 %{_libdir}/girepository-1.0/*
-%{_libexecdir}/lightdm-example-gtk-greeter
-%{_libexecdir}/lightdm-example-python-gtk-greeter
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gir-1.0/*
 %{_datadir}/gtk-doc/*
-%{_datadir}/lightdm/*
+%{_datadir}/lightdm-gtk-greeter
 %{_datadir}/vala
-%{_datadir}/lightdm-example-gtk-greeter
+%{_datadir}/xgreeters
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/lightdm.1
@@ -118,7 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_sysconfdir}/dbus-1/system.d
 %{_sysconfdir}/dbus-1/system.d/*
 %{_sysconfdir}/init/lightdm.conf
-%{_sysconfdir}/lightdm.conf
+%{_sysconfdir}/lightdm
 # SVC method file
 %dir %attr (0755, root, bin) /lib
 %dir %attr (0755, root, bin) /lib/svc
@@ -138,6 +150,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Sep 07 2011 - brian.cameron@oracle.com
+- Bump to 0.9.5.
+* Wed Aug 24 2011 - brian.cameron@oracle.com
+- Bump to 0.9.4.
+* Wed Jul 27 2011 - brian.cameron@oracle.com
+- Bump to 0.9.2.
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Tue Jul 19 2011 - Brian Cameron  <brian.cameron@oracle.com>
+- Bump to 0.4.4.
 * Fri May 20 2011 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 0.3.4.  Rework patches.
 * Sat Oct 09 2010 - Simon Jin      <yun-tong.jin@oracle.com>

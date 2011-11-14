@@ -7,10 +7,11 @@ Name:                    SFEvpnc
 Summary:                 vpnc - client for Cisco VPN concentrator
 URL:                     http://www.unix-ag.uni-kl.de/~massar/vpnc/
 Version:                 0.5.3
+License:		 GPL
 Source:                  http://www.unix-ag.uni-kl.de/~massar/vpnc/vpnc-%{version}.tar.gz
 Patch1:                  vpnc-01-nogcc.diff
 Patch2:                  vpnc-02-solaris.diff
-
+SUNW_Copyright:		 vpnc.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -79,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/vpnc
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Thu Dec 02 2010 - Milan Jurik
 - fix build on the latest Solaris builds
 - no man8 on Solaris

@@ -1,0 +1,16 @@
+Author: Pavel Heimlich a.k.a. hajma
+The purpose of this patch is to avoid the error undefined symbol
+qt_dbus_metaobject_skip_annotations first referenced in file
+.obj/release-shared/qdbus.o
+This variable also appears in src/dbus/qdbusmetaobject.cpp, so.
+--- tools/qdbus/qdbus/qdbus.cpp.orig    Sat Oct 22 10:18:26 2011
++++ tools/qdbus/qdbus/qdbus.cpp Sat Oct 22 10:18:33 2011
+@@ -443,7 +443,7 @@
+ 
+ int main(int argc, char **argv)
+ {
+-    QT_PREPEND_NAMESPACE(qt_dbus_metaobject_skip_annotations) = true;
++//    QT_PREPEND_NAMESPACE(qt_dbus_metaobject_skip_annotations) = true;
+     QCoreApplication app(argc, argv);
+     QStringList args = app.arguments();
+     args.takeFirst();

@@ -9,9 +9,12 @@
 %define src_url		http://www.cabextract.org.uk
 
 Name:                   SFEcabextract
+IPS_Package_Name:	archiver/cabextract
 Summary:                CAB file extractor
 Version:                1.4
-Group:			System/Utilities
+License:                GPLv3+
+SUNW_Copyright:         cabextract.copyright
+Group:			Applications/System Utilities
 URL:			http://www.cabextract.org.uk
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
 License:		GPLv3
@@ -55,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Fri Jun 17 2011 - N.B.Prashanth
 - Bump to 1.4.
 * Sun Aug 08 2010 - Milan Jurik

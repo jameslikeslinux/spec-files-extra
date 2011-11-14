@@ -7,13 +7,14 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		SFEunbound
-Version:	1.4.11
+Version:	1.4.13
 License:	BSD
 URL:		http://www.nlnetlabs.nl/unbound/
 Source:		http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.xml
 Group: System Environment/Daemons
 BuildRoot:	%{_tmppath}/unbound-%{version}-build
+SUNW_Copyright:	unbound.copyright
 SUNW_BaseDir:	/
 BuildRequires: SUNWflexlex
 BuildRequires: SUNWopenssl-include
@@ -39,6 +40,12 @@ The source code is under a BSD License.
 %prep
 %setup -q -n unbound-%{version}
 
+%build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
 LDFLAGS="-lsocket -lnsl" \
 ./configure \
 	--prefix=%{_prefix} \
@@ -52,13 +59,7 @@ LDFLAGS="-lsocket -lnsl" \
 	--with-conf-file=%{_sysconfdir}/unbound/unbound.conf \
 	--with-pidfile=%{_localstatedir}/run/unbound.pid
 
-%build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
-
-make -j$CPU
+make -j$CPUS
 
 %install
 rm -rf %{buildroot}
@@ -129,6 +130,12 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Fri Sep 16 2011 - Milan Jurik
+- bump to 1.4.13
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
+* Thu Jul 14 2011 - Milan Jurik
+- bump to 1.4.12
 * Thu Jun 30 2011 - Milan Jurik
 - bump to 1.4.11
 * Wed May 25 2011 - Milan Jurik

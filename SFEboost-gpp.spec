@@ -6,7 +6,6 @@
 %define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 # Build multithreaded libs: no need for non-multithreaded libs
 %define boost_with_mt 1
@@ -14,13 +13,17 @@
 %use boost = boost.spec
 
 Name:                SFEboost-gpp
-Summary:             Boost - free peer-reviewed portable C++ source libraries (g++-built)
+Summary:             Free peer-reviewed portable C++ libraries (g++-built)
+License:             Boost License Version
+SUNW_Copyright:      boost.copyright
 Version:             %{boost.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWPython
+BuildRequires:	SFEicu-gpp-devel
+Requires:	SFEicu-gpp
 
 %package -n %name-devel
 Summary:        %{summary} - development files
@@ -53,6 +56,17 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}
 mkdir -p $RPM_BUILD_ROOT%{_includedir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}
 mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
+
+# It's not worth figuring out how to get the Boost build system
+# to set the runpath correctly
+%define rpath 'dyn:runpath /usr/g++/lib:/usr/gnu/lib'
+pushd stage/lib
+elfedit -e %rpath libboost_regex.so.%version
+elfedit -e %rpath libboost_graph.so.%version
+elfedit -e %rpath libboost_filesystem.so.%version
+elfedit -e %rpath libboost_wave.so.%version
+elfedit -e %rpath libboost_wserialization.so.%version
+popd
 
 for i in stage/lib/*.so; do
   NAME=`basename $i`
@@ -95,6 +109,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sun Jun 31 2011 - Alex Viskovatoff
+- set correct runpath for some more shared libraries
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add License and SUNW_Copyright tags
+* Thu Jun 23 2011 - Alex Viskovatoff
+- set correct runpath for libboost_regex, so it finds ICU libraries
 * Sun Apr  3 2011 - Alex Viskovatoff
 - use new g++ libs pathname; build multithreaded libs
 * Fri Jan 11 2011 - Milan Jurik

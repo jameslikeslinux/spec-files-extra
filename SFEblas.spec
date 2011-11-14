@@ -17,6 +17,8 @@
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:		SFEblas
+License:        Public Domain
+SUNW_Copyright: blas.copyright
 Summary:	%{blas.summary}
 Version:	%{blas.version}
 Group:		%{blas.group}
@@ -71,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue May 25 2010 - Milan Jurik
 - disable multiarch support, not stable with Sun studio Fortran and unsupported with gfortran yet
 * Mon May 24 2010 - Milan Jurik

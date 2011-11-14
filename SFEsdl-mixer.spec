@@ -21,10 +21,12 @@
 %define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
 
 Name:			%{sdl.name}
+IPS_Package_Name:	library/audio/sdl-mixer
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 URL:			%{sdl.url}
 License:		%{sdl.license}
+SUNW_Copyright:		sdl-mixer.copyright
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -46,6 +48,13 @@ BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac-devel
 Requires: SUNWflac
+
+%description
+SDL_mixer is a sample multi-channel audio mixer library.
+
+It supports any number of simultaneously playing channels of 16 bit stereo
+audio, plus a single channel of music, mixed by the popular MikMod MOD,
+Timidity MIDI, Ogg Vorbis, and SMPEG MP3 libraries.
 
 %package devel
 Summary:                 %{summary} - development files
@@ -129,6 +138,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Feb 03 2011 - Milan Jurik
 - SFE vs. SUNW libmikmod detection
 * Sun May 16 2010 - Milan Jurik

@@ -12,7 +12,7 @@
 
 Name:		SFExfce-utils
 Summary:	Utilities for the XFce Desktop Environment
-Version:	4.8.1
+Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -125,6 +125,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 4.8.3
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.2
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Sat Apr 9 2011 - kmays2000@gmail.com

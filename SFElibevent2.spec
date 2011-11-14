@@ -4,11 +4,14 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include usr-gnu.inc
 %define _pkg_docdir %_docdir/libevent
 
 Name:                SFElibevent2
 Summary:             An event notification library for event-driven network servers.
-Version:             2.0.10
+License:             BSD
+SUNW_Copyright:	     libevent.copyright
+Version:             2.0.12
 Source:              %sf_download/levent/libevent/libevent-2.0/libevent-%version-stable.tar.gz
 URL:                 http://monkey.org/~provos/libevent/
 License:             BSD
@@ -31,6 +34,7 @@ export LDFLAGS="%_ldflags"
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}  \
+            --docdir=%_docdir    \
             --disable-static
 
 make -j$CPUS
@@ -40,12 +44,14 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm ${RPM_BUILD_ROOT}%{_libdir}/libevent*.la
+mkdir -p %buildroot%_docdir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%dir %attr (0755, root, other) %dir %_docdir
 %doc README ChangeLog
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/event_rpcgen.py
@@ -58,6 +64,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 
 %changelog
+* Thu Aug 18 2011 - Alex Viskovatoff
+- install in /usr/gnu so as not to conflict with system libevent; bump to 2.0.12
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Tue May 31 2011 - Alex Viskovatoff
+- bump to 2.0.11
 * Fri Mar 18 2011 - Alex Viskovatoff
 - fork new spec off SFElibevent.spec
 * Mon Mar 14 2011 - Alex Viskovatoff

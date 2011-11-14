@@ -2,13 +2,18 @@
 # spec file for package SFEtransmission
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
+%include usr-gnu.inc
 %define source_name transmission
 
 Name:                    SFEtransmission
-Summary:                 Transmission - GTK and console BitTorrent client
+Summary:                 GTK and console BitTorrent client
 Version:                 2.22
 Source:                  http://download.m0k.org/transmission/files/transmission-%{version}.tar.bz2
+License:		 MIT
 URL:                     http://transmission.m0k.org/
+SUNW_Copyright:		 transmission.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{source_name}-%{version}-build
 %include default-depend.inc
@@ -23,12 +28,8 @@ Requires: SUNWdbus-glib
 Requires: SUNWopenssl-libraries
 Requires: SUNWcurl
 Requires: SFElibevent2
-%if %option_with_gnu_iconv
-Requires: SUNWgnu-libiconv
+Requires: SFElibiconv
 Requires: SUNWgnu-gettext
-%else
-Requires: SUNWuiu8
-%endif
 
 
 %if %build_l10n
@@ -43,16 +44,19 @@ Requires:        %{name}
 %setup -q -n %{source_name}-%{version}
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export CFLAGS="%optflags -mt -D__inline=inline -xc99"
-%if %option_with_gnu_iconv
-export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
-export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
-%endif
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
+#export CFLAGS="%optflags -mt -D__inline=inline -xc99"
+export CFLAGS="%optflags"
+export CXXFLAGS="%cxx_optflags"
+#export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
+#export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
+export CFLAGS="$CFLAGS -I/usr/gnu/include"
+export CXXFLAGS="$CXXFLAGS -I/usr/gnu/include"
+export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -liconv"
+export PKG_CONFIG_PATH=/usr/gnu/lib/pkgconfig
 
 ./configure --prefix=%{_prefix}   \
             --datadir=%{_datadir} \
@@ -106,6 +110,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48/apps
 %{_datadir}/icons/hicolor/48x48/apps/transmission.png
+# 256x256 icons were added at Transmission 2.31, but we stay with 2.22
+# %dir %attr (-, root, other) %{_datadir}/icons/hicolor/256x256
+# %dir %attr (-, root, other) %{_datadir}/icons/hicolor/256x256/apps
+# %{_datadir}/icons/hicolor/256x256/apps/transmission.png
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable/apps
 %{_datadir}/icons/hicolor/scalable/apps/transmission.svg
@@ -114,10 +122,20 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_datadir}
-%attr (-, root, other) %{_datadir}/locale
+# Do not set the group attribute correctly, so as not to conflict with system packages (e.g., gnu-binutils)
+#%attr (-, root, other) %{_datadir}/locale
+%{_datadir}/locale
 %endif
 
 %changelog
+* Sun Aug  7 2011 - Alex Viskovatoff
+- install in /usr/gnu, to avoid conflict with system package
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
+* Tue Jun 14 2011 - Alex Viskovatoff
+- go back to 2.22, since 2.31 has issues with seeding
+* Wed Jun  1 2011 - Alex Viskovatoff
+- bump to 2.31; use gcc because build fails with Sun Studio
 * Fri Mar 18 2011 - Alex Viskovatoff
 - Reintroduce and update to 2.22
 * Fri May 22 2009 - elaine.xiong@sun.com

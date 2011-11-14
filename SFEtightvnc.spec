@@ -6,23 +6,25 @@
 # Owner: laca
 #
 %include Solaris.inc
+%include usr-gnu.inc
+%include packagenamemacros.inc
 
 Name:                    SFEtightvnc
-Summary:                 tightvnc - remote control software
-Version:                 1.3.9
+Summary:                 VNC (Virtual Network Computing) client
+Version:                 1.3.10
+URL:                     http://www.tightvnc.com/
 Source:                  %{sf_download}/vnc-tight/tightvnc-%{version}_unixsrc.tar.bz2
+License:		 GPLv2
+SUNW_Copyright:		 tightvnc.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWjpg
 Requires: SUNWlibmsr
-Requires: SUNWperl584core
+Requires: %pnm_requires_perl_default
 Requires: SUNWxwplt
 Requires: SUNWzlib
 BuildRequires: SUNWxwopt
-Conflicts: SFErealvnc
-Conflicts: SUNWxvnc
-Conflicts: SUNWvncviewer
 
 %prep
 %setup -q -n vnc_unixsrc
@@ -73,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Sep  1 2011 - Alex Viskovatoff
+- bump to 1.3.10; install in /usr/gnu to avoid conflict with tigervnc
 * Sun Feb 22 2009 - Thomas Wagner
 - add Conflicts: SUNWxvnc, Conflicts: SUNWvncviewer
 * Fri Jun 22 2007 - laca@sun.com

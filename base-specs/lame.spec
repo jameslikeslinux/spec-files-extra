@@ -25,26 +25,19 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-%if %use_gcc4
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
-%else
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
-%endif
-
 export CFLAGS="%optflags -I%gnu_inc"
 export MSGFMT="/usr/bin/msgfmt"
 export LD_OPTIONS="%gnu_lib_path"
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --bindir=%{_bindir}              \
-            --libdir=%{_libdir}              \
-            --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir}      \
-            --with-fileio=sndfile            \
-            --enable-shared		     \
+            --bindir=%{_bindir}		\
+            --libdir=%{_libdir}		\
+            --libexecdir=%{_libexecdir}	\
+            --sysconfdir=%{_sysconfdir}	\
+            --with-fileio=sndfile	\
+            --enable-shared		\
 	    --disable-static
+
 make -j$CPUS
 
 %install
@@ -55,6 +48,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- remove GCC dependency
 * Wed Mar 24 2010 - Milan Jurik
 - update for 3.98.4
 * Tue Oct 06 2009 - Milan Jurik
