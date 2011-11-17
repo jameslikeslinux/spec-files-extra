@@ -1,6 +1,7 @@
 2011-11-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibevent2.spec: multiarch support, bump to 2.0.15
+	* experimental/SFEtor.spec: initial spec
 
 2011-11-14 Milan Jurik <sfnet@xylab.cz>
 
