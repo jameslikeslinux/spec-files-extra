@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Name:		SFEgajim
+IPS_Package_Name:	communication/im/gajim
 Summary:	Jabber client written in PyGTK
 Group:		Applications/Internet
 License:	GPLv3
