@@ -1,6 +1,7 @@
 2011-11-19 Milan Jurik <sfnet@xylab.cz>
 
 	* SFECorsixTH.spec: bump to Beta8, add IPS package name
+	* SFEscummvm.spec: menu entry
 
 2011-11-17 Milan Jurik <sfnet@xylab.cz>
 
