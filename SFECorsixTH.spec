@@ -8,10 +8,11 @@
 %include base.inc
 
 %define src_name CorsixTH
-%define src_version Beta4
+%define src_version Beta8
 
 Name:		SFECorsixTH
-Version:	0.0.0.4
+IPS_Package_Name:	games/corsixth
+Version:	0.0.0.8
 Summary:	Theme Hospital reimplementation
 Group:		Games/Strategy
 License:	MIT
@@ -32,35 +33,36 @@ BuildRequires:	SFEsdl-mixer-devel
 Requires:	SFEsdl-mixer
 BuildRequires:	SUNWwxwidgets-devel
 Requires:	SUNWwxwidgets
-BuildRequires:	SUNWcmake
+BuildRequires:	SFEcmake
 
 %description
 This project aims to reimplement the game engine of Theme Hospital, and be able to load the original game data files
 
 %prep
-%setup -q -n %{src_name}-%{src_version}-Source
+%setup -q -n %{src_name}
 cp %{SOURCE1} CorsixTH/config.txt
 
 %build
+CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+
 export CC=gcc
 export CXX=g++
 export CFLAGS="%{optflags}"
 export LDFLAGS="%{_ldflags}"
 cd CorsixTH
-cmake -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ..
-make
+cmake -DCMAKE_INSTALL_PREFIX:PATH=%{_datadir} ..
+make -j$CPUS
 
 %install
 rm -rf %{buildroot}
 cd CorsixTH
-make install
+make install DESTDIR=%{buildroot}
 
 mkdir -p %{buildroot}%{_datadir}
-mv sfw_stage/%{src_name} %{buildroot}%{_datadir}
 mkdir -p %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/%{src_name} << EOF
 #!/bin/sh
-%{_datadir}/%{src_name}/%{src_name}
+cd %{_datadir}/%{src_name} && ./%{src_name}
 EOF
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/{16x16,32x32,64x64}/apps
@@ -107,5 +109,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Nov 19 2011 - Milan Jurik
+- bump to Beta8
+- add IPS package name
 * Sat Dec 18 2010 - Milan Jurik
 - initial spec with inspiration from Mandriva

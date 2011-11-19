@@ -1,3 +1,7 @@
+2011-11-19 Milan Jurik <sfnet@xylab.cz>
+
+	* SFECorsixTH.spec: bump to Beta8, add IPS package name
+
 2011-11-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibevent2.spec: multiarch support, bump to 2.0.15
