@@ -12,9 +12,10 @@
 
 Summary:	Asynchronous JavaScript Engine  
 Name:		SFEnodejs  
-Version:	0.4.9
+IPS_Package_Name:	runtime/javascript/nodejs
+Version:	0.6.2
 License:	BSD  
-Group:		Libraries  
+Group:		System/Libraries  
 URL:		http://nodejs.org/  
 Source:		http://nodejs.org/dist/node-v%{version}.tar.gz  
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -23,7 +24,6 @@ SUNW_BaseDir:	%{_basedir}
 
 BuildRequires:	SFEc-ares-devel
 Requires:	SFEc-ares
-Requires:	SUNWgccruntime
 
 %description  
 Node's goal is to provide an easy way to build scalable network  
@@ -71,8 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 %files  
 %defattr(-, root, bin)
 %doc AUTHORS ChangeLog LICENSE
-%{_bindir}
-%{_libdir}/node
+%{_bindir}/node
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_mandir}
@@ -81,11 +80,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, bin)  
 %{_bindir}/node-waf
 %{_includedir}/node  
-%{_libdir}/node/wafadmin/  
-%dir %attr (0755, root, other) %{_libdir}/pkgconfig
-%{_libdir}/pkgconfig/*
+%{_libdir}/node
 
 %changelog  
+* Sat Nov 19 2011 - Milan Jurik
+- bump to 0.6.2
 * Thu Jun 30 2011 - Milan Jurik
 - bump to 0.4.9
 * Thu Mar 24 2011 - Thomas Wagner
