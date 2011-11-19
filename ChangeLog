@@ -9,6 +9,7 @@
 	* SFEscummvm.spec: menu entry
 	* SFEperl-gettext.spec: add IPS package name, cleanup
 	* SFEfrozen-bubble.spec: add IPS package name, cleanup
+	* SFEsupertux.spec: add IPS package name, fix GCC build
 
 2011-11-17 Milan Jurik <sfnet@xylab.cz>
 
