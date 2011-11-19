@@ -10,7 +10,7 @@
 Name:                    SFEsugar-clock
 Summary:                 Sugar Clock
 URL:                     http://www.sugarlabs.org/
-Version:                 6 
+Version:                 7 
 Source:                  http://download.sugarlabs.org/sources/honey/Clock/Clock-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 7
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 6.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-turtleart
 Summary:                 Sugar TurtleArt
 URL:                     http://www.sugarlabs.org/
-Version:                 115 
+Version:                 126 
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/TurtleArt/TurtleArt-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 126
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 115
 * Sat Oct 23 2010 - Brian Cameron  <brian.cameron@oracle.com>

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-chat
 Summary:                 Sugar Chat
 URL:                     http://www.sugarlabs.org/
-Version:                 71
+Version:                 73
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/Chat/Chat-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 73
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 71.
 * Sat Oct 23 2010 - Brian Cameron  <brian.cameron@sun.com>

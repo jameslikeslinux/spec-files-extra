@@ -1,7 +1,8 @@
 2011-11-19 Ken Mays <kmays2000@gmail.com>
 
-        * SFEpostfix.spec: bump to 2.8.7
-        * SFElft.spec: Initial spec (LFT 3.33)
+	* SFEpostfix.spec: bump to 2.8.7
+	* SFElft.spec: Initial spec (LFT 3.33)
+	* SFEsugar.spec: Bump to 0.94.1
 
 2011-11-19 Milan Jurik <sfnet@xylab.cz>
 
