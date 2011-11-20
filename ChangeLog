@@ -2,6 +2,7 @@
 
 	* encumbered/SFElibdvdcss.spec: bump to 1.2.11
 	* SFEgnome-js-common.spec: clean up
+	* SFEgconfmm.spec: bump to 2.28.3
 
 2011-11-19 Ken Mays <kmays2000@gmail.com>
 
