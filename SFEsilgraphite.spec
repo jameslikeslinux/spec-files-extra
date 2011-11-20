@@ -56,11 +56,14 @@ rm -rf %{buildroot}
 %files
 %defattr (-, root, bin)
 %{_bindir}
-%{_libdir}
+%{_libdir}/*.so*
+%{_libdir}/pango
 
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*.pc
 
 %changelog
 * Mon Nov 07 2011 - Milan Jurik
