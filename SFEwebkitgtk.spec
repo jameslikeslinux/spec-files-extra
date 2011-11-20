@@ -68,6 +68,7 @@ BuildRequires: SUNWgnu-gperf
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgnome-media
 BuildRequires: SUNWflexlex
+BuildRequires: SUNWgtk-doc
 
 %if %OS2nnn
 Requires: SUNWopenssl
@@ -144,7 +145,9 @@ autoconf
             --sysconfdir=%{_sysconfdir}         \
 	    --mandir=%{_mandir}                 \
 	    --datadir=%{_datadir}               \
-            --infodir=%{_datadir}/info
+            --infodir=%{_datadir}/info		\
+	--enable-introspection			\
+	--enable-gtk-doc
 
 
 make -j$CPUS
@@ -170,9 +173,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/libwebkit*
+%{_libdir}/girepository-1.0
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/webkit-1.0/*
-#%doc -d webkit-%{Version} ChangeLog README
+%{_datadir}/webkit-1.0
+%{_datadir}/gir-1.0
 
 %files devel
 %defattr (-, root, bin)
