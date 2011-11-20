@@ -8,35 +8,28 @@
 #
 #
 %include Solaris.inc
-%include default-depend.inc
+
+%define	src_name gnome-js-common
 
 Summary:	Common modules for GNOME JavaScript bindings
-
-Name:		gnome-js-common
+Name:		SFEgnome-js-common
+IPS_Package_Name:	library/gnome/js-common
 Version:	0.1.2
-Release:	1
-License:	GPL v3
+License:	GPLv3
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gnome-js-common/0.1/%{name}-%{version}.tar.bz2
-
-SUNW_BaseDir:   /
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Source:		http://ftp.gnome.org/pub/GNOME/sources/gnome-js-common/0.1/%{src_name}-%{version}.tar.bz2
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+%include default-depend.inc
 
 %description
 This package provides common modules for GNOME JavaScript bindings.
 
-
 %prep
-%setup -q
+%setup -q -n %{src_name}-%{version}
 
 %build
-%ifos linux
-if [ -x /usr/bin/getconf ]; then
-  CPUS=`getconf _NPROCESSORS_ONLN`
-fi
-%else
-  CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-%endif
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
@@ -58,23 +51,22 @@ autoconf
 make -j $CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/gnome_js_common
+rm -rf %{buildroot}
+make install DESTDIR=%{buildroot}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
-%defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%defattr(-, root, bin)
 %{_libdir}/gnome-js
 %{_libdir}/pkgconfig/*.pc
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 
-%define date	%(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 %changelog
+* Sun Nov 20 2011 - Milan Jurik
+- clean up
 * Tue Sep 07 2010 - <yuntong.jin@sun.com>
 - Init spec file
