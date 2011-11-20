@@ -60,6 +60,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-, root, bin)
 %{_libdir}/gnome-js
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*.pc
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
