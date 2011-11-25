@@ -1,3 +1,7 @@
+2011-11-24 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEldns.spec: bump to 1.6.11
+
 2011-11-24 Ken Mays <kmays2000@gmail.com>
 
 	* SFEdovecot.spec: bump to 2.0.16

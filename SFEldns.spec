@@ -8,9 +8,10 @@
 %define src_name	ldns
 
 Name:		SFEldns
+IPS_Package_Name:	library/ldns
 URL:		http://www.nlnetlabs.nl/projects/ldns/
 Summary:	ldns library for DNS programming
-Version:	1.6.10
+Version:	1.6.11
 Group:		System/Libraries
 License:	BSD
 SUNW_Copyright:	ldns.copyright
@@ -59,9 +60,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ldns-config
 %{_includedir}/%{src_name}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_mandir}/man3/*
+%{_mandir}
 
 %changelog
+* Fri Nov 25 2011 - Milan Jurik
+- bump to 1.6.11
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Thu Jun 30 2011 - Milan Juril
