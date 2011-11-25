@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Summary:	Validating, recursive, and caching DNS resolver
+IPS_Package_Name:	network/dns/unbound
 Name:		SFEunbound
 Version:	1.4.13
 License:	BSD
