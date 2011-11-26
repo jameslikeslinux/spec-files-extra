@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:         SFEgtk-sharp
+IPS_Package_Name:	library/mono/gtk-sharp
 License:      Other
 Group:        System/Libraries
 Version:      2.12.11
