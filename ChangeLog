@@ -1,6 +1,7 @@
 2011-11-26 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEmono.spec: bump to 2.10.6
+	* SFEmono-addins.spec: bump to 0.6.2
 
 2011-11-24 Milan Jurik <sfnet@xylab.cz>
 
