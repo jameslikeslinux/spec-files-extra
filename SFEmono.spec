@@ -9,11 +9,11 @@
 %include base.inc
 
 Name:         SFEmono
+IPS_Package_Name:	developer/mono
 License:      Other
 Group:        System/Libraries
-Version:      2.10.5
+Version:      2.10.6
 Summary:      mono - .NET framework
-#Source:       http://go-mono.com/sources/mono/mono-%{version}.tar.bz2
 Source:       http://download.mono-project.com/sources/mono/mono-%{version}.tar.bz2
 Patch2:       mono-02-sgen.diff
 URL:          http://www.mono-project.com/Main_Page
@@ -27,7 +27,6 @@ BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SFElibgc-gpp-devel
 Requires:	SFElibgc-gpp
-Requires:	SFElibelf
 
 %package root
 Summary:       %{summary} - / filesystem
@@ -58,13 +57,13 @@ fi
 
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
-export CFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
-export LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib %_ldflags"
+export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__"
+export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -L/usr/g++/lib -R/usr/g++/lib %_ldflags"
 export CPPFLAGS="-I/usr/gnu/include/libelf -I/usr/gnu/include"
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
-export AR=gar
-export AS=gas
-export RANLIB=granlib
+#export AR=gar
+#export AS=gas
+#export RANLIB=granlib
 
 ./configure --prefix=%{_prefix} \
 		--bindir=%{_prefix}/mono/bin \
@@ -81,11 +80,13 @@ export RANLIB=granlib
 		--with-tls=pthread		\
 		--enable-dtrace=no
 
-gmake -j $CPUS
+#Parallel build broken - https://bugzilla.novell.com/show_bug.cgi?id=674622
+#make -j $CPUS
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-gmake DESTDIR=$RPM_BUILD_ROOT install
+make DESTDIR=$RPM_BUILD_ROOT install
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
 
 mv $RPM_BUILD_ROOT%{_mandir}/man1 $RPM_BUILD_ROOT%{_mandir}/man1mono
@@ -97,13 +98,13 @@ for fn in *; do
 done
 ln -s mcs.1mono gmcs.1mono
 
-#mv $RPM_BUILD_ROOT%{_mandir}/man5 $RPM_BUILD_ROOT%{_mandir}/man5mono
-#cd $RPM_BUILD_ROOT%{_mandir}/man5mono
-#for fn in *; do
-#    f=`basename $fn .5`
-#    sed -e 's/^\.TH \([^ ]*\) 5/.TH \1 5MONO/' $f.5 > $f.5mono
-#    rm -f $f.5
-#done
+mv $RPM_BUILD_ROOT%{_mandir}/man5 $RPM_BUILD_ROOT%{_mandir}/man5mono
+cd $RPM_BUILD_ROOT%{_mandir}/man5mono
+for fn in *; do
+    f=`basename $fn .5`
+    sed -e 's/^\.TH \([^ ]*\) 5/.TH \1 5MONO/' $f.5 > $f.5mono
+    rm -f $f.5
+done
 
 %if %build_l10n
 %else
@@ -117,17 +118,11 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(-, root, bin)
 %{_prefix}/mono/bin
-%dir %attr (0755, root, bin) %dir %{_libdir}
 %{_libdir}/*.so*
-%dir %attr (0755, root, bin) %{_libdir}/mono
-%{_libdir}/mono/*
+%{_libdir}/mono
 %dir %attr (0755, root, sys) %dir %{_datadir}
 %{_datadir}/mono*
-%dir %attr(0755, root, bin) %{_mandir}
-%dir %attr(0755, root, bin) %{_mandir}/man1mono
-%{_mandir}/man1mono/*
-#%dir %attr(0755, root, bin) %{_mandir}/man5mono
-#%{_mandir}/man5mono/*
+%{_mandir}
 
 %files root
 %defattr (-, root, sys)
@@ -150,6 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 26 2011 - Milan Jurik
+- bump to 2.10.6
 * Wed Aug 31 2011 - jchoi42@pha.jhu.edu
 - Bump to 2.10.5, gnu issues, configure options
 * Jul Sun 31 2011 - Milan Jurik
