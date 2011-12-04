@@ -136,9 +136,9 @@
 #preferred versions. Not as flexible as we want (want: user selectable
 #gcc variant, but we get only whole machine defaults)
 
-Name:                SFEgcc
-IPS_package_name:    sfe/developer/gcc
-Summary:             GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
+Name:		SFEgcc
+IPS_package_name:	sfe/developer/gcc
+Summary:	GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
 #see above, %{version} is set elsewhere
 #Version:             4.6.1
 License:             GPLv3+
@@ -150,8 +150,6 @@ Patch2:              gcc-02-handle_pragma_pack_push_pop.diff
 %else
 %endif
 Patch3:              gcc-03-gnulib.diff
-##LINK_LIBGCC_SPEC
-#Patch4:              gcc-04-gcclib-runpath.diff
 
 #LINK_LIBGCC_SPEC
 #gcc-05 could be reworked to know both, amd64 and sparcv9
@@ -162,10 +160,11 @@ Patch5:              gcc-05-LINK_LIBGCC_SPEC.diff
 Patch5:              gcc-05-LINK_LIBGCC_SPEC-sparcv9.diff
 %endif
 
-#Patch6:		     gcc-06-LINK_GCC_C_SEQUENCE_SPEC.spec
-#Patch7:		     gcc-07-LINK_SPEC.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49347
+Patch10:	gcc-10-spawn.diff
+
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 #Attention - this is the dependency chain for the compiler:
@@ -299,10 +298,8 @@ cd gcc-%{version}
 %else
 %endif
 %patch3 -p1
-#%patch4 -p1
 %patch5 -p1
-#%patch6 -p1
-#%patch7 -p1
+%patch10 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -590,6 +587,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Dec 04 2011 - Milan Jurik
+- patch10 for spawn issue
 * Sat Oct 29 2011 - Milan Jurik
 - bump to 4.6.2
 * Thr Oct 13 2011 - Thomas Wagner
