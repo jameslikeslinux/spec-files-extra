@@ -14,16 +14,16 @@
 
 %define src_name        llvm
 
-
 Name:		SFEllvm
+IPS_Package_Name:	developer/llvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
 SUNW_Copyright:	llvm.copyright
-Version:	2.9
+Version:	3.0
 License:        BSD
 
 URL:		http://llvm.org/
-Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tgz
-Source1:	http://llvm.org/releases/%{version}/clang-%{version}.tgz
+Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tar.gz
+Source1:	http://llvm.org/releases/%{version}/clang-%{version}.tar.gz
 Patch1:		llvm-01-limits.diff
 
 Group:          Development
@@ -33,13 +33,13 @@ SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 
 BuildRequires:	SUNWlibtool
-BuildRequires:	%pnm_buildrequires_perl_default
+#BuildRequires:	%pnm_buildrequires_perl_default
 BuildRequires:	SUNWgroff
 BuildRequires:	SUNWbison
 BuildRequires:	SUNWflexlex
 BuildRequires:	SUNWgmake
-BuildRequires:	SFEgcc-45
-Requires:	SFEgcc-45-runtime
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 
 %description
 LLVM is a compiler infrastructure designed for compile-time, link-time, runtime,
@@ -51,9 +51,8 @@ languages is in development. The compiler infrastructure includes mirror sets of
 programming tools as well as libraries with equivalent functionality.
 
 %prep
-%setup -q -n %{src_name}-%{version}
-%patch1 -p1
-cd tools && tar xzf %{SOURCE1} && mv clang-%{version} clang
+%setup -q -n %{src_name}-%{version}.src
+cd tools && tar xzf %{SOURCE1} && mv clang-%{version}.src clang
 
 %build
 
@@ -62,11 +61,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC="/usr/gcc/4.5/bin/gcc"
-export CXX="/usr/gcc/4.5/bin/g++"
+export CC=gcc
+export CXX=g++
 
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags -L/usr/gcc/4.5/lib -R/usr/gcc/4.5/lib"
+export LDFLAGS="%_ldflags"
 
 export PATH=$PATH:/usr/perl5/bin
 
@@ -105,6 +104,8 @@ mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 %{_docdir}/llvm
 
 %changelog
+* Sun Dec 04 2011 - Milan Jurik
+- bump to 3.0
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik

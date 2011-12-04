@@ -2,6 +2,7 @@
 
 	* SFExplanet.spec: 1.2.2
 	* SFEgcc.spec: patch10 for spawn issue
+	* SFEllvm.spec: bump to 3.0
 
 2011-12-02 Ken Mays <kmays2000@gmail.com>
 
