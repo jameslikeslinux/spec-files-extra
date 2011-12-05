@@ -15,7 +15,6 @@ Vendor:		GNU Project
 Version:        5.8
 License:	GPLv2
 SUNW_Copyright:	rcs.copyright
-Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/rcs-5.8.tar.gz
 Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
