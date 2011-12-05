@@ -86,7 +86,8 @@ export CXXFLAGS="%cxx_optflags"
 
 cd blender-%{src_version}
 
-gmake REL_CFLAGS="$CFLAGS -DNDEBUG" REL_CCFLAGS="$CXXFLAGS -DNDEBUG"
+gmake REL_CFLAGS="$CFLAGS -DNDEBUG" REL_CCFLAGS="$CXXFLAGS -DNDEBUG" \
+      REL_LDFLAGS="%_ldflags -lumem"
 
 %install
 
@@ -181,6 +182,9 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Sun Dec  4 2011 - Alex Viskovatoff
+- add -lumem to LDFLAGS to prevent core dumps which occur on some machines
+  (https://www.illumos.org/issues/1334)
 * Wed Aug  3 2011 - Alex Viskovatoff
 - use packagenamemacros.inc for Python version; do not require freetype
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
