@@ -4,7 +4,7 @@
 %include Solaris.inc
 
 %define src_name supertuxkart
-%define src_version 0.7.2
+%define src_version 0.7.3
 
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define SFEplib_gpp %(/usr/bin/pkginfo -q SFEplib-gpp && echo 1 || echo 0)
@@ -12,7 +12,7 @@
 
 
 Name:           SFEsupertuxkart
-Version:        0.7.2
+Version:        0.7.3
 Summary:        Kids 3D go-kart racing game featuring Tux
 Group:          Amusements/Games
 License:        GPLv2+ and GPLv3 and CC-BY-SA
@@ -146,6 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+Thu Dec 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.7.3
 Tue Oct 11 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 0.7.2
 - Removed legacy Sun Studio patch
