@@ -13,6 +13,7 @@
 %define src_url http://pypi.python.org/packages/source/p/pyenchant/
 
 Name:		SFEpython26-enchant
+IPS_Package_Name:	library/python-2/python-enchant-26
 Version:	1.6.5
 Summary:	PyEnchant is a spellchecking library for Python, based on the excellent Enchant library
 License:	LGPL
