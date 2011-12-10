@@ -10,6 +10,7 @@
 %define python_version 2.6
 
 Name:		SFEpython26-imaging-sane
+IPS_Package_Name:	library/python-2/python-imaging-sane-26
 Summary:	The imaging-sane module is a Python interface to the SANE
 Version:	1.1.7
 URL:		http://www.pythonware.com/products/pil/
