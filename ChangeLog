@@ -1,6 +1,7 @@
 2011-12-11 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEpngcrush.spec: bump to 1.7.22
+	* SFEjson-glib.spec: bump to 0.12.6
 
 2011-12-08 Ken Mays <kmays2000@gmail.com>
 
