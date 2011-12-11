@@ -9,9 +9,10 @@
 %define src_url		http://download.savannah.nongnu.org/releases/openexr
 
 Name:		SFEopenexr
+IPS_Package_Name:	library/graphics/openexr
 Summary:	high dynamic-range (HDR) image file format
 Version:	1.7.0
-Group:		Development/Libraries
+Group:		System/Multimedia Libraries
 URL:		http://www.openexr.com/
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		openexr-01-templ.diff
