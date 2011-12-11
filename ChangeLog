@@ -5,6 +5,7 @@
 	* SFEpidgin-facebookchat.spec: bump to 1.69
 	* SFEbzr.spec: bump to 2.4.2
 	* SFEuncrustify.spec: bump to 0.59
+	* SFEgeoip.spec: bump to 1.4.8
 
 2011-12-08 Ken Mays <kmays2000@gmail.com>
 
