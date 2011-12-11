@@ -11,7 +11,7 @@
 Name:                    SFEcscope
 IPS_Package_Name:	developer/cscope
 License:                 BSD
-Summary:                 Cscope - interactive source code examiner
+Summary:                 interactive source code examiner
 Version:                 15.7
 Source:                  %{sf_download}/cscope/cscope-%{tarball_version}.tar.bz2
 URL:                     http://cscope.sourceforge.net/
