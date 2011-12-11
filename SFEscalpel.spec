@@ -5,25 +5,21 @@
 %define src_name scalpel
 
 %include Solaris.inc
-Name:                    SFEscalpel
-Summary:                 scalpel - A Frugal, High Performance File Carver
-URL:                     http://www.digitalforensicssolutions.com/Scalpel/
-Version:                 1.60
-License:                 GPLv2
-SUNW_Copyright:		 scalpel.copyright
-Source:                  http://www.digitalforensicssolutions.com/Scalpel/%{src_name}-%{version}.tar.gz
-Patch1:                  scalpel-01-add-SOLARIS-add-timersub.diff
+Name:		SFEscalpel
+IPS_Package_Name:	file/scalpel
+Summary:	scalpel - A Frugal, High Performance File Carver
+URL:		http://www.digitalforensicssolutions.com/Scalpel/
+Version:	1.60
+License:	GPLv2
+SUNW_Copyright:	scalpel.copyright
+Source:		http://www.digitalforensicssolutions.com/Scalpel/%{src_name}-%{version}.tar.gz
+Patch1:		scalpel-01-add-SOLARIS-add-timersub.diff
 
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-
-#TODO: BuildReqirements:
-#TODO: Reqirements:
-
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
-
+# BuildRequires: SFEtre-devel
+# Requires: SFEtre
 
 %prep
 %setup -q -n %{src_name}-%version
