@@ -4,15 +4,16 @@
 
 %include Solaris.inc
 
-Name:                    SFEpidgin-facebookchat
-Summary:                 Facebook chat plugin for pidgin
-Group:                   System/GUI/GNOME
-Version:                 1.64
-License:                 GPL v3
-Source:                  http://pidgin-facebookchat.googlecode.com/files/pidgin-facebookchat-source-%{version}.tar.bz2
-URL:                     http://code.google.com/p/pidgin-facebookchat/
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}_%{version}-build
+Name:		SFEpidgin-facebookchat
+IPS_Package_Name:	communication/im/pidgin-facebookchat
+Summary:	Facebook chat plugin for pidgin
+Group:		Applications/Internet
+Version:	1.69
+License:	GPLv3
+Source:		http://pidgin-facebookchat.googlecode.com/files/pidgin-facebookchat-source-%{version}.tar.bz2
+URL:		http://code.google.com/p/pidgin-facebookchat/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}_%{version}-build
 %include default-depend.inc
 
 Requires:    SUNWgnome-libs
@@ -65,6 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 1.69
 * Wed Feb 03 2010 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.64
 * Sat Nov 14 2009 - Albert Lee <trisk@opensolaris.org>
