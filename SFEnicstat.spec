@@ -2,15 +2,14 @@
 # spec file for package SFEnicstat
 #
 %include Solaris.inc
-Name:                    SFEnicstat
-Summary:                 nicstat - tool for displaying network load similar to iostat/prstat
-URL:                     http://blogs.sun.com/timc/entry/nicstat_the_solaris_network_monitoring
-Version:                 %(date +%Y.%m.%d)
-Source:                  http://blogs.sun.com/timc/resource/nicstat/nicstat.c
-
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEnicstat
+IPS_Package_Name:	system/network/nicstat
+Summary:	tool for displaying network load similar to iostat/prstat
+URL:		http://blogs.oracle.com/timc/entry/nicstat_the_solaris_network_monitoring
+Version:	%(date +%Y.%m.%d)
+Source:		http://blogs.sun.com/timc/resource/nicstat/nicstat.c
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqirements:
 #TODO: Reqirements:
