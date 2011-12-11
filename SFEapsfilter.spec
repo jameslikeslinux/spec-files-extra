@@ -15,20 +15,23 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-Name:                SFEapsfilter
-Summary:             Flexible magic filter for printing under Unix environment
-Version:             7.2.8
-Source:              http://www.apsfilter.org/download/apsfilter-%{version}.tar.gz
+Name:		SFEapsfilter
+IPS_Package_Name:	print/lp/filter/apsfilter
+Summary:	Flexible magic filter for printing under Unix environment
+Version:	7.2.8
+Group:		System/Printing
+URL:		http://www.apsfilter.org/
+Source:		http://www.apsfilter.org/download/apsfilter-%{version}.tar.gz
 
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:       %{pnm_buildrequires_SUNWsndm}
-Requires:            %{pnm_requires_SUNWsndm}
+BuildRequires:	%{pnm_buildrequires_SUNWsndm}
+Requires:	%{pnm_requires_SUNWsndm}
 
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 
 %prep
