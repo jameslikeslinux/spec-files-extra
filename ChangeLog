@@ -7,6 +7,8 @@
 	* SFEuncrustify.spec: bump to 0.59
 	* SFEgeoip.spec: bump to 1.4.8
 	* SFEmtr.spec: bump to 0.82
+	* SFEclamav.spec: bump to 0.97.3
+	* SFEc-icap.spec: bump to 0.1.7
 
 2011-12-08 Ken Mays <kmays2000@gmail.com>
 

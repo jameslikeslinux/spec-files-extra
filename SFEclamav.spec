@@ -9,13 +9,14 @@
 %define _pkg_docdir %_docdir/%src_name
 
 Name:                SFEclamav
+IPS_Package_Name:	antivirus/clamav
 Summary:             Unix anti-virus scanner
 License:             GPLv2
 SUNW_Copyright:      clamav.copyright
-Version:             0.97.2
+Version:             0.97.3
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
-Group:               System/Utilities
+Group:               Applications/System Utilities
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -124,6 +125,8 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 0.97.3
 * Tue Aug 23 2011 - Milan Jurik
 - bump to 0.97.2
 - move docs to doc package and fix docdir group
