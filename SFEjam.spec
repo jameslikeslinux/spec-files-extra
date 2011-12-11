@@ -9,6 +9,7 @@
 %define src_url		ftp://ftp.perforce.com/jam
 
 Name:                   SFEjam
+IPS_Package_Name:	developer/build/jam
 Summary:                make-like program
 Version:                2.5
 License:                jam License
@@ -27,7 +28,6 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
-
 
 make
 
