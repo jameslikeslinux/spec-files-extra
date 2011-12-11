@@ -9,6 +9,7 @@
 
 %define tarball_version 15.7a
 Name:                    SFEcscope
+IPS_Package_Name:	developer/cscope
 License:                 BSD
 Summary:                 Cscope - interactive source code examiner
 Version:                 15.7
