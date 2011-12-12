@@ -5,6 +5,7 @@
 	* SFEdspam.spec: bump to 3.10.1
 	* SFElibntlm.spec: bump to 1.3
 	* SFEcyrus-sasl.spec: bump to 2.1.25
+	* SFEgsl.spec: bump to 1.15
 
 2011-12-11 Milan Jurik <sfnet@xylab.cz>
 
