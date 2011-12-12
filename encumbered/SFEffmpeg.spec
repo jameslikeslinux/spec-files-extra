@@ -83,6 +83,10 @@ BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
 BuildRequires: SFErtmpdump-devel
 Requires: SFErtmpdump
+BuildRequires: SFElibass-devel
+Requires: SFElibass
+BuildRequires: SFEopenal-devel
+Requires: SFEopenal
 
 %package devel
 Summary:                 %{summary} - development files
@@ -143,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %hard %{_bindir}/ffplay
 %hard %{_bindir}/ffmpeg
 %hard %{_bindir}/ffprobe
+%hard %{_bindir}/avconv
 %else
 %{_bindir}/*
 %endif
@@ -182,9 +187,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libavdevice
 %{_includedir}/libpostproc
 %{_includedir}/libswscale
+%{_includedir}/libswresample
 
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 0.9
 * Sun Nov 13 2011 - Michael Kosarev
 - add libvpx dependency
 * Sun Oct 23 2011 - Milan Jurik

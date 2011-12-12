@@ -1,12 +1,12 @@
---- ffmpeg-0.8.2/configure.orig	2011-08-10 14:16:41.000000000 +0200
-+++ ffmpeg-0.8.2/configure	2011-08-13 16:27:56.356242408 +0200
+--- ffmpeg-0.9/configure.orig	Sun Dec 11 21:27:17 2011
++++ ffmpeg-0.9/configure	Mon Dec 12 09:44:59 2011
 @@ -1,4 +1,4 @@
 -#!/bin/sh
 +#!/bin/bash
  #
  # FFmpeg configure script
  #
-@@ -307,17 +307,17 @@
+@@ -328,17 +328,17 @@
  }
  
  c_escape(){
@@ -27,7 +27,7 @@
  }
  
  filter(){
-@@ -361,11 +361,11 @@
+@@ -382,11 +382,11 @@
  set_safe(){
      var=$1
      shift
@@ -41,7 +41,7 @@
  }
  
  pushvar(){
-@@ -405,13 +405,13 @@
+@@ -426,13 +426,13 @@
  
  enable_safe(){
      for var; do
@@ -57,7 +57,7 @@
      done
  }
  
-@@ -1519,7 +1519,7 @@
+@@ -1651,7 +1651,7 @@
  ffserver_deps="avformat ffm_muxer fork rtp_protocol rtsp_demuxer"
  ffserver_extralibs='$ldl'
  
@@ -66,7 +66,7 @@
  
  # tests
  
-@@ -1710,7 +1710,7 @@
+@@ -1840,7 +1840,7 @@
  
  # since the object filename is not given with the -MM flag, the compiler
  # is only able to print the basename, and we must add the path ourselves
@@ -75,16 +75,16 @@
  DEPFLAGS='$(CPPFLAGS) $(CFLAGS) -MM'
  
  # find source path
-@@ -1720,7 +1720,7 @@
+@@ -1848,7 +1848,7 @@
+     source_path=.
  else
      source_path=$(cd $(dirname "$0"); pwd)
-     enable source_path_used
 -    echo "$source_path" | grep -q '[[:blank:]]' &&
 +    echo "$source_path" | /usr/gnu/bin/grep -q '[[:blank:]]' &&
          die "Out of tree builds are impossible with whitespace in source path."
      test -e "$source_path/config.h" &&
          die "Out of tree builds are impossible with config.h in source dir."
-@@ -1737,7 +1737,7 @@
+@@ -1865,7 +1865,7 @@
      thing=$1
      pattern=$2
      file=$source_path/$3
@@ -93,7 +93,7 @@
  }
  
  ENCODER_LIST=$(find_things  encoder  ENC      libavcodec/allcodecs.c)
-@@ -1753,7 +1753,7 @@
+@@ -1881,7 +1881,7 @@
  FILTER_LIST=$(find_things   filter   FILTER   libavfilter/allfilters.c)
  
  find_tests(){
@@ -102,7 +102,7 @@
  }
  
  ACODEC_TESTS=$(find_tests acodec)
-@@ -1781,7 +1781,7 @@
+@@ -1909,7 +1909,7 @@
  show_list() {
      suffix=_$1
      shift
@@ -111,7 +111,7 @@
      exit 0
  }
  
-@@ -1800,14 +1800,14 @@
+@@ -1928,14 +1928,14 @@
      map 'eval unset \${$(toupper ${v%s})_LIST}' $COMPONENT_LIST
      ;;
      --enable-*=*|--disable-*=*)
@@ -129,7 +129,7 @@
      if is_in $option $COMPONENT_LIST; then
          test $action = disable && action=unset
          eval $action \$$(toupper ${option%s})_LIST
-@@ -1828,7 +1828,7 @@
+@@ -1956,7 +1956,7 @@
      *)
      optname="${opt%%=*}"
      optname="${optname#--}"
@@ -138,7 +138,7 @@
      if is_in $optname $CMDLINE_SET; then
          eval $optname='$optval'
      elif is_in $optname $CMDLINE_APPEND; then
-@@ -1934,7 +1934,7 @@
+@@ -2064,7 +2064,7 @@
  filter_cppflags=echo
  filter_asflags=echo
  
@@ -147,7 +147,7 @@
      cc_type=llvm_gcc
      cc_version=__VERSION__
      gcc_extra_ver=$(expr "$($cc --version | head -n1)" : '.*\((.*)\)')
-@@ -1943,7 +1943,7 @@
+@@ -2073,7 +2073,7 @@
      AS_DEPFLAGS='-MMD -MF $(@:.o=.d) -MT $@'
      speed_cflags='-O3'
      size_cflags='-Os'
@@ -156,7 +156,7 @@
      cc_type=gcc
      cc_version=__VERSION__
      gcc_version=$($cc --version | head -n1)
-@@ -1951,13 +1951,13 @@
+@@ -2081,13 +2081,13 @@
      gcc_pkg_ver=$(expr "$gcc_version" : '[^ ]* \(([^)]*)\)')
      gcc_ext_ver=$(expr "$gcc_version" : ".*$gcc_pkg_ver $gcc_basever \\(.*\\)")
      cc_ident=$(cleanws "gcc $gcc_basever $gcc_pkg_ver $gcc_ext_ver")
@@ -172,7 +172,7 @@
      cc_type=icc
      cc_version="AV_STRINGIFY(__INTEL_COMPILER)"
      cc_ident=$($cc --version | head -n1)
-@@ -1967,13 +1967,13 @@
+@@ -2097,13 +2097,13 @@
      speed_cflags='-O3'
      size_cflags='-Os'
      noopt_cflags='-O1'
@@ -188,7 +188,7 @@
      cc_type=ccc
      cc_version="AV_STRINGIFY(__DECC_VER)"
      cc_ident=$($cc -V | head -n1 | cut -d' ' -f1-3)
-@@ -1982,7 +1982,7 @@
+@@ -2112,7 +2112,7 @@
      add_ldflags -Wl,-z,now # calls to libots crash without this
      speed_cflags='-fast'
      size_cflags='-O1'
@@ -197,7 +197,7 @@
      test -d "$sysroot" || die "No valid sysroot specified."
      cc_type=armcc
      cc_version="AV_STRINGIFY(__ARMCC_VERSION)"
-@@ -1993,7 +1993,7 @@
+@@ -2123,7 +2123,7 @@
          --configure_sysroot="$sysroot"        \
          --configure_cpp_headers="$sysinclude" >>$logfile 2>&1 ||
          die "Error creating armcc configuration file."
@@ -206,7 +206,7 @@
      cc="$cc --arm_linux_config_file=$armcc_conf --translate_gcc"
      as_default="${cross_prefix}gcc"
      CC_DEPFLAGS='-MMD'
-@@ -2001,7 +2001,7 @@
+@@ -2131,7 +2131,7 @@
      speed_cflags='-O3'
      size_cflags='-Os'
      filter_asflags="filter_out -W${armcc_opt}*"
@@ -215,18 +215,16 @@
      cc_type=tms470
      cc_version="AV_STRINGIFY(__TI_COMPILER_VERSION__)"
      cc_ident=$($cc -version | head -n1 | tr -s ' ')
-@@ -2041,20 +2041,20 @@
+@@ -2171,7 +2171,7 @@
              esac
          done
      }
 -elif $cc -v 2>&1 | grep -q clang; then
 +elif $cc -v 2>&1 | /usr/gnu/bin/grep -q clang; then
      cc_type=clang
--    $cc -dM -E $TMPC | grep -q __clang_version__ &&
-+    $cc -dM -E $TMPC | /usr/gnu/bin/grep -q __clang_version__ &&
+     $cc -dM -E $TMPC | grep -q __clang_version__ &&
          cc_version=__clang_version__ || cc_version=__VERSION__
-     cc_ident=$($cc --version | head -n1)
-     CC_DEPFLAGS='-MMD'
+@@ -2180,11 +2180,11 @@
      AS_DEPFLAGS='-MMD'
      speed_cflags='-O3'
      size_cflags='-Os'
@@ -238,9 +236,9 @@
 -    DEPEND_CMD='$(DEPCC) $(DEPFLAGS) $< | sed -e "1s,^.*: ,$@: ," -e "\$$!s,\$$, \\\," -e "1!s,^.*: , ," > $(@:.o=.d)'
 +    DEPEND_CMD='$(DEPCC) $(DEPFLAGS) $< | /usr/gnu/bin/sed -e "1s,^.*: ,$@: ," -e "\$$!s,\$$, \\\," -e "1!s,^.*: , ," > $(@:.o=.d)'
      DEPFLAGS='$(CPPFLAGS) $(CFLAGS) -xM1'
+     add_ldflags -xc99
      speed_cflags='-O5'
-     size_cflags='-O5 -xspace'
-@@ -2092,7 +2092,7 @@
+@@ -2223,7 +2223,7 @@
              esac
          done
      }
@@ -249,7 +247,7 @@
      cc_type=pathscale
      cc_version=__PATHSCALE__
      cc_ident=$($cc -v 2>&1 | head -n1 | tr -d :)
-@@ -2101,7 +2101,7 @@
+@@ -2232,7 +2232,7 @@
      speed_cflags='-O2'
      size_cflags='-Os'
      filter_cflags='filter_out -Wdisabled-optimization'
@@ -258,16 +256,16 @@
      cc_type=open64
      cc_version=__OPEN64__
      cc_ident=$($cc -v 2>&1 | head -n1 | tr -d :)
-@@ -2146,7 +2146,7 @@
+@@ -2279,7 +2279,7 @@
          gcc|llvm_gcc)
              check_native(){
                  $cc $1=native -v -c -o $TMPO $TMPC >$TMPE 2>&1 || return
--                sed -n "/$1=/{
-+                /usr/gnu/bin/sed -n "/$1=/{
+-                sed -n "/cc1.*$1=/{
++                /usr/gnu/bin/sed -n "/cc1.*$1=/{
                              s/.*$1=\\([^ ]*\\).*/\\1/
                              p
                              q
-@@ -2291,7 +2291,7 @@
+@@ -2420,7 +2420,7 @@
      case $cpu in
          armv*)
              cpuflags="-march=$cpu"
@@ -276,7 +274,7 @@
          ;;
          *)
              cpuflags="-mcpu=$cpu"
-@@ -2605,7 +2605,7 @@
+@@ -2754,7 +2754,7 @@
  check_cc <<EOF || die "Symbol mangling check failed."
  int ff_extern;
  EOF
@@ -285,7 +283,7 @@
  extern_prefix=${sym%%ff_extern*}
  
  check_cc <<EOF && enable inline_asm
-@@ -2630,7 +2630,7 @@
+@@ -2779,7 +2779,7 @@
  check_cc <<EOF || die "endian test failed"
  unsigned int endian = 'B' << 24 | 'I' << 16 | 'G' << 8 | 'E';
  EOF
@@ -294,18 +292,19 @@
  
  if enabled alpha; then
  
-@@ -2963,7 +2963,9 @@
+@@ -3130,8 +3130,10 @@
  fi
  enabled sdl && add_cflags $sdl_cflags && add_extralibs $sdl_libs
  
 -texi2html -version > /dev/null 2>&1 && enable texi2html || disable texi2html
 +(texi2html -version > /dev/null 2>&1 || texi2html /dev/null > /dev/null 2>&1) && enable texi2html || disable texi2html
 +/usr/perl5/bin/pod2man /dev/null >/dev/null 2>&1 && enable pod2man || disable pod2man
-+
  
++
  check_header linux/fb.h
  check_header linux/videodev.h
-@@ -3386,7 +3388,7 @@
+ check_header linux/videodev2.h
+@@ -3552,7 +3554,7 @@
  get_version(){
      name=$1
      file=$source_path/$2

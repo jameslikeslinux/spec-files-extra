@@ -5,7 +5,7 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.8.6
+Version:                 0.9
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
@@ -50,6 +50,7 @@ bash ./configure	\
     --disable-debug	\
     --enable-nonfree	\
     --enable-gpl	\
+    --enable-runtime-cpudetect	\
     --enable-postproc	\
     --enable-avfilter   \
     --enable-swscale	\
@@ -66,13 +67,16 @@ bash ./configure	\
     --enable-pthreads	\
     --enable-libopencore-amrnb \
     --enable-libopencore-amrwb \
-    --enable-version3 \
+    --enable-version3	\
     --disable-static	\
     --disable-mlib	\
-    --enable-libschroedinger \
-    --enable-libopenjpeg \
-    --enable-librtmp \
+    --enable-libschroedinger	\
+    --enable-libopenjpeg	\
+    --enable-librtmp	\
     --enable-vdpau	\
+    --enable-libass	\
+    --enable-openssl	\
+    --enable-openal	\
     --enable-shared
 
 gmake -j$CPUS
@@ -110,6 +114,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 0.9
 * Mon Nov 07 2011 - Milan Jurik
 - bump to 0.8.6
 * Tue Nov  1 2011 - Alex Viskovatoff

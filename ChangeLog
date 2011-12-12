@@ -1,6 +1,7 @@
 2011-12-12 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibass.spec: bump to 0.10.0
+	* encumbered/SFEffmpeg.spec: bump to 0.9
 
 2011-12-11 Milan Jurik <sfnet@xylab.cz>
 
