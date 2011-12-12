@@ -6,19 +6,23 @@
 %include Solaris.inc
 
 %define	src_name libntlm
-%define	src_url	http://josefsson.org/libntlm/releases
+%define	src_url	http://www.nongnu.org/libntlm/releases
 
-Name:                SFElibntlm
-Summary:             Microsoft's NTLM authentication library
-Version:             1.2
-Source:              %{src_url}/%{src_name}-%{version}.tar.gz
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibntlm
+IPS_Package_Name:	library/security/libntlm
+Summary:	Microsoft's NTLM authentication library
+Version:	1.3
+Group:		System/Libraries
+License:	LGPLv2.1+
+URL:		http://www.nongnu.org/libntlm/
+Source:		%{src_url}/%{src_name}-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_prefix}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_prefix}
 %include default-depend.inc
 Requires: %name
 
@@ -67,6 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 1.3
 * Sun Feb 13 2011 - Milan Jurik
 - bump to 1.2
 * Fri Jul 27 2007 - dougs@truemail.co.th
