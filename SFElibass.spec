@@ -10,10 +10,11 @@
 %define srcname libass
 
 Name:		SFElibass
+IPS_Package_Name:	library/video/libass
 Summary:	Portable renderer for the ASS/SSA (Substation Alpha) subtitle format
 Group:		System/Multimedia Libraries
 URL:		http://code.google.com/p/libass/
-Version:	0.9.13
+Version:	0.10.0
 License:	ISC
 SUNW_Copyright:	libass.copyright
 Source:		http://%srcname.googlecode.com/files/%srcname-%version.tar.gz
@@ -77,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 0.10.0
 * Tue Aug 30 2011 - Alex Viskovatoff
 - bump to 0.9.13; use gz tarball so spec builds with unpatched pkgtool
 * Fri Jul 29 2011 - Alex Viskovatoff
