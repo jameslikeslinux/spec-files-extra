@@ -185,9 +185,22 @@
 %define pnm_requires_SUNWGtku				library/desktop/gtk1
 %define pnm_requires_SUNWGtkr				library/desktop/gtk1
 
-#os2nnn
+#samba service/network/samba
+%define pnm_buildrequires_service_network_samba		service/network/samba
+%define pnm_requires_service_network_samba		service/network/samba
+%define pnm_buildrequires_SUNWsmba_devel		service/network/samba
+%define pnm_buildrequires_SUNWsmba			service/network/samba
+%define pnm_buildrequires_SUNWsmbar			service/network/samba
+%define pnm_buildrequires_SUNWsmbau			service/network/samba
+%define pnm_requires_SUNWsmba				service/network/samba
+%define pnm_requires_SUNWsmbar				service/network/samba
+%define pnm_requires_SUNWsmbau				service/network/samba
+%define pnm_buildrequires_smba				service/network/samba
+%define pnm_requires_smba				service/network/samba
+
+#>=133
 %endif
-#>=130
+#os2nnn
 %endif
 #END >=133 AND os2nnn    note: two closing endif
 
@@ -875,6 +888,8 @@
 
 
 %changelog
+* Sat Dec 10 2011 - Thomas Wagner
+- make SUNWsmba* be service/network/samba (>=133)
 * Mon Nov  7 2011 - Thomas Wagner
 - handle cases x11/client not being resolved properly pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt (>=144)
 * Sat Aug 13 2011 - Thomas Wagner
