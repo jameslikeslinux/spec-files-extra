@@ -8,8 +8,9 @@
 %define src_version 0.6.1alpha
 
 Name:         SFElibaudioio
+IPS_Package_Name:	library/audio/libaudioio
 License:      Other
-Group:        System/Libraries
+Group:        System/Multimedia Libraries
 Version:      0.6.1
 Summary:      LibAudioIO - audio foundation library
 URL:          http://libaudioio.sourceforge.net/
