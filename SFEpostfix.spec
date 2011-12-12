@@ -112,7 +112,9 @@
 %define	V_postfinger	1.30
 
 Name:                    SFEpostfix
-Summary:                 postfix - Mailer System
+IPS_Package_Name:	service/network/smtp/postfix
+Summary:                 Mailer System
+Group:		System/Services
 URL:                     http://postfix.org/
 Version:                 2.8.7
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
@@ -120,13 +122,13 @@ Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/officia
 License:		 IBM Public License v1.0
 Source3:                 postfix.xml
 Source5:                 postfix-spamassassin-wiki.apache.org-filter.sh
-Source6:		 http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
-Source7:		 postfix-sasl.conf
-Source8:		 README-Postfix-SASL-RedHat.txt
-Source9:		 postfix-saslauthd.conf
-#Patch1:			postfix-01-make-postfix.spec.diff
-#Patch2:			postfix-02-solarize-startscript.diff
-Patch3:			postfix-03-remove-nisplus-build130.diff
+Source6:	http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
+Source7:	postfix-sasl.conf
+Source8:	README-Postfix-SASL-RedHat.txt
+Source9:	postfix-saslauthd.conf
+#Patch1:		postfix-01-make-postfix.spec.diff
+#Patch2:		postfix-02-solarize-startscript.diff
+Patch3:		postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
 SUNW_Copyright:		postfix.copyright
