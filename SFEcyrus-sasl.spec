@@ -6,13 +6,14 @@
 %include Solaris.inc
 %include usr-gnu.inc
 
-Name:                SFEcyrus-sasl
-Summary:             Simple Authentication and Security Layer library
-Version:             2.1.23
-Source:              ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/cyrus-sasl-%{version}.tar.gz
+Name:		SFEcyrus-sasl
+IPS_Package_Name:	library/security/cyrus-sasl
+Summary:	Simple Authentication and Security Layer library
+Version:	2.1.25
+Source:		ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/cyrus-sasl-%{version}.tar.gz
 
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 Requires: SUNWsqlite3
@@ -32,9 +33,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # needed to prevent an error during configure - strip whitespace
-CFLAGS="%optflags -I/usr/gnu/include -I/usr/sfw/include"
+CFLAGS="%optflags -I/usr/gnu/include -I/usr/include/gssapi"
 export CFLAGS="`echo $CFLAGS`"
-export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib"
+export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib"
 
 ./configure -prefix %{_prefix} \
            --enable-shared=yes \
@@ -43,8 +44,7 @@ export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib"
            --with-plugindir=%{_libdir}/sasl2 \
            --sysconfdir %{_sysconfdir} \
            --mandir %{_mandir} \
-           --with-ipctype=doors \
-           --with-openssl=/usr/sfw
+           --with-ipctype=doors
 
 make -j$CPUS
 
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 2.1.25
 * Sun Feb 13 2011 - Milan Jurik
 - bump to 2.1.23
 * Fri Oct 24 2008 - jedy.wang@sun.com
