@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -39,10 +40,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-build
 
 BuildRequires:  SFEorc-devel
 Requires:       SFEorc
-BuildRequires:  SUNWgtk-doc
+BuildRequires:  %{pnm_buildrequires_SUNWgtk_doc}
 BuildRequires:  SUNWliboil
 BuildRequires:  SUNWgnome-media-devel
-BuildRequires:	SUNWgtk-doc
 
 %package devel
 Summary:                 %{summary} - development files
@@ -141,6 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/schroedinger
 
 %changelog
+* Thu Nov 10 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWgtk_doc}
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Thu Jul 21 2011 - Alex Viskovatoff
