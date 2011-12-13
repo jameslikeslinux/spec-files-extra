@@ -33,13 +33,13 @@
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
+%define with_libdca %(pkginfo -q SFElibdts && echo 1 || echo 0)
 
 Name:                    SFEmplayer2
 Summary:                 MPlayer fork with some additional features
 License:                 GPLv3
 SUNW_Copyright:	         mplayer2.copyright
 Version:                 2.0.0.%snap
-#Version:                2.0.99
 URL:                     http://www.mplayer2.org/
 #Source:                 http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
 # Use the development version, since current release is incompatible
@@ -119,6 +119,10 @@ BuildRequires: SFElibass-devel
 Requires: SFElibass
 BuildRequires: SUNWttf-dejavu
 Requires: SUNWttf-dejavu
+%if %with_libdca
+BuildRequires: SFElibdts-devel
+Requires: SFElibdts
+%endif
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
@@ -161,6 +165,7 @@ bash ./configure				\
             --enable-faad			\
             --disable-mad			\
             --disable-gl			\
+            --disable-esd			\
             --enable-3dnow			\
             --enable-3dnowext			\
             --enable-live			\
@@ -230,6 +235,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Thu Nov 17 2011 - Alex Viskovatoff
+- Add optional dependency on SFElibdts; disable esd (not part of Solaris 11)
 * Sun Oct 30 2011 - Alex Viskovatoff
 - Update tarball and switch to new versioning scheme
 - Disable gt (causes crashes with gcc 4.6.2) and enable runtime cpu detection
