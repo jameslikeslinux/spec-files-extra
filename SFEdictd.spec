@@ -7,6 +7,8 @@
 %define srcname		 dictd
 
 Name:                    SFEdictd
+IPS_package_name:        service/network/dictd
+Group:                   System/Services
 Summary:                 DICTD Server and Client
 Version:                 1.12.0
 URL:                     http://www.dict.org/w/software/start
@@ -40,7 +42,6 @@ export LDFLAGS="%_ldflags"
 %build
 ./configure --prefix=%{_prefix} \
             --mandir=%{_mandir} \
-            --libdir=%{_libdir} \
             --libexecdir=%{_libexecdir} \
             --infodir=%{_infodir} \
             --sysconfdir=%{_sysconfdir} \
@@ -54,7 +55,9 @@ gmake
 
 
 %install
+rm -rf %buildroot
 gmake install DESTDIR=$RPM_BUILD_ROOT
+rmdir %buildroot%_libdir
 mkdir $RPM_BUILD_ROOT%_sysconfdir
 echo "server dict.org" > $RPM_BUILD_ROOT%_sysconfdir/dict.conf
 
@@ -63,30 +66,22 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr (-, root, sys)
+%defattr (-, root, bin)
 
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
-
-%dir %attr (0755, root, sys) /usr/sbin
-/usr/sbin/*
-
-%dir %attr(0755, root, bin) %{_mandir}
-%dir %attr(0755, root, bin) %{_mandir}/man1/*
-%dir %attr(0755, root, bin) %{_mandir}/man8/*
-
-%dir %attr (0755, root, bin) %{_libdir}
-
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
+%_bindir
+%_sbindir
+%dir %attr(0755, root, sys) %_datadir
+%_mandir
+%_includedir
 
 %files root
 %defattr (-, root, sys)
-%dir %attr (0755, root, sys) %{_sysconfdir}
 %attr (-, root, root) %{_sysconfdir}/dict.conf
 
 
 %changelog
+* Sat Dec 17 2011 - Alex Viskovatoff
+- Fix directory attributes
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue Jan 25 2011 - Alex Viskovatoff
