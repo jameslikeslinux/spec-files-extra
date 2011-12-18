@@ -17,6 +17,7 @@
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:		SFEblas
+IPS_Package_Name:	library/math/blas
 License:        Public Domain
 SUNW_Copyright: blas.copyright
 Summary:	%{blas.summary}
