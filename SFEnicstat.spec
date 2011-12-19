@@ -5,9 +5,10 @@
 Name:		SFEnicstat
 IPS_Package_Name:	system/network/nicstat
 Summary:	tool for displaying network load similar to iostat/prstat
+Group:		Applications/System Utilities
 URL:		http://blogs.oracle.com/timc/entry/nicstat_the_solaris_network_monitoring
 Version:	1.90
-Source:                  nicstat-%{version}.tar.gz
+Source:         %{sf_download}/nicstat/nicstat-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
