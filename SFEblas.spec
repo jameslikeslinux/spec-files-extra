@@ -20,9 +20,9 @@ Name:		SFEblas
 IPS_Package_Name:	library/math/blas
 License:        Public Domain
 SUNW_Copyright: blas.copyright
-Summary:	%{blas.summary}
+Summary:	Basic Linear Algebra Subprograms
 Version:	%{blas.version}
-Group:		%{blas.group}
+Group:		System/Libraries
 URL:		%{blas.url}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
