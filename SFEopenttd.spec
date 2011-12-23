@@ -9,7 +9,7 @@
 
 Name:           SFEopenttd
 IPS_Package_Name:	games/openttd
-Version:        1.1.3
+Version:        1.1.4
 Summary:        Transport system simulation game
 Source:         http://binaries.openttd.org/releases/%{version}/%{src_name}-%{version}-source.tar.gz
 Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.7/opengfx-0.3.7.zip
@@ -154,6 +154,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Fri Dec 23 2011 - Milan Jurik
+- bump to 1.1.4
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 - bump to 1.1.3, opengfx 0.3.7
