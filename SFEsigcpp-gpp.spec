@@ -17,6 +17,7 @@
 %use sigcpp = sigcpp.spec
 
 Name:                    SFEsigcpp-gpp
+IPS_Package_Name:	library/g++/sigcpp
 Summary:                 Library that implements typesafe callback system for standard C++ (g++-built)
 Group:                   Development/C++
 URL:                     http://libsigc.sourceforge.net/
