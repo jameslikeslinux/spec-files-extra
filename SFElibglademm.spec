@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                    SFElibglademm
+IPS_Package_Name:	library/desktop/libglademm
 Summary:                 libglademm - C++ Wrapper for the Gtk+ Library
 Version:                 2.6.7
 URL:                     http://www.gtkmm.org/
