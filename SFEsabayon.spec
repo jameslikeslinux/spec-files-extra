@@ -12,8 +12,10 @@
 %include default-depend.inc
 
 %define python_version 2.6
+%define	src_name sabayon
 
-Name:		sabayon
+Name:		SFEsabayon
+IPS_Package_Name:	desktop/sabayon
 Summary:	Tool to maintain user profiles in a GNOME desktop
 Version:	2.30.1
 Release:	1
@@ -21,7 +23,7 @@ Distribution:	Java Desktop System
 Vendor:		Gnome Community
 License:	GPLv2+
 Group:		Applications/System
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/sabayon/2.30/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/sabayon/2.30/%{src_name}-%{version}.tar.bz2
 URL:		http://www.gnome.org/projects/sabayon
 SUNW_BaseDir:   /
 
@@ -54,7 +56,7 @@ sysadmin should use to manage Sabayon profiles.
 
 
 %prep
-%setup -q
+%setup -q -n %{src_name}-%{version}
 
 %build
 %ifos linux
@@ -147,13 +149,13 @@ fi
 %dir %attr (0755, root, bin) %{_libdir}/python%{python_version}/vendor-packages/sabayon/
 %{_libdir}/python%{python_version}/vendor-packages/sabayon/*
 
-%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{src_name}
 %{_datadir}/applications/*
 %{_datadir}/locale/*
 %{_datadir}/man/*
-%{_datadir}/%{name}/ui/*
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg 
+%{_datadir}/%{src_name}/ui/*
+%{_datadir}/icons/hicolor/*/apps/%{src_name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{src_name}.svg 
 %defattr(-, root, root, -)
 %doc %{_datadir}/gnome/help/sabayon/*
 %doc %{_datadir}/omf/sabayon/* 
