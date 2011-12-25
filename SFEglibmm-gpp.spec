@@ -16,6 +16,7 @@
 %use glibmm = glibmm.spec
 
 Name:                    SFEglibmm-gpp
+IPS_Package_Name:	library/g++/glibmm
 Summary:                 C++ Wrapper for the Glib2 Library (g++-built)
 Group:                   Desktop (GNOME)/Libraries
 License:                 LGPLv2
