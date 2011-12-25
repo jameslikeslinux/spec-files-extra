@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                    SFEpython26-dateutil
+IPS_Package_Name:	library/python-2/python-dateutil-26
 Summary:                 dateutil - Provides powerful extensions to the standard datetime module
 URL:                     http://labix.org/python-dateutil
 Version:                 1.5

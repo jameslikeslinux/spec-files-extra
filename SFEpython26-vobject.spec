@@ -12,7 +12,8 @@
 
 %define src_version 0.8.1c
 
-Name:                SFEpython-vobject
+Name:                SFEpython26-vobject
+IPS_Package_Name:	library/python-2/python-vobject-26
 URL:                 http://vobject.skyhouseconsulting.com/
 Summary:             vobject - a Python iCalendar library
 Version:             0.8.1.0.3
@@ -22,9 +23,9 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-Requires: SUNWPython
-Requires: SFEpython-dateutil
-BuildRequires: SUNWPython-devel
+Requires: SUNWPython26
+Requires: SFEpython26-dateutil
+BuildRequires: SUNWPython26-devel
 BuildRequires: SUNWpython26-setuptools
 
 %prep
