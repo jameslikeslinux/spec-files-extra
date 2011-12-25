@@ -1,3 +1,7 @@
+2011-12-25 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/conduit.spec: bump to 0.3.17
+
 2011-12-24 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEjasper.spec: add several security patches from Debian

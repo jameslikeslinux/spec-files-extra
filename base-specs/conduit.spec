@@ -11,7 +11,7 @@
 Name:           conduit
 License:        GPL
 Group:          System/GUI/GNOME
-Version:        0.3.15
+Version:        0.3.17
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -132,6 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Dec 25 2011 - Milan Jurik
+- bump to 0.3.17
 * Mon Jun 15 2009 - halton.huo@sun.com
 - Enable nautilus extension, eog plugin and totem plugin
 * Tue Oct 21 2008 - halton.huo@sun.com
