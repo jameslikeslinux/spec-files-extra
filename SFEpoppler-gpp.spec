@@ -16,6 +16,7 @@
 %use poppler = poppler.spec
 
 Name:                    SFEpoppler-gpp
+IPS_Package_Name:	library/g++/poppler
 Summary:                 PDF rendering library (g++-built)
 URL:                     http://poppler.freedesktop.org
 License:                 GPLv2
