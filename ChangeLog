@@ -1,6 +1,7 @@
 2011-12-28 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEsysstat.spec: bump version to 20111025
+	* SFElibwebp.spec: initial spec
 
 2011-12-25 Milan Jurik <sfnet@xylab.cz>
 
