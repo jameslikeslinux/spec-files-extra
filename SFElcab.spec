@@ -9,15 +9,13 @@
 
 Name:		SFElcab
 IPS_Package_Name:	compress/lcab
-Summary:                Microsoft cabinet file creator
-Version:                1.0b12
+Summary:	Microsoft cabinet file creator
+Version:	1.0b12
 IPS_Component_Version:	1.0.12
-Source:                 ftp://ohnopublishing.net/mirror/%{src_name}-%{version}.tar.gz
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
-
-Requires: SUNWcsl
-Requires: SUNWlibms
+Source:		ftp://ohnopublishing.net/mirror/%{src_name}-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+%include default-depend.inc
 
 %prep
 %setup -q -n %{src_name}-%{version}
