@@ -13,6 +13,7 @@
 %use boost = boost.spec
 
 Name:                SFEboost-gpp
+IPS_Package_Name:	system/library/g++/boost
 Summary:             Free peer-reviewed portable C++ libraries (g++-built)
 License:             Boost License Version
 SUNW_Copyright:      boost.copyright
