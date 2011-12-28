@@ -6,31 +6,21 @@
 %include Solaris.inc
 
 %define src_name	lcab
-%define src_version 1.0b12
-%define src_url	    http://www.mirrorservice.org/sites/ftp.freebsd.org/pub/FreeBSD/distfiles
 
-# =========================================================================== 
-#                    SVR4 required definitions
-# =========================================================================== 
-SUNW_Pkg:	SFE%{src_name}-%{base_arch}
-SUNW_ProdVers:	${src_version}
-SUNW_BaseDir:	%{_basedir}
-
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-# Tag definitions
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-Name:                   SFElcab
-Summary:                lcab - Microsoft cabinet file creator
-Version:                1.0.12
-Source:                 %{src_url}/%{src_name}-%{src_version}.tar.gz
+Name:		SFElcab
+IPS_Package_Name:	compress/lcab
+Summary:                Microsoft cabinet file creator
+Version:                1.0b12
+IPS_Component_Version:	1.0.12
+Source:                 ftp://ohnopublishing.net/mirror/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{src_version}-build
+BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 Requires: SUNWcsl
 Requires: SUNWlibms
 
 %prep
-%setup -q -n %{src_name}-%{src_version}
+%setup -q -n %{src_name}-%{version}
 autoreconf
 ./configure --prefix=%{_prefix} \
             --bindir=%{_bindir} 
