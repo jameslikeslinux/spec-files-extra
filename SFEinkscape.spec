@@ -15,11 +15,12 @@
 %include base.inc
 
 Name:                    SFEinkscape
+IPS_Package_Name:	image/editor/inkscape
 Summary:                 Vector graphics editor
 Group:                   Applications/Graphics and Imaging
 License:                 GPLv2
 SUNW_Copyright:          inkscape.copyright
-Version:                 0.48.2
+Version:                 0.48.1
 Source:                  %{sf_download}/inkscape/inkscape-%{version}.tar.gz
 URL:                     http://www.inkscape.org
 Patch1:                  inkscape-01-combo.diff
@@ -35,6 +36,7 @@ Requires:      SFEpoppler-gpp
 Requires:      SFEgsl
 Requires:      SFElibgc-gpp
 Requires:      SUNWlcms
+Requires:      SFEboost-gpp
 BuildRequires: SFEgtkmm-gpp-devel
 BuildRequires: SFEglibmm-gpp-devel
 BuildRequires: SFEsigcpp-gpp-devel
@@ -42,12 +44,12 @@ BuildRequires: SFEpoppler-gpp-devel
 BuildRequires: SFEgsl-devel
 BuildRequires: SFElibgc-gpp-devel
 BuildRequires: SUNWgnome-libs-devel
-BuildRequires: SUNWPython
-BuildRequires: SUNWlcms-devel
+BuildRequires: SUNWPython26
+BuildRequires: SUNWlcms
 BuildRequires: SFEgtkmm-gpp-devel
 BuildRequires: SFEglibmm-gpp-devel
 BuildRequires: SFEsigcpp-gpp-devel
-BuildRequires: SFEboost-gpp-devel
+BuildRequires: SFEboost-devel
 
 %if %build_l10n
 %package l10n
@@ -159,6 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Dec 28 2011 - Milan Jurik
+- reverting to 0.48.1 because previous bump was incomplete
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.48.2
 * Tue Aug  9 2011 - Alex Viskovatoff
