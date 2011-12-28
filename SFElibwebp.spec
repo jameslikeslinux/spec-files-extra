@@ -15,12 +15,15 @@
 Name:		SFElibwebp
 IPS_Package_Name:	image/library/libwebp
 Version:	%{libwebp.version}
-Summary:	WebP is a new image format that provides lossless and lossy compression for images on the web
+Summary:	WebP library
 URL:		https://code.google.com/speed/webp/
 Group:		System/Multimedia Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%description
+WebP is a new image format that provides lossless and lossy compression for images on the web. 
 
 %package devel
 Summary:	%{summary} - development files
