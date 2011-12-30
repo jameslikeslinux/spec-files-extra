@@ -1,3 +1,7 @@
+2011-12-30  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEdrupal7.spec: bump to 7.10 - various fixes
+
 2011-12-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFElibwpd-gpp.spec: renamed from SFEwpd, bump to 0.9.4
