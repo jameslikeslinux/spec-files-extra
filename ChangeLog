@@ -4,6 +4,7 @@
 	* SFElibwpg-gpp.spec: initial spec
 	* SFEinkscape.spec: fix 0.48.2 build, add libwpg
 	* SFElibmagick-gpp.spec: fork from SFEimagemagick for g++ libs
+	* SFEscorched3d.spec: bump to 43.2a
 
 2011-12-28 Milan Jurik <sfnet@xylab.cz>
 
