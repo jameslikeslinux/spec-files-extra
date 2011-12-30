@@ -5,7 +5,8 @@
 %include Solaris.inc
 
 Name:		SFEgnumeric
-Summary:	gnumeric - Spreadsheet for GNOME
+IPS_Package_Name:	desktop/spreadsheet/gnumeric
+Summary:	Spreadsheet for GNOME
 URL:		http://www.gnome.org/projects/gnumeric/
 Version:	1.10.17
 Group:		Applications/Spreadsheet
