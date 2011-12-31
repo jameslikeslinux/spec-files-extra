@@ -11,6 +11,7 @@
 %include Solaris.inc
 
 Name: SFEpython3
+IPS_Package_Name:	runtime/python-32
 Summary: The Python interpreter, libraries and utilities
 Group: Development/Python
 Version: %{version}
