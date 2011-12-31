@@ -68,7 +68,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/idle3
 %{_bindir}/idle3.2
@@ -84,6 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/pydoc3.2
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/python3.2/*
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/python3.pc
 %{_libdir}/pkgconfig/python-3.2m.pc
 %{_libdir}/pkgconfig/python-3.2.pc
