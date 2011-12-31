@@ -15,6 +15,7 @@
 %use gob = gob2.spec
 
 Name:               SFEgob
+IPS_Package_Name:	developer/build/gob2
 Summary:            The GObject Builder
 Version:            %{gob.version}
 IPS_package_name:   developer/build/gob2
