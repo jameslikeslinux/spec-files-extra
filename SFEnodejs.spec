@@ -13,11 +13,11 @@
 Summary:	Asynchronous JavaScript Engine  
 Name:		SFEnodejs  
 IPS_Package_Name:	runtime/javascript/nodejs
-Version:	0.6.2
+Version:	0.6.6
 License:	BSD  
 Group:		System/Libraries  
 URL:		http://nodejs.org/  
-Source:		http://nodejs.org/dist/node-v%{version}.tar.gz  
+Source:		http://nodejs.org/dist/v%{version}/node-v%{version}.tar.gz  
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
@@ -72,17 +72,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, bin)
 %doc AUTHORS ChangeLog LICENSE
 %{_bindir}/node
+%{_bindir}/npm
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_mandir}
+%{_libdir}/node
+%{_libdir}/node_modules
 
 %files devel  
 %defattr(-, root, bin)  
 %{_bindir}/node-waf
 %{_includedir}/node  
-%{_libdir}/node
 
 %changelog  
+* Sat Dec 31 2011 - Milan Jurik
+- bump to 0.6.6
 * Sat Nov 19 2011 - Milan Jurik
 - bump to 0.6.2
 * Thu Jun 30 2011 - Milan Jurik
