@@ -1,6 +1,7 @@
 2011-12-31 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEnodejs.spec: bump to 0.6.6
+	* SFEgeany.spec: bump to 0.21
 
 2011-12-30  Thomas Wagner  <tom68@users.sourceforge.net>
 
