@@ -7,11 +7,13 @@
 %define _gpp g++
 %include base.inc
 
-Name:                    SFEre2c
-Summary:                 re2c - tool for writing very fast and very flexible scanners
-URL:                     http://re2c.org/
-Version:                 0.13.5
-Source:                  %{sf_download}/re2c/re2c-%{version}.tar.gz
+Name:		SFEre2c
+IPS_Package_Name:	developer/lexer/re2c
+Summary:	A tool for writing very fast and very flexible scanners
+Group:		Development/Other Languages
+URL:		http://re2c.org/
+Version:	0.13.5
+Source:		%{sf_download}/re2c/re2c-%{version}.tar.gz
 
 SUNW_Copyright:		 re2c.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -21,8 +23,6 @@ BuildRequires: SFEgcc
 Requires:      SFEgccruntime
 
 %include default-depend.inc
-
-
 
 %prep
 %setup -q -n re2c-%version
