@@ -96,15 +96,12 @@ BuildRequires:  SFElibgsm-devel
 Requires:       SFElibgsm
 Requires:       SFEmpg123
 Requires:       SFEopenal
-Requires:       system/header/header-audio
+Requires:       SUNWaudh
 
-# Following are for winetricks, not wine directly.
-Requires:       SFEcabextract
-
-#%package devel
-#Summary:                 wine - developer files, /usr
-#SUNW_BaseDir:            %{_basedir}
-#Requires: %name
+%package devel
+Summary:                 wine - developer files, /usr
+SUNW_BaseDir:            %{_basedir}
+Requires: %name
 %include default-depend.inc
 
 %prep
@@ -254,23 +251,20 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_bindir}
 %{_libdir}
-%{_mandir}
 %dir %attr (0755, root, sys) %{_datadir}
+%{_mandir}
 %{_datadir}/desktop-directories
 %{_datadir}/wine
-%defattr (-, root, other)
-%{_datadir}/applications
-%{_includedir}/wine
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/*
 
-#%files devel
-#%defattr (-, root, bin)
-#%{_includedir}
-#%{_includedir}/wine
-#%{_libdir}/wine/*.def
-#%dir %attr (0755, root, sys) %{_datadir}
-#%dir %attr (0755, root, other) %{_datadir}/aclocal
+%files devel
+%defattr (-, root, bin)
+%{_includedir}
 
 %changelog
+* Mon Jan 02 2012 - Milan Jurik
+- fix packaging
 * Sun Jan 1 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.36
 * Fri Dec 2 2011 - Ken Mays <kmays2000@gmail.com>
