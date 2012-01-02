@@ -1,3 +1,7 @@
+2012-01-01 Ken Mays <kmays2000@gmail.com>
+
+        * SFEwine.spec: bump to 1.3.36
+
 2012-01-01 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEguake.spec: add IPS restart services

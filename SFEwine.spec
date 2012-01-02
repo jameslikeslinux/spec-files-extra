@@ -7,6 +7,7 @@
 #
 # Confirmed build of Wine 1.3.31 on oi_151/GCC 3.4.3 10/22/2011 - Ken Mays
 # Confirmed build of Wine 1.3.34 on oi_151/GCC 3.4.3 12/02/2011 - Ken Mays
+# Confirmed build of Wine 1.3.36 on oi_151/GCC 3.4.3 01/01/12   - Ken Mays
 #
 %include Solaris.inc
 
@@ -31,7 +32,7 @@ Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
 IPS_package_name:       desktop/wine
 Group:                  Desktop (GNOME)/Sessions
-Version:                1.3.34
+Version:                1.3.36
 URL:                    http://www.winehq.org/
 Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 #
@@ -270,6 +271,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %attr (0755, root, other) %{_datadir}/aclocal
 
 %changelog
+* Sun Jan 1 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.36
 * Fri Dec 2 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.34
 * Mon Oct 22 2011 - Ken Mays <kmays2000@gmail.com>
