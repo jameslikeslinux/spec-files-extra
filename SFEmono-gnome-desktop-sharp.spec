@@ -1,19 +1,17 @@
 #
-# spec file for package SFEgnome-sharp
+# spec file for package SFEmono-gnome-desktop-sharp
 #
-# includes module(s): gnome-sharp
+# includes module(s): gnome-desktop-sharp
 #
 %include Solaris.inc
 
-Name:         SFEgnome-sharp
+Name:         SFEmono-gnome-desktop-sharp
 License:      Other
 Group:        System/Libraries
-Version:      2.24.1
+Version:      2.24.0
 Summary:      gtk# - .NET bindings for the GNOME platform libraries
-Source:       http://go-mono.com/sources/gnome-sharp2/gnome-sharp-%{version}.tar.bz2
-Patch1:       gnome-sharp-01-Wall.diff
-#Patch2:       gnome-sharp-02-gtkhtml3.14.diff
-Patch3:       gnome-sharp-03-getoptions.diff
+Source:       http://go-mono.com/sources/gnome-desktop-sharp2/gnome-desktop-sharp-%{version}.tar.bz2
+Patch1:       gnome-desktop-sharp-01-Wall.diff
 URL:          http://www.mono-project.org/
 SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
@@ -23,17 +21,17 @@ Autoreqprov:  on
 BuildRequires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SFEmono-devel
-BuildRequires: SFEgtk-sharp
-Requires: SFEgtk-sharp
+BuildRequires: SFEmono-gtk-sharp
+Requires: SFEmono-gtk-sharp
+BuildRequires: SFEmono-gnome-sharp
+Requires: SFEmono-gnome-sharp
 Requires: SUNWgnome-base-libs
 Requires: SUNWevolution-libs
 Requires: SFEmono
 
 %prep
-%setup -q -n gnome-sharp-%version
+%setup -q -n gnome-desktop-sharp-%version
 %patch1 -p1
-#%patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -64,23 +62,33 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.la
 rm -rf $RPM_BUILD_ROOT
 
 %files 
-%defattr(-, root, bin)
-%{_bindir}/*
 %dir %attr (0755, root, bin) %dir %{_libdir}
 %{_libdir}/*.so*
-%dir %attr (0755, root, bin) %dir %{_libdir}/gtk-sharp-2.0
-%{_libdir}/gtk-sharp-2.0/*
 %dir %attr (0755, root, bin) %dir %{_libdir}/mono
-%{_libdir}/mono/*
+#%{_libdir}/mono/*
+%{_libdir}/mono/gac
+%{_libdir}/mono/gnomedesktop-sharp-2.20
+%{_libdir}/mono/vte-sharp-0.16
+%{_libdir}/mono/gnome-panel-sharp-2.24
+%{_libdir}/mono/gtksourceview2-sharp-2.0
+%{_libdir}/mono/wnck-sharp-2.20
+%{_libdir}/mono/gnome-print-sharp-2.18
+%{_libdir}/mono/rsvg2-sharp-2.0
+#%dir %attr (0755, root, bin) %dir %{_libdir}/mono/gac
+#%{_libdir}/mono/gac/*
+#%dir %attr (0755, root, bin) %dir %{_libdir}/mono/gac/vte-sharp
+#%{_libdir}/mono/gac/vte-sharp/*
 %dir %attr (0755, root, other) %dir %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 %dir %attr (0755, root, sys) %dir %{_datadir}
-%{_datadir}/gapi-2.0
+%{_datadir}/gnome-panel-sharp
+%{_datadir}/gnomedesktop-sharp
+%{_datadir}/rsvg2-sharp
+%{_datadir}/wnck-sharp
+%{_datadir}/gnome-print-sharp
+%{_datadir}/gtksourceview2-sharp
+%{_datadir}/vte-sharp
 
 %changelog
 * Fri Sep 16 2011 - jchoi4@pha.jhu.edu
-- Bump to 2.24.1
-* Wed Aug 15 2007 - trisk@acm.jhu.edu
-- Add gnome-sharp-02-gtkhtml3.14.diff
-* Sat Mar 17 2007 - laca@sun.com
 - Initial spec
