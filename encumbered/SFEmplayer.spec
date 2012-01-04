@@ -8,6 +8,7 @@
 %define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define cc_is_gcc 1
 %if %use_gcc4
@@ -46,7 +47,9 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{tarball_version}-build
 
 %include default-depend.inc
-Requires: SUNWsmbau
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
+##TODO## check if it is sufficient to install "libsmb" or something on a recent build to get the smbclient features
+Requires: %{pnm_requires_SUNWsmba}
 Requires: SUNWgnome-audio
 BuildRequires: SUNWgnome-audio-devel
 Requires: SUNWxorg-clientlibs
@@ -81,6 +84,10 @@ Requires: SFEliveMedia
 Requires: SFElibcdio
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWaudh
+BuildRequires: %{pnm_buildrequires_SUNWlibmng_devel}
+Requires: %{pnm_buildrequires_SUNWlibmng_devel}
+BuildRequires: SFElzo-devel
+Requires: SFElzo
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
@@ -242,6 +249,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Dec 12 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SUNWsmba
+- add missing (Build)Requires pnm_(build)requires_SUNWlibmng(_devel) SFElzo(-devel)
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Sun Feb 06 2011 - Milan Jurik
