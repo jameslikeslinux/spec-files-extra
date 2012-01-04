@@ -57,7 +57,8 @@ Requires:		SFEgccruntime
 # Guarantee X/freetype environment concisely (hopefully):
 BuildRequires: SUNWgtk2
 Requires:      SUNWgtk2
-Requires: SUNWxwplt
+BuildRequires: %{pnm_buildrequires_SUNWxwplt}
+Requires: %{pnm_requires_SUNWxwplt}
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
@@ -216,6 +217,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov  7 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWxwplt}
 * Wed Nov  2 2011 - Alex Viskovatoff
 - update to 4.7.4, reworking two patches and adding another
 * Tue Aug 16 2011 - Thomas Wagner
