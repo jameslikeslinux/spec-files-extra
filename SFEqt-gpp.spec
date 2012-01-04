@@ -171,17 +171,12 @@ vncserver -kill :1
 %install
 rm -rf %buildroot
 
-make install INSTALL_ROOT=$RPM_BUILD_ROOT
+make install INSTALL_ROOT=%buildroot
 
-rm %buildroot%_libdir/lib*a
-
-# Eliminate QML imports stuff for now:
-# Who is Nokia to create a new subdirectory in /usr?
-#rm -r %buildroot%_prefix/imports
-
+rm %buildroot%_libdir/lib*.la
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 %files
 %defattr (-, root, bin)
@@ -203,6 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %dir %_libdir
 %dir %attr (0755, root, other) %_libdir/pkgconfig 
 %_libdir/pkgconfig/*
+%_libdir/libQtUiTools.a
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/mkspecs
 %dir %attr (0755, root, other) %_prefix/imports
@@ -217,6 +213,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan  4 2011 - Alex Viskovatoff
+- do not delete libQtUiTools.a (there is no libQtUiTools.so)
 * Mon Nov  7 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWxwplt}
 * Wed Nov  2 2011 - Alex Viskovatoff
