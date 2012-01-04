@@ -590,17 +590,25 @@
 
 
 #special case, pkgtool/pkgbuild can't see if packages are installed if
-#meta-package data/docbook is requested. up to 133 it was developer/documentation-tool/gtk-doc
+#meta-package data/docbook is requested (it shows never as being installed).
+#up to 133 it was developer/documentation-tool/gtk-doc
 #NOTE we overwrite what the include for 134 has defined
 %if %( expr %{osbuild} '>=' 134 )
-#133 %define pnm_buildrequires_SUNWgtk_doc_devel	developer/documentation-tool/gtk-doc
-#133 %define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
-#133 %define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
-#134 %define pnm_buildrequires_SUNWgtk_doc	data/docbook
-#134 %define pnm_requires_SUNWgtk_doc		data/docbook
-
+%define pnm_buildrequires_developer_documentation_tool_gtk_doc    developer/documentation-tool/gtk-doc
+%define pnm_requires_developer_documentation_tool_gtk_doc         developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_SUNWgtk_doc_devel     developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_SUNWgtk_doc           developer/documentation-tool/gtk-doc
+%define pnm_requires_SUNWgtk_doc                developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_gtk_doc               developer/documentation-tool/gtk-doc
+%define pnm_requires_gtk_doc                    developer/documentation-tool/gtk-doc
 %define pnm_buildrequires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
 %define pnm_requires_SUNWgtk_doc		developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_SUNWgnome_xml         developer/documentation-tool/gtk-doc
+%define pnm_requires_SUNWgnome_xml              developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_SUNWgtk_doc           developer/documentation-tool/gtk-doc
+%define pnm_requires_SUNWgtk_doc                developer/documentation-tool/gtk-doc
+%define pnm_buildrequires_data_docbook          developer/documentation-tool/gtk-doc
+%define pnm_requires_data_docbook               developer/documentation-tool/gtk-doc
 %endif
 #END >= 134
 
@@ -888,6 +896,10 @@
 
 
 %changelog
+* Wed Jan  4 2012 - Thomas Wagner
+- pkgtool/pkgbuild can't see if packages are installed: meta-package data/docbook
+  is requested. up to 133 it was developer/documentation-tool/gtk-doc,
+  now it's a never installed package because it got renamed to an incorporation
 * Sat Dec 10 2011 - Thomas Wagner
 - make SUNWsmba* be service/network/samba (>=133)
 * Mon Nov  7 2011 - Thomas Wagner
