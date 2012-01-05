@@ -17,6 +17,7 @@
 %include packagenamemacros.inc
 
 Name:                SFEqt-gpp
+IPS_Package_Name:	library/desktop/g++/qt
 Summary:             Cross-platform development framework/toolkit
 Group:               Desktop (GNOME)/Libraries
 URL:                 http://trolltech.com/products/qt
@@ -183,6 +184,7 @@ rm -rf %buildroot
 %dir %attr (0755, root, bin) %_libdir
 %_libdir/lib*.so*
 %_libdir/lib*.prl
+%_libdir/libQtUiTools.a
 %dir %attr (0755, root, bin) %_libdir/qt
 %_libdir/qt/*
 %dir %attr (0755, root, sys) %_datadir
