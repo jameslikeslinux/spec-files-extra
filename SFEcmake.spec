@@ -46,9 +46,9 @@ export CXXFLAGS="%cxx_optflags"
 
 #If Ext2 Filesystem headers are present and found, compile errors occur
 #disable this: HAVE_EXT2FS_EXT2_FS_H:INTERNAL=1
-sed -i -e 's/^HAVE_EXT2FS_EXT2_FS_H:INTERNAL=.*/HAVE_EXT2FS_EXT2_FS_H:INTERNAL=/' CMakeCache.txt 
+gsed -i -e 's/^HAVE_EXT2FS_EXT2_FS_H:INTERNAL=.*/HAVE_EXT2FS_EXT2_FS_H:INTERNAL=/' CMakeCache.txt 
 
-make -j$CPUS
+gmake -j$CPUS
 
 %install
 rm -rf %{buildroot}
@@ -68,6 +68,8 @@ rm -rf %{buildroot}
 %{_docdir}/cmake
 
 %changelog
+* Tue Oct 11 2011 - Thomas Wagner
+- some sed don't support -i , change to "gsed" (and gmake)
 * Tue Oct 11 2011 - Milan Jurik
 - bump to 2.8.6, add IPS package name
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
