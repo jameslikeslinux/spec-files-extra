@@ -19,6 +19,8 @@
 %define rename %{?_with_rename:1}%{?!_with_rename:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1
 %include base.inc
 
@@ -52,7 +54,6 @@ SUNW_BaseDir:            %_basedir
 BuildRoot:               %_tmppath/%name-build
 
 %include default-depend.inc
-Requires: SUNWsmbau
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
 Requires: SUNWfreetype2
@@ -61,7 +62,8 @@ Requires: SUNWjpg
 Requires: SUNWpng
 Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
-Requires: SUNWsmbau
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
+Requires: %{pnm_requires_SUNWsmba}
 BuildRequires: SFEffmpeg-devel
 Requires: SFEffmpeg
 Requires: SFEliveMedia
@@ -235,6 +237,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Mon Dec 12 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SUNWsmba
 * Thu Nov 17 2011 - Alex Viskovatoff
 - Add optional dependency on SFElibdts; disable esd (not part of Solaris 11)
 * Sun Oct 30 2011 - Alex Viskovatoff
