@@ -27,12 +27,14 @@ BuildRequires:	SFEicu-gpp-devel
 Requires:	SFEicu-gpp
 
 %package -n %name-devel
+IPS_package_name:	system/library/g++/boost/header-boost
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
 %package -n %name-doc
+IPS_package_name:	system/library/g++/boost/documentation
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
