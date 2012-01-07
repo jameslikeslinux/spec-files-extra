@@ -1,3 +1,7 @@
+2012-01-07 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEqt-stdcxx.spec: bump to 4.7.4, rename to SFEqt-stdcxx
+
 2012-01-03 James Choi <jchoi42@pha.jhu.edu>
 
 	* SFEgnome-sharp.spec: bump to 2.24.1

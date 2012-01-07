@@ -54,16 +54,17 @@
 %define srcname qt-everywhere-opensource-src
 %include packagenamemacros.inc
 
-Name:                SFEqt47
+Name:                SFEqt-stdcxx
+IPS_Package_Name:	library/desktop/stdcxx/qt
 Summary:             Cross-platform development framework/toolkit
 URL:                 http://trolltech.com/products/qt
 License:             LGPLv2
-Version:             4.7.1
+Version:             4.7.4
 Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
 Source1:	     qmake.conf
 Patch1:		     qt47/qt471-01-configure-ext.diff
 Patch2:		     qt47/qt471-02-ext.diff
-Patch3:		     qt47/qt471-03-ext2.diff
+Patch3:		     qt47/qt-ext2.diff
 Patch4:		     qt47/qt471-04-sse42.diff
 #These patches are stolen from KDE guys and affect WebKit 
 #(I'm not first who stole them, most of them are stolen from cvsdude old repo)
@@ -106,6 +107,8 @@ Patch38:	     qt47/qt-4.7.1-mathextras.diff
 Patch39: 	     qt47/qt-4.7.1-qiconvcodec.diff
 Patch40:	     qt47/qt-471-shm.diff
 Patch41:	     qt47/solaris-g++-qmake-conf.diff
+Patch42:             qt47/qt-q_atomic_test_and_set_ptr.diff
+Patch43:             qt47/qt-ctype.diff
 SUNW_BaseDir:        %{_basedir}
 SUNW_Copyright:      qt.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -161,7 +164,7 @@ Requires: %name
 %patch20 -p0
 %patch21 -p0
 %patch22 -p1
-%patch23 -p1
+#%patch23 -p1
 %patch24 -p1
 %patch25 -p0
 %patch26 -p0
@@ -179,7 +182,8 @@ Requires: %name
 %patch38 -p0
 %patch39 -p0
 %patch40 -p0
-
+%patch42 -p0
+%patch43 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -227,7 +231,7 @@ rm -rf $RPM_BUILD_ROOT
 
 gmake install INSTALL_ROOT=$RPM_BUILD_ROOT
 
-rm ${RPM_BUILD_ROOT}%{_libdir}/*.*a
+rm ${RPM_BUILD_ROOT}%{_libdir}/*.la
 
 # Eliminate QML imports stuff for now:
 # Who is Nokia to create a new subdirectary in /usr?
@@ -255,6 +259,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*.so*
 %{_libdir}/lib*.prl
+%{_libdir}/libQtUiTools.a
 %dir %attr (0755, root, bin) %{_libdir}/qt
 %{_libdir}/qt/*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -277,6 +282,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jan 07 2012 - Milan Jurik
+- bump to 4.7.4 (with help from KDE specs)
+- rename to SFEqt-stdcxx
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Wed Mar 30 2011 - Alex Viskovatoff
