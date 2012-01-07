@@ -70,12 +70,14 @@ BuildRequires: SUNWdbus
 Requires: SUNWdbus
 
 %package -n %name-devel
+IPS_package_name:	library/desktop/g++/qt/header-qt
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
 %package -n %name-doc
+IPS_package_name:	library/desktop/g++/qt/documentation
 Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
