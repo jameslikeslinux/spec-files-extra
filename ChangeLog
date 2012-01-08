@@ -2,6 +2,7 @@
 
 	* SFEstellarium.spec: bump to 0.11.1, fix qt-stdcxx
 	* SFEscribus.spec: bump to 1.4.0
+	* SFElyx.spec: bump to 2.0.2
 
 2012-01-07 Milan Jurik <sfnet@xylab.cz>
 

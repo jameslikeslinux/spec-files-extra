@@ -23,12 +23,14 @@
 %define srcname lyx
 
 Name:		SFElyx
+IPS_Package_Name:	desktop/publishing/lyx
 Summary:	Graphical LaTeX front end: What you see is what you mean
 URL:		http://www.lyx.org
 License:	GPLv2
+Group:		Applications/Office
 SUNW_Copyright:	lyx.copyright
-Version:	2.0.1
-Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.xz
+Version:	2.0.2
+Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.gz
 Source1:	%srcname.desktop
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -112,6 +114,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Jan 08 2012 - Milan Jurik
+- bump to 2.0.2
 * Sun Jul 31 2011 - Alex Viskovatoff
 - Add missing (build) dependency
 * Sat Jul 23 2011 - Alex Viskovatoff
