@@ -1,6 +1,6 @@
-diff -ur stellarium-0.10.6/CMakeLists.txt stellarium-0.10.6-patch/CMakeLists.txt
---- stellarium-0.10.6/CMakeLists.txt	2010-12-05 17:31:01.000000000 +0100
-+++ stellarium-0.10.6-patch/CMakeLists.txt	2011-02-08 07:23:13.742757994 +0100
+diff -Naur stellarium-0.11.1/CMakeLists.txt stellarium-0.11.1-patch/CMakeLists.txt
+--- stellarium-0.11.1/CMakeLists.txt	2011-11-04 10:59:32.000000000 +0100
++++ stellarium-0.11.1-patch/CMakeLists.txt	2012-01-07 22:25:56.779796288 +0100
 @@ -33,8 +33,8 @@
  
  
@@ -12,10 +12,10 @@ diff -ur stellarium-0.10.6/CMakeLists.txt stellarium-0.10.6-patch/CMakeLists.txt
  ELSE()
   SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -fexceptions -fident -mthreads")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wsign-promo -fexceptions -fident -mthreads")
-diff -ur stellarium-0.10.6/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp stellarium-0.10.6-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp
---- stellarium-0.10.6/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2011-02-08 07:23:13.064558367 +0100
-@@ -51,7 +51,7 @@
+diff -Naur stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp
+--- stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2012-01-07 22:25:56.780612827 +0100
+@@ -57,7 +57,7 @@
  		 && index.column() < mappings.size()
  		 && index.column() >= 0){
  			QObject *object = content->at(index.row());
@@ -24,7 +24,7 @@ diff -ur stellarium-0.10.6/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp s
    }
  	return data;
  }
-@@ -89,7 +89,7 @@
+@@ -95,7 +95,7 @@
  	bool changeMade = false;
  	if (index.isValid() && role == Qt::EditRole && index.column() < mappings.size()) {
  		QObject* object = content->at(index.row());
@@ -33,10 +33,10 @@ diff -ur stellarium-0.10.6/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp s
  		emit(dataChanged(index, index));
  
  		changeMade = true;
-diff -ur stellarium-0.10.6/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp stellarium-0.10.6-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp
---- stellarium-0.10.6/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2011-02-08 07:23:13.061271273 +0100
-@@ -473,8 +473,8 @@
+diff -Naur stellarium-0.11.1/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp stellarium-0.11.1-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp
+--- stellarium-0.11.1/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2012-01-07 22:25:56.782643816 +0100
+@@ -501,8 +501,8 @@
  		//Round to the greatest possible derived unit
  		while (bytesTotal > 1024)
  		{
@@ -47,9 +47,9 @@ diff -ur stellarium-0.10.6/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp
  		}
  		currentValue = bytesReceived;
  		endValue = bytesTotal;
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2011-02-08 07:23:13.063960336 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2012-01-07 22:25:56.785033657 +0100
 @@ -86,7 +86,7 @@
  				double f = rval.lengthSquared();
  				if (f > 0.0)
@@ -59,10 +59,10 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/clients/InterpolatedPosi
  				}
  			}
  			break;
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/clients/TelescopeClient.hpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2011-02-08 07:23:14.322862967 +0100
-@@ -122,7 +122,7 @@
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/clients/TelescopeClient.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2012-01-07 22:25:56.785737307 +0100
+@@ -121,7 +121,7 @@
  		XYZ = XYZ * 31.0 + desired_pos;
  		const double lq = XYZ.lengthSquared();
  		if (lq > 0.0)
@@ -71,9 +71,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/clients/TelescopeClient.
  		else
  			XYZ = desired_pos;
  		return true;
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Connection.cpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Connection.cpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/Connection.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Connection.cpp	2011-02-08 07:23:14.323939199 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Connection.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Connection.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Connection.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Connection.cpp	2012-01-07 22:25:56.787674835 +0100
 @@ -26,9 +26,9 @@
  #include "Server.hpp"
  #include "LogFile.hpp"
@@ -104,9 +104,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Connection.cpp s
  	const int ra_ms = h % 10000; h /= 10000;
  	const int ra_s = h % 60; h /= 60;
  	const int ra_m = h % 60; h /= 60;
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.cpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2011-02-08 07:23:14.326043802 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2012-01-07 22:25:56.788777189 +0100
 @@ -26,12 +26,12 @@
  #include "TelescopeClientDirectLx200.hpp"
  #include "LogFile.hpp"
@@ -140,9 +140,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.cpp
  	return 1;
  }
  
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.hpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2011-02-08 07:23:13.743418456 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2012-01-07 22:25:56.789495577 +0100
 @@ -27,7 +27,7 @@
  #define _LX200_COMMAND_HPP_
  
@@ -152,9 +152,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Command.hpp
  
  class Server;
  class TelescopeClientDirectLx200;
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Connection.cpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2011-02-08 07:23:14.324955713 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Connection.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2012-01-07 22:25:56.790584409 +0100
 @@ -27,9 +27,9 @@
  #include "TelescopeClientDirectLx200.hpp"
  #include "LogFile.hpp"
@@ -185,9 +185,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/Lx200Connection.
  		if (ra >= 86400)
  			ra -= 86400;
  		sendCommand(new Lx200CommandStopSlew(server));
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.cpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2011-02-08 07:23:13.743921020 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2012-01-07 22:25:56.791298020 +0100
 @@ -26,9 +26,9 @@
  #include "TelescopeClientDirectNexStar.hpp"
  #include "LogFile.hpp"
@@ -200,9 +200,9 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.c
  
  NexStarCommand::NexStarCommand(Server &server) : server(*static_cast<TelescopeClientDirectNexStar*>(&server)), has_been_written_to_buffer(false)
  {
-diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.hpp stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp
---- stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2011-02-08 07:23:13.744384815 +0100
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2012-01-07 22:25:56.791969151 +0100
 @@ -26,7 +26,7 @@
  #define _NEXSTAR_COMMAND_HPP_
  
@@ -212,9 +212,42 @@ diff -ur stellarium-0.10.6/plugins/TelescopeControl/src/servers/NexStarCommand.h
  
  class Server;
  class TelescopeClientDirectNexStar;
-diff -ur stellarium-0.10.6/src/core/SimbadSearcher.hpp stellarium-0.10.6-patch/src/core/SimbadSearcher.hpp
---- stellarium-0.10.6/src/core/SimbadSearcher.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/SimbadSearcher.hpp	2011-02-08 07:23:13.063444641 +0100
+diff -Naur stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp
+--- stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp	2012-01-08 09:33:55.749693968 +0100
+@@ -472,7 +472,7 @@
+ 		return;
+ 
+ 	double offset = TimeZoneConfigurationWindow::readTzOffsetString(tzFormat.cap(2));
+-	if (fabs(offset) >= 24)
++	if (std::fabs(offset) >= 24)
+ 		return;
+ 
+ 	QString name = tzFormat.cap(1).trimmed();
+@@ -493,7 +493,7 @@
+ 		if (!dstOffsetString.isEmpty())
+ 		{
+ 			double dstOffset = TimeZoneConfigurationWindow::readTzOffsetString(dstOffsetString);
+-			if (fabs(dstOffset) >= 24)
++			if (std::fabs(dstOffset) >= 24)
+ 				return;
+ 
+ 			ui->checkBoxOffsetDst->setChecked(true);
+diff -Naur stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp
+--- stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2012-01-07 22:25:56.792752352 +0100
+@@ -162,7 +162,7 @@
+ 	int hours, minutes, seconds;
+ 	readTzTimeString((signChar.isDigit()) ? string : string.mid(1),
+ 	                 hours, minutes, seconds);
+-	const double offset = sign * (hours + floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
++	const double offset = sign * (hours + std::floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
+ 	return offset;
+ }
+ 
+diff -Naur stellarium-0.11.1/src/core/SimbadSearcher.hpp stellarium-0.11.1-patch/src/core/SimbadSearcher.hpp
+--- stellarium-0.11.1/src/core/SimbadSearcher.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/SimbadSearcher.hpp	2012-01-07 22:25:56.793486439 +0100
 @@ -32,7 +32,7 @@
  class SimbadLookupReply : public QObject
  {
@@ -224,9 +257,9 @@ diff -ur stellarium-0.10.6/src/core/SimbadSearcher.hpp stellarium-0.10.6-patch/s
  
  public:
  	friend class SimbadSearcher;
-diff -ur stellarium-0.10.6/src/core/SphericMirrorCalculator.cpp stellarium-0.10.6-patch/src/core/SphericMirrorCalculator.cpp
---- stellarium-0.10.6/src/core/SphericMirrorCalculator.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/SphericMirrorCalculator.cpp	2011-02-08 07:23:13.750606360 +0100
+diff -Naur stellarium-0.11.1/src/core/SphericMirrorCalculator.cpp stellarium-0.11.1-patch/src/core/SphericMirrorCalculator.cpp
+--- stellarium-0.11.1/src/core/SphericMirrorCalculator.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/SphericMirrorCalculator.cpp	2012-01-07 22:25:56.795051808 +0100
 @@ -37,13 +37,13 @@
  conf.value("spheric_mirror/projector_position_z",-0.2).toFloat());
    P = (projector_position - mirror_position) * (1.0/mirror_radius);
@@ -325,9 +358,21 @@ diff -ur stellarium-0.10.6/src/core/SphericMirrorCalculator.cpp stellarium-0.10.
  
    const Vec3f S = Q + w*(f1/vv);
    const Vec3f S_x = Q_x + w*((vv*f1_x-vvX*f1)/(vv*vv)) + w_x*(f1/vv);
-diff -ur stellarium-0.10.6/src/core/StelFileMgr.cpp stellarium-0.10.6-patch/src/core/StelFileMgr.cpp
---- stellarium-0.10.6/src/core/StelFileMgr.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelFileMgr.cpp	2011-02-08 07:23:13.745060183 +0100
+diff -Naur stellarium-0.11.1/src/core/StelCore.hpp stellarium-0.11.1-patch/src/core/StelCore.hpp
+--- stellarium-0.11.1/src/core/StelCore.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelCore.hpp	2012-01-07 22:27:35.886610303 +0100
+@@ -390,7 +390,7 @@
+ 	//! Set real time speed or pause simulation if we are already in realtime speed.
+ 	void toggleRealTimeSpeed() {(!getRealTimeSpeed()) ? setRealTimeSpeed() : setZeroTimeSpeed();}
+ 	//! Get whether it is real time speed, i.e. 1 sec/sec
+-	bool getRealTimeSpeed() const {return (fabs(timeSpeed-JD_SECOND)<0.0000001);}
++	bool getRealTimeSpeed() const {return (std::fabs(timeSpeed-JD_SECOND)<0.0000001);}
+ 
+ 	//! Set stellarium time to current real world time
+ 	void setTimeNow();
+diff -Naur stellarium-0.11.1/src/core/StelFileMgr.cpp stellarium-0.11.1-patch/src/core/StelFileMgr.cpp
+--- stellarium-0.11.1/src/core/StelFileMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelFileMgr.cpp	2012-01-07 22:25:56.795972194 +0100
 @@ -510,17 +510,17 @@
  		qDebug() << "Creating directory " << uDir.filePath();
  		if (!QDir("/").mkpath(uDir.filePath()))
@@ -349,9 +394,9 @@ diff -ur stellarium-0.10.6/src/core/StelFileMgr.cpp stellarium-0.10.6-patch/src/
  	}
  }
  
-diff -ur stellarium-0.10.6/src/core/StelGeodesicGrid.cpp stellarium-0.10.6-patch/src/core/StelGeodesicGrid.cpp
---- stellarium-0.10.6/src/core/StelGeodesicGrid.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelGeodesicGrid.cpp	2011-02-08 07:23:14.327711906 +0100
+diff -Naur stellarium-0.11.1/src/core/StelGeodesicGrid.cpp stellarium-0.11.1-patch/src/core/StelGeodesicGrid.cpp
+--- stellarium-0.11.1/src/core/StelGeodesicGrid.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelGeodesicGrid.cpp	2012-01-07 22:25:56.796901477 +0100
 @@ -38,8 +38,8 @@
  #include <cmath>
  #include <cstdlib>
@@ -363,9 +408,9 @@ diff -ur stellarium-0.10.6/src/core/StelGeodesicGrid.cpp stellarium-0.10.6-patch
  static const float icosahedron_a = icosahedron_b*icosahedron_G;
  
  static const Vec3f icosahedron_corners[12] =
-diff -ur stellarium-0.10.6/src/core/StelGeodesicGrid.hpp stellarium-0.10.6-patch/src/core/StelGeodesicGrid.hpp
---- stellarium-0.10.6/src/core/StelGeodesicGrid.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelGeodesicGrid.hpp	2011-02-08 07:23:13.745555769 +0100
+diff -Naur stellarium-0.11.1/src/core/StelGeodesicGrid.hpp stellarium-0.11.1-patch/src/core/StelGeodesicGrid.hpp
+--- stellarium-0.11.1/src/core/StelGeodesicGrid.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelGeodesicGrid.hpp	2012-01-07 22:25:56.797571766 +0100
 @@ -47,7 +47,7 @@
  class StelGeodesicGrid
  {
@@ -375,9 +420,9 @@ diff -ur stellarium-0.10.6/src/core/StelGeodesicGrid.hpp stellarium-0.10.6-patch
  	~StelGeodesicGrid(void);
  	
  	int getMaxLevel(void) const {return maxLevel;}
-diff -ur stellarium-0.10.6/src/core/StelLocaleMgr.cpp stellarium-0.10.6-patch/src/core/StelLocaleMgr.cpp
---- stellarium-0.10.6/src/core/StelLocaleMgr.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelLocaleMgr.cpp	2011-02-08 07:23:14.334687046 +0100
+diff -Naur stellarium-0.11.1/src/core/StelLocaleMgr.cpp stellarium-0.11.1-patch/src/core/StelLocaleMgr.cpp
+--- stellarium-0.11.1/src/core/StelLocaleMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelLocaleMgr.cpp	2012-01-07 22:25:56.798331322 +0100
 @@ -213,7 +213,7 @@
  		shift = StelUtils::getGMTShiftFromQT(JD)*0.041666666666;
  	}
@@ -387,10 +432,10 @@ diff -ur stellarium-0.10.6/src/core/StelLocaleMgr.cpp stellarium-0.10.6-patch/sr
  	QString str;
  	switch (dateFormat)
  	{
-diff -ur stellarium-0.10.6/src/core/StelMovementMgr.cpp stellarium-0.10.6-patch/src/core/StelMovementMgr.cpp
---- stellarium-0.10.6/src/core/StelMovementMgr.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelMovementMgr.cpp	2011-02-08 07:23:14.328901126 +0100
-@@ -560,7 +560,7 @@
+diff -Naur stellarium-0.11.1/src/core/StelMovementMgr.cpp stellarium-0.11.1-patch/src/core/StelMovementMgr.cpp
+--- stellarium-0.11.1/src/core/StelMovementMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelMovementMgr.cpp	2012-01-07 22:25:56.799553892 +0100
+@@ -561,7 +561,7 @@
  			}
  			else
  			{
@@ -399,7 +444,7 @@ diff -ur stellarium-0.10.6/src/core/StelMovementMgr.cpp stellarium-0.10.6-patch/
  			}
  		}
  		else if (zoomingMode==-1)
-@@ -572,7 +572,7 @@
+@@ -573,7 +573,7 @@
  			}
  			else
  			{
@@ -408,13 +453,24 @@ diff -ur stellarium-0.10.6/src/core/StelMovementMgr.cpp stellarium-0.10.6-patch/
  			}
  		}
  		else
-
-diff -ur stellarium-0.10.6/src/core/StelObserver.cpp stellarium-0.10.6-patch/src/core/StelObserver.cpp
---- stellarium-0.10.6/src/core/StelObserver.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelObserver.cpp	2011-02-08 07:23:14.332406896 +0100
+diff -Naur stellarium-0.11.1/src/core/StelObjectMgr.cpp stellarium-0.11.1-patch/src/core/StelObjectMgr.cpp
+--- stellarium-0.11.1/src/core/StelObjectMgr.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelObjectMgr.cpp	2012-01-08 09:36:53.771897584 +0100
+@@ -143,7 +143,7 @@
+ 	foreach (const StelObjectP& obj, candidates)
+ 	{
+ 		prj->project(obj->getJ2000EquatorialPos(core), winpos);
+-		float distance = sqrt((xpos-winpos[0])*(xpos-winpos[0]) + (ypos-winpos[1])*(ypos-winpos[1]))*distanceWeight;
++		float distance = std::sqrt((xpos-winpos[0])*(xpos-winpos[0]) + (ypos-winpos[1])*(ypos-winpos[1]))*distanceWeight;
+ 		float priority =  obj->getSelectPriority(core);
+ 		// qDebug() << (*iter).getShortInfoString(core) << ": " << priority << " " << distance;
+ 		if (distance + priority < best_object_value)
+diff -Naur stellarium-0.11.1/src/core/StelObserver.cpp stellarium-0.11.1-patch/src/core/StelObserver.cpp
+--- stellarium-0.11.1/src/core/StelObserver.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelObserver.cpp	2012-01-07 22:25:56.802013980 +0100
 @@ -78,7 +78,7 @@
  	const RotationElements &r(dest->getRotationElements());
- 	lastJD = StelApp::getInstance().getCore()->getNavigator()->getJDay();
+ 	lastJD = StelApp::getInstance().getCore()->getJDay();
  
 -	re.offset = r.offset + fmod(re.offset - r.offset + 360.0*( (lastJD-re.epoch)/re.period - (lastJD-r.epoch)/r.period), 360.0);
 +	re.offset = r.offset + std::fmod(re.offset - r.offset + 360.0*( (lastJD-re.epoch)/re.period - (lastJD-r.epoch)/r.period), 360.0);
@@ -468,9 +524,9 @@ diff -ur stellarium-0.10.6/src/core/StelObserver.cpp stellarium-0.10.6-patch/src
  	}
  	return r;
  }
-diff -ur stellarium-0.10.6/src/core/StelPainter.cpp stellarium-0.10.6-patch/src/core/StelPainter.cpp
---- stellarium-0.10.6/src/core/StelPainter.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelPainter.cpp	2011-02-08 07:23:13.747074431 +0100
+diff -Naur stellarium-0.11.1/src/core/StelPainter.cpp stellarium-0.11.1-patch/src/core/StelPainter.cpp
+--- stellarium-0.11.1/src/core/StelPainter.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelPainter.cpp	2012-01-07 22:25:56.805258242 +0100
 @@ -34,6 +34,8 @@
  #include <QVarLengthArray>
  #include <QPaintEngine>
@@ -480,9 +536,9 @@ diff -ur stellarium-0.10.6/src/core/StelPainter.cpp stellarium-0.10.6-patch/src/
  #ifndef GL_MULTISAMPLE
  #define GL_MULTISAMPLE  0x809D
  #endif
-diff -ur stellarium-0.10.6/src/core/StelProjector.cpp stellarium-0.10.6-patch/src/core/StelProjector.cpp
---- stellarium-0.10.6/src/core/StelProjector.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelProjector.cpp	2011-02-08 07:23:14.333094114 +0100
+diff -Naur stellarium-0.11.1/src/core/StelProjector.cpp stellarium-0.11.1-patch/src/core/StelProjector.cpp
+--- stellarium-0.11.1/src/core/StelProjector.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelProjector.cpp	2012-01-07 22:25:56.806045258 +0100
 @@ -115,7 +115,7 @@
  {
  	bool ok = unProject(viewportXywh[0]+0.5f*viewportXywh[2], viewportXywh[1]+0.5f*viewportXywh[3], boundingCap.n);
@@ -492,9 +548,9 @@ diff -ur stellarium-0.10.6/src/core/StelProjector.cpp stellarium-0.10.6-patch/sr
  
  	// Now need to determine the aperture
  	Vec3d e0,e1,e2,e3,e4,e5;
-diff -ur stellarium-0.10.6/src/core/StelProjectorClasses.hpp stellarium-0.10.6-patch/src/core/StelProjectorClasses.hpp
---- stellarium-0.10.6/src/core/StelProjectorClasses.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelProjectorClasses.hpp	2011-02-08 07:23:14.333890063 +0100
+diff -Naur stellarium-0.11.1/src/core/StelProjectorClasses.hpp stellarium-0.11.1-patch/src/core/StelProjectorClasses.hpp
+--- stellarium-0.11.1/src/core/StelProjectorClasses.hpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelProjectorClasses.hpp	2012-01-07 22:25:56.806870518 +0100
 @@ -23,6 +23,10 @@
  #include <limits>
  #include "StelProjector.hpp"
@@ -506,9 +562,9 @@ diff -ur stellarium-0.10.6/src/core/StelProjectorClasses.hpp stellarium-0.10.6-p
  class StelProjectorPerspective : public StelProjector
  {
  public:
-diff -ur stellarium-0.10.6/src/core/StelSkyDrawer.cpp stellarium-0.10.6-patch/src/core/StelSkyDrawer.cpp
---- stellarium-0.10.6/src/core/StelSkyDrawer.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelSkyDrawer.cpp	2011-02-08 07:23:13.747863372 +0100
+diff -Naur stellarium-0.11.1/src/core/StelSkyDrawer.cpp stellarium-0.11.1-patch/src/core/StelSkyDrawer.cpp
+--- stellarium-0.11.1/src/core/StelSkyDrawer.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelSkyDrawer.cpp	2012-01-07 22:25:56.807980476 +0100
 @@ -47,6 +47,8 @@
  #include <QDebug>
  #include <QtGlobal>
@@ -518,9 +574,9 @@ diff -ur stellarium-0.10.6/src/core/StelSkyDrawer.cpp stellarium-0.10.6-patch/sr
  // The 0.025 corresponds to the maximum eye resolution in degree
  #define EYE_RESOLUTION (0.25f)
  #define MAX_LINEAR_RADIUS 8.f
-diff -ur stellarium-0.10.6/src/core/StelSphereGeometry.cpp stellarium-0.10.6-patch/src/core/StelSphereGeometry.cpp
---- stellarium-0.10.6/src/core/StelSphereGeometry.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelSphereGeometry.cpp	2011-02-08 07:23:14.337251131 +0100
+diff -Naur stellarium-0.11.1/src/core/StelSphereGeometry.cpp stellarium-0.11.1-patch/src/core/StelSphereGeometry.cpp
+--- stellarium-0.11.1/src/core/StelSphereGeometry.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelSphereGeometry.cpp	2012-01-07 22:25:56.809905932 +0100
 @@ -462,8 +462,8 @@
  	const double& b2 = n2[1];
  	const double& c2 = n2[2];
@@ -565,9 +621,9 @@ diff -ur stellarium-0.10.6/src/core/StelSphereGeometry.cpp stellarium-0.10.6-pat
  	const double overlapArea = a1+a2;
  	return qMin(overlapArea/area1, overlapArea/area2);
  }
-diff -ur stellarium-0.10.6/src/core/StelToneReproducer.cpp stellarium-0.10.6-patch/src/core/StelToneReproducer.cpp
---- stellarium-0.10.6/src/core/StelToneReproducer.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelToneReproducer.cpp	2011-02-08 07:23:13.752050374 +0100
+diff -Naur stellarium-0.11.1/src/core/StelToneReproducer.cpp stellarium-0.11.1-patch/src/core/StelToneReproducer.cpp
+--- stellarium-0.11.1/src/core/StelToneReproducer.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelToneReproducer.cpp	2012-01-07 22:25:56.810690174 +0100
 @@ -23,6 +23,11 @@
  # define pow10(x) std::exp((x) * 2.3025850930)
  #endif
@@ -580,9 +636,9 @@ diff -ur stellarium-0.10.6/src/core/StelToneReproducer.cpp stellarium-0.10.6-pat
  #include "StelToneReproducer.hpp"
  
  /*********************************************************************
-diff -ur stellarium-0.10.6/src/core/StelTranslator.cpp stellarium-0.10.6-patch/src/core/StelTranslator.cpp
---- stellarium-0.10.6/src/core/StelTranslator.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelTranslator.cpp	2011-02-08 07:23:13.752514693 +0100
+diff -Naur stellarium-0.11.1/src/core/StelTranslator.cpp stellarium-0.11.1-patch/src/core/StelTranslator.cpp
+--- stellarium-0.11.1/src/core/StelTranslator.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelTranslator.cpp	2012-01-07 22:25:56.811562366 +0100
 @@ -134,7 +134,7 @@
  
  	putenv(envstr);
@@ -592,10 +648,10 @@ diff -ur stellarium-0.10.6/src/core/StelTranslator.cpp stellarium-0.10.6-patch/s
  #else
  	setlocale(LC_CTYPE,"");
  #endif
-diff -ur stellarium-0.10.6/src/core/StelUtils.cpp stellarium-0.10.6-patch/src/core/StelUtils.cpp
---- stellarium-0.10.6/src/core/StelUtils.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelUtils.cpp	2011-02-08 07:23:14.338801914 +0100
-@@ -311,42 +311,42 @@
+diff -Naur stellarium-0.11.1/src/core/StelUtils.cpp stellarium-0.11.1-patch/src/core/StelUtils.cpp
+--- stellarium-0.11.1/src/core/StelUtils.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelUtils.cpp	2012-01-08 09:38:23.946887854 +0100
+@@ -314,42 +314,42 @@
  
  void spheToRect(double lng, double lat, Vec3d& v)
  {
@@ -649,8 +705,8 @@ diff -ur stellarium-0.10.6/src/core/StelUtils.cpp stellarium-0.10.6-patch/src/co
 +	*lng = std::atan2(v[1],v[0]);
  }
  
- double getDecAngle(const QString& str)
-@@ -440,7 +440,7 @@
+ // GZ: some additions. I need those just for quick conversions for text display.
+@@ -451,7 +451,7 @@
  	static const int JB_MAX_WITHOUT_OVERFLOW = 107374182;
  	long julian;
  
@@ -659,7 +715,7 @@ diff -ur stellarium-0.10.6/src/core/StelUtils.cpp stellarium-0.10.6-patch/src/co
  
  	long ta, jalpha, tb, tc, td, te;
  
-@@ -490,8 +490,8 @@
+@@ -501,8 +501,8 @@
  
  void getTimeFromJulianDay(double julianDay, int *hour, int *minute, int *second)
  {
@@ -670,7 +726,7 @@ diff -ur stellarium-0.10.6/src/core/StelUtils.cpp stellarium-0.10.6-patch/src/co
  
  	*hour = ((s / (60 * 60))+12)%24;
  	*minute = (s/(60))%60;
-@@ -772,8 +772,8 @@
+@@ -783,8 +783,8 @@
  {
  	double extra = (100.0* y) + m - 190002.5;
  	double rjd = 367.0 * y;
@@ -681,9 +737,9 @@ diff -ur stellarium-0.10.6/src/core/StelUtils.cpp stellarium-0.10.6-patch/src/co
  	rjd += d;
  	rjd += (h + (min + s/60.0)/60.)/24.0;
  	rjd += 1721013.5;
-diff -ur stellarium-0.10.6/src/core/StelUtils.hpp stellarium-0.10.6-patch/src/core/StelUtils.hpp
---- stellarium-0.10.6/src/core/StelUtils.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelUtils.hpp	2011-02-08 07:23:13.754140949 +0100
+diff -Naur stellarium-0.11.1/src/core/StelUtils.hpp stellarium-0.11.1-patch/src/core/StelUtils.hpp
+--- stellarium-0.11.1/src/core/StelUtils.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelUtils.hpp	2012-01-07 22:25:56.815890897 +0100
 @@ -25,6 +25,15 @@
  #include <QVariantMap>
  #include <QDateTime>
@@ -700,9 +756,9 @@ diff -ur stellarium-0.10.6/src/core/StelUtils.hpp stellarium-0.10.6-patch/src/co
  
  // astonomical unit (km)
  #define AU 149597870.691
-diff -ur stellarium-0.10.6/src/core/StelViewportEffect.cpp stellarium-0.10.6-patch/src/core/StelViewportEffect.cpp
---- stellarium-0.10.6/src/core/StelViewportEffect.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/StelViewportEffect.cpp	2011-02-08 07:23:14.339385701 +0100
+diff -Naur stellarium-0.11.1/src/core/StelViewportEffect.cpp stellarium-0.11.1-patch/src/core/StelViewportEffect.cpp
+--- stellarium-0.11.1/src/core/StelViewportEffect.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelViewportEffect.cpp	2012-01-07 22:25:56.816764749 +0100
 @@ -29,6 +29,8 @@
  #include <QSettings>
  #include <QFile>
@@ -712,9 +768,9 @@ diff -ur stellarium-0.10.6/src/core/StelViewportEffect.cpp stellarium-0.10.6-pat
  void StelViewportEffect::paintViewportBuffer(const QGLFramebufferObject* buf) const
  {
  	StelPainter sPainter(StelApp::getInstance().getCore()->getProjection2d());
-diff -ur stellarium-0.10.6/src/core/VecMath.hpp stellarium-0.10.6-patch/src/core/VecMath.hpp
---- stellarium-0.10.6/src/core/VecMath.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/VecMath.hpp	2011-02-08 07:23:14.331336727 +0100
+diff -Naur stellarium-0.11.1/src/core/VecMath.hpp stellarium-0.11.1-patch/src/core/VecMath.hpp
+--- stellarium-0.11.1/src/core/VecMath.hpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/VecMath.hpp	2012-01-08 09:42:43.713459860 +0100
 @@ -27,6 +27,11 @@
  #include <cmath>
  #include <QString>
@@ -807,19 +863,55 @@ diff -ur stellarium-0.10.6/src/core/VecMath.hpp stellarium-0.10.6-patch/src/core
  
  	return Matrix4<T>(c, s, 0, 0,
  					 -s, c, 0, 0,
-diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10.6-patch/src/core/modules/ConstellationMgr.cpp
---- stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/modules/ConstellationMgr.cpp	2011-02-08 07:23:14.342627669 +0100
-@@ -40,7 +40,7 @@
- #include "StelCore.hpp"
+@@ -1016,11 +1021,11 @@
+ 	  r3[7] = 1.0, r3[4] = r3[5] = r3[6] = 0.0;
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[0]) > fabs(r2[0]))
++   if (std::fabs(r3[0]) > std::fabs(r2[0]))
+ 	  SWAP_ROWS(r3, r2);
+-   if (fabs(r2[0]) > fabs(r1[0]))
++   if (std::fabs(r2[0]) > std::fabs(r1[0]))
+ 	  SWAP_ROWS(r2, r1);
+-   if (fabs(r1[0]) > fabs(r0[0]))
++   if (std::fabs(r1[0]) > std::fabs(r0[0]))
+ 	  SWAP_ROWS(r1, r0);
+    if (0.0 == r0[0])
+ 	  return Matrix4<T>();
+@@ -1067,9 +1072,9 @@
+    }
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[1]) > fabs(r2[1]))
++   if (std::fabs(r3[1]) > std::fabs(r2[1]))
+ 	  SWAP_ROWS(r3, r2);
+-   if (fabs(r2[1]) > fabs(r1[1]))
++   if (std::fabs(r2[1]) > std::fabs(r1[1]))
+ 	  SWAP_ROWS(r2, r1);
+    if (0.0 == r1[1])
+ 	  return Matrix4<T>();
+@@ -1103,7 +1108,7 @@
+    }
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[2]) > fabs(r2[2]))
++   if (std::fabs(r3[2]) > std::fabs(r2[2]))
+ 	  SWAP_ROWS(r3, r2);
+    if (0.0 == r2[2])
+ 	  return Matrix4<T>();
+diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.11.1-patch/src/core/modules/ConstellationMgr.cpp
+--- stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/modules/ConstellationMgr.cpp	2012-01-07 22:25:56.823159541 +0100
+@@ -41,7 +41,7 @@
  #include "StelPainter.hpp"
+ #include "StelSkyDrawer.hpp"
  
 -using namespace std;
 +//using namespace std;
  
  // constructor which loads all data from appropriate files
  ConstellationMgr::ConstellationMgr(StarMgr *_hip_stars) :
-@@ -65,7 +65,7 @@
+@@ -66,7 +66,7 @@
  		delete(*iter);
  	}
  
@@ -828,7 +920,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter1 = allBoundarySegments.begin(); iter1 != allBoundarySegments.end(); ++iter1)
  	{
  		delete (*iter1);
-@@ -291,7 +291,7 @@
+@@ -299,7 +299,7 @@
  	in.seek(0);
  
  	// delete existing data, if any
@@ -837,7 +929,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		delete(*iter);
  
-@@ -411,7 +411,7 @@
+@@ -419,7 +419,7 @@
  				{
  					texturePath = StelFileMgr::findFile(QString("textures/")+texfile);
  				}
@@ -846,7 +938,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  				{
  					qWarning() << "ERROR: could not find texture, " << texfile << ": " << e2.what();
  				}
-@@ -499,7 +499,7 @@
+@@ -506,7 +506,7 @@
  	glEnable(GL_BLEND);
  	glEnable(GL_CULL_FACE);
  
@@ -855,7 +947,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	SphericalRegionP region = sPainter.getProjector()->getViewportConvexPolygon();
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
-@@ -516,7 +516,7 @@
+@@ -523,7 +523,7 @@
  	glEnable(GL_BLEND);
  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
  	const SphericalCap& viewportHalfspace = sPainter.getProjector()->getBoundingCap();
@@ -863,8 +955,8 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
 +	std::vector < Constellation * >::const_iterator iter;
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
- 		(*iter)->drawOptim(sPainter, nav, viewportHalfspace);
-@@ -529,7 +529,7 @@
+ 		(*iter)->drawOptim(sPainter, core, viewportHalfspace);
+@@ -536,7 +536,7 @@
  	glEnable(GL_BLEND);
  	sPainter.enableTexture2d(true);
  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -873,7 +965,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); iter++)
  	{
  		// Check if in the field of view
-@@ -540,7 +540,7 @@
+@@ -547,7 +547,7 @@
  
  Constellation *ConstellationMgr::isStarIn(const StelObject* s) const
  {
@@ -882,7 +974,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		// Check if the star is in one of the constellation
-@@ -557,7 +557,7 @@
+@@ -564,7 +564,7 @@
  	// search in uppercase only
  	QString tname = abbreviation.toUpper();
  
@@ -891,7 +983,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		if ((*iter)->abbreviation == tname)
-@@ -578,7 +578,7 @@
+@@ -585,7 +585,7 @@
  	if (asterisms.empty()) return;
  
  	// clear previous names
@@ -900,7 +992,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->englishName.clear();
-@@ -647,7 +647,7 @@
+@@ -654,7 +654,7 @@
  void ConstellationMgr::updateI18n()
  {
  	StelTranslator trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
@@ -909,7 +1001,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->nameI18 = trans.qtranslate((*iter)->englishName);
-@@ -657,7 +657,7 @@
+@@ -664,7 +664,7 @@
  // update faders
  void ConstellationMgr::update(double deltaTime)
  {
@@ -918,7 +1010,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	const int delta = (int)(deltaTime*1000);
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
-@@ -669,7 +669,7 @@
+@@ -676,7 +676,7 @@
  void ConstellationMgr::setArtIntensity(double _max)
  {
  	artMaxIntensity = _max;
@@ -927,7 +1019,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		(*iter)->artFader.setMaxValue(_max);
  }
-@@ -677,7 +677,7 @@
+@@ -684,7 +684,7 @@
  void ConstellationMgr::setArtFadeDuration(float duration)
  {
  	artFadeDuration = duration;
@@ -936,7 +1028,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		(*iter)->artFader.setDuration((int) (duration * 1000.f));
  }
-@@ -687,13 +687,13 @@
+@@ -694,13 +694,13 @@
  	flagLines = b;
  	if (selected.begin() != selected.end()  && isolateSelected)
  	{
@@ -952,7 +1044,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  			(*iter)->setFlagLines(b);
  	}
-@@ -704,13 +704,13 @@
+@@ -711,13 +711,13 @@
  	flagBoundaries = b;
  	if (selected.begin() != selected.end() && isolateSelected)
  	{
@@ -968,7 +1060,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  			(*iter)->setFlagBoundaries(b);
  	}
-@@ -721,13 +721,13 @@
+@@ -728,13 +728,13 @@
  	flagArt = b;
  	if (selected.begin() != selected.end() && isolateSelected)
  	{
@@ -984,7 +1076,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  			(*iter)->setFlagArt(b);
  	}
-@@ -739,13 +739,13 @@
+@@ -746,13 +746,13 @@
  	flagNames = b;
  	if (selected.begin() != selected.end() && isolateSelected)
  	{
@@ -1000,7 +1092,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  			(*iter)->setFlagName(b);
  	}
-@@ -758,7 +758,7 @@
+@@ -765,7 +765,7 @@
  	// when turning off isolated selection mode, clear exisiting isolated selections.
  	if (!s)
  	{
@@ -1009,7 +1101,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		{
  			(*iter)->setFlagLines(getFlagLines());
-@@ -804,12 +804,12 @@
+@@ -811,12 +811,12 @@
  
  		if (isolateSelected)
  		{
@@ -1024,7 +1116,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  				for (s_iter = selected.begin(); s_iter != selected.end(); ++s_iter)
  				{
  					if( (*iter)==(*s_iter) )
-@@ -838,7 +838,7 @@
+@@ -845,7 +845,7 @@
  		if (selected.begin() == selected.end()) return;
  
  		// Otherwise apply standard flags to all constellations
@@ -1033,7 +1125,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		{
  			(*iter)->setFlagLines(getFlagLines());
-@@ -861,7 +861,7 @@
+@@ -868,7 +868,7 @@
  	if (c != NULL)
  	{
  
@@ -1042,7 +1134,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  		int n=0;
  		for (iter = selected.begin(); iter != selected.end(); ++iter)
  		{
-@@ -908,7 +908,7 @@
+@@ -915,7 +915,7 @@
  	unsigned int i, j;
  
  	// delete existing boundaries if any exist
@@ -1051,7 +1143,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = allBoundarySegments.begin(); iter != allBoundarySegments.end(); ++iter)
  	{
  		delete (*iter);
-@@ -931,12 +931,12 @@
+@@ -938,12 +938,12 @@
  	float oDE, oRA;
  	Vec3f XYZ;
  	unsigned num, numc;
@@ -1066,7 +1158,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  
  		num = 0;
  		istr >> num;
-@@ -995,7 +995,7 @@
+@@ -1002,7 +1002,7 @@
  	glLineStipple(2, 0x3333);
  	glEnable(GL_LINE_STIPPLE);
  #endif
@@ -1075,7 +1167,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->drawBoundaryOptim(sPainter);
-@@ -1014,7 +1014,7 @@
+@@ -1021,7 +1021,7 @@
  {
  	QString objw = nameI18n.toUpper();
  
@@ -1084,7 +1176,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		QString objwcap = (*iter)->nameI18.toUpper();
-@@ -1026,7 +1026,7 @@
+@@ -1033,7 +1033,7 @@
  StelObjectP ConstellationMgr::searchByName(const QString& name) const
  {
  	QString objw = name.toUpper();
@@ -1093,7 +1185,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		QString objwcap = (*iter)->englishName.toUpper();
-@@ -1045,7 +1045,7 @@
+@@ -1052,7 +1052,7 @@
  
  	QString objw = objPrefix.toUpper();
  
@@ -1102,9 +1194,9 @@ diff -ur stellarium-0.10.6/src/core/modules/ConstellationMgr.cpp stellarium-0.10
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		QString constw = (*iter)->getNameI18n().mid(0, objw.size()).toUpper();
-diff -ur stellarium-0.10.6/src/core/modules/Orbit.cpp stellarium-0.10.6-patch/src/core/modules/Orbit.cpp
---- stellarium-0.10.6/src/core/modules/Orbit.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/modules/Orbit.cpp	2011-02-08 07:23:14.343155959 +0100
+diff -Naur stellarium-0.11.1/src/core/modules/Orbit.cpp stellarium-0.11.1-patch/src/core/modules/Orbit.cpp
+--- stellarium-0.11.1/src/core/modules/Orbit.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/modules/Orbit.cpp	2012-01-07 22:25:56.826306580 +0100
 @@ -21,8 +21,7 @@
  
  #define EPSILON 1e-10
@@ -1115,10 +1207,10 @@ diff -ur stellarium-0.10.6/src/core/modules/Orbit.cpp stellarium-0.10.6-patch/sr
  #define cbrt(x) pow((x),1./3.)
  #endif
  
-diff -ur stellarium-0.10.6/src/core/modules/ZoneArray.cpp stellarium-0.10.6-patch/src/core/modules/ZoneArray.cpp
---- stellarium-0.10.6/src/core/modules/ZoneArray.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/core/modules/ZoneArray.cpp	2011-02-08 07:23:14.343674998 +0100
-@@ -55,24 +55,24 @@
+diff -Naur stellarium-0.11.1/src/core/modules/ZoneArray.cpp stellarium-0.11.1-patch/src/core/modules/ZoneArray.cpp
+--- stellarium-0.11.1/src/core/modules/ZoneArray.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/modules/ZoneArray.cpp	2012-01-07 22:25:56.827125272 +0100
+@@ -54,24 +54,24 @@
  	double mu0,mu1,f,h;
  	mu0 = (c0-z.center)*z.axis0;
  	mu1 = (c0-z.center)*z.axis1;
@@ -1152,7 +1244,7 @@ diff -ur stellarium-0.10.6/src/core/modules/ZoneArray.cpp stellarium-0.10.6-patc
  	if (star_position_scale < h) star_position_scale = h;
  }
  
-@@ -142,8 +142,7 @@
+@@ -141,8 +141,7 @@
  		if (use_mmap)
  		{
  			// mmap only with gcc:
@@ -1162,9 +1254,81 @@ diff -ur stellarium-0.10.6/src/core/modules/ZoneArray.cpp stellarium-0.10.6-patc
  			qDebug(qPrintable(dbStr));
  
  			return 0;
-diff -ur stellarium-0.10.6/src/gui/SkyGui.cpp stellarium-0.10.6-patch/src/gui/SkyGui.cpp
---- stellarium-0.10.6/src/gui/SkyGui.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/gui/SkyGui.cpp	2011-02-08 07:23:13.753009497 +0100
+diff -Naur stellarium-0.11.1/src/gui/AngleSpinBox.cpp stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp
+--- stellarium-0.11.1/src/gui/AngleSpinBox.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp	2012-01-07 22:25:56.829070644 +0100
+@@ -340,7 +340,7 @@
+ 				angle *= -1;
+ 				sign = false;
+ 			}
+-			angle = fmod(angle,2.0*M_PI);
++			angle = std::fmod(angle,2.0*M_PI);
+ 			angle *= 180./M_PI;
+ 
+ 			d = (int)angle;
+@@ -348,7 +348,7 @@
+ 			s = (angle-d)*3600-60*m;
+ 
+ 			// we may have seconds as 60 and one less minute...
+-			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 			{
+ 				m+=1;
+ 				s-=60.0;
+@@ -362,9 +362,9 @@
+ 			}
+ 
+ 			// fix when we have tiny tiny tiny values.
+-			if (s < ::pow(10, -1 * (decimalPlaces+1)))
++			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+-			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+ 
+ 			QString signInd = positivePrefix(currentPrefixType);
+@@ -386,7 +386,7 @@
+ 			unsigned int h, m;
+ 			double s;
+ 			double angle = radAngle;
+-			angle = fmod(angle,2.0*M_PI);
++			angle = std::fmod(angle,2.0*M_PI);
+ 			if (angle < 0.0) angle += 2.0*M_PI; // range: [0..2.0*M_PI)
+ 			angle *= 12./M_PI;
+ 			h = (unsigned int)angle;
+@@ -394,7 +394,7 @@
+ 			s = (angle-h)*3600.-60.*m;
+ 
+ 			// we may have seconds as 60 and one less minute...
+-			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 			{
+ 				m+=1;
+ 				s-=60.0;
+@@ -408,9 +408,9 @@
+ 			}
+ 
+ 			// fix when we have tiny tiny tiny values.
+-			if (s < ::pow(10, -1 * (decimalPlaces+1)))
++			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+-			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+ 
+ 			if (angleSpinBoxFormat == HMSLetters)
+@@ -436,7 +436,7 @@
+ 
+ 			lineEdit()->setText(QString("%1%2%3")
+                                 .arg(signInd)
+-                                .arg(fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
++                                .arg(std::fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
+                                 .arg(QChar(176)));
+ 			break;
+ 		}
+diff -Naur stellarium-0.11.1/src/gui/SkyGui.cpp stellarium-0.11.1-patch/src/gui/SkyGui.cpp
+--- stellarium-0.11.1/src/gui/SkyGui.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/SkyGui.cpp	2012-01-07 22:25:56.829677400 +0100
 @@ -28,6 +28,8 @@
  #include <QSettings>
  #include <QTextDocument>
@@ -1174,21 +1338,21 @@ diff -ur stellarium-0.10.6/src/gui/SkyGui.cpp stellarium-0.10.6-patch/src/gui/Sk
  InfoPanel::InfoPanel(QGraphicsItem* parent) : QGraphicsTextItem("", parent)
  {
  	QSettings* conf = StelApp::getInstance().getSettings();
-diff -ur stellarium-0.10.6/src/gui/StelGuiItems.cpp stellarium-0.10.6-patch/src/gui/StelGuiItems.cpp
---- stellarium-0.10.6/src/gui/StelGuiItems.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/gui/StelGuiItems.cpp	2011-02-08 07:23:13.753647997 +0100
-@@ -44,6 +44,8 @@
- #include <QGraphicsProxyWidget>
+diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.cpp stellarium-0.11.1-patch/src/gui/StelGuiItems.cpp
+--- stellarium-0.11.1/src/gui/StelGuiItems.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/StelGuiItems.cpp	2012-01-07 22:25:56.830440252 +0100
+@@ -45,6 +45,8 @@
  #include <QGraphicsLinearLayout>
+ #include <QSettings>
  
 +#include <math.h>
 +
  StelButton::StelButton(QGraphicsItem* parent, const QPixmap& apixOn, const QPixmap& apixOff,
  		const QPixmap& apixHover, QAction* aaction, bool noBackground) :
  			QGraphicsPixmapItem(apixOff, parent), pixOn(apixOn), pixOff(apixOff), pixHover(apixHover),
-diff -ur stellarium-0.10.6/src/gui/StelGuiItems.hpp stellarium-0.10.6-patch/src/gui/StelGuiItems.hpp
---- stellarium-0.10.6/src/gui/StelGuiItems.hpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/gui/StelGuiItems.hpp	2011-02-08 07:23:13.060303055 +0100
+diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.hpp stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp
+--- stellarium-0.11.1/src/gui/StelGuiItems.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp	2012-01-07 22:25:56.832581860 +0100
 @@ -43,7 +43,7 @@
  class CornerButtons : public QObject, public QGraphicsItem
  {
@@ -1216,9 +1380,9 @@ diff -ur stellarium-0.10.6/src/gui/StelGuiItems.hpp stellarium-0.10.6-patch/src/
  public:
  	BottomStelBar(QGraphicsItem* parent, const QPixmap& pixLeft=QPixmap(), const QPixmap& pixRight=QPixmap(), const QPixmap& pixMiddle=QPixmap(), const QPixmap& pixSingle=QPixmap());
  	virtual ~BottomStelBar();
-diff -ur stellarium-0.10.6/src/main.cpp stellarium-0.10.6-patch/src/main.cpp
---- stellarium-0.10.6/src/main.cpp	2010-12-05 17:31:00.000000000 +0100
-+++ stellarium-0.10.6-patch/src/main.cpp	2011-02-08 07:23:13.749164710 +0100
+diff -Naur stellarium-0.11.1/src/main.cpp stellarium-0.11.1-patch/src/main.cpp
+--- stellarium-0.11.1/src/main.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/main.cpp	2012-01-07 22:25:56.833135717 +0100
 @@ -36,6 +36,8 @@
  #include <windows.h>
  #endif //Q_OS_WIN
@@ -1228,85 +1392,3 @@ diff -ur stellarium-0.10.6/src/main.cpp stellarium-0.10.6-patch/src/main.cpp
  //! @class GettextStelTranslator
  //! Provides i18n support through gettext.
  class GettextStelTranslator : public QTranslator
---- stellarium-0.11.0/src/gui/AngleSpinBox.cpp	2011-07-02 14:22:18.000000000 +0100
-+++ stellarium-0.11.0/src/gui/AngleSpinBox.cpp	2011-09-01 12:18:12.997412512 +0100
-@@ -340,7 +340,7 @@ void AngleSpinBox::formatText(void)
- 				angle *= -1;
- 				sign = false;
- 			}
--			angle = fmod(angle,2.0*M_PI);
-+			angle = std::fmod(angle,2.0*M_PI);
- 			angle *= 180./M_PI;
- 
- 			d = (int)angle;
-@@ -348,7 +348,7 @@ void AngleSpinBox::formatText(void)
- 			s = (angle-d)*3600-60*m;
- 
- 			// we may have seconds as 60 and one less minute...
--			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
-+			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
- 			{
- 				m+=1;
- 				s-=60.0;
-@@ -362,9 +362,9 @@ void AngleSpinBox::formatText(void)
- 			}
- 
- 			// fix when we have tiny tiny tiny values.
--			if (s < ::pow(10, -1 * (decimalPlaces+1)))
-+			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
- 				s= 0.0;
--			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
-+			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
- 				s= 0.0;
- 
- 			QString signInd = positivePrefix(currentPrefixType);
-@@ -386,7 +386,7 @@ void AngleSpinBox::formatText(void)
- 			unsigned int h, m;
- 			double s;
- 			double angle = radAngle;
--			angle = fmod(angle,2.0*M_PI);
-+			angle = std::fmod(angle,2.0*M_PI);
- 			if (angle < 0.0) angle += 2.0*M_PI; // range: [0..2.0*M_PI)
- 			angle *= 12./M_PI;
- 			h = (unsigned int)angle;
-@@ -394,7 +394,7 @@ void AngleSpinBox::formatText(void)
- 			s = (angle-h)*3600.-60.*m;
- 
- 			// we may have seconds as 60 and one less minute...
--			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
-+			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
- 			{
- 				m+=1;
- 				s-=60.0;
-@@ -408,9 +408,9 @@ void AngleSpinBox::formatText(void)
- 			}
- 
- 			// fix when we have tiny tiny tiny values.
--			if (s < ::pow(10, -1 * (decimalPlaces+1)))
-+			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
- 				s= 0.0;
--			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
-+			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
- 				s= 0.0;
- 
- 			if (angleSpinBoxFormat == HMSLetters)
-@@ -436,7 +436,7 @@ void AngleSpinBox::formatText(void)
- 
- 			lineEdit()->setText(QString("%1%2%3")
-                                 .arg(signInd)
--                                .arg(fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
-+                                .arg(std::fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
-                                 .arg(QChar(176)));
- 			break;
- 		}
---- stellarium-0.11.0/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2011-09-01 12:32:22.501082957 +0100
-+++ stellarium-0.11.0/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2011-09-01 12:39:32.116796044 +0100
-@@ -162,7 +162,7 @@ double TimeZoneConfigurationWindow::read
- 	int hours, minutes, seconds;
- 	readTzTimeString((signChar.isDigit()) ? string : string.mid(1),
- 	                 hours, minutes, seconds);
--	const double offset = sign * (hours + floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
-+	const double offset = sign * (hours + std::floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
- 	return offset;
- }
- 

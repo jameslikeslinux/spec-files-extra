@@ -11,13 +11,14 @@
 %include stdcxx.inc
 
 Name:		SFEstellarium
-Version:	0.11.0
+IPS_Package_Name:	image/stellarium
+Version:	0.11.1
 Summary:	Photo-realistic nightsky renderer
 Group:		Amusements/Graphics
 License:	GPLv2+
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
-Patch1:		stellarium-0.11.0-01-sunstudio.diff
+Patch1:		stellarium-01-studio.diff
 SUNW_Copyright:	stellarium.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -27,8 +28,8 @@ BuildRequires: SFEsdl-mixer-devel
 Requires: SFEsdl-mixer
 BuildRequires: SUNWimagick
 BuildRequires: SFEcmake
-BuildRequires: SFEqt4-devel
-Requires: SFEqt4
+BuildRequires: SFEqt-stdcxx-devel
+Requires: SFEqt-stdcxx
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -55,10 +56,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # pod2man
-export PATH=$PATH:/usr/perl5/bin
+export PATH=/usr/stdcxx/bin:$PATH:/usr/perl5/bin:
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
-export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldefs"
+export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include} -I/usr/stdcxx/include"
+export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -L/usr/stdcxx/lib -R/usr/stdcxx/lib -lstdcxx4 -Wl,-zmuldefs"
 
 mkdir -p builds/unix
 cd builds/unix
@@ -72,6 +73,8 @@ convert -size 32x32 data/icon.bmp stellarium.png
 rm -rf %{buildroot}
 cd builds/unix
 make install DESTDIR=%{buildroot} INSTALL="%{_bindir}/ginstall -c -p"
+# TODO: find solution for stripping RUNPATH
+cp src/stellarium %{buildroot}%{_bindir}/stellarium
 cd ../..
 
 mkdir -p %{buildroot}%{_datadir}/pixmaps/
@@ -103,6 +106,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jan 08 2012 - Milan Jurik
+- bump to 0.11.1, fix qt-stdcxx
 * Thu Sep 1 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 0.11.0
 - Created stellarium-0.11.0-01-sunstudio.diff for 0.11.0
