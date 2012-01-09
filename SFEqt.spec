@@ -4,30 +4,21 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-
-%define cc_is_gcc 1
+%define srcname qt-everywhere-opensource-src
 
 Name:                SFEqt
+IPS_Package_Name:	library/desktop/qt
 Summary:             Cross-platform development framework/toolkit
 URL:                 http://trolltech.com/products/qt
-License:             GPL v2
-Version:             4.4.3
-Source:              ftp://ftp.trolltech.com/qt/source/qt-x11-opensource-src-%{version}.tar.bz2
-Patch1:              qt-01-use_bash.diff
-Patch2:              qt-02-libpng.diff
-
+License:             GPLv2
+Version:             4.7.4
+Source:              ftp://ftp.trolltech.com/qt/source/%srcname-%version.tar.gz
+Patch1:		qt-01-q_atomic_test_and_set_ptr.diff
+Patch2:		qt-02-ctype.diff
+Patch3:		qt-03-disable-helloconcurrent.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
-Requires: SUNWgccruntime
-BuildRequires: SUNWgcc
-#FIXME: Requires: SUNWxorg-mesa
-# Guarantee X/freetype environment concisely (hopefully):
-Requires: SUNWxwplt
-# The above bring in many things, including SUNWxwice and SUNWzlib
-Requires: SUNWxwxft
-# The above also pulls in SUNWfreetype2
 
 %package devel
 Summary:        %{summary} - development files
@@ -36,9 +27,9 @@ SUNW_BaseDir:   %{_basedir}
 Requires: %name
 
 %prep
-%setup -q -n qt-x11-opensource-src-%version
-%patch1 -p1
-%patch2 -p1
+%setup -q -n %{srcname}-%version
+%patch1 -p0
+%patch2 -p0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -46,14 +37,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=gcc
-export CXX=g++
-export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
-export CXXFLAGS="%gcc_cxx_optflags"
+export CFLAGS="%{optflags} -I/usr/include/libpng14"
+export CXXFLAGS="%cxx_optflags -I/usr/include/libpng14"
 export LDFLAGS="%_ldflags"
 
 echo yes | ./configure -prefix %{_prefix} \
-           -platform solaris-g++ \
+           -opensource \
+           -confirm-license \
+           -platform solaris-cc \
            -docdir %{_docdir}/qt \
            -headerdir %{_includedir}/qt \
            -plugindir %{_libdir}/qt/plugins \
@@ -61,11 +52,9 @@ echo yes | ./configure -prefix %{_prefix} \
            -translationdir %{_datadir}/qt/translations \
            -examplesdir %{_datadir}/qt/examples \
            -demosdir %{_datadir}/qt/demos \
-           -sysconfdir %{_sysconfdir} \
-           -no-exceptions \
-           -no-webkit \
-           -L /usr/gnu/lib \
-           -R /usr/gnu/lib 
+           -sysconfdir %{_sysconfdir}
+
+%patch3 -p0
 
 make -j$CPUS
 
@@ -75,7 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 make install INSTALL_ROOT=$RPM_BUILD_ROOT
 
 rm ${RPM_BUILD_ROOT}%{_libdir}/*.la
-rm ${RPM_BUILD_ROOT}%{_libdir}/*.a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,11 +75,21 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*.so*
 %{_libdir}/lib*.prl
+%{_libdir}/libQtUiTools.a
 %dir %attr (0755, root, bin) %{_libdir}/qt
 %{_libdir}/qt/*
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/qt
 
+%dir %attr (0755, root, bin) %{_prefix}/imports
+%{_prefix}/imports/Qt/labs/particles/libqmlparticlesplugin.so
+%{_prefix}/imports/Qt/labs/particles/qmldir
+%{_prefix}/imports/Qt/labs/gestures/libqmlgesturesplugin.so
+%{_prefix}/imports/Qt/labs/gestures/qmldir
+%{_prefix}/imports/Qt/labs/folderlistmodel/libqmlfolderlistmodelplugin.so
+%{_prefix}/imports/Qt/labs/folderlistmodel/qmldir
+%{_prefix}/imports/Qt/labs/shaders/libqmlshadersplugin.so
+%{_prefix}/imports/Qt/labs/shaders/qmldir
 
 %files devel
 %defattr (-, root, bin)
@@ -106,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Jan 09 2012 - Milan Jurik
+- use libCstd (SFEqt-gpp is QT built with GCC)
+- bump to 4.7.4
 * Wed Mar 10 2010 - Brian Cameron
 - Add -no-webkit to configure, otherwise the linker crashes.
   Looks like this will go away when binutils is updated to 2.21 (which is not

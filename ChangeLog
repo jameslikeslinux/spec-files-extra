@@ -1,3 +1,7 @@
+2012-01-09 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEqt.spec: use libCstd, bump to 4.7.4
+
 2012-01-08 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEstellarium.spec: bump to 0.11.1, fix qt-stdcxx

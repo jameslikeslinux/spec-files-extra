@@ -1,0 +1,53 @@
+--- examples/tutorials/threads/Makefile	Sun Jan  8 19:31:28 2012
++++ examples/tutorials/threads/Makefile	Sun Jan  8 19:07:55 2012
+@@ -30,1 +30,0 @@
+-		sub-helloconcurrent \
+@@ -78,22 +77,0 @@
+-helloconcurrent/$(MAKEFILE): 
+-	@$(CHK_DIR_EXISTS) helloconcurrent/ || $(MKDIR) helloconcurrent/ 
+-	cd helloconcurrent/ && $(QMAKE) /home/jurikm/packages/BUILD/qt-everywhere-opensource-src-4.7.4/examples/tutorials/threads/helloconcurrent/helloconcurrent.pro -spec /home/jurikm/packages/BUILD/qt-everywhere-opensource-src-4.7.4/mkspecs/solaris-cc -o $(MAKEFILE)
+-sub-helloconcurrent-qmake_all:  FORCE
+-	@$(CHK_DIR_EXISTS) helloconcurrent/ || $(MKDIR) helloconcurrent/ 
+-	cd helloconcurrent/ && $(QMAKE) /home/jurikm/packages/BUILD/qt-everywhere-opensource-src-4.7.4/examples/tutorials/threads/helloconcurrent/helloconcurrent.pro -spec /home/jurikm/packages/BUILD/qt-everywhere-opensource-src-4.7.4/mkspecs/solaris-cc -o $(MAKEFILE)
+-sub-helloconcurrent: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE)
+-sub-helloconcurrent-make_default: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) 
+-sub-helloconcurrent-make_first: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) first
+-sub-helloconcurrent-all: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) all
+-sub-helloconcurrent-clean: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) clean
+-sub-helloconcurrent-distclean: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) distclean
+-sub-helloconcurrent-install_subtargets: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) install
+-sub-helloconcurrent-uninstall_subtargets: helloconcurrent/$(MAKEFILE) FORCE
+-	cd helloconcurrent/ && $(MAKE) -f $(MAKEFILE) uninstall
+@@ -191,1 +168,1 @@
+-qmake_all: sub-hellothread-qmake_all sub-hellothreadpool-qmake_all sub-helloconcurrent-qmake_all sub-clock-qmake_all sub-movedobject-qmake_all FORCE
++qmake_all: sub-hellothread-qmake_all sub-hellothreadpool-qmake_all sub-clock-qmake_all sub-movedobject-qmake_all FORCE
+@@ -193,4 +170,4 @@
+-make_default: sub-hellothread-make_default sub-hellothreadpool-make_default sub-helloconcurrent-make_default sub-clock-make_default sub-movedobject-make_default FORCE
+-make_first: sub-hellothread-make_first sub-hellothreadpool-make_first sub-helloconcurrent-make_first sub-clock-make_first sub-movedobject-make_first FORCE
+-all: sub-hellothread-all sub-hellothreadpool-all sub-helloconcurrent-all sub-clock-all sub-movedobject-all FORCE
+-clean: sub-hellothread-clean sub-hellothreadpool-clean sub-helloconcurrent-clean sub-clock-clean sub-movedobject-clean FORCE
++make_default: sub-hellothread-make_default sub-hellothreadpool-make_default sub-clock-make_default sub-movedobject-make_default FORCE
++make_first: sub-hellothread-make_first sub-hellothreadpool-make_first sub-clock-make_first sub-movedobject-make_first FORCE
++all: sub-hellothread-all sub-hellothreadpool-all sub-clock-all sub-movedobject-all FORCE
++clean: sub-hellothread-clean sub-hellothreadpool-clean sub-clock-clean sub-movedobject-clean FORCE
+@@ -200,1 +177,1 @@
+-distclean: sub-hellothread-distclean sub-hellothreadpool-distclean sub-helloconcurrent-distclean sub-clock-distclean sub-movedobject-distclean FORCE
++distclean: sub-hellothread-distclean sub-hellothreadpool-distclean sub-clock-distclean sub-movedobject-distclean FORCE
+@@ -202,2 +179,2 @@
+-install_subtargets: sub-hellothread-install_subtargets sub-hellothreadpool-install_subtargets sub-helloconcurrent-install_subtargets sub-clock-install_subtargets sub-movedobject-install_subtargets FORCE
+-uninstall_subtargets: sub-hellothread-uninstall_subtargets sub-hellothreadpool-uninstall_subtargets sub-helloconcurrent-uninstall_subtargets sub-clock-uninstall_subtargets sub-movedobject-uninstall_subtargets FORCE
++install_subtargets: sub-hellothread-install_subtargets sub-hellothreadpool-install_subtargets sub-clock-install_subtargets sub-movedobject-install_subtargets FORCE
++uninstall_subtargets: sub-hellothread-uninstall_subtargets sub-hellothreadpool-uninstall_subtargets sub-clock-uninstall_subtargets sub-movedobject-uninstall_subtargets FORCE
+@@ -209,2 +186,0 @@
+-sub-helloconcurrent-check: helloconcurrent/$(MAKEFILE)
+-	cd helloconcurrent/ && $(MAKE) check
+@@ -215,1 +190,1 @@
+-check: sub-hellothread-check sub-hellothreadpool-check sub-helloconcurrent-check sub-clock-check sub-movedobject-check
++check: sub-hellothread-check sub-hellothreadpool-check sub-clock-check sub-movedobject-check
