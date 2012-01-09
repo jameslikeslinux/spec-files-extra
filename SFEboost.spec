@@ -9,7 +9,7 @@
 
 Name:                SFEboost
 IPS_Package_Name:	system/library/boost 
-Summary:             Boost - free peer-reviewed portable C++ source libraries
+Summary:             Free peer-reviewed portable C++ source libraries
 License:             Boost License Version
 Group:		System/Libraries
 URL:		http://www.boost.org/
