@@ -1,3 +1,9 @@
+2012-01-12 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/boost.spec: bump to 1.48.0
+	* SFEboost.spec: package restructuralization, static libs re-added
+	* SFEboost-gpp.spec: package restructuralization, static libs re-added
+
 2012-01-09 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEqt.spec: use libCstd, bump to 4.7.4

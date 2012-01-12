@@ -40,60 +40,40 @@ SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-
 %prep
 rm -rf %name-%version
 mkdir %name-%version
 %boost.prep -d %name-%version
 
-
 %build
 %boost.build -d %name-%version
 
-
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+%boost.install -d %name-%version
+
 cd %{_builddir}/%name-%version/boost_%{boost.ver_boost}
 
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
+mkdir -p %{buildroot}%{_docdir}/boost-%{version}
+cd "doc/html"
+for i in `find . -type d`; do
+  mkdir -p %{buildroot}%{_docdir}/boost-%{version}/$i
+done
+for i in `find . -type f`; do
+  cp $i %{buildroot}%{_docdir}/boost-%{version}/$i
+done
 
 # It's not worth figuring out how to get the Boost build system
 # to set the runpath correctly
 %define rpath 'dyn:runpath /usr/g++/lib:/usr/gnu/lib'
-pushd stage/lib
-elfedit -e %rpath libboost_regex.so.%version
-elfedit -e %rpath libboost_graph.so.%version
-elfedit -e %rpath libboost_filesystem.so.%version
-elfedit -e %rpath libboost_wave.so.%version
-elfedit -e %rpath libboost_wserialization.so.%version
+pushd %{buildroot}%{_libdir}
+for i in *.so.*; do
+  elfedit -e %rpath $i
+done
 popd
 
-for i in stage/lib/*.so; do
-  NAME=`basename $i`
-  cp $i $RPM_BUILD_ROOT%{_libdir}/$NAME.%{version}
-  ln -s $NAME.%{version} $RPM_BUILD_ROOT%{_libdir}/$NAME
-done
-
-for i in `find "boost" -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_includedir}/$i
-done
-for i in `find "boost" -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_includedir}/$i
-done
-
-cd "doc/html"
-for i in `find . -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
-done
-for i in `find . -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
-done
-
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
@@ -104,6 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/boost
+%{_libdir}/lib*.a
 
 %files -n %name-doc
 %defattr (-, root, bin)
@@ -112,6 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Thu Jan 12 2012 - Milan Jurik
+- package restructuralization, static libs re-added
 * Sun Jun 31 2011 - Alex Viskovatoff
 - set correct runpath for some more shared libraries
 * Fri Jul 29 2011 - Alex Viskovatoff

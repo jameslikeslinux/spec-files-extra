@@ -9,7 +9,7 @@
 #
 
 %define        major      1
-%define        minor      47
+%define        minor      48
 %define        patchlevel 0
 %define        ver_boost  %{major}_%{minor}_%{patchlevel}
 
@@ -19,27 +19,21 @@ Name:         boost
 License:      Boost License Version
 Group:        System/Libraries
 Version:      %{major}.%{minor}.%{patchlevel}
-Release:      1
-Distribution: Java Desktop System
-Vendor:       Sun Microsystems, Inc.
 Summary:      boost - free peer-reviewed portable C++ source libraries
 Source:       %{sf_download}/boost/boost_%{ver_boost}.tar.bz2
-# date:2007-08-13 owner:trisk 
-Patch1:       boost-01-studio.diff
-# date:2007-08-13 owner:laca
-Patch2:       boost-02-gcc34.diff
-# date:2009-11-04 owner:sobi
-Patch3:       boost-03-xmlparser.diff
-Patch4:       boost-04-compiler.diff
-Patch6:       boost-06-bjam-math.diff
-
+# Ticket #6161
+Patch1:       boost-01-putenv.diff
+Patch2:       boost-gpp-01-cstdint.diff
 URL:          http://www.boost.org/
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n %{name}_%{major}_%{minor}_%{patchlevel}
-%patch1 -p1
-%patch2 -p1
+%if %cc_is_gcc
+%patch2 -p0
+%else
+%patch1 -p0
+%endif
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -54,22 +48,25 @@ export CXX=g++
 export CXXFLAGS="%gcc_cxx_optflags"
 export LDFLAGS="%_ldflags"
 %else
-export CXXFLAGS="%cxx_optflags -library=stlport4 -staticlib=stlport4 -norunpath -features=tmplife -features=tmplrefstatic"
-export LDFLAGS="%_ldflags -library=stlport4 -staticlib=stlport4"
+export CXXFLAGS="%cxx_optflags"
+export LDFLAGS="%_ldflags"
 %endif
 
 %if %cc_is_gcc
 ./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --with-icu=/usr/g++
 %else
-./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu --without-libraries=graph
-#./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu
 %endif
 
 ./bjam --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
   release stage
 
+%install
+./bjam install --prefix=$RPM_BUILD_ROOT%{_prefix}
 
 %changelog
+* Thu Jan 12 2012 - Milan Jurik
+- bump to 1.48.0
 * Sat Jul 30 2011 - Milan Jurik
 - bump to 1.47.0
 * Thu Jun 23 2011 - Alex Viskovatoff
