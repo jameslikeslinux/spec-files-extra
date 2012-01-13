@@ -24,11 +24,14 @@ Source:       %{sf_download}/boost/boost_%{ver_boost}.tar.bz2
 # Ticket #6161
 Patch1:       boost-01-putenv.diff
 Patch2:       boost-gpp-01-cstdint.diff
+# Tickect #6131
+Patch3:       boost-1.48.0-foreach.patch
 URL:          http://www.boost.org/
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n %{name}_%{major}_%{minor}_%{patchlevel}
+%patch3	-p1
 %if %cc_is_gcc
 %patch2 -p0
 %else
