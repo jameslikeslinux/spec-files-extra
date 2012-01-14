@@ -26,6 +26,9 @@ Patch1:       boost-01-putenv.diff
 Patch2:       boost-gpp-01-cstdint.diff
 # Tickect #6131
 Patch3:       boost-1.48.0-foreach.patch
+# stlport4/stdcxx4
+Patch4:       boost-stdcxx-01-stl.diff
+Patch5:       boost-stdcxx-02-wchar.diff
 URL:          http://www.boost.org/
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
@@ -36,6 +39,10 @@ BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 %patch2 -p0
 %else
 %patch1 -p0
+%if %stl_is_stdcxx
+%patch4 -p0
+%patch5 -p0
+%endif
 %endif
 
 %build
@@ -68,6 +75,8 @@ export LDFLAGS="%_ldflags"
 ./bjam install --prefix=$RPM_BUILD_ROOT%{_prefix}
 
 %changelog
+* Sat Jan 14 2012 - Milan Jurik
+- add support for stdcxx
 * Thu Jan 12 2012 - Milan Jurik
 - bump to 1.48.0
 * Sat Jul 30 2011 - Milan Jurik

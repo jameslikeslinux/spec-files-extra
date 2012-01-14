@@ -1,0 +1,26 @@
+--- tools/build/v2/tools/sun.jam	Sat Jul 11 13:04:31 2009
++++ tools/build/v2/tools/sun.jam	Sat Jan 14 20:34:16 2012
+@@ -18,9 +18,9 @@
+ generators.override sun.prebuilt : builtin.prebuilt ;
+ generators.override sun.searched-lib-generator : searched-lib-generator ;
+ 
+-feature.extend stdlib : sun-stlport ;
+-feature.compose <stdlib>sun-stlport
+-    : <cxxflags>-library=stlport4 <linkflags>-library=stlport4
++feature.extend stdlib : sun-stdcxx ;
++feature.compose <stdlib>sun-stdcxx
++    : <cxxflags>-library=stdcxx4 <linkflags>-library=stdcxx4
+     ;
+ 
+ rule init ( version ? : command * : options * ) 
+--- Jamroot	Sun Nov 13 07:10:55 2011
++++ Jamroot	Sat Jan 14 20:34:20 2012
+@@ -147,7 +147,7 @@
+       <conditional>@handle-static-runtime
+       # The standard library Sun compilers use by default has no chance
+       # of working with Boost. Override it.
+-      <toolset>sun:<stdlib>sun-stlport
++      <toolset>sun:<stdlib>sun-stdcxx
+       # Comeau does not support shared lib
+       <toolset>como:<link>static
+       <toolset>como-linux:<define>_GNU_SOURCE=1
