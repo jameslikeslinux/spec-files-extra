@@ -147,7 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %hard %{_bindir}/ffplay
 %hard %{_bindir}/ffmpeg
 %hard %{_bindir}/ffprobe
-%hard %{_bindir}/avconv
+#%hard %{_bindir}/avconv
 %else
 %{_bindir}/*
 %endif
