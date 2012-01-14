@@ -5,7 +5,7 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.9
+Version:                 0.9.1
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
@@ -114,6 +114,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jan 13 2012 - Alex Viskovatoff
+- bump to 0.9.1
 * Mon Dec 12 2011 - Milan Jurik
 - bump to 0.9
 * Mon Nov 07 2011 - Milan Jurik

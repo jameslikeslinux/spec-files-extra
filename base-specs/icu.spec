@@ -31,8 +31,8 @@ Patch4: icu-04-gnu99.diff
 export CFLAGS="%optflags"
 export CPPFLAGS=""
 %if %cc_is_gcc
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CXXFLAGS="%cxx_optflags"
 %if %opt_arch64
 export LDFLAGS="%_ldflags -L/usr/gnu/lib/%bld_arch -R/usr/gnu/lib/%bld_arch"

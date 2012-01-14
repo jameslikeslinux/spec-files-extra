@@ -1,3 +1,8 @@
+2012-01-13  Alex Viskovatoff <herzen@imap.cc>
+
+	* ffmpeg.spec: bump to 0.9.1
+	* SFEghc.spec: bump to 7.2.2
+
 2012-01-12 Milan Jurik <sfnet@xylab.cz>
 
 	* base-specs/boost.spec: bump to 1.48.0
@@ -278,6 +283,19 @@
 	* libx264.spec: update to new tarball; change version numbering
 	* SFElibx264-no-mp4.spec: delete redundant spec
 	* SFEmplayer2.spec: add missing dep; disable libmad
+	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
+	* SFErtmpdump.spec: move to encumbered/
+	* SFExulrunner.spec import spec from BeleniX into experimental/
+
+2011-10-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmpg123.spec: bump to 1.13.4; fix executable; use xarch=sse;
+	  add IPS_package_name
+        * SFEffmpeg-sse2-only.spec: remove dep on SFEfaad2; downgrade cpu
+        * ffmpeg.spec: remove --extra-ldflags=-mimpure-text
+        * libx264.spec: update to new tarball; change version numbering
+        * SFElibx264-no-mp4.spec: delete redundant spec
+        * SFEmplayer2.spec: add missing dep; disable libmad
 	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
 	* SFErtmpdump.spec: move to encumbered/
 	* SFExulrunner.spec import spec from BeleniX into experimental/

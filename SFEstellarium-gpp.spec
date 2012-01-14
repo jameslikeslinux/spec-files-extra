@@ -34,8 +34,8 @@ BuildRequires: SFEsdl-mixer-devel
 Requires: SFEsdl-mixer
 #BuildRequires: SUNWimagick
 BuildRequires: SFEcmake
-BuildRequires: SFEqt47-gpp-devel
-Requires: SFEqt47-gpp
+BuildRequires: SFEqt-gpp-devel
+Requires: SFEqt-gpp
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can

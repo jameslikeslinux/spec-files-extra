@@ -23,7 +23,7 @@
 
 Name:		SFEghc 
 Summary:	The Glorious Glasgow Haskell Compilation System
-Version:	7.2.1
+Version:	7.2.2
 Release:	1
 License:	GHC License
 SUNW_Copyright:	ghc.copyright
@@ -202,6 +202,8 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %changelog
+* Fri Jan 13 2012 - Alex Viskovatoff
+- Bump to 7.2.2
 * Sat Aug 20 2011 - Alex Viskovatoff
 - Bump to 7.2.1
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
