@@ -22,7 +22,7 @@
 %use icu = icu.spec
 
 Name:			SFEicu
-IPS_Package_Name:	library/c++/icu
+IPS_Package_Name:	library/stdcxx/icu
 Summary:		%icu.summary (linked against stdcxx)
 Version:		%icu.version
 License:		BSD.icu
