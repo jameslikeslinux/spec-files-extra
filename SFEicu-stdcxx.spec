@@ -1,5 +1,5 @@
 #
-# spec file for package SFEicu
+# spec file for package SFEicu-stdcxx
 #
 # includes module(s): icu
 #
@@ -21,7 +21,7 @@
 %include base.inc
 %use icu = icu.spec
 
-Name:			SFEicu
+Name:			SFEicu-stdcxx
 IPS_Package_Name:	library/stdcxx/icu
 Summary:		%icu.summary (linked against stdcxx)
 Version:		%icu.version
