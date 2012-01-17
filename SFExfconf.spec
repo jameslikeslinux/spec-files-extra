@@ -11,7 +11,7 @@
 
 Name:		SFExfconf
 Summary:	Configuration management for Xfce
-Version:	4.8.0
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
@@ -103,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.1
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik

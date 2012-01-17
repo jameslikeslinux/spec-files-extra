@@ -12,7 +12,7 @@
 
 Name:		SFExfwm4
 Summary:	Next generation window manager for Xfce
-Version:	4.8.2
+Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
@@ -127,6 +127,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.3
 * Sun Oct  2 2011 - Alex Viskovatoff
 - bump to 4.8.2
 * Tue Jul 26 2011 - N.B.Prashanth

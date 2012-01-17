@@ -13,7 +13,7 @@ Name:		SFExfce-calendar
 Summary:	Xfce Calendar
 License:	GPLv2
 SUNW_Copyright:	xfce-calendar.copyright
-Version:	4.8.2
+Version:	4.8.3
 URL:		http://www.xfce.org/projects/orage
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_Copyright:	xfcalendar.copyright
@@ -132,6 +132,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.3
 * Sun Sep 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Changed name from SFExfcalendar to SFExfce-calendar
 * Sun Sep 25 2011 - Ken Mays <kmays2000@gmail.com>

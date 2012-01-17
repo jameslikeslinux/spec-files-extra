@@ -10,7 +10,7 @@
 
 Name:		SFElibxfce4ui
 Summary: 	Widgets library for the Xfce desktop environment
-Version: 	4.8.0
+Version: 	4.8.1
 License:	LGPLv2+
 SUNW_Copyright:	libxfce4ui.copyright
 URL: 		http://www.xfce.org/
@@ -124,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.1
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Mon Mar 21 2011 - Milan Jurik
