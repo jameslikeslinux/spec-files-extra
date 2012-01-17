@@ -6,11 +6,11 @@
 %include Solaris.inc
 
 %define src_name ristretto
-%define src_url http://archive.xfce.org/src/apps/ristretto/0.1/
+%define src_url http://archive.xfce.org/src/apps/ristretto/0.2/
 
 Name:           SFExfce4-ristretto
 Summary:        Image Viewer
-Version:        0.1.0
+Version:        0.2.3
 URL:            http://www.xfce.org/
 Source:         %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:   %{_basedir}
@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.2.3
 * Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.1.0
 * Tue Oct 5 2011 - Ken Mays <kmays2000@gmail.com>

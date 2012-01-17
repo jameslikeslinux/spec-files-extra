@@ -6,6 +6,7 @@
 	* SFExfconf.spec: bump to 4.8.1
 	* SFEtumbler.spec: bump to 0.1.23
 	* SFEmidori.spec: bump to 0.4.3
+	* SFExfce4-ristretto.spec: bump to 0.2.3
 
 2012-01-14 Milan Jurik <sfnet@xylab.cz>
 
