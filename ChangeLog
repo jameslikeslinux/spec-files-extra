@@ -1,3 +1,7 @@
+2012-01-24 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/schroedinger.spec: bump to 1.0.11
+
 2012-01-19 Ken Mays <kmays2000@gmail.com>
 
 	* SFEimagemagick.spec: bump to 6.7.4-7
