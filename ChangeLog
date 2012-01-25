@@ -1,3 +1,17 @@
+2012-01-25 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEspareshash.spec - Initial spec
+	* base-specs/sparsehash.spec
+	* SFEqhull.spec - Initial spec
+	* base-specs/qhull.spec
+	* SFEglpk.spec - bump to 4.47, update g++ path
+	* base-specs/lapack.spec - bump to 3.4.0, fPIC
+	* base-specs/blas.spec - specify fPIC
+	* SFEpythia8.spec - Initial spec
+	* base-specs/pythia8.spec
+	* SFEroot-5.32-gpp.spec - Initial spec
+	* base-specs/root.spec
+
 2012-01-24 Milan Jurik <sfnet@xylab.cz>
 
 	* base-specs/schroedinger.spec: bump to 1.0.11
