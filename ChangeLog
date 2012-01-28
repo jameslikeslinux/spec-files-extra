@@ -1,4 +1,8 @@
-2012-02-27 James Choi <jchoi42@pha.jhu.edu>
+2012-01-28 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.3.38
+
+2012-01-27 James Choi <jchoi42@pha.jhu.edu>
 
 	* base-specs/ffmpeg.spec - bump to 0.10, bump patch-09
 	* encumbered/SFEffmpeg.spec - update files for 0.10
