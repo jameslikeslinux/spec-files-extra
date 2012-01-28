@@ -71,7 +71,6 @@ Requires: SFElibcdio
 Requires: SFElibdvdnav
 BuildRequires: SFEfaad2-devel
 Requires: SFEfaad2
-#Requires: driver/graphics/nvidia
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
@@ -79,6 +78,7 @@ BuildRequires: SFElibcdio-devel
 BuildRequires: SFElibdvdnav-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
+Requires: driver/graphics/nvidia
 BuildRequires: driver/graphics/nvidia
 
 %if %SFElibsndfile
@@ -153,6 +153,14 @@ export CFLAGS="-O2 -march=prescott -fomit-frame-pointer -D__hidden=\"\""
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
 export CC=gcc
 
+# On some Intel CPUs, ffmpeg incorrectly builds libraries for AMD
+%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+%if %noamd3d
+echo "hwcap_1 = V0x00800 V0x01000 OVERRIDE;" > mapfile
+%else
+echo "hwcap_1 = SSE;" > mapfile
+%endif
+
 # Enabling gl makes mplayer crash before printing anything 
 # when built with gcc 4.6.2 (OK on gcc 4.6.1).  Even with
 # 4.6.1, using -vo gl produces crashes when it tries to play.
@@ -162,7 +170,7 @@ bash ./configure				\
             --libdir=%_libdir			\
             --confdir=%_sysconfdir		\
             --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
-            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
+            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment -Wl,-Mmapfile" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
             --enable-faad			\
             --disable-mad			\
@@ -237,6 +245,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Tue Jan 24 2012 - James Choi
+- Intel/AMD detection override
 * Mon Dec 12 2012 - Thomas Wagner
 - change to (Build)Requires pnm_requires_SUNWsmba
 * Thu Nov 17 2011 - Alex Viskovatoff

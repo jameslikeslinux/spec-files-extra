@@ -162,6 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 %dir %attr(0755, root, bin) %{_datadir}/ffmpeg
 %{_datadir}/ffmpeg/*.ffpreset
+%{_datadir}/ffmpeg/ffprobe.xsd
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
 #sometimes broken %doc -d %base_arch/ffmpeg-%version doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html
@@ -191,6 +192,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 24 2012 - James Choi
+- update files for 0.10
 * Mon Dec 12 2011 - Milan Jurik
 - bump to 0.9
 * Sun Nov 13 2011 - Michael Kosarev
