@@ -2,6 +2,7 @@
 # spec file for package SFElibfuse.spec
 #
 %include Solaris.inc
+%include usr-gnu.inc
 
 %define src_name libfuse
 %define src_url http://hub.opensolaris.org/bin/download/Project+fuse/files
@@ -60,13 +61,14 @@ export MAKE=/usr/ccs/bin/make
 rm -rf $RPM_BUILD_ROOT
 /usr/ccs/bin/make install
 
-cp -r proto/ $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/usr/gnu/
+cp -r proto/usr/* $RPM_BUILD_ROOT/usr/gnu
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/exec_attr.d
-cp %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/security/exec_attr.d/libfuse
+mkdir -p $RPM_BUILD_ROOT%{_std_sysconfdir}/security/exec_attr.d
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_std_sysconfdir}/security/exec_attr.d/libfuse
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/prof_attr.d
-cp %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/security/prof_attr.d/libfuse
+mkdir -p $RPM_BUILD_ROOT%{_std_sysconfdir}/security/prof_attr.d
+cp %{SOURCE2} $RPM_BUILD_ROOT%{_std_sysconfdir}/security/prof_attr.d/libfuse
 
 cd $RPM_BUILD_ROOT%{_libdir} && ln -s libfuse.so.* libfuse.so
 
@@ -103,10 +105,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files root
 %defattr (-, root, sys)
-%{_sysconfdir}
+%{_std_sysconfdir}
 
 
 %changelog
+* Wed Jan 11 2012- Thomas Wagner
+- relocate to /usr/gnu because we now have a different fuse variant
+  on Solaris 11
 * Wed Nov 9 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to fuse 2.7.6
 - Added ulockmgr.h

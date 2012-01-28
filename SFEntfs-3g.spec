@@ -9,7 +9,6 @@
 %define cc_is_gcc 1
 %include base.inc
 
-%define SUNWlibfuse	%(/usr/bin/pkginfo -q SUNWlibfuse && echo 1 || echo 0)
 
 Name:                    SFEntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
@@ -25,15 +24,12 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SUNWgnome-common-devel
 
-%if %SUNWlibfuse
-BuildRequires:	SUNWlibfuse
-Requires:	SUNWfusefs
-Requires:	SUNWlibfuse
-%else
-BuildRequires:	SFElibfuse
+#not the *olaris implementation
+we use the older fuse kernel modules
 Requires:	SFEfusefs
+#not the *olaris implementation (missing calls?)
+we use the older libfuse implementation
 Requires:	SFElibfuse
-%endif
 
 %package devel
 Summary:                 %{summary} - development files
@@ -41,11 +37,8 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-%if %SUNWlibfuse
-Requires:	SUNWlibfuse
-%else
+BuildRequires:	SFElibfuse-devel
 Requires:	SFElibfuse
-%endif
 
 %prep
 %setup -q -n ntfs-3g-%version
@@ -73,10 +66,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=/usr/sfw/bin/gcc
-export CFLAGS="%gcc_optflags"
-export FUSE_MODULE_CFLAGS="-D_FILE_OFFSET_BITS=64 -I/usr/include/fuse"
-export FUSE_MODULE_LIBS="-pthread -lfuse"
+export CC=gcc
+export CFLAGS="%optflags -I%{gnu_inc} %{gnu_lib_path}"
+export FUSE_MODULE_CFLAGS="$CFLAGS %{gnu_lib_path} -D_FILE_OFFSET_BITS=64 -I/usr/gnu/include/fuse"
+export FUSE_MODULE_LIBS="%{gnu_lib_path} -pthread -lfuse"
 
 ./configure --prefix=%{_prefix}			\
 	    --libdir=%{_libdir}                 \
@@ -88,7 +81,7 @@ export FUSE_MODULE_LIBS="-pthread -lfuse"
             --exec-prefix=%{_execprefix}	\
 	    --with-fuse=external
 
-make -j $CPUS
+gmake -j $CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -127,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 11 2012 - Thomas Wagner
+- go for SFElibfuse/SFEfusefs in any case (SUNWlibfuse was not contained in distros)
 * Tue Sep 27 2011 - Alex Viskovatoff
 - Build with gcc-3, as does not duild with gcc 4.6
 * Thu Jul 07 2011 - Alex Viskovatoff
