@@ -216,3 +216,8 @@ SFEwxwidgets: The following packages all deliver file actions to usr/include/wx-
   pkg://localhost/SFEwxwidgets@2.8.10,5.11-0.170:20110921T212701Z
   pkg://solaris/library/graphics/wxwidgets@2.8.12,5.11-0.172:20110815T100013Z
 
+42)
+need a better method for AMD/Intel specific instructions, generic binary repos can't build
+binariy with instructions specific to the local CPU used for building the package.
+Check if it is necessary/usefull to make AMD/Intel specific distinction at all (who can tell).
+SFEffmpeg.spec, SFEmplayer2.spec
