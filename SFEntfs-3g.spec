@@ -25,10 +25,10 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:	SUNWgnome-common-devel
 
 #not the *olaris implementation
-we use the older fuse kernel modules
+#we use the older fuse kernel modules
 Requires:	SFEfusefs
 #not the *olaris implementation (missing calls?)
-we use the older libfuse implementation
+#we use the older libfuse implementation
 Requires:	SFElibfuse
 
 %package devel
