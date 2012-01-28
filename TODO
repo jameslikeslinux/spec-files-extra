@@ -221,3 +221,13 @@ need a better method for AMD/Intel specific instructions, generic binary repos c
 binariy with instructions specific to the local CPU used for building the package.
 Check if it is necessary/usefull to make AMD/Intel specific distinction at all (who can tell).
 SFEffmpeg.spec, SFEmplayer2.spec
+
+43)
+make css a dependency in vlc
+add "easy-rsa2 scripts to openvpn package (convenient and common way to generte certificates)
+
+44)
+verify that nvidia package does not change compile results of packages. If it doesn't,
+deprecate adding Requires: nvidia. It can be set as BuildRequires: if that changes
+the resulting package in an imporant way. Examples: ffmpeg compiles with nvidia
+package present or absend, binary compare and/or functional and/or performance comparison.
