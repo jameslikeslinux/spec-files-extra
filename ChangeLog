@@ -11,6 +11,7 @@
 	* base-specs/ffmpeg.spec - bump to 0.10, bump patch-09
 	* encumbered/SFEffmpeg.spec - update files for 0.10
 	* encumbered/SFEffmpeg-sse2-only.spec - add deps, intel/amd specify
+	* patches/ffmpeg-09-configure-gnuism-pod2man.diff - bump to 0.10
 	* patches/ffmpeg-12-unoverride.diff
 	* encumbered/SFEmplayer2.spec - intel/amd specify
 
