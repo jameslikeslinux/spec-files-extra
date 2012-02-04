@@ -10,8 +10,10 @@
 %include packagenamemacros.inc
 
 Name:                    SFEtightvnc
+IPS_Package_Name:	desktop/remote-desktop/tightvnc
 Summary:                 VNC (Virtual Network Computing) client
 Version:                 1.3.10
+Group:		Applications/Internet
 URL:                     http://www.tightvnc.com/
 Source:                  %{sf_download}/vnc-tight/tightvnc-%{version}_unixsrc.tar.bz2
 License:		 GPLv2
