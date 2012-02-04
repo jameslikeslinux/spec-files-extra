@@ -7,15 +7,16 @@
 %include Solaris.inc
 
 %define src_name xfconf
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/xfconf/4.8
 
 Name:		SFExfconf
+IPS_Package_Name:	xfce/config/xfce-config
 Summary:	Configuration management for Xfce
 Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Libraries
 SUNW_Copyright:	xfconf.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
