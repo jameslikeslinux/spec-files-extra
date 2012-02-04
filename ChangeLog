@@ -1,6 +1,7 @@
 2012-02-04 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEisomaster.spec: initial spec
+	* SFEdjvulibre.spec: fix build with the latest GCC
 
 2012-01-28 Milan Jurik <sfnet@xylab.cz>
 
