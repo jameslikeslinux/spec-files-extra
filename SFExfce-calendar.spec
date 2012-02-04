@@ -10,7 +10,9 @@
 %define src_url http://archive.xfce.org/src/apps/orage/4.8/
 
 Name:		SFExfce-calendar
+IPS_Package_Name:	xfce/xfce-calendar
 Summary:	Xfce Calendar
+Group:		Applications/Office
 License:	GPLv2
 SUNW_Copyright:	xfce-calendar.copyright
 Version:	4.8.3
