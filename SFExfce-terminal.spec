@@ -10,7 +10,9 @@
 %define src_url http://archive.xfce.org/src/apps/terminal/0.4/
 
 Name:		SFExfce-terminal
+IPS_Package_Name:	terminal/xfce-terminal
 Summary:	Xfce terminal
+Group:		Applications/System Utilities
 License:	GPLv2
 SUNW_Copyright:	xfce-terminal.copyright
 Version:	0.4.8
