@@ -10,8 +10,10 @@
 %define src_url http://archive.xfce.org/src/xfce/thunar/1.2/
 
 Name:		SFEthunar
+IPS_Package_Name:	xfce/file-manager/thunar
 Summary:	Thunar File Manager
 Version:	1.2.3
+Group:		Desktop (GNOME)/File Managers
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
@@ -40,7 +42,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
