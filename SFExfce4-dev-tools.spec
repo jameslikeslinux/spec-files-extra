@@ -10,11 +10,12 @@
 %define src_url http://archive.xfce.org/xfce/4.8/src/
 
 Name:		SFExfce4-dev-tools
+IPS_Package_Name:	developer/xfce/xfce-dev-tools
 Summary:	Xfce Development Tools
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Development/Distribution Tools
 License:	GPLv2
 SUNW_Copyright: xfce4-dev-tools.copyright
 SUNW_BaseDir:	%{_basedir}
