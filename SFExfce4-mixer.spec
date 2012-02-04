@@ -10,8 +10,10 @@
 %define src_url http://archive.xfce.org/src/apps/xfce4-mixer/4.8/
 
 Name:		SFExfce4-mixer
+IPS_Package_Name:	xfce/xfce-mixer
 Summary:	Volume control plugin for the Xfce 4 panel
 Version:	4.8.0
+Group:		Applications/Sound and Video
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
