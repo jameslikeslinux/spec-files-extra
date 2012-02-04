@@ -9,11 +9,12 @@
 %define src_url http://archive.xfce.org/src/xfce/%{src_name}/0.1/
 
 Name:		SFEgarcon
+IPS_Package_Name:	library/desktop/garcon
 Version:	0.1.9
 Summary:	Implementation of the freedesktop.org menu specification
 License:	LGPLv2+ and GFDLv1.1
 SUNW_Copyright:	garcon.copyright
-Group:          System Environment/Libraries
+Group:          Desktop (GNOME)/Libraries
 URL:		http://xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -37,7 +38,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
