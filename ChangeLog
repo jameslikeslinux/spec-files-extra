@@ -1,3 +1,7 @@
+2012-02-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEisomaster.spec: initial spec
+
 2012-01-28 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEfusefs.spec: add patches from Jean-Pierre Andre
