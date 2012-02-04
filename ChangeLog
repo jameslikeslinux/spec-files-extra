@@ -6,6 +6,7 @@
 
 	* SFEisomaster.spec: initial spec
 	* SFEdjvulibre.spec: fix build with the latest GCC
+	* SFEmsmtp.spec: bump to 1.4.27
 
 2012-01-28 Milan Jurik <sfnet@xylab.cz>
 
