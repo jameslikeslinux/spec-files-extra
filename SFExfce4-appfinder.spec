@@ -10,11 +10,12 @@
 %define src_url http://archive.xfce.org/xfce/4.8/src/
 
 Name:		SFExfce4-appfinder
+IPS_Package_Name:	xfce/xfce-appfinder
 Summary:	Appfinder for the Xfce Desktop Environment
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Applications/Accessories
 License:	GPLv2
 SUNW_Copyright:	xfce4-appfinder.copyright
 SUNW_BaseDir:	%{_basedir}
