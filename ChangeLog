@@ -5,6 +5,7 @@
 	* SFElibfm.spec: bump to 0.1.17
 	* SFEpcmanfm.spec: bump to 0.9.10
 	* SFEwindowmaker.spec: package reorganization
+	* SFEimlib2.spec: bump to 1.4.5
 
 2012-02-04 Ken Mays <kmays2000@gmail.com>
 
