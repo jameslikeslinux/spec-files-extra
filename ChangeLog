@@ -2,6 +2,7 @@
 
 	* SFEpcre-gpp.spec: bump to 8.30, enable 16bit and JIT
 	* SFEgnote.spec: bump to 0.7.6
+	* SFElibfm.spec: bump to 0.1.17
 
 2012-02-04 Ken Mays <kmays2000@gmail.com>
 
