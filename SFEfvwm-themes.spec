@@ -12,7 +12,8 @@ Name:                   SFEfvwm-themes
 IPS_Package_Name:	desktop/window-manager/fvwm/themes
 License:                GPLv2
 SUNW_Copyright:         fvwm-themes.copyright
-Summary:                %{themes.summary}
+Summary:                F Virtual Window Manager themes
+Group:			Desktop (GNOME)/Window Managers
 Version:                %{themes.version}
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
