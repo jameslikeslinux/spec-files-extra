@@ -9,10 +9,13 @@
 %define	src_url	http://www.etla.net/%{src_name}
 
 Name:		SFElibstroke
+IPS_Package_Name:	library/desktop/libstroke
 Summary:	A stroke translation library
+Group:		Desktop (GNOME)/Libraries
 Version:	0.5.1
 License:	GPLv2
 SUNW_Copyright:	libstroke.copyright
+URL:		http://etla.net/libstroke/
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		libstroke-01-am15.diff
 Patch2:		libstroke-02-am18.diff
