@@ -9,6 +9,7 @@ IPS_Package_Name:	desktop/window-manager/windowmaker
 Summary:	Windowmaker Your Next Window Manager
 Version:	0.92.0
 Source:		http://windowmaker.org/pub/source/release/WindowMaker-%{version}.tar.bz2
+Source1:	windowmaker.desktop
 URL:		http://www.windowmaker.info/ 
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -51,6 +52,8 @@ make -j$CPUS
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
+mkdir -p %{buildroot}%{_datadir}/xsessions && cp %{SOURCE1} %{buildroot}%{_datadir}/xsessions/
+
 %clean
 rm -rf %{buildroot}
 
@@ -68,6 +71,7 @@ rm -rf %{buildroot}
 %{_datadir}/WPrefs/*
 %dir %attr(0755, root, bin) %{_datadir}/WINGs
 %{_datadir}/WINGs/*
+%{_datadir}/xsessions/windowmaker.desktop
 
 %files root
 %defattr (-, root, sys)
