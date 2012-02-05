@@ -11,9 +11,11 @@
 %define _prefix %_basedir/g++
 
 Name:		SFEpcre-gpp
+IPS_Package_Name:	library/g++/pcre
 Summary:	Perl Compatible Regular Expressions (g++ built)
 URL:		http://www.pcre.org/
-Version:	8.12
+Version:	8.30
+Group:		Development/Perl
 #License:	LGPLv2+
 #SUNW_Copyright:	pcre.copyright
 Source:		ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/%srcname-%version.tar.bz2
@@ -43,7 +45,13 @@ export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 
-./configure --prefix=%_prefix --enable-unicode-properties --disable-static --enable-pcregrep-libz --enable-pcregrep-libbz2
+./configure --prefix=%_prefix	\
+	--enable-unicode-properties	\
+	--enable-pcre16		\
+	--enable-jit		\
+	--disable-static	\
+	--enable-pcregrep-libz	\
+	--enable-pcregrep-libbz2
 
 gmake -j$CPUS
 
@@ -77,5 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 05 2012 - Milan Jurik
+- bump to 8.30, enable 16bit and JIT
 * Sun Aug 14 2011 - Alex Viskovatoff
 - Initial spec
