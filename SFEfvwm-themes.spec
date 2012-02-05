@@ -9,6 +9,7 @@
 %use themes = fvwm-themes.spec
 
 Name:                   SFEfvwm-themes
+IPS_Package_Name:	desktop/window-manager/fvwm/themes
 License:                GPLv2
 SUNW_Copyright:         fvwm-themes.copyright
 Summary:                %{themes.summary}
