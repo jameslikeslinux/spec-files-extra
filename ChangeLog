@@ -1,3 +1,7 @@
+2012-02-06 Ken Mays <kmays2000@gmail.com>
+
+	* SFEpostfix.spec: bump to 2.8.8
+
 2012-02-05 Brian Cameron <brian.cameron@oracle.com>
 
 	* SFEladspa-swh-plugins.spec: Remove dependency on SUNWfftw2.

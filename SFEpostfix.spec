@@ -116,7 +116,7 @@ IPS_Package_Name:	service/network/smtp/postfix
 Summary:                 Mailer System
 Group:		System/Services
 URL:                     http://postfix.org/
-Version:                 2.8.7
+Version:                 2.8.8
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
@@ -895,6 +895,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.8
 * Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.8.7
 * Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
