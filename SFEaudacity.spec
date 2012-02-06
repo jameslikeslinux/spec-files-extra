@@ -23,7 +23,7 @@ Name:		SFEaudacity
 IPS_Package_Name:	audio/editor/audacity
 Summary:	Free, Cross-Platform Sound Editor
 Group:		Applications/Sound and Video
-Version:	1.3.13
+Version:	1.3.14
 License:	GPLv2+
 SUNW_Copyright:	audacity.copyright
 Source:		http://audacity.googlecode.com/files/%{src_name}-minsrc-%{version}-beta.tar.bz2
@@ -46,7 +46,6 @@ Requires: SFEsoundtouch
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
 %else
-BuildRequires: SUNWlibsndfile
 Requires: SUNWlibsndfile
 %endif
 BuildRequires: SUNWaudh
@@ -282,6 +281,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Feb 05 2012 - Brian Cameron
+- Bump to 1.3.14.
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Wed May 19 2011 - Brian Cameron

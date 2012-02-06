@@ -1,3 +1,9 @@
+2012-02-05 Brian Cameron <brian.cameron@oracle.com>
+
+	* SFEladspa-swh-plugins.spec: Remove dependency on SUNWfftw2.
+	* SFEaudacity.spec: Bump to 1.3.14.
+	* base-specs/libsndfile.spec:
+
 2012-02-05 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEpcre-gpp.spec: bump to 8.30, enable 16bit and JIT
