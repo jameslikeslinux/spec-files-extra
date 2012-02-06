@@ -1,6 +1,7 @@
 2012-02-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtea.spec: bump to 31.2.0 based on QT
+	* SFEgaupol.spec: bump to 0.19.2
 
 2012-02-06 Ken Mays <kmays2000@gmail.com>
 
