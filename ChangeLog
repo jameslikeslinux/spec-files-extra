@@ -1,3 +1,7 @@
+2012-02-07 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEenet.spec: bump to 1.2.5
+
 2012-02-06 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEtea.spec: bump to 31.2.0 based on QT
