@@ -12,8 +12,10 @@
 
 
 Name:                     SFEsylpheed
+IPS_Package_Name:	mail/sylpheed
 Summary:                  A GTK+ based, lightweight, and fast e-mail client
 Version:                  3.1.2
+Group:		Applications/Internet
 Source:                   %{src_url}/%{src_name}-%{version}.tar.bz2
 License:                  GPLv2+ with openSSL exception
 URL:                      http://sylpheed.sraoss.jp/
