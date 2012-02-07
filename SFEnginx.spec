@@ -21,11 +21,6 @@
 #					sparc32, sparc64
 # --with-gcc				build with GCC instead of Sun Studio
 # --with-geoip				Enable GeoIP module (not done yet)
-# --with-image-filter			Enable image filter module (depends on GD)
-# --with-legacy				build "legacy" (old stable) version
-# --with-unstable			build development version (overrides legacy)
-# --with-xslt				Enable XSLT module (depends on libxml/libxslt)
-
 
 ###
 ### TODO:
@@ -39,35 +34,20 @@
 
 %include Solaris.inc
 
-Release:		1
-
-%if %{?_with_legacy:1}%{!?_with_legacy:0}
-# Legacy Version
-Version:		0.7.67
-%define stability -legacy
-%else
-# Stable Version
-Version:		0.8.53
-%endif
-%if %{?_with_unstable:1}%{!?_with_unstable:0}
-# Development Version
-Version:		0.8.53
-%define stability -unstable
-%endif
-
-Name:			SFEnginx
-Summary:		Free, open-source, high-performance HTTP server and reverse proxy
-Source:			http://nginx.org/download/%{sname}-%{version}.tar.gz
-Source1:		http-nginx
-Source2:		http-nginx.xml
-URL:			http://nginx.org/
-Group:			Web Services/Application and Web Servers
-License:		BSD
-Vendor:			SFE (spec-files-extra)
-SUNW_Copyright:		%{sname}.copyright
-SUNW_BaseDir:		%{_basedir}
-SUNW_Hotline:		http://wiki.nginx.org/NginxFaq
-BuildRoot:		%{_tmppath}/%{name}-%{version}-build
+Name:		SFEnginx
+IPS_Package_Name:	service/network/nginx
+Version:	1.0.12
+Summary:	Free, open-source, high-performance HTTP server and reverse proxy
+Source:		http://nginx.org/download/%{sname}-%{version}.tar.gz
+Source1:	http-nginx
+Source2:	http-nginx.xml
+URL:		http://nginx.org/
+Group:		System/Services
+License:	BSD
+SUNW_Copyright:	%{sname}.copyright
+SUNW_BaseDir:	%{_basedir}
+SUNW_Hotline:	http://wiki.nginx.org/NginxFaq
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 # IPS Manifest stuff
 Meta(info.upstream):		Igor Sysoev <http://sysoev.ru/en/>
@@ -75,21 +55,15 @@ Meta(info.maintainer):		Matt Lewandowsky <matt@greenviolet.net>
 
 %include default-depend.inc
 
-BuildRequires:		SUNWgsed
-BuildRequires:		SUNWopenssl-include
-Requires:		SUNWopenssl-libraries
-Requires:		SUNWpcre
-Requires:		SUNWzlib
-
-%if %{?_with_image_filter:1}%{!?_with_image_filter:0}
-BuildRequires:		SUNWgd2
-Requires:		SUNWgd2
-%endif
-
-%if %{?_with_xslt:1}%{!?_with_xslt:0}
-Requires:		SUNWlxml
-Requires:		SUNWlxsl
-%endif
+BuildRequires:	SUNWgsed
+BuildRequires:	SUNWopenssl-include
+Requires:	SUNWopenssl-libraries
+Requires:	SUNWpcre
+Requires:	SUNWzlib
+BuildRequires:	SUNWgd2
+Requires:	SUNWgd2
+Requires:	SUNWlxml
+Requires:	SUNWlxsl
 
 %package root
 Summary:		%{name} - root filesystem files, /
@@ -129,14 +103,6 @@ servers.
 
 # Group to run as
 %define nginxgroup %{?!nginxgroup:webservd}%{?nginxgroup}
-
-# Whether to enable HTTP image filter module
-# (Adds a dependency of GD)
-%define imagefilter %{?_with_image_filter:--with-http_image_filter_module}%{!?_with_image_filter:}
-
-# Whether to enable HTTP XSLT module
-# (Adds dependencies of libxml/libxslt)
-%define xslt %{?_with_xslt:--with-http_xslt_module}%{!?_with_xslt:}
 
 # Whether to enable HTTP image filter module
 # (Adds an unspecified dependency; not yet done.)
@@ -190,28 +156,27 @@ export LD=/usr/ccs/bin/ld
 		--http-scgi-temp-path=%{statedir}/scgi_temp		\
 		--http-uwsgi-temp-path=%{statedir}/uwsgi_temp		\
 		--lock-path=%{statedir}/nginx.lock			\
-		--pid-path=%{pidpath}					\
-		--prefix=%{statedir}					\
-		--sbin-path=%{sbinpath}					\
-		--user=%{nginxuser}					\
-		--with-http_addition_module				\
-		--with-http_dav_module					\
-		--with-http_flv_module					\
-		--with-http_gzip_static_module				\
-		--with-http_random_index_module				\
-		--with-http_realip_module				\
-		--with-http_secure_link_module				\
-		--with-http_ssl_module					\
-		--with-http_stub_status_module				\
-		--with-http_sub_module					\
-		--with-ipv6						\
-		--with-rtsig_module					\
-		--with-select_module					\
-		%{geoip}						\
-		%{imagefilter}						\
-		%{xslt}
+		--pid-path=%{pidpath}		\
+		--prefix=%{statedir}		\
+		--sbin-path=%{sbinpath}		\
+		--user=%{nginxuser}		\
+		--with-http_addition_module	\
+		--with-http_dav_module		\
+		--with-http_flv_module		\
+		--with-http_gzip_static_module	\
+		--with-http_random_index_module	\
+		--with-http_realip_module	\
+		--with-http_secure_link_module	\
+		--with-http_ssl_module		\
+		--with-http_stub_status_module	\
+		--with-http_sub_module		\
+		--with-ipv6			\
+		--with-rtsig_module		\
+		--with-select_module		\
+		--with-http_xslt_module		\
+		%{geoip}
 
-make -j$CPUS || make
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -252,6 +217,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.0.12
 * Fri Oct 14 2011 - Thomas Wagner
 - fix syntax in http-nginx.xml SMF manifest , no functional SMF testing done
 * Thr Mar 17 2011 - Thomas Wagner
