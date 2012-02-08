@@ -6,11 +6,12 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define build_dir_suffix 94450e9
+%define build_dir_suffix b1bff15
 
 Name:		SFEofflineimap
+IPS_Package_Name:	mail/offlineimap
 Summary:	Bi-directional syncing of IMAP/Maildir email boxes
-Version:	6.3.4
+Version:	6.4.0
 Group:		Applications/Internet
 Source:		http://githubredir.debian.net/github/nicolas33/offlineimap/v%{version}.tar.gz
 URL:		http://offlineimap.org/
@@ -43,6 +44,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 6.4.0
 * Wed Aug 10 2011 - Knut Anders Hatlen
 - Bump to 6.3.4
 - Use packagenamemacros.inc for Python version
