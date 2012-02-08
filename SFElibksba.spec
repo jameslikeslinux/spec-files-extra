@@ -6,8 +6,10 @@
 %include Solaris.inc
 
 Name:                SFElibksba
+IPS_Package_Name:	system/library/security/libksba
 Summary:             A library to make X.509 certificates as well as the CMS
 License:             GPLv3
+Group:		System/Libraries
 SUNW_Copyright:	     libksba.copyright
 URL:                 http://www.gnupg.org/related_software/libksba/index.en.html
 Version:             1.2.0
