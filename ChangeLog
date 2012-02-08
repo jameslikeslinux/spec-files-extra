@@ -2,6 +2,8 @@
 
 	* SFEofflineimap.spec: bump to 6.4.0
 	* SFElxmenu-data.spec: bump to 0.1.2
+	* SFElibosip2.spec: bump to 3.6.0
+	* SFElibexosip2.spec: bump to 3.6.0
 
 2012-02-07 Milan Jurik <sfnet@xylab.cz>
 
