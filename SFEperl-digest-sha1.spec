@@ -14,8 +14,10 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 Name:                    SFEperl-%{module_package_name}
+IPS_Package_Name:	library/perl-5/digest-sha1
 Summary:                 %{module_name}-%{module_version} PERL module
 License:                 GPL+ or Artistic
+Group:		Development/Perl
 SUNW_Copyright:          digest-sha1.copyright
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/GAAS/%{module_name}-%{module_version}.tar.gz
