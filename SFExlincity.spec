@@ -7,6 +7,7 @@
 %define src_name lincity
 
 Name:		SFExlincity
+IPS_Package_Name:	games/lincity
 Summary:	xlincity - Simulation game based on opensourced components of S*mc*ty. 
 Group:		Game/Simulation
 URL:		http://lincity.sourceforge.net 
