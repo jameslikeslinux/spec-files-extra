@@ -8,6 +8,7 @@
 %define src_name smfgui
 
 Name:		SFEsmfgui
+IPS_Package_Name:	system/management/smfgui
 Summary:	SMF GUI
 Version:	0.9.5.3
 URL:		http://smfgui.sourceforge.net/
