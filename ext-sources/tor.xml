@@ -66,20 +66,20 @@
         <exec_method
                 type='method'
                 name='stop'
-                exec='/lib/svc/method/tor.sh stop'
+                exec='/lib/svc/method/tor stop'
                 timeout_seconds='60'>
 		<method_context>
-			<method_credential user='daemon' group='daemon' />
+			<method_credential user='tor' group='daemon' />
 		</method_context>
 	</exec_method>
 
         <exec_method
                 type='method'
                 name='start'
-                exec='/lib/svc/method/tor.sh start'
+                exec='/lib/svc/method/tor start'
                 timeout_seconds='60'>
 		<method_context>
-			<method_credential user='daemon' group='daemon' 
+			<method_credential user='tor' group='daemon' 
 				privileges='basic,net_privaddr'
 			/>
 		</method_context>
@@ -107,7 +107,7 @@
 	<property_group name='firewall_context' type='com.sun,fw_definition'>
 		<propval name='name' type='astring' value='tor' />
 		<propval name='ipf_method' type='astring'
-			value='/lib/svc/method/tor.sh ipfilter' />
+			value='/lib/svc/method/tor ipfilter' />
 	</property_group>
 
 	<property_group name='firewall_config' type='com.sun,fw_configuration'>

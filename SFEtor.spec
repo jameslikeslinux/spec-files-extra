@@ -24,10 +24,9 @@ Requires: %name-root
 BuildRequires:	SFEasciidoc
 BuildRequires:	SUNWopenssl-include
 Requires:	SUNWopenssl-libraries
-BuildRequires:	SUNWlibevent
-Requires:	SUNWlibevent
 BuildRequires:	SFElibevent2-devel
 Requires:	SFElibevent2
+Requires:	SUNWpostrun
 
 %description
 Tor is a connection-based low-latency anonymous communication system.
@@ -97,18 +96,16 @@ rm -rf %{buildroot}
 
 %pre root
 test -x $BASEDIR/var/lib/postrun/postrun || exit 0
-( echo '/usr/sbin/groupadd daemon';
+(
   echo '/usr/sbin/useradd -d %{_sysconfdir}/%{src_name} -s /bin/true -g daemon tor';
 ) | $BASEDIR/var/lib/postrun/postrun -i -a
 
 %postun root
 test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 ( echo '/usr/sbin/userdel tor';
-  echo '/usr/sbin/groupdel daemon';
 ) | $BASEDIR/var/lib/postrun/postrun -i -a
 
 %actions
-group groupname="tor"
 user ftpuser=false gcos-field="TOR Reserved UID" username="tor" password=NP group="daemon"
 
 %files
@@ -129,11 +126,11 @@ user ftpuser=false gcos-field="TOR Reserved UID" username="tor" password=NP grou
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/%{src_name}.xml
 %dir %attr (0755, tor, daemon) %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
-%dir %attr (0700, daemon, daemon) %{_localstatedir}/lib/tor
+%dir %attr (0700, tor, daemon) %{_localstatedir}/lib/tor
 %dir %attr (0755, root, bin) /lib
 %dir %attr (0755, root, bin) /lib/svc
 %dir %attr (0755, root, bin) /lib/svc/method
-%attr (0555, root, bin) /lib/svc/method/%{src_name}.sh
+%attr (0555, root, bin) /lib/svc/method/%{src_name}
 
 %changelog
 * Sat Feb 11 2012 - Milan Jurik
