@@ -2,6 +2,8 @@
 
 	* SFEopencity.spec: bump to 0.0.6.4stable
 	* SFEcmake.spec: bump to 2.8.7
+	* SFEtor.spec: promote
+	* SFEvidalia.spec: initial spec
 
 2012-02-08 Milan Jurik <sfnet@xylab.cz>
 

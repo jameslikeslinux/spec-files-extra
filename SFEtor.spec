@@ -1,4 +1,3 @@
-#
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -8,21 +7,25 @@
 
 Name:		SFEtor
 IPS_Package_Name:	network/tor
-Version:	0.2.2.34
 Summary:	Anonymizing overlay network for TCP (The onion router)
-URL:		https://www.torproject.org/
-Group:		System Environment/Daemons
-License:	3-clause BSD
-Source:		http://www.torproject.org/dist/%{src_name}-%{version}.tar.gz
+Version:	0.2.2.35
+URL:		http://www.torproject.org/
+Source:		%{url}/dist/%{src_name}-%{version}.tar.gz
 Source1:	tor.auth_attr
 Source2:	tor.prof_attr
 Source3:	tor.sh
 Source4:	tor.xml
+License:	Tor License
+Group:		Applications/Internet
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+Requires: %name-root
+BuildRequires:	SFEasciidoc
 BuildRequires:	SUNWopenssl-include
 Requires:	SUNWopenssl-libraries
+BuildRequires:	SUNWlibevent
+Requires:	SUNWlibevent
 BuildRequires:	SFElibevent2-devel
 Requires:	SFElibevent2
 
@@ -60,16 +63,16 @@ SUNW_BaseDir:	/
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
+  CPUS=1
 fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
-./configure --prefix=%{_prefix}		\
+./configure --prefix=%{_prefix}	\
 	--sysconfdir=%{_sysconfdir}	\
-	--with-tor-user=daemon		\
-	--with-tor-group=daemon		\
-	--with-libevent-dir=/usr/gnu
+	--with-libevent-dir=/usr/gnu	\
+	--with-tor-user=tor	\
+	--with-tor-group=daemon
 
 make -j$CPUS
 
@@ -78,51 +81,60 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
 install -p -m 0755 contrib/torctl %{buildroot}%{_bindir}
-
-install -d 0755 %{buildroot}%{_sysconfdir}/security/auth_attr.d
-install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/security/auth_attr.d/tor
-
-install -d 0755 %{buildroot}%{_sysconfdir}/security/prof_attr.d
-install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/prof_attr.d/tor
-
-install -d 0755 %{buildroot}%/lib/svc/method
-install -m 0755 %{SOURCE3} %{buildroot}/lib/svc/method
-
-install -d 0755 %{buildroot}%/lib/svc/manifest/network
-install -m 0644 %{SOURCE4} %{buildroot}%/lib/svc/manifest/network
-
-install -d 0700 %{buildroot}%{_localstatedir}/lib/tor
-install -d 0755 %{buildroot}%{_localstatedir}/log/tor
+mkdir -p %{buildroot}/etc/security/auth_attr.d/
+cp %{SOURCE1} %{buildroot}/etc/security/auth_attr.d/%{src_name}
+mkdir -p %{buildroot}/etc/security/prof_attr.d/
+cp %{SOURCE2} %{buildroot}/etc/security/prof_attr.d/%{src_name}
+mkdir -p %{buildroot}/lib/svc/method
+cp %{SOURCE3} %{buildroot}/lib/svc/method/%{src_name}
+mkdir -p %{buildroot}%{_localstatedir}/svc/manifest/site
+cp %{SOURCE4} %{buildroot}%{_localstatedir}/svc/manifest/site/%{src_name}.xml
+mkdir -p %{buildroot}%{_localstatedir}/log/%{src_name}
+mkdir -p %{buildroot}%{_localstatedir}/lib/%{src_name}
 
 %clean
 rm -rf %{buildroot}
 
+%pre root
+test -x $BASEDIR/var/lib/postrun/postrun || exit 0
+( echo '/usr/sbin/groupadd daemon';
+  echo '/usr/sbin/useradd -d %{_sysconfdir}/%{src_name} -s /bin/true -g daemon tor';
+) | $BASEDIR/var/lib/postrun/postrun -i -a
+
+%postun root
+test -x $BASEDIR/var/lib/postrun/postrun || exit 0
+( echo '/usr/sbin/userdel tor';
+  echo '/usr/sbin/groupdel daemon';
+) | $BASEDIR/var/lib/postrun/postrun -i -a
+
+%actions
+group groupname="tor"
+user ftpuser=false gcos-field="TOR Reserved UID" username="tor" password=NP group="daemon"
+
 %files
-%defattr(-, root, bin)
-%doc INSTALL LICENSE README ChangeLog doc/HACKING doc/TODO
+%defattr (-, root, bin)
 %{_bindir}
-%dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/tor
+%dir %attr(0755, root, sys) %{_datadir}
+%{_datadir}/%{src_name}
 %dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/tor/*
+%{_docdir}/%{src_name}
 %{_mandir}
 
 %files root
 %defattr (-, root, sys)
-%dir %attr (0755, root, sys) %{_sysconfdir}
-%{_sysconfdir}/security
-%{_sysconfdir}/tor
-%dir %attr (0755, root, sys) %{_localstatedir}
-%dir %attr (0755, root, sys) %{_localstatedir}/log
-%dir %attr (0755, daemon, daemon) %{_localstatedir}/log/tor
+%{_sysconfdir}/security/auth_attr.d
+%{_sysconfdir}/security/prof_attr.d
+%config(noreplace) %{_sysconfdir}/tor/tor-tsocks.conf
+%{_sysconfdir}/tor/torrc.sample
+%class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/%{src_name}.xml
+%dir %attr (0755, tor, tor) %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
 %dir %attr (0700, daemon, daemon) %{_localstatedir}/lib/tor
 %dir %attr (0755, root, bin) /lib
 %dir %attr (0755, root, bin) /lib/svc
 %dir %attr (0755, root, bin) /lib/svc/method
-%attr (0755, root, sys) /lib/svc/method/tor.sh
-%class(manifest) %attr(0444, root, sys) /lib/svc/manifest/network/tor.xml
+%attr (0555, root, bin) /lib/svc/method/%{src_name}.sh
 
 %changelog
-* Thu Nov 17 2011 - Milan Jurik
-- initial spec
+* Sat Feb 11 2012 - Milan Jurik
+- Initial spec

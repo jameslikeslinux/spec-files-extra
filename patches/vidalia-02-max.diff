@@ -1,0 +1,8 @@
+--- vidalia-0.2.15/src/vidalia/network/ZImageView.cpp	Fri Oct  7 21:16:56 2011
++++ vidalia-0.2.15/src/vidalia/network/ZImageView.cpp	Sat Feb 11 21:27:08 2012
+@@ -173,2 +173,3 @@
+-  float maxw = float(std::max<int>(sRect.width(), iRect.width())) + _padding;
+-  float maxh = float(std::max<int>(sRect.height(), iRect.height())) + _padding;
++#define max(a, b) (((a) > (b)) ? (a) : (b))
++  float maxw = float(max(sRect.width(), iRect.width())) + _padding;
++  float maxh = float(max(sRect.height(), iRect.height())) + _padding;
