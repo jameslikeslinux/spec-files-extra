@@ -1,6 +1,7 @@
 2012-02-11 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEopencity.spec: bump to 0.0.6.4stable
+	* SFEcmake.spec: bump to 2.8.7
 
 2012-02-08 Milan Jurik <sfnet@xylab.cz>
 

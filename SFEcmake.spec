@@ -16,12 +16,12 @@
 Name:		SFEcmake
 IPS_Package_Name:	sfe/developer/build/cmake 
 Summary:	Cross platform make system
-Version:	2.8.6
+Version:	2.8.7
 License:	BSD3c
 SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 URL:		http://www.cmake.org
-Group:		Development/Tools
+Group:		Development/Distribution Tools
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -68,6 +68,8 @@ rm -rf %{buildroot}
 %{_docdir}/cmake
 
 %changelog
+* Sat Feb 11 2012 - Milan Jurik
+- bump to 2.8.7
 * Tue Oct 11 2011 - Thomas Wagner
 - some sed don't support -i , change to "gsed" (and gmake)
 * Tue Oct 11 2011 - Milan Jurik
