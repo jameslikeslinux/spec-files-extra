@@ -5,7 +5,7 @@
 
 Name:		libevent2
 Summary:	An event notification library for event-driven network servers.
-Version:	2.0.15
+Version:	2.0.17
 Source:		%sf_download/levent/libevent/libevent-2.0/libevent-%version-stable.tar.gz
 URL:		http://monkey.org/~provos/libevent/
 Group:		System/Libraries
@@ -38,5 +38,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/libevent*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Feb 11 2012 - Milan Jurik
+- bump to 2.0.17
 * Thu Nov 17 2011 - Milan Jurik
 - multiarch support

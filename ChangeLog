@@ -4,6 +4,7 @@
 	* SFEcmake.spec: bump to 2.8.7
 	* SFEtor.spec: promote
 	* SFEvidalia.spec: initial spec
+	* base-specs/libevent2.spec: bump to 2.0.17
 
 2012-02-08 Milan Jurik <sfnet@xylab.cz>
 
