@@ -8,11 +8,12 @@
 %include base.inc
 
 %define src_name opencity
-%define src_version 0.0.6.2stable
+%define src_version 0.0.6.4stable
 
 Name:		SFEopencity
+IPS_Package_Name:	games/opencity
 Summary:	opencity - OpenCity Game
-Version:	0.0.6.2
+Version:	0.0.6.4
 Source:		%{sf_download}/%{src_name}/%{src_name}-%{src_version}.tar.bz2
 Patch1:		opencity-01-errors.diff
 URL:		http://www.opencity.info/
@@ -110,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/%{src_name}/*
 
 %changelog
+* Sat Feb 11 2012 - Milan Jurik
+- bump to 0.0.6.4stable
 * Mon May 17 2010 - Milan Jurik
 - update to 0.0.6.2stable
 * Sun Apr 22 2007 - dougs@truemail.co.th
