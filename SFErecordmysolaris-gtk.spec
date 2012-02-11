@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                SFErecordmysolaris-gtk
+IPS_Package_Name:	desktop/recordmysolaris-gtk
 Summary:             Recordmysolaris-gtk - Desktop recording tool, gtk frontend
 Version:             0.3.3
 Source:              http://recordmysolaris.googlecode.com/files/recordmysolaris-gtk-%{version}.tar.gz
