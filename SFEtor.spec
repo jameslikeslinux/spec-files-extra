@@ -127,7 +127,7 @@ user ftpuser=false gcos-field="TOR Reserved UID" username="tor" password=NP grou
 %config(noreplace) %{_sysconfdir}/tor/tor-tsocks.conf
 %{_sysconfdir}/tor/torrc.sample
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/%{src_name}.xml
-%dir %attr (0755, tor, tor) %{_localstatedir}/log/%{src_name}
+%dir %attr (0755, tor, daemon) %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
 %dir %attr (0700, daemon, daemon) %{_localstatedir}/lib/tor
 %dir %attr (0755, root, bin) /lib
