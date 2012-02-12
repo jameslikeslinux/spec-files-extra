@@ -1,6 +1,7 @@
 2012-02-12 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEfreemind.spec: bump to 0.9.0
+	* base-specs/libnice.spec: bump to 0.1.1
 
 2012-02-11 Milan Jurik <sfnet@xylab.cz>
 
