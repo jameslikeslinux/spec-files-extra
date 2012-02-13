@@ -1,6 +1,7 @@
 2012-02-13 Ken Mays <kmays2000@gmail.com>
 
 	* SFEfuse-exfat.spec: bump to 0.9.6
+	* SFEfuse-ext2.spec: bump to 0.0.7
 
 2012-02-12 Milan Jurik <sfnet@xylab.cz>
 
