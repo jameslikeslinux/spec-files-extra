@@ -2,6 +2,7 @@
 
 	* SFEfuse-exfat.spec: bump to 0.9.6
 	* SFEfuse-ext2.spec: bump to 0.0.7
+	* SFEgit.spec: bump to 1.7.9
 
 2012-02-12 Milan Jurik <sfnet@xylab.cz>
 

@@ -21,7 +21,7 @@
 Name:                SFEgit
 IPS_Package_Name:    developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.7
+Version:             1.7.9
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
@@ -143,6 +143,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
 
 %changelog
+* Tue Feb 14 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.9
 * Wed Oct 13 2011 - Alex Viskovatoff
 - Bump to 1.7.7; add IPS_package_name
 * Sun Aug  7 2011 - Alex Viskovatoff
