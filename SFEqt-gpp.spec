@@ -115,17 +115,23 @@ CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 export CC=gcc
 export CXX=g++
 export LD=/usr/gnu/bin/ld
-export CFLAGS="%optflags"
+#export CFLAGS="%optflags"
+export CFLAGS="%optflags -fPIC"
 export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
-export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
+
+# On some Intel CPUs, ffmpeg incorrectly applies AMD optimizations
+%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+
+#export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads -fPIC"
+
 
 # Assume i386 CPU is not higher than Pentium 4
 # This can be changed locally if your CPU is newer
 ./configure -prefix %_prefix \
            -confirm-license \
-           -no-ssse3 -no-sse4.1 -no-sse4.2 \
-           -platform solaris-g++ \
            -opensource \
+           -platform solaris-g++ \
            -docdir %_docdir/qt \
 	   -bindir %_bindir \
 	   -libdir %_libdir \
@@ -142,7 +148,13 @@ export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthread
 	   -optimized-qmake \
            -reduce-relocations \
            -opengl desktop \
-          -shared \
+           -shared \
+%if %noamd3d
+           -no-3dnow \
+           -no-sse4.1 -no-sse4.2 \
+%else
+           -no-ssse3 -no-sse4.1 -no-sse4.2 \
+%endif
            %extra_includes \
            %extra_libs
 
@@ -217,6 +229,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Wed Feb  2 2011 - James Choi
+- add no3dnow for Intel cpus, build fpic
 * Wed Jan  4 2011 - Alex Viskovatoff
 - do not delete libQtUiTools.a (there is no libQtUiTools.so)
 * Mon Nov  7 2011 - Thomas Wagner

@@ -1,12 +1,15 @@
 #
-# spec file for package SFEbinutils
+# spec file for package SFEbinutils-gpp
 #
-# includes module(s): GNU binutils
+# includes module(s): GNU binutils-gpp
 #
 %include Solaris.inc
-%include usr-gnu.inc
+%define cc_is_gcc 1
+%include base.inc
+%define _prefix /usr/g++
 
-Name:                SFEbinutils
+
+Name:                SFEbinutils-gpp
 Summary:             GNU binutils (g++-built)
 Version:             2.22
 Source:              http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.bz2
@@ -65,14 +68,14 @@ nlsopt=-enable-nls
 nlsopt=-disable-nls
 %endif
 
+export CC=gcc
+export CXX=g++
 export CFLAGS32="%optflags"
-export CFLAGS64="%optflags64"
-export LDFLAGS32="%_ldflags"
-export LDFLAGS64="%_ldflags"
-export CPP="cc -E -Xs"
+export CFLAGS64="%optflags"
+export LDFLAGS32="-L/usr/g++/lib -R/usr/g++/lib"
+export LDFLAGS64="-L/usr/g++/lib -R/usr/g++/lib"
 
 %ifarch amd64 sparcv9
-export CC=${CC64:-$CC}
 export CFLAGS="$CFLAGS64"
 export LDFLAGS="$LDFLAGS64"
 
@@ -93,7 +96,7 @@ cd ..
 
 cd binutils-%{version}
 
-export CC=${CC32:-$CC}
+#export CC=${CC32:-$CC}
 export CFLAGS="$CFLAGS32"
 export LDFLAGS="$LDFLAGS32"
 
@@ -143,7 +146,8 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/%{_arch64}/%{_arch64}
 %endif
 
 # Clashes with autoconf
-rm $RPM_BUILD_ROOT%{_std_datadir}/info/standards.info
+#rm $RPM_BUILD_ROOT%{_std_datadir}/info/standards.info
+rm $RPM_BUILD_ROOT%{_datadir}/info/standards.info
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -182,7 +186,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*.1
-%dir %attr(0755, root, sys) %{_std_datadir}
 %dir %attr(0755, root, bin) %{_infodir}
 %{_infodir}/*
 %ifarch amd64 sparcv9
@@ -195,7 +198,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
-%dir %attr (0755, root, sys) %{_datadir}
 
 %if %build_l10n
 %files l10n
@@ -206,7 +208,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Feb 09 2012 - James Choi
-- bump to 2.22
+- bump to 2.22, use g++ path to not interfere with gnu-binutils pkg
+- fork from archive/SFEbinutils, build with gcc
 * Sat Jan 26 2008 - moinak.ghosh@sun.com
 - Add workaround for a potential spurious build issue.
 * Sun Oct 14 2007 - Mark Wright <markwright@internode.on.net>

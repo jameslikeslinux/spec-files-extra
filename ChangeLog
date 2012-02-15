@@ -1,3 +1,13 @@
+2012-02-15 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEqt-gpp.spec - build fPIC, specify no3dnow for Intel cpus
+	* SFElibgmtk.spec - Initial spec
+	* archive/SFEbinutils.spec - bump to 2.22
+	* SFEbinutils-gpp.spec - fork from SFEbinutils, use new g++ path
+	* patches/binutils-01-bug-2495.diff
+	* patches/binutils-04-non-constant_initializer_op.diff
+	* patches/binutils-05-lm.diff
+
 2012-02-13 Ken Mays <kmays2000@gmail.com>
 
 	* SFEfuse-exfat.spec: bump to 0.9.6
