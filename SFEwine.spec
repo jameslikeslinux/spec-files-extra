@@ -36,7 +36,7 @@ Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
 IPS_package_name:       desktop/wine
 Group:                  Desktop (GNOME)/Sessions
-Version:                1.4-rc2
+Version:                1.4-rc3
 URL:                    http://www.winehq.org/
 Source:                 http://downloads.sourceforge.net/project/wine/Source/wine-%{version}.tar.bz2
 #
@@ -267,6 +267,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Wed Feb 14 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc3
 * Sat Feb 4 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.4-rc2
 * Sat Jan 28 2012 - Ken Mays <kmays2000@gmail.com>
