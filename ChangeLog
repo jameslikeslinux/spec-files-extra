@@ -1,3 +1,7 @@
+2012-02-18 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEXaw3d.spec: fix deliverables
+
 2012-02-15 James Choi <jchoi42@pha.jhu.edu>
 
 	* SFEqt-gpp.spec - build fPIC, specify no3dnow for Intel cpus

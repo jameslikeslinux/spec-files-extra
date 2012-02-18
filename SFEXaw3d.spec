@@ -13,6 +13,7 @@
 %define src_name	Xaw3d
 
 Name:           SFEXaw3d
+IPS_Package_Name:	x11/library/toolkit/xaw3d
 Summary:        X Window toolkit with 3D appearance
 Version:        1.5
 Release:        E
@@ -71,8 +72,7 @@ popd
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#make install DESTDIR=$RPM_BUILD_ROOT SHLIBDIR=%{_libdir} INCDIR=%{_includedir} INSTALL=/opt/dtbld/bin/install -C xc/lib/Xaw3d
-make install DESTDIR=$RPM_BUILD_ROOT SHLIBDIR=%{X11_DIR}/lib INCDIR=%{X11_DIR}/include INSTALL=/usr/bin/ginstall -C xc/lib/Xaw3d
+make install DESTDIR=$RPM_BUILD_ROOT SHLIBDIR=%{_libdir} INCDIR=%{_includedir} -C xc/lib/Xaw3d
 pushd xc/lib/Xaw3d
 mkdir -p $RPM_BUILD_ROOT/%{_pkg_docdir}-%{version}%{release}
 install -c -m 0444 README.XAW3D $RPM_BUILD_ROOT/%{_pkg_docdir}-%{version}%{release}
@@ -87,16 +87,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %doc /%{_pkg_docdir}-%{version}%{release}/README.XAW3D
-%{X11_DIR}/lib/*.so.*
+%{_libdir}/*.so.*
 
 %files devel
 %defattr(-,root, bin)
-%dir %attr (0755, root, bin) %{X11_DIR}/lib
-%{X11_DIR}/lib/*.so
-%dir %attr (0755, root, bin) %{X11_DIR}/include
-%{X11_DIR}/include/X11/Xaw3d
+%{_libdir}/*.so
+%{_includedir}/X11/Xaw3d
 
 %changelog
+* Sat Feb 18 2012 - Milan Jurik
+- fix deliverables
 * May 2010  - Gilles DAuphin
 - import in SFE
 - Name is SFE
