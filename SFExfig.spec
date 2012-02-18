@@ -12,12 +12,13 @@
 %define src_name xfig
 
 Name:		SFExfig
+IPS_Package_Name:	image/editor/xfig
 Summary:      	Xfig is an interactive drawing tool for X
 Version:       	3.2.5
 Release:        b
 License:	Xfig license
 Url: 		http://xfig.org
-Source:	 	http://downloads.sourceforge.net/mcj/xfig.%{version}%{release}.full.tar.gz
+Source:	 	%{sf_download}/mcj/xfig.%{version}%{release}.full.tar.gz
 Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{release}-build
