@@ -1,6 +1,6 @@
 2012-02-18 Milan Jurik <sfnet@xylab.cz>
 
-	* SFEXaw3d.spec: fix deliverables
+	* SFEXaw3d.spec: fix deliverables, bump to 1.6.1
 	* SFEopenjpeg.spec: bump to 1.5.0
 	* SFExpaint.spec: initial spec
 	* SFElibxaw3dxft.spec: initial spec
