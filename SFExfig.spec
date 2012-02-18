@@ -74,21 +74,15 @@ rm -rf %{src_name}.%{version}%{release}
 %patch4 -p1 -b .w_drawprim
 
 %build
-#export CFLAGS="%optflags -I%{_basedir}/X11/include -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E"
-export CFLAGS="-g -I%{_basedir}/X11/include -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E -DNEWARROWTYPES"
-#export LDFLAGS="%{_ldflags} -R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d"
-export LDFLAGS=" -g -R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d"
+export CFLAGS="%optflags -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E"
+export LDFLAGS="%{_ldflags} -lXaw3d"
 export PATH=${PATH}:/usr/X11/bin
 xmkmf
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/opt/dtbld/bin/install MAKE=/usr/gnu/bin/make XAWLIB="-R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d" CFLAGS="$CFLAGS"
+make DESTDIR=$RPM_BUILD_ROOT XFIGLIBDIR=%{_datadir}/%{src_name} XAWLIB="-lXaw3d" CFLAGS="$CFLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/usr/bin/ginstall MAKE=/usr/gnu/bin/make install.all MKDIRHIER="mkdir -p" XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
-
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/usr/bin/ginstall MAKE=/usr/gnu/bin/make install.man MKDIRHIER="mkdir -p" XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
-
-rm -rf $RPM_BUILD_ROOT/usr/X11/man
+make DESTDIR=$RPM_BUILD_ROOT XFIGLIBDIR=%{_datadir}/%{src_name} install.all XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
 
 # install icon
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
@@ -123,8 +117,9 @@ fi
 %files
 %defattr(-,root, bin)
 %{_bindir}/*
-%dir %attr (0755, root, bin) %{_docdir}
-%doc /%{_docdir}/%{src_name}-%{version}%{release}/*
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%doc %{_docdir}/%{src_name}/*
 %dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/man*/*
 %dir %attr (0755, root, bin) %{_datadir}/%{src_name}
@@ -136,7 +131,7 @@ fi
 %defattr (-, root, other)
 %dir %attr (0755, root, other) %{_datadir}/icons
 %{_datadir}/icons/*
-%attr (-, root, root) /etc/X11/fontpath.d/ghostscript:pri=60
+%attr (-, root, root) %{_sysconfdir}/X11/fontpath.d/ghostscript:pri=60
 
 %changelog
 * May 2010 - Gilles dauphin
