@@ -1,3 +1,7 @@
+2012-02-19 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4-rc4
+
 2012-02-18 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEXaw3d.spec: fix deliverables, bump to 1.6.1
