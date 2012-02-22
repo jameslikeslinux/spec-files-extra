@@ -1,5 +1,6 @@
 2012-02-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFExar.spec: add Solaris 10 porting note
 	* SFEasterisk.spec: bump to 1.8.9.2 and add IPS package name
 	* patches/asterisk-02-term.diff
 

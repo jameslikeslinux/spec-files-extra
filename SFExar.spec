@@ -47,8 +47,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export CFLAGS="%optflags"
-# Please note system provided libast as referenced below is not the same as
-# SFE provided libast
+# Please note system provided libast as referenced below is not the
+# same as SFE provided libast. Also note that this is AT&T's
+# libast. It is not present on Solaris 10. If you want to port this
+# package to Solaris 10 you might consider adding a spec file for
+# AT&T's libast on Solaris 10.
 export LDFLAGS="%_ldflags /usr/lib/libast.so.1"
 export CPPFLAGS="-I/usr/include -I/usr/include/ast"
 ./configure --prefix=%{_prefix}			\
