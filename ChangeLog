@@ -1,3 +1,9 @@
+2012-02-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExar.spec: initial spec
+	* copyright/SFExar.copyright: add copyright file
+	* patches/xar-01-configure.diff
+
 2012-02-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFExmlstarlet.spec: initial spec
