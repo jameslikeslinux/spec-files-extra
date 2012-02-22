@@ -10,9 +10,10 @@
 %include base.inc
 
 %define src_name   asterisk
-%define src_version    1.8.3.2
+%define src_version    1.8.9.2
 
 Name:         	SFE%{src_name}
+IPS_Package_Name:	 voip/asterisk
 Summary:      	Asterisk : Complete IP PBX in software
 Version:      	%{src_version}
 License:      	GPLv2
@@ -20,13 +21,14 @@ SUNW_Copyright: asterisk.copyright
 Group:          Communication
 Source:         http://downloads.digium.com/pub/asterisk/releases/%{src_name}-%{version}.tar.gz
 Patch1:        	asterisk-01-oss.diff
+Patch2:        	asterisk-02-term.diff
 URL:            http://www.asterisk.org
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFEgcc
-Requires: SFEgccruntime
+#BuildRequires:      SFEgcc
+Requires:           SFEgccruntime
 
 %description 
 Asterisk is a complete IP PBX in software. It runs on a wide variety of operating systems and provides all of the features one would expect from a PBX including many advanced features that are often associated with high end (and high cost) proprietary PBXs. Asterisk supports Voice over IP in many protocols, and can interoperate with almost all standards-based telephony equipment using relatively inexpensive hardware.
@@ -45,6 +47,7 @@ Requires: %name
 %prep 
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -56,7 +59,7 @@ export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
-./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir}
+./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --localstatedir=%{_localstatedir}
 
 make -j$CPUS
 
@@ -110,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 22 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.9.2 and add IPS package name
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sat Mar 19 2011 - Milan Jurik
