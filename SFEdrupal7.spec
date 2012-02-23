@@ -21,7 +21,7 @@
 
 Name:                SFEdrupal7
 Summary:             Drupal - open-source content-management platform
-Version:             7.10
+Version:             7.12
 License: 	     GPLv2
 Source:              http://ftp.drupal.org/files/projects/drupal-%{version}%{src_name_minor_extra}.tar.gz
 SUNW_BaseDir:        /
@@ -102,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 23 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 7.12
 * Fri Dec 30 2011 - Thomas Wagner
 - bump to 7.10 - various fixes
 * Fri Oct 31 2011 - Ken Mays <kmays2000@gmail.com>
