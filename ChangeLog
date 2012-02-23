@@ -1,3 +1,7 @@
+2012-02-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: added back in BuildRequires: SFEgcc
+
 2012-02-23 Ken Mays <kmays2000@gmail.com>
 
 	* SFEdrupal7.spec: bump to 7.12
