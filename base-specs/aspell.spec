@@ -17,7 +17,6 @@ Autoreqprov:	on
 URL:		http://www.sun.com/software/javadesktopsystem/
 Epoch:		2
 Source:		ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz 
-Patch1:		aspell-01-forte.diff
 Summary:	A spelling checker.
 Group:		Applications/Text
 Obsoletes:	pspell < 0.50
@@ -56,7 +55,6 @@ that the recommend way to use aspell is through the Pspell library.
 
 %prep
 %setup  -q -n %{name}-%{version}
-%patch1 -p1
 
 %build
 %ifos linux
@@ -70,10 +68,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-libtoolize --force
-aclocal $ACLOCAL_FLAGS -I ./m4
-autoconf
-automake -a -c -f
+# libtoolize --force
+# aclocal $ACLOCAL_FLAGS -I ./m4
+# autoconf
+# automake -a -c -f
 
 #%ifos solaris
 #%define curses_options "--disable-wide-curses"
@@ -90,13 +88,14 @@ automake -a -c -f
     --infodir=%{_datadir}/info \
     --localstatedir=/var  \
     --enable-pkgdatadir=%{_libdir}/aspell  \
-    --enable-pkglibdir=%{_libdir}/aspell
+    --enable-pkglibdir=%{_libdir}/aspell \
     --disable-wide-curses
 
 make -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT mkdir_p="mkdir -p"
+cp scripts/ispell $RPM_BUILD_ROOT%{_bindir}
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -type f -name "*.a" -exec rm -f {} ';'
 rm -rf $RPM_BUILD_ROOT%{_datadir}/info
@@ -105,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/info
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 23 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed a typo, removed an outdated patch, and added back in ispell compat script
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to Aspell 0.60.6.1
 - Successful build with GCC 3.4.3 

@@ -15,6 +15,7 @@
 %use aspell = aspell.spec
 
 Name:          SFEaspell
+IPS_Package_Name:	 library/spell-checking/aspell
 Summary:       A Spell Checker
 Version:       %{aspell.version}
 License:       LGPLv2.0+
@@ -52,13 +53,6 @@ export MSGFMT="/usr/bin/msgfmt"
 export CXXFLAGS="%cxx_optflags -staticlib=stlport4"
 
 %aspell.install -d %name-%version
-mv $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_libdir}/aspell/
-rm -rf $RPM_BUILD_ROOT%{_bindir}
-
-# The only stuff in datadir is doc, info and man which we do not want
-# to package.  
-#
-rm -rf $RPM_BUILD_ROOT%{_datadir}
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -81,6 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/pspell-config
 %{_libdir}/lib*.so*
 %{_libdir}/aspell/*
+%{_datadir}/locale/*/LC_MESSAGES/aspell.mo
 
 %files devel
 %defattr (-, root, bin)
@@ -88,6 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Thu Feb 23 2012 - Logan Bruns <logan@gedanken.org>
+- restored spec, added an ips package name, restored /usr/bin binary placement, and man page installation
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Mon Jun 13 2011 - Ken Mays <kmays2000@gmail.com>
