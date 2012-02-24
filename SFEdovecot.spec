@@ -8,7 +8,7 @@
 %define src_name dovecot
 # maybe set to nullstring outside release-candidates (example: 1.1/rc  or just 1.1)
 #%define downloadversion	 1.1/rc
-%define downloadversion	 2.0
+%define downloadversion	 2.1
 %define  daemonuser  dovecot
 %define  daemonuid   111
 %define  daemongroup other
@@ -22,7 +22,7 @@ IPS_Package_Name:	service/network/imap/dovecot
 Summary:	dovecot - A Maildir based pop3/imap email daemon
 URL:		http://www.dovecot.org
 #note: see downloadversion above
-Version:	2.0.17
+Version:	2.1.1
 License:	LGPLv2.1+ and MIT
 SUNW_Copyright:	dovecot.copyright
 Source:		http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
@@ -159,6 +159,8 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.1.1
 * Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.0.17
 * Thu Nov 24 2011 - Ken Mays <kmays2000@gmail.com>
