@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='ossec'>
+  <service name='application/security/ossec' type='service' version='0'>
+    <single_instance/>
+    <instance name='default' enabled='true'>
+      <dependent name='ossec-name-services' restart_on='none' grouping='require_all'>
+        <service_fmri value='svc:/milestone/name-service'/>
+      </dependent>
+      <dependent name='ossec-autofs' restart_on='none' grouping='optional_all'>
+        <service_fmri value='svc:/system/filesystem/autofs'/>
+      </dependent>
+      <exec_method name='start' type='method' exec='/var/ossec/bin/ossec-control start' timeout_seconds='60'>
+        <method_context/>
+      </exec_method>
+      <exec_method name='stop' type='method' exec='/var/ossec/bin/ossec-control stop' timeout_seconds='60'>
+        <method_context/>
+      </exec_method>
+      <property_group name='startd' type='framework'>
+        <propval name='ignore_error' type='astring' value='signal'/>
+      </property_group>
+      <template>
+        <common_name>
+          <loctext xml:lang='C'>OSSEC - open source Host-based Intrusion Detection System (HIDS)</loctext>
+        </common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>

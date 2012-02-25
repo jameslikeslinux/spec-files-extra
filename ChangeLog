@@ -1,3 +1,10 @@
+2012-02-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEossec-agent.spec: initial spec
+	* patches/ossec-agent-01-installagent.diff
+	* ext-sources/ossec.xml: initial manifest
+	* copyright/SFEossec-agent.copyright: add copyright file
+
 2012-02-24 Ken Mays <kmays2000@gmail.com>
 
 	* SFEdovecot.spec: bump to 2.1.1
