@@ -40,6 +40,10 @@ framework on top of OpenGL freeing the developer from implementing and
 optimizing low level graphics calls, and provides many additional utilities
 for rapid development of graphics applications.
 
+%package devel
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_prefix}
+%include default-depend.inc
 
 %prep
 %setup -q -n %{src_name}-%{version}
@@ -77,6 +81,8 @@ make install DESTDIR=%{buildroot}
 # Supposed to take OpenSceneGraph data
 mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 
+mv %{buildroot}%{_prefix}/doc %{buildroot}%{_docdir}
+
 
 %clean
 rm -rf %{buildroot}
@@ -84,20 +90,20 @@ rm -rf %{buildroot}
 %files
 %defattr (-, root, bin)
 %{_bindir}
-%dir %attr(0755,root,bin) %{_libdir}
-%dir %attr(0755,root,other) %{_libdir}/pkgconfig
-%dir %attr(0755,root,bin) %{_libdir}/osgPlugins-%{version}
-%dir %attr(0755,root,bin) %{_prefix}/doc/OpenThreadsReferenceDocs
-%dir %attr(0755,root,bin) %{_prefix}/doc/OpenSceneGraphReferenceDocs
+%dir %attr (0755,root,bin) %{_libdir}/osgPlugins-%{version}
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, bin) %{_includedir}
+%dir %attr (0755, root, other) %{_docdir}
 %{_libdir}/lib*.so*
-%{_libdir}/pkgconfig/*
 %{_libdir}/osgPlugins-%{version}/*
-%{_prefix}/doc/OpenThreadsReferenceDocs/*
-%{_prefix}/doc/OpenSceneGraphReferenceDocs/*
+%{_docdir}/OpenThreadsReferenceDocs/*
+%{_docdir}/OpenSceneGraphReferenceDocs/*
 %{_datadir}/OpenSceneGraph
-%{_includedir}/*
+
+%files devel
+%defattr (-, root, bin)
+%{_includedir}
+%dir %attr(0755,root,other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
 
 %changelog
 * Sun Feb 26 2012 - Milan Jurik
