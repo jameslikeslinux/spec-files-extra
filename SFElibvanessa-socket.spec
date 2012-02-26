@@ -13,7 +13,8 @@
 Name:                    SFElibvanessa-socket
 Summary:                 vanessa-socket - TCP socket interface library to support perdition imap/pop3 proxy/loadbalancer
 URL:                     http://www.vergenet.net/linux/perdition/
-Version:                 0.0.10
+#Version:                 n.m.o
+Version:		%{libvanessa_socket_version}
 Source:                  http://www.vergenet.net/linux/perdition/download/%{perditionparentversion}/vanessa_socket-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -63,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755,root,bin) %{_libdir}
 %{_libdir}/lib*
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/vanessa-socket.pc
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -73,6 +76,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 02 2010 - Thomas Wagner
+- add to %files :   /usr/lib/pkgconfig/vanessa-socket.pc
+- export Version to include/perditionparentversion.inc and detect automaticly 
+  libraries version
+- bump to 0.0.12
 * Fri Jul  9 2010 - Thomas Wagner
 - %include perditionparentversion.inc
 - bump to 0.0.10

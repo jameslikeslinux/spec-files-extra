@@ -13,7 +13,8 @@
 Name:                    SFElibvanessa-logger
 Summary:                 vanessa-logger - logging functions library to support perdition imap/pop3 proxy/loadbalancer
 URL:                     http://www.vergenet.net/linux/perdition/
-Version:                 0.0.8
+#Version:                 n.m.o
+Version:		%{libvanessa_logger_version}
 Source:                  http://www.vergenet.net/linux/perdition/download/%{perditionparentversion}/vanessa_logger-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -59,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755,root,bin) %{_libdir}
 %{_libdir}/lib*
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -69,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb  2 2012 - Thomas Wagner
+- fix %files for pkgconfig/ not included
+* Mon Aug 02 2010 - Thomas Wagner
+- export Version to include/perditionparentversion.inc and detect automaticly 
+  libraries version
+- bump to 0.0.10 (in file include/perditionparentversion.inc)
 * Fri Jul  9 2010 - Thomas Wagner
 - %include perditionparentversion.inc
 - bump to 0.0.8
