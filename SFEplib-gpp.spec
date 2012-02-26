@@ -4,12 +4,15 @@
 # Gilles Dauphin
 #
 
+%define _basedir /usr/g++
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
-%define osbuild %(uname -v | sed -e 's/[A-z_]//g')
 %define src_name plib
 
 Name:           SFEplib-gpp
+IPS_Package_Name:	library/g++/plib
 Summary:        plib , compile with gcc43
 Version:        1.8.5
 Source:		http://plib.sourceforge.net/dist/%{src_name}-%{version}.tar.gz
@@ -24,33 +27,30 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 #Requires: 	SFEfreeglut
 Requires: 	SUNWxorg-mesa
 Requires: 	SUNWxwice
-Requires:	developer/gcc/gcc-43
-
-%if %(expr %{osbuild} '>=' 134)
-BuildRequires:	system/header/header-audio
-%else
 BuildRequires:	SUNWaudh
-%endif
 
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
 %build
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+export LDFLAGS="%{_ldflags}"
 
 libtoolize --copy --force
 ./autogen.sh
-./configure --prefix=%_basedir
-gmake
+./configure --prefix=%{_prefix}
+
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-gmake install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.*a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
