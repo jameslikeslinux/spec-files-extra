@@ -1,6 +1,6 @@
 2012-02-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
-	* SFEimagemagick.spec: update to 6.7.4-10
+	* SFEimagemagick.spec: update to 6.7.4-10 and added ips package name
 	* SFElibpng.spec: Brought back and bumped to 1.4.9. This fixes
 	security CVE-2011-3026 and with a rebuilt imagemagick support for
 	PNG which is broken with the OI bundled libpng.

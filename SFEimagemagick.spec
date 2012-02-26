@@ -12,6 +12,7 @@
 #%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
 
 Name:                   SFEimagemagick
+IPS_Package_Name:	image/editor/imagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
 License:                ImageMagick License
@@ -108,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sun Feb 26 2012 - Logan Bruns <logan@gedanken.org>
-- update to 6.7.4-10
+- update to 6.7.4-10 and added ips package name
 * Thu Jan 19 2012 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.4-7
 * Thu Dec 8 2011 - Ken Mays <kmays2000@gmail.com>
