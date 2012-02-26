@@ -8,6 +8,7 @@
 %define src_name	gnac
 
 Name:		SFEgnac
+IPS_Package_Name:	desktop/audio/gnac
 Version:	0.2.2
 Summary:	Audio converter for GNOME
 Group:		Applications/Multimedia
