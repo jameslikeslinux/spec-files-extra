@@ -1,6 +1,7 @@
 2012-02-26 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEviewnior.spec: initial spec
+	* SFEosg.spec: fix build, move to /usr/g++
 
 2012-02-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

@@ -3,23 +3,20 @@
 #
 #
 
+%define _basedir /usr/g++
 %include Solaris.inc
-
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 %define src_name	OpenSceneGraph
 
-%define SUNWcmake      %(/usr/bin/pkginfo -q SUNWcmake && echo 1 || echo 0)
-
 Name:                   SFEosg
+IPS_Package_Name:	library/osg
 Summary:                High performance real-time graphics toolkit
 Group:			Applications/Graphics
 Version:                3.0.1
 Source:                 http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-%{version}/source/OpenSceneGraph-%{version}.zip 
 URL:			http:///www.openscenegraph.org/
-#Patch9:			OpenSceneGraph-09-boost-concept-check.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
@@ -27,6 +24,12 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 # <km> Note: Prefer >= cmake 2.8.4
 BuildRequires:	SFEcmake
+BuildRequires:	SUNWgnuplot
+BuildRequires:	SUNWdoxygen
+BuildRequires:	SFEqt-gpp-devel
+Requires:	SFEqt-gpp
+BuildRequires:	SFEopenal-devel
+Requires:	SFEopenal
 
 %description
 The OpenSceneGraph is an OpenSource, cross platform graphics toolkit for the
@@ -39,8 +42,7 @@ for rapid development of graphics applications.
 
 
 %prep
-%setup -q -c -n %{src_name}-%{version}
-#%patch9 -p0
+%setup -q -n %{src_name}-%{version}
 
 %build
 
@@ -49,45 +51,35 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-cd %{src_name}-%{version}
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
-export CFLAGS="-I%_prefix/X11/include"
-export CXXFLAGS="-I%_prefix/X11/include"
-export LDFLAGS="-L%{_libdir} -R%{_libdir}"
-export SDLMAIN_LIBRARY="/usr/lib"
-export SDL_LIBRARY="SDL"
-export CMAKE_LIBRARY_PATH="/opt/SFE/lib:/usr/lib"
-export CMAKE_INCLUDE_PATH="/opt/SFE/include:/usr/include"
-#SDLIMAGE_INCLUDE_DIR, SDLIMAGE_LIBRARY, SDL_INCLUDE_DIR, SDLMAIN_LIBRARY
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags} -I%{_includedir}"
+export CXXFLAGS="%{cxx_optflags} -I%{_includedir}"
+export LDFLAGS="%{_ldflags} -L%{_libdir} -R%{_libdir}"
+export PATH=%{_bindir}:$PATH
 
-mkdir -p BUILD
-pushd BUILD
+mkdir -p build
+cd build
 
-cmake -DSDL_LIBRARY="SDL" -DSDLMAIN_LIBRARY="/usr/lib" -DCMAKE_LIBRARY_PATH="/opt/SFE/lib:/usr/lib" -DCMAKE_INCLUDE_PATH="/opt/SFE/include:/usr/include" -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 -DBUILD_OSG_EXAMPLES=ON -DBUILD_OSG_WRAPPERS=ON -DBUILD_DOCUMENTATION=ON ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DBUILD_DOCUMENTATION=ON -DOPENTHREADS_ATOMIC_USE_MUTEX=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_RPATH=%{_libdir} ..
 
-make VERBOSE=1 
+make -j$CPUS VERBOSE=1 
 
 #TODO
 #make doc_openscenegraph doc_openthreads
-popd
 
 %install
-cd %{src_name}-%{version}
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}
-pushd BUILD
-#make install DESTDIR=${RPM_BUILD_ROOT}
-make install
-mv ./sfw_stage/* $RPM_BUILD_ROOT/%{_prefix}
+rm -rf %{buildroot}
+
+cd build
+make install DESTDIR=%{buildroot}
 
 # Supposed to take OpenSceneGraph data
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/OpenSceneGraph
-popd
+mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
@@ -104,10 +96,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/osgPlugins-%{version}/*
 %{_prefix}/doc/OpenThreadsReferenceDocs/*
 %{_prefix}/doc/OpenSceneGraphReferenceDocs/*
-%{_datadir}/OpenSceneGraph/*
+%{_datadir}/OpenSceneGraph
 %{_includedir}/*
 
 %changelog
+* Sun Feb 26 2012 - Milan Jurik
+- fix build, move to /usr/g++
 * Fri Sep 14 2011 - Thomas Wagner
 - back to SFE default compiler location /usr/gnu/bin/gcc
   agreed with Ken on IRC
