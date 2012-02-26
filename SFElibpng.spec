@@ -4,7 +4,7 @@
 %include Solaris.inc
 
 %define src_name	libpng
-%define src_version	1.2.18
+%define src_version	1.4.9
 %define pkg_release	1
 
 # =========================================================================== 
@@ -18,6 +18,7 @@ SUNW_BaseDir:	%{_basedir}
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:         	%{src_name}
+IPS_Package_Name:	 image/library/libpng14
 Summary:      	libpng - reference library for use in applications that create and manipulate PNG (Portable Network Graphics) raster image files
 Version:      	%{src_version}
 Release:      	%{pkg_release}
@@ -78,5 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 26 2012 - Logan Bruns <logan@gedanken.org>
+- Brought back and bumped to 1.4.9. This fixes security CVE-2011-3026 and with a rebuilt imagemagick support for PNG which is broken with the OI bundled libpng.
 * 2007.Aug.11 - <shivakumar dot gn at gmail dot com>
 - Initial spec.

@@ -1,3 +1,9 @@
+2012-02-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFElibpng.spec: Brought back and bumped to 1.4.9. This fixes
+	security CVE-2011-3026 and with a rebuilt imagemagick support for
+	PNG which is broken with the OI bundled libpng.
+
 2012-02-26 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEviewnior.spec: initial spec
