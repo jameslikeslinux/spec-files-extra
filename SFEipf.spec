@@ -64,9 +64,11 @@ cd SunOS5
 /usr/ccs/bin/make $CPUDIR/ipf.pkg
 mv $CPUDIR/root/* $RPM_BUILD_ROOT/
 for f in $RPM_BUILD_ROOT/sbin/*/* ; do
+    rm -f $RPM_BUILD_ROOT/sbin/`basename $f`
     cp /usr/lib/isaexec $RPM_BUILD_ROOT/sbin/`basename $f`
 done
 for f in $RPM_BUILD_ROOT/opt/ipf/bin/*/* ; do
+    rm -f $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
     cp /usr/lib/isaexec $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
 done
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
