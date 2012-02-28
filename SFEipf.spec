@@ -29,7 +29,6 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires: SFEisaexec
 
 %description
 IPFilter is a software package that can be used to provide network
@@ -65,10 +64,10 @@ cd SunOS5
 /usr/ccs/bin/make $CPUDIR/ipf.pkg
 mv $CPUDIR/root/* $RPM_BUILD_ROOT/
 for f in $RPM_BUILD_ROOT/sbin/*/* ; do
-    cp /opt/SFE/lib/isaexec $RPM_BUILD_ROOT/sbin/`basename $f`
+    cp /usr/lib/isaexec $RPM_BUILD_ROOT/sbin/`basename $f`
 done
 for f in $RPM_BUILD_ROOT/opt/ipf/bin/*/* ; do
-    cp /opt/SFE/lib/isaexec $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
+    cp /usr/lib/isaexec $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
 done
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp -p %{SOURCE2} ${RPM_BUILD_ROOT}/var/svc/manifest/site/
@@ -102,5 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
+* Tue Feb 28 2012- Logan Bruns <logan@gedanken.org>
+- Fix isaexec usage.
 * Mon Feb 27 2012- Logan Bruns <logan@gedanken.org>
 - Initial spec.
