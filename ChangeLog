@@ -1,5 +1,13 @@
 2012-02-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEipf.spec: Initial spec.
+	* ext-sources/ipfilter.xml: initial manifest
+	* patches/ipf-01-ipsend.diff
+	* patches/ipf-02-enable-statetop.diff
+	* patches/ipf-03-workaround-zone-kernel-check.diff
+	* patches/ipf-04-xmodel-kernel.diff
+	* patches/ipf-05-ipfboot-etc-ipf.diff
+	* copyright/SFEipf.copyright
 	* SFEisaexec-opt-sfe.spec: Added basedir setting.
 
 2012-02-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
