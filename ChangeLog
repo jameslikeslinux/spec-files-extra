@@ -1,5 +1,18 @@
 2012-02-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFEminiupnpd.spec: initial spec.
+	* patches/miniupnpd-01-makefile.diff
+	* patches/miniupnpd-02-max.diff
+	* patches/miniupnpd-03-salen.diff
+	* patches/miniupnpd-04-syslog.diff
+	* patches/miniupnpd-05-syslog.diff
+	* patches/miniupnpd-06-syslog.diff
+	* patches/miniupnpd-07-max-uint64t.diff
+	* patches/miniupnpd-08-upnpredirect.diff
+	* patches/miniupnpd-09-ipf5-updates.diff
+	* patches/miniupnpd-10-upnpredirect.diff
+	* patches/miniupnpd-11-ignore-link-level.diff
+	* copyright/SFEminiupnpd.copyright
 	* SFEipf.spec: Fix isaexec usage. Moved /opt/ipf documents,
 	example and test pieces under /usr/share and /usr/sbin. Also moved
 	headers to be in the same place as default distribution.
