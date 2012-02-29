@@ -1,6 +1,8 @@
 2012-02-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
-	* SFEipf.spec: Fix isaexec usage.
+	* SFEipf.spec: Fix isaexec usage. Moved /opt/ipf documents,
+	example and test pieces under /usr/share and /usr/sbin. Also moved
+	headers to be in the same place as default distribution.
 
 2012-02-28 Ken Mays <kmays2000@gmail.com>
 

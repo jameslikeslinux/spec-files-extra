@@ -62,14 +62,23 @@ mkdir $RPM_BUILD_ROOT
 CPUDIR=`uname -p`-`uname -r`
 cd SunOS5
 /usr/ccs/bin/make $CPUDIR/ipf.pkg
-mv $CPUDIR/root/* $RPM_BUILD_ROOT/
+mv $CPUDIR/root/etc $RPM_BUILD_ROOT/
+mv $CPUDIR/root/sbin $RPM_BUILD_ROOT/
+mv $CPUDIR/root/usr $RPM_BUILD_ROOT/
+mv $RPM_BUILD_ROOT/usr/include/ipfilter $RPM_BUILD_ROOT/usr/include/netinet
+cp ../ipl.h $RPM_BUILD_ROOT/usr/include/netinet/
+cp ../ipf_rb.h $RPM_BUILD_ROOT/usr/include/netinet/
+mv $CPUDIR/root/opt/ipf/bin $RPM_BUILD_ROOT/usr/sbin
+mkdir $RPM_BUILD_ROOT/usr/share
+mv $CPUDIR/root/opt/ipf/man $RPM_BUILD_ROOT/usr/share
+mv $CPUDIR/root/opt/ipf $RPM_BUILD_ROOT/usr/share
 for f in $RPM_BUILD_ROOT/sbin/*/* ; do
     rm -f $RPM_BUILD_ROOT/sbin/`basename $f`
     cp /usr/lib/isaexec $RPM_BUILD_ROOT/sbin/`basename $f`
 done
-for f in $RPM_BUILD_ROOT/opt/ipf/bin/*/* ; do
-    rm -f $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
-    cp /usr/lib/isaexec $RPM_BUILD_ROOT/opt/ipf/bin/`basename $f`
+for f in $RPM_BUILD_ROOT/usr/sbin/*/* ; do
+    rm -f $RPM_BUILD_ROOT/usr/sbin/`basename $f`
+    cp /usr/lib/isaexec $RPM_BUILD_ROOT/usr/sbin/`basename $f`
 done
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp -p %{SOURCE2} ${RPM_BUILD_ROOT}/var/svc/manifest/site/
@@ -92,18 +101,19 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 /etc/init.d/ipfboot
-/opt/ipf/bin/*
-/opt/ipf/examples/*
-/opt/ipf/man/man*/*
+/usr/share/ipf/examples/*
+/usr/share/man/man*/*
 /sbin/*
-%dir %attr(0755, root, bin) /usr/include/ipfilter
-/usr/include/ipfilter/*
+/usr/sbin/*
+/usr/include/netinet/*.h
 %dir %attr(0755, root, bin) /usr/kernel/drv/ipf.conf
 %dir %attr(0755, root, bin) /usr/kernel/drv/*/ipf
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
 * Tue Feb 28 2012- Logan Bruns <logan@gedanken.org>
-- Fix isaexec usage.
+- Fix isaexec usage. Moved /opt/ipf documents, example and test pieces
+  under /usr/share and /usr/sbin. Also moved headers to be in the same
+  place as default distribution.
 * Mon Feb 27 2012- Logan Bruns <logan@gedanken.org>
 - Initial spec.
