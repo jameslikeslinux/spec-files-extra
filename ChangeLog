@@ -1,5 +1,12 @@
 2012-03-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFEbitlbee.spec: initial spec.
+	* patches/bitlbee-01-ipc.diff
+	* patches/bitlbee-02-irc_im.diff
+	* patches/bitlbee-03-irc_commands.diff
+	* patches/bitlbee-04-irc_user.diff
+	* ext-sources/bitlbee.xml
+	* copyright/SFEbitlbee.copyright
 	* SFElibotr.spec: initial spec.
 	* copyright/SFElibotr.copyright
 	* experimental/SFEossec-server.spec: initial spec.

@@ -1,0 +1,12 @@
+--- bitlbee-3.0.5/irc_im.c	2012-02-18 02:55:09.000000000 -0800
++++ bitlbee-3.0.5-patched/irc_im.c	2012-03-01 19:51:41.718641390 -0800
+@@ -1057,7 +1057,8 @@
+ 
+ static void bee_irc_ft_close( struct im_connection *ic, file_transfer_t *ft )
+ {
+-	return dcc_close( ft );
++	/* return dcc_close( ft ); */
++	dcc_close( ft );
+ }
+ 
+ static void bee_irc_ft_finished( struct im_connection *ic, file_transfer_t *file )

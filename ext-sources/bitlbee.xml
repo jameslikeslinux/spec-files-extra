@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='bitlbee'>
+  <service name='network/chat/bitlbee' type='service' version='0'>
+    <create_default_instance enabled='true'/>
+    <restarter>
+      <service_fmri value='svc:/network/inetd:default'/>
+    </restarter>
+    <exec_method name='inetd_start' type='method' exec='/usr/sbin/bitlbee' timeout_seconds='0'>
+      <method_context>
+        <method_credential user='nobody' group='nobody'/>
+      </method_context>
+    </exec_method>
+    <exec_method name='inetd_disable' type='method' exec=':kill' timeout_seconds='0'>
+      <method_context/>
+    </exec_method>
+    <property_group name='inetconv' type='framework'>
+      <propval name='converted' type='boolean' value='true'/>
+      <propval name='source_line' type='astring' value='irc stream tcp nowait nobody /usr/sbin/bitlbee'/>
+      <propval name='version' type='integer' value='1'/>
+    </property_group>
+    <property_group name='inetd' type='framework'>
+      <propval name='endpoint_type' type='astring' value='stream'/>
+      <propval name='isrpc' type='boolean' value='false'/>
+      <propval name='name' type='astring' value='irc'/>
+      <propval name='proto' type='astring' value='tcp'/>
+      <propval name='wait' type='boolean' value='false'/>
+    </property_group>
+    <stability value='External'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>BitlBee - An IRC to other chat networks gateway</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>

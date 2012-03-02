@@ -1,0 +1,15 @@
+--- bitlbee-3.0.5/irc_commands.c	2012-02-18 02:55:09.000000000 -0800
++++ bitlbee-3.0.5-patched/irc_commands.c	2012-03-01 19:52:58.742570523 -0800
+@@ -405,8 +405,10 @@
+ static void irc_cmd_oper( irc_t *irc, char **cmd )
+ {
+ 	/* Very non-standard evil but useful/secure hack, see below. */
+-	if( irc->status & OPER_HACK_ANY )
+-		return irc_cmd_oper_hack( irc, cmd );
++  if( irc->status & OPER_HACK_ANY ) {
++		irc_cmd_oper_hack( irc, cmd );
++		return;
++  }
+ 	
+ 	if( global.conf->oper_pass &&
+ 	    ( strncmp( global.conf->oper_pass, "md5:", 4 ) == 0 ?
