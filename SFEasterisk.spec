@@ -20,6 +20,7 @@ License:      	GPLv2
 SUNW_Copyright: asterisk.copyright
 Group:          Communication
 Source:         http://downloads.digium.com/pub/asterisk/releases/%{src_name}-%{version}.tar.gz
+Source2:        ext-sources/asterisk.xml
 Patch1:        	asterisk-01-oss.diff
 Patch2:        	asterisk-02-term.diff
 URL:            http://www.asterisk.org
@@ -48,6 +49,8 @@ Requires: %name
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 %patch2 -p1
+
+cp -p %{SOURCE2} asterisk.xml
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -86,6 +89,9 @@ done
 rmdir $RPM_BUILD_ROOT%{_localstatedir}/run/%{src_name}
 rmdir $RPM_BUILD_ROOT%{_localstatedir}/run
 
+mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+cp asterisk.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -110,9 +116,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
 %{_localstatedir}/lib/%{src_name}
-
+%dir %attr (0755, root, sys) /var/svc
+%class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Fri Mar 2 2012 - Logan Bruns <logan@gedanken.org>
+- Added an smf manifest.
 * Tue Feb 22 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.8.9.2 and add IPS package name
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>

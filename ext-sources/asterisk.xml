@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='asterisk'>
+  <service name='voip/asterisk' type='service' version='0'>
+    <single_instance/>
+    <instance name='default' enabled='true'>
+      <dependent name='net-loopback' grouping='require_any' restart_on='none'>
+	<service_fmri value='svc:/network/loopback' />
+      </dependent>
+      <dependent name='net-service' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/service'/>
+      </dependent>
+      <dependent name='net-physical' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/physical' />
+      </dependent>
+      <dependent name='filesystem-local' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/system/filesystem/local' />
+      </dependent>
+      <exec_method type='method'
+                   name='start'
+                   exec='/usr/sbin/asterisk'
+                   timeout_seconds='60'>
+      </exec_method>
+      <exec_method type='method'
+                   name='stop'
+                   exec="/usr/sbin/asterisk -rx 'core stop now'"
+                   timeout_seconds='60'>
+      </exec_method>
+      <template>
+	<common_name>
+          <loctext xml:lang='C'>Asterisk : Complete IP PBX in software</loctext>      
+	</common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>
