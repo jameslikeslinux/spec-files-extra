@@ -1,3 +1,8 @@
+2012-03-02  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEbitlbee.spec: New smf manifest, use a different runtime model
+	and switch from gnutls to openssl.
+
 2012-03-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* experimental/SFEbitlbee.spec: initial spec.

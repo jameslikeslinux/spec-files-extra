@@ -26,19 +26,14 @@ Patch1:                  bitlbee-01-ipc.diff
 Patch2:                  bitlbee-02-irc_im.diff
 Patch3:                  bitlbee-03-irc_commands.diff
 Patch4:                  bitlbee-04-irc_user.diff
+Patch5:                  bitlbee-05-makefile.diff
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: library/gnutls
+Requires: library/security/openssl
 Requires: library/glib2
 Requires: SFElibotr
-
-Requires: %name-root
-%package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
-Requires:	%name
 
 %description
 BitlBee brings IM (instant messaging) to IRC clients. It is a great
@@ -57,6 +52,7 @@ rm -rf %name-%version
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 #bitlbee manifest
 cp -p %{SOURCE2} bitlbee.xml
@@ -70,7 +66,7 @@ export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=/usr			\
 	    --mandir=/usr/share/man		\
-            --ssl=gnutls                        \
+            --ssl=openssl                       \
             --otr=1
 
 make -j$CPUS
@@ -87,18 +83,8 @@ cp bitlbee.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre root
-test -x $BASEDIR/var/lib/postrun/postrun -a -z "`grep irc /etc/inet/services`" || exit 0
-( echo 'echo irc 6667/tcp >> /etc/inet/services';
-) | $BASEDIR/var/lib/postrun/postrun -i -a
-
-%postun root
-test -x $BASEDIR/var/lib/postrun/postrun -a -n "`grep irc /etc/inet/services`" || exit 0
-( echo 'cp /etc/inet/services /tmp/services.$$';
-  echo 'grep -v irc /tmp/services.$$ > /etc/inet/services';
-) | $BASEDIR/var/lib/postrun/postrun -i -a
-
 %actions
+user ftpuser=false gcos-field="BitlBee Reserved UID" username="bitlbee" password=NP group="other"
 
 %files
 %defattr (-, root, bin)
@@ -115,10 +101,12 @@ test -x $BASEDIR/var/lib/postrun/postrun -a -n "`grep irc /etc/inet/services`" |
 %dir %attr (0755, root, bin) /usr/share/bitlbee
 /usr/share/bitlbee/*
 
-%dir %attr(0755, nobody, root) /var/lib/bitlbee
+%dir %attr(0755, bitlbee, root) /var/lib/bitlbee
 %dir %attr (0755, root, sys) %{_localstatedir}/svc
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/bitlbee.xml
 
 %changelog
+* Fri Mar 2 2012- Logan Bruns <logan@gedanken.org>
+- New smf manifest, use a different runtime model and switch from gnutls to openssl.
 * Thu Mar 1 2012- Logan Bruns <logan@gedanken.org>
 - Initial spec.

@@ -2,35 +2,41 @@
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
 <service_bundle type='manifest' name='bitlbee'>
   <service name='network/chat/bitlbee' type='service' version='0'>
-    <create_default_instance enabled='true'/>
-    <restarter>
-      <service_fmri value='svc:/network/inetd:default'/>
-    </restarter>
-    <exec_method name='inetd_start' type='method' exec='/usr/sbin/bitlbee' timeout_seconds='0'>
-      <method_context>
-        <method_credential user='nobody' group='nobody'/>
-      </method_context>
-    </exec_method>
-    <exec_method name='inetd_disable' type='method' exec=':kill' timeout_seconds='0'>
-      <method_context/>
-    </exec_method>
-    <property_group name='inetconv' type='framework'>
-      <propval name='converted' type='boolean' value='true'/>
-      <propval name='source_line' type='astring' value='irc stream tcp nowait nobody /usr/sbin/bitlbee'/>
-      <propval name='version' type='integer' value='1'/>
-    </property_group>
-    <property_group name='inetd' type='framework'>
-      <propval name='endpoint_type' type='astring' value='stream'/>
-      <propval name='isrpc' type='boolean' value='false'/>
-      <propval name='name' type='astring' value='irc'/>
-      <propval name='proto' type='astring' value='tcp'/>
-      <propval name='wait' type='boolean' value='false'/>
-    </property_group>
-    <stability value='External'/>
-    <template>
-      <common_name>
-        <loctext xml:lang='C'>BitlBee - An IRC to other chat networks gateway</loctext>
-      </common_name>
-    </template>
+    <single_instance/>
+    <instance name='default' enabled='true'>
+      <dependent name='net-loopback' grouping='require_any' restart_on='none'>
+	<service_fmri value='svc:/network/loopback' />
+      </dependent>
+      <dependent name='net-service' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/service'/>
+      </dependent>
+      <dependent name='net-physical' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/physical' />
+      </dependent>
+      <dependent name='filesystem-local' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/system/filesystem/local' />
+      </dependent>
+      <exec_method type='method'
+                   name='start'
+                   exec='/usr/sbin/bitlbee -F'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='bitlbee' group='other' />
+	</method_context>
+      </exec_method>
+      <exec_method type='method'
+                   name='stop'
+                   exec=':kill'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='bitlbee' group='other'/>
+	</method_context>
+      </exec_method>
+      <template>
+	<common_name>
+          <loctext xml:lang='C'>BitlBee - An IRC to other chat networks gateway</loctext>      
+	</common_name>
+      </template>
+    </instance>
   </service>
 </service_bundle>
