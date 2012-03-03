@@ -16,6 +16,7 @@ Summary:                High performance real-time graphics toolkit
 Group:			Applications/Graphics
 Version:                3.0.1
 Source:                 http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-%{version}/source/OpenSceneGraph-%{version}.zip 
+Patch1:		osg-01-isnan.diff
 URL:			http:///www.openscenegraph.org/
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -47,6 +48,7 @@ SUNW_BaseDir:	%{_prefix}
 
 %prep
 %setup -q -n %{src_name}-%{version}
+%patch1 -p1
 
 %build
 
@@ -106,6 +108,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Mar 03 2012 - Milan Jurik
+- fix std::isnan
 * Sun Feb 26 2012 - Milan Jurik
 - fix build, move to /usr/g++
 * Fri Sep 14 2011 - Thomas Wagner
