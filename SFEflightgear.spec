@@ -13,20 +13,22 @@
 
 #
 # Mirror:
-# ftp://ftp.de.flightgear.org/pub/fgfs/Source/flightgear-2.4.0.tar.bz2 
-# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/flightgear-2.4.0.tar.bz2
+# ftp://ftp.de.flightgear.org/pub/fgfs/Source/flightgear-2.6.0.tar.bz2 
+# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/flightgear-2.6.0.tar.bz2
 #
 # TODO: make package with:
 # http://www.flightgear.org/Docs/getstart/getstart.html
 # http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Docs/getstart.pdf
 #
 # FlightGear Scenery package (Main Mirror)
-# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.4.0.tar.bz2
-r.bz2
+# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.6.0.tar.bz2
+#
+# FlightGear Aircraft files (Mirror)
+# ftp://ftp.de.flightgear.org/pub/fgfs/Aircraft-2.6/
 
 Name:                   SFEFlightGear
 Summary:                The multi-platform flight simulator development project
-Version:                2.4.0
+Version:                2.6.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
 Source1:		ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-%{version}.tar.bz2 
 Group:			Applications/Games
@@ -95,6 +97,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 03 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.6.0
 * Wed Sep 14 2011 - Thomas Wagner
 - back to SFE default compiler location /usr/gnu/bin/gcc
   agreed with Ken on IRC
