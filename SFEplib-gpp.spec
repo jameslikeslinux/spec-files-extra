@@ -29,6 +29,12 @@ Requires: 	SUNWxorg-mesa
 Requires: 	SUNWxwice
 BuildRequires:	SUNWaudh
 
+%package devel
+Summary:	%summary - developer files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires:	%name
+
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
@@ -58,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %{_libdir}
+
+%files devel
 %defattr (-, root, bin)
 %{_includedir}/plib
 

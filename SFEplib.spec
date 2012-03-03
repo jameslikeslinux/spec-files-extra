@@ -37,14 +37,6 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires:		 %name
 
-%if %build_l10n
-%package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires:        %{name}
-%endif
-
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
