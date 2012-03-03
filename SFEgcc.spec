@@ -111,7 +111,7 @@
 
 %if %{!?gcc_version:1}
 #make version bump *here* - this is the default version being built
-%define version 4.6.2
+%define version 4.6.3
 %else
 #gcc version is already defined from *outside*, from the pkgtool command line
 %define version %{gcc_version}
@@ -139,8 +139,7 @@
 Name:		SFEgcc
 IPS_package_name:	sfe/developer/gcc
 Summary:	GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
-#see above, %{version} is set elsewhere
-#Version:             4.6.1
+#Version:	see above, %{version} is set elsewhere
 License:             GPLv3+
 SUNW_Copyright:      gcc.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
@@ -587,6 +586,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Mar 03 2012 - Milan Jurik
+- bump to 4.6.3
 * Wed Dec 23 2011 - Milan Jurik
 - add libquadmath symlinks
 * Sun Dec 04 2011 - Milan Jurik
