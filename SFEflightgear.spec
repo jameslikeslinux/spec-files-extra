@@ -64,8 +64,12 @@ export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include"
 export CXXFLAGS="-I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -L/usr/X11/lib -R/usr/X11/lib"
-#CC=cc CXX=CC ./configure --without-logging --prefix==%{_prefix}
-/bin/bash ./configure CONFIG_SHELL=/bin/bash --prefix=%{_prefix} \
+
+# FlightGear 2.6.0 uses CMake >=2.6.4
+cmake -DCMAKE_INSTALL_PREFIX=%{_prefix}
+
+# FlightGear 2.4.0 
+#/bin/bash ./configure CONFIG_SHELL=/bin/bash --prefix=%{_prefix} \
 	--with-osg=%{_prefix} \
 	--with-boost=%{_prefix} \
 	--with-boost-libdir=%{_libdir} \

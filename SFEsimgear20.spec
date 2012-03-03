@@ -15,7 +15,7 @@
 
 Name:                   SFESimGear20
 Summary:                Simulator Construction Tools
-Version:                2.4.0
+Version:                2.6.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:           %{_basedir}
 Group:			Applications/Games
@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a*
 
 %changelog
+* Sat 03 Mar 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.6.0
 * Fri 14 Sep 2011 - Thomas Wagner
 - back to SFE default compiler location /usr/gnu/bin/gcc
   agreed with Ken on IRC
