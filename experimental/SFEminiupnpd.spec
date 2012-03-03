@@ -18,6 +18,7 @@ Group:                   Utility
 Version:                 1.6.20120207
 URL:		         http://miniupnp.free.fr
 Source:		         http://miniupnp.free.fr/files/%srcname-%version.tar.gz
+Source2:                 miniupnpd.xml
 License: 		 BSD
 Patch1:                  miniupnpd-01-makefile.diff
 Patch2:                  miniupnpd-02-max.diff
@@ -56,6 +57,8 @@ rm -rf %name-%version
 %patch10 -p1
 %patch11 -p1
 
+cp -p %{SOURCE2} miniupnpd.xml
+
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -73,6 +76,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 mv $RPM_BUILD_ROOT/etc/miniupnpd.conf $RPM_BUILD_ROOT/etc/miniupnpd.conf.example
 mkdir -p $RPM_BUILD_ROOT/usr/share/man/man1/
 cp miniupnpd.1 $RPM_BUILD_ROOT/usr/share/man/man1/
+mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+cp miniupnpd.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,7 +87,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/miniupnpd
 /etc/miniupnpd.conf.example
 /usr/share/man/man1/miniupnpd.1
+%dir %attr (0755, root, sys) %{_localstatedir}/svc
+%class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/miniupnpd.xml
 
 %changelog
+* Sat Mar 3 2012- Logan Bruns <logan@gedanken.org>
+- Added a smf manifest.
 * Tue Feb 28 2012- Logan Bruns <logan@gedanken.org>
 - Initial spec.
