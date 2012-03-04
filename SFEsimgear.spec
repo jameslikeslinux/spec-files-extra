@@ -4,44 +4,45 @@
 #
 # includes module(s): SimGear
 #
+%define _basedir /usr/g++
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
-%define src_name	SimGear
+%define src_name	simgear
 %define src_url		ftp://ftp.de.simgear.org/pub/simgear/Source
-#ftp://ftp.de.simgear.org/pub/simgear/Source/SimGear-1.0.0.tar.gz
-#ftp://ftp.simgear.org/pub/simgear/Source/SimGear-1.0.0.tar.gz
 
-Name:                   SFESimGear
-Summary:                Simulator Construction Tools
-Version:                1.0.0
-Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
-Source1:		SimGear_Props.cxx
-Patch1:			SimGear-01.diff
-Patch2:			SimGear-02.diff
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+Name:		SFESimGear
+IPS_Package_Name:	library/simgear
+Summary:	Simulator Construction Tools
+Version:	2.6.0
+Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+Patch1:		simgear-01-stdlib.diff
+Patch2:		simgear-02-isnan.diff
+Group:		System/Libraries
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:		SFEopenal-devel
-Requires:		SFEopenal
-BuildRequires:		SFEfreealut-devel
-Requires:		SFEfreealut
-Requires:		SFEplib
+BuildRequires:	SFEopenal-devel
+Requires:	SFEopenal
+BuildRequires:	SFEfreealut-devel
+Requires:	SFEfreealut
+BuildRequires:	SFEplib-gpp-devel
+Requires:	SFEplib-gpp
+BuildRequires:	SFEosg-devel
+Requires:	SFEosg
+BuildRequires:	SFEboost-gpp-devel
+Requires:	SFEboost-gpp
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_prefix}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_prefix}
 %include default-depend.inc
 
 %prep
-#%setup -q -n -c %{src_name}-%{version}
-%setup -q -c -n  %{name}
-%patch1 -p0
-%patch2 -p0
-# It does not compile if filename is props.cxx
-# Maybe a bug in Studio12 or maybe, maybe, in openat(2)/readdir(3C)
-# TODO: find the bug or what I don't understand...
-rm %{src_name}-%{version}/simgear/props/props.cxx
-cp %{SOURCE1} %{src_name}-%{version}/simgear/props/Props.cxx
+%setup -q -n %{src_name}-%{version}
+%patch1 -p1
+%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -49,39 +50,35 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-cd %{src_name}-%{version}
-export CC=cc
-export CXX=CC
-export CFLAGS="-I%_prefix/X11/include"
-export CXXFLAGS="-I%_prefix/X11/include"
-#CC=cc CXX=CC ./configure --without-logging --prefix==%{_prefix}
-/bin/bash ./configure CONFIG_SHELL=/bin/bash --prefix=%{_prefix}
-make # -j$CPUS 
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags} -I%{_includedir}"
+export CXXFLAGS="%{cxx_optflags} -I%{_includedir}"
+export LDFLAGS="%{_ldflags} -lsocket -lnsl -L%{_libdir} -R%{_libdir}"
+
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ..
+
+make -j$CPUS 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-cd %{src_name}-%{version}
-make install DESTDIR=$RPM_BUILD_ROOT
-# TODO: make shared libs
-#rm $RPM_BUILD_ROOT/%{_libdir}/lib*.*a
+rm -rf %{buildroot}
+cd build && make install DESTDIR=%{buildroot}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
-#%{_bindir}
-%dir %attr(0755,root,bin) %{_libdir}
-%{_libdir}/lib*.a*
+%{_libdir}/lib*.a
 
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
-#%dir %attr(0755,root,bin) %{_libdir}
-#%dir %attr(0755,root,other) %{_libdir}/pkgconfig
-#%{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Mar 04 2012 - Milan Jurik
+- merge from SFEsimgear20, bump to 2.6.0
 * May 2010 - Gilles Dauphin
 - back to 1.0 will create a 2.0 spec file (Milan feedback)
 * Mar 2010 - Gilles dauphin
