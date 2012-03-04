@@ -80,6 +80,7 @@ for f in $RPM_BUILD_ROOT/usr/sbin/*/* ; do
     rm -f $RPM_BUILD_ROOT/usr/sbin/`basename $f`
     cp /usr/lib/isaexec $RPM_BUILD_ROOT/usr/sbin/`basename $f`
 done
+mkdir $RPM_BUILD_ROOT/etc/ipf
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp -p %{SOURCE2} ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
@@ -108,9 +109,12 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/netinet/*.h
 %dir %attr(0755, root, bin) /usr/kernel/drv/ipf.conf
 %dir %attr(0755, root, bin) /usr/kernel/drv/*/ipf
+%dir %attr(0755, root, bin) /etc/ipf
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
+* Sat Mar 3 2012 - Logan Bruns <logan@gedanken.org>
+- Create empty /etc/ipf directory.
 * Tue Feb 28 2012- Logan Bruns <logan@gedanken.org>
 - Fix isaexec usage. Moved /opt/ipf documents, example and test pieces
   under /usr/share and /usr/sbin. Also moved headers to be in the same

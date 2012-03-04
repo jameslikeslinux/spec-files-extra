@@ -1,5 +1,6 @@
 2012-03-03  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEipf.spec: create empty /etc/ipf directory.
 	* experimental/SFEminiupnpd.spec: added a smf manifest.
 	* ext-sources/miniupnpd.xml
 
