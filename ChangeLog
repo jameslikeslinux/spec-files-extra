@@ -1,3 +1,7 @@
+2012-03-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* ext-sources/asterisk.xml: fixed some dependencies.
+
 2012-03-04 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEsimgear.spec: merge from SFEsimgear20, bump to 2.6.0
