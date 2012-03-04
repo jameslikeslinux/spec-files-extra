@@ -3,13 +3,16 @@
 <service_bundle type='manifest' name='ossec'>
   <service name='application/security/ossec' type='service' version='0'>
     <single_instance/>
+    <dependency name="config_data" grouping="require_all" restart_on="restart" type="path">
+      <service_fmri value="file://localhost/var/ossec/etc/ossec.conf" /> 
+    </dependency>
+    <dependency name='fs' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='network' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/multi-user-server'/>
+    </dependency>
     <instance name='default' enabled='true'>
-      <dependent name='ossec-name-services' restart_on='none' grouping='require_all'>
-        <service_fmri value='svc:/milestone/name-service'/>
-      </dependent>
-      <dependent name='ossec-autofs' restart_on='none' grouping='optional_all'>
-        <service_fmri value='svc:/system/filesystem/autofs'/>
-      </dependent>
       <exec_method name='start' type='method' exec='/var/ossec/bin/ossec-control start' timeout_seconds='60'>
         <method_context/>
       </exec_method>
