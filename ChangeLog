@@ -1,3 +1,7 @@
+2012-03-05 Ken Mays <kmays2000@gmail.com>
+
+	* SFEflightgear.spec: Updated dependencies
+
 2012-03-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* ext-sources/ossec.xml: added config file dependency.
