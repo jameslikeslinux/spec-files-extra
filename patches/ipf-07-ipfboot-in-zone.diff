@@ -1,0 +1,22 @@
+--- ip_fil5.1.1/SunOS5/ipfboot	2009-05-01 10:52:04.000000000 -0700
++++ ip_fil5.1.1-patched/SunOS5/ipfboot	2012-03-06 08:46:02.034381607 -0800
+@@ -7,7 +7,7 @@
+ IP6FILCONF=${IPFBASE}/ipf6.conf
+ IPNATCONF=${IPFBASE}/ipnat.conf
+ IPPOOLCONF=${IPFBASE}/ippool.conf
+-if [ -f /kernel/misc/neti -o -f /kernel/misc/sparcv9/neti ] ; then
++if [ -f /kernel/misc/neti -o -f /kernel/misc/sparcv9/neti -o x`zonename` != xglobal ] ; then
+ 	PFILCHECKED=yes
+ else
+ 	PFILCHECKED=no
+@@ -164,8 +164,10 @@
+ 		[ -n "$pid" ] && kill -TERM $pid 2>/dev/null
+ 		[ -n "$ipfruleid" ] && modunload -i $ipfruleid 2>/dev/null
+ 		[ -n "$ipfid" ] && modunload -i $ipfid 2>/dev/null
++		add_drv drv/ipf
+ 		modload /usr/kernel/drv/ipf
+ 		if [ -f /usr/kernel/drv/ipfrule ] ; then
++			add_drv drv/ipfrule
+ 			modload /usr/kernel/drv/ipfrule
+ 		fi
+ 		ipf -E

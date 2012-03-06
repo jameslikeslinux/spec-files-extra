@@ -25,6 +25,8 @@ Patch2:                  ipf-02-enable-statetop.diff
 Patch3:                  ipf-03-workaround-zone-kernel-check.diff
 Patch4:                  ipf-04-xmodel-kernel.diff
 Patch5:                  ipf-05-ipfboot-etc-ipf.diff
+Patch6:                  ipf-06-multicast-bug.diff
+Patch7:                  ipf-07-ipfboot-in-zone.diff
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -46,6 +48,8 @@ rm -rf %name-%version
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -113,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
+* Tue Mar 6 2012 - Logan Bruns <logan@gedanken.org>
+- Added multicast bug fix patch from Darren and patched ipfboot to work in a zone.
 * Sat Mar 3 2012 - Logan Bruns <logan@gedanken.org>
 - Create empty /etc/ipf directory.
 * Tue Feb 28 2012- Logan Bruns <logan@gedanken.org>

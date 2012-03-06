@@ -1,5 +1,5 @@
 --- ip_fil5.1.1/SunOS5/ipfboot	2009-05-01 10:52:04.000000000 -0700
-+++ ip_fil5.1.1-patched/SunOS5/ipfboot	2012-02-28 01:44:26.643697706 -0800
++++ ip_fil5.1.1-patched/SunOS5/ipfboot	2012-03-06 08:30:18.622705542 -0800
 @@ -1,6 +1,6 @@
  #!/bin/sh
  #
@@ -8,11 +8,3 @@
  
  PATH=/bin:/sbin:/usr/sbin:${PATH}:/opt/ipf/bin
  IPFILCONF=${IPFBASE}/ipf.conf
-@@ -166,6 +166,7 @@
- 		[ -n "$ipfid" ] && modunload -i $ipfid 2>/dev/null
- 		modload /usr/kernel/drv/ipf
- 		if [ -f /usr/kernel/drv/ipfrule ] ; then
-+			add_drv ipfrule
- 			modload /usr/kernel/drv/ipfrule
- 		fi
- 		ipf -E
