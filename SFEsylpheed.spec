@@ -4,8 +4,6 @@
 
 %include Solaris.inc
 
-%include base.inc
-
 %define src_name        sylpheed
 #note: download path changes with beta versions
 %define src_url         http://sylpheed.sraoss.jp/sylpheed/v3.1
@@ -51,6 +49,13 @@ with another mailer based on MH format (like Mew). You can also utilize
 fetchmail or/and procmail, and external programs on receiving (like inc or
 imget).
 
+%if %build_l10n
+%package l10n
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires:	%{name}
+%endif
 
 %prep
 %setup -q -n %{src_name}-%{version}
@@ -85,6 +90,12 @@ make DESTDIR=${RPM_BUILD_ROOT} install
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 install -m 644 *.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -93,21 +104,23 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING COPYING.LIB ChangeLog ChangeLog.ja ChangeLog-1.0 ChangeLog-1.0.ja README README.es README.ja INSTALL INSTALL.ja NEWS NEWS-1.0 NEWS-2.0 LICENSE TODO TODO.ja
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/%{src_name}
-%dir %attr (0755, root, bin) /usr/include/sylpheed
-%/usr/include/sylpheed/*
+%{_includedir}
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/*
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/locale
-%defattr (-, root, other)
-%{_datadir}/locale/*/LC_MESSAGES/%{src_name}.mo
-#%dir %attr (0755, root, other) %{_datadir}/%{src_name}
 %{_datadir}/%{src_name}/faq/*/*
 %{_datadir}/%{src_name}/manual/*/*
-#%dir %attr (0755, root, other) %{_datadir}/pixmaps
+%dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/*.png
-#%dir %attr (0755, root, other) %{_datadir}/applications
+%dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%endif
 
 %changelog
 * Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
