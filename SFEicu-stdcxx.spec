@@ -113,12 +113,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_libdir}/lib*.so*
 %{_libdir}/icu
-%{_libdir}/pkgconfig
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig 
+%{_libdir}/pkgconfig/*
 %ifarch amd64 sparcv9
 %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.so*
 %{_libdir}/%{_arch64}/icu
-%{_libdir}/%{_arch64}/pkgconfig
+%dir %attr (0755, root, other) %{_libdir}/%{_arch64}/pkgconfig 
+%{_libdir}/%{_arch64}/pkgconfig/*
 %endif
 
 %files devel
