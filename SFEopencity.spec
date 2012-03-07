@@ -90,23 +90,21 @@ test -x $BASEDIR/lib/postrun || exit 0
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr (-, root, other)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
-%defattr (-, root, other)
+%defattr (-, root, bin)
+%{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/pixmaps
+%dir %attr (0755, root, other) %{_datadir}/pixmaps
+%{_datadir}/pixmaps/%{src_name}.png
 %{_datadir}/%{src_name}
-%{_datadir}/applications
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/%{src_name}.desktop
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/%{src_name}/*
-%dir %attr(0755, root, bin) %{_mandir}
-%{_mandir}/man6/*
+%{_mandir}
 
 %files root
 %defattr (-, root, bin)
-%attr (0755, root, bin) %dir %{_sysconfdir}
-%defattr (-, root, bin)
+%attr (0755, root, sys) %dir %{_sysconfdir}
 %attr (0755, root, bin) %dir %{_sysconfdir}/%{src_name}
 %{_sysconfdir}/%{src_name}/*
 
