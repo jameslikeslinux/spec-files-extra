@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='openafs'>
+  <service name='system/file-system/openafs' type='service' version='0'>
+    <single_instance/>
+    <dependency name="config_cacheinfo" grouping="require_all" restart_on="restart" type="path">
+      <service_fmri value="file://localhost/etc/openafs/cacheinfo" /> 
+    </dependency>
+    <dependency name="config_thiscell" grouping="require_all" restart_on="restart" type="path">
+      <service_fmri value="file://localhost/etc/openafs/ThisCell" /> 
+    </dependency>
+    <dependency name="config_cellservdb" grouping="require_all" restart_on="restart" type="path">
+      <service_fmri value="file://localhost/etc/openafs/CellServDB" /> 
+    </dependency>
+    <dependency name='fs' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='network' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/multi-user-server'/>
+    </dependency>
+    <instance name='default' enabled='true'>
+      <exec_method name='start' type='method' exec='/etc/init.d/openafs start' timeout_seconds='60'>
+        <method_context/>
+      </exec_method>
+      <exec_method name='stop' type='method' exec='/etc/init.d/openafs stop' timeout_seconds='60'>
+        <method_context/>
+      </exec_method>
+      <property_group name='startd' type='framework'>
+        <propval name='ignore_error' type='astring' value='signal'/>
+      </property_group>
+      <template>
+        <common_name>
+          <loctext xml:lang='C'>OpenAFS - Distributed file system</loctext>
+        </common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>
