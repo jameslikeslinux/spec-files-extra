@@ -73,12 +73,13 @@ rm -rf $RPM_BUILD_ROOT
 user ftpuser=false gcos-field="Hudson Reserved UID" username="hudson" password=NP group="other" home-dir="/var/lib/hudson"
 
 %files
-%defattr (-, hudson, bin)
+%defattr (-, root, other)
+%dir %attr(0755, root, other) /var/lib
 %dir %attr(0755, hudson, root) /var/lib/hudson
+%defattr (-, hudson, root)
 /var/lib/hudson/*
 %dir %attr(0755, hudson, root) /var/log/hudson
-%defattr (-, root, bin)
-%dir %attr (0755, root, sys) %{_localstatedir}/svc
+%defattr (-, root, sys)
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hudson.xml
 
 %changelog
