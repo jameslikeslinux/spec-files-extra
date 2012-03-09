@@ -1,5 +1,6 @@
 2012-03-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEasterisk.spec: bump to 1.8.10.0
 	* experimental/SFEopenafs.spec: Updated to 1.6.1pre4, added
 	manifest, added ips name and relocated into standard directories
 	* ext-sources/openafs.xml

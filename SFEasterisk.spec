@@ -10,7 +10,7 @@
 %include base.inc
 
 %define src_name   asterisk
-%define src_version    1.8.9.2
+%define src_version    1.8.10.0
 
 Name:         	SFE%{src_name}
 IPS_Package_Name:	 voip/asterisk
@@ -120,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Thu Mar 8 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.10.0
 * Fri Mar 2 2012 - Logan Bruns <logan@gedanken.org>
 - Added an smf manifest.
 * Tue Feb 22 2012 - Logan Bruns <logan@gedanken.org>
