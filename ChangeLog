@@ -1,3 +1,7 @@
+2012-03-09 Ken Mays <kmays2000@gmail.com>
+
+	* SFEgmp.spec: bump to 5.0.4, enabled SIMD detection feature
+
 2012-03-09  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEhudson.spec: initial spec.

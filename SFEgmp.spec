@@ -110,6 +110,9 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Fri Mar 9 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 5.0.4
+- Fixed SIMD detection on legacy x86 computers
 * Sat Jan  7 2012 - Thomas Wagner
 - add (Build)Requires: SUNWlibm
 * Mon Oct 10 2011 - Milan Jurik
