@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='hudson'>
+  <service name='developer/build/hudson' type='service' version='0'>
+    <single_instance/>
+    <instance name='default' enabled='true'>
+      <dependent name='net-loopback' grouping='require_any' restart_on='none'>
+	<service_fmri value='svc:/network/loopback' />
+      </dependent>
+      <dependent name='net-service' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/service'/>
+      </dependent>
+      <dependent name='net-physical' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/network/physical' />
+      </dependent>
+      <dependent name='filesystem-local' grouping='require_all' restart_on='none'>
+	<service_fmri value='svc:/system/filesystem/local' />
+      </dependent>
+      <exec_method type='method'
+                   name='start'
+                   exec='/var/lib/hudson/hudson.sh start'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='hudson' group='other' />
+	</method_context>
+      </exec_method>
+      <exec_method type='method'
+                   name='stop'
+                   exec=':kill'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='hudson' group='other'/>
+	</method_context>
+      </exec_method>
+      <template>
+	<common_name>
+          <loctext xml:lang='C'>Hudson - Extensible continuous integration server</loctext>
+	</common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>
