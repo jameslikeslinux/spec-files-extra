@@ -4,6 +4,10 @@
 
 2012-03-09  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEjenkins.spec: initial spec.
+	* ext-sources/jenkins.sh
+	* ext-sources/jenkins.xml
+	* copyright/SFEjenkins.copyright
 	* SFEhudson.spec: initial spec.
 	* ext-sources/hudson.sh
 	* ext-sources/hudson.xml
