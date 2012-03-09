@@ -14,7 +14,9 @@ fi
 
 case "$1" in 
 'start') 
-/usr/java/bin/java -jar /var/lib/hudson/hudson.war 2>/var/log/hudson/hudson.log &
+/usr/java/bin/java -jar /var/lib/hudson/hudson.war \
+  --httpPort=`/usr/bin/svcprop -p listener/http_port $SMF_FMRI` \
+  2>/var/log/hudson/hudson.log &
 echo $! > /var/lib/hudson/hudson.pid
 ;; 
 
