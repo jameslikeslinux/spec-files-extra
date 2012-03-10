@@ -4,6 +4,7 @@
 
 2012-03-09  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* ext-sources/bitlbee.xml: fix dependencies.
 	* SFEjenkins.spec: initial spec.
 	* ext-sources/jenkins.sh
 	* ext-sources/jenkins.xml
