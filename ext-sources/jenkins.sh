@@ -16,6 +16,8 @@ case "$1" in
 'start') 
 /usr/java/bin/java -jar /var/lib/jenkins/jenkins.war \
   --httpPort=`/usr/bin/svcprop -p listener/http_port $SMF_FMRI` \
+  --httpListenAddress=`/usr/bin/svcprop -p listener/http_address $SMF_FMRI` \
+  --ajp13Port=`/usr/bin/svcprop -p listener/ajp_port $SMF_FMRI` \
   2>/var/log/jenkins/jenkins.log &
 echo $! > /var/lib/jenkins/jenkins.pid
 ;; 

@@ -34,6 +34,8 @@
       </exec_method>
       <property_group name='listener' type='application'>
         <propval name='http_port' type='integer' value='8080'/>
+        <propval name='http_address' type='astring' value='0.0.0.0'/>
+        <propval name='ajp_port' type='integer' value='-1'/>
       </property_group>
       <template>
 	<common_name>
