@@ -1,6 +1,7 @@
 2012-03-11 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEdvdauthor.spec: bump to 0.7.0
+	* SFEddrescue.spec: bump to 1.15
 
 2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
