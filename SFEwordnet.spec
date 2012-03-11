@@ -6,12 +6,13 @@
 %include Solaris.inc
 
 %define src_name	WordNet
-%define src_url		http://wordnet.princeton.edu/3.0
+%define src_url		http://wordnetcode.princeton.edu/
 
 Name:                   SFEwordnet
+IPS_Package_Name:	text/wordnet
 Summary:                lexical database for the English language
 Version:                3.0
-Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
+Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -43,9 +44,7 @@ export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
             --libexecdir=%{_libexecdir} \
             --sysconfdir=%{_sysconfdir} \
             --enable-shared		\
-	    --disable-static		\
-	    --with-tcl=/usr/sfw/lib	\
-	    --with-tk=/usr/sfw/lib
+	    --disable-static
 make -j$CPUS 
 
 %install
@@ -75,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Sat Mar 10 2012 - Logan Bruns <logan@gedanken.org>
+- Updated download url and added ips package name.
 * Sun Mar  6 2007 - dougs@truemail.co.th
 - Initial version

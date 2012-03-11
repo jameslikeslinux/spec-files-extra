@@ -1,3 +1,7 @@
+2012-03-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEwordnet.spec: updated download url and added ips package name.
+
 2012-03-09 Ken Mays <kmays2000@gmail.com>
 
 	* SFEgmp.spec: bump to 5.0.4, enabled SIMD detection feature
