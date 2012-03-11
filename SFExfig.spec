@@ -19,10 +19,8 @@ Release:        b
 License:	Xfig license
 Url: 		http://xfig.org
 Source:	 	%{sf_download}/mcj/xfig.%{version}%{release}.full.tar.gz
-Distribution:   OpenSolaris
-Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{release}-build
-SUNW_Basedir:   /
+SUNW_Basedir:   %{_basedir}
 SUNW_Copyright: %{src_name}.copyright
 
 %include default-depend.inc
@@ -50,19 +48,17 @@ Patch2:         xfig-03-3.2.5b-Fig.ad.diff
 Patch3:         xfig-04-3.2.5b-urwfonts.diff
 Patch4:         xfig-05-3.2.5b-w_drawprim.c.diff
 
-# OpenSolaris IPS Package Manifest Fields
-Meta(info.upstream):	 	Brian V. Smith<bvsmith@lbl.gov>
-Meta(info.maintainer):	 	Federico Beffa<beffa@ieee.org>
-Meta(info.detailed_url):        http://xfig.org
-Meta(info.repository_url):	http://downloads.sourceforge.net/mcj/xfig.3.2.5b.full.tar.gz
-Meta(info.classification):      org.opensolaris.category.2008:Applications/Graphics and Imaging
-
 %description 
 XFig is a menu-driven tool that allows the user to draw
 and manipulate objects interactively in an X window. The resulting
 pictures can be saved, printed on postscript printers, or converted to
 a variety of other formats (e.g. to allow inclusion in LaTeX documents
 or web pages) using the transfig program.
+
+%package root
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
+%include default-depend.inc
 
 %prep
 rm -rf %{src_name}.%{version}%{release}
@@ -124,13 +120,17 @@ fi
 %{_mandir}/man*/*
 %dir %attr (0755, root, bin) %{_datadir}/%{src_name}
 %{_datadir}/%{src_name}/*
-%dir %attr (0755, root, bin) /usr/X11/lib/X11/app-defaults/
-/usr/X11/lib/X11/app-defaults/Fig
+%{_prefix}/X11/lib/X11/app-defaults/Fig
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%defattr (-, root, other)
 %dir %attr (0755, root, other) %{_datadir}/icons
-%{_datadir}/icons/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/apps/
+%{_datadir}/icons/hicolor/32x32/apps/%{src_name}.png
+
+%files root
+%defattr (-, root, sys)
 %attr (-, root, root) %{_sysconfdir}/X11/fontpath.d/ghostscript:pri=60
 
 %changelog
