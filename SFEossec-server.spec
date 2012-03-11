@@ -92,24 +92,30 @@ rm -rf $RPM_BUILD_ROOT
 test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 ( echo '/usr/sbin/groupadd ossec';
   echo '/usr/sbin/useradd -d /var/ossec -s /bin/true -g ossec ossec';
+  echo '/usr/sbin/useradd -d /var/ossec -s /bin/true -g ossec ossecm';
+  echo '/usr/sbin/useradd -d /var/ossec -s /bin/true -g ossec ossecr';
 ) | $BASEDIR/var/lib/postrun/postrun -i -a
 
 %postun root
 test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 ( echo '/usr/sbin/userdel ossec';
+  echo '/usr/sbin/userdel ossecm';
+  echo '/usr/sbin/userdel ossecr';
   echo '/usr/sbin/groupdel ossec';
 ) | $BASEDIR/var/lib/postrun/postrun -i -a
 
 %actions
 group groupname="ossec"
 user ftpuser=false gcos-field="OSSEC Reserved UID" username="ossec" password=NP group="ossec"
+user ftpuser=false gcos-field="OSSEC Reserved Mail UID" username="ossecm" password=NP group="ossec"
+user ftpuser=false gcos-field="OSSEC Reserved Remote UID" username="ossecr" password=NP group="ossec"
 
 %files
 %dir %attr (0755, root, ossec) /var/ossec
 %defattr (-, root, ossec)
 %dir %attr (0755, root, ossec) /var/ossec/queue
-%dir %attr (0755, root, ossec) /var/ossec/queue/alerts
-%dir %attr (0755, root, ossec) /var/ossec/queue/syscheck
+%dir %attr (0775, ossec, ossec) /var/ossec/queue/alerts
+%dir %attr (0755, ossec, ossec) /var/ossec/queue/syscheck
 %dir %attr (0770, ossec, ossec) /var/ossec/queue/ossec
 %dir %attr (0750, ossec, ossec) /var/ossec/logs
 %dir %attr (0664, ossec, ossec) /var/ossec/logs/ossec.log
@@ -120,6 +126,7 @@ user ftpuser=false gcos-field="OSSEC Reserved UID" username="ossec" password=NP 
 %dir %attr (0755, ossec, ossec) /var/ossec/queue/agentless
 %dir %attr (0750, ossec, ossec) /var/ossec/queue/fts
 %dir %attr (0550, root, ossec) /var/ossec/etc
+%dir %attr (0770, root, ossec) /var/ossec/etc/shared
 %dir %attr (0555, root, ossec) /var/ossec/etc/TIMEZONE
 %dir %attr (0440, root, ossec) /var/ossec/etc/internal_options.conf
 %dir %attr (0440, root, ossec) /var/ossec/etc/ossec.conf-example
@@ -137,10 +144,10 @@ user ftpuser=false gcos-field="OSSEC Reserved UID" username="ossec" password=NP 
 %dir %attr (0770, root, ossec) /var/ossec/var/run
 /var/ossec/active-response/bin/*
 /var/ossec/bin/*
-%dir %attr (0750, root, ossec) /var/ossec/stats
-%dir %attr (0750, root, ossec) /var/ossec/logs/firewall
-%dir %attr (0750, root, ossec) /var/ossec/logs/archives
-%dir %attr (0750, root, ossec) /var/ossec/logs/alerts
+%dir %attr (0750, ossec, ossec) /var/ossec/stats
+%dir %attr (0770, root, ossec) /var/ossec/logs/firewall
+%dir %attr (0750, ossec, ossec) /var/ossec/logs/archives
+%dir %attr (0750, ossec, ossec) /var/ossec/logs/alerts
 %dir %attr (0550, root, ossec) /var/ossec/rules
 /var/ossec/rules/*
 %dir %attr (0550, root, ossec) /var/ossec/tmp
@@ -150,5 +157,8 @@ user ftpuser=false gcos-field="OSSEC Reserved UID" username="ossec" password=NP 
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/ossec.xml
 
 %changelog
+* Sun Mar 11 2012 - Logan Bruns <logan@gedanken.org>
+- Added ossecm and ossecr users.
+- Fixed some permissions.
 * Thu Mar 1 2012- Logan Bruns <logan@gedanken.org>
 - Initial spec.

@@ -5,6 +5,8 @@
 
 2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEossec-server.spec: added ossecm and ossecr users. fixed some
+	permissions.
 	* SFElsof.spec: fixed zfs kernel struct binding and tcp use but
 	not icmp and udp. so, for example, lsof -p works but not lsof
 	-i. added ips package name. updated download url and unpack
