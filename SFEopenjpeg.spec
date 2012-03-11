@@ -73,7 +73,6 @@ rm -rf %{buildroot}
 %{_includedir}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/openjpeg-%{major_version}
-%dir %attr (0755, root, other) %{_datadir}/pkgconfig
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
