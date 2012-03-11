@@ -1,3 +1,15 @@
+2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFElsof.spec: fixed zfs kernel struct binding and tcp use but
+	not icmp and udp. so, for example, lsof -p works but not lsof
+	-i. added ips package name. updated download url and unpack
+	steps. added copyright file.
+	* patches/lsof-01-machine.diff
+	* patches/lsof-02-dlsof.diff
+	* patches/lsof-03-dnode.diff
+	* patches/lsof-04-dsock.diff
+	* patches/lsof-05-print.diff
+
 2012-03-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEwordnet.spec: updated download url and added ips package name.
