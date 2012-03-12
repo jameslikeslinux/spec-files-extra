@@ -1,3 +1,7 @@
+2012-03-12 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcrafty.spec: fix build with newer gcc
+
 2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEipf.spec: Fixed a ull formatting issue in ipfstat -t

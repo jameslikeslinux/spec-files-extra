@@ -4,8 +4,11 @@
 # includes module(s): crafty
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 Name:		SFEcrafty
+IPS_Package_Name:	games/crafty
 Summary:	Crafty chess engine  
 Version:	23.4
 Group:		Amusements/Games
@@ -24,7 +27,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-make -j $CPUS solaris-gcc
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+export LDFLAGS="%{_ldflags}"
+
+make -j $CPUS target=SUN crafty-make
 
 %install
 rm -rf %{buildroot}
@@ -39,6 +48,8 @@ rm -rf %{buildroot}
 %{_bindir}
 
 %changelog
+* Mon Mar 12 2012 - Milan Jurik
+- fix build with newer gcc
 * Mon Feb 07 2011 - Milan Jurik
 - bump to 23.4
 * May 2010 - Gilles Dauphin
