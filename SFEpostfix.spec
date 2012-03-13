@@ -128,7 +128,9 @@ Source8:	README-Postfix-SASL-RedHat.txt
 Source9:	postfix-saslauthd.conf
 #Patch1:		postfix-01-make-postfix.spec.diff
 #Patch2:		postfix-02-solarize-startscript.diff
-Patch3:		postfix-03-remove-nisplus-build130.diff
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#Patch3:		postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
 SUNW_Copyright:		postfix.copyright
@@ -218,8 +220,10 @@ mkdir tmp
 
 #%patch1 -p1
 #patch2 is below
-%patch3 -p1
-
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#%patch3 -p1
+sed -i -e '/^#define HAS_NISPLUS/ s,^,//,'    src/util/sys_defs.h
 
 #postfix manifest
 cp -p %{SOURCE3} postfix.xml
@@ -384,6 +388,7 @@ CCARGS="${CCARGS} -fsigned-char"
 
 export CCARGS AUXLIBS
 # not needed we are a fresh copy .-) 
+
 make tidy
 make -f Makefile.init makefiles
 unset CCARGS AUXLIBS
@@ -391,6 +396,11 @@ unset CCARGS AUXLIBS
 # suggestion by Eric Hoeve <eric@ehoeve.com>
 #make DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS -Wno-comment"
 make -j$CPUS DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
+
+#somehow manpages where missing from the build
+export PATH=$PATH:${RPM_BUILD_DIR}/%{src_name}-%{version}/mantools
+bash
+make manpages
 
 
 %install
@@ -406,11 +416,11 @@ rm -rf $RPM_BUILD_ROOT
 #%{?!debug:strip -R .comment --strip-unneeded bin/* libexec/*}
 #%{?!debug:strip bin/* libexec/*}
 
-# rename man pages which may conflict with sendmail's
-[ -r man/man1/mailq.1 ]      && mv man/man1/mailq.1      man/man1/mailq.postfix.1
-[ -r man/man1/newaliases.1 ] && mv man/man1/newaliases.1 man/man1/newaliases.postfix.1
-[ -r man/man1/sendmail.1 ]   && mv man/man1/sendmail.1   man/man1/sendmail.postfix.1
-[ -r man/man5/aliases.5 ]    && mv man/man5/aliases.5    man/man5/aliases.postfix.5
+#contained in postfix-install # rename man pages which may conflict with sendmail's
+#contained in postfix-install [ -r man/man1/mailq.1 ]      && mv man/man1/mailq.1      man/man1/mailq.postfix.1
+#contained in postfix-install [ -r man/man1/newaliases.1 ] && mv man/man1/newaliases.1 man/man1/newaliases.postfix.1
+#contained in postfix-install [ -r man/man1/sendmail.1 ]   && mv man/man1/sendmail.1   man/man1/sendmail.postfix.1
+#contained in postfix-install [ -r man/man5/aliases.5 ]    && mv man/man5/aliases.5    man/man5/aliases.postfix.5
 
 #adjust renamed manpages ./conf/postfix-files:$manpage_directory/man1/mailq.1:f:root:-:644
 perl -pi -e "s?/man(1|5)/(mailq|newaliases|sendmail|aliases).(1|5)?/man\1/\2.postfix.\3?; " \
@@ -895,6 +905,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Sun Mar 11 2012 - Thomas Wagner
+- fix build 2.9.1 remove patch3 (remove HAS_NISPLUS), replaced by sed
+  repair missing manpages
 * Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.9.1
 * Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
