@@ -1,3 +1,7 @@
+2012-03-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEecl.spec: initial spec.
+
 2012-03-12 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEcrafty.spec: fix build with newer gcc
