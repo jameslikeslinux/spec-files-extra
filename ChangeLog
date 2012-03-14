@@ -1,6 +1,13 @@
+2012-03-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEmaxima.spec: initial spec.
+	* patches/maxima-01-xerprn.diff
+	* copyright/SFEmaxima.copyright
+
 2012-03-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEecl.spec: initial spec.
+	* copyright/SFEecl.copyright
 
 2012-03-12 Milan Jurik <sfnet@xylab.cz>
 
