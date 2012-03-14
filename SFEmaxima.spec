@@ -18,7 +18,7 @@ IPS_Package_Name:	 math/maxima
 Summary:                 Maxima - a Computer Algebra System
 Group:                   Utility
 Version:                 5.26.0
-URL:		         http://maximas.sourceforge.net
+URL:		         http://maxima.sourceforge.net
 Source:		         %{sf_download}/project/maxima/Maxima-source/%{version}-source/%{srcname}-%{version}.tar.gz
 License: 		 GPL
 Patch1:                  maxima-01-xerprn.diff
