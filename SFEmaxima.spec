@@ -58,6 +58,7 @@ unset LDFLAGS
 	    --bindir=%{_bindir}			\
 	    --mandir=%{_mandir}			\
             --libdir=%{_libdir}                 \
+            --libexecdir=%{_libexecdir}         \
             --enable-ecl
 
 make -j$CPUS
@@ -75,8 +76,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}/maxima
 %{_libdir}/maxima/*
-%dir %attr (0755, root, bin) /usr/libexec/maxima
-/usr/libexec/maxima/*
 %dir %attr (0755, root, bin) %{_datadir}/maxima
 %{_datadir}/maxima/*
 %{_mandir}/man1/*
