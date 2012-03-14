@@ -14,7 +14,7 @@
 %define srcname maxima
 
 Name:                    SFEmaxima
-IPS_Package_Name:	 runtime/lisp/maxima
+IPS_Package_Name:	 math/maxima
 Summary:                 Maxima - a Computer Algebra System
 Group:                   Utility
 Version:                 5.26.0
