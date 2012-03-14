@@ -1,5 +1,6 @@
 2012-03-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEjenkins.spec: bump to 1.455.
 	* SFEmaxima.spec: initial spec.
 	* patches/maxima-01-xerprn.diff
 	* copyright/SFEmaxima.copyright
