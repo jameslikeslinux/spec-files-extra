@@ -1,3 +1,12 @@
+2012-03-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFElibvirt.spec: initial spec.
+	* patches/libvirt-01-virnetdev.diff
+	* patches/libvirt-02-cfmakeraw.diff
+	* patches/libvirt-03-noversionscript.diff
+	* patches/libvirt-04-removexvmctrl.diff
+	* copyright/SFElibvirt.copyright
+
 2012-03-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEjenkins.spec: bump to 1.455.
