@@ -1,5 +1,7 @@
 2012-03-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEtexlive.spec: update to 20110705
+	* SFEtexlive-texmf.spec: update to 20110705
 	* experimental/SFElibvirt.spec: initial spec.
 	* patches/libvirt-01-virnetdev.diff
 	* patches/libvirt-02-cfmakeraw.diff

@@ -5,11 +5,15 @@
 
 %include Solaris.inc
 
-%define texlive_ver	20080816
+%define cc_is_gcc 1
+%include base.inc
+
+%define texlive_ver	20110705
 
 %define _texmf_dir /usr/texlive
 
 Name:		SFEtexlive
+IPS_Package_Name:	 text/texlive
 Version:	%{texlive_ver}
 Summary:	Binaries for the TeX formatting system
 URL:		http://tug.org/texlive
@@ -18,10 +22,8 @@ Group:		Applications/Publishing
 License:	GPLv2 and More
 URL:		http://tug.org/texlive/
 
-#Source:		http://mirror.ctan.org/systems/texlive/Source/texlive-%{texlive_ver}-source.tar.lzma
-Source:	http://rlworkman.net/pkgs/sources/12.2/texlive/texlive-20080816-source.tar.bz2
-# take care it's big
-Source1:	http://rlworkman.net/pkgs/sources/12.2/texlive/texlive-20080822-texmf.tar.bz2
+Source:         ftp://tug.org/historic/systems/texlive/2011/texlive-%{texlive_ver}-source.tar.xz
+Source1:        ftp://tug.org/historic/systems/texlive/2011/texlive-%{texlive_ver}-texmf.tar.xz
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -31,6 +33,7 @@ BuildRequires:	SUNWncurses
 BuildRequires:	SUNWzlib
 BuildRequires:	SUNWpng
 BuildRequires:	SUNWgd2
+BuildRequires:  compress/xz
 Requires:	SFEtexlive-texmf
 
 %description
@@ -47,7 +50,8 @@ an easier-to-use interface for TeX).
 The TeX documentation is located in the texlive-doc package.
 
 %prep
-%setup -q -c -n %{name}-%{version}
+#%setup -q -c -n %{name}-%{version}
+tar xJf %{SOURCE}
 
 %build
 set -x
@@ -57,6 +61,8 @@ cd texlive-%{version}-source
 # @ install do DESTDIR=make install DESTDIR=$RPM_BUILD_ROOT
 #TL_INSTALL_DEST=%{_prefix}/texlive
 #export TL_INSTALL_DEST
+export CC=gcc
+export CXX=g++
 CFLAGS="$CFLAGS -DZZIP_inline= "
 export CFLAGS
 TL_TARGET=all
@@ -69,9 +75,10 @@ export TL_TARGET
 	--with-system-zlib \
 	--with-system-pnglib \
 	--with-system-gd \
+	--with-gd-includes=/usr/include/gd2 \
 	--with-system-freetype2 \
 	--with-freetype2-include=/usr/include/freetype2 \
-	--with-system-t1lib
+	--disable-native-texlive-build
 
 # because freetype2 is in /usr/include , hard code the path
 #	--with-freetype2-include=%{_includedir}/freetype2 \
@@ -94,8 +101,8 @@ mkdir -p ${RPM_BUILD_ROOT}/usr/texlive
 # mv texk/kpathsea/Makefile texk/kpathsea/Makefile.save
 #make install  DESTDIR=$RPM_BUILD_ROOT
 make install
-tex_arch=`../config/config.guess`
-ln -s /usr/texlive/bin/$tex_arch ../inst/share/bin
+tex_arch=`../build-aux/config.guess`
+#ln -s /usr/texlive/bin/$tex_arch ../inst/share/bin
 # Note: binary MUST BE in /usr/texlive/bin/$ARCH/ , because some link would break
 mv ../inst/* ${RPM_BUILD_ROOT}/usr/texlive
 rm ${RPM_BUILD_ROOT}/usr/texlive/texmf/scripts/texlive/tlmgr.pl
@@ -106,13 +113,13 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 set -x
-PATH=$PATH:/usr/texlive/share/bin
+PATH=$PATH:/usr/texlive/bin
 export PATH
-/usr/texlive/share/bin/mktexlsr /usr/texlive/texmf /usr/texlive/texmf-dist /usr/texlive/texmf-doc /usr/texlive 
-/usr/texlive/share/bin/texconfig-sys init 
-/usr/texlive/share/bin/texconfig-sys rehash 
-/usr/texlive/share/bin/fmtutil-sys --all 
-/usr/texlive/share/bin/updmap-sys --syncwithtrees 
+/usr/texlive/bin/mktexlsr /usr/texlive/texmf /usr/texlive/texmf-dist /usr/texlive/texmf-doc /usr/texlive 
+/usr/texlive/bin/texconfig-sys init 
+/usr/texlive/bin/texconfig-sys rehash 
+/usr/texlive/bin/fmtutil-sys --all 
+/usr/texlive/bin/updmap-sys --syncwithtrees 
 exit 0		# johny be good
 
 #TODO
@@ -126,6 +133,11 @@ exit 0		# johny be good
 %{_texmf_dir}/*
 
 %changelog
+* Thu Mar 15 2012 - Logan Bruns <logan@gedanken.org>
+- update to 20110705 
+- TODO: post steps are not being run on OI/S11. so you have to update
+  texmf/web2c/texmf.cnf and run them manually at the moment. that
+  should be fixed.
 * April 2010 - Gilles Dauphin
 - hardcode the path of freetype2
 # because freetype2 is in /usr/include , hard code the path
