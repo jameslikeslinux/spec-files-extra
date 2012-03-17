@@ -1,3 +1,8 @@
+2012-03-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEcatdoc.spec: initial spec.
+	* copyright/SFEcatdoc.copyright
+
 2012-03-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEtexlive.spec: update to 20110705
