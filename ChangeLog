@@ -1,5 +1,6 @@
 2012-03-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEasterisk.spec: bump to 1.8.10.1
 	* SFEecl.spec: added --enable-threads flag.
 
 2012-03-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
