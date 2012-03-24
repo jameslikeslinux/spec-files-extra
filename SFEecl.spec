@@ -57,12 +57,13 @@ fi
 
 export CC=gcc
 export CXX=g++
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -D_POSIX_PTHREAD_SEMANTICS"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix}			\
 	    --bindir=%{_bindir}			\
 	    --mandir=%{_mandir}			\
-            --libdir=%{_libdir}
+            --libdir=%{_libdir}			\
+            --enable-threads
 
 #Parallel build needs work
 #make -j$CPUS
@@ -90,5 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sat Mar 24 2012 - Logan Bruns <logan@gedanken.org>
+- Added --enable-threads flag.
 * Mon Mar 12 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
