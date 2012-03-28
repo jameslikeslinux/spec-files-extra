@@ -1,3 +1,7 @@
+2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEbzr.spec: bump to 2.5.0
+
 2012-03-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEjenkins.spec: bump to 1.456
