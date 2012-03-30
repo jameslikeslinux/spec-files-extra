@@ -8,7 +8,7 @@ Name:                    SFEvagalume
 Summary:                 Last.fm client
 Group:                   AudioVideo
 Version:                 0.7.1
-Source:                  http://vagalume.igalia.com/files/source/vagalume_%{version}.orig.tar.gz
+Source:                  http://vagalume.igalia.com/files/source/vagalume-%{version}.tar.gz
 BuildRoot:               %{_tmppath}/%{name}-%{version}
 SUNW_Copyright:          %{name}.copyright
 
@@ -62,5 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, bin) %{_mandir}
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich <tropikhajma@gmail.com>
+- fix download location
 * Fri Apr 19 2009 - Sergio Schvezov <sergiusens@ieee.org>
 - Initial spec
