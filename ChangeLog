@@ -3,6 +3,7 @@
 	* SFExmlrpc-c.spec: fix IPS version
 	* base-specs/xmlrpc-c.spec: fix download location
 	* SFEvagalume.spec: fix download location
+	* SFEurxvt.spec: fix download location
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
