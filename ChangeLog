@@ -5,6 +5,7 @@
 	* SFEvagalume.spec: fix download location
 	* SFEurxvt.spec: fix download location
 	* SFEm17n-db.spec: update file list
+	* SFEwordcut.spec: fix ips version
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
