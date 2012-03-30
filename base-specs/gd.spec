@@ -1,7 +1,8 @@
 Name:                SFEgd
 Summary:             library for the dynamic creation of images by programmers
 Version:             %{src_ver}
-Source:              http://www.libgd.org/releases/gd-%{version}.tar.bz2
+#Source:              http://www.libgd.org/releases/gd-%{version}.tar.bz2
+Source:              http://google-desktop-for-linux-mirror.googlecode.com/files/gd-%{version}.tar.gz
 Url:	    	     http://www.libgd.org/
 SUNW_BaseDir:        %{_basedir}
 
@@ -58,5 +59,7 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libgd.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Sat Jun 5 2010 - markwright@internode.on.net
 - Initial base spec file
