@@ -1,3 +1,8 @@
+2012-03-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEderby.spec: initial spec.
+	* copyright/SFEderby.copyright
+
 2012-03-31 Pavel Heimlich <tropikhajma@gmail.com>
 
 	* SFExmlrpc-c.spec: fix IPS version
