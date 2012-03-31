@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/share/db-derby
 cp -r * $RPM_BUILD_ROOT/usr/share/db-derby/
 mkdir -p $RPM_BUILD_ROOT/usr/bin
-ln -s ../share/db-derby/bin/ij $RPM_BUILD_ROOT/usr/bin/ij
+ln -s %{_datadir}/db-derby/bin/ij $RPM_BUILD_ROOT/usr/bin/ij
 
 %clean
 rm -rf $RPM_BUILD_ROOT
