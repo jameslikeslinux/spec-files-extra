@@ -1,8 +1,7 @@
+# 
 # place defines to match older packages here - this include file is the first of a series
 # 
-
-##TODO## list
-#see below, handle /var/sadm/pkg/SUNWruby18r /var/sadm/pkg/SUNWruby18u
+##TODO## list see at the end, shortly before %changelog
 
 # there are very old build out there, we might not need
 # to write special logic for builds older then build 81
@@ -99,18 +98,20 @@
 %define pnm_requires_SUNWkrbr 			SUNWkrb
 %define pnm_requires_SUNWkrbu 			SUNWkrb
 
+#note: pkg search -l SUNWsmba 
+#returns nothing. So use the very old names SUNWsmbau/SUNWsmbar instead.
 #samba service/network/samba
-%define pnm_buildrequires_service_network_samba	SUNWsmba
-%define pnm_requires_service_network_samba	SUNWsmba
-%define pnm_buildrequires_SUNWsmba_devel	SUNWsmba
-%define pnm_buildrequires_SUNWsmba		SUNWsmba
-%define pnm_buildrequires_SUNWsmbar		SUNWsmba
-%define pnm_buildrequires_SUNWsmbau		SUNWsmba
-%define pnm_requires_SUNWsmba			SUNWsmba
-%define pnm_requires_SUNWsmbar			SUNWsmba
-%define pnm_requires_SUNWsmbau			SUNWsmba
-%define pnm_buildrequires_smba			SUNWsmba
-%define pnm_requires_smba			SUNWsmba
+%define pnm_buildrequires_service_network_samba	SUNWsmbau
+%define pnm_requires_service_network_samba	SUNWsmbau
+%define pnm_buildrequires_SUNWsmba_devel 	SUNWsmbau
+%define pnm_buildrequires_SUNWsmba		SUNWsmbau
+%define pnm_buildrequires_SUNWsmbar		SUNWsmbar
+%define pnm_buildrequires_SUNWsmbau		SUNWsmbau
+%define pnm_requires_SUNWsmba			SUNWsmbau
+%define pnm_requires_SUNWsmbar			SUNWsmbar
+%define pnm_requires_SUNWsmbau			SUNWsmbau
+%define pnm_buildrequires_smba			SUNWsmbau
+%define pnm_requires_smba			SUNWsmbau
 
 %endif
 #END os2nnn
@@ -404,17 +405,29 @@
 %define pnm_requires_SUNWkrbu 			SUNWkrbu
 
 #samba
-%define pnm_buildrequires_service_network_samba	SUNWsmbu
-%define pnm_requires_service_network_samba	SUNWsmbu
-%define pnm_buildrequires_SUNWsmba_devel 	SUNWsmbu
-%define pnm_buildrequires_SUNWsmba		SUNWsmbu
-%define pnm_buildrequires_SUNWsmbar		SUNWsmbr
-%define pnm_buildrequires_SUNWsmbau		SUNWsmbu
-%define pnm_requires_SUNWsmba			SUNWsmbu
-%define pnm_requires_SUNWsmbar			SUNWsmbr
-%define pnm_requires_SUNWsmbau			SUNWsmbu
-%define pnm_buildrequires_smba			SUNWsmbu
-%define pnm_requires_smba			SUNWsmbu
+%define pnm_buildrequires_service_network_samba	SUNWsmbau
+%define pnm_requires_service_network_samba	SUNWsmbau
+%define pnm_buildrequires_SUNWsmba_devel 	SUNWsmbau
+%define pnm_buildrequires_SUNWsmba		SUNWsmbau
+%define pnm_buildrequires_SUNWsmbar		SUNWsmbar
+%define pnm_buildrequires_SUNWsmbau		SUNWsmbau
+%define pnm_requires_SUNWsmba			SUNWsmbau
+%define pnm_requires_SUNWsmbar			SUNWsmbar
+%define pnm_requires_SUNWsmbau			SUNWsmbau
+%define pnm_buildrequires_smba			SUNWsmbau
+%define pnm_requires_smba			SUNWsmbau
+
+#SUNWlibtdl
+%define pnm_buildrequires_SUNWltdl_devel	SUNWltdl
+%define pnm_buildrequires_SUNWltdl		SUNWltdl
+%define pnm_buildrequires_library_libtool_libltdl	SUNWltdl
+%define pnm_requires_library_libtool_libltdl		SUNWltdl
+
+#SUNWbtool
+%define pnm_buildrequires_SUNWbtool_devel developer/object_file		SUNWbtool
+%define pnm_buildrequires_SUNWbtool developer/object_file		SUNWbtool
+%define pnm_buildrequires_developer_object_file		SUNWbtool
+%define pnm_requires_developer_object_file		SUNWbtool
 
 
 ##TODO## Add your packages here in case you specify an old
@@ -539,6 +552,7 @@
 %define pnm_buildrequires_SUNWfreetype_devel 	SUNWfreetype2
 %define pnm_requires_SUNWfreetype		SUNWfreetype2
 
+##TODO## below: probably obsolete or needs rethinking:
 ##TODO## which osbuild version is right?
 %if %( expr %{osbuild} '<' 133 )
 #replace requested SUNWfreetype2* with SFE version on older
@@ -795,6 +809,11 @@
 %define python_major_version 2
 %define python_major_minor_version 2.6
 %define python_major_minor_micro_version 2.6.4
+#
+#draft: NOTE: names/values subject to change - update all spec files 
+#             accordingly if you change this!
+#special strings here for packagenames: e.g. Python26
+%define python_version_package_string 26
 
 #note: the name is subject to change if we find a better one
 #_default string is not meant to be a part of the package name...
@@ -880,6 +899,71 @@
 #END setting mysql, all builds, evaluated paths  - Part 3 of 3
 
 
+
+#START setting java, defaults  - Part 1 of 3
+#define java defaults, primarily shared settings and default version, paths
+#for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
+#STRONG NOTE: locate *below* the osdistro and osbuild sections, there is *another*
+#section evaluating the resulting paths on the disk, those are specific
+#to the java version in use. We hope, that we do not need to handle special
+#cases there, e.g. this would be an odd distro deciding to relocate to 
+#another path layout on disk....
+##TODO## Solaris 10's java versions *not yet* complete here
+
+#from SXCE on we have this:
+%define java_version 1.6.0_17
+%define java_major_version 1
+%define java_major_minor_version 1.6
+##not defined %define java_major_minor_micro_version 1.6.0_17
+#JAVA
+%define pnm_buildrequires_java_runtime_default		SUNWj6rt
+%define pnm_requires_java_runtime_default		SUNWj6rt
+#in case 32 bit is good enough
+%define pnm_buildrequires_java_runtime_default_32	SUNWj6rt
+%define pnm_requires_java_runtime_default_32		SUNWj6rt
+#in case 64 bit is really needed or makes sense
+%define pnm_buildrequires_java_runtime_default_64	SUNWj6rtx
+%define pnm_requires_java_runtime_default_64		SUNWj6rtx
+
+#END setting java, defaults  - Part 1 of 3
+
+#START setting java, changes with specific builds and distros  - Part 2 of 3
+#set java for Solaris11(Express) or OpenIndiana or OpenSolaris
+%if %{os2nnn}
+#older IPS systems
+#use the default from before (e.g. SUNWj6rt and SUNWj6rtx
+%if %( expr %{osbuild} '>=' 133 )
+#from build 133 and up we have
+#runtime/java and runtime/java/runtime64
+%define pnm_buildrequires_java_runtime_default		runtime/java
+%define pnm_requires_java_runtime_default		runtime/java
+#in case 32 bit is good enough
+%define pnm_buildrequires_java_runtime_default_32	runtime/java
+%define pnm_requires_java_runtime_default_32		runtime/java
+#in case 64 bit is really needed or makes sense
+%define pnm_buildrequires_java_runtime_default_64	runtime/java/runtime64
+%define pnm_requires_java_runtime_default_64		runtime/java/runtime64
+
+%endif
+#END >= 133
+%endif
+#END os2nnn
+#END setting java, changes with specific builds and distros  - Part 2 of 3
+
+#START setting java, all builds, evaluated paths  - Part 3 of 3
+# this is the section noted above which evaluates the resulting paths on the
+# disk for the defaults for java or the distro specific changed values e.g.
+# if a more fresh java version stores files somewehre else
+# 
+# intentionally left empty. maybe enhanced later with filesystempaths
+#
+#
+#END setting java, all builds, evaluated paths  - Part 3 of 3
+
+##TODO## below: dumping place to collect examples to be integrated later
+
+#handle /var/sadm/pkg/SUNWruby18r /var/sadm/pkg/SUNWruby18u
+
 #  pkg contents -r -m system/header/header-audio
 # set name=pkg.fmri value=pkg://solaris/system/header/header-audio@0.5.11,5.11-0.163:20110410T085804Z
 # set name=variant.arch value=sparc value=i386
@@ -889,13 +973,129 @@
 # depend fmri=consolidation/osnet/osnet-incorporation type=require
 # depend fmri=pkg:/system/header@0.5.11,5.11-0.163 type=require
  
+#SUNWghostscript --- see SFEnasm.spec as example for osbuild dependent switches
+#cut
+
+#example #new os2nnn and starting with build 134
+#example %if %{os2nnn}
+#example %if %(expr %{osbuild} '>=' 134)
+#example BuildRequires:		text/texinfo
+#example BuildRequires:		print/filter/ghostscript
+#example %endif
+#example %endif
+#example 
+#example %if %{os2nnn}
+#example %if %(expr %{osbuild} '>=' 100)
+#example %if %(expr %{osbuild} '<' 134)
+#example BuildRequires:       SUNWtexi
+#example BuildRequires:       SUNWghostscript
+#example %endif
+#example %endif
+#example %endif
+#example 
+#example %if %{os2nnn}
+#example %if %(expr %{osbuild} '<' 100)
+#example BuildRequires:       SUNWtexi
+#example BuildRequires:       SUNWgscr
+#example %endif
+#example %endif
+#example 
+#example #SXCE
+#example %if %SXCE
+#example BuildRequires:       SUNWtexi
+#example BuildRequires:       SUNWghostscriptr
+#example BuildRequires:       SUNWghostscriptu
+#example %endif
+#example 
+
+
+##TODO## SFEorc.spec - simpify ywith with pnm_macros
+#example 
+#example %if %{os2nnn}
+#example %if %(expr %{osbuild} '>=' 134)
+#example buildRequires: library/desktop/gtk2
+#example BuildRequires: developer/documentation-tool/gtk-doc
+#example BuildRequires: developer/gnome/gettext
+#example BuildRequires: data/docbook
+#example %endif
+#example %endif
+#example 
+#example %if %{os2nnn}
+#example %if %(expr %{osbuild} '>=' 116)
+#example %if %(expr %{osbuild} '<' 134)
+#example #library/desktop/gtk1
+#example # >=75 <= 133
+#example BuildRequires: SUNWGtk 
+#example #developer/documentation-tool/gtk-doc
+#example # >=116 <=133
+#example BuildRequires: SUNWgtk-doc
+#example #developer/gnome/gettext
+#example BuildRequires: SUNWgnome-common-devel
+#example #data/docbook
+#example BuildRequires: SUNWgnome-xml
+#example %endif
+#example %endif
+#example %endif
+#example # note build versions in %{os2nnn} before 116 aren't covered
+#example #SXCE
+#example %if %SXCE
+#example %if %(expr %{osbuild} '<=' 130)
+#example BuildRequires: SUNWGtku
+#example BuildRequires: SUNWGtkr
+#example BuildRequires: SUNWgtk-doc
+#example # BuildRequires: data/docbook
+#example BuildRequires: SUNWgnome-xml-root
+#example BuildRequires: SUNWgnome-xml-share
+#example %endif
+#example %endif
+#example 
+ 
  
 #place very special cases here, for instance in Solaris 10
 ##TODO## for a future version
 
 
+#from: http://hg.opensolaris.cz/build-scripts/file/tip/build/finddeps.sh
+#     26 depspacks=`echo ${depspacks} | sed 's/SFEsdl /SUNWlibsdl /'`
+# 
+#     27 depspacks=`echo ${depspacks} | sed 's/SFEsdl$/SUNWlibsdl/'`
+# 
+#     28 depspacks=`echo ${depspacks} | sed s/SFElibsndfile/SUNWlibsndfile/`
+# 
+#     29 depspacks=`echo ${depspacks} | sed s/SUNWgnome-common/SUNWgnome-common-devel/`
+# 
+#     30 depspacks=`echo ${depspacks} | sed 's/SUNWgtk /SUNWgtk-doc /'`
+# 
+#     31 depspacks=`echo ${depspacks} | sed 's/SUNWgtk$/SUNWgtk-doc/'`
+# 
+#     32 depspacks=`echo ${depspacks} | sed 's/SUNWGtku /SUNWGtk /'`
+# 
+#     33 depspacks=`echo ${depspacks} | sed 's/SUNWGtku$/SUNWGtk/'`
+# 
+#     34 depspacks=`echo ${depspacks} | sed 's/SUNWsndmu /SUNWsndm /'`
+# 
+#     35 depspacks=`echo ${depspacks} | sed 's/SUNWsndmu$/SUNWsndm/'`
+# 
+#     36 depspacks=`echo ${depspacks} | sed 's/SUNWapch22u /SUNWapch22 /'`
+# 
+#     37 depspacks=`echo ${depspacks} | sed 's/SUNWapch22u$/SUNWapch22/'`
+# 
 
 %changelog
+* Sat Mar 31 2012 - Thomas Wagner
+- re-arranged notes and other information for future work
+- add notes about spec files with logic which should be in pnm
+- prepare draft version string for python package names: python_version_package_string 26
+* Sat Mar 17 2012 - Thomas Wagner
+- add pnm_buildrequires_java_runtime, pnm_buildrequires_java_runtime, and _32 _64 variants
+  use this to get the platform default java package names
+  ##TODO## add java filesystem location and version numbers if needed
+* Tue Aug 23 2011 - Thomas Wagner
+- handle SUNWltdl/library_libtool_libltdl
+- handle SUNWbtool/pnm_requires_developer_object_file
+* Mon Aug 14 2011 - Thomas Wagner
+- fix SUNWsmba -> SUNWsmbau/SUNWsmbar because SUNWsmba not found on
+  IPS systems build around 170 (not in legacy_pkg: SUNWsmba)
 * Wed Jan  4 2012 - Thomas Wagner
 - pkgtool/pkgbuild can't see if packages are installed: meta-package data/docbook
   is requested. up to 133 it was developer/documentation-tool/gtk-doc,
@@ -905,6 +1105,7 @@
 * Mon Nov  7 2011 - Thomas Wagner
 - handle cases x11/client not being resolved properly pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt (>=144)
 * Sat Aug 13 2011 - Thomas Wagner
+- fix typo SUNWsmbr -> SUNWsmbar SUNWsmbu SUNWsmbau, ...
 - handle SUNWsmba_devel/SUNWsmbau/SUNWsmbar/SUNWsmba/smba/service_network_samba
 - handle SUNWfreetype2/freetype2/SFEfreetype_devel/SFEfreetype/system_library_freetype_2
 - fix selected metapackage to get installed-detection with autodeps satisfied for
