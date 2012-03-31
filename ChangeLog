@@ -31,6 +31,7 @@
 	* SFEperl-netaddr-ip.spec: bump version (4.059)
 	* SFEperl-io-socket-inet6.spec: bump version (2.69)
 	* SFEpen.spec: fix broken download location
+	* SFEnut.spec: fix broken download location
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
