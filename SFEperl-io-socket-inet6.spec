@@ -5,7 +5,7 @@
 # (needed by: Net-DNS)
 #
 
-%define module_version 2.56
+%define module_version 2.69
 %define module_name IO-Socket-INET6
 %define module_name_major IO
 %define module_package_name io-socket-inet6
@@ -72,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- version bump
 * Tue Nov 29 2011 - Thomas Wagner
 - add IPS_package_name library/perl-5/net-dns
 * Fri Jun 23 2011 - Thomas Wagner

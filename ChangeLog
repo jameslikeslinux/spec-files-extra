@@ -29,6 +29,7 @@
 	* SFEquagga.spec: fix download location
 	* SFEprozilla.spec: fix download location (project seems dead)
 	* SFEperl-netaddr-ip.spec: bump version (4.059)
+	* SFEperl-io-socket-inet6.spec: bump version (2.69)
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
