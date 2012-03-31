@@ -11,6 +11,7 @@
 	* SFEtorsmo.spec: fix download location
 	* SFEtin.spec: fix download location
 	* SFEswt.spec: fix download location
+	* SFEsip.spec: fix download location
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
