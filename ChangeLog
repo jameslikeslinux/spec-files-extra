@@ -32,6 +32,7 @@
 	* SFEperl-io-socket-inet6.spec: bump version (2.69)
 	* SFEpen.spec: fix broken download location
 	* SFEnut.spec: fix broken download location
+	* SFEntfs-3g.spec: temporary download location (tuxera does not keep old versions)
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 

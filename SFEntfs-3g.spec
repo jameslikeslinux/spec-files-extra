@@ -14,7 +14,9 @@ Name:                    SFEntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
 Version:                 2011.1.15
 License:                 GPLv2
-Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
+#Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
+#temporary download location (tuxera does not keep old versions):
+Source:                  http://pkgs.fedoraproject.org/repo/pkgs/ntfs-3g/ntfs-3g-2011.1.15.tgz/15a5cf5752012269fa168c24191f00e2/ntfs-3g-2011.1.15.tgz
 Url:                     http://www.tuxera.com/community/ntfs-3g-download/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -120,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Sat Jan 28 2012 - Thomas Wagner
 - use gcc3 (or get missing definitions for __BYTE_ORDER)
 * Wed Jan 11 2012 - Thomas Wagner
