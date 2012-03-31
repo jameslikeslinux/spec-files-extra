@@ -8,7 +8,7 @@
 Name:                    SFErsync
 Summary:                 rsync - fast incremental file transfer (%{_basedir}/gnu/bin/rsync)
 URL:                     http://rsync.samba.org/
-Version:                 3.0.8
+Version:                 3.0.9
 Source:                  http://rsync.samba.org/ftp/rsync/rsync-%{version}.tar.gz
 License:		 GPLv3
 SUNW_Copyright:		 rsync.copyright
@@ -65,6 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- rsync 3.0.9
 * Mon Jul 25 2011 - N.B.Prashanth
 - Add SUNW_Copyright
 * Fri Apr 01 20011 - Thomas Wagner
