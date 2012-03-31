@@ -3,6 +3,7 @@
 	* SFEmurrine-engine.spec: fix project url, download location
 	* SFEmtools.spec: temporary download location (they do not keep <4.0 files)
 	* copyright/SFEmpack.copyright: add missing copyright
+	* SFElibpigment.spec: update project & download location
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
