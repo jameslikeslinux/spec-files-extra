@@ -103,6 +103,9 @@ packagenamemacros: _prefix/mysql_default_libdir			%{_prefix}/%{mysql_default_lib
 packagenamemacros: mysql_version				%{mysql_version}
 packagenamemacros: mysql_major_version				%{mysql_major_version}
 packagenamemacros: mysql_major_minor_version			%{mysql_major_minor_version}
+packagenamemacros: pnm_requires_java_runtime_default	%{pnm_requires_java_runtime_default}
+packagenamemacros: pnm_requires_java_runtime_default_32       %{pnm_requires_java_runtime_default_32}
+packagenamemacros: pnm_requires_java_runtime_default_64       %{pnm_requires_java_runtime_default_64}
 " >/dev/null
 
 
@@ -135,6 +138,8 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Sat Mar 31 2012 - Thomas Wagner
+- add java examples
 * Tue Aug  2 2011 - Thomas Wagner
 - add mysql examples
 - display more perl versions
