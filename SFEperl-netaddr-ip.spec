@@ -5,8 +5,8 @@
 #
 
 #note: download file version differs from package version (for IPS not accepting "015" / leading zero)
-%define module_version 4.26
-%define module_version_download 4.026
+%define module_version 4.59
+%define module_version_download 4.059
 
 %define module_name NetAddr-IP
 %define module_name_major NetAddr
@@ -84,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- version bump
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
