@@ -52,7 +52,6 @@ Requires: %name-root
 %package root
 Summary:	%{summary} - / filesystem
 SUNW_BaseDir:	/
-Requires:	%name
 
 %description
 Dovecot IMAP and POP3 Email Server. Also usable for SMTP_AUTH.
@@ -159,6 +158,8 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Sat Mar 17 2012 - Thomas Wagner
+- remove Requires: %name from the SFEdovecot-root package to get correct install order
 * Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.1.1
 * Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
