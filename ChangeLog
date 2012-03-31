@@ -1,5 +1,6 @@
 2012-04-01 Pavel Heimlich <tropikhajma@gmail.com>
 	* SFEnetspeed-applet.spec:fix download location, micro version bump
+	* SFEmurrine-engine.spec: fix project url, download location
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
