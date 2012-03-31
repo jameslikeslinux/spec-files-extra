@@ -231,3 +231,18 @@ verify that nvidia package does not change compile results of packages. If it do
 deprecate adding Requires: nvidia. It can be set as BuildRequires: if that changes
 the resulting package in an imporant way. Examples: ffmpeg compiles with nvidia
 package present or absend, binary compare and/or functional and/or performance comparison.
+
+45)
+check those package names SVR4 and IPS for always lowercase (and spec file filenames)
+Update new names in (Build)Requires of other spec files as well
+SFEXaw3d
+(search for more)
+
+46)
+set categories for all packages (at least for those which alread have IPS_package_names)
+search for example packages with more then one category, to have multi-purpose packages
+appear in all relevant category displays
+package name                   category
+xypackage                      xycategory-first
+xypackage                      xycategory-second
+zzpackage                      zzcategory
