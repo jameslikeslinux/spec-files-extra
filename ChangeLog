@@ -1,3 +1,11 @@
+2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * experimental/SFEphpldapadmin.spec: initial spec, needs php 5.3.x
+        * include/packagenames.define.allbuilds.inc: add pnm for java, SUNWltdl,
+          SUNWbtool, fix samba package names around build 170++
+        * base-specs/packagenamemacros.spec: add example for java
+        * SFEdovecot.spec: remove Requires: %name from SFEdovecot-root
+
 2012-03-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEderby.spec: initial spec.
