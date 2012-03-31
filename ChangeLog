@@ -9,6 +9,7 @@
 	* base-specs/gd.spec: fix download location
 	* SFElibdatrie.spec: fix file list
 	* SFEtorsmo.spec: fix download location
+	* SFEtin.spec: fix download location
 
 2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
 
