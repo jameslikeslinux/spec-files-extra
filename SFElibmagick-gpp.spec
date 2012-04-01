@@ -9,7 +9,9 @@
 %include base.inc
 
 %define src_name	ImageMagick
-%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
+#%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
+#upstream does not keep old versions, provide alternate url:
+%define src_url                http://ftp.sunet.se/pub/multimedia/graphics/ImageMagick
 %define major		6.7.4
 %define minor		2
 
@@ -90,6 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Fri Dec 30 2011 - Milan Jurik
 - fork from SFEimagemagick for g++ libs
 * Thu Dec 8 2011 - Ken Mays <kmays2000@gmail.com>

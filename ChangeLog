@@ -13,6 +13,7 @@
 	* SFEmaildrop: upstream does not keep such old versions, use alternate location
 	* SFElprng.spec: add IPS friendly version number
 	* SFElibtasn1.spec: fix download location
+	* SFElibmagick-gpp.spec: upstream does not keep old versions, provide alternate url
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
