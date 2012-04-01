@@ -15,6 +15,7 @@
 	* SFElibtasn1.spec: fix download location
 	* SFElibmagick-gpp.spec: upstream does not keep old versions, provide alternate url
 	* copyright/SFEliblouisxml.copyright: add missing copyright
+	* SFEgsslib.spec: source url has changed since the past decade
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
