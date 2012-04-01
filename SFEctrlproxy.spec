@@ -10,12 +10,12 @@
 Name:                SFEctrlproxy
 Summary:             ctrlproxy - Detachable IRC proxy
 Version:             3.0.8
-Source:              http://www.ctrlproxy.org/releases/ctrlproxy-%{version}.tar.gz
+Source:              http://www.samba.org/~jelmer/ctrlproxy/releases/ctrlproxy-%{version}.tar.gz
 Patch1:              ctrlproxy-01-solaris.diff
 Patch2:              ctrlproxy-02-sunpro.diff
 Patch3:              ctrlproxy-03-daemon.diff
 Patch4:              ctrlproxy-04-services.diff
-Url:                 http://www.ctrlproxy.org/
+Url:                 http://www.samba.org/~jelmer/ctrlproxy
 License:             GPLv3
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -116,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix source url
 * Tue Oct 15 2009 - trisk@opensolaris.org
 - Add patch3.
 - Add patch4. 

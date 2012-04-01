@@ -25,6 +25,7 @@
 	* SFElib3ds.spec: project moved, provide temporary src_url, since upstream no longer keeps old versions
 	* base-specs/expat.spec: use generic sourceforge url
 	* SFEbusybox.spec: upstream no longer ships .gz, they use .bz2 only
+	* SFEctrlproxy.spec: project has moved, fix urls
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
