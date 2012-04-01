@@ -19,12 +19,11 @@ Name:                    SFEopenafs
 IPS_Package_Name:        system/file-system/openafs
 Summary:                 OpenAFS - Distributed file system
 Group:                   Utility
-Version:                 1.6.1.4
+Version:                 1.6.1
 License: 		 IBM Public License Version 1.0
 Patch1:                  openafs-01-configure.diff
 Patch2:                  openafs-02-afs-rc.diff
-#Source:                  http://openafs.org/dl/openafs/candidate/%{version}/%{srcname}-%{version}-src.tar.bz2
-Source:                  http://openafs.org/dl/openafs/candidate/%{version}/%{srcname}-1.6.1pre4-src.tar.bz2
+Source:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-%{version}-src.tar.bz2
 Source2:                 openafs.xml
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -47,8 +46,7 @@ source available for community development and maintenance. They
 called the release OpenAFS.
 
 %prep
-#%setup -q -n %{srcname}-%{version}
-%setup -q -n %{srcname}-1.6.1pre4
+%setup -q -n %{srcname}-%{version}
 %patch1 -p1
 %patch2 -p1
 
@@ -113,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/openafs.xml
 
 %changelog
+* Sat Mar 31 2012 Logan Bruns <logan@gedanken.org>
+- Updated to 1.6.1
 * Thu Mar 8 2012 Logan Bruns <logan@gedanken.org>
 - Updated to 1.6.1pre4, added manifest, added ips name and relocated into standard directories
 * Mon Nov 26 2007 Petr Sobotka <sobotkap@centrum.cz>

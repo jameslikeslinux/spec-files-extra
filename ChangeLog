@@ -1,4 +1,9 @@
+2012-03-31  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEopenafs.spec: updated to 1.6.1.
+
 2012-04-01 Pavel Heimlich <tropikhajma@gmail.com>
+
 	* SFEnetspeed-applet.spec:fix download location, micro version bump
 	* SFEmurrine-engine.spec: fix project url, download location
 	* SFEmtools.spec: temporary download location (they do not keep <4.0 files)
