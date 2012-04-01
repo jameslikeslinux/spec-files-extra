@@ -1,3 +1,7 @@
+2012-04-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElives.spec: bump to 1.6.1
+
 2012-03-31  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* experimental/SFEopenafs.spec: updated to 1.6.1.
