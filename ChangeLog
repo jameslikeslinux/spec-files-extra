@@ -23,6 +23,7 @@
 	* SFElibdvdplay.spec: package gone from upstream, providing alternate source
 	* SFElibcryptopp.spec: define missing src_url
 	* SFElib3ds.spec: project moved, provide temporary src_url, since upstream no longer keeps old versions
+	* base-specs/expat.spec: use generic sourceforge url
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
