@@ -9,6 +9,7 @@
 	* SFEmtools.spec: temporary download location (they do not keep <4.0 files)
 	* copyright/SFEmpack.copyright: add missing copyright
 	* SFElibpigment.spec: update project & download location
+	* SFEmc.spec: fix download location (snapshot no longer available), make IPS friendly
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
