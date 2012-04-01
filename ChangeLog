@@ -36,6 +36,7 @@
 	* SFEfireflies.spec: source url has changed slightly
 	* SFEemacs.spec: bump to 23.3b, workaround for Studio 12.3
 	* SFEfox.spec: source url has changed slightly
+	* SFEfreetds.spec: upstream moved this version to /old
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
