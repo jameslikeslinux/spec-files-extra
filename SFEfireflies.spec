@@ -9,9 +9,9 @@
 
 Name:                    SFEfireflies
 Summary:                 Fireflies screensaver
-URL:                     http://somewhere.fscked.org/fireflies/
+URL:                     http://somewhere.fscked.org/proj/fireflies/
 Version:                 2.07
-Source:                  http://somewhere.fscked.org/fireflies/fireflies-%{version}.tar.gz
+Source:                  http://somewhere.fscked.org/proj/fireflies/files/fireflies-%{version}.tar.gz
 Patch1:                  fireflies-01-sunpro.diff
 Patch2:                  fireflies-02-solaris.diff
 SUNW_BaseDir:            %{_basedir}
@@ -88,5 +88,7 @@ rm -rf $RPM_BUILD_ROOT%{_prefix}/X11R6
 #%{_prefix}/X11/lib/xscreensaver/config/control-center-2.0/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix source url
 * Fri Mar 07 2008 - trisk@acm.jhu.edu
 - Initial spec

@@ -33,6 +33,7 @@
 	* SFEdante.spec: upstream moved old versions to another dir - fix url
 	* SFEemerald-themes.spec: this is so old upstream removed it already. Alternate location provided.
 	* SFEgeoclue.spec: download location broke, replace with launchpad
+	* SFEfireflies.spec: source url has changed slightly
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
