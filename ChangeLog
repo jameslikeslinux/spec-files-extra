@@ -12,6 +12,7 @@
 	* SFEmc.spec: fix download location (snapshot no longer available), make IPS friendly
 	* SFEmaildrop: upstream does not keep such old versions, use alternate location
 	* SFElprng.spec: add IPS friendly version number
+	* SFElibtasn1.spec: fix download location
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
