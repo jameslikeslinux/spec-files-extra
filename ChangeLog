@@ -27,6 +27,7 @@
 	* SFEbusybox.spec: upstream no longer ships .gz, they use .bz2 only
 	* SFEctrlproxy.spec: project has moved, fix urls
 	* SFEdante.spec: upstream moved old versions to another dir - fix url
+	* SFEemerald-themes.spec: this is so old upstream removed it already. Alternate location provided.
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
