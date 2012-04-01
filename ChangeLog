@@ -17,6 +17,7 @@
 	* copyright/SFEliblouisxml.copyright: add missing copyright
 	* SFEgsslib.spec: source url has changed since the past decade
 	* SFElibdvdplay.spec: package gone from upstream, providing alternate source
+	* SFElibcryptopp.spec: define missing src_url
 
 2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
 
