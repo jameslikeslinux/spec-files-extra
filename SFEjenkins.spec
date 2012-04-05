@@ -17,7 +17,7 @@ Name:                    SFEjenkins
 IPS_Package_Name:	 developer/build/jenkins
 Summary:                 Jenkins - Extensible continuous integration server
 Group:                   Utility
-Version:                 1.456
+Version:                 1.458
 URL:		         http://jenkins-ci.org
 Source:		         http://mirrors.jenkins-ci.org/war/%{version}/jenkins.war
 Source2:                 jenkins.xml
@@ -83,6 +83,8 @@ user ftpuser=false gcos-field="Jenkins Reserved UID" username="jenkins" password
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/jenkins.xml
 
 %changelog
+* Wed Apr 4 2012 - Logan Bruns <logan@gedanken.org>
+- Bump to 1.458.
 * Mon Mar 26 2012 - Logan Bruns <logan@gedanken.org>
 - Bump to 1.456.
 * Tue Mar 13 2012 - Logan Bruns <logan@gedanken.org>
