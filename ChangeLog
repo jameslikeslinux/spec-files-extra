@@ -1,3 +1,7 @@
+2012-04-07  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: added a smf property to control max heap size.
+
 2012-04-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEjenkins.spec: bump to 1.458.

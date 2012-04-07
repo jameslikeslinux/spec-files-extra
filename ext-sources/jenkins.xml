@@ -31,6 +31,9 @@
         <propval name='http_address' type='astring' value='0.0.0.0'/>
         <propval name='ajp_port' type='integer' value='-1'/>
       </property_group>
+      <property_group name='process' type='application'>
+        <propval name='max_heap' type='astring' value='768m'/>
+      </property_group>
       <template>
 	<common_name>
           <loctext xml:lang='C'>Jenkins - Extensible continuous integration server</loctext>
