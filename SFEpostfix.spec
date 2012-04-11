@@ -399,7 +399,6 @@ make -j$CPUS DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
 
 #somehow manpages where missing from the build
 export PATH=$PATH:${RPM_BUILD_DIR}/%{src_name}-%{version}/mantools
-bash
 make manpages
 
 
@@ -905,6 +904,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Tue Apr 10 2012 - Thomas Wagner
+- remove "bash" shell (debugging). Sorry was a left over...
 * Sun Mar 11 2012 - Thomas Wagner
 - fix build 2.9.1 remove patch3 (remove HAS_NISPLUS), replaced by sed
   repair missing manpages
