@@ -9,11 +9,11 @@
 
 Name:           SFEopenttd
 IPS_Package_Name:	games/openttd
-Version:        1.1.4
+Version:        1.1.5
 Summary:        Transport system simulation game
 Source:         http://binaries.openttd.org/releases/%{version}/%{src_name}-%{version}-source.tar.gz
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.7/opengfx-0.3.7.zip
-Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.4.3/opengfx-0.4.3.zip
+Source2:	http://bundles.openttdcoop.org/opensfx/releases/0.2.3/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
 URL:		http://www.openttd.org/
@@ -154,6 +154,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Fri Apr 13 2012 - Milan Jurik
+- bump to 1.1.5
 * Fri Dec 23 2011 - Milan Jurik
 - bump to 1.1.4
 * Mon Oct 17 2011 - Milan Jurik
