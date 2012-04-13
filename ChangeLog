@@ -1,3 +1,7 @@
+2012-04-13 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscponly.spec: initial spec
+
 2012-04-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEatlas.spec: initial spec.
