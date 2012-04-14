@@ -1,5 +1,6 @@
 2012-04-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEjenkins.spec: switch to java package name macro and bump to 1.459.
 	* SFEatlas.spec: force 32 bit build to match lapack sfe build.
 
 2012-04-13 Milan Jurik <sfnet@xylab.cz>

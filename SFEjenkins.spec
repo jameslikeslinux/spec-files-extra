@@ -10,6 +10,7 @@
 
 %include base.inc
 %define _basedir /
+%include packagenamemacros.inc
 
 %define srcname jenkins
 
@@ -17,7 +18,7 @@ Name:                    SFEjenkins
 IPS_Package_Name:	 developer/build/jenkins
 Summary:                 Jenkins - Extensible continuous integration server
 Group:                   Utility
-Version:                 1.458
+Version:                 1.459
 URL:		         http://jenkins-ci.org
 Source:		         http://mirrors.jenkins-ci.org/war/%{version}/jenkins.war
 Source2:                 jenkins.xml
@@ -27,7 +28,7 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: runtime/java
+Requires: %pnm_requires_java_runtime_default
 
 %description
 Jenkins is a powerful and widely used open source continuous
@@ -83,6 +84,8 @@ user ftpuser=false gcos-field="Jenkins Reserved UID" username="jenkins" password
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/jenkins.xml
 
 %changelog
+* Fri Apr 13 2012 - Logan Bruns <logan@gedanken.org>
+- Switch to java package name macro and bump to 1.459.
 * Sat Apr 7 2012 - Logan Bruns <logan@gedanken.org>
 - Added a smf property to control max heap size.
 * Wed Apr 4 2012 - Logan Bruns <logan@gedanken.org>
