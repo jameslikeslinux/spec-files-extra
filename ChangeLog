@@ -1,3 +1,8 @@
+2012-04-14  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEr.spec: initial spec.
+	* copyright/SFEr.copyright
+
 2012-04-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEjenkins.spec: switch to java package name macro and bump to 1.459.
