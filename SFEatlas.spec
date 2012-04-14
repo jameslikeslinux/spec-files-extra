@@ -54,7 +54,8 @@ export LDFLAGS="%_ldflags"
 ../ATLAS/configure --prefix=%{_prefix}			\
                    --incdir=%{_includedir}              \
                    --libdir=%{_libdir}/atlas            \
-                   --with-netlib-lapack=/usr/lib/liblapack.a 
+                   --with-netlib-lapack=/usr/lib/liblapack.a \
+                   -b 32
 
 # Don't use a top level parallel build. Atlas will invoke a parallel
 # build for portions as appropriate
@@ -80,5 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atlas/*
 
 %changelog
+* Fri Apr 13 2012 - Logan Bruns <logan@gedanken.org>
+- Force 32 bit build to match lapack sfe build.
 * Thu Apr 12 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
