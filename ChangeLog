@@ -1,3 +1,7 @@
+2012-04-15 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscantailor.spec: Initial spec
+
 2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEasterisk.spec: bump to 1.8.11.0
