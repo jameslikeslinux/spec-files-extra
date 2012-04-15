@@ -1,5 +1,8 @@
 2012-04-14  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEr-atlas.spec: rename to SFEr-atlas to keep atlas version
+	separate. Maybe merge or remove old one if we change SFEatlas to
+	be multiarch to better support the binary version of R plus atlas.
 	* SFEr.spec: initial spec.
 	* copyright/SFEr.copyright
 

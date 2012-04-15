@@ -1,7 +1,7 @@
 #
-# spec file for package SFEr
+# spec file for package SFEr-atlas
 #
-# includes module(s): r
+# includes module(s): r-atlas
 #
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
@@ -14,8 +14,8 @@
 
 %define srcname R
 
-Name:                    SFEr
-IPS_Package_Name:	 math/r
+Name:                    SFEr-atlas
+IPS_Package_Name:	 math/r-atlas
 Summary:                 R - GNU S
 Group:                   Utility
 Version:                 2.15.0
@@ -36,6 +36,12 @@ developed at Bell Laboratories by John Chambers et al. It provides a
 wide variety of statistical and graphical techniques (linear and
 nonlinear modelling, statistical tests, time series analysis,
 classification, clustering, ...).
+
+# Note that this variant of R is built with ATLAS (Automatically Tuned
+# Linear Algebra Software) which is probably what you want if you are
+# building R for yourself but may not be if you are building shared
+# binaries since you lose some of the benefit of the tuning. (At some
+# point we should probably have multiarch for ATLAS.)
 
 %prep
 rm -rf %name-%version
@@ -78,4 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sat Apr 14 2012 - Logan Bruns <logan@gedanken.org>
+- Rename to SFEr-atlas to keep atlas version separate. Maybe merge or
+  replace old one if we change SFEatlas to be multiarch to better
+  support the binary version of R plus atlas.
 - Initial spec.
