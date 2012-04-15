@@ -1,3 +1,7 @@
+2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.11.0
+
 2012-04-14  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFER.spec: bumped to 2.15.0, switched to use gnu iconv since

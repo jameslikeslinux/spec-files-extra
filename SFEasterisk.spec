@@ -10,7 +10,7 @@
 %include base.inc
 
 %define src_name   asterisk
-%define src_version    1.8.10.1
+%define src_version    1.8.11.0
 
 Name:         	SFE%{src_name}
 IPS_Package_Name:	 voip/asterisk
@@ -120,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Sun Apr 15 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.11.0
 * Sat Mar 24 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.8.10.1
 * Thu Mar 8 2012 - Logan Bruns <logan@gedanken.org>
