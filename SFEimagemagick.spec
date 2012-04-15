@@ -26,6 +26,8 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SFEjasper-devel
 Requires:	SFEjasper
+BuildRequires:	SUNWlibrsvg-devel
+Requires:	SUNWlibrsvg
 
 %package devel
 Summary:                 %{summary} - development files
