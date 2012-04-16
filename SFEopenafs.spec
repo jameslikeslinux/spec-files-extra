@@ -1,5 +1,5 @@
 #
-# spec file for package SFEopenafs.spec
+# spec file for package SFEopenafs
 #
 # includes module(s): openafs
 #
@@ -25,7 +25,8 @@ Patch1:                  openafs-01-configure.diff
 Patch2:                  openafs-02-afs-rc.diff
 #Source:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-%{version}-src.tar.bz2
 Source:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-1.6.1-src.tar.bz2
-Source2:                 openafs.xml
+Source2:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-1.6.1-doc.tar.bz2
+Source3:                 openafs.xml
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -52,8 +53,10 @@ called the release OpenAFS.
 %patch1 -p1
 %patch2 -p1
 
+(cd .. ; tar xjf %{SOURCE2} )
+
 #openafs manifest
-cp -p %{SOURCE2} openafs.xml
+cp -p %{SOURCE3} openafs.xml
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -111,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/init.d/openafs
 %dir %attr (0755, root, sys) /etc/openafs
 /etc/openafs/*
+/usr/share/man/man1/*
+/usr/share/man/man5/*
+/usr/share/man/man8/*
 %dir %attr (0755, root, sys) /var/openafs
 %dir %attr (0755, root, sys) /var/openafs/logs
 %dir %attr (0755, root, sys) /afs
