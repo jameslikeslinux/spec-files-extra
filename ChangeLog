@@ -1,3 +1,8 @@
+2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: relocated some directories and moved package
+	out of experimental
+
 2012-04-15 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEscantailor.spec: Initial spec
