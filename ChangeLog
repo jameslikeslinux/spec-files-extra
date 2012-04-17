@@ -1,5 +1,7 @@
 2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEopenafs.spec: Fixed some permissions and removed some
+	unnecessary and conflicting files.
 	* SFEaspell.spec: fixed permissions.
 	* SFEderby.spec: use java package names macro and fix some permissions.
 	* SFEwxmaxima.spec: initial spec.

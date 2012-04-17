@@ -79,6 +79,10 @@ make -j$CPUS
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
+# remove extra files that aren't need for krb5 use
+rm $RPM_BUILD_ROOT/usr/bin/kpasswd
+rm $RPM_BUILD_ROOT/usr/share/man/man1/kpasswd.1
+
 # install kernel module
 mkdir -p $RPM_BUILD_ROOT/kernel/drv/amd64
 cp $RPM_BUILD_ROOT/usr/lib/openafs/libafs64.nonfs.o $RPM_BUILD_ROOT/kernel/drv/amd64/afs
@@ -114,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/init.d/openafs
 %dir %attr (0755, root, sys) /etc/openafs
 /etc/openafs/*
+%defattr (-, root, bin)
 /usr/share/man/man1/*
 /usr/share/man/man5/*
 /usr/share/man/man8/*
@@ -126,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/openafs.xml
 
 %changelog
+* Mon Apr 16 2012 Logan Bruns <logan@gedanken.org>
+- Fixed some permissions and removed some unnecessary and conflicting files.
 * Sun Apr 15 2012 Logan Bruns <logan@gedanken.org>
 - Relocated some directories and moved package out of experimental
 * Sat Mar 31 2012 Logan Bruns <logan@gedanken.org>
