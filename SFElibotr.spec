@@ -80,7 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_includedir}/libotr
 %{_includedir}/libotr/*.h
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, sys) %{_datadir}/aclocal
+%dir %attr (0755, root, other) %{_datadir}/aclocal
 %{_datadir}/aclocal/libotr.m4
 
 %changelog
