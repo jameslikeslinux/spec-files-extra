@@ -1,3 +1,7 @@
+2012-04-17  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEmaxima.spec: fixed permissions and removed a conflicting file.
+
 2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFExar.spec: fixed some permissions.

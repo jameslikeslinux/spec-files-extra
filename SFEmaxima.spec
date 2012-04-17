@@ -66,6 +66,7 @@ make -j$CPUS
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+rm $RPM_BUILD_ROOT/usr/share/info/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -74,13 +75,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
+%dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, bin) %{_libdir}/maxima
 %{_libdir}/maxima/*
-%dir %attr (0755, root, bin) %{_datadir}/maxima
+%defattr (-, root, sys)
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}/maxima
 %{_datadir}/maxima/*
+%dir %attr (0755, root, bin) %{_mandir}
+%dir %attr (0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
+%dir %attr (0755, root, bin) %{_datadir}/info
 %{_datadir}/info/*
 
 %changelog
+* Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed permissions and removed a conflicting file.
 * Tue Mar 13 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
