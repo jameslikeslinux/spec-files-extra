@@ -57,6 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, sys)
+%dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, sys) %{_datadir}/db-derby
 %{_datadir}/db-derby/*
 %defattr (-, root, bin)
