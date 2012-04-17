@@ -26,6 +26,7 @@
 %use wxwidgets_gnu = wxwidgets-gnu.spec
 
 Name:                    SFEwxwidgets-gpp
+IPS_Package_Name:	 library/graphics/g++/wxwidgets
 Summary:                 wxWidgets - Cross-Platform GUI Library (g++)
 Group:                   Desktop (GNOME)/Libraries
 URL:                     http://wxwidgets.org/
@@ -160,6 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
+- Enabled xml (--use-expat) and added IPS package name.
 * Mon Jul 18 2011 - Alex Viskovatoff
 - Add -fpermissive flag to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff

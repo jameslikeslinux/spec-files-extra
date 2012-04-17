@@ -88,12 +88,11 @@ perl -pi -e 's,PATH=".*\$PATH",:,' configure
 %if %{is_s10}
             --without-gnomeprint		\
             --without-gnomevfs			\
-            --with-expat                        \
 %else
             --with-gnomeprint			\
             --with-gnomevfs			\
-            --without-expat                     \
 %endif
+            --with-expat                        \
             --enable-unicode			\
             --enable-mimetype			\
             --enable-gui			\

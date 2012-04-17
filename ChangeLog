@@ -1,3 +1,9 @@
+2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEwxwidgets-gpp.spec: Enabled xml (--use-expat) and added IPS
+	package name.
+	* base-specs/wxwidgets-gnu.spec
+
 2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEopenafs.spec: relocated some directories and moved package
