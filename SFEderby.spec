@@ -7,6 +7,7 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define srcname db-derby
 
@@ -22,7 +23,7 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: runtime/java
+Requires: %pnm_requires_java_runtime_default
 
 %description
 Apache Derby, an Apache DB subproject, is an open source relational
@@ -55,11 +56,14 @@ ln -s %{_datadir}/db-derby/bin/ij $RPM_BUILD_ROOT/usr/bin/ij
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr (-, root, other)
-%dir %attr(0755, root, other) %{_datadir}/db-derby
+%defattr (-, root, sys)
+%dir %attr(0755, root, sys) %{_datadir}/db-derby
 %{_datadir}/db-derby/*
+%defattr (-, root, bin)
 %{_bindir}/ij
 
 %changelog
+* Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
+- Use java package names macro and fix some permissions
 * Mon Mar 30 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
