@@ -86,11 +86,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ecl-%{version}/*
 %dir %attr(0755, root, sys) %{_includedir}/ecl
 %{_includedir}/ecl/*
+%dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed some permissions.
 * Sat Mar 24 2012 - Logan Bruns <logan@gedanken.org>
 - Added --enable-threads flag.
 * Mon Mar 12 2012 - Logan Bruns <logan@gedanken.org>
