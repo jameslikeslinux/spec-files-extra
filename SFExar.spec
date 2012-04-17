@@ -73,8 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr(0755, root, sys) %{_datadir}
-%dir %attr(0755, root, sys) %{_includedir}
-%dir %attr(0755, root, sys) %{_includedir}/xar
+%dir %attr(0755, root, bin) %{_includedir}
+%dir %attr(0755, root, bin) %{_includedir}/xar
 %{_includedir}/xar/*
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
@@ -83,5 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libxar.*
 
 %changelog
+* Mon Apr 16 2012 Logan Bruns <logan@gedanken.org>
+- Fixed some permissions.
 * Sun Feb 21 2012- logan@gedanken.org
 - Initial spec.
