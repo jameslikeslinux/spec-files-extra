@@ -97,8 +97,8 @@ user ftpuser=false gcos-field="BitlBee Reserved UID" username="bitlbee" password
 /usr/share/man/man5/*
 %dir %attr (0755, root, bin) /usr/share/man/man8
 /usr/share/man/man8/*
-%dir %attr (0755, root, bin) /usr/share
-%dir %attr (0755, root, bin) /usr/share/bitlbee
+%dir %attr (0755, root, sys) /usr/share
+%dir %attr (0755, root, sys) /usr/share/bitlbee
 /usr/share/bitlbee/*
 
 %dir %attr(0755, bitlbee, root) /var/lib/bitlbee
@@ -106,6 +106,8 @@ user ftpuser=false gcos-field="BitlBee Reserved UID" username="bitlbee" password
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/bitlbee.xml
 
 %changelog
+* Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed some permissions.
 * Fri Mar 2 2012- Logan Bruns <logan@gedanken.org>
 - New smf manifest, use a different runtime model and switch from gnutls to openssl.
 * Thu Mar 1 2012- Logan Bruns <logan@gedanken.org>
