@@ -65,7 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 #%doc COPYING README
 #%doc manual/aspell.html
-%{_mandir}/*/*
+%dir %attr (0755, root, bin) %{_mandir}
+%dir %attr (0755, root, bin) %{_mandir}/man1
+%{_mandir}/man1/*
+%dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/aspell
 %{_bindir}/aspell-import
 %{_bindir}/run-with-aspell
@@ -73,8 +76,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ispell
 %{_bindir}/pre*
 %{_bindir}/pspell-config
+%defattr (-, root, other)
 %{_libdir}/lib*.so*
+%dir %attr (0755, root, bin) %{_libdir}/aspell
 %{_libdir}/aspell/*
+%dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/locale/*/LC_MESSAGES/aspell.mo
 
 %files devel
@@ -83,6 +89,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
+- fixed permissions.
 * Thu Feb 23 2012 - Logan Bruns <logan@gedanken.org>
 - restored spec, added an ips package name, restored /usr/bin binary placement, and man page installation
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>

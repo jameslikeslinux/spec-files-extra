@@ -1,5 +1,6 @@
 2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEaspell.spec: fixed permissions.
 	* SFEderby.spec: use java package names macro and fix some permissions.
 	* SFEwxmaxima.spec: initial spec.
 	* copyright/SFEwxmaxima.copyright
