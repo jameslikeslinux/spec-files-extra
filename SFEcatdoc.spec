@@ -67,10 +67,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
-%dir %attr (0755, root, bin) %{_datadir}/catdoc
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}/catdoc
 %{_datadir}/catdoc/*
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed some permissions.
 * Fri Mar 16 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
