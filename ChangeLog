@@ -1,5 +1,7 @@
 2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEwxmaxima.spec: initial spec.
+	* copyright/SFEwxmaxima.copyright
 	* SFEwxwidgets-gpp.spec: Enabled xml (--use-expat) and added IPS
 	package name.
 	* base-specs/wxwidgets-gnu.spec
