@@ -105,9 +105,10 @@ cp openafs.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr (-, root, other)
+%defattr (-, root, bin)
 /usr/bin/*
-%dir %attr (0755, root, other) /usr/include/openafs
+%dir %attr (0755, root, bin) /usr/include
+%dir %attr (0755, root, bin) /usr/include/openafs
 /usr/include/openafs/*
 /usr/lib/*
 %defattr (0755, root, sys)
