@@ -106,6 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%dir %attr (0755, root, bin) /usr/bin
 /usr/bin/*
 %dir %attr (0755, root, bin) /usr/include
 %dir %attr (0755, root, bin) /usr/include/openafs
@@ -113,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/*
 %defattr (0755, root, sys)
 /usr/sbin/*
+%dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, sys) /usr/share/openafs/C
 /usr/share/openafs/C/*
 /kernel/drv/amd64/afs
