@@ -1,3 +1,7 @@
+2012-04-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasciidoc.spec: bump to 8.6.7
+
 2012-04-17  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEecl.spec: fixed some permissions.

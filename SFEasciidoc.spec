@@ -11,7 +11,7 @@ IPS_Package_Name:	developer/documentation-tool/asciidoc
 Summary:                 AsciiDoc - Text based document generation
 Group:                   Development/Distribution Tools
 License:                 GPLv2
-Version:                 8.6.6
+Version:                 8.6.7
 URL:                     http://www.methods.co.nz/asciidoc/
 Source:                  %{sf_download}/asciidoc/asciidoc-%{version}.tar.gz
 SUNW_Copyright:          %{name}.copyright
@@ -61,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/asciidoc
 
 %changelog
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 8.6.7
 * Mon Dec 12 2011 - Milan Jurik
 - bump to 8.6.6
 * Mon Jul 11 2011 - Guido Berhoerster
