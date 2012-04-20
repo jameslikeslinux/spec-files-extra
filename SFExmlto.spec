@@ -6,14 +6,14 @@
 %include Solaris.inc
 
 Name:                    SFExmlto
+IPS_Package_Name:	 developer/documentation-tool/xmlto
 Summary:                 xmlto - converts an XML file into a specified format
 Group:                   Utility
-Version:                 0.0.23
+Version:                 0.0.25
 URL:                     http://fedorahosted.org/xmlto/
 Source:                  http://fedorahosted.org/releases/x/m/xmlto/xmlto-%{version}.tar.bz2
 License: 		 GPLv2
 Patch1:                  xmlto-01-find.diff
-Patch2:                  xmlto-02-Makefile-disable-validation.diff
 SUNW_Copyright:          xmlto.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -29,7 +29,6 @@ Requires: SFEgnugetopt
 rm -rf %name-%version
 %setup -q -n xmlto-%version
 %patch1 -p1
-%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -65,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 0.0.25, added ips name and removed now unnecessary patch.
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Tue Apr 05 2011 - Thomas Wagner
