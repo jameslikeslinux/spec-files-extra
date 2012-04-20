@@ -21,7 +21,7 @@
 Name:                SFEgit
 IPS_Package_Name:    developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.9
+Version:             1.7.10
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
@@ -105,7 +105,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 
 # remove unwanted stuff like .packlist and perllocal.pod
-rm -r $RPM_BUILD_ROOT%{_libdir}/site_perl
+rm -rf $RPM_BUILD_ROOT%{_libdir}/site_perl
 rm $RPM_BUILD_ROOT%{_libdir}/*-solaris-*/perllocal.pod
 rmdir $RPM_BUILD_ROOT%{_libdir}/*-solaris-*
 
@@ -141,8 +141,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
+%dir %attr (0755, root, bin) %{_datadir}/locale
+%{_datadir}/locale/*
 
 %changelog
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10, update a patch and update files.
 * Tue Feb 14 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.9
 * Wed Oct 13 2011 - Alex Viskovatoff
