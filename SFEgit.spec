@@ -19,7 +19,7 @@
 %include packagenamemacros.inc
 
 Name:                SFEgit
-IPS_Package_Name:    developer/versioning/git
+IPS_Package_Name:    sfe/developer/versioning/git
 Summary:             Git - the fast version control system
 Version:             1.7.10
 License:             GPLv2
