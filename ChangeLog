@@ -1,5 +1,6 @@
 2012-04-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEcmake.spec: bump to 2.8.8 and enable parallel build.
 	* SFEgit.spec: bump to 1.7.10, update a patch and update files.
 	* patches/git-03-xmlto.diff
 	* SFExmlto.spec: bump to 0.0.25, added ips name and removed now

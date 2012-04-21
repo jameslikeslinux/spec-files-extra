@@ -16,7 +16,7 @@
 Name:		SFEcmake
 IPS_Package_Name:	sfe/developer/build/cmake 
 Summary:	Cross platform make system
-Version:	2.8.7
+Version:	2.8.8
 License:	BSD3c
 SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
@@ -39,10 +39,9 @@ export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
 
 ./configure --prefix=%{_prefix} \
-	    --bindir=%{_bindir}	\
 	    --docdir=/share/doc/cmake \
-	    --libdir=%{_libdir}	\
-	    --mandir=/share/man
+	    --mandir=/share/man \
+            --parallel=$CPUS
 
 #If Ext2 Filesystem headers are present and found, compile errors occur
 #disable this: HAVE_EXT2FS_EXT2_FS_H:INTERNAL=1
@@ -68,6 +67,8 @@ rm -rf %{buildroot}
 %{_docdir}/cmake
 
 %changelog
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 2.8.8 and enable parallel build.
 * Sat Feb 11 2012 - Milan Jurik
 - bump to 2.8.7
 * Tue Oct 11 2011 - Thomas Wagner
