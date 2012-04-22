@@ -429,6 +429,23 @@
 %define pnm_buildrequires_developer_object_file		SUNWbtool
 %define pnm_requires_developer_object_file		SUNWbtool
 
+#various
+%define pnm_buildrequires_SUNWflac_devel	SUNWflac-devel
+%define pnm_requires_SUNWflac			SUNWflac
+%define pnm_buildrequires_SUNWspeex_devel	SUNWspeex-devel
+%define pnm_requires_SUNWspeex			SUNWspeex
+%define pnm_buildrequires_SUNWpangomm_devel	SUNWpangomm-deve√l
+%define pnm_requires_SUNWpangomm		SUNWpangomm
+%define pnm_buildrequires_SUNWpango_devel	SUNWpango-devel
+%define pnm_requires_SUNWpango			SUNWpango
+%define pnm_buildrequires_SUNWglib2_devel	SUNWglib2-devel
+%define pnm_requires_SUNWglib2			SUNWglib2
+%define pnm_buildrequires_SUNWgtk2_devel	SUNWgtk2-devel
+#exceptionally, because it is already in *133*inc
+%define pnm_buildrequires_SUNWgtk2		SUNWgtk2
+%define pnm_requires_SUNWgtk2			SUNWgtk2
+
+
 
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
@@ -1082,6 +1099,8 @@
 # 
 
 %changelog
+* Sun Apr 22 2012 - Thomas Wagner
+- handle SUNWflac SUNWspeex SUNWpangomm SUNWpango SUNWglib2 SUNWgtk2 for SVR4 (S10, SXCE)
 * Sat Mar 31 2012 - Thomas Wagner
 - re-arranged notes and other information for future work
 - add notes about spec files with logic which should be in pnm
