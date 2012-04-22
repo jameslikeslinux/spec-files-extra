@@ -1,7 +1,10 @@
 # =========================================================================== 
 #                    Spec File
 # =========================================================================== 
+
 %include Solaris.inc
+
+%include packagenamemacros.inc
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 # Software specific variable definitions
@@ -42,6 +45,22 @@ Requires: SUNWgnu-gettext
 Requires: SUNWuiu8
 %endif
 
+BuildRequires: %{pnm_buildrequires_SUNWgtk2_devel}
+Requires:      %{pnm_requires_SUNWgtk2}
+BuildRequires: %{pnm_buildrequires_SUNWpango_devel}
+Requires:      %{pnm_requires_SUNWpango}
+BuildRequires: %{pnm_buildrequires_SUNWglib2_devel}
+Requires:      %{pnm_requires_SUNWglib2}
+BuildRequires: %{pnm_buildrequires_SUNWflac_devel}
+Requires:      %{pnm_requires_SUNWflac}
+BuildRequires: %{pnm_buildrequires_SUNWspeex_devel}
+Requires:      %{pnm_requires_SUNWspeex}
+BuildRequires: SFElibid3tag-devel
+Requires:      SFElibid3tag
+#C++ by studio compilers:
+BuildRequires: SUNWid3lib-devel
+Requires:      SUNWid3lib
+
 %if %build_l10n
 %package l10n
 Summary:                 %{summary} - l10n files
@@ -69,7 +88,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -I/usr/include/id3"
+export CXXFLAGS="%cxx_optflags -I/usr/include/id3"
 export LDFLAGS="%{_ldflags} -lnsl"
 %if %option_with_gnu_iconv
 export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
@@ -81,9 +101,11 @@ export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
             --libdir=%{_libdir} \
             --bindir=%{_bindir} \
             --sysconfdir=%{_sysconfdir} \
-            --disable-mp4
+            --disable-mp4 \
+            --disable-static \
+            --enable-dynamic
 
-make -j$CPUS
+gmake -j$CPUS
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 # Install-Section 
@@ -91,7 +113,7 @@ make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+gmake DESTDIR=$RPM_BUILD_ROOT install
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 
 %if %build_l10n
@@ -129,6 +151,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Apr 21 2012 - Thomas Wagner
+- add missing dependencies
+- use pnm_macros
+- repair compile to really include id3lib
 * Tue Sep 28 2011 - Alex Viskovatoff
 - disable mp4, which breaks the build
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
