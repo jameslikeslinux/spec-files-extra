@@ -1,0 +1,26 @@
+--- easytag-2.1.7/src/mp4_header.c.orig	2012-04-22 17:43:43.357609301 +0200
++++ easytag-2.1.7/src/mp4_header.c	2012-04-22 17:42:17.686702390 +0200
+@@ -107,6 +107,10 @@
+ 
+ #define NUMBER_OF(A) (sizeof(A) / sizeof(A[0]))
+ 
++#define u_int8_t uint8_t
++#define u_int16_t uint16_t
++#define u_int32_t uint32_t
++#define u_int64_t uint64_t
+ 
+ /**************
+  * Prototypes *
+--- easytag-2.1.7/src/mp4_tag.c.orig	2012-04-22 17:44:26.853455662 +0200
++++ easytag-2.1.7/src/mp4_tag.c	2012-04-22 17:42:17.687256932 +0200
+@@ -57,6 +57,10 @@
+  * Declarations *
+  ****************/
+ 
++#define u_int8_t uint8_t
++#define u_int16_t uint16_t
++#define u_int32_t uint32_t
++#define u_int64_t uint64_t
+ 
+ /**************
+  * Prototypes *
