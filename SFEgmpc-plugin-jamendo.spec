@@ -35,7 +35,6 @@ This plugin requires JsonGlib to work.
 %{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 #%{_datadir}/gmpc-%{pluginname}/icons/*
-%{_datadir}/gmpc/plugins/%{pluginname}/*png
 %dir %attr (0755, root, other) %{_datadir}/gmpc
 %{_datadir}/gmpc/*
 
@@ -46,3 +45,4 @@ This plugin requires JsonGlib to work.
 %changelog
 * Tue Apr 24 2012 - Thomas Wagner
 - initial spec
+- fix double inclusion in %files
