@@ -9,10 +9,12 @@
 %include Solaris.inc
 
 %include base.inc
-%define _basedir /
 %include packagenamemacros.inc
 
 %define srcname jenkins
+%define runuser jenkins
+#use random number by userid tool %define runuserid jenkins
+%define runusergroup other
 
 Name:                    SFEjenkins
 IPS_Package_Name:	 developer/build/jenkins
@@ -25,10 +27,17 @@ Source2:                 jenkins.xml
 Source3:                 jenkins.sh
 License: 		 MIT
 SUNW_Copyright:          %{name}.copyright
-SUNW_BaseDir:            %{_basedir}
+SUNW_BaseDir:            /var
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: %pnm_requires_java_runtime_default
+
+Requires: %name-root
+
+#delivers username and SMF manifest
+%package root
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 
 %description
 Jenkins is a powerful and widely used open source continuous
@@ -67,25 +76,54 @@ mkdir -p $RPM_BUILD_ROOT/var/log/jenkins
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp jenkins.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 
+%{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %actions
-user ftpuser=false gcos-field="Jenkins Reserved UID" username="jenkins" password=NP group="other" home-dir="/var/lib/jenkins"
+#you my at the top of the file %define runuserid (numeric) and add here: uid=%{runuserid}
+user ftpuser=false gcos-field="Jenkins Reserved UID" username="%{runuser}" password=NP group="other" home-dir="/var/lib/jenkins"
+
+
+%pre root
+test -x $BASEDIR/var/lib/postrun/postrun || exit 0
+( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
+  echo 'retval=0';
+  echo '/usr/bin/getent passwd %{runuser} >/dev/null || {';
+#  echo 'echo "Adding %{runuser} user with numeric id %{runuserid} to system (for jenkins)"';
+#  echo '/usr/sbin/useradd -u %{runuserid} -g %{runusergroup} -G mail -d %{_localstatedir}/lib/jenkins %{runuser}';
+  echo 'echo "Adding %{runuser} user to system (for jenkins)"';
+  echo '/usr/sbin/useradd -g %{runusergroup} -G mail -d %{_localstatedir}/lib/jenkins %{runuser}';
+  echo '}';
+  echo 'exit $retval' ) | $BASEDIR/var/lib/postrun/postrun -c JENKINS
+
 
 %files
 %defattr (-, root, other)
 %dir %attr(0755, root, other) /var/lib
-%dir %attr(0755, jenkins, root) /var/lib/jenkins
-%defattr (-, jenkins, root)
+%dir %attr(0755, jenkins, other) /var/lib/jenkins
+%defattr (-, jenkins, other)
 /var/lib/jenkins/*
-%dir %attr(0755, jenkins, root) /var/log/jenkins
+%dir %attr (0755, root, sys) /var/log
+%dir %attr(0755, jenkins, other) /var/log/jenkins
+
+
+%files root
 %defattr (-, root, sys)
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/jenkins.xml
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- merge with changes from local workspace Mar 31 2012
+- set smf manifest to "disabled" by default
 * Fri Apr 13 2012 - Logan Bruns <logan@gedanken.org>
 - Switch to java package name macro and bump to 1.459.
+* Sat Mar 31 2012 - Thomas Wagner
+- add SVR4 %pre script for user creation, add -root package to get useradd before
+  adding main package and manifest into _basedir=/, make base package _basedir=/var again
+- use variable %{runuser} and %{runusergroup}, not used numeric %{runuserid}
+- change BuildRequires to %{pnm_requires_java_runtime_default}, %include packagenamemacros.inc
 * Sat Apr 7 2012 - Logan Bruns <logan@gedanken.org>
 - Added a smf property to control max heap size.
 * Wed Apr 4 2012 - Logan Bruns <logan@gedanken.org>
