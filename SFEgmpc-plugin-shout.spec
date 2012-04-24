@@ -1,15 +1,20 @@
 %include Solaris.inc
-%define pluginname magnatune
+%define pluginname shout
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - browse and preview albums from www.magnatune.com and fetch cover art - plugin for gmpc
-# Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
+Summary:                gmpc-%{pluginname} - uses ogg123 and points it to MPD's shoutstream - usefull if listening from remote via internet and control playlist with gmpc remotely
+# Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+BuildRequires: SFElibshout-devel
+Requires: SFElibshout
+
+%description
+http://gmpc.wikia.com/wiki/GMPC_PLUGIN_SHOUT
 
 %prep
 %gmpcplugin.prep
@@ -25,8 +30,8 @@ Requires: SFEgmpc
 
 %files
 %defattr(-, root, bin)
-#%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
 %dir %attr (0755, root, sys) %{_prefix}
+%{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gmpc
 %dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
@@ -34,6 +39,8 @@ Requires: SFEgmpc
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- bump to 0.20.0
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)

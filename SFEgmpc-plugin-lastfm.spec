@@ -5,12 +5,15 @@
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - fetch artist images from last.fm
-# Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
+Summary:                gmpc-%{pluginname} - This plugin allows you to to listen to Last.FM radio stations with mpd. 
+# Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+
+%description
+http://gmpc.wikia.com/wiki/GMPC_PLUGIN_LASTFMRADIO
 
 %prep
 %gmpcplugin.prep
@@ -28,12 +31,17 @@ Requires: SFEgmpc
 %defattr(-, root, bin)
 %dir %attr (0755, root, sys) %{_prefix}
 %{_libdir}/gmpc/plugins/*.so
-%dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/locale
-%attr (0755, root, other) %{_datadir}/locale/*
+#%dir %attr (0755, root, sys) %{_datadir}
+#%{_datadir}/gmpc-%{pluginname}/icons/*
 
+
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- align %files code with other plugins
 * Wed Oct  6 2010 - Alex Viskovatoff
 - Update to 0.20.0, fixing packaging and making it last-fm
 * Sat Feb 21 2009 - Thomas Wagner

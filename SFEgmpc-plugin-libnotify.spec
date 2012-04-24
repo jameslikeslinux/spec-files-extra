@@ -1,15 +1,20 @@
 %include Solaris.inc
-%define pluginname albumview
+%define pluginname libnotify
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - Draws all album covers
+Summary:                gmpc-%{pluginname} - Shows song change notification using your systems notification daemon. Prints new title information as a small popup
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+
+%description
+http://gmpc.wikia.com/wiki/GMPC_PLUGIN_LIBNOTIFY
+The Libnotify plugin is a misc plugin for gmpc. The plugin uses libnotify to send messages to the notification-daemon on song change. It will show the song title, artist, album (date) and genre. It will also display the album cover if available.
+It can act as a replacement for the built-in notification. 
 
 %prep
 %gmpcplugin.prep
@@ -27,15 +32,13 @@ Requires: SFEgmpc
 %defattr(-, root, bin)
 %dir %attr (0755, root, sys) %{_prefix}
 %{_libdir}/gmpc/plugins/*.so
-%dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/gmpc-albumview/icons/*
+#%dir %attr (0755, root, sys) %{_datadir}
+#%{_datadir}/gmpc-%{pluginname}/icons/*
 
 
 %changelog
-* Wed Oct  6 2010 - Alex Viskovatoff
-- Update to 0.20.0, adding icon packaging
-* Sun Sep 27 2009 - Thomas Wagner
-- *new*
+* Tue Apr 24 2012 - Thomas Wagner
+- Update to 0.20.0
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)

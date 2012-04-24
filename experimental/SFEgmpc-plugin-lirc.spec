@@ -1,15 +1,17 @@
 %include Solaris.inc
-%define pluginname discogs
+%define pluginname lirc
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - searches www.discogs.com for images of artists and albums
-# Version e.g. 0.20.0
+Summary:                gmpc-%{pluginname} - lirc - plugin for gmpc
+# Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
 Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+BuildRequires: *lirc*
+Requires: *lirc*
 
 %prep
 %gmpcplugin.prep
@@ -28,10 +30,10 @@ Requires: SFEgmpc
 %dir %attr (0755, root, sys) %{_prefix}
 %{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/locale
-%attr (0755, root, other) %{_datadir}/locale/*
+%{_datadir}/gmpc-%{pluginname}/icons/*
 
 
 %changelog
-* Wed Oct  6 2010 - Alex Viskovatoff
-- *new* - based on SFEgmpc-plugin-albumview.spec
+* Tue Apr 24 2012 - Thomas Wagner
+- initial spec
+- needs lirc to work, so place it in experimental

@@ -1,17 +1,21 @@
 %include Solaris.inc
-%define pluginname shout
+%define pluginname mserver
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - shout
-# Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
+Summary:                gmpc-%{pluginname} - Mserver allows you to play local files on a remote or local mpd server. Stream music files to your mpd that are not in your database. 
+# Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
-BuildRequires: SFElibshout-devel
-Requires: SFElibshout
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+BuildRequires: SFEtaglib-devel
+Requires: SFEtaglib
+
+%description
+http://gmpc.wikia.com/wiki/Mserver
+How it works: Mserver is compiled using the libmicrohttp library, which enables applications to function as a minimal webserver. As MPD is perfectly capable of playing Streams out of the box, you get a list of streams in your playback queue after adding the files. 
 
 %prep
 %gmpcplugin.prep
@@ -27,8 +31,8 @@ Requires: SFEgmpc
 
 %files
 %defattr(-, root, bin)
-#%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
 %dir %attr (0755, root, sys) %{_prefix}
+%{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gmpc
 %dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
@@ -36,6 +40,8 @@ Requires: SFEgmpc
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- bump to 0.20.0
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)

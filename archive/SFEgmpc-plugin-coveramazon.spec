@@ -1,10 +1,10 @@
 %include Solaris.inc
-%define pluginname extraplaylist
+%define pluginname coveramazon
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - extraplalist
+Summary:                gmpc-%{pluginname} - fetch cover art and album informaiton from amazon - plugin for gmpc
 # Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
 Version:                %{gmpcplugin.version}
  
@@ -25,15 +25,18 @@ Requires: SFEgmpc
 
 %files
 %defattr(-, root, bin)
-#%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
 %dir %attr (0755, root, sys) %{_prefix}
+%{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/gmpc
-%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
-%{_datadir}/gmpc/plugins/*
+%{_datadir}/gmpc-%{pluginname}/icons/*
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- moved to archive
+*
+- adjust %files new lib location, use variable for icons path
+- Update to 0.20.0
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)

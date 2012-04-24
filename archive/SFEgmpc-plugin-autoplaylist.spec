@@ -35,6 +35,8 @@ Requires: SFEgmpc
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- moved to archive
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)

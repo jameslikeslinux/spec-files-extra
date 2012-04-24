@@ -1,15 +1,20 @@
 %include Solaris.inc
-%define pluginname mdcover
+%define pluginname wikipedia
 %include base.inc
 %use gmpcplugin = gmpc-plugin.spec
 
 Name:			SFEgmpc-plugin-%{pluginname}
-Summary:                gmpc-%{pluginname} - fetch cover art, artist art, album and artist art from the file system - plugin for gmpc
-# Version e.g. 0.15.5.0, note: gmpcplugin.gmpcmainversion is 0.15.5
+Summary:                gmpc-%{pluginname} - The Wikipedia plugin shows information about the current artist
+# Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
+BuildRequires: SFEwebkitgtk-devel
+Requires: SFEwebkitgtk
+
+%description
+http://gmpc.wikia.com/wiki/GMPC_PLUGIN_WIKIPEDIA
 
 %prep
 %gmpcplugin.prep
@@ -25,15 +30,16 @@ Requires: SFEgmpc
 
 %files
 %defattr(-, root, bin)
-#%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
 %dir %attr (0755, root, sys) %{_prefix}
+%{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/gmpc
-%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
-%{_datadir}/gmpc/plugins/*
+%{_datadir}/gmpc-%{pluginname}/icons/*
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- Update to 0.20.0
+- adjust %files new lib location, use variable for icons path
 * Sat Feb 21 2009 - Thomas Wagner
 - add (Build-)Requires: SFEgmpc(-devel) (moved from base-specs/gmpc-plugin.spec)
 - removed %doc from %files (usually no docs contained in plugins)
