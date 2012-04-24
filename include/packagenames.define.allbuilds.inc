@@ -199,6 +199,16 @@
 %define pnm_buildrequires_smba				service/network/samba
 %define pnm_requires_smba				service/network/samba
 
+%define pnm_buildrequires_SUNWlibC_devel		system/library/c++-runtime
+%define pnm_buildrequires_SUNWlibC			system/library/c++-runtime
+%define pnm_requires_SUNWlibC				system/library/c++-runtime
+
+%define pnm_buildrequires_SUNWsqlite3_devel		database/sqlite-3
+%define pnm_buildrequires_SUNWsqlite3			database/sqlite-3
+%define pnm_requires_SUNWsqlite3			database/sqlite-3
+%define pnm_buildrequires_sqlite3			database/sqlite-3
+%define pnm_requires_sqlite3				database/sqlite-3
+
 #>=133
 %endif
 #os2nnn
@@ -446,6 +456,24 @@
 %define pnm_requires_SUNWgtk2			SUNWgtk2
 
 
+# C++ Studio runtime is on IPS not detectable with "pkg info SUNWlibC"
+%define pnm_buildrequires_SUNWlibC_devel	SUNWlibC
+%define pnm_buildrequires_SUNWlibC		SUNWlibC
+%define pnm_requires_SUNWlibC			SUNWlibC
+%define pnm_buildrequires_system_library_c___runtime	SUNWlibC
+%define pnm_buildrequires_system_library_c___runtime	SUNWlibC
+%define pnm_requires_system_library_c___runtime		SUNWlibC
+
+# SUNWsqlite3 is on IPS not detectable with "pkg info SUNWsqlite3"
+# note: there is no SUNWsqlite3 -devel package!
+%define pnm_buildrequires_SUNWsqlite3_devel	SUNWsqlite3
+%define pnm_buildrequires_SUNWsqlite3		SUNWsqlite3
+%define pnm_requires_SUNWsqlite3		SUNWsqlite3
+%define pnm_buildrequires_sqlite3		SUNWsqlite3
+%define pnm_requires_sqlite3			SUNWsqlite3
+%define pnm_buildrequires_database_sqlite3	SUNWsqlite3
+%define pnm_requires_database_sqlite3		SUNWsqlite3
+
 
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
@@ -667,6 +695,26 @@
 #%if %( expr %{osbuild} '>' 000 )
 #%endif
 
+
+#set defaults, in case the build is newer, overwrite them
+#this is for all builds (below 151)
+%define pnm_buildrequires_SFEvala_devel        	SFEvala-devel
+%define pnm_buildrequires_SFEvala		SFEvala
+%define pnm_requires_SFEvala			SFEvala
+%define pnm_buildrequires_developer_vala        SFEvala-devel
+%define pnm_requires_developer_vala		SFEvala
+
+#cases >=151
+%if %( expr %{osbuild} '>=' 151 )
+%define pnm_buildrequires_SFEvala_devel		developer/vala
+%define pnm_buildrequires_SFEvala		developer/vala
+%define pnm_requires_SFEvala			developer/vala
+%define pnm_buildrequires_developer_vala	developer/vala
+%define pnm_requires_developer_vala		developer/vala
+%endif
+#END >= 151
+
+
 #packages no longer available, we could bail out or just require a core package
 #to continue for now, we just set a already existing package name, the spec file 
 #might fail compiling or have reduced functionality then -> up to the individual
@@ -704,6 +752,16 @@
 %define pnm_requires_audh 					system/header
 %define pnm_buildrequires_system_header_header_audio		system/header
 %define pnm_requires_system_header_header_audio 		system/header
+
+# SUNWfuse and SUNWlibfuse appeared -> replaces SFEfuse SFElibfuse on S11
+# but names changed to library/libfuse and file-system/uvfs
+%define pnm_buildrequires_SUNWfuse				file-system/uvfs
+%define pnm_requires_SUNWfuse					file-system/uvfs
+%define pnm_buildrequires_SUNWfusefs				file-system/uvfs
+%define pnm_requires_SUNWfusefs					file-system/uvfs
+%define pnm_buildrequires_SUNWlibfuse				library/libfuse
+%define pnm_requires_SUNWlibfuse				library/libfuse
+
 %endif
 #END >=163
 %endif
@@ -850,6 +908,30 @@
 #Mind to write the same comments as for the perl section "Part n of m" to 
 #highlight that a value may be re-defined later on for special cases
 #END setting Python
+
+#which build number removed SUNWpysqlite and used the python 2.6/2.7 internal pysqlite?
+#if python is version 2.4, then we need SUNWpysqlite
+##TODO## adjust the osbuild number which introduced Python2.6
+%if %( expr %{osbuild} '>=' 133 )
+#all more recent builds should just require the current python default version of this platform
+#instead of the SUNWpysqlite
+%define pnm_buildrequires_SUNWpysqlite_devel 	%{pnm_buildrequires_python_default}
+%define pnm_buildrequires_SUNWpysqlite 		%{pnm_buildrequires_python_default}
+%define pnm_requires_SUNWpysqlite 		%{pnm_requires_python_default}
+%define pnm_buildrequires_pysqlite 		%{pnm_buildrequires_python_default}
+%define pnm_requires_pysqlite 			%{pnm_requires_python_default}
+#
+%else
+#we are < 133
+#note, we have in real world no -devel - macro only for convenience
+%define pnm_buildrequires_SUNWpysqlite_devel 	SUNWpysqlite_devel
+%define pnm_buildrequires_SUNWpysqlite 		SUNWpysqlite
+%define pnm_requires_SUNWpysqlite 		SUNWpysqlite
+%define pnm_buildrequires_pysqlite 		SUNWpysqlite_devel
+%define pnm_requires_pysqlite 			SUNWpysqlite
+%endif
+#END < 133  (else)
+#END if osbuild >= 133
 
 
 #START setting mysql, defaults  - Part 1 of 3
@@ -1099,6 +1181,15 @@
 # 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- handle SFEvala developer/vala (>=151)
+- handle SUNWlibC not detectable on IPS systems (pkg info SUNWlibC says not 
+  installed but system/library/c++-runtime is), provide reverse alias as well
+- handle SUNWsqlite3 not detectable on IPS systems (pkg info SUNWsqlite3 says
+  not installed but database/sqlite-3 is), provide reverse alias as well
+- handle SUNWpysqlite -> %{pnm_requires_python_default} (>=133)
+- handle SUNWfuse file-system/uvfs (>=163)
+- handle SUNWfusefs library/libfuse (>=163)
 * Sun Apr 22 2012 - Thomas Wagner
 - handle SUNWflac SUNWspeex SUNWpangomm SUNWpango SUNWglib2 SUNWgtk2 for SVR4 (S10, SXCE)
 * Sat Mar 31 2012 - Thomas Wagner
