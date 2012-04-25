@@ -38,8 +38,9 @@ http://gmpc.wikia.com/wiki/Magnatune
 %dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
 %{_datadir}/gmpc/plugins/*
 
-
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- fix %files
 * Wed Apr 25 2012 - Thomas Wagner
 - add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner

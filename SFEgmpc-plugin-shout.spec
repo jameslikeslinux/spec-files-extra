@@ -35,13 +35,18 @@ http://gmpc.wikia.com/wiki/GMPC_PLUGIN_SHOUT
 %defattr(-, root, bin)
 %dir %attr (0755, root, sys) %{_prefix}
 %{_libdir}/gmpc/plugins/*.so
-%dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/gmpc
-%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
-%{_datadir}/gmpc/plugins/*
+#%dir %attr (0755, root, sys) %{_datadir}
+#%dir %attr (0755, root, other) %{_datadir}/gmpc
+#%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
+#%{_datadir}/gmpc/plugins/*
 
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- fix %files
 * Wed Apr 25 2012 - Thomas Wagner
 - add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
