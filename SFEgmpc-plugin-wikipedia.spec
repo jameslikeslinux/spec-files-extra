@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - The Wikipedia plugin shows informat
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 BuildRequires: SFEwebkitgtk-devel
@@ -37,6 +40,8 @@ http://gmpc.wikia.com/wiki/GMPC_PLUGIN_WIKIPEDIA
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - Update to 0.20.0
 - adjust %files new lib location, use variable for icons path

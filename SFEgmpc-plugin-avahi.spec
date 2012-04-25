@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - autodetects the MPD server dynamicl
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 
@@ -36,5 +39,7 @@ This plugin can auto-detect the presence of mpd servers in the network. For ever
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - initial spec version to 0.20.0

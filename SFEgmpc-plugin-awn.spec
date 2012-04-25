@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - awn - plugin for gmpc which integra
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SUNWgcc
+Requires: SUNWgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 
@@ -36,5 +39,7 @@ Shows track progress and album art in the task icon of GMPC on the dock.
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - initial spec version to 0.20.0

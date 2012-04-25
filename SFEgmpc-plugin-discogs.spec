@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - searches www.discogs.com for images
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 
@@ -39,6 +42,8 @@ a
 %attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - bump to 0.20.0
 * Wed Oct  6 2010 - Alex Viskovatoff

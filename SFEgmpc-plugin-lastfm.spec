@@ -9,6 +9,9 @@ Summary:                gmpc-%{pluginname} - This plugin allows you to to listen
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 
@@ -40,6 +43,8 @@ http://gmpc.wikia.com/wiki/GMPC_PLUGIN_LASTFMRADIO
 %attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - align %files code with other plugins
 * Wed Oct  6 2010 - Alex Viskovatoff

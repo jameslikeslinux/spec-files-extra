@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - With the Jamendo plugin you are abl
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 
@@ -43,6 +46,8 @@ This plugin requires JsonGlib to work.
 #no locales %attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - initial spec
 - fix double inclusion in %files

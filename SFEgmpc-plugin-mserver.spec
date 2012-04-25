@@ -8,6 +8,9 @@ Summary:                gmpc-%{pluginname} - Mserver allows you to play local fi
 # Version e.g. 0.20.0
 Version:                %{gmpcplugin.version}
  
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
+
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 BuildRequires: SFEtaglib-devel
@@ -40,6 +43,8 @@ How it works: Mserver is compiled using the libmicrohttp library, which enables 
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
 - bump to 0.20.0
 * Sat Feb 21 2009 - Thomas Wagner

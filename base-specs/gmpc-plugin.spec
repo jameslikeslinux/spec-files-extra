@@ -21,9 +21,6 @@ Source:			 http://download.sarine.nl/Programs/gmpc/%{version}/gmpc-%{plugindownl
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
-
 %include default-depend.inc
 
 %prep
@@ -67,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- remove (Build)Requires: SUNWgcc(runtime) because pkgtool/pkgbuild fully 
+  ignores them in consuming spec file if this file is included with %use
 * Tue Apr 24 2012 - Thomas Wagner
 - add --disable-static
 - add removal for .a files
