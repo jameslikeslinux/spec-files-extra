@@ -1,3 +1,7 @@
+2012-04-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.461.
+
 2012-04-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEcmake.spec: bump to 2.8.8 and enable parallel build.

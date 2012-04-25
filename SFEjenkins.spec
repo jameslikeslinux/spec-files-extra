@@ -20,7 +20,7 @@ Name:                    SFEjenkins
 IPS_Package_Name:	 developer/build/jenkins
 Summary:                 Jenkins - Extensible continuous integration server
 Group:                   Utility
-Version:                 1.459
+Version:                 1.461
 URL:		         http://jenkins-ci.org
 Source:		         http://mirrors.jenkins-ci.org/war/%{version}/jenkins.war
 Source2:                 jenkins.xml
@@ -114,6 +114,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/jenkins.xml
 
 %changelog
+* Tue Apr 24 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.461.
 * Tue Apr 24 2012 - Thomas Wagner
 - merge with changes from local workspace Mar 31 2012
 - set smf manifest to "disabled" by default
