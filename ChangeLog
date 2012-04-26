@@ -1,3 +1,6 @@
+2012-04-26 Pavel Heimlich <tropikhajma@gmail.com>
+	* patches/liveMedia-02-config.diff: fix build (xlocale.h not present on Solaris)
+
 2012-04-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* experimental/SFEhadoop.spec: initial spec.
