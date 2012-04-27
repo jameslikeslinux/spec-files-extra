@@ -25,9 +25,11 @@ Version:                 1.0.2
 URL:		         http://hadoop.apache.org
 Source:		         http://www.us.apache.org/dist/hadoop/core/hadoop-%{version}/hadoop-%{version}.tar.gz
 Source2:                 hadoop.xml
+Patch1:        	         hadoop-01-task-controller-make.diff
+Patch2:                  hadoop-02-skip-jsvc.diff
 License: 		 Apache 2.0
 SUNW_Copyright:          %{name}.copyright
-SUNW_BaseDir:            /var
+SUNW_BaseDir:            /usr
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires:      developer/build/ant
@@ -56,6 +58,9 @@ to failures.
 %prep
 rm -rf %{srcname}-%{version}
 %setup -q -n %{srcname}-%{version}
+%patch1 -p1
+%patch2 -p1
+chmod a+x src/*.sh
 cp %{SOURCE2} hadoop.xml
 
 %build
@@ -66,22 +71,38 @@ export CFLAGS="%optflags -D_POSIX_PTHREAD_SEMANTICS"
 #export LDFLAGS="%_ldflags"
 export LDFLAGS="-L/usr/jdk/latest/jre/lib/i386/"
 export JAVA_HOME=/usr/java
-ant -Dcompile.native=true compile
+ant -Dcompile.native=true -Dversion=%{version} compile
+mkdir lib/native/SunOS-x86-32
+cp build/native/SunOS-x86-32/.libs/libhadoop* lib/native/SunOS-x86-32
+ant -Dversion=%{version} bin-package
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 mkdir -p $RPM_BUILD_ROOT/usr/lib/
 mv build/native/SunOS-x86-32/.libs/libhadoop* $RPM_BUILD_ROOT/usr/lib/
 rm $RPM_BUILD_ROOT/usr/lib/libhadoop.la*
 
-mkdir -p $RPM_BUILD_ROOT/var/lib/hadoop
-mv bin conf sbin lib $RPM_BUILD_ROOT/var/lib/hadoop
-rm -rf $RPM_BUILD_ROOT/var/lib/hadoop/lib/native
-mv libexec/* $RPM_BUILD_ROOT/var/lib/hadoop/lib
-
-mkdir -p $RPM_BUILD_ROOT/var/log/hadoop
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp hadoop.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+mkdir -p $RPM_BUILD_ROOT/var/log/hadoop
+
+cd build/hadoop-%{version}
+mv bin/task-controller sbin
+mv etc $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/usr
+mv share $RPM_BUILD_ROOT/usr
+mv sbin libexec $RPM_BUILD_ROOT/usr/share/hadoop
+mv bin $RPM_BUILD_ROOT/usr
+ln -s /usr/share/hadoop/libexec/hadoop-config.sh $RPM_BUILD_ROOT/usr/bin/hadoop-config.sh
+
+echo "export HADOOP_CONF_DIR=/etc/hadoop" > $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
+cat $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh >> $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
+echo "export HADOOP_HOME=/usr/share/hadoop" >> $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
+cp $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh
+rm $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
+echo "export JAVA_HOME=/usr/java" >> $RPM_BUILD_ROOT/etc/hadoop/hadoop-env.sh
+echo "export HADOOP_LOG_DIR=/var/log/hadoop" >> $RPM_BUILD_ROOT/etc/hadoop/hadoop-env.sh
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -108,19 +129,27 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 %files
 %defattr (-, root, other)
-%dir %attr(0755, root, other) /var/lib
-%dir %attr(0755, hadoop, other) /var/lib/hadoop
-%defattr (-, hadoop, other)
-/var/lib/hadoop/*
-%dir %attr (0755, root, sys) /var/log
-%dir %attr(0755, hadoop, other) /var/log/hadoop
-
+%dir %attr (0755, root, bin) %{_bindir}
+%{_bindir}/*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/*
+%dir %attr(0755, root, sys) %{_datadir}
+%dir %attr(0755, root, other) %{_datadir}/hadoop
+%{_datadir}/hadoop/*
+%dir %attr(0755, root, other) %{_datadir}/doc
+%dir %attr(0755, root, other) %{_datadir}/doc/hadoop
+%{_datadir}/doc/hadoop/*
 
 %files root
 %defattr (-, root, sys)
 /usr/lib/libhadoop.*
+/etc/hadoop/*
+%dir %attr (0755, root, sys) /var/log
+%dir %attr(0755, hadoop, other) /var/log/hadoop
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
 %changelog
+* Fri Apr 27 2012 - Logan Bruns <logan@gedanken.org>
+- Fixes for building native task-controller, better directory usage and such.
 * Wed Apr 25 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.

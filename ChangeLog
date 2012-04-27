@@ -4,6 +4,11 @@
 
 2012-04-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFEhadoop.spec: fixes for building native
+	task-controller, better directory usage and such.
+	* patches/hadoop-01-task-controller-make.diff
+	* patches/hadoop-02-skip-jsvc.diff
+
 	* SFEasterisk.spec: bump to 1.8.11.1
 
 2012-04-26  Logan O'Sullivan Bruns  <logan@gedanken.org>

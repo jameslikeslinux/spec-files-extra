@@ -12,7 +12,7 @@
     <instance name='default' enabled='false'>
       <exec_method type='method'
                    name='start'
-                   exec='/var/lib/hadoop/bin/start-all.sh'
+                   exec='/usr/share/hadoop/sbin/start-all.sh'
                    timeout_seconds='60'>
 	<method_context>
           <method_credential user='hadoop' group='other' />
@@ -20,7 +20,7 @@
       </exec_method>
       <exec_method type='method'
                    name='stop'
-                   exec='/var/lib/hadoop/bin/stop-all.sh'
+                   exec='/usr/share/hadoop/sbin/stop-all.sh'
                    timeout_seconds='60'>
 	<method_context>
           <method_credential user='hadoop' group='other'/>
