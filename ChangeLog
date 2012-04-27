@@ -1,4 +1,13 @@
+2012-04-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEtcl.spec: bump to 8.5.11. Set IPS name to tcl-85 and moved to
+	/usr/gnu to avoid conflict with OS provided package. Switched to
+	gcc to avoid needing to pull in sunmath which can cause problems
+	for gcc compiled packages linking against IPS.
+	* copyright/SFEtcl.copyright
+
 2012-04-26 Pavel Heimlich <tropikhajma@gmail.com>
+
 	* patches/liveMedia-02-config.diff: fix build (xlocale.h not present on Solaris)
 
 2012-04-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
