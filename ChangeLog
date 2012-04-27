@@ -1,5 +1,12 @@
 2012-04-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEbrlcad.spec: bumped to 7.20.4.
+	* copyright/SFEbrlcad.copyright
+	* patches/brlcad-01-opennurbs_brep_region.diff
+	* patches/brlcad-02-pkg.diff
+	* patches/brlcad-03-if_mem.diff
+	* patches/brlcad-04-disable-sunmath.diff
+
 	* SFEtk.spec: bump to 8.5.11. Set IPS name to tk-85 and moved to
 	/usr/gnu to avoid conflict with OS provided package. Switched to
 	gcc to avoid needing to pull in sunmath which can cause problems
