@@ -5,10 +5,17 @@
 
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%include base.inc
+
+%define _basedir /usr/gnu
+
 Name:                SFEtk
+IPS_Package_Name:    runtime/tk-85
 Summary:             Tk - TCL GUI Toolkit
-Version:             8.4.16
+Version:             8.5.11
 Source:              %{sf_download}/tcl/tk%{version}-src.tar.gz
+SUNW_Copyright:      %{name}.copyright
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -38,8 +45,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-#export CFLAGS="%optflags"
-#export LDFLAGS="%{_ldflags}"
+export CC=gcc
+export CXX=g++
+export CFLAGS="%optflags"
+export LDFLAGS="%_ldflags"
 
 ./configure --prefix=%{_prefix} \
 	    --mandir=%{_mandir} \
@@ -62,8 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/tkConfig.sh
 %{_libdir}/libtk*
-%dir %attr (0755, root, bin) %{_libdir}/tk8.4
-%{_libdir}/tk8.4/*
+%dir %attr (0755, root, bin) %{_libdir}/tk8.5
+%{_libdir}/tk8.5/*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1
@@ -81,6 +90,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Apr 26 2012 - Logan Bruns <logan@gedanken.org>
+- Bump to 8.5.11. 
+- Set IPS name to tk-85 and moved to /usr/gnu to avoid conflict with OS provided package. 
+- Switched to gcc to avoid needing to pull in sunmath which can cause
+  problems for gcc compiled packages linking against IPS.
+- Added copyright file.
 * Sat Sep 29 2007 - dick@nagual.nl
 - Bumped to version 8.4.16
 * Wed Jul 11 2007 - dick@nagual.nl

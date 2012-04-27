@@ -1,5 +1,11 @@
 2012-04-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEtk.spec: bump to 8.5.11. Set IPS name to tk-85 and moved to
+	/usr/gnu to avoid conflict with OS provided package. Switched to
+	gcc to avoid needing to pull in sunmath which can cause problems
+	for gcc compiled packages linking against IPS.
+	* copyright/SFEtk.copyright
+
 	* SFEtcl.spec: bump to 8.5.11. Set IPS name to tcl-85 and moved to
 	/usr/gnu to avoid conflict with OS provided package. Switched to
 	gcc to avoid needing to pull in sunmath which can cause problems
