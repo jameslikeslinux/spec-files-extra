@@ -36,6 +36,7 @@ BuildRequires:      developer/build/ant
 BuildRequires:      SFEgcc
 Requires:           SFEgccruntime
 Requires:           %pnm_requires_java_runtime_default
+Requires:           SFEsnappy
 
 Requires: %name-root
 
@@ -86,15 +87,17 @@ rm $RPM_BUILD_ROOT/usr/lib/libhadoop.la*
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp hadoop.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 mkdir -p $RPM_BUILD_ROOT/var/log/hadoop
+mkdir -p $RPM_BUILD_ROOT/var/lib/hadoop
 
 cd build/hadoop-%{version}
 mv bin/task-controller sbin
 mv etc $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr
 mv share $RPM_BUILD_ROOT/usr
-mv sbin libexec $RPM_BUILD_ROOT/usr/share/hadoop
-mv bin $RPM_BUILD_ROOT/usr
+mv bin sbin libexec $RPM_BUILD_ROOT/usr/share/hadoop
+mkdir $RPM_BUILD_ROOT/usr/bin
 ln -s /usr/share/hadoop/libexec/hadoop-config.sh $RPM_BUILD_ROOT/usr/bin/hadoop-config.sh
+ln -s /usr/share/hadoop/bin/hadoop $RPM_BUILD_ROOT/usr/bin/hadoop
 
 echo "export HADOOP_CONF_DIR=/etc/hadoop" > $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
 cat $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh >> $RPM_BUILD_ROOT/usr/share/hadoop/libexec/hadoop-config.sh-new
@@ -142,13 +145,17 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 %files root
 %defattr (-, root, sys)
-/usr/lib/libhadoop.*
 /etc/hadoop/*
 %dir %attr (0755, root, sys) /var/log
 %dir %attr(0755, hadoop, other) /var/log/hadoop
+%dir %attr(0700, hadoop, other) /var/lib/hadoop
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
 %changelog
+* Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>
+- Added snappy to requires (really optional)
+- Put home directory back to hold ssh keys
+- Moved out of experimental
 * Fri Apr 27 2012 - Logan Bruns <logan@gedanken.org>
 - Fixes for building native task-controller, better directory usage and such.
 * Wed Apr 25 2012 - Logan Bruns <logan@gedanken.org>

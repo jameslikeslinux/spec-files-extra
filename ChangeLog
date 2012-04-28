@@ -3,6 +3,8 @@
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEhadoop.spec: Added snappy to requires (really optional.) Put
+	home directory back to hold ssh keys. Moved out of experimental
 	* SFEsnappy.spec: initial spec.
 	* copyright/SFEsnappy.copyright
 
