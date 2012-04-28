@@ -1,3 +1,6 @@
+2012-04-29 Pavel Heimlich <tropikhajma@gmail.com>
+	* patches/libgsm-01-makefile.diff: add symlink to make libgsm build without libgsm installed
+
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEsnappy.spec: initial spec.
