@@ -1,3 +1,8 @@
+2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEsnappy.spec: initial spec.
+	* copyright/SFEsnappy.copyright
+
 2012-04-27 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEpython3.spec: bump to 3.2.3, fix packaging
