@@ -1,3 +1,7 @@
+2012-04-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFElibpng.spec: bumped to 1.4.10 and fixed some permissions
+
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEopenafs.spec: fixed some permissions and also changed it to
