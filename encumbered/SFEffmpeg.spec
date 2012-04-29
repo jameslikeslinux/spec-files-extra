@@ -87,6 +87,8 @@ BuildRequires: SFElibass-devel
 Requires: SFElibass
 BuildRequires: SFEopenal-devel
 Requires: SFEopenal
+BuildRequires: SFElibvpx-devel
+Requires: SFElibvpx
 
 %package devel
 Summary:                 %{summary} - development files
@@ -192,6 +194,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- really add vpx dependency
 * Tue Jan 24 2012 - James Choi
 - update files for 0.10
 * Mon Dec 12 2011 - Milan Jurik
