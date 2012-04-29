@@ -14,6 +14,7 @@
 
 2012-04-29 Pavel Heimlich <tropikhajma@gmail.com>
 	* patches/libgsm-01-makefile.diff: add symlink to make libgsm build without libgsm installed
+	* encumbered/SFEmpg123.spec: fix dependency (SUNWltdl is no more in S11)
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
