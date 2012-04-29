@@ -1,5 +1,7 @@
 2012-04-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFElibvirt.spec: porting changes to support qemu/kvm.
+
 	* SFElibpng.spec: bumped to 1.4.10 and fixed some permissions
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
