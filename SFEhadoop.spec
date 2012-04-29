@@ -148,6 +148,7 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 /etc/hadoop/*
 %dir %attr (0755, root, sys) /var/log
 %dir %attr(0755, hadoop, other) /var/log/hadoop
+%dir %attr(0755, root, other) /var/lib
 %dir %attr(0700, hadoop, other) /var/lib/hadoop
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
