@@ -1,3 +1,8 @@
+2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEbitlbee.spec: fixed another permission and also changed to no
+	longer enable service by default.
+
 2012-04-29 Pavel Heimlich <tropikhajma@gmail.com>
 	* patches/libgsm-01-makefile.diff: add symlink to make libgsm build without libgsm installed
 

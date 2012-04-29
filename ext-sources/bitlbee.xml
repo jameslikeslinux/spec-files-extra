@@ -9,7 +9,7 @@
     <dependency name='network' grouping='require_all' restart_on='none' type='service'>
       <service_fmri value='svc:/milestone/multi-user-server'/>
     </dependency>
-    <instance name='default' enabled='true'>
+    <instance name='default' enabled='false'>
       <exec_method type='method'
                    name='start'
                    exec='/usr/sbin/bitlbee -F'
