@@ -96,7 +96,7 @@ cd blender-%{src_version}
 
 %build
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export PKG_CONFIG_PATH="$PROTO_PKG"
 

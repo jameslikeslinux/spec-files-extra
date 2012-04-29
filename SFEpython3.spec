@@ -53,7 +53,7 @@ yourself.
 %setup -n %{src_name}-%{unmangled_version}
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
 
 env CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} \
 					--mandir=%{_mandir}

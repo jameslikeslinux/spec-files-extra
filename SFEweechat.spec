@@ -73,7 +73,7 @@ mkdir build
 export LIBS="-L/usr/gnu/lib -lncurses -L/usr/lib"
 export CPPFLAGS="-I/usr/include/ncurses -I/usr/include"
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 sed 's| -Wall -W -Werror-implicit-function-declaration||' CMakeLists.txt > foo
 mv foo CMakeLists.txt

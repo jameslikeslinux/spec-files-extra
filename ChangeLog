@@ -16,6 +16,11 @@
 	* patches/libgsm-01-makefile.diff: add symlink to make libgsm build without libgsm installed
 	* encumbered/SFEmpg123.spec: fix dependency (SUNWltdl is no more in S11)
 	* base-specs/lapack.spec: patch file not present, remove patch
+	* experimental/SFEblender-2.59.spec SFEtmux.spec SFEopenvpn.spec 
+	SFElyx.spec SFEghc.spec SFEtransmission.spec SFEdjview.spec 
+	SFEkchmviewer.spec SFEpython3.spec SFEscribus.spec SFEweechat.spec 
+	SFEqt-gpp.spec SFECorsixTH.spec base-specs/orc.spec: make sure
+	gawk is used as Solaris awk does not support this syntax
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

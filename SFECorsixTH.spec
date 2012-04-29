@@ -43,7 +43,7 @@ This project aims to reimplement the game engine of Theme Hospital, and be able 
 cp %{SOURCE1} CorsixTH/config.txt
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++

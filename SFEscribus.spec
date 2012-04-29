@@ -48,7 +48,7 @@ Scribus is a GUI desktop publishing (DTP) application for Unix/Linux.
 mkdir builddir
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 cd builddir
 # Don't even think about trying to build this with Solaris Studio
 export CC=gcc

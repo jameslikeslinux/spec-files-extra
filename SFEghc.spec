@@ -129,7 +129,7 @@ export LDFLAGS='-L/usr/gnu/lib -R/usr/gnu/lib'
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
 %endif
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 chmod +x configure
 # Note GHC conf does not support differing host/target (i.e., cross-compiling)
