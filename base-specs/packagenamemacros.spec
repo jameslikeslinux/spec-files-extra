@@ -96,6 +96,13 @@ packagenamemacros: _prefix/perl_path_vendor_perl	 	%{_prefix}/%{perl_path_vendor
 packagenamemacros: _prefix/perl_path_vendor_perl_version 	%{_prefix}/%{perl_path_vendor_perl_version}
 packagenamemacros: _prefix/perl_path_site_perl 			%{_prefix}/%{perl_path_site_perl}
 packagenamemacros: _prefix/perl_path_site_perl_version 		%{_prefix}/%{perl_path_site_perl_version}
+packagenamemacros: pnm_buildrequires_python_default: 		%{pnm_buildrequires_python_default}
+packagenamemacros: pnm_requires_python_default: 		%{pnm_requires_python_default}
+packagenamemacros: python_version number is:       		%{python_version}
+packagenamemacros: python_major_version number is: 		%{python_major_version}
+packagenamemacros: python_major_minor_version number is: 	%{python_major_minor_version}
+packagenamemacros: python_major_minor_micro_version number is: 	%{python_major_minor_micro_version}
+packagenamemacros: python_package_string: 			%{python_version_package_string}
 packagenamemacros: pnm_buildrequires_mysql_default		%{pnm_buildrequires_mysql_default}
 packagenamemacros: pnm_requires_mysql_default			%{pnm_requires_mysql_default}
 packagenamemacros: _prefix/mysql_default_includedir		%{_prefix}/%{mysql_default_includedir}
@@ -138,6 +145,8 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- add pnm_buildrequires_python_default / pnm_requires_python_default (note the special _default string)
 * Sat Mar 31 2012 - Thomas Wagner
 - add java examples
 * Tue Aug  2 2011 - Thomas Wagner
