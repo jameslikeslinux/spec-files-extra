@@ -102,6 +102,8 @@ user ftpuser=false gcos-field="BitlBee Reserved UID" username="bitlbee" password
 %dir %attr (0755, root, sys) /usr/share/bitlbee
 /usr/share/bitlbee/*
 
+%dir %attr(0755, root, sys) /var
+%dir %attr(0755, root, other) /var/lib
 %dir %attr(0755, bitlbee, root) /var/lib/bitlbee
 %dir %attr (0755, root, sys) %{_localstatedir}/svc
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/bitlbee.xml
