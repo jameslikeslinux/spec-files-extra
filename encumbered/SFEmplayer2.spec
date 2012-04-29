@@ -48,8 +48,11 @@ URL:                     http://www.mplayer2.org/
 # with the new ffmpeg API
 Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
 Patch3:                  mplayer-snap-03-ldflags.diff
-Patch4:                  mplayer-snap-04-realplayer.diff
-Patch5:                  mplayer-snap-05-cpudetect.diff
+Patch4:                  mplayer2-04-realplayer.diff
+Patch5:                  mplayer2-05-cpudetect.diff
+#https://bugs.archlinux.org/task/28759
+Patch7:			 mplayer2-07-liveMedia.diff
+Patch8:			 mplayer2-08-liveMedia-config.diff
 SUNW_BaseDir:            %_basedir
 BuildRoot:               %_tmppath/%name-build
 
@@ -137,7 +140,8 @@ Requires: SFElibdts
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-
+%patch7 -p1
+%patch8 -p1
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -169,7 +173,7 @@ bash ./configure				\
 	    --mandir=%_mandir			\
             --libdir=%_libdir			\
             --confdir=%_sysconfdir		\
-            --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
+            --extra-cflags="-I/usr/lib/live" \
             --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment -Wl,-Mmapfile" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
             --enable-faad			\
@@ -245,6 +249,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- make mplayer2 work with current liveMedia
 * Tue Jan 24 2012 - James Choi
 - Intel/AMD detection override
 * Mon Dec 12 2012 - Thomas Wagner

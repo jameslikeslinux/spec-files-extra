@@ -24,6 +24,8 @@
 	* encumbered/SFEffmpeg.spec base-specs/ffmpeg.spec: bump to 0.10.2, really add libvpx dependency
 	* patches/blas-01-shared.diff base-specs/blas.spec SFEblas.spec:
 	added shared library
+	* encumbered/SFEmplayer2.spec, patches/mplayer2-*: make mplayer2 work
+	with current liveMedia; refresh patches for current snapshot
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
