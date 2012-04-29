@@ -114,6 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) /usr/lib
 /usr/lib/*
 %defattr (0755, root, sys)
+%dir %attr (0755, root, bin) /usr/sbin
 /usr/sbin/*
 %dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, sys) /usr/share/openafs/C
