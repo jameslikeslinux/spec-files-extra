@@ -11,14 +11,12 @@ Name:		lapack
 Summary:	LAPACK - Linear Algebra PACKage
 Version:	3.4.0
 Source:		ftp://ftp.netlib.org/lapack/lapack-%{version}.tgz
-Patch1:		lapack-01-fpic.diff
 Group:		Math
 URL:		http://www.netlib.org/lapack/
 
 %prep
 %setup -q -c -n %{name}
 cd lapack-%{version}
-%patch1 -p1
 
 %build
 cd lapack-%{version}
