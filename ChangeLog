@@ -21,6 +21,7 @@
 	SFEkchmviewer.spec SFEpython3.spec SFEscribus.spec SFEweechat.spec 
 	SFEqt-gpp.spec SFECorsixTH.spec base-specs/orc.spec: make sure
 	gawk is used as Solaris awk does not support this syntax
+	* encumbered/SFEffmpeg.spec: really add libvpx dependency
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
