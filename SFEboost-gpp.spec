@@ -10,6 +10,8 @@
 # Build multithreaded libs: no need for non-multithreaded libs
 %define boost_with_mt 1
 
+%include packagenamemacros.inc
+
 %use boost = boost.spec
 
 Name:                SFEboost-gpp
@@ -22,7 +24,7 @@ SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-BuildRequires: SUNWPython
+BuildRequires: %{pnm_buildrequires_python_default}
 BuildRequires:	SFEicu-gpp-devel
 Requires:	SFEicu-gpp
 
@@ -93,6 +95,8 @@ rm -rf %{buildroot}
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_python_default}, %include packagenamacros.inc
 * Thu Jan 12 2012 - Milan Jurik
 - package restructuralization, static libs re-added
 * Sun Jun 31 2011 - Alex Viskovatoff
