@@ -12,12 +12,14 @@ Source:		ftp://ftp.netlib.org/blas/blas.tgz
 #Source1:	blas.Makefile
 Group:		Math
 URL:		http://www.netlib.org/blas/
+Patch1:		blas-01-shared.diff
 
 Requires: SUNWcsl
 Requires: SUNWlibms
 
 %prep
 %setup -q -c -n %{name}
+%patch1
 
 %build
 cd BLAS
@@ -32,11 +34,14 @@ cd BLAS
 mv blas.a libblas.a
 install -d -m 0755 $RPM_BUILD_ROOT/%{_libdir}
 install -m 0755 libblas.a $RPM_BUILD_ROOT%{_libdir}
+install -m 0755 libblas.so $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- added shared library
 * Tue Jan 17 2012 - James Choi
 - specify fPIC 
 * Sat Jul 30 2011 - Alex Viskovatoff

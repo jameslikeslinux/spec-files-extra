@@ -22,6 +22,8 @@
 	SFEqt-gpp.spec SFECorsixTH.spec base-specs/orc.spec: make sure
 	gawk is used as Solaris awk does not support this syntax
 	* encumbered/SFEffmpeg.spec: really add libvpx dependency
+	* patches/blas-01-shared.diff base-specs/blas.spec SFEblas.spec:
+	added shared library
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

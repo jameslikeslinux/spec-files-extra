@@ -1,0 +1,18 @@
+--- BLAS/Makefile.orig	Sun Apr 29 14:21:00 2012
++++ BLAS/Makefile	Sun Apr 29 15:09:16 2012
+@@ -55,7 +55,7 @@
+ #
+ #######################################################################
+ 
+-all: $(BLASLIB)
++all: $(BLASLIB) shared
+  
+ #---------------------------------------------------------
+ #  Comment out the next 6 definitions if you already have
+@@ -169,3 +169,6 @@
+ 
+ .f.o: 
+ 	$(FORTRAN) $(OPTS) -c $< -o $@
++
++shared: $(ALLOBJ)
++	$(FORTRAN) -shared $(OPTS) *.f -o libblas.so -fPIC

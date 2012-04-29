@@ -67,13 +67,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %attr(0755,root,bin) %{_libdir}
 %{_libdir}/lib*.a
+%{_libdir}/lib*.so
 #%ifarch amd64 sparcv9
 #%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 #%{_libdir}/%{_arch64}/lib*.a
+#%{_libdir}/%{_arch64}/lib*.so
 #%endif
 
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- added shared library
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue May 25 2010 - Milan Jurik
