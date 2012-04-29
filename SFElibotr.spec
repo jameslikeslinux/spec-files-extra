@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/libotr.*
-%dir %attr (0755, root, bin) %{_libdir}/pkgconfig
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/libotr.pc
 %dir %attr (0755, root, bin) %{_includedir}/libotr
 %{_includedir}/libotr/*.h
