@@ -1,5 +1,8 @@
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEopenafs.spec: fixed some permissions and also changed it to
+	no longer enable the service by default.
+
 	* SFEbitlbee.spec: fixed another permission and also changed to no
 	longer enable service by default.
 

@@ -111,6 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) /usr/include
 %dir %attr (0755, root, bin) /usr/include/openafs
 /usr/include/openafs/*
+%dir %attr (0755, root, bin) /usr/lib
 /usr/lib/*
 %defattr (0755, root, sys)
 /usr/sbin/*
@@ -122,8 +123,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) /etc/openafs
 /etc/openafs/*
 %defattr (-, root, bin)
+%dir %attr (0755, root, bin) /usr/share/man
+%dir %attr (0755, root, bin) /usr/share/man/man1
 /usr/share/man/man1/*
+%dir %attr (0755, root, bin) /usr/share/man/man5
 /usr/share/man/man5/*
+%dir %attr (0755, root, bin) /usr/share/man/man8
 /usr/share/man/man8/*
 %dir %attr (0755, root, sys) /var/openafs
 %dir %attr (0755, root, sys) /var/openafs/logs
@@ -134,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/openafs.xml
 
 %changelog
+* Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed some permissions and also changed it to no longer enable the service by default.
 * Mon Apr 16 2012 Logan Bruns <logan@gedanken.org>
 - Fixed some permissions and removed some unnecessary and conflicting files.
 * Sun Apr 15 2012 Logan Bruns <logan@gedanken.org>
