@@ -1,5 +1,7 @@
 2012-04-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEpngcheck.spec: initial spec.
+
 	* experimental/SFElibvirt.spec: porting changes to support qemu/kvm.
 
 	* SFElibpng.spec: split out -devel package so runtime libs can be
