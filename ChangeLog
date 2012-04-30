@@ -2,7 +2,10 @@
 
 	* experimental/SFElibvirt.spec: porting changes to support qemu/kvm.
 
-	* SFElibpng.spec: bumped to 1.4.10 and fixed some permissions
+	* SFElibpng.spec: split out -devel package so runtime libs can be
+	installed without conflicts, bumped to 1.5.10 and fixed some
+	permissions.
+	* patches/libpng-01-no_ld_version_script.diff
 
 2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
