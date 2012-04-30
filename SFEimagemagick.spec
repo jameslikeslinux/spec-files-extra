@@ -7,7 +7,7 @@
 
 %define src_name	ImageMagick
 %define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick/legacy
-%define major		6.7.4
+%define major		6.7.5
 %define minor		10
 #%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
 
@@ -110,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 29 2012 - Logan Bruns <logan@gedanken.org>
+- update to 6.7.5-10
 * Sun Feb 26 2012 - Logan Bruns <logan@gedanken.org>
 - update to 6.7.4-10 and added ips package name
 * Thu Jan 19 2012 - Ken Mays <kmays2000@gmail.com>

@@ -1,5 +1,7 @@
 2012-04-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEimagemagick.spec: update to 6.7.5-10.
+
 	* SFEpngcheck.spec: initial spec.
 
 	* experimental/SFElibvirt.spec: porting changes to support qemu/kvm.
