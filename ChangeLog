@@ -1,5 +1,7 @@
 2012-04-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEwxmaxima.spec: bumped to 12.04.0
+
 	* SFEmaxima.spec: bumped to 5.27.0 and removed a no longer needed
 	patch.
 

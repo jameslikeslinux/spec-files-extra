@@ -17,9 +17,9 @@ Name:                    SFEwxmaxima
 IPS_Package_Name:	 math/wxmaxima
 Summary:                 wxMaxima - a Computer Algebra System
 Group:                   Utility
-Version:                 12.1.0
+Version:                 12.4.0
 URL:		         http://wxmaxima.sourceforge.net
-Source:		         %{sf_download}/project/wxmaxima/%{srcname}/12.01.0/%{srcname}-12.01.0.tar.gz
+Source:		         %{sf_download}/project/wxmaxima/%{srcname}/12.04.0/%{srcname}-12.04.0.tar.gz
 License: 		 GPL
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -35,8 +35,8 @@ Mac OS X. wxMaxima provides menus and dialogs for many common maxima
 commands, autocompletion, inline plots and simple animations.
 
 %prep
-rm -rf %{srcname}-12.01.0
-%setup -q -n %{srcname}-12.01.0
+rm -rf %{srcname}-12.04.0
+%setup -q -n %{srcname}-12.04.0
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -76,5 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*
 
 %changelog
+* Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
+- Bumped to 12.04.0
 * Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
