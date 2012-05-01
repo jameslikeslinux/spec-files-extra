@@ -137,6 +137,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, sys) /usr/kernel/drv/amd64
 %dir %attr(0755, root, bin) /usr/kernel/drv/*/ipf
 %dir %attr(0755, root, bin) /etc/ipf
+%dir %attr(0755, root, bin) /var
+%dir %attr(0755, root, sys) /var/svc
+%dir %attr(0755, root, sys) /var/svc/manifest
+%dir %attr(0755, root, sys) /var/svc/manifest/site
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
