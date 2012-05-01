@@ -6,10 +6,10 @@
 %include Solaris.inc
 
 Name:                    SFEgnuplot
+IPS_Package_Name:	 sfe/image/gnuplot
 Summary:                 gnuplot
-Version:                 4.4.0
+Version:                 4.6.0
 Source:			 http://downloads.sourceforge.net/%{summary}/%{summary}-%{version}.tar.gz
-Patch1:			gnuplot-01.diff
 URL:                     http://www.gnuplot.info
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -34,7 +34,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export LDFLAGS=""
+export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv"
 export CFLAGS="-I/usr/include/gd2 -I/usr/gnu/include"
 export CPPFLAGS=" -I/usr/include/gd2 -I/usr/gnu/include"
 export CXXFLAGS=""
@@ -96,9 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_datadir}/info
 %{_datadir}/info/*
-#%dir %attr(0755, root, bin) %{_datadir}/emacs
-#%dir %attr(0755, root, bin) %{_datadir}/emacs/site-lisp
-#%{_datadir}/emacs/site-lisp/*
+%dir %attr(0755, root, bin) %{_datadir}/emacs
+%dir %attr(0755, root, bin) %{_datadir}/emacs/site-lisp
+%{_datadir}/emacs/site-lisp/*
 %dir %attr(0755, root, sys) %{_datadir}/gnuplot
 %{_datadir}/gnuplot/*
 %dir %attr(0755, root, bin) %{_mandir}
@@ -111,6 +111,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
+- Bumped to 4.6.0
+- Added an IPS package name
+- Removed a no longer needed patch
 * Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
 - Bump to 4.4.0
 - Remove patch; Not necessary
