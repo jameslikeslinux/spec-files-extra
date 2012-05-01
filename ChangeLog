@@ -1,3 +1,7 @@
+2012-05-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEprotobuf.spec: initial spec
+
 2012-04-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEipf.spec: fix some permissions.
