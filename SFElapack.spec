@@ -29,7 +29,6 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 Requires: SUNWcsl
 Requires: SUNWlibms
-BuildRequires: SFEblas
 BuildRequires: SFEgcc
 Requires: SFEgccruntime
 
@@ -67,12 +66,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr(0755,root,bin) %{_libdir}
 %{_libdir}/lib*.a
+%{_libdir}/lib*.so
 #%ifarch amd64 sparcv9
 #%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 #%{_libdir}/%{_arch64}/lib*.a
+#%{_libdir}/%{_arch64}/lib*.so
 #%endif
 
 %changelog
+* Mon Apr 30 2012 - Pavel Heimlich
+- make shared libraries
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue May 25 2010 - Milan Jurik

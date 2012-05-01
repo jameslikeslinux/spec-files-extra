@@ -1,0 +1,13 @@
+--- make.inc.orig	Tue May  1 01:00:41 2012
++++ make.inc	Tue May  1 01:01:15 2012
+@@ -45,8 +45,8 @@
+ #  relevant routines will be compiled and XBLAS will be linked only if
+ #  USEXBLAS is defined.
+ #
+-# USEXBLAS    = Yes
+-XBLASLIB     =
++USEXBLAS    = Yes
++XBLASLIB     = -lxblas
+ # XBLASLIB    = -lxblas
+ #
+ #  The location of the libraries to which you will link.  (The 

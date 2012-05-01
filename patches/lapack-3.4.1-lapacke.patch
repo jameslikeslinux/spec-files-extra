@@ -1,0 +1,29 @@
+--- lapacke/Makefile	2012-04-13 01:05:47.000000000 +0200
++++ lapacke/Makefile	2012-05-01 13:26:04.000533824 +0200
+@@ -48,6 +48,7 @@
+ 	cd include && cp lapacke_mangling_with_flags.h lapacke_mangling.h
+ 	cd src && $(MAKE)
+ 	cd utils && $(MAKE)
++	cd src && $(MAKE) shared
+ 
+ lapacke_example:
+ 	cd example && $(MAKE)
+--- lapacke/src/Makefile	2012-04-02 22:16:32.000000000 +0200
++++ lapacke/src/Makefile	2012-05-01 13:28:46.475119287 +0200
+@@ -2049,12 +2049,15 @@
+ 
+ OBJ_FILES := $(C_FILES:.o=.o)
+ 
+-all: ../../$(LAPACKELIB)
++all: ../../$(LAPACKELIB) 
+ 
+ ../../$(LAPACKELIB): $(ALLOBJ) $(ALLXOBJ)
+ 	$(ARCH) $(ARCHFLAGS) ../../$(LAPACKELIB) $(ALLOBJ) $(ALLXOBJ)
+ 	$(RANLIB) ../../$(LAPACKELIB)
+ 
++shared: $(ALLOBJ) $(ALLXOBJ)
++	$(CC) -shared $(CFLAGS) $(ALLOBJ) $(ALLXOBJ) ../utils/*.o -o ../../liblapacke.so -L../.. -L/usr/lib -llapack -lblas -lxblas
++
+ .c.o:
+ 	$(CC) -c $(CFLAGS) -I ../include -o $@ $<
+ 
