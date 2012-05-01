@@ -17,11 +17,10 @@ Name:                    SFEmaxima
 IPS_Package_Name:	 math/maxima
 Summary:                 Maxima - a Computer Algebra System
 Group:                   Utility
-Version:                 5.26.0
+Version:                 5.27.0
 URL:		         http://maxima.sourceforge.net
 Source:		         %{sf_download}/project/maxima/Maxima-source/%{version}-source/%{srcname}-%{version}.tar.gz
 License: 		 GPL
-Patch1:                  maxima-01-xerprn.diff
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -41,7 +40,6 @@ three dimensions.
 %prep
 rm -rf %name-%version
 %setup -q -n %srcname-%version
-%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -59,6 +57,7 @@ unset LDFLAGS
 	    --mandir=%{_mandir}			\
             --libdir=%{_libdir}                 \
             --libexecdir=%{_libexecdir}         \
+            --infodir=%{_datadir}/info          \
             --enable-ecl
 
 make -j$CPUS
@@ -89,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/info/*
 
 %changelog
+* Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
+- Bumped to 5.27.0
+- Removed a no longer needed patch
 * Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed permissions and removed a conflicting file.
 * Tue Mar 13 2012 - Logan Bruns <logan@gedanken.org>
