@@ -107,18 +107,41 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%dir %attr(0755, root, sys) /etc
+%dir %attr(0755, root, sys) /etc/init.d
 /etc/init.d/ipfboot
+%dir %attr(0755, root, sys) /usr
+%dir %attr(0755, root, sys) /usr/share
+%dir %attr(0755, root, other) /usr/share/ipf
+%dir %attr(0755, root, other) /usr/share/ipf/examples
 /usr/share/ipf/examples/*
-/usr/share/man/man*/*
+%dir %attr(0755, root, bin) /usr/share/man
+%dir %attr(0755, root, bin) /usr/share/man/man1
+/usr/share/man/man1/*
+%dir %attr(0755, root, bin) /usr/share/man/man4
+/usr/share/man/man4/*
+%dir %attr(0755, root, bin) /usr/share/man/man5
+/usr/share/man/man5/*
+%dir %attr(0755, root, bin) /usr/share/man/man8
+/usr/share/man/man8/*
+%dir %attr(0755, root, bin) /sbin
 /sbin/*
+%dir %attr(0755, root, bin) /usr/sbin
 /usr/sbin/*
+%dir %attr(0755, root, bin) /usr/include
+%dir %attr(0755, root, bin) /usr/include/netinet
 /usr/include/netinet/*.h
+%dir %attr(0755, root, sys) /usr/kernel
+%dir %attr(0755, root, sys) /usr/kernel/drv
 %dir %attr(0755, root, bin) /usr/kernel/drv/ipf.conf
+%dir %attr(0755, root, sys) /usr/kernel/drv/amd64
 %dir %attr(0755, root, bin) /usr/kernel/drv/*/ipf
 %dir %attr(0755, root, bin) /etc/ipf
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
+* Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
+- Fix some permissions.
 * Sun Mar 11 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed a ull formatting issue in ipfstat -t output. (Resulting from
   using curses instead of ncurses.)

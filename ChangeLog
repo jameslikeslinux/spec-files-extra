@@ -1,5 +1,7 @@
 2012-04-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEipf.spec: fix some permissions.
+
 	* SFEgnuplot.spec: bumped to 4.6.0. added an IPS package
 	name. removed a no longer needed patch.
 
