@@ -2,6 +2,7 @@
 #                    Spec File
 # =========================================================================== 
 %include Solaris.inc
+%include usr-gnu.inc
 
 %define src_name	libpng
 %define src_version	1.5.10
@@ -28,17 +29,6 @@ Patch1:         libpng-01-no_ld_version_script.diff
 URL:            http://www.libpng.org
 Packager:     	Shivakumar GN
 BuildRoot:		%{_tmppath}/%{src_name}-%{version}-build
-
-#Requires:      
-#BuildRequires: 
-
-#Requires: %name-devel
-
-#delivers libraries only so as not to conflict with os provided libpng
-%package devel
-Summary:	%{summary} - development files
-IPS_Package_Name:	 image/library/libpng15/devel
-Requires: %name
 
 %description 
 libpng - reference library for use in applications that create and manipulate PNG (Portable Network Graphics) raster image files
@@ -74,15 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %files
 %defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/libpng15.*
-
-%files devel
-%defattr(-,root,bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/libpng.*
+%{_libdir}/libpng*
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*.h
 %dir %attr (0755, root, bin) %{_includedir}/libpng15
@@ -93,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/man
 
 %changelog
+* Tue May 1 2012 - Logan Bruns <logan@gedanken.org>
+- moved to /usr/gnu.
 * Sun Apr 29 2012 - Logan Bruns <logan@gedanken.org>
 - split out -devel package so runtime libs can be installed without conflicts
 - bumped to 1.5.10
