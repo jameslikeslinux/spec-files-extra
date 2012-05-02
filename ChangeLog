@@ -1,5 +1,7 @@
 2012-05-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEpari.spec: initial spec.
+
 	* SFElibpng.spec: moved to /usr/gnu.
 
 2012-05-01 Milan Jurik <sfnet@xylab.cz>
