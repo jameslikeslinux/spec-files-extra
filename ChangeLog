@@ -1,3 +1,7 @@
+2012-05-03  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhadoop.spec: replaced linux file flags with solaris ones.
+
 2012-05-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEpari.spec: initial spec.

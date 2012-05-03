@@ -27,6 +27,7 @@ Source:		         http://www.us.apache.org/dist/hadoop/core/hadoop-%{version}/ha
 Source2:                 hadoop.xml
 Patch1:        	         hadoop-01-task-controller-make.diff
 Patch2:                  hadoop-02-skip-jsvc.diff
+Patch3:                  hadoop-03-fix-file-flags.diff
 License: 		 Apache 2.0
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            /usr
@@ -61,6 +62,7 @@ rm -rf %{srcname}-%{version}
 %setup -q -n %{srcname}-%{version}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 chmod a+x src/*.sh
 cp %{SOURCE2} hadoop.xml
 
@@ -153,6 +155,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
 %changelog
+* Thu May 3 2012 - Logan Bruns <logan@gedanken.org>
+- Replaced linux file flags with solaris ones
 * Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>
 - Added snappy to requires (really optional)
 - Put home directory back to hold ssh keys

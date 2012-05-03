@@ -1,0 +1,23 @@
+--- hadoop-1.0.2/src/core/org/apache/hadoop/io/nativeio/NativeIO.java	2012-03-24 17:01:40.000000000 -0700
++++ hadoop-1.0.2-patched/src/core/org/apache/hadoop/io/nativeio/NativeIO.java	2012-05-03 00:06:51.433612937 -0700
+@@ -37,13 +37,13 @@
+   public static final int O_RDONLY   =    00;
+   public static final int O_WRONLY   =    01;
+   public static final int O_RDWR     =    02;
+-  public static final int O_CREAT    =  0100;
+-  public static final int O_EXCL     =  0200;
+-  public static final int O_NOCTTY   =  0400;
+-  public static final int O_TRUNC    = 01000;
+-  public static final int O_APPEND   = 02000;
+-  public static final int O_NONBLOCK = 04000;
+-  public static final int O_SYNC   =  010000;
++  public static final int O_CREAT    =  0x100;
++  public static final int O_EXCL     =  0x200;
++  public static final int O_NOCTTY   =  0x400;
++  public static final int O_TRUNC    = 0x200;
++  public static final int O_APPEND   = 0x08;
++  public static final int O_NONBLOCK = 0x80;
++  public static final int O_SYNC   =  0x10;
+   public static final int O_ASYNC  =  020000;
+   public static final int O_FSYNC = O_SYNC;
+   public static final int O_NDELAY = O_NONBLOCK;
