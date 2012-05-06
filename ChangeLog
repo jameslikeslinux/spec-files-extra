@@ -1,3 +1,9 @@
+2012-05-06  Pavel Heimlich <tropikhajma@gmail.com>
+
+	* patches/octave-configure.diff patches/octave-configure.in.diff 
+	patches/octave-configure02.diff patches/octave-stlport4.diff
+	patches/octave-configure03.diff SFEoctave.spec: octave 3.6.1
+
 2012-05-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEopenafs.spec: increased the smf method start timeout.

@@ -10,12 +10,9 @@
 Name:           SFEoctave
 Summary:        octave High-level language, intended for numerical computations
 Group:		Math
-Version:        3.0.3
-Source:		ftp://ftp.octave.org/pub/octave/octave-%{version}.tar.bz2
-Patch1:		octave-stlport4.diff
-Patch2:		octave-configure.diff
-Patch3:		octave-configure02.diff
-Patch4:		octave-configure.in.diff
+Version:        3.6.1
+Source:		ftp://ftp.gnu.org/gnu/octave/octave-%{version}.tar.bz2
+Patch5:		octave-configure03.diff
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include	default-depend.inc
@@ -36,13 +33,13 @@ Requires: 	SUNWgnu-gperf
 #Requires: 	SFEgnuplot
 Requires: 	gnuplot
 Requires:	SUNWncurses
-Requires:	SUNWfftw2
+Requires:	library/fftw-3
 Requires:	SUNWfftw3
-Requires:	SFEblas
+Requires:	SFExblas
 Requires:	SFElapack
 Requires:	SUNWzlib
 Requires:	SUNWgnu-readline
-BuildRequires: 	SUNWPython
+BuildRequires: 	runtime/python-26
 #TODO
 #Requires: suitesparse examples/octave.desktop
 
@@ -66,27 +63,26 @@ C++, C, Fortran, or other languages.
 
 %prep
 %setup -q -c -n %{name}
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
+cd octave-%{version}
+%patch5 -p0
 
 %build
+
 %define enable64 no
 #export CFLAGS="%optflags"
 #export LDFLAGS="%_ldflags"
 export LDFLAGS=" "
-export CC=cc 
-export CXX=CC
-export F77=f77
-export FC=f77
-export EXTERN_CXXFLAGS="-library=stlport4"
+export CC=gcc 
+export CXX=g++
+export F77=gfortran
+export FC=gfortran
+#export EXTERN_CXXFLAGS="-library=stlport4"
 export EXTERN_CFLAGS=" "
-export CXXFLAGS="-library=stlport4"
+#export CXXFLAGS="-library=stlport4"
 export CFLAGS=" "
-export XTRA_CRUFT_SH_LDFLAGS="-library=stlport4"
+#export XTRA_CRUFT_SH_LDFLAGS="-library=stlport4"
 cd octave-%{version}
-./configure --enable-shared --disable-static --enable-64=%enable64 --with-f77=f77 \
+./configure --enable-shared --disable-static --enable-64=%enable64 \
 	--with-blas=-lblas		\
 	--prefix=%{_prefix} 		\
 	--mandir=%{_mandir}		\
@@ -96,11 +92,10 @@ cd octave-%{version}
 	--datadir=%{_datadir}		\
 	--includedir=%{_includedir}	\
 	--docdir=%{_docdir}		\
-	--libexecdir=%{_libexecdir}
+	--libexecdir=%{_libexecdir}	\
+	--enable-docs=no
+#(do not enable docs as Solaris makeinfo is ages old and does not work with octave docs
 
-#because of bug in SunStudio12u1
-#http://defect.opensolaris.org/bz/show_bug.cgi?id=9720
-#make SH_LDFLAGS="-G -xannotate=no"
 make
 
 
@@ -120,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 cd octave-%{version}
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
+rm -f ${RPM_BUILD_ROOT}%{_libdir}/charset.alias
 
 #%if %build_l10n
 #%else
@@ -134,24 +130,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %dir %attr (0755, root, bin) %{_libdir}
-%dir %attr (0755, root, bin) %{_libdir}/octave-%{version}
+%dir %attr (0755, root, bin) %{_libdir}/octave
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_datadir}/octave
 %dir %attr(0755, root, bin) %{_includedir}
 %dir %attr(0755, root, bin) %{_includedir}/octave-%{version}
 %dir %attr(0755, root, bin) %{_includedir}/octave-%{version}/octave
-%dir %attr(0755, root, other) %{_datadir}/applications
 %{_bindir}/octave*
 %{_bindir}/mkoctfile*
-%{_libdir}/octave-%{version}/*
+%{_libdir}/octave/*
 %{_includedir}/octave-%{version}/octave/*
 %{_datadir}/octave/*
-%{_libexecdir}/octave
-%{_mandir}/man*/octave*
-%{_mandir}/man*/mkoct*
-%{_infodir}/octave.info*
-%{_datadir}/applications/*
-
 
 #%if %build_l10n
 #%files l10n
@@ -161,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* May 06 2012 - Pavel Heimlich
+- octave 3.6.1
 * Feb 28 2010 - Gilles Dauphin
 - gnuplot is in b133
 * Jul 01 2009 - Gilles Dauphin
