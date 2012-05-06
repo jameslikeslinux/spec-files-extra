@@ -21,14 +21,14 @@
 
 Name:                SFEdrupal7
 Summary:             Drupal - open-source content-management platform
-Version:             7.12
+Version:             7.14
 License: 	     GPLv2
 Source:              http://ftp.drupal.org/files/projects/drupal-%{version}%{src_name_minor_extra}.tar.gz
-SUNW_BaseDir:        /
-URL:	             http://www.drupal.org
 #Source2:             %{src_name}-htaccess-protect-backend
-SUNW_Copyright:      %{name}.copyright
 Source3:             %{name}.conf.example
+URL:	             http://www.drupal.org
+SUNW_BaseDir:        /
+SUNW_Copyright:      %{name}.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}%{src_name_minor_extra}-build
 %include default-depend.inc
 
@@ -102,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 06 2012 - Thomas Wagner
+- bump to 7.14 - bug fixes + security fixes
 * Thu Feb 23 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 7.12
 * Fri Dec 30 2011 - Thomas Wagner
