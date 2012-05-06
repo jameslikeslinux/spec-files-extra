@@ -140,6 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/openafs.xml
 
 %changelog
+* Sun May 6 2012 - Logan Bruns <logan@gedanken.org>
+- Increased the smf method start timeout.
 * Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed some permissions and also changed it to no longer enable the service by default.
 * Mon Apr 16 2012 Logan Bruns <logan@gedanken.org>
