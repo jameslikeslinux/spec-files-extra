@@ -1,5 +1,9 @@
 2012-05-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFEhbase.spec: initial spec.
+	* ext-sources/hbase.xml
+	* copyright/SFEhbase.copyright
+
 	* SFEswig.spec: bump to 2.0.6 and added ips package name.
 
 2012-05-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
