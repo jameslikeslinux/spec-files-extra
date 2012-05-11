@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2009 Sun Microsystems, Inc.
+# Copyright (c) 2009, 2012, Oracle and/or its affiliates. All rights reserved.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
@@ -9,8 +9,9 @@
 
 Name:                    SFEcaribou
 Summary:                 Caribou On Screen Keyboard
-Version:                 0.4.1
-Source:			 http://ftp.gnome.org/pub/GNOME/sources/caribou/0.4/caribou-%{version}.tar.bz2
+Version:                 0.4.2
+Source:			 http://ftp.gnome.org/pub/GNOME/sources/caribou/0.4/caribou-%{version}.tar.xz
+Patch1:                  caribou-01-m4.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
@@ -53,6 +54,7 @@ Requires:                %{name}
 
 %prep
 %setup -q -n caribou-%version
+%patch1 -p1
 
 %build
 
@@ -64,6 +66,10 @@ fi
 export CFLAGS="%optflags"
 export LDFLAGS="%{_ldflags}"
 
+libtoolize --force
+aclocal-1.11 $ACLOCAL_FLAGS -I ./m4
+automake-1.11 -a -c -f
+autoconf
 ./configure --prefix=%{_prefix}		\
 	    --bindir=%{_bindir}		\
             --libdir=%{_libdir}		\
@@ -137,14 +143,5 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Sat Oct 23 2010 - Brian Cameron <brian.cameron@oracle.com>
-- Bump to 0.12.0.
-* Wed Feb 03 2010 - Albert Lee <trisk@opensolaris.org>
-- Bump to 0.10.0
-* Sat Nov 14 2009 - Albert Lee <trisk@opensolaris.org>
-- Bump to 0.8.2
-- Drop patch1
-- Update source URL, add license
-- Update dependencies
-* Sun Jun 21 2009 - trisk@forkgnu.org
-- Initial spec
+* Thu May 10 2012 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.4.2.

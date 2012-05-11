@@ -10,8 +10,8 @@
 Name:                    SFElightdm
 License:                 GPLv3
 SUNW_Copyright:	         lightdm.copyright
-Version:                 0.9.5
-Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
+Version:                 1.1.7
+Source:                  https://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
 Patch1:                  lightdm-01-compile.diff
@@ -150,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Nov 28 2011 - brian.cameron@oracle.com
+- Bump to 1.0.6.
 * Wed Sep 07 2011 - brian.cameron@oracle.com
 - Bump to 0.9.5.
 * Wed Aug 24 2011 - brian.cameron@oracle.com

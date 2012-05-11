@@ -22,9 +22,8 @@ Patch7:                  spidermonkey-07-makefile.diff
 # see b.g.o 619721 and 595447
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-# Need nspr.pc file in SUNWprd
-BuildRequires:           SUNWprd
 %include default-depend.inc
+BuildRequires: library/nspr
 
 %package devel
 Summary:                 %{summary} - development files

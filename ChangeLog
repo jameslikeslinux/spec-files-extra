@@ -1,3 +1,20 @@
+2012-05-11 Brian Cameron <brian.cameron@oracle.com>
+
+	* SFEcaribou.spec: Bump to 0.4.2.
+	* patches/caribou-01-m4.diff: Add patch needed to build.
+	* SFEspidermonkey.spec: Fix BuildRequires.
+	* SFEgjs.spec: Bump to 1.32.0.
+	* patches/gjs-01-solaris.diff: Rework.
+	* SFEmutter.spec: Bump to 3.4.1.
+	* patches/mutter-03-compile.diff: Rework.
+	* patches/mutter-04-mapfile.diff: Add patch needed to build.
+	* SFEgnome-shell.spec: Bump to 3.4.1.
+	* patches/gnome-shell-01-compile.diff: Rework.
+	* patches/gnome-shell-02-fixclick.diff: Remove patch no longer needed.
+	* base-specs/telepathy-glib.spec: Bump to 0.19.0.
+	* patches/telepathy-glib-01-compile.diff: Add patch needed to build.
+	* base-specs/telepathy-logger.spec: Bump to 0.4.0.
+
 2012-05-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* experimental/SFEhbase.spec: initial spec.
