@@ -10,6 +10,7 @@
 %define version_version 0.76
 
 Name:                    SFEperl-version
+IPS_package_name:        library/perl-5/version
 Summary:                 version-%{version_version} PERL module
 Version:                 %{perl_version}.%{version_version}
 Source:                  http://www.cpan.org/modules/by-module/version/version-%{version_version}.tar.gz
@@ -68,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 11 2012 - Thomas Wagner
+- add IPS_package_name library/perl-5/version
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files
