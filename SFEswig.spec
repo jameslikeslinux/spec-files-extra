@@ -10,8 +10,9 @@
 %include Solaris.inc
 
 Name:                    SFEswig
+IPS_Package_Name:	 sfe/developer/swig
 Summary:                 SWIG Interface compiler
-Version:                 1.3.36
+Version:                 2.0.6
 Source:                  %{sf_download}/swig/swig-%{version}.tar.gz
 URL:                     http://www.swig.org/
 SUNW_BaseDir:            %{_basedir}
@@ -57,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
+* Fri May 11 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 2.0.6 and added ips package name.
 * Mon Aug 18 2008 - nonsea@users.sourceforge.net
 - Bump to 1.3.36.
 * Tue Jun 24 2008 - nonsea@users.sourceforge.net
