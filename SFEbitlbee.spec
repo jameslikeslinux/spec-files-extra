@@ -106,9 +106,13 @@ user ftpuser=false gcos-field="BitlBee Reserved UID" username="bitlbee" password
 %dir %attr(0755, root, other) /var/lib
 %dir %attr(0755, bitlbee, root) /var/lib/bitlbee
 %dir %attr (0755, root, sys) %{_localstatedir}/svc
+%dir %attr (0755, root, sys) %{_localstatedir}/svc/manifest
+%dir %attr (0755, root, sys) %{_localstatedir}/svc/manifest/site
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/bitlbee.xml
 
 %changelog
+* Sat May 12 2012 - Logan Bruns <logan@gedanken.org>
+- Made some more permissions explicit.
 * Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed another permission and also changed to no longer enable service by default.
 * Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
