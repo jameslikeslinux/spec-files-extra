@@ -137,13 +137,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, sys) /usr/kernel/drv/amd64
 %dir %attr(0755, root, bin) /usr/kernel/drv/*/ipf
 %dir %attr(0755, root, bin) /etc/ipf
-%dir %attr(0755, root, bin) /var
+%dir %attr(0755, root, sys) /var
 %dir %attr(0755, root, sys) /var/svc
 %dir %attr(0755, root, sys) /var/svc/manifest
 %dir %attr(0755, root, sys) /var/svc/manifest/site
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/ipfilter.xml
 
 %changelog
+* Sat May 12 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed a permission.
 * Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
 - Fix some permissions.
 * Sun Mar 11 2012 - Logan Bruns <logan@gedanken.org>
