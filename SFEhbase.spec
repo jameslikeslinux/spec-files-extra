@@ -78,6 +78,8 @@ cp $RPM_BUILD_ROOT/usr/share/hbase/bin/hbase-config.sh-new $RPM_BUILD_ROOT/usr/s
 rm $RPM_BUILD_ROOT/usr/share/hbase/bin/hbase-config.sh-new
 echo "export JAVA_HOME=/usr/java" >> $RPM_BUILD_ROOT/etc/hbase/hbase-env.sh
 echo "export HBASE_LOG_DIR=/var/log/hbase" >> $RPM_BUILD_ROOT/etc/hbase/hbase-env.sh
+echo "export HBASE_MANAGES_ZK=true" >> $RPM_BUILD_ROOT/etc/hbase/hbase-env.sh
+echo "export HBASE_REGIONSERVERS=/etc/hbase/regionservers" >> $RPM_BUILD_ROOT/etc/hbase/hbase-env.sh
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -117,8 +119,13 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %dir %attr(0755, hbase, other) /var/log/hbase
 %dir %attr(0755, root, other) /var/lib
 %dir %attr(0700, hbase, other) /var/lib/hbase
+%dir %attr(0755, root, sys) /var/svc
+%dir %attr(0755, root, sys) /var/svc/manifest
+%dir %attr(0755, root, sys) /var/svc/manifest/site
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hbase.xml
 
 %changelog
+* Sat May 12 2012 - Logan Bruns <logan@gedanken.org>
+- Moved out of experimental and fixed regionservers variable.
 * Fri May 11 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
