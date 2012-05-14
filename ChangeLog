@@ -1,6 +1,7 @@
 2012-05-14 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEgraphviz.spec: bump to 2.28.0
+	* SFEcppunit.spec: bump to 1.12.1
 
 2012-05-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
