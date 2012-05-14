@@ -8,18 +8,18 @@
 
 %define python_version 2.6
 
-%define SFEfreetype %(/usr/bin/pkginfo -q SFEfreetype && echo 1 || echo 0)
-
-Name:                SFEgraphviz
+Name:	SFEgraphviz
+IPS_Package_Name:	image/graphviz
 Summary:             Graph drawing tools and libraries
-Group:               Applications/Graphics and Imaging
-Version:             2.26.3
-License:             CPL-1.0
-SUNW_Copyright:      graphviz.copyright
-Source:              http://www.graphviz.org/pub/graphviz/ARCHIVE/graphviz-%{version}.tar.gz
-URL:                 http://www.graphviz.org
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Group:		Applications/Graphics and Imaging
+Version:	2.28.0
+License:	CPL-1.0
+SUNW_Copyright:	graphviz.copyright
+Source:		http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-%{version}.tar.gz
+Patch1:		graphviz-01-return.diff
+URL:		http://www.graphviz.org
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires: SUNWlibtool
@@ -27,20 +27,12 @@ Requires: SUNWgd2
 Requires: SUNWlexpt
 Requires: SUNWfontconfig
 Requires: SUNWlexpt
-%if %SFEfreetype
-Requires: SFEfreetype
-%else
 Requires: SUNWfreetype2
-%endif
 Requires: SUNWgnome-base-libs
 Requires: SUNWjpg
 Requires: SUNWlibC
 Requires: SUNWpng
-%if %SFEfreetype
-BuildRequires: SFEfreetype-devel
-%else
 BuildRequires: SUNWfreetype2
-%endif
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWlibtool
 BuildRequires: SUNWPython-devel
@@ -58,6 +50,7 @@ Requires: %name
 
 %prep
 %setup -q -n graphviz-%version
+%patch1 -p1
 
 %build
 
@@ -66,12 +59,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-# Not needed and generated version of libtool has some parsing problems
-#libtoolize --copy --force
-#-aclocal $ACLOCAL_FLAGS
-#autoheader
-#automake -a -c -f
-#autoconf
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir} \
             --enable-static=no \
@@ -131,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/graphviz/*
 
 %changelog
+* Man May 14 2012 - Milan Jurik
+- bump to 2.28.0
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sat Jul 17 2010 - Milan Jurik
