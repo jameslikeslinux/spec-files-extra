@@ -6,9 +6,9 @@
 %include Solaris.inc
 
 Summary:	Validating, recursive, and caching DNS resolver
-IPS_Package_Name:	network/dns/unbound
+IPS_Package_Name:	service/network/dns/unbound
 Name:		SFEunbound
-Version:	1.4.14
+Version:	1.4.16
 License:	BSD
 URL:		http://www.nlnetlabs.nl/unbound/
 Source:		http://www.unbound.net/downloads/unbound-%{version}.tar.gz
@@ -131,6 +131,8 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Tue May 15 2012 - Milan Jurik
+- bump to 1.4.16
 * Mon Dec 19 2011 - Milan Jurik
 - bump to 1.4.14
 * Fri Sep 16 2011 - Milan Jurik
