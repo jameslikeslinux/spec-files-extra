@@ -11,7 +11,7 @@ Name:		SFEldns
 IPS_Package_Name:	library/ldns
 URL:		http://www.nlnetlabs.nl/projects/ldns/
 Summary:	ldns library for DNS programming
-Version:	1.6.11
+Version:	1.6.12
 Group:		System/Libraries
 License:	BSD
 SUNW_Copyright:	ldns.copyright
@@ -63,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Tue May 15 2012 - Milan Jurik
+- bump to 1.6.12
 * Fri Nov 25 2011 - Milan Jurik
 - bump to 1.6.11
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
