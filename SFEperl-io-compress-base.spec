@@ -11,7 +11,7 @@
 #note: download file version differs from package version (for IPS not accepting "015" / leading zero)
 %define module_version 2.15
 %define module_version_download 2.015
-%define modules_package_name io-compress-base
+%define module_package_name io-compress-base
 
 Name:                    SFEperl-io-compress-base
 IPS_package_name:        library/perl-5/%{module_package_name}

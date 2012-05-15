@@ -11,7 +11,7 @@
 #note: download file version differs from package version (for IPS not accepting "015" / leading zero)
 %define module_version 2.17
 %define module_version_download 2.017
-%define modules_package_name compress-raw-zlib
+%define module_package_name compress-raw-zlib
 
 Name:                    SFEperl-compress-raw-zlib
 IPS_package_name:        library/perl-5/%{module_package_name}
