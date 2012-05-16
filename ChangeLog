@@ -1,3 +1,7 @@
+2012-05-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnodejs.spec: bump to 0.6.18
+
 2012-05-15 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEldns.spec: bump to 1.6.12
