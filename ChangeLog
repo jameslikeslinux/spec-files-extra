@@ -1,3 +1,14 @@
+2012-05-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEcppcheck.spec: initial spec.
+	* patches/cppcheck-01-strings.diff
+	* patches/cppcheck-02-fmod.diff
+	* patches/cppcheck-03-count.diff
+	* patches/cppcheck-04-string.diff
+	* patches/cppcheck-05-const-mismatch.diff
+	* patches/cppcheck-06-docbook.diff
+	* copyright/SFEcppcheck.copyright
+
 2012-05-16 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEnodejs.spec: bump to 0.6.18

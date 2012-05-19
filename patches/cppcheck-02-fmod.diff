@@ -1,0 +1,11 @@
+--- cppcheck-1.54/lib/mathlib.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/mathlib.cpp	2012-05-19 01:11:29.485636098 -0700
+@@ -230,7 +230,7 @@
+     if (MathLib::isInt(first) && MathLib::isInt(second)) {
+         return toString<MathLib::bigint>(toLongNumber(first) % toLongNumber(second));
+     }
+-    return toString<double>(fmod(toDoubleNumber(first),toDoubleNumber(second)));
++    return toString<double>(std::fmod(toDoubleNumber(first),toDoubleNumber(second)));
+ }
+ 
+ std::string MathLib::calculate(const std::string &first, const std::string &second, char action)
