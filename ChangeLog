@@ -1,5 +1,10 @@
 2012-05-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* base-specs/boost.spec: bump to 1.49.0 and removed a patch that
+	is no longer needed.
+	* SFEboost.spec: added a missing define (stl_is_stdcxx) that is
+	now need due to changes in the base spec.
+
 	* SFEcppcheck.spec: initial spec.
 	* patches/cppcheck-01-strings.diff
 	* patches/cppcheck-02-fmod.diff

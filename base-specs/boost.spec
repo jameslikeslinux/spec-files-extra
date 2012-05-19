@@ -9,7 +9,7 @@
 #
 
 %define        major      1
-%define        minor      48
+%define        minor      49
 %define        patchlevel 0
 %define        ver_boost  %{major}_%{minor}_%{patchlevel}
 
@@ -24,24 +24,21 @@ Source:       %{sf_download}/boost/boost_%{ver_boost}.tar.bz2
 # Ticket #6161
 Patch1:       boost-01-putenv.diff
 Patch2:       boost-gpp-01-cstdint.diff
-# Tickect #6131
-Patch3:       boost-1.48.0-foreach.patch
 # stlport4/stdcxx4
-Patch4:       boost-stdcxx-01-stl.diff
-Patch5:       boost-stdcxx-02-wchar.diff
+Patch3:       boost-stdcxx-01-stl.diff
+Patch4:       boost-stdcxx-02-wchar.diff
 URL:          http://www.boost.org/
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n %{name}_%{major}_%{minor}_%{patchlevel}
-%patch3	-p1
 %if %cc_is_gcc
 %patch2 -p0
 %else
 %patch1 -p0
 %if %stl_is_stdcxx
+%patch3 -p0
 %patch4 -p0
-%patch5 -p0
 %endif
 %endif
 
@@ -75,6 +72,8 @@ export LDFLAGS="%_ldflags"
 ./bjam install --prefix=$RPM_BUILD_ROOT%{_prefix}
 
 %changelog
+* Sat May 19 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.49.0 and removed a patch that is no longer needed.
 * Sat Jan 14 2012 - Milan Jurik
 - add support for stdcxx
 * Thu Jan 12 2012 - Milan Jurik

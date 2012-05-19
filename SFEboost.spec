@@ -5,6 +5,7 @@
 
 %include Solaris.inc
 
+%define stl_is_stdcxx 0
 %use boost = boost.spec
 
 Name:                SFEboost
@@ -80,6 +81,9 @@ rm -rf %{buildroot}
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sat May 19 2012 - Logan Bruns <logan@gedanken.org>
+- added a missing define (stl_is_stdcxx) that is now need due to
+  changes in the base spec.
 * Thu Jan 12 2012 - Milan Jurik
 - package restructuralization, static libs re-added
 * Mon Oct 17 2011 - Milan Jurik
