@@ -1,5 +1,7 @@
 2012-05-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEgit.spec: bump to 1.7.10.2
+
 	* SFEimagemagick.spec: update to 6.7.6-10
 
 2012-05-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
