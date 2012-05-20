@@ -6,10 +6,13 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick/legacy
-%define major		6.7.5
+%define major		6.7.6
 %define minor		10
-#%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
+
+# Note: we purposely take the latest version from legacy since these
+# are stable (permanent) links whereas the absolute latest version is
+# placed one directory up but only temporarily while it is new.
+%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick/legacy
 
 Name:                   SFEimagemagick
 IPS_Package_Name:	image/editor/imagemagick
@@ -110,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
+- update to 6.7.6-10
 * Sun Apr 29 2012 - Logan Bruns <logan@gedanken.org>
 - update to 6.7.5-10
 * Sun Feb 26 2012 - Logan Bruns <logan@gedanken.org>

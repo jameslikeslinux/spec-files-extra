@@ -1,3 +1,7 @@
+2012-05-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEimagemagick.spec: update to 6.7.6-10
+
 2012-05-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* base-specs/boost.spec: bump to 1.49.0 and removed a patch that
