@@ -18,13 +18,14 @@ Name:		SFEllvm
 IPS_Package_Name:	developer/llvm
 Summary:	The Low Level Virtual Machine (An Optimizing Compiler Infrastructure)
 SUNW_Copyright:	llvm.copyright
-Version:	3.0
+Version:	3.1
 License:        BSD
 
 URL:		http://llvm.org/
-Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.tar.gz
-Source1:	http://llvm.org/releases/%{version}/clang-%{version}.tar.gz
-Patch1:		llvm-01-limits.diff
+Source:		http://llvm.org/releases/%{version}/%{src_name}-%{version}.src.tar.gz
+Source1:	http://llvm.org/releases/%{version}/clang-%{version}.src.tar.gz
+# TODO: This needs proper fix
+Patch1:		llvm-01-gccpath.diff
 
 Group:          Development
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -53,6 +54,7 @@ programming tools as well as libraries with equivalent functionality.
 %prep
 %setup -q -n %{src_name}-%{version}.src
 cd tools && tar xzf %{SOURCE1} && mv clang-%{version}.src clang
+%patch1 -p2
 
 %build
 
@@ -104,6 +106,8 @@ mv ${RPM_BUILD_ROOT}/%{_prefix}/docs ${RPM_BUILD_ROOT}%{_datadir}/doc
 %{_docdir}/llvm
 
 %changelog
+* Wed May 23 2012 - Milan Jurik
+- bump to 3.1
 * Sun Dec 04 2011 - Milan Jurik
 - bump to 3.0
 * Sat Jul 23 2011 - Alex Viskovatoff
