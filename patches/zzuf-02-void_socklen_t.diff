@@ -1,0 +1,47 @@
+--- zzuf-0.13/src/libzzuf/lib-fd.c	2010-01-18 16:52:39.000000000 -0800
++++ zzuf-0.13-patched/src/libzzuf/lib-fd.c	2012-05-23 15:29:58.397386590 -0700
+@@ -106,7 +106,7 @@
+ #endif
+ #if defined HAVE_ACCEPT
+ static int     (*ORIG(accept))  (int sockfd, SOCKADDR_T *addr,
+-                                 SOCKLEN_T *addrlen);
++                                 void *addrlen);
+ #endif
+ #if defined HAVE_BIND
+ static int     (*ORIG(bind))    (int sockfd, const SOCKADDR_T *my_addr,
+@@ -252,7 +252,7 @@
+ #endif
+ 
+ #if defined HAVE_ACCEPT
+-int NEW(accept)(int sockfd, SOCKADDR_T *addr, SOCKLEN_T *addrlen)
++int NEW(accept)(int sockfd, SOCKADDR_T *addr, void *addrlen)
+ {
+     int ret;
+ 
+@@ -266,7 +266,7 @@
+     {
+         if(addrlen)
+             debug("%s(%i, %p, &%i) = %i", __func__,
+-                  sockfd, addr, (int)*addrlen, ret);
++                  sockfd, addr, (int)*((SOCKLEN_T*)addrlen), ret);
+         else
+             debug("%s(%i, %p, NULL) = %i", __func__, sockfd, addr, ret);
+         _zz_register(ret);
+@@ -387,7 +387,7 @@
+ 
+ #if defined HAVE_RECVFROM
+ RECV_T NEW(recvfrom)(int s, void *buf, size_t len, int flags,
+-                     SOCKADDR_T *from, SOCKLEN_T *fromlen)
++                     SOCKADDR_T *from, void *fromlen)
+ {
+     int ret;
+ 
+@@ -406,7 +406,7 @@
+         _zz_addpos(s, ret);
+ 
+         if (fromlen)
+-            sprintf(tmp, "&%i", (int)*fromlen);
++	  sprintf(tmp, "&%i", (int)*((SOCKLEN_T*) fromlen));
+         else
+             strcpy(tmp, "NULL");
+ 

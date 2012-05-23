@@ -1,3 +1,10 @@
+2012-05-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEzzuf.spec: initial spec.
+	* patches/zzuf-01-void_rewind.diff
+	* patches/zzuf-02-void_socklen_t.diff
+	* copyright/SFEzzuf.copyright
+
 2012-05-23 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEllvm.spec: bump to 3.1

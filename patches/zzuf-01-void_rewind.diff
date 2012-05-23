@@ -1,0 +1,15 @@
+--- zzuf-0.13/src/libzzuf/lib-stream.c	2010-01-18 16:47:56.000000000 -0800
++++ zzuf-0.13-patched/src/libzzuf/lib-stream.c	2012-05-23 15:07:10.226120164 -0700
+@@ -402,8 +402,10 @@
+         LOADSYM(rewind); \
+         fd = fileno(stream); \
+         if(!_zz_ready || !_zz_iswatched(fd) || !_zz_isactive(fd) \
+-             || _zz_islocked(fd)) \
+-            return ORIG(rewind)(stream); \
++	   || _zz_islocked(fd)) {				 \
++            ORIG(rewind)(stream); \
++	    return; \
++    } \
+         debug_stream("before", stream); \
+         /* FIXME: ftell() will return -1 on a pipe such as stdin */ \
+         oldpos = ZZ_FTELL(stream); \
