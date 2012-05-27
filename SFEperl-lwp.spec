@@ -6,40 +6,30 @@
 
 # Note: Sourcefile does not follow standard naming
 
-%define module_version 5.829
+%define module_version 6.4
+%define module_version_download 6.04
 %define module_name libwww-perl
 %define module_name_major LWP
-%define module_name_major_2 NET
-%define module_name_major_3 HTTP
-%define module_name_major_4 File
-%define module_name_major_5 Bundle
-%define module_name_major_6 WWW
 %define module_package_name libwww-perl
-#still unused: %define module_name_minor Pcalc
 
 %include Solaris.inc
 %include packagenamemacros.inc
 
-Name:                    SFEperl-%{module_package_name}
-Summary:                 %{module_name}-%{module_version} PERL module
-Version:                 %{perl_version}.%{module_version}
-Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version}.tar.gz
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                %{pnm_requires_perl_default}
-BuildRequires:           %{pnm_buildrequires_perl_default}
-BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
-Requires:                SFEperl-compress-zlib
-Requires:                SFEperl-html-parser
-Requires:                SFEperl-uri
-
-#  URI
-#  MIME-Base64
-#  HTML-Parser
-#  libnet
-#  Digest-MD5
-#  Compress-Zlib
-
+Name:		SFEperl-lwp
+IPS_Package_Name:	library/perl-5/libwww-perl-lwp
+Summary:	%{module_name}-%{module_version} PERL module
+Version:	%{perl_version}.%{module_version}
+Source:		http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version_download}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+Requires:	%{pnm_requires_perl_default}
+BuildRequires:	%{pnm_buildrequires_perl_default}
+BuildRequires:	SFEperl-compress-zlib
+Requires:	SFEperl-compress-zlib
+BuildRequires:	SFEperl-html-parser
+Requires:	SFEperl-html-parser
+BuildRequires:	SFEperl-uri
+Requires:	SFEperl-uri
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -53,14 +43,7 @@ Requires:                SFEperl-uri
 
 %build
 
-#special to this perlmodule:
-# perl Makefile.PL ...... EXPATLIBPATH=/usr/sfw/lib EXPATINCPATH=/usr/sfw/include
-
-
-
-
-
-cd %{module_name}-%{module_version}
+cd %{module_name}-%{module_version_download}
 perl Makefile.PL \
      -n \
     UNINST=0 \
@@ -72,14 +55,11 @@ perl Makefile.PL \
     INSTALLMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
     INSTALLMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
 
-#      EXPATLIBPATH=/usr/sfw/lib                   \
-#      EXPATINCPATH=/usr/sfw/include
-
 make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{module_name}-%{module_version}
+cd %{module_name}-%{module_version_download}
 make install
 
 
@@ -110,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 27 2012 - Milan Jurik
+- bump to 6.04, all except LWP:: went to separate packages
 * Tue Feb  1 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamemacros.inc
 * Sun Jul 19 2009 - matt@greenviolet.net
