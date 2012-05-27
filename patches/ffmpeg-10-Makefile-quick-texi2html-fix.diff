@@ -1,11 +1,11 @@
---- ffmpeg-0.9/doc/Makefile	Mon Dec 12 10:12:04 2011
-+++ ffmpeg-0.9/doc/Makefile	Mon Dec 12 10:16:36 2011
-@@ -20,7 +20,7 @@
+--- ffmpeg-0.11/doc/Makefile	Sat May 26 20:40:33 2012
++++ ffmpeg-0.11/doc/Makefile	Sat May 26 20:51:17 2012
+@@ -41,7 +41,7 @@
  doc/%.html: TAG = HTML
- doc/%.html: doc/%.texi $(SRC_PATH)/doc/t2h.init
+ doc/%.html: doc/%.texi $(SRC_PATH)/doc/t2h.init $(GENTEXI)
  	$(Q)$(TEXIDEP)
--	$(M)texi2html -monolithic --init-file $(SRC_PATH)/doc/t2h.init --output $@ $<
-+	$(M)texi2html -monolithic $<
+-	$(M)texi2html -I doc -monolithic --init-file $(SRC_PATH)/doc/t2h.init --output $@ $<
++	$(M)texi2html -Idoc -monolithic $<
  
  doc/%.pod: TAG = POD
- doc/%.pod: doc/%.texi
+ doc/%.pod: doc/%.texi $(GENTEXI)

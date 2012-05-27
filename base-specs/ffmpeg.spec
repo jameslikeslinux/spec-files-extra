@@ -5,10 +5,9 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.10.2
+Version:                 0.11
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
-Patch9:			 ffmpeg-09-configure-gnuism-pod2man.diff
 Patch10:		 ffmpeg-10-Makefile-quick-texi2html-fix.diff
 Patch11:		 ffmpeg-11-add-sys_videodev2_h.diff
 SUNW_BaseDir:            %{_basedir}
@@ -17,7 +16,6 @@ Autoreqprov:             on
 
 %prep
 %setup -q -n ffmpeg-%version
-%patch9 -p1
 %patch10 -p1
 %patch11 -p1
 perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
@@ -69,7 +67,6 @@ bash ./configure	\
     --enable-libopencore-amrwb \
     --enable-version3	\
     --disable-static	\
-    --disable-mlib	\
     --enable-libschroedinger	\
     --enable-libopenjpeg	\
     --enable-librtmp	\
@@ -85,15 +82,10 @@ gmake -j$CPUS
 # for pod2man
 export PATH=/usr/perl5/bin:$PATH
 gmake install DESTDIR=$RPM_BUILD_ROOT BINDIR=$RPM_BUILD_ROOT%{_bindir}
+gmake install-man DESTDIR=$RPM_BUILD_ROOT
 
 mkdir $RPM_BUILD_ROOT%{_libdir}/ffmpeg
 cp config.mak $RPM_BUILD_ROOT%{_libdir}/ffmpeg
-
-#workaround for occasional not finding of %doc files
-touch placeholder.html
-cp -p *.html doc/
-mkdir -p %buildroot%_docdir/ffmpeg
-cp -p doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html %buildroot%_docdir/ffmpeg
 
 # Create a ffmpeg.pc - Some apps need it
 cat > $RPM_BUILD_ROOT%{_libdir}/pkgconfig/ffmpeg.pc << EOM
@@ -108,12 +100,12 @@ Requires:  libavcodec libpostproc libavutil libavformat libswscale x264 ogg theo
 Conflicts:
 EOM
 
-#mv $RPM_BUILD_ROOT%{_libdir}/lib*.*a $RPM_BUILD_ROOT%{_libdir}/ffmpeg
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun May 27 2012 - Milan Jurik
+- bump to 0.11
 * Sun Apr 29 2012 - Pavel Heimlich
 - bump to 0.10.2 (a must for mplayer2)
 * Fri Jan 24 2012 - James Choi
