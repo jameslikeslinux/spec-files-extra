@@ -3,6 +3,7 @@
 	* encumbered/SFEffmpeg.spec: bump to 0.11
 	* SFEperl-lwp.spec: bump to 6.04
 	* SFEperl-http-message.spec: initial spec
+	* SFEperl-http-date.spec: initial spec
 
 2012-05-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
