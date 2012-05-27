@@ -159,8 +159,16 @@ SFEtransmageddon.spec: use pnm_python_default  and *test* if it works
 #resolved# SFEqt-gpp.spec -> Qt*pc wrong setting mysql: Libs.private: -L/usr/gnu/lib -L/usr/g++/{mysql/5.1/lib}  ...
 
 32)
-check for identical/alias packages in SFE which have similar *new* packages in SUNW, create pnm_macro rules for them
+check in S11 and OI which packages got added with S11 Updates and with OI151a<n>
+and create pnm_macro rules to simplify (Build)Requires in the consuming spec-files
+check for identical/alias packages in SFE which have similar *new* packages in 
+SUNW, create pnm_macro rules for them. 
+Those packages below are known to have a good replacement in the distro: 
+(else: relocate ours to /usr/gnu. "not:" to collect replacements not usable for SFE)
 SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
+
+not: OI gcc 4.4  (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
+not: S11 gcc 4.x (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
 
 33)
 pkgbuild.wiki: Review lonely pages in draft status and enhance them, link them:
