@@ -21,7 +21,7 @@
 Name:                SFEgit
 IPS_Package_Name:    sfe/developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.10.2
+Version:             1.7.10.3
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
@@ -145,6 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*
 
 %changelog
+* Sun May 28 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10.3
 * Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.7.10.2
 * Tue May 8 2012 - Logan Bruns <logan@gedanken.org>
