@@ -23,9 +23,10 @@ Version:                 1.6.1.5
 License: 		 IBM Public License Version 1.0
 Patch1:                  openafs-01-configure.diff
 Patch2:                  openafs-02-afs-rc.diff
+Patch3:                  openafs-03-enable-multiarch.diff
 #Source:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-%{version}-src.tar.bz2
 Source:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-1.6.1-src.tar.bz2
-Source2:                  http://openafs.org/dl/openafs/%{version}/%{srcname}-1.6.1-doc.tar.bz2
+Source2:                 http://openafs.org/dl/openafs/%{version}/%{srcname}-1.6.1-doc.tar.bz2
 Source3:                 openafs.xml
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -52,6 +53,7 @@ called the release OpenAFS.
 %setup -q -n %{srcname}-1.6.1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 (cd .. ; tar xjf %{SOURCE2} )
 
@@ -74,7 +76,8 @@ export KRB5_CONFIG=/usr/bin/krb5-config
             --enable-bitmap-later                       \
             --with-krb5
 
-make -j$CPUS 
+# parallel build not reliable with multi-arch
+make
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -83,9 +86,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT/usr/bin/kpasswd
 rm $RPM_BUILD_ROOT/usr/share/man/man1/kpasswd.1
 
-# install kernel module
+# install kernel modules
 mkdir -p $RPM_BUILD_ROOT/kernel/drv/amd64
 cp $RPM_BUILD_ROOT/usr/lib/openafs/libafs64.nonfs.o $RPM_BUILD_ROOT/kernel/drv/amd64/afs
+cp $RPM_BUILD_ROOT/usr/lib/openafs/libafs.nonfs.o $RPM_BUILD_ROOT/kernel/drv/afs
 
 mkdir -p $RPM_BUILD_ROOT/etc/init.d
 cp src/afsd/afs.rc.solaris.2.11 $RPM_BUILD_ROOT/etc/init.d/openafs
@@ -119,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) /usr/share
 %dir %attr (0755, root, sys) /usr/share/openafs/C
 /usr/share/openafs/C/*
+/kernel/drv/afs
 /kernel/drv/amd64/afs
 /etc/init.d/openafs
 %dir %attr (0755, root, sys) /etc/openafs
@@ -140,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/openafs.xml
 
 %changelog
+* Sun May 27 2012 - Logan Bruns <logan@gedanken.org>
+- Enabled multi-arch. Added 32 bit kernel module in addition to normal
+  64 bit kernel module.
 * Sun May 6 2012 - Logan Bruns <logan@gedanken.org>
 - Increased the smf method start timeout.
 * Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>

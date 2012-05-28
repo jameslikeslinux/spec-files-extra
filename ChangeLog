@@ -1,3 +1,9 @@
+2012-05-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: Enabled multi-arch. Added 32 bit kernel module
+	in addition to normal 64 bit kernel module.
+	* patches/openafs-03-enable-multiarch.diff
+
 2012-05-27 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEffmpeg.spec: bump to 0.11
