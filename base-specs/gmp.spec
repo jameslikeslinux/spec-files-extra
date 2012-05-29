@@ -12,7 +12,7 @@
 %define _infodir           %{_datadir}/info
 
 Name:		gmp
-Version:	5.0.4
+Version:	5.0.5
 Source:		http://ftp.sunet.se/pub/gnu/gmp/gmp-%{version}.tar.bz2
 Patch1:		gmp-01-solaris.diff
 Patch2:		gmp-02-extern-inline-gmp-h.in.diff
@@ -58,6 +58,8 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue May 29 2012 - Milan Jurik
+- bump to 5.0.5
 * Fri Mar 9 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 5.0.4
 - Fixed SIMD detection on legacy x86 computers
