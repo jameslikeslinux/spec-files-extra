@@ -27,6 +27,8 @@ BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
 BuildRequires:	SFElibgc-gpp-devel
 Requires:	SFElibgc-gpp
+BuildRequires:	SFElibelf-devel
+Requires:	SFElibelf
 
 %package root
 Summary:       %{summary} - / filesystem
@@ -55,8 +57,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__"
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -L/usr/g++/lib -R/usr/g++/lib %_ldflags"
 export CPPFLAGS="-I/usr/gnu/include/libelf -I/usr/gnu/include"
@@ -145,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed May 30 2012 - Aurélien Larcher
+- fix package dependency
 * Sat Nov 26 2011 - Milan Jurik
 - bump to 2.10.6
 * Wed Aug 31 2011 - jchoi42@pha.jhu.edu
