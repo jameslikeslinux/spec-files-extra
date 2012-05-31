@@ -10,6 +10,9 @@ Version:                %{gmpcplugin.version}
  
 BuildRequires: SFEgcc
 Requires: SFEgccruntime
+BuildRequires: SFElibmicrohttpd
+Requires: SFElibmicrohttpd
+
 
 BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
@@ -38,11 +41,12 @@ How it works: Mserver is compiled using the libmicrohttp library, which enables 
 %{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gmpc
-%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
 %{_datadir}/gmpc/plugins/*
 
 
 %changelog
+* Thu May 31 2012 - Thomas Wagner
+- add (Build)Requires: SFElibmicrohttpd
 * Wed Apr 25 2012 - Thomas Wagner
 - add (Build)Requires: SUNWgcc(runtime)
 * Tue Apr 24 2012 - Thomas Wagner
