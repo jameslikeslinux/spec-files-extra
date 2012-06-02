@@ -1,3 +1,8 @@
+2012-06-02 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEeditline.spec: better multiarch
+	* SFEopenssh.spec: initial spec
+
 2012-05-31 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEdovecot.spec: bump to 2.1.7
