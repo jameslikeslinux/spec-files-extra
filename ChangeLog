@@ -2,6 +2,7 @@
 
 	* SFEeditline.spec: better multiarch
 	* SFEopenssh.spec: initial spec
+	* SFEclamav.spec: bump to 0.97.4
 
 2012-05-31 Milan Jurik <sfnet@xylab.cz>
 
