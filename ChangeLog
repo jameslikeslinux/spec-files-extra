@@ -1,3 +1,7 @@
+2012-06-05 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEmidori.spec: bump to 4.0.4
+
 2012-06-02 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEeditline.spec: better multiarch
@@ -1176,7 +1180,7 @@
 2011-10-19 Ken Mays <kmays2000@gmail.com>
 
 	* SFEvlc-1.1.12.spec: Patches updated for current build
-	* vlc-26-1112-postaudio-fix.diff: Added
+	* vlc-26-1112-pulseaudio-fix.diff: Added
 	* vlc-23-1114-dirfd.diff: Fixed
 
 2011-10-18 Ken Mays <kmays2000@gmail.com>
