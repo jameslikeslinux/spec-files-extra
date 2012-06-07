@@ -1,5 +1,7 @@
 2012-06-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEasterisk.spec: bump to 1.8.13.0
+
 	* SFEgit.spec: bump to 1.7.10.4.
 
 2012-06-05 Ken Mays <kmays2000@gmail.com>
