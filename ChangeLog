@@ -1,5 +1,7 @@
 2012-06-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEopenssh.spec: added a missing with_editline conditional which
+	prevented compilation without editline
 	* SFEluke.spec: initial spec.
 	* copyright/SFEluke.copyright
 

@@ -19,7 +19,7 @@ IPS_Package_Name:	service/network/ssh
 Summary:	Secure Shell protocol Server
 Version:	6.0p1
 IPS_Component_Version:	6.0.1
-URL:		https://http://www.openssh.org/
+URL:		http://www.openssh.org/
 Source:		http://ftp5.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable/%{src_name}-%{version}.tar.gz
 Source1:	ssh.xml
 Source2:	sshd
@@ -76,7 +76,9 @@ fi
 	--with-solaris-contracts	\
 	--with-solaris-projects	\
 	--with-xauth=/usr/bin/xauth	\
+%if %with_editline
 	--with-libedit		\
+%endif
 	--with-ldns
 
 make -j$CPUS
@@ -193,5 +195,7 @@ legacy desc="Secure Shell protocol common Utilities" name="SSH Common, (Usr)" pk
 %{_mandir}/man1m/ssh-keysign.1m
 
 %changelog
+* Fri Jun 8 2012 - Logan Bruns <logan@gedanken.org>
+- Added a missing with_editline conditional which prevented compilation without editline
 * Sat Jun 02 2012 - Milan Jurik
 - Initial spec
