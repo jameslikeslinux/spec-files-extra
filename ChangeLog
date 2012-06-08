@@ -1,3 +1,8 @@
+2012-06-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEluke.spec: initial spec.
+	* copyright/SFEluke.copyright
+
 2012-06-07  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEsage.spec: initial spec.
