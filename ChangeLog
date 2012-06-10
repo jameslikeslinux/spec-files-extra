@@ -1,3 +1,6 @@
+2012-06-10 Pavel Heimlich <tropikhajma@gmail.com
+	* base-specs/lapack.spec: update source location
+
 2012-06-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEopenssh.spec: added a missing with_editline conditional which

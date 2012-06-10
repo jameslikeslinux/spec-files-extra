@@ -10,7 +10,7 @@
 Name:		lapack
 Summary:	LAPACK - Linear Algebra PACKage
 Version:	3.4.1
-Source:		ftp://ftp.netlib.org/lapack/lapack-%{version}.tgz
+Source:		http://www.netlib.org/lapack/lapack-%{version}.tgz
 Group:		Math
 URL:		http://www.netlib.org/lapack/
 #patches taken from Fedora
@@ -86,6 +86,8 @@ install -m 0755 libblas.a $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Jun 10 2012 - Pavel Heimlich
+- update source url
 * Mon Apr 30 2012 - Pavel Heimlich
 - make shared libraries
 * Tue Jan 17 2012 - James Choi
