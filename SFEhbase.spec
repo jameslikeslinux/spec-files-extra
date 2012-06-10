@@ -125,6 +125,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hbase.xml
 
 %changelog
+* Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
+- Increased the startup and shutdown timeouts. It can take longer with
+  a lot of data in the cluster.
 * Sat May 12 2012 - Logan Bruns <logan@gedanken.org>
 - Moved out of experimental and fixed regionservers variable.
 * Fri May 11 2012 - Logan Bruns <logan@gedanken.org>
