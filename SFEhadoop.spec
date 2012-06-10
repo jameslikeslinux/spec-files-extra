@@ -155,6 +155,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
 %changelog
+* Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
+- Increased the startup and shutdown timeouts. It can take longer with
+  a lot of data in the cluster.
 * Thu May 3 2012 - Logan Bruns <logan@gedanken.org>
 - Replaced linux file flags with solaris ones
 * Sat Apr 28 2012 - Logan Bruns <logan@gedanken.org>

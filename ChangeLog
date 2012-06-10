@@ -1,4 +1,11 @@
-2012-06-10 Pavel Heimlich <tropikhajma@gmail.com
+2012-06-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhadoop.spec: Increased the startup and shutdown timeouts. It
+	can take longer with a lot of data in the cluster.
+	* ext-sources/hadoop.xml
+
+2012-06-10 Pavel Heimlich <tropikhajma@gmail.com>
+
 	* base-specs/lapack.spec: update source location
 
 2012-06-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
