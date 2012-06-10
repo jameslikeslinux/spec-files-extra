@@ -120,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
+- SMF manifest should have service disabled by default.
 * Wed Jun 6 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.8.13.0
 * Sat May 5 2012 - Logan Bruns <logan@gedanken.org>

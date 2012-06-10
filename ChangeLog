@@ -1,5 +1,8 @@
 2012-06-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEasterisk.spec: SMF manifest should have service disabled by
+	default.
+	* ext-sources/asterisk.xml
 	* SFEhbase.spec: Increased the startup and shutdown timeouts. It
 	can take longer with a lot of data in the cluster.
 	* ext-sources/hbase.xml
