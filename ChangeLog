@@ -1,3 +1,7 @@
+2012-06-14 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.4.1
+
 2012-06-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEasterisk.spec: SMF manifest should have service disabled by

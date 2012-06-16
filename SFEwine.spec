@@ -13,6 +13,7 @@
 # Confirmed build of Wine 1.4rc1 on oi_151/GCC 3.4.3 01/28/12   - Ken Mays
 # Confirmed build of Wine 1.4rc2 on oi_151/GCC 3.4.3 02/03/12   - Ken Mays
 # Confirmed build of Wine 1.4 on oi_151a/GCC 3.4.3 03/07/12   - Ken Mays
+# Confirmed build of Wine 1.4.1 on oi_151a/GCC 4.6.2 06/16/12   - Ken Mays
 #
 %include Solaris.inc
 
@@ -37,7 +38,7 @@ Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
 IPS_package_name:       desktop/wine
 Group:                  Desktop (GNOME)/Sessions
-Version:                1.4
+Version:                1.4.1
 URL:                    http://www.winehq.org/
 Source:                 http://downloads.sourceforge.net/project/wine/Source/wine-%{version}.tar.bz2
 #
@@ -268,6 +269,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sat Jun 16 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4.1
 * Wed Mar 7 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.4
 - MS Office 2010/Adobe Photoshop CS5 Extended tested
