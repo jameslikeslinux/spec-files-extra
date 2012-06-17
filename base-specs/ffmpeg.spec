@@ -5,7 +5,7 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.11
+Version:                 0.11.1
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch10:		 ffmpeg-10-Makefile-quick-texi2html-fix.diff
@@ -104,6 +104,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Jun 17 2012 - Milan Jurik
+- bump to 0.11.1
 * Sun May 27 2012 - Milan Jurik
 - bump to 0.11
 * Sun Apr 29 2012 - Pavel Heimlich

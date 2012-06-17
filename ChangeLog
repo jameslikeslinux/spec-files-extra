@@ -1,6 +1,7 @@
 2012-06-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEopenconnect.spec: bump to 3.99
+	* base-specs/ffmpeg.spec: bump to 0.11.1
 
 2012-06-14 Ken Mays  <kmays2000@gmail.com>
 
