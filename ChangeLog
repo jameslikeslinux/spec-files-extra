@@ -1,3 +1,10 @@
+2012-06-18  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: fixed default path for
+	krb5.conf (/etc/krb5.conf -> /etc/krb5/krb5.conf). Added missing
+	buildrequires for math headers.
+	* patches/openafs-04-krb5_conf_path.diff
+
 2012-06-17 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEopenconnect.spec: bump to 3.99
