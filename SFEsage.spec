@@ -22,7 +22,7 @@ Summary:                 SAGE - a free open-source mathematics software system
 Group:                   Utility
 Version:                 5.0
 URL:		         http://sagemath.info
-Source:		         http://boxen.math.washington.edu/home/sagemath/sage-mirror/src/sage-%{version}.tar
+Source:		         http://www.sagemath.org/src-old/sage-%{version}.tar
 License: 		 GPL
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -81,5 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/sage/*
 
 %changelog
+* Tue Jun 19 2012 - Logan Bruns <logan@gedanken.org>
+- Fixed download URL (avoid mirror which changed.)
 * Thu Jun 7 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
