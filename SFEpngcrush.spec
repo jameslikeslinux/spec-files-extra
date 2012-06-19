@@ -10,7 +10,7 @@
 Name:		SFEpngcrush
 IPS_Package_Name:	image/pngcrush
 Summary:	Utility for recompressing PNG files
-Version:	1.7.25
+Version:	1.7.29
 Group:		Applications/Graphics and Imaging
 License:	pngcrush
 Source:		 %{sf_download}/project/pmt/pngcrush/%{version}/%{src_name}-%{version}.tar.bz2
@@ -46,6 +46,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/pngcrush
 
 %changelog
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.29
 * Wed Mar 21 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.7.25
 * Sun Dec 11 2011 - Milan Jurik
