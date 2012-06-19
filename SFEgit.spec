@@ -13,7 +13,6 @@
 #
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/sfw/bin/g++
 %include base.inc
 %include usr-gnu.inc
 %include packagenamemacros.inc
@@ -21,7 +20,7 @@
 Name:                SFEgit
 IPS_Package_Name:    sfe/developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.10.4
+Version:             1.7.11
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
@@ -75,7 +74,7 @@ make configure
         --mandir=%{_mandir} \
         --libexecdir=%{_libexecdir} \
         --with-perl=/usr/perl5/bin/perl
-make all doc
+make -j$CPUS all doc
 
 # fix path to wish (tk shell)
 perl -pi -e 's,exec wish ,exec /usr/sfw/bin/wish8.3,' gitk
@@ -102,7 +101,7 @@ make install install-doc DESTDIR=$RPM_BUILD_ROOT INSTALL=install
 
 # move perl stuff to vendor_perl in /usr/gnu
 mkdir -p $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
-mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
+mv $RPM_BUILD_ROOT%{_libdir}/site_perl/* $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 
 # remove unwanted stuff like .packlist and perllocal.pod
 rm -rf $RPM_BUILD_ROOT%{_libdir}/site_perl
@@ -145,6 +144,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*
 
 %changelog
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.11
 * Wed Jun 6 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.7.10.4
 * Sun May 28 2012 - Logan Bruns <logan@gedanken.org>
