@@ -1,5 +1,7 @@
 2012-06-18  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEhadoop.spec: bumped to 1.0.3
+
 	* SFEgit.spec: bump to 1.7.11
 
 	* SFEopenafs.spec: fixed default path for

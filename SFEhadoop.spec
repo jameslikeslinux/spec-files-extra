@@ -21,7 +21,7 @@ Name:                    SFEhadoop
 IPS_Package_Name:	 developer/distributed/hadoop
 Summary:                 Hadoop - Open-source software for reliable, scalable, distributed computing.
 Group:                   Utility
-Version:                 1.0.2
+Version:                 1.0.3
 URL:		         http://hadoop.apache.org
 Source:		         http://www.us.apache.org/dist/hadoop/core/hadoop-%{version}/hadoop-%{version}.tar.gz
 Source2:                 hadoop.xml
@@ -155,6 +155,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hadoop.xml
 
 %changelog
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bumped to 1.0.3
 * Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
 - Increased the startup and shutdown timeouts. It can take longer with
   a lot of data in the cluster.
