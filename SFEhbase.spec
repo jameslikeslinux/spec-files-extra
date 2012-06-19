@@ -19,7 +19,7 @@ Name:                    SFEhbase
 IPS_Package_Name:	 developer/distributed/hbase
 Summary:                 HBase - The Hadoop database
 Group:                   Utility
-Version:                 0.92.1
+Version:                 0.94.0
 URL:		         http://hbase.apache.org
 Source:		         http://www.us.apache.org/dist/hbase/hbase-%{version}/hbase-%{version}.tar.gz
 Source2:                 hbase.xml
@@ -125,6 +125,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hbase.xml
 
 %changelog
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bumped to 0.94.0
 * Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
 - Increased the startup and shutdown timeouts. It can take longer with
   a lot of data in the cluster.
