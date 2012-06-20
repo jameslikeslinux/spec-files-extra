@@ -118,11 +118,11 @@
 %endif
 #special handling of version / gcc_version
 
-%define major_minor 4.6
-# breaks build   .... use 4.6.1 and remove the third++ part
-#%define major_minor %( echo %{version} | sed -e 's/\(^[0-9]*\.[0-9]*\)\..*/\1/' )
+#transform full version to short version: 4.6.2 -> 4.6  or  4.7.1 -> 4.7
+%define major_minor %( echo %{version} | sed -e 's/\([0-9]*\)\.\([0-9]*\)\..*/\1.\2/' )
 
-#transform 4.6. -> 46
+#for package or path names we need the version number _without_ the dots:
+#transform dottet version number to non-dotted:  4.6 -> 46
 %define majorminornumber %( echo %{major_minor} | sed -e 's/\.//g' )
 %define _prefix /usr/gcc/%major_minor
 %define _infodir %{_prefix}/info
@@ -153,13 +153,14 @@ Patch3:              gcc-03-gnulib.diff
 #LINK_LIBGCC_SPEC
 #gcc-05 could be reworked to know both, amd64 and sparcv9
 %ifarch i386 amd64
-Patch5:              gcc-05-LINK_LIBGCC_SPEC.diff
+Patch5:              gcc-05-LINK_LIBGCC_SPEC-%{majorminornumber}.diff
 %endif
 %ifarch sparcv9
-Patch5:              gcc-05-LINK_LIBGCC_SPEC-sparcv9.diff
+Patch5:              gcc-05-LINK_LIBGCC_SPEC-sparcv9-%{majorminornumber}.diff
 %endif
 
 # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49347
+# if clause to apply only on specific gcc versions, see %prep
 Patch10:	gcc-10-spawn.diff
 
 SUNW_BaseDir:	%{_basedir}
@@ -181,6 +182,8 @@ Requires:      SFEgcc-%{majorminornumber},SFEgccruntime-%{majorminornumber}
 #cosmetic:
 Requires:      SFEgccruntime
 
+#we need something gnuish compiler to start with
+BuildRequires: SUNWgcc
 BuildRequires: SFElibiconv-devel
 Requires:      SFElibiconv
 BuildRequires: SUNWbash
@@ -226,7 +229,7 @@ Requires: SUNWbinutils
 Requires: SUNWpostrun
 
 %package -n SFEgcc-%{majorminornumber}
-IPS_package_name:        sfe/developer/gcc-46
+IPS_package_name:        sfe/developer/gcc-%{majorminornumber}
 Summary:                 GNU gcc compiler - version %{major_minor} compiler files
 Version:                 %{version}
 SUNW_BaseDir:            %{_basedir}
@@ -242,7 +245,7 @@ SUNW_BaseDir:            %{_basedir}
 Requires: %{name}runtime-%{majorminornumber}
 
 %package -n SFEgccruntime-%{majorminornumber}
-IPS_package_name:        sfe/system/library/gcc-46-runtime        
+IPS_package_name:        sfe/system/library/gcc-%{majorminornumber}-runtime        
 Summary:                 GNU gcc runtime libraries for applications - version %{version} runtime library files
 Version:                 %{version}
 SUNW_BaseDir:            %{_basedir}
@@ -298,7 +301,14 @@ cd gcc-%{version}
 %endif
 %patch3 -p1
 %patch5 -p1
+##TODOÃ## check versions which apply. bug says 4.3.3 is not, but 4.6.0 is
+#fix maybe in 4.7.x
+# if          major_minor   >=  4.4 and       major_minor   <  4.7 
+%if %( expr %{major_minor} '>=' 4.4 )
+%if %( expr %{major_minor} '<' 4.7 )
 %patch10 -p1
+%endif
+%endif
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -586,6 +596,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jun 20 2012 - Thomas Wagner
+- automate transform of version number to string for package names e.g. SFEgcc-46
+- apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
+- prepare fresh patches for LINK_LIBGCC_SPEC for 4.7.x/4.6.x/4.7.x
+  use %{majorminornumber} to match the right filename,
+  old patch name gcc-05-LINK_LIBGCC_SPEC.diff will remain because external 
+  documentation links to this filename!
 * Sat Mar 03 2012 - Milan Jurik
 - bump to 4.6.3
 * Wed Dec 23 2011 - Milan Jurik

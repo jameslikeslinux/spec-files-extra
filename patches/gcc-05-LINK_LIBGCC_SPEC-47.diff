@@ -1,6 +1,4 @@
-DO NOT DELETE! External documentation liks to this filename.
-In use by SFEgcc.spec are only the versioned filenames now.
-VARIANT FOR GCC 4.6.x SERIES!
+VARIANT FOR GCC 4.7.x SERIES!
 
 #THIS DOC IS EARLY DRAFT STATE AND MIGHT CONTAIN TYPOS, ERRORS, EAT YOUR CAT, ...#
 
@@ -119,8 +117,8 @@ set theyr compiler to find runtimes in theyr private filesystem tree.
 MD_EXEC_PREFIX is preparing to search for compiler tools (not already in use,
 except there would be other symlinks there, e.g. ln -s /usr/gcc/4.6/bin/gcc /usr/gcc/bin/gcc
 
---- gcc-4.6.1/gcc/config/i386/sol2-10.h.orig2	2011-09-04 14:11:55.630203689 +0200
-+++ gcc-4.6.1/gcc/config/i386/sol2-10.h	2011-09-04 14:23:37.527910080 +0200
+--- gcc-4.7.x/gcc/config/i386/sol2-10.h.orig2	2011-09-04 00:00:00.000000000 +0200
++++ gcc-4.7.x/gcc/config/i386/sol2-10.h	2011-09-04 00:00:00.000000000 +0200
 @@ -131,6 +131,13 @@
  #define LINK_ARCH_SPEC TARGET_LD_EMULATION \
  		       "%{m64:" LINK_ARCH64_SPEC "}%{!m64:" LINK_ARCH32_SPEC "}"
@@ -128,7 +126,7 @@ except there would be other symlinks there, e.g. ln -s /usr/gcc/4.6/bin/gcc /usr
 +/* #undef LINK_LIBGCC_SPECIAL_1 */
 +/* #define LINK_LIBGCC_SPECIAL_1=1 */
 +#undef LINK_LIBGCC_SPEC
-+#define LINK_LIBGCC_SPEC "%{m64:" "-R /usr/gcc/4.6/lib/amd64:/usr/gcc/lib/amd64 %D" "}%{!m64:" "-R /usr/gcc/4.6/lib:/usr/gcc/lib %D" "}"
++#define LINK_LIBGCC_SPEC "%{m64:" "-R /usr/gcc/4.7/lib/amd64:/usr/gcc/lib/amd64 %D" "}%{!m64:" "-R /usr/gcc/4.7/lib:/usr/gcc/lib %D" "}"
 +#undef MD_EXEC_PREFIX
 +#define MD_EXEC_PREFIX "/usr/gcc/bin/"
 +#define LINK_ELIMINATE_DUPLICATE_LDIRECTORIES 0

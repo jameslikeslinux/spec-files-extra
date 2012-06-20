@@ -1,3 +1,7 @@
+DO NOT DELETE! External documentation liks to this filename.
+In use by SFEgcc.spec are only the versioned filenames now.
+VARIANT FOR GCC 4.6.x SERIES!
+
 #THIS DOC IS EARLY DRAFT STATE AND MIGHT CONTAIN TYPOS, ERRORS, EAT YOUR CAT, ...#
 
 Note: the order of %D and -R/path/to/lib does not change the order in

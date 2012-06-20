@@ -1,3 +1,14 @@
+2012-06-20  Thomas Wagner  <tom68@users.sourceforge.net>
+        * SFEgcc.spec, patches/gcc-05-LINK_LIBGCC_SPEC-46.spec: 
+          - automate transform of version number to string for package names e.g. SFEgcc-46
+          - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
+          - prepare fresh patches for LINK_LIBGCC_SPEC for 4.7.x/4.6.x/4.7.x
+            use %{majorminornumber} to match the right filename,
+            old patch name gcc-05-LINK_LIBGCC_SPEC.diff will remain because external 
+            documentation links to this filename
+          - can use --define 'gcc_version 4.5.3' (4.6.3=default, 4.7.1)",
+            beware, SFEgcc contains symlinks of the latest gcc_version built
+
 2012-06-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEsage.spec: fixed download URL (avoid mirror which changed.)
