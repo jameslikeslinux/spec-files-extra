@@ -1,5 +1,8 @@
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* encumbered/SFElibx264.spec: autodetect whether to use SFEmpfr or
+	system provided version.
+
 	* SFElibass.spec: added missing requires for SFElibfribidi
 
 	* SFEgcc.spec: replaced CPP="cc -E -Xs" with CPP="gcc -E"

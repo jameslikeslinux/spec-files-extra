@@ -44,7 +44,17 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:		SUNWgnu-mpfr
+%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+
+%if %SFEmpfr
+BuildRequires: SFEmpfr-devel
+Requires: SFEmpfr
+#workaround on IPS which is wrong with BASEdir as "/" -> then assume /usr/gnu
+%define SFEmpfrbasedir %(pkgparam SFEmpfr BASEDIR 2>/dev/null | sed -e 's+^/$+/usr/gnu+')
+%else
+BuildRequires: SUNWgnu-mpfr
+Requires: SUNWgnu-mpfr
+%endif
 
 %ifarch i386 amd64
 BuildRequires: SFEyasm
@@ -157,6 +167,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- autodetect whether to use SFEmpfr or system provided version.
 * Fri Oct 21 2011 - Milan Jurik
 - autodetect gpac
 * Sun Oct 16 2011 - Milan Jurik
