@@ -1,3 +1,7 @@
+2012-06-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEyasm.spec: bump to 1.2.0
+
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEecl.spec: autodetect whether to use SFEgmp or system provided
