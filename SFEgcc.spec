@@ -333,7 +333,7 @@ export CC=gcc
 export CXX=g++
 #export CONFIG_SHELL=/usr/bin/bash
 export CONFIG_SHELL=/usr/bin/ksh
-export CPP="cc -E -Xs"
+export CPP="gcc -E"
 export CFLAGS="-O"
 
 export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags %gnu_lib_path"
@@ -596,6 +596,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- Replaced CPP="cc -E -Xs" with CPP="gcc -E"
 * Wed Jun 20 2012 - Thomas Wagner
 - automate transform of version number to string for package names e.g. SFEgcc-46
 - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)

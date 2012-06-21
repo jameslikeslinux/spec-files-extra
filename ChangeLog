@@ -1,3 +1,7 @@
+2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEgcc.spec: replaced CPP="cc -E -Xs" with CPP="gcc -E"
+
 2012-06-20  Thomas Wagner  <tom68@users.sourceforge.net>
         * SFEgcc.spec, patches/gcc-05-LINK_LIBGCC_SPEC-46.spec: 
           - automate transform of version number to string for package names e.g. SFEgcc-46
