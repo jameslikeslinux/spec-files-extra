@@ -1,5 +1,7 @@
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFElibass.spec: added missing requires for SFElibfribidi
+
 	* SFEgcc.spec: replaced CPP="cc -E -Xs" with CPP="gcc -E"
 
 2012-06-20  Thomas Wagner  <tom68@users.sourceforge.net>

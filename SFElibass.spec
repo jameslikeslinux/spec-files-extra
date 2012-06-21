@@ -21,6 +21,9 @@ Source:		http://%srcname.googlecode.com/files/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
+Requires:	SFElibfribidi
 
 # Copied from Wikipedia
 %description
@@ -29,9 +32,6 @@ format created by CS Low (also known as Kotus) that allows for more advanced
 subtitles than the conventional SRT and similar formats. This format can be
 rendered with VSFilter in conjunction with a DirectShow-aware video player
 (on Microsoft Windows), or MPlayer with the SSA/ASS library.
-
-BuildRequires:	SFEgcc
-Requires:	SFEgccruntime
 
 %package devel
 Summary:        %summary - development files
@@ -78,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- added missing requires for SFElibfribidi
 * Sun Dec 11 2011 - Milan Jurik
 - bump to 0.10.0
 * Tue Aug 30 2011 - Alex Viskovatoff
