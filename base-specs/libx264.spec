@@ -8,9 +8,9 @@
 #	 cannot link to libavcodec and libavformat, which means that it can
 #	 only process raw video streams.
 
-%define x264_build       120
-%define snap             20111212
-%define snaph            2245
+%define x264_build       124
+%define snap             20120620
+%define snaph            2245-stable
 %define src_name         x264-snapshot
 %define src_url          http://download.videolan.org/pub/videolan/x264/snapshots
 
@@ -74,6 +74,8 @@ rm -f $RPM_BUILD_ROOT%_libdir/lib*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 21 2012 - Milan Jurik
+- update to 20120620
 * Wed Dec 14 2011 - Alex Viskovatoff
 - update to new tarball
 * Sun Oct 23 2011 - Alex Viskovatoff

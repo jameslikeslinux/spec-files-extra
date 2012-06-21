@@ -2,6 +2,7 @@
 
 	* SFEyasm.spec: bump to 1.2.0
 	* SFEnasm.spec: bump to 2.10.01
+	* base-specs/libx264.spec: update to 20120620
 
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
