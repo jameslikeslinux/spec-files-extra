@@ -1,6 +1,7 @@
 2012-06-21 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEyasm.spec: bump to 1.2.0
+	* SFEnasm.spec: bump to 2.10.01
 
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
