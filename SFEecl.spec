@@ -67,6 +67,12 @@ export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags -D_POSIX_PTHREAD_SEMANTICS"
 export LDFLAGS="%_ldflags"
+
+%if %SFEgmp
+export CFLAGS="$CFLAGS -I/usr/gnu/include"
+export LDFLAGS="$LDFLAGS -L/usr/gnu/lib -R/usr/gnu/lib"
+%endif
+
 ./configure --prefix=%{_prefix}			\
 	    --bindir=%{_bindir}			\
 	    --mandir=%{_mandir}			\
