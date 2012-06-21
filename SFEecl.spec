@@ -27,7 +27,15 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: system/library/gmp
+
+%define SFEgmp         %(/usr/bin/pkginfo -q SFEgmp 2>/dev/null  && echo 1 || echo 0)
+%if %SFEgmp
+BuildRequires: SFEgmp-devel
+Requires: SFEgmp
+%else
+BuildRequires: SUNWgnu-mp
+Requires: SUNWgnu-mp
+%endif
 
 %description
 ECL is an implementation of the Common Lisp language as defined by the
@@ -92,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- autodetect whether to use SFEgmp or system provided version.
 * Tue Apr 17 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed some permissions.
 * Sat Mar 24 2012 - Logan Bruns <logan@gedanken.org>

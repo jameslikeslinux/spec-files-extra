@@ -1,5 +1,8 @@
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEecl.spec: autodetect whether to use SFEgmp or system provided
+	version.
+
 	* encumbered/SFElibx264.spec: autodetect whether to use SFEmpfr or
 	system provided version.
 
