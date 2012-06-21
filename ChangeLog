@@ -1,3 +1,8 @@
+2012-06-21  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * include/osdistro.inc: osbuild needs to work with OI 151a4,
+          should print 151 and not 151a4, change sed pattern
+
 2012-06-21 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEyasm.spec: bump to 1.2.0
@@ -17,6 +22,7 @@
 	* SFEgcc.spec: replaced CPP="cc -E -Xs" with CPP="gcc -E"
 
 2012-06-20  Thomas Wagner  <tom68@users.sourceforge.net>
+
         * SFEgcc.spec, patches/gcc-05-LINK_LIBGCC_SPEC-46.spec: 
           - automate transform of version number to string for package names e.g. SFEgcc-46
           - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
