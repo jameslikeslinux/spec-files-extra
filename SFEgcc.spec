@@ -4,6 +4,9 @@
 # includes module(s): GNU gcc
 #
 
+# owner:  Thomas Wagner
+#
+
 ##TODO## test sparc version of gcc-05-LINK_LIBGCC_SPEC-sparcv9.diff
 
 #provide symbolic links in places define below:
@@ -26,6 +29,11 @@
 #spare
 %define symlinktarget3enabled      0
 %define symlinktarget3path /usr
+
+# check for /usr/gnu/bin/cc and bail out
+# CR 7031722 (Solaris)
+# Bug-ID <TBD> (OI)
+%define compat_link_usr_gnu_bin_cc %( test -r /usr/gnu/bin/cc && echo 1 || echo 0 )
 
 # to more widely test if this change causes regressions, by default off:
 # want this? compile with: --with-handle_pragma_pack_push_pop
@@ -119,7 +127,9 @@
 #special handling of version / gcc_version
 
 #transform full version to short version: 4.6.2 -> 4.6  or  4.7.1 -> 4.7
-%define major_minor %( echo %{version} | sed -e 's/\([0-9]*\)\.\([0-9]*\)\..*/\1.\2/' )
+#%define major_minor %( echo %{version} | sed -e 's/\([0-9]*\)\.\([0-9]*\)\..*/\1.\2/' )
+#below is a workaround for pkgbuild 1.3.104 failing to parse the escaped \( and \)
+%define major_minor %( echo %{version} |  sed -e 's/\.[0-9]*$//' )
 
 #for package or path names we need the version number _without_ the dots:
 #transform dottet version number to non-dotted:  4.6 -> 46
@@ -182,11 +192,6 @@ Requires:      SFEgcc-%{majorminornumber},SFEgccruntime-%{majorminornumber}
 #cosmetic:
 Requires:      SFEgccruntime
 
-#we need something gnuish compiler to start with. either another
-#version of SFEgcc or SUNWgcc.
-%if %(/usr/bin/pkginfo -q SFEgcc 2>/dev/null  && echo 0 || echo 1)
-BuildRequires: SUNWgcc
-%endif
 BuildRequires: SFElibiconv-devel
 Requires:      SFElibiconv
 BuildRequires: SUNWbash
@@ -291,7 +296,43 @@ Requires:                %{name}
 %endif
 
 %prep
+
+%if %{compat_link_usr_gnu_bin_cc}
+export BAILOUTMESSAGE="\n
+\n
+***READ THIS***\n
+\n
+bailing out (%name). Consider removing those symbolic links:\n
+  /usr/gnu/bin/cc and /usr/gnu/bin/cpp\n
+\n
+you can do this with:\n
+    pfexec rm /usr/gnu/bin/cc /usr/gnu/bin/cpp\n
+\n
+or on recent builds, use:\n
+    sudo rm /usr/gnu/bin/cc /usr/gnu/bin/cpp\n
+\n
+that symlink points to the gcc compiler which\n
+was an error in the development version of the OS.\n
+\n
+See also CR 7031722 (Solaris)\n
+See also Bug-ID <TBD> (OI)\n
+\n
+Besides that, remember to initialize your CBE environment\n
+before running the pkgtool.\n
+Run \"pkgtool\" with these SFE spec files only *after* initializing CBE:\n
+   . /opt/dtbld/bin/env.sh\n
+   pkgtool build SFEthisspec.spec\n
+\n
+***READ THIS***\n
+\n"
+
+/usr/bin/echo ${BAILOUTMESSAGE}
+
+exit 1
+%endif
+
 %setup -q -c -n %{name}-%version
+
 mkdir gcc
 #with 4.3.3 in new directory libjava/classpath/
 cd gcc-%{version}/libjava/classpath/
@@ -332,11 +373,12 @@ nlsopt=-disable-nls
 
 %define ld_options      -zignore -zcombreloc -Bdirect -i
 
-export CC=gcc
-export CXX=g++
-#export CONFIG_SHELL=/usr/bin/bash
+export CC=cc
+export CXX=CC
 export CONFIG_SHELL=/usr/bin/ksh
-export CPP="gcc -E"
+#maybe needed for stone old studio compilers, commented for reference
+#export CPP="cc -E -Xs"
+export CPP="cc -E"
 export CFLAGS="-O"
 
 export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags %gnu_lib_path"
@@ -599,10 +641,19 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 22 2012 - Thomas Wagner
+- back to CC=cc and CXX=CC as solarisstudio is still needed for SFE anyways.
+  and that way we don't need gcc-3 installed generally. Maybe the wrong
+  symlink /usr/gnu/bin/cc missled to use CC=gcc before.
+- changed back CPP to run solarisstudio and not gcc, removed "-Xs" as it looks
+  like not longer needed, now it is CPP="cc -E"
+- Removed BuildRequires: SUNWgcc  (which is gcc-3 on IPS)
+- make a bail-out mechanism if user still has poisonous symlinks /usr/gnu/bin/cc
+  and /usr/gnu/bin/cpp. They need to be removed to avoid breakage for some
+  build systems ignoring $PATH variable (set by CBE to first find "cc" as
+  the solaristudio compiler)
 * Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
 - Replaced CPP="cc -E -Xs" with CPP="gcc -E"
-- Only add buildrequires SUNWgcc if there isn't some version of SFEgcc
-  available.
 * Wed Jun 20 2012 - Thomas Wagner
 - automate transform of version number to string for package names e.g. SFEgcc-46
 - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
