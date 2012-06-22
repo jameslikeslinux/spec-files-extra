@@ -27,7 +27,11 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires:	SUNWgmake
+%if %(/usr/bin/pkginfo -q SFEcoreutils 2>/dev/null  && echo 1 || echo 0)
+BuildRequires:	SFEcoreutils
+%else
 BuildRequires:	SUNWgnu-coreutils
+%endif
 BuildRequires:	SUNWloc
 
 BuildRequires:	SFEgcc
@@ -77,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- Accept either SFEcoreutils or SUNWgnu-coreutils for buildrequires.
 * Fri Dec  2 2011 - Thomas Wagner 
 - Add IPS package name
 - copy SFElibebml.spec to SFElibebml-gpp.spec

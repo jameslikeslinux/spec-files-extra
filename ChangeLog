@@ -4,6 +4,9 @@
 
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFElibebml-gpp.spec: Accept either SFEcoreutils or
+	SUNWgnu-coreutils for buildrequires.
+
 	* SFElibebml.spec: Accept either SFEcoreutils or SUNWgnu-coreutils
 	for buildrequires.
 
