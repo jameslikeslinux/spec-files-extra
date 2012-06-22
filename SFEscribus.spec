@@ -29,11 +29,11 @@ Requires: 	SFEqt-gpp
 BuildRequires:	SFElibiconv
 Requires:	SFElibiconv
 BuildRequires:	SUNWlcms
-Requires:	lcms
+Requires:	SUNWlcms
 
 BuildRequires: 	SFEcmake
 BuildRequires: 	SUNWPython26
-BuildRequires:  print/cups
+BuildRequires:  SUNWcups
 
 SUNW_BaseDir:   %_basedir
 %include default-depend.inc
@@ -112,6 +112,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- make (Build)Requires SUNWcups SUNWlcms
 * Sun Jan 08 2012 - Milan Jurik
 - bump to 1.4.0
 * Wed Nov  2 2011 - Alex Viskovatoff
