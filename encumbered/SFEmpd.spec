@@ -20,6 +20,7 @@
 %define srcname mpd
 
 Name:                SFEmpd
+IPS_Package_Name:    media/mpd
 Summary:             Daemon for remote access music playing & managing playlists
 License:             GPLv2
 SUNW_Copyright:	     mpd.copyright
@@ -154,6 +155,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- added ips package name.
 * Wed Oct 19 2011 - Alex Viskovotoff
 - Use mpg123 instead of libmad for mp3s, since libmad is for integer-only CPUs
 * Mon Aug  8 2011 - Alex Viskovatoff
