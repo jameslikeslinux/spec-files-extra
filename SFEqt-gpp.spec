@@ -69,14 +69,14 @@ Requires: %{pnm_requires_mysql_default}
 BuildRequires: SUNWdbus
 Requires: SUNWdbus
 
-%package -n %name-devel
+%package %name-devel
 IPS_package_name:	library/desktop/g++/qt/header-qt
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-%package -n %name-doc
+%package %name-doc
 IPS_package_name:	library/desktop/g++/qt/documentation
 Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
@@ -188,12 +188,12 @@ vncserver -kill :1
 %install
 rm -rf %buildroot
 
-make install INSTALL_ROOT=%buildroot
+make install INSTALL_ROOT=$RPM_BUILD_ROOT
 
 rm %buildroot%_libdir/lib*.la
 
 %clean
-rm -rf %buildroot
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
@@ -206,7 +206,7 @@ rm -rf %buildroot
 %_datadir/qt/phrasebooks
 %_datadir/qt/translations
 
-%files -n %name-devel
+%files %name-devel
 %defattr (-, root, bin)
 %_bindir
 %dir %attr (0755, root, bin) %_includedir
@@ -221,7 +221,7 @@ rm -rf %buildroot
 %dir %attr (0755, root, other) %_prefix/imports
 %_prefix/imports/*
 
-%files -n %name-doc
+%files %name-doc
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/q3porting.xml
@@ -230,6 +230,9 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- add back regular sub-packages with IPS-tags for -devel and -doc
+  to get back automatic dependencys with pkgtool on build farms
 * Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
 - Use psrinfo -pv instead of prtdiag -v to detect CPU since only the
   former works in a zone.
