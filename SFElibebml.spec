@@ -24,7 +24,11 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires:	SUNWgmake
+%if %(/usr/bin/pkginfo -q SFEcoreutils 2>/dev/null  && echo 1 || echo 0)
+BuildRequires:	SFEcoreutils
+%else
 BuildRequires:	SUNWgnu-coreutils
+%endif
 BuildRequires:	SUNWloc
 
 BuildRequires:	SUNWlibstdcxx4
@@ -74,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- Accept either SFEcoreutils or SUNWgnu-coreutils for buildrequires.
 * Sat Feb  5 2011 - Alex Viskovatoff
 - Update to 1.2.0, adding one patch
 * Thu Jan 27 2011 - Alex Viskovatoff

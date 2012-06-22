@@ -1,5 +1,8 @@
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFElibebml.spec: Accept either SFEcoreutils or SUNWgnu-coreutils
+	for buildrequires.
+
 	* SFEcoreutils.spec: added missing soft link: /usr/bin/ginstall ->
 	/usr/gnu/bin/install.
 
