@@ -1,3 +1,8 @@
+2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEcoreutils.spec: restored spec, added ips name, bumped to
+	8.13, removed patch and updated conflict list.
+
 2012-06-21  Thomas Wagner  <tom68@users.sourceforge.net>
 
         * include/osdistro.inc: osbuild needs to work with OI 151a4,

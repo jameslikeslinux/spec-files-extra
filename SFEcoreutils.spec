@@ -8,10 +8,10 @@
 %include usr-gnu.inc
 
 Name:                    SFEcoreutils
+IPS_Package_Name:	 sfe/file/gnu-coreutils
 Summary:                 GNU coreutils - basic file, shell and text manipulation utilities
-Version:		 6.9
-Source:                  http://ftp.gnu.org/pub/gnu/coreutils/coreutils-%{version}.tar.bz2
-Patch1:                  coreutils-01-gettext.diff
+Version:		 8.13
+Source:                  http://ftp.gnu.org/pub/gnu/coreutils/coreutils-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -19,8 +19,6 @@ BuildConflicts: SUNWgnu-coreutils
 Requires: SUNWlibms
 Requires: SUNWtexi
 Requires: SUNWpostrun
-BuildRequires: SFEautoconf
-BuildRequires: SFEautomake
 %if %option_with_gnu_iconv
 Requires: SUNWgnu-libiconv
 Requires: SUNWgnu-gettext
@@ -39,7 +37,6 @@ Requires:                %{name}
 
 %prep
 %setup -q -n coreutils-%version
-%patch1 -p1 -b .patch01
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -54,13 +51,6 @@ export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
 %endif
 export LDFLAGS="%_ldflags"
 
-glib-gettextize -f 
-libtoolize --copy --force
-aclocal -I m4
-autoupdate --force
-autoheader
-automake-1.10 --force
-autoconf --force
 ./configure --prefix=%{_prefix}			\
 	    --mandir=%{_mandir}                 \
             --infodir=%{_infodir}
@@ -79,7 +69,7 @@ CONFLICTING_COMMANDS="
     :hostid:hostname:id:install:join:kill:ln:logname:mkdir:mkfifo:mknod:
     :nice:nl:nohup:od:paste:pathchk:pr:printf:pwd:rm:rmdir:sleep:sort:
     :split:stty:sum:sync:tail:tee:test:touch:tr:true:tty:uname:unexpand:
-    :uniq:uptime:wc:who:yes:cp:ls:mv:tsort:"
+    :uniq:uptime:wc:who:yes:cp:ls:mv:tsort:mktemp:"
 
 cd $RPM_BUILD_ROOT%{_bindir}
 for f in *; do
@@ -97,6 +87,8 @@ cd $RPM_BUILD_ROOT%{_prefix}
 ln -s share/man man
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
+
+rm -rf $RPM_BUILD_ROOT%{_prefix}/libexec
 
 %if %build_l10n
 %else
@@ -154,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- Restored spec, added ips name, bumped to 8.13, removed patch and
+  updated conflict list
 * Sun Nov 18 2007 - daymobrew@users.sourceforge.net
 - Add BuildConflicts SUNWgnu-coreutils, a package that is available on Indiana
   systems.
