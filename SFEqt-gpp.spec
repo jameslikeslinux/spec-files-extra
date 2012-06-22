@@ -120,7 +120,9 @@ export CFLAGS="%optflags -fPIC"
 export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
 
 # On some Intel CPUs, ffmpeg incorrectly applies AMD optimizations
-%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+#%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+# prtdiag -v doesn't work in zones but psrinfo -pv does 
+%define noamd3d %(psrinfo -pv | grep CPU | grep -q Intel && echo 1 || echo 0)
 
 #export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
 export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads -fPIC"
@@ -228,6 +230,9 @@ rm -rf %buildroot
 
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- Use psrinfo -pv instead of prtdiag -v to detect CPU since only the
+  former works in a zone.
 * Wed Feb  2 2011 - James Choi
 - add no3dnow for Intel cpus, build fpic
 * Wed Jan  4 2011 - Alex Viskovatoff

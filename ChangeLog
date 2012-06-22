@@ -4,6 +4,9 @@
 
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEqt-gpp.spec: use psrinfo -pv instead of prtdiag -v to detect
+	CPU since only the former works in a zone.
+
 	* SFElibebml-gpp.spec: Accept either SFEcoreutils or
 	SUNWgnu-coreutils for buildrequires.
 
