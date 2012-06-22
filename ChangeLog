@@ -1,5 +1,8 @@
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEpari.spec: autodetect whether to use SFEgmp or system
+	provided version.
+
 	* SFEgcc.spec: only add buildrequires SUNWgcc if there isn't some
 	version of SFEgcc available.
 

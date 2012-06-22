@@ -22,7 +22,15 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: system/library/gmp
+
+%define SFEgmp         %(/usr/bin/pkginfo -q SFEgmp 2>/dev/null  && echo 1 || echo 0)
+%if %SFEgmp
+BuildRequires: SFEgmp-devel
+Requires: SFEgmp
+%else
+BuildRequires: SUNWgnu-mp
+Requires: SUNWgnu-mp
+%endif
 
 %description
 PARI/GP is a widely used computer algebra system designed for fast
@@ -85,5 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- autodetect whether to use SFEgmp or system provided version.
 * Tue May 1 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
