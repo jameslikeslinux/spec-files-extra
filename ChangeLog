@@ -1,5 +1,7 @@
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFElibshout.spec: added ips package name.
+
 	* SFElibsamplerate.spec: added ips package name.
 
 	* SFEgnugetopt.spec: added ips package name.
