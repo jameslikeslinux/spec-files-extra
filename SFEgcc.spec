@@ -182,8 +182,11 @@ Requires:      SFEgcc-%{majorminornumber},SFEgccruntime-%{majorminornumber}
 #cosmetic:
 Requires:      SFEgccruntime
 
-#we need something gnuish compiler to start with
+#we need something gnuish compiler to start with. either another
+#version of SFEgcc or SUNWgcc.
+%if %(/usr/bin/pkginfo -q SFEgcc 2>/dev/null  && echo 0 || echo 1)
 BuildRequires: SUNWgcc
+%endif
 BuildRequires: SFElibiconv-devel
 Requires:      SFElibiconv
 BuildRequires: SUNWbash
@@ -598,6 +601,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
 - Replaced CPP="cc -E -Xs" with CPP="gcc -E"
+- Only add buildrequires SUNWgcc if there isn't some version of SFEgcc
+  available.
 * Wed Jun 20 2012 - Thomas Wagner
 - automate transform of version number to string for package names e.g. SFEgcc-46
 - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)

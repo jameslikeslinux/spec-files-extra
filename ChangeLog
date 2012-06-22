@@ -1,5 +1,8 @@
 2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEgcc.spec: only add buildrequires SUNWgcc if there isn't some
+	version of SFEgcc available.
+
 	* SFEcoreutils.spec: restored spec, added ips name, bumped to
 	8.13, removed patch and updated conflict list.
 
