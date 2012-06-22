@@ -18,6 +18,8 @@
 # pfexec elfedit -e 'dyn:runpath /usr/gnu/lib' pdftex
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1
 %include base.inc
 %define srcname lyx
@@ -40,13 +42,13 @@ BuildRequires:	SFEgcc
 BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
-BuildRequires:	runtime/python-26
+BuildRequires:	%{pnm_buildrequires_python_default}
 Requires:	SFEgccruntime
 Requires:	SFEqt-gpp
 Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
-Requires:	runtime/python-26
+Requires:	%{pnm_requires_python_default}
 
 %if %build_l10n
 %package l10n
@@ -114,6 +116,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- make (Build)Requries  %{pnm_buildrequires_python_default}
 * Sun Jan 08 2012 - Milan Jurik
 - bump to 2.0.2
 * Sun Jul 31 2011 - Alex Viskovatoff
