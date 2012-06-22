@@ -83,6 +83,8 @@ for f in *; do
     ( cd $RPM_BUILD_ROOT%{_basedir}/bin; ln -s ../gnu/bin/$f . )
 done
 
+ln -s /usr/gnu/bin/install $RPM_BUILD_ROOT%{_basedir}/bin/ginstall
+
 cd $RPM_BUILD_ROOT%{_prefix}
 ln -s share/man man
 
@@ -146,6 +148,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- Added missing soft link: /usr/bin/ginstall -> /usr/gnu/bin/install
 * Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
 - Restored spec, added ips name, bumped to 8.13, removed patch and
   updated conflict list

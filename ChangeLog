@@ -1,5 +1,8 @@
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEcoreutils.spec: added missing soft link: /usr/bin/ginstall ->
+	/usr/gnu/bin/install.
+
 	* encumbered/SFEmpd.spec: added ips package name.
 
 	* SFElibshout.spec: added ips package name.
