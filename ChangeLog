@@ -1,6 +1,7 @@
 2012-06-22 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEmplayer.spec: bump to 1.1
+	* base-specs/lame.spec: bump to 3.99.5
 
 2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

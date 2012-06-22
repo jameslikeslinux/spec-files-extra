@@ -6,10 +6,8 @@
 
 Name:                    SFElame
 Summary:                 lame  - Ain't an MP3 Encoder
-Version:                 3.98.4
+Version:                 3.99.5
 Source:                  %{sf_download}/lame/lame-%{version}.tar.gz
-# date:2008-08-17 owner:halton type:bug bugid:2054873
-Patch1:                  lame-01-configure-gtk.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -17,7 +15,6 @@ Requires: SUNWlibms
 
 %prep
 %setup -q -n lame-%version
-%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -48,6 +45,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jun 22 2012 - Milan Jurik
+- bump to 3.99.5
 * Mon Oct 10 2011 - Milan Jurik
 - remove GCC dependency
 * Wed Mar 24 2010 - Milan Jurik
