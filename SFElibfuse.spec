@@ -52,6 +52,8 @@ This package contains root files for libfuse.
 %setup -q -n %{src_name}
 %patch0 -p0
 
+gsed -i -e 's?/usr/lib?/usr/gnu/lib?' -e 's?/usr/bin?/usr/gnu/bin?' -e 's?/usr/include?/usr/gnu/include?' fusermount sparcv9/Makefile amd64/Makefile Makefile Makefile.com
+
 %build
 export MAKE=/usr/ccs/bin/make
 
@@ -62,7 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/ccs/bin/make install
 
 mkdir -p $RPM_BUILD_ROOT/usr/gnu/
-cp -r proto/usr/* $RPM_BUILD_ROOT/usr/gnu
+#cp -r proto/usr/* $RPM_BUILD_ROOT/usr/gnu
+cp -r proto/usr/* $RPM_BUILD_ROOT/usr/
 
 mkdir -p $RPM_BUILD_ROOT%{_std_sysconfdir}/security/exec_attr.d
 cp %{SOURCE1} $RPM_BUILD_ROOT%{_std_sysconfdir}/security/exec_attr.d/libfuse
@@ -109,7 +112,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Jan 11 2012- Thomas Wagner
+* Sat Jul 23 2012 - Thomas Wagner
+- hard replace paths to use /gnu/ in Makefile*
+- fix paths used with "cp" in %install
+* Wed Jan 11 2012 - Thomas Wagner
 - relocate to /usr/gnu because we now have a different fuse variant
   on Solaris 11
 * Wed Nov 9 2011 - Ken Mays <kmays2000@gmail.com>
