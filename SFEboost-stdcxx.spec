@@ -11,6 +11,8 @@
 %define stl_is_stdcxx 1
 %use boost = boost.spec
 
+%include packagenamemacros.inc
+
 %define	major 1
 %define	minor 48
 %define	patchlevel 0
@@ -28,7 +30,7 @@ SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 BuildRequires: SFEicu-stdcxx-devel
-BuildRequires: SUNWPython
+BuildRequires: %{pnm_buildrequires_python_default}
 Requires: SFEicu-stdcxx
 Requires: SUNWlibstdcxx4
 
@@ -99,6 +101,8 @@ rm -rf %{buildroot}
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_python_default}, %include packagenamacros.inc
 * Sat Jan 14 2012 - Milan Jurik
 - bump to 1.48.0
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
