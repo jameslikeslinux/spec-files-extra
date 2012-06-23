@@ -200,6 +200,7 @@
 %define pnm_requires_smba				service/network/samba
 
 # note: there is in real no SUNWlibC -devel package!
+# note: that is renamed on OI to system/library/c++/sunpro !
 %define pnm_buildrequires_SUNWlibC_devel		system/library/c++-runtime
 %define pnm_buildrequires_SUNWlibC			system/library/c++-runtime
 %define pnm_requires_SUNWlibC				system/library/c++-runtime
@@ -831,6 +832,22 @@
 %endif
 #END openindiana
 
+
+#-----------------------------------------------------------------
+# this section overwrites settings form above originally applying to 
+# osbuild >=133 AND os2nnn
+# note: system/library/c++-runtime is renamed on OI to system/library/c++/sunpro
+#cases >= 151 && OpenIndiana
+%if %{openindiana}
+%if %( expr %{osbuild} '>=' 151 )
+%define pnm_buildrequires_SUNWlibC_devel		system/library/c++/sunpro
+%define pnm_buildrequires_SUNWlibC			system/library/c++/sunpro
+%define pnm_requires_SUNWlibC				system/library/c++/sunpro
+%endif
+#END >= 151
+%endif
+#END openindiana
+
 #-----------------------------------------------------------------
 #packages no longer available, we could bail out or just require a core package
 #to continue for now, we just set a already existing package name, the spec file 
@@ -1312,6 +1329,9 @@
 # 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- handle SUNWlibC: system/library/c++-runtime is renamed on OI to 
+  system/library/c++/sunpro (OI>=151), S11 unchanged
 * Sat Jun 23 2012 - Thomas Wagner
 - handle compress/xz SFExz for S11 (all builds) and (OI < 151)
 * Thu May 17 2012 - Thomas Wagner
