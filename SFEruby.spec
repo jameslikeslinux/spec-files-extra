@@ -12,8 +12,8 @@
 Name:         SFEruby
 Summary:      ruby - object oriented scripting language
 URL:          http://www.ruby-lang.org/
-Version:      1.9.0
-%define tarball_version %{version}-0
+Version:      1.9.3
+%define tarball_version %{version}-rc1
 Source:	      http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-%{tarball_version}.tar.bz2
 SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
@@ -64,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Sep 25 2011 - Thomas Wagner
+- bump to 1.9.3
 * Thu Jan 24 2008 - nonsea@users.sourceforge.net
 - Add Conflicts: SUNWruby18u
 * Sun Jan 06 2008 - moinak.ghosh@sun.com
