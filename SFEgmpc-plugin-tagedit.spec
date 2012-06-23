@@ -15,6 +15,9 @@ BuildRequires: SFEgmpc-devel
 Requires: SFEgmpc
 BuildRequires: SFEtaglib-devel
 Requires: SFEtaglib
+#probably only build-time requirement, but older pkgtool probably can't enforce that
+BuildRequires: SFEgob
+Requires: SFEgob
 
 %description
 http://gmpc.wikia.com/wiki/GMPC_PLUGIN_TAGEDIT
@@ -48,6 +51,10 @@ The tagedit plugin for GMPC adds a editor panel for editing song tags. With the 
 #%{_datadir}/gmpc/plugins/*
 
 %changelog
+* Fri Jun  1 2012 - Thomas Wagner
+- change to (Build)Requires: SFEgob (SFEgob2 is messed up)
+* Tue May 15 2012 - Thomas Wagner
+- add missing (Build)Requires: SFEgob2
 * Wed Apr 25 2012 - Thomas Wagner
 - fix %files
 * Wed Apr 25 2012 - Thomas Wagner
