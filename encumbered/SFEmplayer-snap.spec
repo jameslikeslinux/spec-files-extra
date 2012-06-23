@@ -113,7 +113,7 @@ BuildRequires: SUNWesu
 BuildRequires: %{pnm_buildrequires_SUNWlibmng_devel}
 BuildRequires: SFElzo-devel
 %if %with_constant_tarball
-BuildRequires: SFExz
+BuildRequires: %{pnm_buildrequires_SFExz}
 %endif
 
 %if %SFElibsndfile
@@ -292,9 +292,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SFExz (solves SFExz conflict w/ compress/xz)
 * Mon Dec 12 2012 - Thomas Wagner
 - add (Build)Requires pnm_(build)requires_SUNWlibmng(_devel) SFElzo(-devel)
-- change to (Build)Requires pnm_requires_SUNWsmba
+- change to (Build)Requires pnm_requires_SUNWsmba, include packagenamemacros.inc
+- add re-%include base.inc after cc_is_gcc 1
 * Wed Jul 20 1011 - Alex Viskovatoff
 - Fix version number used for constant tarball
 * Sat Jul 16 2011 - Alex Viskovatoff
