@@ -4,6 +4,7 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%include usr-gnu.inc
 
 Name:                SFElibksba
 IPS_Package_Name:	system/library/security/libksba
@@ -80,12 +81,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*.h
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/aclocal
+#thats with prefix=/usr %dir %attr (0755, root, other) %{_datadir}/aclocal
+#we need now root:bin if prefix=/usr/gnu
+%dir %attr (0755, root, bin) %{_datadir}/aclocal
 %{_datadir}/aclocal/*
 %dir %attr(0755, root, bin) %{_datadir}/info
 %{_datadir}/info/*
 
 %changelog
+* Wed May 16 2012 - Thomas Wagner
+- move to usr-gnu
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sat Apr 16 2011 - Alex Viskovatoff
