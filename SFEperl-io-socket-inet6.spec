@@ -55,6 +55,7 @@ cd %{module_name}-%{module_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+find $RPM_BUILD_ROOT -name .packlist -exec %{__rm} {} \;
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -72,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat May 12 2012 - Thomas Wagner
+- remove file .packlist
 * Sat Mar 31 2012 - Pavel Heimlich
 - version bump
 * Tue Nov 29 2011 - Thomas Wagner
