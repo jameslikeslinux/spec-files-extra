@@ -84,7 +84,7 @@ export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/g++/include -I%{_builddir}/%n
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 # we need -L/usr/lib so that /usr/lib/libgc.so is picked up instead of
 # SUNWspro's own libgc.so
-export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %gnu_lib_path"
 
 # Build poppler because the inkscape build requires poppler's config.h
 %poppler.build
@@ -165,6 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- added %gnu_lib_path to LDFLAGS so the runpath for the gcc runtime is set
 * Fri Dec 30 2011 - Milan Jurik
 - fix 0.48.2 build, add libwpg
 * Wed Dec 28 2011 - Milan Jurik

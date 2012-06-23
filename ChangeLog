@@ -1,5 +1,8 @@
 2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEinkscape.spec: added %gnu_lib_path to LDFLAGS so the runpath
+	for the gcc runtime is set.
+
 	* SFElibmagick-gpp.spec: updated to 6.7.6-10. switched
 	buildrequires from SUNWimagick to SFEimagemagick.
 
