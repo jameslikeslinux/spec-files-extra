@@ -60,13 +60,18 @@ rm -rf %{buildroot}
 %defattr (-, root, bin)
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/aclocal
+%dir %attr (0755,root,other) %{_datadir}/aclocal
+%{_datadir}/aclocal/*
 %{_datadir}/cmake-*
 %{_mandir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/cmake
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- fix permissions %dir %attr (0755,root,other) %{_datadir}/aclocal/*
+* Wed May 16 2012 - Thomas Wagner
+- fix permissions %dir %attr (0755,root,other) %{_datadir}/aclocal
 * Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
 - bump to 2.8.8 and enable parallel build.
 * Sat Feb 11 2012 - Milan Jurik
