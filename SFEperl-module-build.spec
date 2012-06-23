@@ -24,8 +24,8 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
-#BuildRequires:           SFEperl-extutils-cbuilder
-#Requires:           SFEperl-extutils-cbuilder
+BuildRequires:           %{pnm_buildrequires_SFEperl_extutils_cbuilder}
+Requires:                %{pnm_buildrequires_SFEperl_extutils_cbuilder}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to BuildRequires: %{pnm_buildrequires_SFEperl_extutils_cbuilder}
+  note: more fresh perl versions bundle that module, pnm_macros knows that
 * Sun Jul 24 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Jun 23 2011 - Thomas Wagner
