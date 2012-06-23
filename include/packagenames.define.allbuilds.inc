@@ -199,10 +199,12 @@
 %define pnm_buildrequires_smba				service/network/samba
 %define pnm_requires_smba				service/network/samba
 
+# note: there is in real no SUNWlibC -devel package!
 %define pnm_buildrequires_SUNWlibC_devel		system/library/c++-runtime
 %define pnm_buildrequires_SUNWlibC			system/library/c++-runtime
 %define pnm_requires_SUNWlibC				system/library/c++-runtime
 
+# note: there is in real no SUNWsqlite3 -devel package!
 %define pnm_buildrequires_SUNWsqlite3_devel		database/sqlite-3
 %define pnm_buildrequires_SUNWsqlite3			database/sqlite-3
 %define pnm_requires_SUNWsqlite3			database/sqlite-3
@@ -457,6 +459,7 @@
 
 
 # C++ Studio runtime is on IPS not detectable with "pkg info SUNWlibC"
+# note: there is in real no SUNWlibC -devel package!
 %define pnm_buildrequires_SUNWlibC_devel	SUNWlibC
 %define pnm_buildrequires_SUNWlibC		SUNWlibC
 %define pnm_requires_SUNWlibC			SUNWlibC
@@ -465,7 +468,7 @@
 %define pnm_requires_system_library_c___runtime		SUNWlibC
 
 # SUNWsqlite3 is on IPS not detectable with "pkg info SUNWsqlite3"
-# note: there is no SUNWsqlite3 -devel package!
+# note: there is in real no SUNWsqlite3 -devel package!
 %define pnm_buildrequires_SUNWsqlite3_devel	SUNWsqlite3
 %define pnm_buildrequires_SUNWsqlite3		SUNWsqlite3
 %define pnm_requires_SUNWsqlite3		SUNWsqlite3
@@ -490,11 +493,13 @@
 #pre/including nnn: SUNWhea    -> past nnn replacement is
 #NOTE: superseeding the previous definitions SUNWsfwhea
 #cases >=133
+%if %( expr %{osbuild} '>=' 133 )
 %define pnm_buildrequires_SUNWhea	    system/header
 %define pnm_requires_SUNWhea		    system/header
 %define pnm_buildrequires_system_header	    system/header
 %define pnm_requires_system_header	    system/header
-#>=133
+%endif
+#END >=133
 
 #NOTE: this section might be superseeded by lower build numbers 
 #cases <133
@@ -509,10 +514,13 @@
 
 #pre/including 130: SUNWsfwhea -> past 130 replacement is system/header
 ##TODO## please verify build numbers and intended replacement packagename
-%define pnm_buildrequires_SUNWsfwhea	    system/header
-%define pnm_requires_SUNWsfwhea		    system/header
-%define pnm_buildrequires_system_header	    system/header
-%define pnm_requires_system_header	    system/header
+%if %( expr %{osbuild} '>=' 130 )
+%define pnm_buildrequires_SUNWsfwhea	    SUNWhea
+%define pnm_requires_SUNWsfwhea		    SUNWhea
+%define pnm_buildrequires_system_header	    SUNWhea
+%define pnm_requires_system_header	    SUNWhea
+%endif
+#END >=130
 
 #NOTE: including SUNWhea too
 #cases <130
@@ -523,6 +531,93 @@
 %define pnm_requires_SUNWsfwhea	 		SUNWsfwhea
 %define pnm_buildrequires_system_header		SUNWsfwhea
 %define pnm_requires_system_header		SUNWsfwhea
+%endif
+#END <130
+
+# SFEgnupg2 SUNWgnupg SUNWlibgpg-error SUNWlibgpg-error-devel SUNWlibgcrypt SUNWlibgcrypt-devel
+
+#pre/including 130: SFEgnupg2 -> past 130 replacement is SUNWgnupg
+%if %( expr %{osbuild} '>=' 130 )
+#sunw
+%define pnm_buildrequires_SUNWgnupg_devel	SUNWgnupg
+%define pnm_buildrequires_SUNWgnupg		SUNWgnupg
+%define pnm_requires_SUNWgnupg			SUNWgnupg
+%define pnm_buildrequires_crypto_gnupg	    	SUNWgnupg
+%define pnm_requires_crypto_gnupg		SUNWgnupg
+#sfe
+%define pnm_buildrequires_SFEgnupg2_devel	SUNWgnupg
+%define pnm_buildrequires_SFEgnupg2		SUNWgnupg
+%define pnm_requires_SFEgnupg2			SUNWgnupg
+%define pnm_buildrequires_sfe_crypto_gnupg	SUNWgnupg
+%define pnm_requires_sfe_crypto_gnupg		SUNWgnupg
+#sunw
+%define pnm_buildrequires_SUNWlibgcrypt_devel	SUNWlibgcrypt-devel
+%define pnm_buildrequires_SUNWlibgcrypt		SUNWlibgcrypt-devel
+%define pnm_requires_SUNWlibgcrypt		SUNWlibgcrypt
+%define pnm_buildrequires_system_library_security_libgcrypt	SUNWlibgcrypt-devel
+%define pnm_requires_system_library_security_libgcrypt		SUNWlibgcrypt
+#sfe
+#note: SUNWlibgcrypt(-devel) is in Solaris since a while (which osbuild number?)
+#not set %define pnm_buildrequires_SUNWlibgcrypt_devel	SUNWlibgcrypt-devel
+#not set %define pnm_buildrequires_SUNWlibgcrypt		SUNWlibgcrypt-devel
+#not set %define pnm_requires_SUNWlibgcrypt		SUNWlibgcrypt
+#not set %define pnm_buildrequires_system_library_security_libgcrypt	SUNWlibgcrypt-devel
+#not set %define pnm_requires_system_library_security_libgcrypt		SUNWlibgcrypt
+#sunw
+%define pnm_buildrequires_SUNWlibgpg_error_devel	SUNWlibgpg-error-devel
+%define pnm_buildrequires_SUNWlibgpg_error		SUNWlibgpg-error-devel
+%define pnm_requires_SUNWlibgpg_error			SUNWlibggpg-error
+%define pnm_buildrequires_library_security_libgpg_error	SUNWlibgpg-error-devel
+%define pnm_requires_library_security_libgpg_error	SUNWlibgpg-error
+#sfe
+%define pnm_buildrequires_SFElibgpg_error_devel	SUNWlibgpg-error-devel
+%define pnm_buildrequires_SFElibgpg_error		SUNWlibgpg-error-devel
+%define pnm_requires_SFElibgpg_error			SUNWlibgpg-error
+%define pnm_buildrequires_sfe_library_security_libgpg_error	SFElibgpg-error-devel
+%define pnm_requires_sfe_library_security_libgpg_error	SUNWlibgpg-error
+%endif
+#END >=130
+
+#cases <130
+%if %( expr %{osbuild} '<' 130 )
+#sunw
+%define pnm_buildrequires_SUNWgnupg_devel	SFEgnupg2
+%define pnm_buildrequires_SUNWgnupg		SFEgnupg2
+%define pnm_requires_SUNWgnupg			SFEgnupg2
+%define pnm_buildrequires_crypto_gnupg	    	SFEgnupg2
+%define pnm_requires_crypto_gnupg		SFEgnupg2
+#sfe
+%define pnm_buildrequires_SFEgnupg2_devel	SFEgnupg2
+%define pnm_buildrequires_SFEgnupg2		SFEgnupg2
+%define pnm_requires_SFEgnupg2			SFEgnupg2
+%define pnm_buildrequires_sfe_crypto_gnupg	SFEgnupg2
+%define pnm_requires_sfe_crypto_gnupg		SFEgnupg2
+#sunw
+#note: SUNWlibgcrypt(-devel) is in Solaris since a while (which osbuild number?)
+#not set %define pnm_buildrequires_SUNWlibgcrypt_devel	SFElibgcrypt-devel
+#not set %define pnm_buildrequires_SUNWlibgcrypt		SFElibgcrypt-devel
+#not set %define pnm_requires_SUNWlibgcrypt		SFElibgcrypt
+#not set %define pnm_buildrequires_system_library_security_libgcrypt	SFElibgcrypt-devel
+#not set %define pnm_requires_system_library_security_libgcrypt		SFElibgcrypt
+#sfe
+#note: SUNWlibgcrypt(-devel) is in Solaris since a while (which osbuild number?)
+#not set %define pnm_buildrequires_SUNWlibgcrypt_devel	SFElibgcrypt-devel
+#not set %define pnm_buildrequires_SUNWlibgcrypt		SFElibgcrypt-devel
+#not set %define pnm_requires_SUNWlibgcrypt		SFElibgcrypt
+#not set %define pnm_buildrequires_system_library_security_libgcrypt	SFElibgcrypt-devel
+#not set %define pnm_requires_system_library_security_libgcrypt		SFElibgcrypt
+#sunw
+%define pnm_buildrequires_SUNWlibgpg_error_devel	SFElibgpg-error-devel
+%define pnm_buildrequires_SUNWlibgpg_error		SFElibgpg-error-devel
+%define pnm_requires_SUNWlibgpg-error			SUNWlibggpg-error
+%define pnm_buildrequires_library_security_libgpg_error	SFElibgpg-error-devel
+%define pnm_requires_library_security_libgpg_error	SFElibgpg-error
+#sfe
+%define pnm_buildrequires_SFElibgpg_error_devel	SFElibgpg-error-devel
+%define pnm_buildrequires_SFElibgpg_error		SFElibgpg-error-devel
+%define pnm_requires_SFElibgpg-error			SFElibgpg-error
+%define pnm_buildrequires_sfe_library_security_libgpg_error	SFElibgpg-error-devel
+%define pnm_requires_sfe_library_security_libgpg_error	SFElibgpg-error
 %endif
 #END <130
 
@@ -873,6 +968,20 @@
 
 #END setting perl5, all builds, evaluated paths  - Part 3 of 3
 
+#various perl modules got bundles in perl versions later then 5.8.x
+#so identify them here and let spec files use the pnm_macros to
+#decide for a SFE package or use the osdistro bundled one
+#START various perl modules now bundled
+#define the defaults, then below overwrite if something has changed
+%define pnm_buildrequires_SFEperl_extutils_cbuilder	SFEperl-extutils-cbuilder
+%define pnm_requires_SFEperl_extutils_cbuilder		SFEperl-extutils-cbuilder
+
+#most modules now bundled in the osdistro provided perl version:
+%if %( expr %{perl_major_minor_version} '>=' 5.10 )
+%define pnm_buildrequires_SFEperl_extutils_cbuilder	%{pnm_buildrequires_perl_default}
+%define pnm_requires_SFEperl_extutils_cbuilder		%{pnm_requires_perl_default}
+%endif perl_major_minor_version '>=' 5.10
+#END various perl modules now bundled
 
 #START setting Python, defaults  - Part 1 of 1
 #define Python defaults, primarily shared settings and default versions and paths
@@ -950,7 +1059,7 @@
 %define mysql_major_minor_version 5.1
 ##not defined %define mysql_major_minor_micro_version 5.1.X
 
-#we simplify the veriants for mysql, we try to use only the newer one
+#we simplify the variants for mysql, we try to use only the newer one
 #for *all* consuming spec files.
 #include file /usr/mysql/5.1/include/mysql/mysql.h is in SUNWmysql51u
 %define pnm_buildrequires_mysql_default	SUNWmysql51u
@@ -1181,6 +1290,13 @@
 # 
 
 %changelog
+* Thu May 17 2012 - Thomas Wagner
+- handle SFEgnupg2 SUNWgnupg SUNWlibgpg-error SUNWlibgpg-error-devel SUNWlibgcrypt
+  SUNWlibgcrypt-devel (>=130), may need from 133/134 in new ips package names as target
+* Sat May 12 2012 - Thomas Wagner
+- handle SFEperl-extutils-cbuilder which is integrated in perl-510 (OI>=151 to be verified) and perl-512 (S11 >=175 to be verified)
+* Fri May 11 2012 - Thomas Wagner
+- adjust build-number where SUNWsfwhea was merged into SUNWhea
 * Tue Apr 24 2012 - Thomas Wagner
 - handle SFEvala developer/vala (>=151)
 - handle SUNWlibC not detectable on IPS systems (pkg info SUNWlibC says not 
