@@ -791,6 +791,7 @@
 #%endif
 
 
+#-----------------------------------------------------------------
 #set defaults, in case the build is newer, overwrite them
 #this is for all builds (below 151)
 %define pnm_buildrequires_SFEvala_devel        	SFEvala-devel
@@ -809,7 +810,28 @@
 %endif
 #END >= 151
 
+#-----------------------------------------------------------------
+#set defaults for SFExz | compress/yz, in case the build is newer,
+#overwrite them
+#this is for S11 (all builds) and (OI < 151)
+%define pnm_buildrequires_SFExz			SFEyz
+%define pnm_requires_SFExz			SFEyz
+%define pnm_buildrequires_compress_xz		SFEyz
+%define pnm_requires_compress_xz		SFEyz
 
+#cases >= 151 && OpenIndiana
+%if %{openindiana}
+%if %( expr %{osbuild} '>=' 151 )
+%define pnm_buildrequires_SFExz			compress/yz
+%define pnm_requires_SFExz			compress/yz
+%define pnm_buildrequires_compress_xz		compress/yz
+%define pnm_requires_compress_xz		compress/yz
+%endif
+#END >= 151
+%endif
+#END openindiana
+
+#-----------------------------------------------------------------
 #packages no longer available, we could bail out or just require a core package
 #to continue for now, we just set a already existing package name, the spec file 
 #might fail compiling or have reduced functionality then -> up to the individual
@@ -1290,6 +1312,8 @@
 # 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- handle compress/xz SFExz for S11 (all builds) and (OI < 151)
 * Thu May 17 2012 - Thomas Wagner
 - handle SFEgnupg2 SUNWgnupg SUNWlibgpg-error SUNWlibgpg-error-devel SUNWlibgcrypt
   SUNWlibgcrypt-devel (>=130), may need from 133/134 in new ips package names as target
