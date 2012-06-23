@@ -27,7 +27,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SFEgcc
 Requires:	SFEgccruntime
-BuildRequires:	SFElibebml-gpp
+BuildRequires:	SFElibebml-gpp-devel
 Requires:	SFElibebml-gpp
 
 %description
@@ -82,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- fix (Build)Requires on SFElibebml-gpp(-devel)
 * Fri Dec  2 2011 - Thomas Wagner
 - Add IPS package name
 - copy SFElibmatroska.spec to SFElibmatroska-gpp.spec
