@@ -14,7 +14,7 @@
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
-%%use filezilla = filezilla.spec
+%use filezilla = filezilla.spec
 
 Name:               SFEfilezilla
 Summary:            FileZilla FTP client
@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Apr 28 2012 - Thomas Wagner
+- remove double %% from %use
 * Aug 2009 - Gilles Dauphin
 - back to libCstd, wx was compiled with it
 * Aug 2009 - Gilles Dauphin
