@@ -1,5 +1,7 @@
 2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEjenkins.spec: bump to 1.471.
+
 	* SFEinkscape.spec: added %gnu_lib_path to LDFLAGS so the runpath
 	for the gcc runtime is set.
 
