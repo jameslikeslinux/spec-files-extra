@@ -6,6 +6,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
@@ -63,7 +64,7 @@ Haskell home page at http://haskell.org/.
 
 BuildRequires: 	SUNWgcc
 BuildRequires:	SUNWgsed
-#BuildRequires:	SFExz
+BuildRequires:	%{pnm_buildrequires_SFExz}
 Requires: 	SUNWgcc
 
 %if %SFEgmp
@@ -202,6 +203,8 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_buildrequires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
 * Fri Jan 13 2012 - Alex Viskovatoff
 - Bump to 7.2.2
 * Sat Aug 20 2011 - Alex Viskovatoff

@@ -4,6 +4,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define cc_is_gcc 1
 %include base.inc
@@ -33,7 +34,7 @@ BuildRequires:	SUNWncurses
 BuildRequires:	SUNWzlib
 BuildRequires:	SUNWpng
 BuildRequires:	SUNWgd2
-BuildRequires:  compress/xz
+BuildRequires:	%{pnm_buildrequires_SFExz}
 Requires:	SFEtexlive-texmf
 
 %description
@@ -133,6 +134,8 @@ exit 0		# johny be good
 %{_texmf_dir}/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_buildrequires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
 * Thu Mar 15 2012 - Logan Bruns <logan@gedanken.org>
 - update to 20110705 
 - TODO: post steps are not being run on OI/S11. so you have to update

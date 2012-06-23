@@ -2,6 +2,7 @@
 # spec file for package SFEopenttd.spec
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
@@ -40,8 +41,8 @@ Requires:  SUNWfreetype2
 BuildRequires: SUNWdoxygen
 Requires: SFElzo
 BuildRequires: SFElzo
-Requires: compress/xz
-BuildRequires: compress/xz
+Requires: 	%{pnm_requires_SFExz}
+BuildRequires:	%{pnm_buildrequires_SFExz}
 BuildRequires:	SUNWgsed
 BuildRequires:	SUNWgnome-desktop-prefs
 
@@ -154,6 +155,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
 * Fri Apr 13 2012 - Milan Jurik
 - bump to 1.1.5
 * Fri Dec 23 2011 - Milan Jurik

@@ -4,6 +4,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define texlive_ver	20110705
 
@@ -28,7 +29,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SUNWzlib
 BuildRequires:	SUNWpng
-BuildRequires: compress/xz
+BuildRequires:	%{pnm_buildrequires_SFExz}
 
 %description
 TeXLive is an implementation of TeX for Linux or UNIX systems. TeX takes
@@ -183,6 +184,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_texmf_dir}/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_buildrequires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
 * Thu Mar 15 2012 - Logan Bruns <logan@gedanken.org>
 - update to 20110705 
 * Aug 2009 - Gilles Dauphin
