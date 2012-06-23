@@ -23,8 +23,8 @@ URL:                     http://www.audiocoding.com/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWid3lib
-BuildRequires: SUNWid3lib-devel
+Requires: SFEid3lib-gpp
+BuildRequires: SFEid3lib-gpp-devel
 
 %package devel
 Summary:                 %{summary} - development files
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Apr 28 2012 - Thomas Wagner
+- switch to renamed SFEid3lib-gpp (already gcc version but now with corrected name)
 * Sun Oct 16 2011 - Milan Jurik
 - add IPS package name
 * Sat Aug 13 2011 - Thomas Wagner
