@@ -35,10 +35,11 @@ http://gmpc.wikia.com/wiki/Magnatune
 %{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gmpc
-%dir %attr (0755, root, other) %{_datadir}/gmpc/plugins
 %{_datadir}/gmpc/plugins/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- fix permissions
 * Wed Apr 25 2012 - Thomas Wagner
 - fix %files
 * Wed Apr 25 2012 - Thomas Wagner
