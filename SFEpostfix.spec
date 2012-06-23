@@ -116,7 +116,7 @@ IPS_Package_Name:	service/network/smtp/postfix
 Summary:                 Mailer System
 Group:		System/Services
 URL:                     http://postfix.org/
-Version:                 2.9.1
+Version:                 2.9.2
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
@@ -415,15 +415,16 @@ rm -rf $RPM_BUILD_ROOT
 #%{?!debug:strip -R .comment --strip-unneeded bin/* libexec/*}
 #%{?!debug:strip bin/* libexec/*}
 
-#contained in postfix-install # rename man pages which may conflict with sendmail's
-#contained in postfix-install [ -r man/man1/mailq.1 ]      && mv man/man1/mailq.1      man/man1/mailq.postfix.1
-#contained in postfix-install [ -r man/man1/newaliases.1 ] && mv man/man1/newaliases.1 man/man1/newaliases.postfix.1
-#contained in postfix-install [ -r man/man1/sendmail.1 ]   && mv man/man1/sendmail.1   man/man1/sendmail.postfix.1
-#contained in postfix-install [ -r man/man5/aliases.5 ]    && mv man/man5/aliases.5    man/man5/aliases.postfix.5
+# rename man pages which may conflict with sendmail's
+[ -r man/man1/mailq.1 ]      && mv man/man1/mailq.1      man/man1/mailq.postfix.1
+[ -r man/man1/newaliases.1 ] && mv man/man1/newaliases.1 man/man1/newaliases.postfix.1
+[ -r man/man1/sendmail.1 ]   && mv man/man1/sendmail.1   man/man1/sendmail.postfix.1
+[ -r man/man5/aliases.5 ]    && mv man/man5/aliases.5    man/man5/aliases.postfix.5
 
 #adjust renamed manpages ./conf/postfix-files:$manpage_directory/man1/mailq.1:f:root:-:644
 perl -pi -e "s?/man(1|5)/(mailq|newaliases|sendmail|aliases).(1|5)?/man\1/\2.postfix.\3?; " \
-            conf/postfix-files
+            conf/postfix-files \
+            libexec/postfix-files
 
 # add missing man pages
 mantools/srctoman - auxiliary/qshape/qshape.pl >man/man1/qshape.1
@@ -904,6 +905,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Tue May  9 2012 - Thomas Wagner
+- bump to 2.9.2
+- rename some manpages to *.postfix.* to avoid conflicts with sendmail package
 * Tue Apr 10 2012 - Thomas Wagner
 - remove "bash" shell (debugging). Sorry was a left over...
 * Sun Mar 11 2012 - Thomas Wagner
