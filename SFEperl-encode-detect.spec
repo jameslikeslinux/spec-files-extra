@@ -24,7 +24,9 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
 BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
-BuildRequires:           SFEperl-extutils-cbuilder
+BuildRequires:           %{pnm_buildrequires_SFEperl_extutils_cbuilder}
+#pkgtool doesn't detect this otherwise
+Requires:                %{pnm_requires_SFEperl_extutils_cbuilder}
 BuildRequires:           SFEperl-module-build
 
 %ifarch sparc
@@ -46,25 +48,25 @@ chmod +w Detector.xs
 export CXX="${CXX} -norunpath"
 %endif
 cd %{module_name}-%{module_version_download}
+# hack: use C++ compiler because it tries with cc otherwise
+export CC=$CXX
 /usr/perl%{perl_major_version}/%{perl_version}/bin/perl Build.PL \
+    --installdirs vendor --makefile_env_macros 1 \
     --install_path lib=%{_prefix}/perl5/vendor_perl/%{perl_version} \
     --install_path arch=%{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir} \
     --install_path bin=%{_bindir} \
     --install_path bindoc=%{_mandir}/man1 \
     --install_path libdoc=%{_mandir}/man3 \
-    --destdir $RPM_BUILD_ROOT
-# hack: use C++ compiler
-/usr/perl%{perl_major_version}/%{perl_version}/bin/perl Build --installdirs vendor --makefile_env_macros 1 build \
+    --destdir $RPM_BUILD_ROOT \
+ 
+/usr/perl%{perl_major_version}/%{perl_version}/bin/perl Build build \
     --config "cc=$CXX" --config "ld=$CXX" \
-    --extra_compiler_flags "-Iinclude" --extra_linker_flags "" \
-    CCCDLFLAGS="%picflags" OPTIMIZE="%cxx_optflags"
-#make CC=$CXX CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CXX
+    --extra_compiler_flags "-Iinclude" --extra_linker_flags ""
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd %{module_name}-%{module_version_download}
 perl Build install
-#make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
 
@@ -86,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sat May 12 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SFEperl_extutils_cbuilder}
+- fix building with C++ on perl 5.8.4 and 5.12 (5.10)
 * Sat Jul  2 2011 - Thomas Wagner
 - fix Version: %{perl_version}.%{module_version}
 - use full path to perl intepreter (still wrong interpreter used by Makefile (perl 5.12))
