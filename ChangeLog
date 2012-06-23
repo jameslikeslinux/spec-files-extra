@@ -1,3 +1,8 @@
+2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFElibmagick-gpp.spec: updated to 6.7.6-10. switched
+	buildrequires from SUNWimagick to SFEimagemagick.
+
 2012-06-22 Milan Jurik <sfnet@xylab.cz>
 
 	* encumbered/SFEmplayer.spec: bump to 1.1

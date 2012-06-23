@@ -12,8 +12,8 @@
 #%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
 #upstream does not keep old versions, provide alternate url:
 %define src_url                http://ftp.sunet.se/pub/multimedia/graphics/ImageMagick
-%define major		6.7.4
-%define minor		2
+%define major		6.7.6
+%define minor		10
 
 Name:                   SFElibmagick-gpp
 IPS_Package_Name:	image/library/g++/imagemagick
@@ -31,7 +31,7 @@ BuildRequires:	SFEjasper-devel
 Requires:	SFEjasper
 BuildRequires:	SFElibwebp-devel
 Requires:	SFElibwebp
-Requires:	SUNWimagick
+Requires:	SFEimagemagick
 
 %package devel
 Summary:                 %{summary} - development files
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- updated to 6.7.6-10
+- switched buildrequires from SUNWimagick to SFEimagemagick
 * Sun Apr 01 2012 - Pavel Heimlich
 - source url
 * Fri Dec 30 2011 - Milan Jurik
