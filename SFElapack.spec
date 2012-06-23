@@ -27,10 +27,14 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SUNWcsl
 Requires: SUNWcsl
+BuildRequires: SUNWlibms
 Requires: SUNWlibms
 BuildRequires: SFEgcc
 Requires: SFEgccruntime
+BuildRequires: SFExblas
+Requires: SFExblas
 
 
 %prep
@@ -74,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- add missing (Build)Requires
 * Mon Apr 30 2012 - Pavel Heimlich
 - make shared libraries
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
