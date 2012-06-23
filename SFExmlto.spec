@@ -20,8 +20,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWlxsl
 Requires: SUNWlxml
-Requires: SUNWgnome-xml-share
-Requires: SUNWgnome-xml-root
+Requires: data/docbook/docbook-style-xsl
 Requires: SUNWw3m
 Requires: SFEgnugetopt
 
@@ -64,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- replaced requires SUNWgnome-xml-* with requires
+  data/docbook/docbook-style-xsl to make s11 happy.
 * Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
 - bump to 0.0.25, added ips name and removed now unnecessary patch.
 * Tue Jul 26 2011 - N.B.Prashanth

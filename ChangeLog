@@ -1,5 +1,8 @@
 2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFExmlto.spec: replaced requires SUNWgnome-xml-* with requires
+	data/docbook/docbook-style-xsl to make s11 happy.
+
 	* SFEgit.spec: bump to 1.7.11.1 and switch to python3.2
 
 	* SFEjenkins.spec: bump to 1.471.
