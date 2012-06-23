@@ -20,7 +20,7 @@
 Name:                SFEgit
 IPS_Package_Name:    sfe/developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.11
+Version:             1.7.11.1
 License:             GPLv2
 SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
@@ -38,7 +38,7 @@ Requires: SUNWopenssl-libraries
 Requires: SUNWlexpt
 Requires: SUNWcurl
 Requires: %pnm_requires_perl_default
-Requires: SUNWPython
+Requires: SFEpython3
 Requires: SUNWbash
 Requires: SUNWlexpt
 %if %(pkginfo -q SUNWgnu-diffutils && echo 1 || echo 0)
@@ -73,7 +73,8 @@ make configure
         --prefix=%{_prefix} \
         --mandir=%{_mandir} \
         --libexecdir=%{_libexecdir} \
-        --with-perl=/usr/perl5/bin/perl
+        --with-perl=/usr/perl5/bin/perl \
+        --with-python=/usr/bin/python3
 make -j$CPUS all doc
 
 # fix path to wish (tk shell)
@@ -117,7 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/git*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/git-core
-%{_libdir}/python2.6/site-packages
+%{_libdir}/python3.2/site-packages
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gitk
 %dir %{_datadir}/git-core
@@ -144,6 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*
 
 %changelog
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.11.1 and switch to python3.2
 * Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.7.11
 * Wed Jun 6 2012 - Logan Bruns <logan@gedanken.org>
