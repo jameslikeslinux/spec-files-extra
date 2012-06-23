@@ -12,7 +12,7 @@
 %define src_name	simgear
 %define src_url		ftp://ftp.de.simgear.org/pub/simgear/Source
 
-Name:		SFESimGear
+Name:		SFEsimgear
 IPS_Package_Name:	library/simgear
 Summary:	Simulator Construction Tools
 Version:	2.6.0
@@ -77,6 +77,8 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- rename package name to lower case
 * Sun Mar 04 2012 - Milan Jurik
 - merge from SFEsimgear20, bump to 2.6.0
 * May 2010 - Gilles Dauphin
