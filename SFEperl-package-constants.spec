@@ -6,11 +6,11 @@
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 #note: download file version differs from package version (for IPS not accepting "015" / leading zero)
 %define module_version 0.2
 %define module_version_download 0.02
-%define perl_version 5.8.4
 
 Name:                    SFEperl-package-constants
 Summary:                 Package-Constants-%{module_version_download} PERL module
@@ -19,9 +19,9 @@ Version:                 %{perl_version}.%{module_version}
 Source:			 http://search.cpan.org/CPAN/authors/id/K/KA/KANE/Package-Constants-%{module_version_download}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWperl584core
-BuildRequires:           SUNWperl584core
-BuildRequires:           SUNWsfwhea
+BuildRequires:           %{pnm_buildrequires_perl_default}
+Requires:                %{pnm_requires_perl_default}
+BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -37,8 +37,8 @@ BuildRequires:           SUNWsfwhea
 cd Package-Constants-%{module_version_download}
 perl Makefile.PL \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-    INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/perl5/vendor_perl/%{perl_version} \
-    INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir} \
+    INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
+    INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
     INSTALLSITEMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
     INSTALLSITEMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
     INSTALLMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
@@ -59,10 +59,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr(0755, root, bin) %{_prefix}/perl5
-%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl
-%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
-%{_prefix}/perl5/vendor_perl/%{perl_version}/*
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
+%{_prefix}/%{perl_path_vendor_perl_version}/*
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man3
@@ -70,5 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 23 2011 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
+  paths dynamic, define fewer directories in %files
+- BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
+- move out or perl/
 * Sat Jul 11 2009 - Thomas Wagner
 - Initial spec
