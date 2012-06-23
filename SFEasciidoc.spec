@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFEasciidoc
 IPS_Package_Name:	developer/documentation-tool/asciidoc
@@ -18,7 +19,8 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWPython
+Requires: 	         %{pnm_requires_python_default}
+BuildRequires: 	         %{pnm_buildrequires_python_default}
 Requires: %{name}-root
 
 %package root
@@ -61,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/asciidoc
 
 %changelog
+* Fri Apr 20 2011 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_python_default}, %include packagenamemacros.inc
 * Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
 - bump to 8.6.7
 * Mon Dec 12 2011 - Milan Jurik
