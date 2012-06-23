@@ -2,6 +2,7 @@
 # spec file for package SFEmpg123.spec
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:           SFEmpg123
 IPS_package_name: audio/mpg123
@@ -16,7 +17,8 @@ SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-Requires:       library/libtool/libltdl
+BuildRequires:       %{pnm_buildrequires_SUNWltdl}
+Requires:       %{pnm_requires_SUNWltdl}
 Requires:       SUNWlibsdl
 Requires:       SUNWlibms
 BuildRequires:	SUNWaudh
@@ -92,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libmpg123.so
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change (Build)Requires: to %{pnm_buildrequires_SUNWltdl}, %include packagenamemacros.inc
 * Sun Apr 29 2012 - Pavel Heimlich
 - fix dependency (SUNWltdl is no more in S11)
 * Mon Oct 24 2011 - Alex Viskovatoff
