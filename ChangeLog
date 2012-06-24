@@ -1,5 +1,9 @@
 2012-06-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* experimental/SFEhive.spec: initial spec.
+	* copyright/SFEhive.copyright
+	* ext-sources/hive.xml
+
 	* SFEderby.spec: updated to 10.9.1.0
 
 2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
