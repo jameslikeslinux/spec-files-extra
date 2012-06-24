@@ -843,6 +843,8 @@
 %define pnm_buildrequires_SUNWlibC_devel		system/library/c++/sunpro
 %define pnm_buildrequires_SUNWlibC			system/library/c++/sunpro
 %define pnm_requires_SUNWlibC				system/library/c++/sunpro
+%define pnm_buildrequires_data_docbook          data/docbook
+%define pnm_requires_data_docbook               data/docbook
 %endif
 #END >= 151
 %endif
@@ -895,6 +897,9 @@
 %define pnm_requires_SUNWfusefs					file-system/uvfs
 %define pnm_buildrequires_SUNWlibfuse				library/libfuse
 %define pnm_requires_SUNWlibfuse				library/libfuse
+
+%define pnm_buildrequires_data_docbook          data/docbook/docbook-style-xsl
+%define pnm_requires_data_docbook               data/docbook/docbook-style-xsl
 
 %endif
 #END >=163
@@ -1329,6 +1334,8 @@
 # 
 
 %changelog
+* Sun Jun 24 2012 - Logan Bruns <logan@gedanken.org>
+- add pnm_requires_data_docbook defines to switch between OI and S11 variants
 * Sat Jun 23 2012 - Thomas Wagner
 - handle SUNWlibC: system/library/c++-runtime is renamed on OI to 
   system/library/c++/sunpro (OI>=151), S11 unchanged
