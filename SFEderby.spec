@@ -15,7 +15,7 @@ Name:                    SFEderby
 IPS_Package_Name:	 database/derby
 Summary:                 Derby - an open source relational database implemented entirely in Java
 Group:                   Utility
-Version:                 10.8.2.2
+Version:                 10.9.1.0
 URL:		         http://db.apache.org/derby
 Source:		         http://www.apache.org/dist/db/derby/%{srcname}-%{version}/%{srcname}-%{version}-bin.zip
 License: 		 Apache License, Version 2.0
@@ -64,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/ij
 
 %changelog
+* Sun Jun 24 2012 - Logan Bruns <logan@gedanken.org>
+- Updated to 10.9.1.0
 * Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
 - Use java package names macro and fix some permissions
 * Mon Mar 30 2012 - Logan Bruns <logan@gedanken.org>

@@ -1,3 +1,7 @@
+2012-06-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEderby.spec: updated to 10.9.1.0
+
 2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFExmlto.spec: replaced requires SUNWgnome-xml-* with requires
