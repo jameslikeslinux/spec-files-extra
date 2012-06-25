@@ -1,5 +1,7 @@
 2012-06-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEmaven.spec: initial spec.
+
 	* SFExmlto.spec: for now, use a conditional to choose required
 	packages based on os.
 
