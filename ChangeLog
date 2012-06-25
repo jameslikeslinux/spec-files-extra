@@ -1,8 +1,7 @@
 2012-06-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
-	* SFExmlto.spec: add pnm_requires_data_docbook defines to switch
-	between OI and S11 variants.
-	* include/packagenames.define.allbuilds.inc
+	* SFExmlto.spec: for now, use a conditional to choose required
+	packages based on os.
 
 	* experimental/SFEhive.spec: initial spec.
 	* copyright/SFEhive.copyright

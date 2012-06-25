@@ -21,7 +21,20 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWlxsl
 Requires: SUNWlxml
-Requires: %pnm_requires_data_docbook
+%if %( expr %{osbuild} '>=' 175 )
+# Note: this is temporary since tom wants to rework the package macros
+# to handle this case in a different way. I'm not sure when Sun/Oracle
+# broke data/docbook into multiple packages. On OI it is just
+# data/docbook but on S11 175 (and probably some earlier version) it is
+# split into three packages.
+Requires: data/docbook/docbook-dtds
+Requires: data/docbook/docbook-style-dsssl
+Requires: data/docbook/docbook-style-xsl
+%else
+# Note: these are equivalent to the data/docbook package on OI
+Requires: SUNWgnome-xml-share
+Requires: SUNWgnome-xml-root
+%endif
 Requires: SUNWw3m
 Requires: SFEgnugetopt
 
@@ -65,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Sun Jun 24 2012 - Logan Bruns <logan@gedanken.org>
-- add pnm_requires_data_docbook defines to switch between OI and S11 variants
+- for now, use a conditional to choose required packages based on os.
 * Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
 - replaced requires SUNWgnome-xml-* with requires
   data/docbook/docbook-style-xsl to make s11 happy.
