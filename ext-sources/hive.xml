@@ -12,7 +12,7 @@
     <instance name='default' enabled='false'>
       <exec_method type='method'
                    name='start'
-                   exec='/usr/share/hive/bin/hive --service hiveserver'
+                   exec='/usr/share/hive/bin/hive --service hiveserver &amp;'
                    timeout_seconds='60'>
 	<method_context>
           <method_credential user='hive' group='other' />
