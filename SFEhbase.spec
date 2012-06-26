@@ -15,6 +15,9 @@
 #use random number by userid tool %define runuserid hbase
 %define runusergroup other
 
+#set to 1 if patched and requires a rebuild before packaging
+%define is_patched 1
+
 Name:                    SFEhbase
 IPS_Package_Name:	 developer/distributed/hbase
 Summary:                 HBase - The Hadoop database
@@ -23,12 +26,17 @@ Version:                 0.94.0
 URL:		         http://hbase.apache.org
 Source:		         http://www.us.apache.org/dist/hbase/hbase-%{version}/hbase-%{version}.tar.gz
 Source2:                 hbase.xml
+Patch1:                  hbase-01-jira-6069-hive.diff
 License: 		 Apache 2.0
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            /usr
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:           %pnm_requires_java_runtime_default
+%if %is_patched
+BuildRequires: %pnm_buildrequires_java_runtime_default
+BuildRequires: SFEmaven
+%endif
 
 Requires: %name-root
 
@@ -51,9 +59,15 @@ HDFS.
 %prep
 rm -rf %{srcname}-%{version}
 %setup -q -n %{srcname}-%{version}
+%patch1 -p0
 cp %{SOURCE2} hbase.xml
 
 %build
+
+%if %is_patched
+mvn site install assembly:single -Dmaven.test.skip.exec
+cp target/hbase-%{version}.jar .
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -125,6 +139,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hbase.xml
 
 %changelog
+* Mon Jun 25 2012 - Logan Bruns <logan@gedanken.org>
+- add patch to fix hive integration and conditional logic for
+  rebuilding with patch.
 * Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
 - bumped to 0.94.0
 * Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
