@@ -1,3 +1,8 @@
+2012-07-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEinkscape.spec: fixed build requires SFEboost-gpp-devel
+	instead of SFEboost-devel.
+
 2012-06-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEhive.spec: Fixed a classpath, a minor mistake in the smf and

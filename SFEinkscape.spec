@@ -51,7 +51,7 @@ BuildRequires:	SUNWlcms
 BuildRequires:	SFEgtkmm-gpp-devel
 BuildRequires:	SFEglibmm-gpp-devel
 BuildRequires:	SFEsigcpp-gpp-devel
-BuildRequires:	SFEboost-devel
+BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SFElibmagick-gpp-devel
 BuildRequires:	SFElibwpg-gpp-devel
 
@@ -165,6 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
+- fixed build requires SFEboost-gpp-devel instead of SFEboost-devel.
 * Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
 - added %gnu_lib_path to LDFLAGS so the runpath for the gcc runtime is set
 * Fri Dec 30 2011 - Milan Jurik
