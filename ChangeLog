@@ -1,5 +1,7 @@
 2012-07-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFExz.spec: added ips name and bumped to 5.0.4
+
 	* SFEinkscape.spec: fixed build requires SFEboost-gpp-devel
 	instead of SFEboost-devel.
 

@@ -7,7 +7,8 @@
 %include Solaris.inc
 
 Name:		SFExz
-Version:	5.0.3
+IPS_Package_Name:	compress/xz
+Version:	5.0.4
 Summary:	LZMA utils
 URL:		http://tukaani.org/xz
 Source:		http://tukaani.org/xz/xz-%{version}.tar.bz2
@@ -88,6 +89,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
+- Added ips name and bumped to 5.0.4
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
