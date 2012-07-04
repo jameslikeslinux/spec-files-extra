@@ -1,3 +1,8 @@
+2012-07-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpigz.spec: initial spec.
+	* copyright/SFEpigz.copyright
+
 2012-07-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFExz.spec: added ips name and bumped to 5.0.4
