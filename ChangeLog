@@ -1,3 +1,7 @@
+2012-07-05  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.13.1
+
 2012-07-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEpigz.spec: initial spec.
