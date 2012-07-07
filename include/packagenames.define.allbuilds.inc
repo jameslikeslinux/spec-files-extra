@@ -479,6 +479,15 @@
 %define pnm_requires_database_sqlite3		SUNWsqlite3
 
 
+# SUNWlibsdl
+%define pnm_buildrequires_SUNWlibsdl_devel	SUNWlibsdl-devel
+%define pnm_buildrequires_SUNWlibsdl		SUNWlibsdl
+%define pnm_requires_SUNWlibsdl 		SUNWlibsdl-devel
+%define pnm_buildrequires_libsdl		SUNWlibsdl-devel
+%define pnm_requires_libsdl			SUNWlibsdl
+%define pnm_buildrequires_library_libsdl	SUNWlibsdl-devel
+%define pnm_requires_library_libsdl		SUNWlibsdl
+
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
 
@@ -534,6 +543,9 @@
 %define pnm_requires_system_header		SUNWsfwhea
 %endif
 #END <130
+
+# SUNWgnome-xml-share, SUNWgnome-xml-root -> SUNWgnome-xml -> data/docbook
+
 
 # SFEgnupg2 SUNWgnupg SUNWlibgpg-error SUNWlibgpg-error-devel SUNWlibgcrypt SUNWlibgcrypt-devel
 
@@ -780,6 +792,15 @@
 %define pnm_requires_xwplt compatibility/packages/SUNWxwplt
 %define pnm_buildrequires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
 %define pnm_requires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+
+#SUNWxwopt is now a compatibility package wich pulles in a number of smaller packages
+#pkg:/compatibility/packages/SUNWxwopt@0.5.11,5.11-0.144
+%define pnm_buildrequires_SUNWxwopt_devel		compatibility/packages/SUNWxwopt
+%define pnm_buildrequires_SUNWxwopt			compatibility/packages/SUNWxwopt
+%define pnm_requires_SUNWxwopt				compatibility/packages/SUNWxwopt
+%define pnm_buildrequires_x11_optional_clients		compatibility/packages/SUNWxwopt
+%define pnm_requires_x11_optional_clients		compatibility/packages/SUNWxwopt
+
 %endif
 #END >= 144
 
@@ -1329,6 +1350,12 @@
 # 
 
 %changelog
+* Sat Jul  7 2012 - Thomas Wagner
+- handle SUNWxwopt x11/optional-clients compatibility/packages/SUNWxwopt
+- handle SUNWlibdsl (and select SFEsdl on older builds before it was added)
+* Sun Jun 24 2012 - Thomas Wagner
+- handle SUNWlibsdl(-devel) not detectable on IPS systems (pkg info SUNWlibsdl says not 
+  installed but library/libsdl is) 
 * Sat Jun 23 2012 - Thomas Wagner
 - handle SUNWlibC: system/library/c++-runtime is renamed on OI to 
   system/library/c++/sunpro (OI>=151), S11 unchanged
