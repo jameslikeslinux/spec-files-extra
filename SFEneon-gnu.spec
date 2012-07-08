@@ -4,27 +4,29 @@
 # includes module(s): neon
 #
 %include Solaris.inc
+%include usr-gnu.inc
+%include packagenamemacros.inc
 
-Name:			SFEneon
+Name:			SFEneon-gnu
+IPS_package_name:	library/gnu/neon
 License:		LGPL
 Group:			system/dscm
 # Be careful not to update this to a newer version without checking
 # if subversion will like it.
-Version:		0.26.2
-Release:		1
+Version:		0.29.6
 Summary:		neon http and webdav client library
 Source:			http://www.webdav.org/neon/neon-%{version}.tar.gz
 URL:			http://www.webdav.org/neon/
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:		%{_prefix}
 %include default-depend.inc
-Conflicts: SUNWneon
+
 Requires: SUNWlibms
 Requires: SUNWzlib
 Requires: SUNWlexpt
 Requires: SUNWopenssl-libraries
 BuildRequires: SUNWopenssl-include
-BuildRequires: SUNWsfwhea
+BuildRequires: %{pnm_buildrequires_SUNWsfwhea}
 
 %package devel
 Summary:                 %{summary} - development files
@@ -45,16 +47,17 @@ Requires:                %{name}
 %setup -q -n neon-%{version}
 
 %build
-export CFLAGS="%optflags -I/usr/sfw/include -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
+#export CFLAGS="%optflags -I/usr/sfw/include -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
+export CFLAGS="%optflags -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 %if %debug_build
 %define debug_option --enable-debug
 %else
 %define debug_option --disable-debug
 %endif
-export CPPFLAGS="-I/usr/sfw/include"
-export LD=/usr/ccs/bin/ld
-export LDFLAGS="-L/usr/sfw/lib -R/usr/sfw/lib -L$RPM_BUILD_ROOT%{_libdir}"
-export PATH=$PATH:/usr/apache2/bin
+#export CPPFLAGS="-I/usr/sfw/include"
+export LDFLAGS="%{_ldflags}"
+#export LDFLAGS="%{_ldflags} -L$RPM_BUILD_ROOT%{_libdir}"
+export PATH=$PATH:/usr/apache2/2.2/bin
 ./configure \
     --prefix=%{_prefix} \
     --exec-prefix=%{_prefix} \
@@ -129,6 +132,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 29 2012 - Thomas Wagner
+- bump to 0.29.6
+- rework to use standard *FLAGS
+- add IPS_package_name
+- relocate to /usr/gnu, rename spec to SFEneon-gnu.spec
+- change to (Build)Requires to %{pnm_buildrequires_SUNWsfwhea}, %include packagenamacros.inc
 * Mon Feb 25 2008 - laca@sun.com
 - make installing man pages conditional to avoid conflict with
   SUNWsfwman, helps on indiana
