@@ -17,7 +17,9 @@
 %use filezilla = filezilla.spec
 
 Name:               SFEfilezilla
-Summary:            FileZilla FTP client
+IPS_package_name:   desktop/network/filezilla
+Group:	            Desktop/Applications/File Managers
+Summary:            FileZilla FTP client (FTP and SFTP)
 Version:            %{filezilla.version}
 SUNW_Copyright:     %{name}.copyright
 SUNW_BaseDir:       %{_basedir}
@@ -31,7 +33,7 @@ Requires: SUNWgnome-component
 Requires: SUNWgnome-config
 Requires: SUNWgnutls
 Requires: SUNWgnu-idn
-Requires: SUNWwxwidgets
+Requires: SFEwxwidgets-gpp
 Requires: SUNWxdg-utils
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-base-libs-devel
@@ -40,7 +42,7 @@ BuildRequires: SUNWgnome-component-devel
 BuildRequires: SUNWgnome-config-devel
 BuildRequires: SUNWgnutls-devel
 BuildRequires: SUNWgnu-idn
-BuildRequires: SUNWwxwidgets-devel
+BuildRequires: SFEwxwidgets-gpp-devel
 BuildRequires: SUNWxdg-utils
 
 %if %build_l10n
@@ -60,10 +62,12 @@ mkdir -p %name-%version
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export CC=gcc
 export CXX=g++
-export CPPFLAGS="-I/usr/include/g++ -I%{_includedir}/idn"
+export CPPFLAGS="-I/usr/g++/include -I%{_includedir}/idn"
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -fpermissive"
-export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
+export CXXFLAGS="%cxx_optflags -fpermissive -L/usr/g++/lib -R/usr/g++/lib"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+
+export PATH=/usr/g++/bin:$PATH
 %filezilla.build -d %name-%version
 
 %install
@@ -108,6 +112,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 29 2012 - Thomas Wagner
+- change (Build)Requires to SFEwxwidgets-gpp(-devel) (g++)
+- adapt to new usr-g++.inc -> CPPFLAGS change g++ include location,
+  CXXFLAGS add -L|-R/usr/g++/lib, LDFLAGS use -L|-R/usr/g++/lib
+- add IPS_Package_Name and Group:
 * Sat Apr 28 2012 - Thomas Wagner
 - remove double %% from %use
 * Aug 2009 - Gilles Dauphin
