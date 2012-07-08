@@ -1,8 +1,14 @@
+# file to be included with the "%use" instruction in SFEwxwidgets-gnu.spec and SFEwxwidgets-gpp.spec
+#
+
+ 
+%define src_name   wxWidgets
+
 Name:                    SFEwxwidgets-gnu
-Summary:                 wxWidgets - Cross-Platform GUI Library (g++)
+Summary:                 wxWidgets - Cross-Platform GUI Library
 URL:                     http://wxwidgets.org/
-Version:                 %{src_ver}
-Source:			 %{sf_download}/wxwindows/%{pkg_src_name}-%{src_ver}.tar.bz2
+Version:                 2.8.12
+Source:			 %{sf_download}/wxwindows/%{src_name}-%{version}.tar.bz2
 Patch1:                  wxwidgets-01-msgfmt.diff
 Patch2:                  wxwidgets-02-Tmacro.diff
 # http://trac.wxwidgets.org/changeset/61009
@@ -13,8 +19,7 @@ Patch5:                  wxwidgets-05-setup.h.in.diff
 SUNW_BaseDir:            %{_basedir}
 
 %prep
-rm -rf %{name}-%{src_ver}
-%setup -q -n %{pkg_src_name}-%{src_ver}
+%setup -q -n %{src_name}-%{version}
 %patch1 -p1
 #%patch2 -p0
 #%patch3 -p1
@@ -36,50 +41,26 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CPPFLAGS="-I%{xorg_inc}"
-export CC=gcc
-export CXX=g++
-%if %{is64}
-export CFLAGS="%{gcc_optflags64}"
-export CXXFLAGS="%{gcc_cxx_optflags64} -fpermissive"
-%else
-export CFLAGS="%{gcc_optflags}"
-export CXXFLAGS="%{gcc_cxx_optflags} -fpermissive"
-%endif
-%if %using_gld
-  export LDFLAGS="-L%{_libdir} -L%{xorg_lib} -R%{_libdir} -R%{xorg_lib} -lm"
-  CFLAGS="$( echo $CFLAGS | sed 's/ -Xlinker -i//' )"
-  CXXFLAGS="$( echo $CXXFLAGS | sed 's/ -Xlinker -i//' )"
-%else
-  export LDFLAGS="%{_ldflags} -lm"
-  export LD_OPTIONS="-i -L%{_libdir} -L%{xorg_lib} -R%{_libdir}:%{xorg_lib}"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+%if %{cc_is_gcc}
+export CXXFLAGS="${CXXFLAGS} -fpermissive"
 %endif
 
-%if %{is_s10}
-export CPPFLAGS="${CPPFLAGS} -I/opt/kde4/include"
-%if %{is64}
-export PATH=/opt/kde4/bin/%{_arch64}:%{_bindir}:${PATH}
-export PKG_CONFIG_PATH="/opt/kde4/lib/%{_arch64}/pkgconfig:/usr/lib/%{_arch64}/pkgconfig"
-export PKG_CONFIG="/opt/kde4/bin/%{_arch64}/pkg-config"
-%if %using_gld
-export LDFLAGS="${LDFLAGS} -L/opt/kde4/lib/%{_arch64} -R/opt/kde4/lib/%{_arch64}"
-%else
-export LD_OPTIONS="${LD_OPTIONS} -L/opt/kde4/lib/%{_arch64} -R/opt/kde4/lib/%{_arch64}"
-%endif
-%else
-export PATH=/opt/kde4/bin:%{_bindir}:${PATH}
-export PKG_CONFIG_PATH="/opt/kde4/lib/pkgconfig:/usr/lib/pkgconfig"
-export PKG_CONFIG="/opt/kde4/bin/pkg-config"
-%if %using_gld
-export LDFLAGS="${LDFLAGS} -L/opt/kde4/lib -R/opt/kde4/lib"
-%else
-export LD_OPTIONS="${LD_OPTIONS} -L/opt/kde4/lib -R/opt/kde4/lib"
-%endif
-%endif
-%endif
+export CPPFLAGS="-I%{xorg_inc}"
+
+#glib-2.0 need this or fails cast for pointers
+export PKG_CONFIG_PATH="/usr/lib/%{_arch64}/pkgconfig"
+
+#always use solaris LD
+export LD=`which ld-wrapper`
+export LDFLAGS="%{_ldflags} -lm"
+export LD_OPTIONS="-i -L%{xorg_lib} -R%{xorg_lib}"
+
 
 # keep PATH from being mangled by SDL check (breaks grep -E and tr A-Z a-z)
 perl -pi -e 's,PATH=".*\$PATH",:,' configure
+
 ./configure --prefix=%{_prefix}			\
 	    --bindir=%{_bindir}			\
 	    --includedir=%{_includedir}		\
@@ -103,7 +84,7 @@ perl -pi -e 's,PATH=".*\$PATH",:,' configure
             --with-opengl			\
             --without-libmspack
 
-sed -i -e 's,${compiler} -o ${outfile} -MMD -MF,${compiler} -c -o ${outfile} -MMD -MF,' bk-make-pch
+[ -r bk-make-pch ] && sed -i -e 's,${compiler} -o ${outfile} -MMD -MF,${compiler} -c -o ${outfile} -MMD -MF,' bk-make-pch
 
 make -j$CPUS
 cd contrib
@@ -119,7 +100,7 @@ cd contrib
 make install DESTDIR=$RPM_BUILD_ROOT
 cd ..
 
-%if %{is64}
+%ifarch amd64 sparcv9 
 rm -f ${RPM_BUILD_ROOT}%{_prefix}/bin/%{_arch64}/wx-config
 pushd ${RPM_BUILD_ROOT}%{_prefix}/bin/%{_arch64}
 ln -s ../../lib/%{_arch64}/wx/config/gtk2-unicode-release-2.8 wx-config
@@ -139,3 +120,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%changelog
+* Sun Jul  8 2012 - Thomas Wagner
+- rework 32/64-bit builds, cleanup *FLAGS
