@@ -69,14 +69,14 @@ Requires: %{pnm_requires_mysql_default}
 BuildRequires: SUNWdbus
 Requires: SUNWdbus
 
-%package %name-devel
+%package devel
 IPS_package_name:	library/desktop/g++/qt/header-qt
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-%package %name-doc
+%package doc
 IPS_package_name:	library/desktop/g++/qt/documentation
 Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
@@ -109,8 +109,8 @@ tar xzf %{SOURCE1}
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{standard_prefix}/%{mysql_default_includedir}
-%define extra_libs  -L%{standard_prefix}/%{mysql_default_libdir} -R%{standard_prefix}/%{mysql_default_libdir}
+%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{standard_prefix}/%{mysql_default_includedir}/mysql
+%define extra_libs  -L%{standard_prefix}/%{mysql_default_libdir}/mysql -R%{standard_prefix}/%{mysql_default_libdir}/mysql
 
 export CC=gcc
 export CXX=g++
@@ -130,7 +130,7 @@ export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthread
 
 # Assume i386 CPU is not higher than Pentium 4
 # This can be changed locally if your CPU is newer
-./configure -prefix %_prefix \
+./configure -prefix %{_prefix} \
            -confirm-license \
            -opensource \
            -platform solaris-g++ \
@@ -151,6 +151,7 @@ export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthread
            -reduce-relocations \
            -opengl desktop \
            -shared \
+           -plugin-sql-mysql \
 %if %noamd3d
            -no-3dnow \
            -no-sse4.1 -no-sse4.2 \
@@ -206,7 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %_datadir/qt/phrasebooks
 %_datadir/qt/translations
 
-%files %name-devel
+%files devel
 %defattr (-, root, bin)
 %_bindir
 %dir %attr (0755, root, bin) %_includedir
@@ -221,7 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %_prefix/imports
 %_prefix/imports/*
 
-%files %name-doc
+%files doc
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/q3porting.xml
@@ -230,6 +231,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wagner
+- fix finding a spec providing e.g. SFEqt-gpp-devel (remove %name- from %package)
+- force mysql inclusion as plugin -plugin-sql-mysql and add trailing "/mysql" to
+  -I and -L -R paths
 * Sat Jun 23 2012 - Thomas Wagner
 - add back regular sub-packages with IPS-tags for -devel and -doc
   to get back automatic dependencys with pkgtool on build farms
