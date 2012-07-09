@@ -30,6 +30,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:      SFEgcc
 Requires:           SFEgccruntime
+BuildRequires:      SUNWlua
+Requires:           SUNWlua
 
 %description 
 Asterisk is a complete IP PBX in software. It runs on a wide variety of operating systems and provides all of the features one would expect from a PBX including many advanced features that are often associated with high end (and high cost) proprietary PBXs. Asterisk supports Voice over IP in many protocols, and can interoperate with almost all standards-based telephony equipment using relatively inexpensive hardware.
@@ -120,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Sun July 8 2012 - Logan Bruns <logan@gedanken.org>
+- Added (build)requires SUNWlua
 * Thu July 5 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.8.13.1
 * Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>

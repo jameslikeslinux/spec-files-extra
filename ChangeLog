@@ -1,3 +1,7 @@
+2012-07-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: added (build)requires SUNWlua
+
 2012-07-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* experimental/SFEkatta.spec: initial spec.
