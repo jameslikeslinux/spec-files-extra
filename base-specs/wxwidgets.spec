@@ -54,7 +54,8 @@ export PKG_CONFIG_PATH="/usr/lib/%{_arch64}/pkgconfig"
 
 #always use solaris LD
 export LD=`which ld-wrapper`
-export LDFLAGS="%{_ldflags} -lm"
+#add /usr/g++/lib o /usr/gnu/lib to not stumble over OS provided wxwidgets libs
+export LDFLAGS="%{_ldflags} -L%{_libdir} -R%{_libdir} -lm"
 export LD_OPTIONS="-i -L%{xorg_lib} -R%{xorg_lib}"
 
 
@@ -122,5 +123,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wanger
+- add -L|-R/usr/g++/lib to LDFLAGS to get /usr/g++/bin/wxrc use the right g++ libs
 * Sun Jul  8 2012 - Thomas Wagner
 - rework 32/64-bit builds, cleanup *FLAGS

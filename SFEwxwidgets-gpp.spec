@@ -129,6 +129,8 @@ rm -rf %{name}-%{version}
 %endif
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wanger
+- add -L|-R/usr/g++/lib to LDFLAGS to get /usr/g++/bin/wxrc use the right g++ libs
 * Fri Jun 29 2012 - Thomas Wagner
 - rework 32/64-bit build system, make -gpp and -gnu spec file similar
 - Bump to 2.8.12
