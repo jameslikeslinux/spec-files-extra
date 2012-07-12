@@ -6,6 +6,8 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
+# TODO: either use a separate zookeeper package or require hbase
+
 %include Solaris.inc
 
 %include packagenamemacros.inc
@@ -29,6 +31,7 @@ SUNW_BaseDir:            /usr
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:           %pnm_requires_java_runtime_default
+Requires:           SFEhadoop
 
 Requires: %name-root
 
@@ -76,6 +79,9 @@ mkdir $RPM_BUILD_ROOT/usr/bin
 ln -s /usr/share/katta/bin/katta-config.sh $RPM_BUILD_ROOT/usr/bin/katta-config.sh
 ln -s /usr/share/katta/bin/katta $RPM_BUILD_ROOT/usr/bin/katta
 
+# remove old hadoop library
+rm $RPM_BUILD_ROOT/usr/share/katta/lib/hadoop-0.20.2-core.jar
+
 echo "export KATTA_CONF_DIR=/etc/katta" > $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh-new
 cat $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh >> $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh-new
 echo "export KATTA_HOME=/usr/share/katta" >> $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh-new
@@ -83,6 +89,7 @@ cp $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh-new $RPM_BUILD_ROOT/usr/s
 rm $RPM_BUILD_ROOT/usr/share/katta/bin/katta-config.sh-new
 echo "export JAVA_HOME=/usr/java" >> $RPM_BUILD_ROOT/etc/katta/katta-env.sh
 echo "export KATTA_LOG_DIR=/var/log/katta" >> $RPM_BUILD_ROOT/etc/katta/katta-env.sh
+echo "export KATTA_CLASSPATH=/usr/share/hadoop/hadoop-core-1.0.3.jar:/usr/share/hadoop/lib/commons-configuration-1.6.jar:/usr/share/hadoop/lib/commons-codec-1.4.jar:/usr/share/hadoop/lib/commons-lang-2.4.jar" >> $RPM_BUILD_ROOT/etc/katta/katta-env.sh
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -128,5 +135,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/katta.xml
 
 %changelog
+* Thu July 12 2012 - Logan Bruns <logan@gedanken.org>
+- Replaced hadoop client library with reference to more recent hadoop
+  from hadoop pkg.
 * Fri July 6 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.

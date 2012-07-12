@@ -1,3 +1,8 @@
+2012-07-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEkatta.spec: replaced hadoop client library with
+	reference to more recent hadoop from hadoop pkg.
+
 2012-07-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEasterisk.spec: added (build)requires SUNWlua
