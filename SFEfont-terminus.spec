@@ -7,17 +7,17 @@
 
 Name:                    SFEfont-terminus
 Summary:                 terminus - font terminus
-URL:                     http://www.is-vn.bg/hamster
-Version:                 4.28
-Source:                  http://www.is-vn.bg/hamster/terminus-font-%{version}.tar.gz
-Patch1:                  terminus-font-01-x11dir.diff
+URL:                     http://sourceforge.net/projects/terminus-font
+Version:                 4.38
+Source:                  %{sf_download}/project/terminus-font/terminus-font-%{version}/terminus-font-%{version}.tar.gz
+#Patch1:                  terminus-font-01-x11dir.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
 %setup -q -n terminus-font-%version
-%patch1 -p1
+#%patch1 -p1
 
 %build
 
@@ -26,7 +26,7 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 PATH=$PATH:/usr/openwin/bin:/usr/X11/bin
 
 ##TODO## determine the osbuild-number where the fonts moved from /usr/openwin over to /usr/share
-./configure --prefix=%{_prefix}  \
+bash ./configure --prefix=%{_prefix}  \
 %if %(expr %{osbuild} '>=' 134)
             --x11dir=%{_prefix}/share/fonts/X11/misc/
 %else
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 16 2012 - Thomas Wagner
+- bump to 4.38
+- new source URL and URL
+- disable patch1
 * Sat Jun 23 2012 - Thomas Wagner
 - wrong path for fonts in configure if osbuild < 134
 * Wed Dec 14 2011 - Thomas Wagner
