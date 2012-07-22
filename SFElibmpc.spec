@@ -28,7 +28,7 @@ IPS_Package_Name:	sfe/library/mpc
 Summary:	%{libmpc.summary}
 Group:		Development/Libraries
 URL:		%{libmpc.url}
-License:	LGPLv2
+License:	LGPLv3+
 SUNW_Copyright:	libmpc.copyright
 Version:	%{libmpc.version}
 SUNW_BaseDir:	%{_basedir}/%{_subdir}
@@ -134,6 +134,8 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Sun Jul 22 2012 - Milan Jurik
+- bump to 1.0
 * Mon Oct 10 2011 - Milan Jurik
 - add IPS package name
 * Thu Jul 21 2011 - Alex Viskovatoff
