@@ -22,6 +22,7 @@ Summary:	%{libedit.summary}
 Version:	%{libedit.version}
 License:	%{libedit.license}
 Url:		%{libedit.url}
+Group:		Development/Libraries
 SUNW_Basedir:	%{_basedir}
 SUNW_Copyright:	%{name}.copyright
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
