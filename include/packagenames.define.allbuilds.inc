@@ -833,21 +833,21 @@
 #END >= 151
 
 #-----------------------------------------------------------------
-#set defaults for SFExz | compress/yz, in case the build is newer,
+#set defaults for SFExz | compress/xz, in case the build is newer,
 #overwrite them
 #this is for S11 (all builds) and (OI < 151)
-%define pnm_buildrequires_SFExz			SFEyz
-%define pnm_requires_SFExz			SFEyz
-%define pnm_buildrequires_compress_xz		SFEyz
-%define pnm_requires_compress_xz		SFEyz
+%define pnm_buildrequires_SFExz			SFExz
+%define pnm_requires_SFExz			SFExz
+%define pnm_buildrequires_compress_xz		SFExz
+%define pnm_requires_compress_xz		SFExz
 
 #cases >= 151 && OpenIndiana
 %if %{openindiana}
 %if %( expr %{osbuild} '>=' 151 )
-%define pnm_buildrequires_SFExz			compress/yz
-%define pnm_requires_SFExz			compress/yz
-%define pnm_buildrequires_compress_xz		compress/yz
-%define pnm_requires_compress_xz		compress/yz
+%define pnm_buildrequires_SFExz			compress/xz
+%define pnm_requires_SFExz			compress/xz
+%define pnm_buildrequires_compress_xz		compress/xz
+%define pnm_requires_compress_xz		compress/xz
 %endif
 #END >= 151
 %endif
