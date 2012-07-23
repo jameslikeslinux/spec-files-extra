@@ -1,6 +1,7 @@
 2012-07-23 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEbzr.spec: bump to 2.5.1, rename IPS package to bzr
+	* SFEnetatalk.spec: bump to 2.2.3, fix rpath for /usr/gnu/lib
 
 2012-07-22 Milan Jurik <sfnet@xylab.cz>
 
