@@ -488,6 +488,24 @@
 %define pnm_buildrequires_library_libsdl	SUNWlibsdl-devel
 %define pnm_requires_library_libsdl		SUNWlibsdl
 
+#SUNWxwplt SUNWxwplt
+%define pnm_buildrequires_x11_clients		SUNWxwplt
+%define pnm_requires_x11_clients		SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt_devel	SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt		SUNWxwplt
+%define pnm_requires_SUNWxwplt			SUNWxwplt
+%define pnm_buildrequires_xwplt			SUNWxwplt
+%define pnm_requires_xwplt			SUNWxwplt
+%define pnm_buildrequires_compatibility_packages_SUNWxwplt	SUNWxwplt
+%define pnm_requires_compatibility_packages_SUNWxwplt		SUNWxwplt
+
+#SUNWxwopt
+%define pnm_buildrequires_SUNWxwopt_devel		SUNWxwopt
+%define pnm_buildrequires_SUNWxwopt			SUNWxwopt
+%define pnm_requires_SUNWxwopt				SUNWxwopt
+%define pnm_buildrequires_x11_optional_clients		SUNWxwopt
+%define pnm_requires_x11_optional_clients		SUNWxwopt
+
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
 
@@ -783,15 +801,15 @@
 #meta-package x11/client is requested. up to 143 it was TBD
 #NOTE we overwrite what the include for 133 / 134 has defined (target was x11/client)
 %if %( expr %{osbuild} '>=' 144 )
-%define pnm_buildrequires_x11_clients compatibility/packages/SUNWxwplt
-%define pnm_requires_x11_clients compatibility/packages/SUNWxwplt
-%define pnm_buildrequires_SUNWxwplt_devel compatibility/packages/SUNWxwplt
-%define pnm_buildrequires_SUNWxwplt compatibility/packages/SUNWxwplt
-%define pnm_requires_SUNWxwplt compatibility/packages/SUNWxwplt
-%define pnm_buildrequires_xwplt compatibility/packages/SUNWxwplt
-%define pnm_requires_xwplt compatibility/packages/SUNWxwplt
-%define pnm_buildrequires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
-%define pnm_requires_compatibility_packages_SUNWxwplt compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_x11_clients		compatibility/packages/SUNWxwplt
+%define pnm_requires_x11_clients		compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt_devel	compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_SUNWxwplt		compatibility/packages/SUNWxwplt
+%define pnm_requires_SUNWxwplt			compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_xwplt			compatibility/packages/SUNWxwplt
+%define pnm_requires_xwplt			compatibility/packages/SUNWxwplt
+%define pnm_buildrequires_compatibility_packages_SUNWxwplt	compatibility/packages/SUNWxwplt
+%define pnm_requires_compatibility_packages_SUNWxwplt		compatibility/packages/SUNWxwplt
 
 #SUNWxwopt is now a compatibility package wich pulles in a number of smaller packages
 #pkg:/compatibility/packages/SUNWxwopt@0.5.11,5.11-0.144
@@ -1136,8 +1154,8 @@
 %if %( expr %{osbuild} '>=' 133 )
 #from build 133 and up we have
 #database/mysql-51
-%define pnm_buildrequires_mysql_default	database/mysql-51
-%define pnm_requires_mysql_default	database/mysql-51
+%define pnm_buildrequires_mysql_default	database/mysql-51,database/mysql-51/library
+%define pnm_requires_mysql_default	database/mysql-51,database/mysql-51/library
 %endif
 #END >= 133
 %endif
@@ -1157,12 +1175,17 @@
 #note: simplyfication: %{_prefix} must be prepended by the spec file itself
 
 #example:
+#the mysql.h file would be found with CFLAGS="-I%{_prefix}/%{mysql_default_includedir}/mysql"
+#or
 #the mysql.h file would be found with CFLAGS="-I%{_prefix}/%{mysql_default_includedir}"
 %define mysql_default_includedir	mysql/%{mysql_major_minor_version}/include
 #more information: #include "mysql/mysql.h" -->> /usr/mysql/5.1/include/mysql/mysql.h 
+#if you only #include "mysql.h" then you need to use CFLAGS="-I%{_prefix}/%{mysql_default_includedir}/mysql"
 
 #the mysql libs would be found with LDFLAGS and/or CFLAGS="-L%{_prefix}/%{mysql_default_libdir} -R%{_prefix}/%{mysql_default_libdir}"
 %define mysql_default_libdir	mysql/%{mysql_major_minor_version}/lib
+#you might need to keep an eye on 32-/64-bit locations of mysql libs
+#you might need to use -L%{_prefix}/%{mysql_default_libdir}/mysql to get libraries found
 
 #END setting mysql, all builds, evaluated paths  - Part 3 of 3
 
@@ -1350,6 +1373,11 @@
 # 
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wagner
+- add SVR4 SUNWxwopt SUNWlibdsl for pre-IPS systems
+- append "/mysql" to the *examples* like this %{mysql_default_includedir}/mysql
+  same for libaries
+- add libraries to %{pnm_buildrequires_mysql_default} database/mysql-51,database/mysql-51/library
 * Sat Jul  7 2012 - Thomas Wagner
 - handle SUNWxwopt x11/optional-clients compatibility/packages/SUNWxwopt
 - handle SUNWlibdsl (and select SFEsdl on older builds before it was added)
