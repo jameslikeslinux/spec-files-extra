@@ -1,3 +1,7 @@
+2012-07-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEbzr.spec: bump to 2.5.1, rename IPS package to bzr
+
 2012-07-22 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEmpfr.spec: bump to 3.1.1

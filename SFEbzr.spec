@@ -13,7 +13,7 @@ Summary:	Bazaar Source Code Management System
 License:	GPLv2+
 SUNW_Copyright:	bzr.copyright
 Group:		Development/Source Code Management
-Version:	2.5.0
+Version:	2.5.1
 Source:		http://launchpad.net/bzr/2.5/%{version}/+download/bzr-%{version}.tar.gz
 URL:		http://bazaar-vcs.org
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -81,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 23 2012 - Milan Jurik
+- bump to 2.5.1
 * Wed Mar 28 2012 - knut.hatlen@oracle.com
 - bump to 2.5.0
 * Sun Dec 11 2011 - Milan Jurik
