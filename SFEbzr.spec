@@ -8,7 +8,7 @@
 %define python_version 2.6
 
 Name:		SFEbzr
-IPS_Package_Name:	developer/versioning/bazaar
+IPS_Package_Name:	developer/versioning/bzr
 Summary:	Bazaar Source Code Management System
 License:	GPLv2+
 SUNW_Copyright:	bzr.copyright
