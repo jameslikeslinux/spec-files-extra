@@ -13,7 +13,7 @@
 Summary:	Asynchronous JavaScript Engine  
 Name:		SFEnodejs  
 IPS_Package_Name:	runtime/javascript/nodejs
-Version:	0.6.18
+Version:	0.8.4
 License:	BSD  
 Group:		System/Libraries  
 URL:		http://nodejs.org/  
@@ -21,9 +21,6 @@ Source:		http://nodejs.org/dist/v%{version}/node-v%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-
-BuildRequires:	SFEc-ares-devel
-Requires:	SFEc-ares
 
 %description  
 Node's goal is to provide an easy way to build scalable network  
@@ -57,12 +54,16 @@ export CFLAGS="%{optflags}"
 export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix} \
-	--shared-cares
+	--shared-openssl
 
 make -j$CPUS
 
 %install  
 rm -rf $RPM_BUILD_ROOT  
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{_ldflags}"
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %clean  
@@ -78,6 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 %{_libdir}/node
 %{_libdir}/node_modules
+%{_libdir}/dtrace/node.d
 
 %files devel  
 %defattr(-, root, bin)  
@@ -85,6 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/node  
 
 %changelog  
+* Fri Jul 27 2012 - Milan Jurik
+- bump to 0.8.4
 * Wed May 16 2012 - Milan Jurik
 - bump to 0.6.18
 * Sat Dec 31 2011 - Milan Jurik

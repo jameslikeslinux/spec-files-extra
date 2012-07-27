@@ -1,3 +1,7 @@
+2012-07-27 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnodejs.spec: bump to 0.8.4
+
 2012-07-23 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEbzr.spec: bump to 2.5.1, rename IPS package to bzr
