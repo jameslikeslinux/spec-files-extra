@@ -38,7 +38,7 @@ This plugin requires JsonGlib to work.
 %{_libdir}/gmpc/plugins/*.so
 %dir %attr (0755, root, sys) %{_datadir}
 #%{_datadir}/gmpc-%{pluginname}/icons/*
-%dir %attr (0755, root, bin) %{_datadir}/gmpc
+%dir %attr (0755, root, other) %{_datadir}/gmpc
 %{_datadir}/gmpc/*
 
 %defattr (-, root, bin)
@@ -46,6 +46,8 @@ This plugin requires JsonGlib to work.
 #no locales %attr (-, root, other) %{_datadir}/locale
 
 %changelog
+* Fri Jul 27 2012 - Thomas Wagner
+- fix permissions for /usr/share/gmpc
 * Sat Jun 23 2012 - Thomas Wagner
 - fix permissions
 * Wed Apr 25 2012 - Thomas Wagner
