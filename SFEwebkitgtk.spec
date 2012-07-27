@@ -70,6 +70,7 @@ BuildRequires: SUNWgnome-media
 BuildRequires: SUNWflexlex
 BuildRequires: SUNWgtk-doc
 BuildRequires: SUNWgobject-introspection-devel
+BuildRequires: SUNWgir-repository
 
 %if %OS2nnn
 Requires: SUNWopenssl
