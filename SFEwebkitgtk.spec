@@ -53,7 +53,7 @@ Requires: SUNWcurl
 Requires: SUNWlibsoup
 Requires: SUNWgtk2
 Requires: SUNWflexlex
-
+Requires: SUNWgobject-introspection
 BuildRequires: SUNWgnome-spell
 BuildRequires: SUNWgnu-idn
 BuildRequires: SUNWgnome-base-libs
@@ -69,6 +69,7 @@ BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgnome-media
 BuildRequires: SUNWflexlex
 BuildRequires: SUNWgtk-doc
+BuildRequires: SUNWgobject-introspection-devel
 
 %if %OS2nnn
 Requires: SUNWopenssl
