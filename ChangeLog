@@ -1,3 +1,7 @@
+2012-07-29 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/sdl-mixer.spec: bump to 1.2.12
+
 2012-07-27 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEnodejs.spec: bump to 0.8.4
