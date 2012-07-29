@@ -9,7 +9,7 @@
 
 Name:			sdl-image
 Summary: 		Simple DirectMedia Layer - Sample Image Loading Library
-Version:		1.2.10
+Version:		1.2.12
 Source: 		%{src_url}/%{src_name}-%{version}.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 
@@ -39,6 +39,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 1.2.12
 * Mon May 17 2010 - Milan Jurik
 - force linking with compiled in libpng to solve dynamic loader problem
 * Tue Mar 02 2010 - matt@greenviolet.net
