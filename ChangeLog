@@ -8,6 +8,7 @@
 	* SFEstellarium.spec: bump to 0.11.3
 	* SFElibebml-gpp.spec: bump to 1.2.2
 	* SFElibebml.spec: bump to 1.2.2
+	* base-specs/libmp4v2.spec: bump to 2.0.0
 
 2012-07-27 Milan Jurik <sfnet@xylab.cz>
 
