@@ -1,17 +1,11 @@
-diff -Naur stellarium-0.11.1/CMakeLists.txt stellarium-0.11.1-patch/CMakeLists.txt
---- stellarium-0.11.1/CMakeLists.txt	2011-11-04 10:59:32.000000000 +0100
-+++ stellarium-0.11.1-patch/CMakeLists.txt	2012-01-07 22:25:56.779796288 +0100
-@@ -33,8 +33,8 @@
- 
- 
- IF(UNIX AND NOT WIN32)
+diff -Naur stellarium-0.11.3/CMakeLists.txt stellarium-0.11.3-patch/CMakeLists.txt
+--- stellarium-0.11.3/CMakeLists.txt	Fri May 18 14:19:24 2012
++++ stellarium-0.11.3-patch/CMakeLists.txt	Sun Jul 29 21:33:13 2012
+@@ -53,2 +53,2 @@
 - SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-unused-parameter")       # additional C compile flags
 - SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")     # additional CPP compile flags
 + SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")       # additional C compile flags
 + SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")     # additional CPP compile flags
- ELSE()
-  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -fexceptions -fident -mthreads")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wsign-promo -fexceptions -fident -mthreads")
 diff -Naur stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp
 --- stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2011-11-04 10:59:34.000000000 +0100
 +++ stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2012-01-07 22:25:56.780612827 +0100
@@ -358,18 +352,6 @@ diff -Naur stellarium-0.11.1/src/core/SphericMirrorCalculator.cpp stellarium-0.1
  
    const Vec3f S = Q + w*(f1/vv);
    const Vec3f S_x = Q_x + w*((vv*f1_x-vvX*f1)/(vv*vv)) + w_x*(f1/vv);
-diff -Naur stellarium-0.11.1/src/core/StelCore.hpp stellarium-0.11.1-patch/src/core/StelCore.hpp
---- stellarium-0.11.1/src/core/StelCore.hpp	2011-11-04 10:59:42.000000000 +0100
-+++ stellarium-0.11.1-patch/src/core/StelCore.hpp	2012-01-07 22:27:35.886610303 +0100
-@@ -390,7 +390,7 @@
- 	//! Set real time speed or pause simulation if we are already in realtime speed.
- 	void toggleRealTimeSpeed() {(!getRealTimeSpeed()) ? setRealTimeSpeed() : setZeroTimeSpeed();}
- 	//! Get whether it is real time speed, i.e. 1 sec/sec
--	bool getRealTimeSpeed() const {return (fabs(timeSpeed-JD_SECOND)<0.0000001);}
-+	bool getRealTimeSpeed() const {return (std::fabs(timeSpeed-JD_SECOND)<0.0000001);}
- 
- 	//! Set stellarium time to current real world time
- 	void setTimeNow();
 diff -Naur stellarium-0.11.1/src/core/StelFileMgr.cpp stellarium-0.11.1-patch/src/core/StelFileMgr.cpp
 --- stellarium-0.11.1/src/core/StelFileMgr.cpp	2011-11-04 10:59:42.000000000 +0100
 +++ stellarium-0.11.1-patch/src/core/StelFileMgr.cpp	2012-01-07 22:25:56.795972194 +0100
@@ -899,10 +881,10 @@ diff -Naur stellarium-0.11.1/src/core/VecMath.hpp stellarium-0.11.1-patch/src/co
  	  SWAP_ROWS(r3, r2);
     if (0.0 == r2[2])
  	  return Matrix4<T>();
-diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.11.1-patch/src/core/modules/ConstellationMgr.cpp
---- stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp	2011-11-04 10:59:42.000000000 +0100
-+++ stellarium-0.11.1-patch/src/core/modules/ConstellationMgr.cpp	2012-01-07 22:25:56.823159541 +0100
-@@ -41,7 +41,7 @@
+diff -Naur stellarium-0.11.3/src/core/modules/ConstellationMgr.cpp stellarium-0.11.3-patch/src/core/modules/ConstellationMgr.cpp
+--- stellarium-0.11.3/src/core/modules/ConstellationMgr.cpp	Fri May 18 14:19:21 2012
++++ stellarium-0.11.3-patch/src/core/modules/ConstellationMgr.cpp	Sun Jul 29 21:57:18 2012
+@@ -42,7 +42,7 @@
  #include "StelPainter.hpp"
  #include "StelSkyDrawer.hpp"
  
@@ -910,8 +892,8 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
 +//using namespace std;
  
  // constructor which loads all data from appropriate files
- ConstellationMgr::ConstellationMgr(StarMgr *_hip_stars) :
-@@ -66,7 +66,7 @@
+ ConstellationMgr::ConstellationMgr(StarMgr *_hip_stars)
+@@ -67,7 +67,7 @@
  		delete(*iter);
  	}
  
@@ -920,7 +902,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter1 = allBoundarySegments.begin(); iter1 != allBoundarySegments.end(); ++iter1)
  	{
  		delete (*iter1);
-@@ -299,7 +299,7 @@
+@@ -318,7 +318,7 @@
  	in.seek(0);
  
  	// delete existing data, if any
@@ -929,7 +911,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		delete(*iter);
  
-@@ -419,7 +419,7 @@
+@@ -442,7 +442,7 @@
  				{
  					texturePath = StelFileMgr::findFile(QString("textures/")+texfile);
  				}
@@ -938,7 +920,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  				{
  					qWarning() << "ERROR: could not find texture, " << texfile << ": " << e2.what();
  				}
-@@ -506,7 +506,7 @@
+@@ -529,7 +529,7 @@
  	glEnable(GL_BLEND);
  	glEnable(GL_CULL_FACE);
  
@@ -947,7 +929,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	SphericalRegionP region = sPainter.getProjector()->getViewportConvexPolygon();
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
-@@ -523,7 +523,7 @@
+@@ -546,7 +546,7 @@
  	glEnable(GL_BLEND);
  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
  	const SphericalCap& viewportHalfspace = sPainter.getProjector()->getBoundingCap();
@@ -956,7 +938,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->drawOptim(sPainter, core, viewportHalfspace);
-@@ -536,7 +536,7 @@
+@@ -559,7 +559,7 @@
  	glEnable(GL_BLEND);
  	sPainter.enableTexture2d(true);
  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -965,7 +947,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); iter++)
  	{
  		// Check if in the field of view
-@@ -547,7 +547,7 @@
+@@ -570,7 +570,7 @@
  
  Constellation *ConstellationMgr::isStarIn(const StelObject* s) const
  {
@@ -974,7 +956,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		// Check if the star is in one of the constellation
-@@ -564,7 +564,7 @@
+@@ -587,7 +587,7 @@
  	// search in uppercase only
  	QString tname = abbreviation.toUpper();
  
@@ -983,7 +965,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		if ((*iter)->abbreviation == tname)
-@@ -585,7 +585,7 @@
+@@ -608,7 +608,7 @@
  	if (asterisms.empty()) return;
  
  	// clear previous names
@@ -992,7 +974,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->englishName.clear();
-@@ -654,7 +654,7 @@
+@@ -677,7 +677,7 @@
  void ConstellationMgr::updateI18n()
  {
  	StelTranslator trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
@@ -1001,7 +983,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->nameI18 = trans.qtranslate((*iter)->englishName);
-@@ -664,7 +664,7 @@
+@@ -687,7 +687,7 @@
  // update faders
  void ConstellationMgr::update(double deltaTime)
  {
@@ -1010,98 +992,104 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	const int delta = (int)(deltaTime*1000);
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
-@@ -676,7 +676,7 @@
- void ConstellationMgr::setArtIntensity(double _max)
- {
- 	artMaxIntensity = _max;
--	vector < Constellation * >::const_iterator iter;
-+	std::vector < Constellation * >::const_iterator iter;
- 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 		(*iter)->artFader.setMaxValue(_max);
- }
-@@ -684,7 +684,7 @@
- void ConstellationMgr::setArtFadeDuration(float duration)
- {
- 	artFadeDuration = duration;
--	vector < Constellation * >::const_iterator iter;
-+	std::vector < Constellation * >::const_iterator iter;
- 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 		(*iter)->artFader.setDuration((int) (duration * 1000.f));
- }
-@@ -694,13 +694,13 @@
- 	flagLines = b;
- 	if (selected.begin() != selected.end()  && isolateSelected)
+@@ -700,7 +700,7 @@
+ 	if (artIntensity != intensity)
  	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = selected.begin(); iter != selected.end(); ++iter)
- 			(*iter)->setFlagLines(b);
- 	}
- 	else
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 			(*iter)->setFlagLines(b);
- 	}
-@@ -711,13 +711,13 @@
- 	flagBoundaries = b;
- 	if (selected.begin() != selected.end() && isolateSelected)
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = selected.begin(); iter != selected.end(); ++iter)
- 			(*iter)->setFlagBoundaries(b);
- 	}
- 	else
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 			(*iter)->setFlagBoundaries(b);
- 	}
-@@ -728,13 +728,13 @@
- 	flagArt = b;
- 	if (selected.begin() != selected.end() && isolateSelected)
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = selected.begin(); iter != selected.end(); ++iter)
- 			(*iter)->setFlagArt(b);
- 	}
- 	else
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 			(*iter)->setFlagArt(b);
- 	}
-@@ -746,13 +746,13 @@
- 	flagNames = b;
- 	if (selected.begin() != selected.end() && isolateSelected)
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = selected.begin(); iter != selected.end(); ++iter)
- 			(*iter)->setFlagName(b);
- 	}
- 	else
- 	{
--		vector < Constellation * >::const_iterator iter;
-+		std::vector < Constellation * >::const_iterator iter;
- 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
- 			(*iter)->setFlagName(b);
- 	}
-@@ -765,7 +765,7 @@
- 	// when turning off isolated selection mode, clear exisiting isolated selections.
- 	if (!s)
- 	{
+ 		artIntensity = intensity;
 -		vector < Constellation * >::const_iterator iter;
 +		std::vector < Constellation * >::const_iterator iter;
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		{
- 			(*iter)->setFlagLines(getFlagLines());
-@@ -811,12 +811,12 @@
+ 			(*iter)->artFader.setMaxValue(artIntensity);
+@@ -719,7 +719,7 @@
+ 	if(artFadeDuration != duration)
+ 	{
+ 		artFadeDuration = duration;
+-		vector < Constellation * >::const_iterator iter;
++		std::vector < Constellation * >::const_iterator iter;
+ 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 		{
+ 			(*iter)->artFader.setDuration((int) (duration * 1000.f));
+@@ -740,7 +740,7 @@
+ 		linesDisplayed = displayed;
+ 		if (selected.begin() != selected.end()  && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(linesDisplayed);
+@@ -748,7 +748,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(linesDisplayed);
+@@ -770,7 +770,7 @@
+ 		boundariesDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagBoundaries(boundariesDisplayed);
+@@ -778,7 +778,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagBoundaries(boundariesDisplayed);
+@@ -800,7 +800,7 @@
+ 		artDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagArt(artDisplayed);
+@@ -808,7 +808,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagArt(artDisplayed);
+@@ -830,13 +830,13 @@
+ 		namesDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 				(*iter)->setFlagLabels(namesDisplayed);
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 				(*iter)->setFlagLabels(namesDisplayed);
+ 		}
+@@ -858,7 +858,7 @@
+ 		// when turning off isolated selection mode, clear exisiting isolated selections.
+ 		if (!isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(getFlagLines());
+@@ -912,12 +912,12 @@
  
  		if (isolateSelected)
  		{
@@ -1116,7 +1104,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  				for (s_iter = selected.begin(); s_iter != selected.end(); ++s_iter)
  				{
  					if( (*iter)==(*s_iter) )
-@@ -845,7 +845,7 @@
+@@ -946,7 +946,7 @@
  		if (selected.begin() == selected.end()) return;
  
  		// Otherwise apply standard flags to all constellations
@@ -1125,7 +1113,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  		{
  			(*iter)->setFlagLines(getFlagLines());
-@@ -868,7 +868,7 @@
+@@ -968,7 +968,7 @@
  	if (c != NULL)
  	{
  
@@ -1134,7 +1122,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  		int n=0;
  		for (iter = selected.begin(); iter != selected.end(); ++iter)
  		{
-@@ -915,7 +915,7 @@
+@@ -1017,7 +1017,7 @@
  	unsigned int i, j;
  
  	// delete existing boundaries if any exist
@@ -1143,8 +1131,8 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = allBoundarySegments.begin(); iter != allBoundarySegments.end(); ++iter)
  	{
  		delete (*iter);
-@@ -938,12 +938,12 @@
- 	float oDE, oRA;
+@@ -1039,12 +1039,12 @@
+ 	float DE, RA;
  	Vec3f XYZ;
  	unsigned num, numc;
 -	vector<Vec3f> *points = NULL;
@@ -1158,7 +1146,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  
  		num = 0;
  		istr >> num;
-@@ -1002,7 +1002,7 @@
+@@ -1100,7 +1100,7 @@
  	glLineStipple(2, 0x3333);
  	glEnable(GL_LINE_STIPPLE);
  #endif
@@ -1167,7 +1155,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		(*iter)->drawBoundaryOptim(sPainter);
-@@ -1021,7 +1021,7 @@
+@@ -1114,7 +1114,7 @@
  {
  	QString objw = nameI18n.toUpper();
  
@@ -1176,7 +1164,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		QString objwcap = (*iter)->nameI18.toUpper();
-@@ -1033,7 +1033,7 @@
+@@ -1126,7 +1126,7 @@
  StelObjectP ConstellationMgr::searchByName(const QString& name) const
  {
  	QString objw = name.toUpper();
@@ -1185,7 +1173,7 @@ diff -Naur stellarium-0.11.1/src/core/modules/ConstellationMgr.cpp stellarium-0.
  	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
  	{
  		QString objwcap = (*iter)->englishName.toUpper();
-@@ -1052,7 +1052,7 @@
+@@ -1145,7 +1145,7 @@
  
  	QString objw = objPrefix.toUpper();
  
@@ -1254,6 +1242,15 @@ diff -Naur stellarium-0.11.1/src/core/modules/ZoneArray.cpp stellarium-0.11.1-pa
  			qDebug(qPrintable(dbStr));
  
  			return 0;
+@@ -500,7 +500,7 @@
+ 	    Vec3d altAz=core->j2000ToAltAz(Vec3d(vf[0], vf[1], vf[2]), StelCore::RefractionOn);
+ 	    float extMagShift=0.0f;
+ 	    extinction.forward(&altAz, &extMagShift);
+-            int extMagShiftStep=qMin((int)floor(extMagShift/k), 4096-mag_steps); // this number muist be equal StarMgr.cpp line 649
++            int extMagShiftStep=qMin((int)std::floor(extMagShift/k), 4096-mag_steps); // this number muist be equal StarMgr.cpp line 649
+ 	    tmpRcmag = rcmag_table+2*(s->mag+extMagShiftStep);
+ 	}
+ 
 diff -Naur stellarium-0.11.1/src/gui/AngleSpinBox.cpp stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp
 --- stellarium-0.11.1/src/gui/AngleSpinBox.cpp	2011-11-04 10:59:42.000000000 +0100
 +++ stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp	2012-01-07 22:25:56.829070644 +0100
@@ -1339,17 +1336,17 @@ diff -Naur stellarium-0.11.1/src/gui/SkyGui.cpp stellarium-0.11.1-patch/src/gui/
  {
  	QSettings* conf = StelApp::getInstance().getSettings();
 diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.cpp stellarium-0.11.1-patch/src/gui/StelGuiItems.cpp
---- stellarium-0.11.1/src/gui/StelGuiItems.cpp	2011-11-04 10:59:42.000000000 +0100
-+++ stellarium-0.11.1-patch/src/gui/StelGuiItems.cpp	2012-01-07 22:25:56.830440252 +0100
+--- stellarium-0.11.3/src/gui/StelGuiItems.cpp	Fri May 18 14:19:22 2012
++++ stellarium-0.11.3-patch/src/gui/StelGuiItems.cpp	Sun Jul 29 21:43:17 2012
 @@ -45,6 +45,8 @@
  #include <QGraphicsLinearLayout>
  #include <QSettings>
  
 +#include <math.h>
 +
- StelButton::StelButton(QGraphicsItem* parent, const QPixmap& apixOn, const QPixmap& apixOff,
- 		const QPixmap& apixHover, QAction* aaction, bool noBackground) :
- 			QGraphicsPixmapItem(apixOff, parent), pixOn(apixOn), pixOff(apixOff), pixHover(apixHover),
+ StelButton::StelButton(QGraphicsItem* parent,
+                        const QPixmap& apixOn,
+                        const QPixmap& apixOff,
 diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.hpp stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp
 --- stellarium-0.11.1/src/gui/StelGuiItems.hpp	2011-11-04 10:59:42.000000000 +0100
 +++ stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp	2012-01-07 22:25:56.832581860 +0100
@@ -1392,3 +1389,19 @@ diff -Naur stellarium-0.11.1/src/main.cpp stellarium-0.11.1-patch/src/main.cpp
  //! @class GettextStelTranslator
  //! Provides i18n support through gettext.
  class GettextStelTranslator : public QTranslator
+--- stellarium-0.11.3/plugins/Oculars/src/gui/OcularsGuiPanel.cpp	Sun Jul 29 22:08:14 2012
++++ stellarium-0.11.3-patch/plugins/Oculars/src/gui/OcularsGuiPanel.cpp	Sun Jul 29 22:08:41 2012
+@@ -36,6 +36,8 @@
+ #include <QSignalMapper>
+ #include <QWidget>
+ 
++#include <math.h>
++
+ OcularsGuiPanel::OcularsGuiPanel(Oculars* plugin,
+                                  QGraphicsWidget *parent,
+                                  Qt::WindowFlags wFlags):
+--- stellarium-0.11.3/plugins/Satellites/src/CMakeLists.txt	Sun Jul 29 22:11:36 2012
++++ stellarium-0.11.3-patch/plugins/Satellites/src/CMakeLists.txt	Sun Jul 29 22:11:54 2012
+@@ -88,1 +88,1 @@
+-	        SET_TARGET_PROPERTIES(Satellites-static PROPERTIES COMPILE_FLAGS "-DQT_STATICPLUGIN -Wno-unused-parameter -Wno-unused-but-set-parameter -Wno-unused-but-set-variable")
++	        SET_TARGET_PROPERTIES(Satellites-static PROPERTIES COMPILE_FLAGS "-DQT_STATICPLUGIN")

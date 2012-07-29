@@ -12,7 +12,7 @@
 
 Name:		SFEstellarium
 IPS_Package_Name:	image/stellarium
-Version:	0.11.1
+Version:	0.11.3
 Summary:	Photo-realistic nightsky renderer
 Group:		Amusements/Graphics
 License:	GPLv2+
@@ -94,8 +94,11 @@ rm -rf %{buildroot}
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/stellarium
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/stellarium.desktop
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/stellarium.png
+%{_datadir}/pixmaps/stellarium.xpm
 %{_mandir}/man1/stellarium.1
 
 %if %build_l10n
@@ -106,6 +109,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 0.11.3
 * Sun Jan 08 2012 - Milan Jurik
 - bump to 0.11.1, fix qt-stdcxx
 * Thu Sep 1 2011 - Ken Mays <kmays2000@gmail.com>
