@@ -25,6 +25,7 @@ IPS_Package_Name:	library/audio/sdl-mixer
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 URL:			%{sdl.url}
+Group:			System/Multimedia Libraries
 License:		%{sdl.license}
 SUNW_Copyright:		sdl-mixer.copyright
 SUNW_BaseDir:		%{_basedir}
