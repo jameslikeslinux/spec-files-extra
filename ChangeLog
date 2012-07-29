@@ -4,6 +4,7 @@
 	* base-specs/sdl-image.spec: bump to 1.2.12
 	* SFEclamav.spec: bump to 0.97.5
 	* SFEldns.spec: bump to 1.6.13
+	* SFEunbound.spec: bump to 1.4.17
 
 2012-07-27 Milan Jurik <sfnet@xylab.cz>
 
