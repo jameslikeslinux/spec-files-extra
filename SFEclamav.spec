@@ -75,6 +75,7 @@ make -j$CPUS
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/clamav
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -115,7 +116,6 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %defattr (-, root, sys)
 %{_sysconfdir}
 %dir %attr (0775, clamav, clamav) %{_localstatedir}/clamav
-%{_localstatedir}/clamav/*.cvd
 
 %files doc
 %defattr (-, root, bin)
