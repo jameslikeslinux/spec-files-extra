@@ -17,11 +17,10 @@ Summary:	Extensible Binary Meta Language
 Group:		System Environment/Libraries
 URL:		http://ebml.sourceforge.net
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	1.2.0
+Version:	1.2.2
 Source:		http://dl.matroska.org/downloads/%srcname/%srcname-%version.tar.bz2
 Patch1:		libebml-01-makefile.diff
 Patch2:		libebml-02-headers.diff
-Patch3:		libebml-03-ebmlbinary.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -47,7 +46,6 @@ Requires: %name
 %setup -q -n %srcname-%version
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -81,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 1.2.2
 * Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
 - Accept either SFEcoreutils or SUNWgnu-coreutils for buildrequires.
 * Fri Dec  2 2011 - Thomas Wagner 

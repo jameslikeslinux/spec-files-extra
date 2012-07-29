@@ -6,6 +6,7 @@
 	* SFEldns.spec: bump to 1.6.13
 	* SFEunbound.spec: bump to 1.4.17
 	* SFEstellarium.spec: bump to 0.11.3
+	* SFElibebml-gpp.spec: bump to 1.2.2
 
 2012-07-27 Milan Jurik <sfnet@xylab.cz>
 
