@@ -743,16 +743,20 @@
 #END < 133
 
 #defaults for all builds >= 99 - let pkg do the names translation if needed
-%define pnm_buildrequires_SFElibmikmod		SUNWlibmikmod
+%define pnm_buildrequires_SFElibmikmod_devel	SUNWlibmikmod-devel
+%define pnm_buildrequires_SFElibmikmod		SUNWlibmikmod-devel
 %define pnm_requires_SFElibmikmod		SUNWlibmikmod
-%define pnm_buildrequires_SUNWlibmikmod		SUNWlibmikmod
+%define pnm_buildrequires_SUNWlibmikmod_devel	SUNWlibmikmod-devel
+%define pnm_buildrequires_SUNWlibmikmod		SUNWlibmikmod-devel
 %define pnm_requires_SUNWlibmikmod		SUNWlibmikmod
 
 %if %( expr %{osbuild} '<' 99 )
 #running an old build or Solaris 10
-%define pnm_buildrequires_SFElibmikmod		SFElibmikmod
+%define pnm_buildrequires_SFElibmikmod_devel	SFElibmikmod-devel
+%define pnm_buildrequires_SFElibmikmod		SFElibmikmod-devel
 %define pnm_requires_SFElibmikmod	 	SFElibmikmod
-%define pnm_buildrequires_SUNWlibmikmod		SFElibmikmod
+%define pnm_buildrequires_SUNWlibmikmod_devel	SFElibmikmod-devel
+%define pnm_buildrequires_SUNWlibmikmod		SFElibmikmod-devel
 %define pnm_requires_SUNWlibmikmod	 	SFElibmikmod
 %endif
 #END <99
@@ -1373,6 +1377,8 @@
 # 
 
 %changelog
+* Mon Jul 30 2012 - Thomas Wagner
+- make SFElibmikmod include -devel packages
 * Mon Jul  9 2012 - Thomas Wagner
 - add SVR4 SUNWxwopt SUNWlibdsl for pre-IPS systems
 - append "/mysql" to the *examples* like this %{mysql_default_includedir}/mysql
