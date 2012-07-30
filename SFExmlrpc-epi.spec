@@ -10,6 +10,7 @@
 %use xmlrpc_epi = xmlrpc-epi.spec
 
 Name:                   SFExmlrpc-epi
+IPS_Package_Name:	library/xmlrpc-epi
 Summary:                A general purpose implementation of the xmlrpc specification in C
 Group:                  System/Libraries
 Version:                %{xmlrpc_epi.version}

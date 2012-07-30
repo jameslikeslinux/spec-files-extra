@@ -8,7 +8,7 @@
 Name:                SFEtin
 Summary:             Curses based threaded UseNet newsreader
 Version:             1.9.2
-Source:              ftp://ftp.tin.org/pub/news/clients/tin/unstable/tin-%{version}.tar.gz
+Source:              ftp://ftp.tin.org/pub/news/clients/tin/v1.9/tin-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -75,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Mon Oct 11 2008 - pradhap(at)gmail.com
 - Fixed rm issues
 * Wed Oct 17 2007 - laca@sun.com

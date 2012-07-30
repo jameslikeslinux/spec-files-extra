@@ -1,0 +1,17 @@
+--- mplayer2-master/configure.orig	2012-04-28 20:47:53.000000000 +0200
++++ mplayer2-master/configure	2012-04-29 22:41:40.350194287 +0200
+@@ -5663,10 +5662,10 @@
+   for I in $extra_cflags "-I$_libdir/live" "-I/usr/lib/live" "-I/usr/lib64/live" "-I/usr/local/live" "-I/usr/local/lib/live" ; do
+     cxx_check $I/liveMedia/include $I/UsageEnvironment/include $I/groupsock/include &&
+         _livelibdir=$(echo $I| sed s/-I//) &&
+-      extra_ldflags="$_livelibdir/liveMedia/libliveMedia.a \
+-                 $_livelibdir/groupsock/libgroupsock.a \
+-                 $_livelibdir/UsageEnvironment/libUsageEnvironment.a \
+-                 $_livelibdir/BasicUsageEnvironment/libBasicUsageEnvironment.a \
++      extra_ldflags="$_livelibdir/liveMedia/libliveMedia.so \
++                 $_livelibdir/groupsock/libgroupsock.so \
++                 $_livelibdir/UsageEnvironment/libUsageEnvironment.so \
++                 $_livelibdir/BasicUsageEnvironment/libBasicUsageEnvironment.so \
+                  $extra_ldflags  -lstdc++" \
+       extra_cxxflags="-I$_livelibdir/liveMedia/include \
+                   -I$_livelibdir/UsageEnvironment/include \

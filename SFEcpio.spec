@@ -11,7 +11,7 @@
 %define _prefix %{_basedir}/gnu
 
 Name:			SFEcpio
-Version:		2.9
+Version:		2.11
 Summary:		GNU cpio
 Source:			ftp://ftp.gnu.org/pub/gnu/cpio/cpio-%{version}.tar.bz2
 SUNW_BaseDir:		%{_basedir}
@@ -68,6 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*.1
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/*
 
 %if %build_l10n
 %files l10n
@@ -77,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Web Jul 13 2011 - N.B.Prashanth
+- bump to 2.11; Fixed %files section
 * Tue Feb  3 2011 - Thomas Wagner
 - bump to 2.9 (compile failes with up to version 2.11, needs patches - volunteers?)
 * Sun Oct 14 2007 - laca@sun.com

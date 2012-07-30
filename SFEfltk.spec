@@ -7,18 +7,14 @@
 
 Name:                SFEfltk
 Summary:             A C++ user interface toolkit
-Version:             1.1.7
-Source:              http://ftp.easysw.com/pub/fltk/%{version}/fltk-%{version}-source.tar.bz2
+Version:             1.3.0
+Source:              http://ftp.easysw.com/pub/fltk/%{version}/fltk-%{version}-source.tar.gz
+Patch1:		fltk-01-sunstudio.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %(pkginfo -q FSWxwrtl && echo 1 || echo 0)
-# using FOX
-Requires: FSWxwrtl
-%else
 Requires: SUNWxwplt
 BuildRequires: SUNWxwplt
-%endif
 
 %package devel
 Summary:		 %{summary} - development files
@@ -28,6 +24,7 @@ Requires:		 %name
 
 %prep
 %setup -q -n fltk-%{version}
+%patch1 -p1
 
 %build
 
@@ -36,14 +33,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CC=/usr/gcc/4.3/bin/gcc
-export CXX=/usr/gcc/4.3/bin/g++
-#export CFLAGS="%optflags"
-#export LDFLAGS="%{_ldflags}"
+export CFLAGS="%optflags"
+export LDFLAGS="%{_ldflags}"
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir} \
-	    --enable-shared
+	    --enable-shared	\
+	    --enable-cairo	\
+	    --enable-cairoext
 
 make -j$CPUS
 
@@ -86,6 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sun Sep 25 2011 - Milan Jurik
+- bump to 1.3.0
 * Sat Oct 13 2007 - laca@sun.com
 - add FOX build support
 * Wed Oct 11 2006 - laca@sun.com

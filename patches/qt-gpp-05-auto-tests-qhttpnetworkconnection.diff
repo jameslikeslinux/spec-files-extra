@@ -1,0 +1,79 @@
+From 2c0f568061b3377ee55ff423c70d67a6341615ba Mon Sep 17 00:00:00 2001
+From: Markus Goetz <Markus.Goetz@nokia.com>
+Date: Mon, 10 Jan 2011 14:00:59 +0100
+Subject: [PATCH] tst_qhttpnetworkconnection: Compile fix
+
+---
+ .../tst_qhttpnetworkconnection.cpp                 |   14 +++++++-------
+ 1 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/tests/auto/qhttpnetworkconnection/tst_qhttpnetworkconnection.cpp b/tests/auto/qhttpnetworkconnection/tst_qhttpnetworkconnection.cpp
+index 4a32a5a..321b787 100644
+--- a/tests/auto/qhttpnetworkconnection/tst_qhttpnetworkconnection.cpp
++++ b/tests/auto/qhttpnetworkconnection/tst_qhttpnetworkconnection.cpp
+@@ -178,7 +178,7 @@ void tst_QHttpNetworkConnection::head()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+ 
+     QHttpNetworkRequest request(protocol + host + path, QHttpNetworkRequest::Head);
+     QHttpNetworkReply *reply = connection.sendRequest(request);
+@@ -236,7 +236,7 @@ void tst_QHttpNetworkConnection::get()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+ 
+     QHttpNetworkRequest request(protocol + host + path);
+     QHttpNetworkReply *reply = connection.sendRequest(request);
+@@ -314,7 +314,7 @@ void tst_QHttpNetworkConnection::put()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+ 
+     QHttpNetworkRequest request(protocol + host + path, QHttpNetworkRequest::Put);
+ 
+@@ -402,7 +402,7 @@ void tst_QHttpNetworkConnection::post()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+ 
+     QHttpNetworkRequest request(protocol + host + path, QHttpNetworkRequest::Post);
+ 
+@@ -539,7 +539,7 @@ void tst_QHttpNetworkConnection::get401()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+     connection.setProperty("setCredentials", setCredentials);
+     connection.setProperty("username", username);
+     connection.setProperty("password", password);
+@@ -609,7 +609,7 @@ void tst_QHttpNetworkConnection::compression()
+     QHttpNetworkConnection connection(host, port, encrypt);
+     QCOMPARE(connection.port(), port);
+     QCOMPARE(connection.hostName(), host);
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+ 
+     QHttpNetworkRequest request(protocol + host + path);
+     if (!autoCompress)
+@@ -701,7 +701,7 @@ void tst_QHttpNetworkConnection::ignoresslerror()
+     QCOMPARE(connection.hostName(), host);
+     if (ignoreInit)
+         connection.ignoreSslErrors();
+-    QCOMPARE(connection.isEncrypted(), encrypt);
++    QCOMPARE(connection.isSsl(), encrypt);
+     connection.setProperty("ignoreFromSignal", ignoreFromSignal);
+ 
+     QHttpNetworkRequest request(protocol + host + path);
+-- 
+1.6.1
+

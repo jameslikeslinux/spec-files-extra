@@ -7,6 +7,8 @@
 
 #%include Solaris.inc
 
+%define _basedir /opt
+
 Name:		SFEisaexec
 Summary:	Invoke isa-specific executable
 Version:	1.0
@@ -64,5 +66,7 @@ rm -rf %{name}-%{version}
 /opt/SFE/lib/isaexec
 
 %changelog
+* Mon Feb 27 2012- Logan Bruns <logan@gedanken.org>
+- Added basedir setting.
 * 2010/03/16 - laurent A elanor POINT org
   Initial version

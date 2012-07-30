@@ -1,0 +1,10 @@
+--- vlc-1.1.12/modules/audio_output/pulse.c.orig	2011-10-04 19:25:48.000000000 +0200
++++ vlc-1.1.12/modules/audio_output/pulse.c	2011-11-22 00:23:22.563849425 +0100
+@@ -640,6 +640,7 @@
+         formatv[formatc]->encoding = encoding;
+         pa_format_info_set_rate(formatv[formatc], ss.rate);
+         pa_format_info_set_channels(formatv[formatc], ss.channels);
++        pa_format_info_set_channel_map(formatv[formatc], &map);
+         formatc++;
+     }
+ 

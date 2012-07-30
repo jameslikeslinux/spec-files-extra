@@ -24,8 +24,8 @@
  add_definitions (-DMY_APPLET_SHARE_DATA_DIR="${maildatadir}")
  add_definitions (-DMY_APPLET_PREVIEW_FILE="preview.jpg")
  add_definitions (-DMY_APPLET_CONF_FILE="mail.conf")
---- cairo-dock-plugins-2.2.0-4/shortcuts/src/applet-disk-usage.c	2010-10-02 00:42:16.000000000 +0200
-+++ cairo-dock-plugins-2.2.0-4-patch/shortcuts/src/applet-disk-usage.c	2011-02-20 17:33:12.715264925 +0100
+--- cairo-dock-plugins-2.3.0~3/shortcuts/src/applet-disk-usage.c	Sun Jun 19 01:27:28 2011
++++ applet-disk-usage.c	Wed Jul 13 21:51:53 2011
 @@ -17,11 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,14 +42,13 @@
  #include <math.h>
  
  #include <cairo-dock.h>
-@@ -32,14 +33,12 @@
+@@ -32,13 +33,11 @@
  
  void cd_shortcuts_get_fs_stat (const gchar *cDiskURI, CDDiskUsage *pDiskUsage)
  {
 -	static struct statfs sts;
 +	static struct statvfs sts;
  	const gchar *cMountPath = (strncmp (cDiskURI, "file://", 7) == 0 ? cDiskURI + 7 : cDiskURI);
- 	//g_print ("checking device on '%s'...\n", cMountPath);
  	
 -	if (statfs (cMountPath, &sts) == 0)
 +	if (statvfs (cMountPath, &sts) == 0)
@@ -59,7 +58,7 @@
  		pDiskUsage->iAvail = (long long)sts.f_bavail * sts.f_bsize;  // Blocs libres pour utilisateurs
  		pDiskUsage->iFree  = (long long)sts.f_bfree  * sts.f_bsize;  // Blocs libres
  		pDiskUsage->iTotal = (long long)sts.f_blocks * sts.f_bsize;  // Nombre total de blocs
-@@ -160,8 +159,8 @@
+@@ -153,8 +152,8 @@
  static void _cd_shortcuts_get_fs_info (const gchar *cDiskURI, GString *sInfo)
  {
  	const gchar *cMountPath = (strncmp (cDiskURI, "file://", 7) == 0 ? cDiskURI + 7 : cDiskURI);
@@ -70,7 +69,7 @@
  	char *search_path;
  	int match;
  	char *slash;
-@@ -173,22 +172,20 @@
+@@ -166,22 +165,20 @@
  	}
  	
  	gchar *cFsInfo = NULL;

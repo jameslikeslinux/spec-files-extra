@@ -21,19 +21,22 @@
 
 %use libcdio = libcdio.spec
 
-Name:                    SFElibcdio
-Summary:                 GNU libcdio
-Version:                 %{libcdio.version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibcdio
+IPS_Package_Name:	library/audio/libcdio 
+Summary:	GNU Compact Disc Input and Control Library
+Group:		System/Libraries
+License:	GPLv3
+SUNW_Copyright:	libcdio.copyright
+URL:		http://www.gnu.org/software/libcdio/
+Version:	%{libcdio.version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires: SUNWlexpt
 Requires: SUNWlibC
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
 Requires: SUNWdbus
 Requires: SFElibcddb
 BuildRequires: SFElibcddb
@@ -51,7 +54,6 @@ Requires: SFEncurses
 Requires: SUNWhal
 %endif
 BuildRequires: SUNWlexpt
-BuildRequires: SUNWgcc
 BuildRequires: SUNWdbus-devel
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SFElibcddb-devel
@@ -67,14 +69,8 @@ rm -rf %name-%version
 mkdir %name-%version
 %libcdio.prep -d %name-%version
 
-# Note, we have to build this with gcc, because Forte cannot handle
-# the flexible arrays used in libcdio.  We should move to using Forte
-# if this issue is resolved with the Forte compiler.
-#
 %build
-export CFLAGS="%gcc_optflags -I/usr/gnu/include -I/usr/gnu/include/ncurses"
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
+export CFLAGS="%optflags -I/usr/gnu/include -I/usr/gnu/include/ncurses"
 %if %with_hal
 export CFLAGS="$CFLAGS -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include"
 export LDFLAGS="%_ldflags -lhal -ldbus-1 -R/usr/gnu/lib -L/usr/gnu/lib"
@@ -122,6 +118,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cdio
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- clean up, add IPS package name
+* Thu Jul 21 2011 - Milan Jurik
+- de-gcc spec, leave decision about compiler to environment
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Sun Jul 10 2011 - Alex Viskovatoff
+- Build with SFEgcc
 * Sun Apr 11 2010 - Milan Jurik
 - adding missing build dependency
 * Thu Apr 08 2010 - Milan Jurik

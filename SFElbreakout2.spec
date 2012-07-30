@@ -5,11 +5,13 @@
 %include Solaris.inc
 
 Name:		SFElbreakout2
+IPS_Package_Name:	games/lbreakout2
 Summary:	LBreakout2 is a successor to LBreakout a breakout-style arcade game
 Version:	2.6.3
 Source:		%{sf_download}/lgames/lbreakout2-%{version}.tar.gz
 Source1:	lbreakout2.desktop
 Patch1:		lbreakout2-01-locale.diff
+Patch2:		lbreakout2-02-wall.diff
 URL:		http://lgames.sourceforge.net/index.php?project=LBreakout2
 License:	GPLv2
 Group:		Amusements/Games
@@ -38,11 +40,13 @@ Requires:                %{name}
 %prep
 %setup -q -n lbreakout2-%version
 %patch1 -p1
+%patch2 -p1
 
 %build
 export CFLAGS="%optflags -I%{gnu_inc} -DINSTALLPREFIX=\\\"%{_prefix}\\\""
 export LDFLAGS="%_ldflags %{gnu_lib_path} -liconv -lintl -lsocket -lnsl"
 
+autoconf
 ./configure --prefix=%{_prefix} \
             --mandir=%{_mandir} \
             --localstatedir=%{_localstatedir}/lbreakout2 \
@@ -95,10 +99,11 @@ rm -rf $RPM_BUILD_ROOT
 #%{_localstatedir}/lbreakout2/*
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- fix broken build
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 2.6.3
 * Mon May 17 2010 - Milan Jurik
 - update to 2.6.1
 * Wed Feb  6 pradhap (at) gmail.com
 - Initial lbreakout spec file.
-

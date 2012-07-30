@@ -13,21 +13,14 @@ Name:           gnucash
 Summary:        GnuCash is an application to keep track of your finances.
 License:        GPL
 Group:          Office
-Version:        2.3.7
+Version:        2.4.7
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
 URL:            http://www.gnucash.org/
-Source:         http://www.gnucash.org/pub/gnucash/sources/unstable/2.3.x/%{name}-%{version}.tar.bz2
-# date:2008-06-25 owner:halton type:bug bugzilla:540452
-Patch1:         %{name}-01-inline.diff
-# date:2009-11-16 owner:halton type:bug bugzilla:602062
-Patch2:         %{name}-02-gcc.diff
-# date:2009-11-16 owner:halton type:bug bugzilla:602069
-Patch3:         %{name}-03-gmp-inc.diff
-# date:2009-11-16 owner:halton type:bug bugzilla:602070
+Source:         http://sourceforge.net/projects/gnucash/files/gnucash%20%28stable%29/2.4.6/%{name}-%{version}.tar.bz2
+# Fixed patches from Halton Hui for GnuCash 2.4.6 <kmays>
 Patch4:         %{name}-04-void-return.diff
-# date:2009-11-16 owner:halton type:branding
 Patch5:         %{name}-05-solaris-guile.diff
 BuildRoot:      %{tmpdir}/%{name}-%{version}-root
 
@@ -64,9 +57,9 @@ in C programs.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
@@ -162,6 +155,11 @@ fi
 %{_includedir}/gnucash
 
 %changelog
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.7
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.6
+- Revised patches
 * Mon Nov 16 2009 - halton.huo@sun.com
 - Bump to 2.3.7
 - Remove upstreamed patches: suncc-function.diff, namely-struct.diff and

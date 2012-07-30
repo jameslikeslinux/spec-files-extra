@@ -8,9 +8,10 @@
 %define src_name	 libdca 
 
 Name:                    SFElibdts
-Summary:                 libdts  - a free library for decoding DTS Coherent Acoustics streams
+Summary:                 A free library for decoding DTS Coherent Acoustics streams
+URL:                     http://www.videolan.org/developers/libdca.html
 Version:                 0.0.5
-Source:                  http://download.videolan.org/pub/videolan/libdca/%{version}/%{src_name}-%{version}.tar.bz2
+Source:                  http://download.videolan.org/pub/videolan/%src_name/%{version}/%{src_name}-%{version}.tar.bz2
 #Patch1:		 libdts-01-sigtype.diff
 #Patch2:                 libdts-02-picflags.diff
 #Patch2:                 libdts-02-shared.diff

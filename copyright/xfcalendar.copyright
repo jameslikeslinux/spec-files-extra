@@ -1,0 +1,84 @@
+The source for xcalendar 4.0 can be downloaded from
+<ftp://ftp.cs.purdue.edu/pub/bingle/xcalendar.tar.gz>
+
+Authors:
+
+ xcalendar is originally written by Roman J. Budzianowski,
+ then Richard Bingle made enhancements on it.
+
+ Hiroaki Satoh modified the xcalendar 4.0 to use X11R6 style
+ I18N implementation.
+
+ Resource file for Korean is written by Changwoo Ryu 
+ <cwryu@adam.kaist.ac.kr>.
+
+Copyright:
+
+ for original xcalendar:
+
+ Copyright (C) 1988 Massachusetts Institute of Technology
+/*
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation for any purpose and without fee is hereby granted, provided
+ * that the above copyright notice appear in all copies and that both that
+ * copyright notice and this permission notice appear in supporting
+ * documentation, and that the name of M.I.T. not be used in advertising or
+ * publicity pertaining to distribution of the software without specific,
+ * written prior permission. M.I.T. makes no representations about the
+ * suitability of this software for any purpose.  It is provided "as is"
+ * without express or implied warranty.
+ * 
+ */
+
+/***********************************************************************
+* Copyright 1990-1994 by Richard Bingle and Purdue University.  All rights
+* reserved.  Some individual files may be covered by other copyrights.
+*
+* Redistribution and use in source and binary forms are permitted
+* provided that this entire copyright notice is duplicated in all such
+* copies.  Neither the name of the University, nor the name of the author
+* may be used to endorse or promote products derived from this material
+* without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR IMPLIED
+* WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+* MERCHANTIBILITY AND FITNESS FOR ANY PARTICULAR PURPOSE.
+************************************************************************/
+
+  for H.Satoh's I18N patch:
+
+/*
+ Copyright (C) 1995-1999  Hiroaki Satoh  All Rights Reserved.
+ 
+ Permission is hereby granted, free of charge, to any person obtaining 
+ a copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+ THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+ Except as contained in this notice, the name of the author shall not
+ be used in advertising or otherwise to promote the sale, use or other
+ dealings in this Software without prior written authorization from
+ the author.
+ 
+ The author hopes (not insists) that if you make modifications of the software,
+ please place your modifications in the Public Domain or otherwise make them 
+ Freely Available, such as by posting said modifications to Usenet or
+ an equivalent medium, or placing the modifications on a major archive
+ site such as uunet.uu.net, or by allowing the Copyright Holder to include
+ your modifications in the Standard Version of the Package.
+************************************************************************/
+
+
+

@@ -5,13 +5,14 @@
 #
 # Owner: halton
 #
-%define python_version 2.4
+%define python_version 2.6
 
 %include Solaris.inc
 
 %use conduit = conduit.spec
 
 Name:           SFEconduit
+IPS_Package_Name:	desktop/conduit
 Summary:        %{conduit.summary}
 Version:        %conduit.version
 SUNW_BaseDir:   %{_basedir}
@@ -20,15 +21,15 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:       SUNWbash
 Requires:       SUNWgnome-base-libs
-Requires:       SUNWPython
+Requires:       SUNWPython26
 Requires:       SUNWsqlite3
 Requires:       SUNWpysqlite
-Requires:       SFEpython-dateutil
-Requires:       SFEpython-vobject
-Requires:       SFEpygoocanvas
+Requires:       SFEpython26-dateutil
+Requires:       SFEpython26-vobject
+Requires:       SFEpy26goocanvas
 BuildRequires:  SUNWgnome-base-libs-devel
-BuildRequires:  SUNWPython-devel
-BuildRequires:  SFEpygoocanvas-devel
+BuildRequires:  SUNWPython26-devel
+BuildRequires:  SFEpy26goocanvas-devel
 
 %package devel
 Summary:        %{summary} - development files
@@ -91,8 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*.desktop
 %dir %attr (0755, root, other) %{_datadir}/gnome
-%dir %attr (0755, root, bin) %{_datadir}/gnome/autostart
-%{_datadir}/gnome/autostart/*.desktop
 %dir %attr (0755, root, bin) %{_datadir}/gnome/help
 %{_datadir}/gnome/help/conduit*/C
 %dir %attr (0755, root, bin) %{_datadir}/omf

@@ -1,0 +1,14 @@
+--- openafs-1.6.1/src/libafs/MakefileProto.SOLARIS.in	2012-03-26 16:03:34.000000000 -0700
++++ openafs-1.6.1-patched/src/libafs/MakefileProto.SOLARIS.in	2012-05-27 16:16:36.540188709 -0700
+@@ -55,9 +55,9 @@
+ # Name of directory to hold object files and libraries.
+ <all -sun4x_57 -sun4x_58 -sun4x_59 -sun4x_510 -sun4x_511 -sunx86_57 -sunx86_58 -sunx86_59 -sunx86_510 -sunx86_511>
+ KOBJ = MODLOAD
+-<sun4x_57 sun4x_58 sun4x_59 sunx86_57 sunx86_58 sunx86_59 sunx86_510>
++<sun4x_57 sun4x_58 sun4x_59 sunx86_57 sunx86_58 sunx86_59 sunx86_510 sunx86_511>
+ KOBJ = MODLOAD32 MODLOAD64
+-<sun4x_510 sun4x_511 sunx86_511>
++<sun4x_510 sun4x_511>
+ KOBJ = MODLOAD64
+ 
+ # This tells Makefile.common to use it's single directory build target.

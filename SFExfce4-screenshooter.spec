@@ -22,7 +22,7 @@ BuildRequires:  SFElibxfcegui4
 BuildRequires:  SFElibxfce4ui
 BuildRequires:  SFExfce4-panel
 BuildRequires:  SUNWperl-xml-parser
-Suggests:       xfce4-panel-plugin-screenshooter 
+#Suggests:       xfce4-panel-plugin-screenshooter 
  
 %description
 Xfce4 Screenshooter allows you to capture the entire screen, the active window or a selected region. You can set the delay that elapses before the screenshot is taken and the action that will be done with the screenshot: save it to a PNG file, copy it to the clipboard, open it using another application, or host it on ZimageZ, a free online image hosting service. 
@@ -78,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/48x48/apps/applets-screenshooter.png 
 %{_datadir}/icons/hicolor/scalable/apps/applets-screenshooter.svg 
 %{_datadir}/applications/xfce4-screenshooter.desktop 
+%{_datadir}/xfce4/doc
+%{_datadir}/locale
 
 %files -n xfce4-panel-plugin-screenshooter 
 %defattr(-,root,bin) 

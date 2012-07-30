@@ -60,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/lib*.so*
 %dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/datrie
 %{_bindir}
 %{_mandir}
 
@@ -71,5 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix file list
 * Thu Jul 26 2007 - dougs@truemail.co.th
 - Initial spec

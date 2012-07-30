@@ -1,0 +1,32 @@
+--- fltk-2.0.x-alpha-r8800/src/fltk_theme.cxx	2011-09-25 21:57:40.368955597 +0200
++++ fltk-2.0.x-alpha-r8800/src/fltk_theme.cxx	2011-09-25 21:56:47.044860650 +0200
+@@ -115 +115 @@
+-        sprintf(buffer, "frame0%d", i+1);
++        std::sprintf(buffer, "frame0%d", i+1);
+@@ -117 +117 @@
+-        sprintf(buffer, "frame%d",  i);
++        std::sprintf(buffer, "frame%d",  i);
+@@ -326 +326 @@
+-      if(strcmp(pattern, "return") == 0)
++      if(std::strcmp(pattern, "return") == 0)
+--- fltk-2.0.x-alpha-r8800/src/addarc.cxx	2011-03-03 10:20:46.000000000 +0100
++++ fltk-2.0.x-alpha-r8800/src/addarc.cxx	2011-09-25 22:05:28.807213632 +0200
+@@ -36,6 +36,10 @@
+ #include <fltk/math.h>
+ using namespace fltk;
+ 
++#if USE_CAIRO
++extern void fl_set_cairo_ctm();
++#endif
++
+ /*!
+   Add a series of points to the current path on the arc of an
+   ellipse. The ellipse in inscribed in the l,t,w,h rectangle, and the
+@@ -48,7 +52,6 @@
+ {
+ #if USE_CAIRO
+   cairo_save(cr);
+-  extern void fl_set_cairo_ctm();
+   fl_set_cairo_ctm();
+   float x = l+w/2;
+   float y = t+h/2;

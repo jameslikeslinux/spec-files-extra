@@ -1,0 +1,98 @@
+--- lightdm-0.9.4/utils/Makefile.am-orig	2011-08-24 12:45:59.093772069 -0500
++++ lightdm-0.9.4/utils/Makefile.am	2011-08-24 12:52:36.208255904 -0500
+@@ -1,5 +1,6 @@
+ bin_PROGRAMS = dm-tool
+ libexec_PROGRAMS = lightdm-set-defaults
++pkglibexecdir = $(libexecdir)/@PACKAGE@
+ dist_pkglibexec_SCRIPTS = gdmflexiserver
+ 
+ dm_tool_SOURCES = \
+--- lightdm-1.0.6/tests/src/Makefile.am-orig	2011-11-28 17:50:57.820835098 -0600
++++ lightdm-1.0.6/tests/src/Makefile.am	2011-11-28 17:51:30.822504803 -0600
+@@ -12,7 +12,7 @@ test_runner_CFLAGS = \
+ 	-DBUILDDIR=\"$(abs_top_builddir)\"
+ test_runner_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(GIO_LIBS)
++	$(GIO_LIBS) -lsocket -lnsl
+ 
+ X_SOURCES = X.c x-authority.c x-authority.h x-common.c x-common.h x-server.c x-server.h xdmcp-client.c xdmcp-client.h status.c status.h
+ X_CFLAGS = \
+@@ -25,7 +25,7 @@ X_LDADD = \
+ 	$(GOBJECT_LIBS) \
+ 	$(GLIB_LIBS) \
+ 	$(GIO_LIBS) \
+-	$(GIO_UNIX_LIBS)
++	$(GIO_UNIX_LIBS) -lsocket -lnsl
+ 
+ Xvnc_SOURCES = Xvnc.c x-authority.c x-authority.h x-common.c x-common.h x-server.c x-server.h status.c status.h
+ Xvnc_CFLAGS = \
+@@ -38,7 +38,7 @@ Xvnc_LDADD = \
+ 	$(GOBJECT_LIBS) \
+ 	$(GLIB_LIBS) \
+ 	$(GIO_LIBS) \
+-	$(GIO_UNIX_LIBS)
++	$(GIO_UNIX_LIBS) -lsocket -lnsl
+ 
+ test_gobject_greeter_SOURCES = test-gobject-greeter.c status.c status.h
+ test_gobject_greeter_CFLAGS = \
+@@ -52,21 +52,21 @@ test_gobject_greeter_LDADD = \
+ 	-llightdm-gobject-1 \
+ 	$(GLIB_LIBS) \
+ 	$(GOBJECT_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ test_guest_account_SOURCES = test-guest-account.c status.c status.h
+ test_guest_account_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ test_guest_account_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ test_script_hook_SOURCES = test-script-hook.c status.c status.h
+ test_script_hook_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ test_script_hook_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ test-qt-greeter_moc.cpp: test-qt-greeter.h
+ 	moc $< -o $@
+@@ -79,7 +79,7 @@ test_qt_greeter_LDADD = \
+ 	-L$(top_builddir)/liblightdm-qt \
+ 	-llightdm-qt-1 \
+ 	$(LIGHTDM_QT_GREETER_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ test_session_SOURCES = test-session.c status.c status.h
+ test_session_CFLAGS = \
+@@ -88,14 +88,14 @@ test_session_CFLAGS = \
+ 	$(XCB_CFLAGS)
+ test_session_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ plymouth_SOURCES = plymouth.c status.c status.h
+ plymouth_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ plymouth_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ vnc_client_SOURCES = vnc-client.c status.c status.h
+ vnc_client_CFLAGS = \
+@@ -104,7 +104,7 @@ vnc_client_CFLAGS = \
+ 	$(GIO_CFLAGS)
+ vnc_client_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(GIO_LIBS)
++	$(GIO_LIBS) -lsocket -lnsl
+ 
+ CLEANFILES = \
+ 	test-qt-greeter_moc.cpp

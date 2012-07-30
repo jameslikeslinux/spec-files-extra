@@ -6,7 +6,7 @@
 # Owner: jedy
 #
 Name:     	aspell6-en
-Version: 	6.0
+Version: 	7.1
 %define tarball_suffix -0
 Release:        1
 Vendor:		Sun Microsystems, Inc.
@@ -44,6 +44,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 7.1-0.
 * Tue Mar 13 2007 - jeff.cai@sun.com
 - Move to sourceforge from opensolaris.
 * Thu Feb 16 2006 - halton.huo@sun.com

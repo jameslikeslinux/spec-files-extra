@@ -10,7 +10,9 @@
 %define python_version 2.6
 
 Name:		SFEvnc2flv
+IPS_Package_Name:	desktop/remote-desktop/vnc2flv
 Summary:	Desktop Screen Recorder for UNIX, Linux, Windows or Mac. 
+Group:		Applications/Internet
 Version:	20100207
 IPS_component_version:	0.20100207
 URL:		http://www.unixuser.org/~euske/python/vnc2flv/

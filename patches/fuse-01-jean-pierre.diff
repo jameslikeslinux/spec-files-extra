@@ -1,0 +1,168 @@
+diff -aur fusefs/kernel/fuse_dev.c fuse/fuse_dev.c
+--- fusefs/kernel/fuse_dev.c	2010-05-29 13:51:09.000000000 +0200
++++ fusefs/kernel/fuse_dev.c	2012-01-23 13:35:35.000000000 +0100
+@@ -21,6 +21,8 @@
+ /*
+  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+  * Use is subject to license terms.
++ *
++ * Portions Copyright 2012 Jean-Pierre Andre
+  */
+ 
+ /*
+@@ -369,6 +371,7 @@
+ 	struct fuse_out_header *outh;
+ 	fuse_session_t *se_p;
+ 	fuse_msg_node_t *msg_p = NULL;
++	fuse_msg_node_t *msg_next;
+ 	minor_t ndx = getminor(dev);
+ 	struct fuse_iov *iovbuf;
+ 
+@@ -414,8 +417,7 @@
+ 
+ 	/* Reset error before starting the search */
+ 	err = DDI_FAILURE;
+-	for (msg_p = list_head(&(se_p->msg_list)); msg_p;
+-	    msg_p = list_next(&(se_p->msg_list), msg_p)) {
++	for (msg_p = list_head(&(se_p->msg_list)); msg_p; ) {
+ 		if (msg_p->fmn_unique == outh->unique) {
+ 			if (msg_p->fmn_state == FUSE_MSG_STATE_READ) {
+ 				msg_p->fmn_state = FUSE_MSG_STATE_WRITE;
+@@ -430,6 +432,24 @@
+ 				FUSE_SESSION_MUTEX_UNLOCK(se_p);
+ 				goto cleanup;
+ 			}
++			msg_p = list_next(&(se_p->msg_list), msg_p);
++		} else {
++			msg_next = list_next(&(se_p->msg_list), msg_p);
++			/*
++			 * if no callback handler is registered, and no
++			 * reply is expected, it is our responsibility 
++			 * to free up obsolete message nodes.
++			 */
++			if (!msg_p->frd_on_request_complete
++			    && msg_p->fmn_noreply) {
++				if (msg_p->fmn_unique < se_p->max_unique) {
++					list_remove(&(se_p->msg_list), msg_p);
++					fuse_free_msg(msg_p);
++				}
++				if (outh->unique > se_p->max_unique)
++					se_p->max_unique = outh->unique;
++			}
++			msg_p = msg_next;
+ 		}
+ 	}
+ 	FUSE_SESSION_MUTEX_UNLOCK(se_p);
+diff -aur fusefs/kernel/fuse_queue.h fuse/fuse_queue.h
+--- fusefs/kernel/fuse_queue.h	2010-05-29 13:51:09.000000000 +0200
++++ fusefs/kernel/fuse_queue.h	2012-01-23 13:35:35.000000000 +0100
+@@ -54,6 +54,7 @@
+ 	minor_t		minor; /* Minor number associated with this session */
+ 	uint32_t	state;
+ 	uint64_t	unique; /* msg id used between lib and kernel module */
++	uint64_t	max_unique;
+ 	cred_t		*usercred;  /* Credentials passed by fuse library */
+ 	uint32_t	max_write;  /* Max Write value set by fuse lib */
+ 	vfs_t		*vfs;
+@@ -109,6 +110,7 @@
+ 	kcondvar_t	fmn_cv;
+ 	kmutex_t	fmn_mutx;
+ 	int		fmn_state;
++	int		fmn_noreply; /* no reply expected */
+ 	uint64_t	fmn_unique;  /* identifies a unique message */
+ 	/* Message interchange struct between FUSE Kernel and FUSE lib. */
+ 	fuse_req_data_t	fmn_req;
+diff -aur fusefs/kernel/fuse_vnops.c fuse/fuse_vnops.c
+--- fusefs/kernel/fuse_vnops.c	2010-05-29 13:51:09.000000000 +0200
++++ fusefs/kernel/fuse_vnops.c	2012-01-23 13:35:35.000000000 +0100
+@@ -25,6 +25,8 @@
+ /*
+  * Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+  * Use is subject to license terms.
++ *
++ * Portions Copyright 2012 Jean-Pierre Andre
+  */
+ /*
+  * This file has been derived from OpenSolaris devfs and others in uts/common/fs
+@@ -711,6 +713,15 @@
+ 		goto out;
+ 	}
+ 
++	if ((flag & (FWRITE | FTRUNC | FAPPEND)) == (FWRITE | FTRUNC)) {
++		vattr_t va;
++		int err;
++
++		va.va_mask = AT_SIZE;
++		va.va_size = 0;
++		err = VOP_SETATTR(vp, &va, 0, cred_p, ct);
++	}
++
+ 	/*
+ 	 * TBD: Check can we do any optimization here? FreeBSD Fuse invokes
+ 	 * vnode_create_vobject to avoid as it says needless getattr...
+@@ -1139,7 +1150,7 @@
+ 
+ 		if (vpm_enable) {
+ 			err = vpm_data_copy(vp, uoff, bytes, uiop, !pagecreate,
+-			    &newpage, 0, S_WRITE);
++				    &newpage, pagecreate && pageoff, S_WRITE);
+ 		} else {
+ 			segmap_offset = (uoff & PAGEMASK) & MAXBOFFSET;
+ 			base = segmap_getmapflt(segkmap, vp,
+@@ -1314,9 +1325,8 @@
+ 
+ 	vap->va_rdev = vp->v_rdev;
+ 	vap->va_blksize = vp->v_vfsp->vfs_bsize;
+-#define	howmany(x, y)	(((x)+((y)-1))/(y))
+ 
+-	vap->va_nblocks = howmany(vap->va_size, vap->va_blksize);
++	vap->va_nblocks = attr->blocks;
+ 	/* TBD: What value should we set here ? */
+ 	vap->va_seq = 0;
+ 	vap->va_fsid = vp->v_vfsp->vfs_dev;
+@@ -2237,6 +2247,13 @@
+ 		return (EINVAL);
+ 	}
+ 
++	int lku = fuse_lookup_i(dvp, nm, vpp, cred_p);
++	if (*vpp)
++		VN_RELE(*vpp);
++	if (!lku) {
++		return (0);
++	}
++
+ 	/*
+ 	 * We follow the approach as in FreeBSD Fuse and provide atomic
+ 	 * create + open. So this create method for a regular file doesn't send
+@@ -2523,8 +2540,6 @@
+ 		return (EIO);
+ 	}
+ 
+-	fh->ref++;
+-
+ 	/* setup fuse i/o data structure */
+ 	fiodata.uiop = uiop;
+ 	fiodata.credp = cred_p;
+@@ -2893,6 +2908,14 @@
+ 		goto cleanup;
+ 	}
+ 
++	/* Check for any error from fuse library */
++	if ((err = msgp->opdata.fouth->error) != 0) {
++		DTRACE_PROBE2(fuse_unlink_err_unlink_req,
++			char *, "FUSE_UNLINK request failed",
++			struct fuse_out_header *, msgp->opdata.fouth);
++		goto cleanup;
++	}
++
+ 	/* Check if we have seen and cached the associated vnode */
+ 	err = fuse_getvnode(FUSE_NULL_ID, &vp, VNODE_CACHED,
+ 	    0, sep, dvp->v_vfsp, namelen, name, VNODE_TO_NODEID(dvp), credp);
+@@ -3100,6 +3123,7 @@
+ 	ffi->nlookup = nlookup;
+ 
+ 	/* Send the request to the fuse daemon and return */
++	msgp->fmn_noreply = 1;
+ 	fuse_queue_request_nowait(sep, msgp);
+ }
+ 

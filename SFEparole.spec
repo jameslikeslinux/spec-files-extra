@@ -10,8 +10,10 @@
 %define src_url http://archive.xfce.org/src/apps/parole/0.2/
 
 Name:       SFEparole
+IPS_Package_Name:	xfce/media/parole
 Summary:    Modern, Simple Media Player for the Xfce Desktop Environment 
 Version:    0.2.0.6
+Group:		Applications/Sound and Video
 URL:        http://www.xfce.org/
 Source:             %{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:       %{_basedir}
@@ -24,20 +26,13 @@ BuildRequires:      SUNWgnome-media-devel
 Requires:           SUNWgnome-media
 BuildRequires:      SUNWlibnotify
 Requires:           SUNWlibnotify
-BuildRequires:      SUNWgtk-doc
-BuildRequires:      SFEtaglib-devel
 Requires:           SFEtaglib
 BuildRequires:      SFElibxfce4util
-BuildRequires:      SFElibxfcegui4-devel
 BuildRequires:      SFElibxfcegui4 
 Buildrequires:      SFExfce4-dev-tools
+Requires:	    developer/documentation-tool/gtk-doc
 Patch1:		    parole-0.2.0.6-add-uri-scheme-handler-support.diff
 Patch2:             parole-0.2.0.6-fix-lib-linking-order.diff
-
-# For future reference
-# BuildRequires: SFElibxfcegui4
-
-Requires:    %{name}-root
 
 %description
 Parole is a modern simple media player based on the GStreamer framework
@@ -46,12 +41,6 @@ of local media files, DVD/CD and live streams.  Parole is extensible
 via plugins, for a complete how to write a plugin for Parole see the
 Plugins API documentation and the plugins directory which contains
 some useful examples.
-
-
-%package root
-Summary:    %{summary} - / filesystem
-SUNW_BaseDir:    /
-%include default-depend.inc
 
 %if %build_l10n
 %package l10n
@@ -80,8 +69,7 @@ export PATH=/usr/gnu/bin:$PATH
     --libexecdir=%{_libexecdir}    \
     --datadir=%{_datadir}        \
     --mandir=%{_mandir}        \
-    --sysconfdir=%{_sysconfdir}     \
-    --enable-gtk-doc 
+    --sysconfdir=%{_sysconfdir}
 
 make -j $CPUS
 
@@ -95,26 +83,47 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %endif
 
+rm $RPM_BUILD_ROOT/%{_libdir}/parole-0/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-
 
 %files
 %defattr(-,root,bin) 
 %doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO 
 %{_bindir}/parole 
-%dir %{_libdir}/parole-0 
-%{_libdir}/parole-0/*.so 
+%{_libdir}/parole-0/* 
+%{_datadir}/parole/parole-plugins-0/*.desktop
+%dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/parole.desktop 
-%{_datadir}/icons/hicolor/*/apps/parole.png 
-%{_datadir}/icons/hicolor/scalable/apps/parole.svg 
-%{_datadir}/parole 
-%{_datadir}/parole/pixmaps 
-%{_datadir}/parole/pixmaps/parole.png 
+%dir %attr (0755, root, other) %{_datadir}/icons
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable/apps
+%{_datadir}/icons/hicolor/scalable/apps/parole.svg
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/16x16
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/16x16/apps
+%{_datadir}/icons/hicolor/16x16/apps/parole.png
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/22x22
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/22x22/apps
+%{_datadir}/icons/hicolor/22x22/apps/parole.png
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/32x32
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/32x32/apps
+%{_datadir}/icons/hicolor/32x32/apps/parole.png
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48
+%dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48/apps
+%{_datadir}/icons/hicolor/48x48/apps/parole.png
+%{_datadir}/parole/pixmaps/* 
 %{_includedir}/parole/ 
-%{_datadir}/gtk-doc/html/Parole-Plugins 
+#%{_datadir}/gtk-doc/html/Parole-Plugins 
 
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (-, root, other) %_datadir/locale
+%attr (-, root, other) %_datadir/locale/*
+%endif
 
 %changelog
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>

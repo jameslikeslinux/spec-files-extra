@@ -7,15 +7,21 @@
 #
 %include Solaris.inc
 
-Name:                    SFEpcmanfm
-Summary:                 LXDE lightweight file manager
-Version:                 0.9.8
-Source:                  http://downloads.sourceforge.net/pcmanfm/pcmanfm-%{version}.tar.gz
-Patch1:                  pcmanfm-01-Wall.diff
-Patch2:                  pcmanfm-02-state.diff
-URL:                     http://sourceforge.net/projects/pcmanfm/
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEpcmanfm
+IPS_Package_Name:	lxde/file-manage/pcmanfm
+Summary:	LXDE lightweight file manager
+License:	GPLv2
+Group:		Desktop (GNOME)/File Managers
+SUNW_Copyright:	pcmanfm.copyright
+Meta(info.upstream):	洪任諭 Hong Jen Yee <pcman.tw@gmail.com>
+Version:	0.9.10
+Source:		%{sf_download}/pcmanfm/pcmanfm-%{version}.tar.gz
+Patch1:		pcmanfm-01-Wall.diff
+Patch2:		pcmanfm-02-state.diff
+Patch3:		pcmanfm-03-round.diff
+URL:		http://sourceforge.net/projects/pcmanfm/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 Requires: SFElibfm
@@ -28,16 +34,17 @@ SUNW_BaseDir:   /
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 %endif
 
 %prep
 %setup -q -n pcmanfm-%version
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -82,10 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pcmanfm/*
 
 %files root
-%attr (0755, root, sys) %dir %{_sysconfdir}
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg
-%dir %attr (0755, root, sys) %{_sysconfdir}/xdg/pcmanfm
-%{_sysconfdir}/xdg/pcmanfm/*
+%defattr (0755, root, sys)
+%dir %_sysconfdir
+%dir %_sysconfdir/xdg
+%_sysconfdir/xdg/pcmanfm
 
 %if %build_l10n
 %files l10n
@@ -95,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Feb 05 2012 - Milan Jurik
+- bump to 0.9.10
+* Wed Sep 28 2011 - Alex Viskovatoff
+- Fix %files root
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Jun 08 2011 - brian.cameron@oracle.com
 - Bump to 0.9.8.
 * Thu Sep 16 2010 - brian.cameron@oracle.com

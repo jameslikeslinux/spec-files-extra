@@ -1,0 +1,39 @@
+diff --git src/corelib/arch/qatomic_i386.h src/corelib/arch/qatomic_i386.h
+index 73095a9..19660df 100644
+--- src/corelib/arch/qatomic_i386.h
++++ src/corelib/arch/qatomic_i386.h
+@@ -202,7 +202,7 @@ Q_INLINE_TEMPLATE T *QBasicAtomicPointer<T>::fetchAndAddOrdered(qptrdiff valueTo
+ 
+ extern "C" {
+     Q_CORE_EXPORT int q_atomic_test_and_set_int(volatile int *ptr, int expected, int newval);
+-    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, void *expected, void *newval);
++    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, const volatile void *expected, const volatile void *newval);
+     Q_CORE_EXPORT int q_atomic_increment(volatile int *ptr);
+     Q_CORE_EXPORT int q_atomic_decrement(volatile int *ptr);
+     Q_CORE_EXPORT int q_atomic_set_int(volatile int *ptr, int newval);
+diff --git src/corelib/arch/qatomic_sparc.h src/corelib/arch/qatomic_sparc.h
+index a89a5f3..94b7dd1 100644
+--- src/corelib/arch/qatomic_sparc.h
++++ src/corelib/arch/qatomic_sparc.h
+@@ -127,7 +127,7 @@ extern "C" {
+     Q_CORE_EXPORT int q_atomic_fetch_and_add_acquire_int(volatile int *ptr, int value);
+     Q_CORE_EXPORT int q_atomic_fetch_and_add_release_int(volatile int *ptr, int value);
+ 
+-    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, void *expected, void *newval);
++    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, const volatile void *expected, const volatile void *newval);
+     Q_CORE_EXPORT int q_atomic_test_and_set_acquire_ptr(volatile void *ptr,
+                                                         void *expected,
+                                                         void *newval);
+diff --git src/corelib/arch/qatomic_x86_64.h src/corelib/arch/qatomic_x86_64.h
+index 9303f19..3be96fa 100644
+--- src/corelib/arch/qatomic_x86_64.h
++++ src/corelib/arch/qatomic_x86_64.h
+@@ -203,7 +203,7 @@ Q_INLINE_TEMPLATE T *QBasicAtomicPointer<T>::fetchAndAddOrdered(qptrdiff valueTo
+ 
+ extern "C" {
+     Q_CORE_EXPORT int q_atomic_test_and_set_int(volatile int *ptr, int expected, int newval);
+-    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, void *expected, void *newval);
++    Q_CORE_EXPORT int q_atomic_test_and_set_ptr(volatile void *ptr, const volatile void *expected, const volatile void *newval);
+     Q_CORE_EXPORT int q_atomic_increment(volatile int *ptr);
+     Q_CORE_EXPORT int q_atomic_decrement(volatile int *ptr);
+     Q_CORE_EXPORT int q_atomic_set_int(volatile int *ptr, int newval);

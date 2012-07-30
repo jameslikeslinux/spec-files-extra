@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                    SFExrestop
+IPS_Package_Name:	x11/xrestop
 Summary:                 xrestop - display X-Resource statistics
 Group:                   Utility
 Version:                 0.4

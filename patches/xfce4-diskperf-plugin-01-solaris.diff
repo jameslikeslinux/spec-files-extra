@@ -1,0 +1,205 @@
+--- xfce4-diskperf-plugin-2.3.0/panel-plugin/devperf.c.orig	2011-01-21 00:34:26.000000000 +0000
++++ xfce4-diskperf-plugin-2.3.0/panel-plugin/devperf.c	2011-10-08 16:11:54.952563590 +0100
+@@ -1,5 +1,6 @@
+ /* Copyright (c) 2003 RogerSeguin <roger_seguin@msn.com>
+  * Copyright (c) 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
++ * Copyright (c) 2011 Peter Tribble <peter.tribble@gmail.com>
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+@@ -380,9 +381,74 @@ int DevGetPerfData (const void *p_pvDevi
+ 	return (0);
+ }
+ 
++#elif defined (__sun__)
++/*
++ * Solaris (and OpenSolaris derivatives) support via kstat
++ * Peter Tribble <peter.tribble@gmail.com>
++ */
++#include <kstat.h>
++static kstat_ctl_t *kc;
++
++int DevPerfInit ()
++{
++	kc = kstat_open ();
++        return (0);
++}
++
++int DevCheckStatAvailability(char const **strptr)
++{
++        return (0);
++}
++
++int DevGetPerfData (const void *p_pvDevice, struct devperf_t *perf)
++{
++	kstat_t *ksp;
++	kstat_io_t *kiot;
++	char *devname = (char *)p_pvDevice;
++
++	if(!kc)
++		DevPerfInit();
++
++	/*
++	 * Use the device name. This is something like "sd3", after the
++	 * module and instance. The user is expected to work out the
++	 * possible device names. The command "iostat -x" is one way to
++	 * enumerate them. It would be really neat to have a way to present
++	 * this list to the user and get them to pick the one they want.
++	 */
++	if(!(ksp = kstat_lookup (kc, NULL, -1, devname))) {
++		return (-1);
++	}
++	if (kstat_read(kc, ksp, 0) == -1) {
++		return (-1);
++	}
++	/*
++	 * Just in case we accidentally matched something that wasn't
++	 * an I/O device.
++	 */
++	if (ksp->ks_type != KSTAT_TYPE_IO) {
++		return (-1);
++	}
++	kiot = KSTAT_IO_PTR(ksp);
++	perf->timestamp_ns = (uint64_t)ksp->ks_snaptime;
++	perf->rbytes = (uint64_t)kiot->nread;
++	perf->wbytes = (uint64_t)kiot->nwritten;
++	/*
++	 * Solaris keeps separate wait and run queues, but they aren't
++	 * separated by read and write. So allocate half to each.
++	 */
++	perf->wbusy_ns = (uint64_t) (kiot->wtime + kiot->rtime) / 2ull;
++	perf->rbusy_ns = perf->wbusy_ns;
++	/*
++	 * qlen isn't used, so set it to zero rather than calculate it.
++	 */
++	perf->qlen = 0;
++	return (0);
++}
++
+ #else
+ 	/**************************************************************/
+ 	/********************	Unsupported platform	***************/
+ 	/**************************************************************/
+-#error "Your plattform is not yet supported"
++#error "Your platform is not yet supported"
+ #endif
+--- xfce4-diskperf-plugin-2.3.0/panel-plugin/main.c.orig	2011-01-19 00:25:30.000000000 +0000
++++ xfce4-diskperf-plugin-2.3.0/panel-plugin/main.c	2011-10-08 16:11:54.956607794 +0100
+@@ -48,6 +48,8 @@
+     data, but only a single value combining both */
+ #if  defined(__NetBSD__)
+ #define	SEPARATE_BUSY_TIMES	0
++#elif  defined(__sun__)
++#define	SEPARATE_BUSY_TIMES	0
+ #elif defined(__linux__)
+ #define	SEPARATE_BUSY_TIMES	1
+ #else
+@@ -79,7 +81,7 @@ typedef enum monitor_bar_order_t {
+ typedef struct param_t {
+     /* Configurable parameters */
+     char            acDevice[64];
+-#if  !defined(__NetBSD__) && !defined(__OpenBSD__)
++#if  !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__sun__)
+     dev_t           st_rdev;
+ #endif
+     int             fTitleDisplayed;
+@@ -159,7 +161,7 @@ static int DisplayPerf (struct diskperf_
+     rbytes = wbytes = iRBusy_ns = iWBusy_ns = -1;
+     memset (&oPerf, 0, sizeof (oPerf));
+     oPerf.qlen = -1;
+-#if defined (__NetBSD__) || defined(__OpenBSD__)
++#if defined (__NetBSD__) || defined(__OpenBSD__) || defined(__sun__)
+     status = DevGetPerfData (poConf->acDevice, &oPerf);
+ #else
+     status = DevGetPerfData (&(poConf->st_rdev), &oPerf);
+@@ -206,18 +208,22 @@ static int DisplayPerf (struct diskperf_
+ 	     "  Write :%3.2f\n"
+ 	     "  Total :%3.2f\n"
+ 	     "Busy time (%c)\n"
++#if SEPARATE_BUSY_TIMES
+ 	     "  Read : %3d\n"
+ 	     "  Write : %3d\n"
++#endif
+ 	     "  Total : %3d",
+ 	     poConf->acTitle,
+ 	     arPerf[R_DATA],
+ 	     arPerf[W_DATA],
+ 	     arPerf[RW_DATA],
+ 	     '%',
+-	     SEPARATE_BUSY_TIMES && (oPerf.qlen >= 0) ?
++#if SEPARATE_BUSY_TIMES
++	     (oPerf.qlen >= 0) ?
+ 	     (int) round(arBusy[R_DATA]) : -1,
+-	     SEPARATE_BUSY_TIMES && (oPerf.qlen >= 0) ?
++	     (oPerf.qlen >= 0) ?
+ 	     (int) round(arBusy[W_DATA]) : -1,
++#endif
+ 	     (oPerf.qlen >= 0) ? (int) round(arBusy[RW_DATA]) : -1);
+     gtk_tooltips_set_tip (s_poToolTips, GTK_WIDGET (poMonitor->wEventBox),
+ 			  acToolTips, 0);
+@@ -400,7 +406,7 @@ static diskperf_t *diskperf_create_contr
+     struct diskperf_t *poPlugin;
+     struct param_t *poConf;
+     struct monitor_t *poMonitor;
+-#if !defined(__NetBSD__) && !defined(__OpenBSD__)
++#if !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__sun__)
+     struct stat     oStat;
+     int             status;
+ #endif
+@@ -415,6 +421,9 @@ static diskperf_t *diskperf_create_contr
+ #if defined(__NetBSD__) || defined(__OpenBSD__)
+     strncpy (poConf->acDevice, "wd0", 64);
+     strncpy (poConf->acTitle, "wd0", 16);
++#elif defined(__sun__)
++    strncpy (poConf->acDevice, "sd0", 64);
++    strncpy (poConf->acTitle, "sd0", 16);
+ #else
+     strncpy (poConf->acDevice, "/dev/sda", 64);
+     status = stat (poConf->acDevice, &oStat);
+@@ -483,7 +492,7 @@ static void diskperf_read_config (XfcePa
+     struct param_t *poConf = &(poPlugin->oConf.oParam);
+     struct monitor_t *poMonitor = &(poPlugin->oMonitor);
+     Widget_t       *pw2ndBar = poPlugin->oMonitor.awProgressBar + 1;
+-#if !defined(__NetBSD__) && !defined(__OpenBSD__)
++#if !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__sun__)
+     struct stat     oStat;
+     int             status;
+ #endif
+@@ -500,7 +509,7 @@ static void diskperf_read_config (XfcePa
+     if ((value = xfce_rc_read_entry (rc, (CONF_DEVICE), NULL))) {
+         memset (poConf->acDevice, 0, sizeof (poConf->acDevice));
+         strncpy (poConf->acDevice, value, sizeof (poConf->acDevice) - 1);
+-#if !defined(__NetBSD__) && !defined(__OpenBSD__)
++#if !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__sun__)
+         status = stat (poConf->acDevice, &oStat);
+         poConf->st_rdev = (status == -1 ? 0 : oStat.st_rdev);
+ #endif
+@@ -624,7 +633,7 @@ static void SetDevice (Widget_t p_wTF, v
+     struct diskperf_t *poPlugin = (diskperf_t *) p_pvPlugin;
+     struct param_t *poConf = &(poPlugin->oConf.oParam);
+     const char     *pcDevice = gtk_entry_get_text (GTK_ENTRY (p_wTF));
+-#if !defined(__NetBSD__) && !defined(__OpenBSD__)
++#if !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__sun__)
+     struct stat     oStat;
+     int             status;
+ 
+@@ -879,14 +888,15 @@ static int CheckStatsAvailability ()
+ 	/**************************************************************/
+ 
+ static void About (Widget_t w, void *unused)
+-	/* Called back when the About button in clicked */
++	/* Called back when the About button is clicked */
+ {
+     xfce_info (_("%s %s - Disk Performance Monitor\n"
+-	       "Display instantaneous disk I/O transfer rates and busy times "
+-	       "on Linux and NetBSD systems\n\n"
++	       "Display disk I/O transfer rates and busy times\n\n"
+ 	       "(c) 2003, 2004 Roger Seguin <roger_seguin@msn.com>\n"
+ 	       "NetBSD statistics collection: (c) 2003 Benedikt Meurer\n"
+-	       "\t<benedikt.meurer@unix-ag.uni-siegen.de>"),
++	       "\t<benedikt.meurer@unix-ag.uni-siegen.de>\n"
++	       "Solaris statistics collection: (c) 2011 Peter Tribble\n"
++	       "\t<peter.tribble@gmail.com>"),
+ 	       PACKAGE, VERSION);
+ }				/* About() */
+ 

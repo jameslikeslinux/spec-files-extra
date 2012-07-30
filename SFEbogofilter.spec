@@ -6,11 +6,13 @@
 %include Solaris.inc
 
 Name:		SFEbogofilter
-Summary:	A Bayesian spam filter.
+IPS_Package_Name:	mail/bogofilter
+Summary:	A Bayesian spam filter
 Version:	1.2.2
 Source:		%{sf_download}/bogofilter/bogofilter-%{version}.tar.bz2
 URL:		http://bogofilter.sourceforge.net/
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright: bogofilter.copyright
 Group:		Office/Email
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -70,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/bogofilter.cf.example
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Dec 01 2010 - Milan Jurik
 - bump to 1.2.2
 * Sat Jun 12 2010 - Milan Jurik

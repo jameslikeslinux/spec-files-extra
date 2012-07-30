@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=LyX
+GenericName=Word Processor
+Exec=lyx
+Terminal=false
+Icon=lyx
+MimeType=application/x-lyx;
+Type=Application
+Categories=Office;

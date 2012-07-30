@@ -1,0 +1,62 @@
+--- silgraphite-2.3.1/engine/src/segment/Segment.cpp	Tue Mar 18 12:29:11 2008
++++ silgraphite-2.3.1/engine/src/segment/Segment.cpp	Mon Oct 31 17:25:52 2011
+@@ -345,7 +345,8 @@
+ 	else
+ 	{
+ 		// Rerun the processing.
+-		LayoutEnvironment layout = seg.Layout();
++		LayoutEnvironment layout;
++		layout = seg.Layout();
+ 		layout.setStartOfLine(fStartLine);
+ 		layout.setEndOfLine(fEndLine);
+ 		ITextSource & gts = seg.getText();
+@@ -383,7 +384,8 @@
+ ----------------------------------------------------------------------------------------------*/
+ Segment * Segment::JustifiedSegment(Segment & seg, float xsNewWidth)
+ {
+-	LayoutEnvironment layout(seg.Layout());
++	LayoutEnvironment layout;
++	layout = seg.Layout();
+ 	ITextSource & gts = seg.getText();
+ 
+ 	// Why do we have to do this?
+--- silgraphite-2.3.1/wrappers/freetype/FreetypeFont.cpp	Wed Jan 21 23:36:44 2009
++++ silgraphite-2.3.1-patch/wrappers/freetype/FreetypeFont.cpp	Sun Nov  6 15:56:29 2011
+@@ -133,7 +133,7 @@
+     // record the table buffer and size into a record.  Note that we use the
+     //  table ID as passed to this method, not the one passed to
+     //  FT_Load_Sfnt_Table.
+-    m_tables[tableID] = std::make_pair(pTable, tableBufferSz);
++    m_tables[tableID] = std::make_pair(pTable, (unsigned)tableBufferSz);
+     *pcbSize = tableBufferSz;
+     return pTable;
+   }
+--- silgraphite-2.3.1/wrappers/pangographite/FreetypeFont.cpp	Fri May  9 13:10:30 2008
++++ silgraphite-2.3.1-patch/wrappers/pangographite/FreetypeFont.cpp	Sun Nov  6 15:57:14 2011
+@@ -119,7 +119,7 @@
+     // record the table buffer and size into a record.  Note that we use the
+     //  table ID as passed to this method, not the one passed to
+     //  FT_Load_Sfnt_Table.
+-    m_tables[tableID] = std::make_pair(pTable, tableBufferSz);
++    m_tables[tableID] = std::make_pair(pTable, (unsigned)tableBufferSz);
+     *pcbSize = tableBufferSz;
+     return pTable;
+   }
+--- silgraphite-2.3.1/wrappers/pangographite/PangoTextSrc.cpp	Fri May  9 13:10:30 2008
++++ silgraphite-2.3.1-patch/wrappers/pangographite/PangoTextSrc.cpp	Sun Nov  6 19:00:24 2011
+@@ -17,6 +17,7 @@
+ //:>********************************************************************************************
+ // any other headers (not precompiled)
+ 
++#include <glib.h>
+ #include <graphite/GrClient.h>
+ #include <graphite/GrDebug.h>
+ #include <graphite/ITextSource.h>
+@@ -68,7 +69,6 @@
+ //:>********************************************************************************************
+ //:>	Methods: new interface
+ //:>********************************************************************************************
+-#include <glib.h>
+ /*----------------------------------------------------------------------------------------------
+ 	Get the specified range of text
+ ----------------------------------------------------------------------------------------------*/

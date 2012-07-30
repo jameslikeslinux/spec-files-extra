@@ -8,7 +8,8 @@
 %define src_name liblinebreak
 
 Name:		SFEliblinebreak
-Version:	2.0
+IPS_Package_Name:	library/liblinebreak
+Version:	2.1
 Summary:	A Unicode line-breaking library
 Group:		Development/Libraries
 License:	zlib
@@ -66,5 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Sun Nov 06 2011 - Milan Jurik
+- bump to 2.1
 * Sun May 23 2010 - Milan Jurik
 - initial import to SFE

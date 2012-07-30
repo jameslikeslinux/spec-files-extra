@@ -69,18 +69,50 @@ NOTE:                library/security/openssl -> SUNWopenssl or openssl or libra
 
 %prep
 echo "
-packagenamemacros: osbuild %{osbuild}
-packagenamemacros: SXCE %{SXCE}
-packagenamemacros: os2nnn %{os2nnn}
-packagenamemacros: oi147    %{oi147}    experimental
-packagenamemacros: os201005 %{os201005} not yet released, name might eventually change?
-packagenamemacros: os201003 %{os201003} deprecared, this release name was never used, will be removed
-packagenamemacros: os200906 %{os200906}
-packagenamemacros: os200902 %{os200902}
-packagenamemacros: os200811 %{os200811}
-packagenamemacros: osdistrelnumber %{osdistrelnumber}
-packagenamemacros: osdistrelname   %{osdistrelname}
-packagenamemacros: osdet299999 %{osdet299999}
+packagenamemacros: osbuild 		%{osbuild}
+packagenamemacros: SXCE 		%{SXCE}
+packagenamemacros: os2nnn 		%{os2nnn}
+packagenamemacros: solaris11express	%{solaris11express} Solaris 11 Express yes/no
+packagenamemacros: s11ex201100 		%{s11ex201100} Solaris 11 Express (some following release e.g. 166)
+packagenamemacros: s11ex201011 		%{s11ex201011} Solaris 11 Express (first release end of 2010)
+packagenamemacros: openindiana		%{openindiana} OpenIndiana yes/no
+packagenamemacros: oi201100 		%{oi201100} OpenIndiana 151, experimental reworked
+packagenamemacros: oi201009 		%{oi201009} OpenIndiana 147/148, experimental reworked
+packagenamemacros: os201005 		%{os201005} not yet released, name might eventually change?
+packagenamemacros: os201003 		%{os201003} deprecared, this release name was never used, will be removed
+packagenamemacros: os200906 		%{os200906}
+packagenamemacros: os200902 		%{os200902}
+packagenamemacros: os200811 		%{os200811}
+packagenamemacros: osdistrelnumber 	%{osdistrelnumber}
+packagenamemacros: osdistrelname   	%{osdistrelname}
+packagenamemacros: osdet299999 		%{osdet299999}
+packagenamemacros: pnm_buildrequires_perl_default: 		%{pnm_buildrequires_perl_default}
+packagenamemacros: pnm_requires_perl_default: 			%{pnm_requires_perl_default}
+packagenamemacros: perl_version number is:       		%{perl_version}
+packagenamemacros: perl_major_version number is: 		%{perl_major_version}
+packagenamemacros: perl_major_minor_version number is: 		%{perl_major_minor_version}
+packagenamemacros: perl_major_minor_micro_version number is: 	%{perl_major_minor_micro_version}
+packagenamemacros: _prefix/perl_path_vendor_perl	 	%{_prefix}/%{perl_path_vendor_perl}
+packagenamemacros: _prefix/perl_path_vendor_perl_version 	%{_prefix}/%{perl_path_vendor_perl_version}
+packagenamemacros: _prefix/perl_path_site_perl 			%{_prefix}/%{perl_path_site_perl}
+packagenamemacros: _prefix/perl_path_site_perl_version 		%{_prefix}/%{perl_path_site_perl_version}
+packagenamemacros: pnm_buildrequires_python_default: 		%{pnm_buildrequires_python_default}
+packagenamemacros: pnm_requires_python_default: 		%{pnm_requires_python_default}
+packagenamemacros: python_version number is:       		%{python_version}
+packagenamemacros: python_major_version number is: 		%{python_major_version}
+packagenamemacros: python_major_minor_version number is: 	%{python_major_minor_version}
+packagenamemacros: python_major_minor_micro_version number is: 	%{python_major_minor_micro_version}
+packagenamemacros: python_package_string: 			%{python_version_package_string}
+packagenamemacros: pnm_buildrequires_mysql_default		%{pnm_buildrequires_mysql_default}
+packagenamemacros: pnm_requires_mysql_default			%{pnm_requires_mysql_default}
+packagenamemacros: _prefix/mysql_default_includedir		%{_prefix}/%{mysql_default_includedir}
+packagenamemacros: _prefix/mysql_default_libdir			%{_prefix}/%{mysql_default_libdir}
+packagenamemacros: mysql_version				%{mysql_version}
+packagenamemacros: mysql_major_version				%{mysql_major_version}
+packagenamemacros: mysql_major_minor_version			%{mysql_major_minor_version}
+packagenamemacros: pnm_requires_java_runtime_default	%{pnm_requires_java_runtime_default}
+packagenamemacros: pnm_requires_java_runtime_default_32       %{pnm_requires_java_runtime_default_32}
+packagenamemacros: pnm_requires_java_runtime_default_64       %{pnm_requires_java_runtime_default_64}
 " >/dev/null
 
 
@@ -88,35 +120,23 @@ echo "
 requesting package SUNWopenssl resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for SUNWopenssl is contained in  %{pnm_buildrequires_SUNWopenssl}
        Requires for SUNWopenssl is contained in  %{pnm_requires_SUNWopenssl}
-" >/dev/null
 
-echo "
 requesting package openssl w/o the SUNW prefix in the name resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for openssl is contained in  %{pnm_buildrequires_openssl}
        Requires for openssl is contained in  %{pnm_requires_openssl}
-" >/dev/null
 
-echo "
 requesting package library/security/openssl resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for library/security/openssl is contained in  %{pnm_buildrequires_library_security_openssl}
        Requires for library/security/openssl is contained in  %{pnm_requires_library_security_openssl}
-" >/dev/null
 
-
-
-echo "
 requesting package SUNWncurses / SUNWncurses-devel resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for SUNWncurses-devel is contained in  %{pnm_buildrequires_SUNWncurses_devel}
        Requires for SUNWncurses is contained in  %{pnm_requires_SUNWncurses}
-" >/dev/null
 
-echo "
 requesting package ncurses w/o the SUNW prefix in the name resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for ncurses is contained in  %{pnm_buildrequires_ncurses}
        Requires for ncurses is contained in  %{pnm_requires_ncurses}
-" >/dev/null
 
-echo "
 requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}:
   BuildRequires for library/ncurses is contained in  %{pnm_buildrequires_library_ncurses}
        Requires for library/ncurses is contained in  %{pnm_requires_library_ncurses}
@@ -125,6 +145,19 @@ requesting package library/ncurses resolves on %{osdistrelname} build %{osbuild}
 
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- add pnm_buildrequires_python_default / pnm_requires_python_default (note the special _default string)
+* Sat Mar 31 2012 - Thomas Wagner
+- add java examples
+* Tue Aug  2 2011 - Thomas Wagner
+- add mysql examples
+- display more perl versions
+* Sun Jul  3 2011 - Thomas Wagner
+- rename variables perl5_default to perl_default
+* Fri Jun 17 2011 - Thomas Wagner
+- adjust changed names for osdistro variables (osdistro.inc)
+- add perl version specific examples
+- add pnm_buildrequires_perl5_default / pnm_requires_perl5_default (note the special _default string)
 * Sat Oct 20 2010 - Thomas Wagner
 - add oi to the mix
 * Jun  1 2010 - Thomas Wagner

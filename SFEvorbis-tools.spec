@@ -9,15 +9,14 @@
 %define src_name vorbis-tools
 
 Name:		SFEvorbis-tools
+IPS_Package_Name:	audio/vorbis-tools
 Version:	1.4.0
-Release:	1
 Summary:	Several Ogg Vorbis Tools
-
 Group:		Applications/Multimedia
 License:	GPL
 URL:		http://xiph.org/
-Vendor:		Xiph.Org Foundation <team@xiph.org>
 Source:         http://downloads.xiph.org/releases/vorbis/%{src_name}-%{version}.tar.gz
+SUNW_Copyright: vorbis-tools.copyright
 SUNW_BaseDir:  %{_basedir}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 
@@ -82,6 +81,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Tue Oct 12 2010 - Alex Viskovatoff
 - bump to 1.4.0
 * Tue Mar 02 2010 Milan Jurik

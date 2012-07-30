@@ -1,0 +1,15 @@
+--- miniupnpd-1.6.20120207/miniupnpdtypes.h	2011-05-13 06:58:50.000000000 -0700
++++ miniupnpd-1.6.20120207-patched/miniupnpdtypes.h	2012-02-28 21:46:07.285107644 -0800
+@@ -24,4 +24,12 @@
+ };
+ LIST_HEAD(lan_addr_list, lan_addr_s);
+ 
++#ifdef __sun
++typedef uint64_t u_int64_t;
++#endif
++
++#ifndef MAX
++#define MAX(A,B) ((A) >= (B) ? (A) : (B))
++#endif
++
+ #endif

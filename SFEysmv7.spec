@@ -11,6 +11,7 @@
 %define src_version	2_9_9_1
 
 Name:		SFEysmv7
+IPS_Package_Name:	communication/im/ysmv7
 Summary:	console based ICQ client
 Version:	2.9.9.1
 License:	GPLv2

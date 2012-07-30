@@ -1,0 +1,5 @@
+--- fltk-1.3.0/test/unittests.cxx	2011-09-25 22:18:45.751241257 +0200
++++ fltk-1.3.0/test/unittests.cxx	2011-09-25 22:18:40.342993673 +0200
+@@ -103 +103 @@
+-UnitTest *UnitTest::fTest[];
++UnitTest *UnitTest::fTest[200];

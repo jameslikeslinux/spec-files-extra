@@ -1,0 +1,41 @@
+--- libvirt-0.9.11.3/configure	2012-04-27 11:30:53.000000000 -0700
++++ libvirt-0.9.11.3-patched/configure	2012-04-28 21:09:21.823075354 -0700
+@@ -54509,23 +54509,23 @@
+ fi
+ 
+ 
+-if test "$with_qemu" = "yes" || test "$with_lxc" = "yes" ; then
+-  for ac_header in linux/param.h linux/sockios.h linux/if_bridge.h linux/if_tun.h
+-do :
+-  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+-ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
+-if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
+-  cat >>confdefs.h <<_ACEOF
+-#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
+-_ACEOF
+-
+-else
+-  as_fn_error $? "You must install kernel-headers in order to compile libvirt with QEMU or LXC support" "$LINENO" 5
+-fi
++# if test "$with_qemu" = "yes" || test "$with_lxc" = "yes" ; then
++#   for ac_header in linux/param.h linux/sockios.h linux/if_bridge.h linux/if_tun.h
++# do :
++#   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
++# ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
++# if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
++#   cat >>confdefs.h <<_ACEOF
++# #define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
++# _ACEOF
++
++# else
++#   as_fn_error $? "You must install kernel-headers in order to compile libvirt with QEMU or LXC support" "$LINENO" 5
++# fi
+ 
+-done
++# done
+ 
+-fi
++# fi
+ 
+ 
+ 

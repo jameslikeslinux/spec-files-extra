@@ -21,9 +21,6 @@ Source:			 http://download.sarine.nl/Programs/gmpc/%{version}/gmpc-%{plugindownl
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
-
 %include default-depend.inc
 
 %prep
@@ -43,7 +40,8 @@ CC=$CC CXX=$CXX XGETTEXT=/bin/gxgettext MSGFMT=/bin/gmsgfmt ./configure --prefix
 	--mandir=%{_mandir} \
 	--libdir=%{_libdir}              \
 	--libexecdir=%{_libexecdir}      \
-	--sysconfdir=%{_sysconfdir}
+	--sysconfdir=%{_sysconfdir}      \
+        --disable-static
 
   
 
@@ -54,6 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 gmake install DESTDIR=$RPM_BUILD_ROOT
 #rm -f $RPM_BUILD_ROOT%{_libdir}/gmpc/plugins/*.la
 gfind $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
+gfind $RPM_BUILD_ROOT -name \*.a -exec rm {} \;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,15 +60,16 @@ rm -rf $RPM_BUILD_ROOT
 #NOTE: below %files, is not used in this include system.
 %files
 %defattr(-, root, bin)
-%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
-%dir %attr (0755, root, sys) %{_prefix}
-%dir %attr (0755, root, bin) %{_libdir}
-%dir %attr (0755, root, bin) %{_libdir}/gmpc
-%dir %attr (0755, root, bin) %{_libdir}/gmpc/plugins
-%{_libdir}/gmpc/plugins/*.so
+#see other files which include this one here
 
 
 %changelog
+* Wed Apr 25 2012 - Thomas Wagner
+- remove (Build)Requires: SUNWgcc(runtime) because pkgtool/pkgbuild fully 
+  ignores them in consuming spec file if this file is included with %use
+* Tue Apr 24 2012 - Thomas Wagner
+- add --disable-static
+- add removal for .a files
 * Wed Oct  6 2010 - Alex Viskovatoff
 - bump to 0.20.0; use gmake, gfind, gxgettext, gmsgfmt
 * Sun Sep 27 2009 - Thomas Wagner

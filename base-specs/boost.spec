@@ -9,8 +9,8 @@
 #
 
 %define        major      1
-%define        minor      46
-%define        patchlevel 1
+%define        minor      49
+%define        patchlevel 0
 %define        ver_boost  %{major}_%{minor}_%{patchlevel}
 
 %{!?boost_with_mt: %define boost_with_mt 0}
@@ -19,27 +19,28 @@ Name:         boost
 License:      Boost License Version
 Group:        System/Libraries
 Version:      %{major}.%{minor}.%{patchlevel}
-Release:      1
-Distribution: Java Desktop System
-Vendor:       Sun Microsystems, Inc.
 Summary:      boost - free peer-reviewed portable C++ source libraries
 Source:       %{sf_download}/boost/boost_%{ver_boost}.tar.bz2
-# date:2007-08-13 owner:trisk 
-Patch1:       boost-01-studio.diff
-# date:2007-08-13 owner:laca
-Patch2:       boost-02-gcc34.diff
-# date:2009-11-04 owner:sobi
-Patch3:       boost-03-xmlparser.diff
-Patch4:       boost-04-compiler.diff
-Patch6:       boost-06-bjam-math.diff
-
+# Ticket #6161
+Patch1:       boost-01-putenv.diff
+Patch2:       boost-gpp-01-cstdint.diff
+# stlport4/stdcxx4
+Patch3:       boost-stdcxx-01-stl.diff
+Patch4:       boost-stdcxx-02-wchar.diff
 URL:          http://www.boost.org/
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n %{name}_%{major}_%{minor}_%{patchlevel}
-%patch1 -p1
-%patch2 -p1
+%if %cc_is_gcc
+%patch2 -p0
+%else
+%patch1 -p0
+%if %stl_is_stdcxx
+%patch3 -p0
+%patch4 -p0
+%endif
+%endif
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -54,26 +55,33 @@ export CXX=g++
 export CXXFLAGS="%gcc_cxx_optflags"
 export LDFLAGS="%_ldflags"
 %else
-export CXXFLAGS="%cxx_optflags -library=stlport4 -staticlib=stlport4 -norunpath -features=tmplife -features=tmplrefstatic"
-export LDFLAGS="%_ldflags -library=stlport4 -staticlib=stlport4"
+export CXXFLAGS="%cxx_optflags"
+export LDFLAGS="%_ldflags"
 %endif
 
-# Do not build with ICU if building with GCC since ICU is built with SunStudio.
 %if %cc_is_gcc
-./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --without-icu 
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=gcc --with-icu=/usr/g++
 %else
-./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu --without-libraries=graph
+./bootstrap.sh --prefix=%{_prefix} --with-toolset=sun --with-icu
 %endif
 
 ./bjam --v2 -d+2 -q -j$CPUS -sBUILD="release <threading>single/multi" \
   release stage
 
 %install
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+./bjam install --prefix=$RPM_BUILD_ROOT%{_prefix}
 
 %changelog
+* Sat May 19 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.49.0 and removed a patch that is no longer needed.
+* Sat Jan 14 2012 - Milan Jurik
+- add support for stdcxx
+* Thu Jan 12 2012 - Milan Jurik
+- bump to 1.48.0
+* Sat Jul 30 2011 - Milan Jurik
+- bump to 1.47.0
+* Thu Jun 23 2011 - Alex Viskovatoff
+- enable ICU when building with gcc
 * Sat Mar 19 2011 - Milan Jurik
 - bump to 1.46.1 but disable graph lib for Sun Studio build
 * Thu Aug 26 2010 - Brian Cameron <brian.cameron@oracle.com

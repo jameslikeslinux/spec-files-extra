@@ -8,7 +8,7 @@
 Name:                    SFEbusybox
 Summary:                 Tiny utilities for small and embedded systems  
 Version:                 1.2.0
-Source:                  http://www.busybox.net/downloads/busybox-1.2.0.tar.gz
+Source:                  http://www.busybox.net/downloads/busybox-1.2.0.tar.bz2
 Patch1:                  busybox-01.diff
 URL:                     http://www.busybox.net
 #SUNW_BaseDir:            %{_basedir}
@@ -45,5 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*             
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix archive format
 * Tue Apr 21 2009 - Alexander R. Eremin eremin@milax.org
 - Initial spec file. 

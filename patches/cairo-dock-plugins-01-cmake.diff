@@ -1,11 +1,5 @@
---- cairo-dock-plugins-2.2.0-4/CMakeLists.txt	2010-10-02 00:42:14.000000000 +0200
-+++ cairo-dock-plugins-2.2.0-4-patch/CMakeLists.txt	2011-02-20 16:48:42.822850929 +0100
-@@ -12,7 +12,7 @@
- project ("cairo-dock-plugins")
- set (VERSION "2.2.0-4")
- 
+--- cairo-dock-plugins-2.3.0~3/CMakeLists.txt	2011-07-13 21:41:32.349664141 +0200
++++ cairo-dock-plugins-2.3.0~3-patch/CMakeLists.txt	2011-07-13 21:43:37.367607172 +0200
+@@ -15 +15 @@
 -add_definitions (-std=c99 -Wstrict-prototypes -Wextra -Wwrite-strings -Wuninitialized -Werror-implicit-function-declaration) #-Wunreachable-code -Wno-unused-parameter -Wall
 +add_definitions (-std=c99)
- if (NOT ${CMAKE_BUILD_TYPE})
- 	add_definitions (-O3)
- endif()

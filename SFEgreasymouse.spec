@@ -9,6 +9,7 @@
 %include Solaris.inc
 
 Name:              SFEgreasymouse
+IPS_Package_Name:	x11/greasymouse
 Summary:           greasymouse - mouse greaser
 Version:           0.0
 URL:               http://ftp.x.org/contrib/amusements/

@@ -19,9 +19,12 @@
 %use libgsm = libgsm.spec
 
 Name:		SFElibgsm
+IPS_Package_Name:	library/audio/libgsm
 Summary:	%{libgsm.summary}
 Version:	%{libgsm.version}
 License:	%{libgsm.license}
+SUNW_Copyright:	libgsm.copyright
+URL:		https://launchpad.net/libgsm
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -79,35 +82,55 @@ rm -rf $RPM_BUILD_ROOT
 
 %libgsm.install -d %name-%version/%{base_arch}
 
+%if %can_isaexec
+mkdir $RPM_BUILD_ROOT%{_bindir}/%{base_isa}
+mv $RPM_BUILD_ROOT%{_bindir}/toast  $RPM_BUILD_ROOT%{_bindir}/%{base_isa}/
+mv $RPM_BUILD_ROOT%{_bindir}/tcat  $RPM_BUILD_ROOT%{_bindir}/%{base_isa}/
+mv $RPM_BUILD_ROOT%{_bindir}/untoast  $RPM_BUILD_ROOT%{_bindir}/%{base_isa}/
+cd $RPM_BUILD_ROOT%{_bindir} && ln -s ../lib/isaexec toast
+cd $RPM_BUILD_ROOT%{_bindir} && ln -s ../lib/isaexec tcat
+cd $RPM_BUILD_ROOT%{_bindir} && ln -s ../lib/isaexec untoast
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%if %can_isaexec
+%ifarch amd64 sparcv9
+%{_bindir}/%{_arch64}
+%endif
+%{_bindir}/%{base_isa}
+%hard %{_bindir}/toast
+%hard %{_bindir}/tcat
+%hard %{_bindir}/untoast
+%else
 %{_bindir}
-%dir %attr (0755, root, bin) %{_libdir}
+%endif
 %{_libdir}/lib*.so*
 %ifarch amd64 sparcv9
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.so*
 %endif
 %if %arch_sse2
-%dir %attr (0755, root, bin) %{_libdir}/%{sse2_arch}
 %{_libdir}/%{sse2_arch}/lib*.so*
 %endif
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/man1
 
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/man3
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- fix multiarch
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Nov 28 2010 - Milan Jurik
 - add pentium_pro+mmx lib
 * Tue Sep 08 2009 - Milan Jurik

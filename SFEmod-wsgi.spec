@@ -15,6 +15,7 @@
 %use mod_wsgi = mod_wsgi.spec
 
 Name:		SFEmod-wsgi
+IPS_Package_Name:	web/server/apache-22/module/mod-wsgi
 Version:	%{mod_wsgi.version}
 Summary:	%{mod_wsgi.summary}
 Group:		System Environment/Daemons

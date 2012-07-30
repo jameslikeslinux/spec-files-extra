@@ -1,0 +1,31 @@
+--- qbittorrent-2.8.4/src/filesystemwatcher.h.orig	2011-08-09 17:25:33.000000000 +0000
++++ qbittorrent-2.8.4/src/filesystemwatcher.h	2011-08-29 00:11:21.834669128 +0000
+@@ -16,6 +16,9 @@
+ #include <sys/param.h>
+ #include <sys/mount.h>
+ #include <string.h>
++#elif defined (Q_OS_SOLARIS)
++#include <sys/types.h>
++#include <sys/statvfs.h>
+ #else
+ #include <sys/vfs.h>
+ #endif
+@@ -62,11 +65,18 @@
+     if(!file.endsWith(QDir::separator()))
+       file += QDir::separator();
+     file += ".";
++#ifdef Q_OS_SOLARIS
++    struct statvfs buf;
++    if(!statvfs(file.toLocal8Bit().constData(), &buf)) {
++#else
+     struct statfs buf;
+     if(!statfs(file.toLocal8Bit().constData(), &buf)) {
++#endif
+ #ifdef Q_WS_MAC
+       // XXX: should we make sure HAVE_STRUCT_FSSTAT_F_FSTYPENAME is defined?
+       return (strcmp(buf.f_fstypename, "nfs") == 0 || strcmp(buf.f_fstypename, "cifs") == 0 || strcmp(buf.f_fstypename, "smbfs") == 0);
++#elif defined (Q_OS_SOLARIS)
++      return (buf.f_fsid == (long)CIFS_MAGIC_NUMBER || buf.f_fsid == (long)NFS_SUPER_MAGIC || buf.f_fsid == (long)SMB_SUPER_MAGIC);
+ #else
+       return (buf.f_type == (long)CIFS_MAGIC_NUMBER || buf.f_type == (long)NFS_SUPER_MAGIC || buf.f_type == (long)SMB_SUPER_MAGIC);
+ #endif

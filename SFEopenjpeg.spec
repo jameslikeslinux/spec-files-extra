@@ -7,16 +7,22 @@
 
 %define	src_name openjpeg
 %define	src_url	http://www.openjpeg.org
-%define src_version v1_3
 
-Name:                SFEopenjpeg
-Summary:             Open Source multimedia framework
-Version:             1.3
-Source:              http://openjpeg.googlecode.com/files/%{src_name}_%{src_version}.tar.gz
-Patch1:		     openjpeg-01-makefile.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+%define major_version 1.5
+
+Name:		SFEopenjpeg
+IPS_Package_Name:	image/library/openjpeg
+Group:		System/Libraries
+Summary:	Open Source multimedia framework
+License:	BSD
+SUNW_Copyright:	openjpeg.copyright
+Version:	%{major_version}.0
+Source:		http://openjpeg.googlecode.com/files/openjpeg-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+BuildRequires: SFEcmake
 
 %package devel
 Summary:         %{summary} - development files
@@ -25,8 +31,7 @@ SUNW_BaseDir:    %{_basedir}
 Requires: %name
 
 %prep
-%setup -q -c -n %{name}-%{src_version}
-%patch1 -p0
+%setup -q -n %{src_name}-%{version}
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -36,30 +41,48 @@ fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
-export prefix=%{_prefix}
-cd OpenJPEG_%{src_version}
-make
+
+mkdir -p builds/unix
+cd builds/unix
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
+make VERBOSE=1 -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
-export prefix=%{_prefix}
-cd OpenJPEG_%{src_version}
-make install DESTDIR=$RPM_BUILD_ROOT
-cd $RPM_BUILD_ROOT/%{_libdir}
-ln -s ./libopenjpeg.so.* ./libopenjpeg.so
+rm -rf %{buildroot}
+cd builds/unix
+make install DESTDIR=%{buildroot}
+
+rm -f %{buildroot}/%{_includedir}/openjpeg.h
+ln -s openjpeg-%{major_version}/openjpeg.h %{buildroot}/%{_includedir}/openjpeg.h
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
+%{_bindir}
 %{_libdir}
+%dir %attr (0755, root, sys) %{_datadir}
+%{_mandir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/openjpeg-%{major_version}
+%{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Sat Feb 18 2012 - Milan Jurik
+- bump to 1.5.0
+* Tue Oct 11 2011 - Milan Jurik
+- bump to 1.4
+- add IPS package name
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri May 21 2010 - Milan Jurik
 - update to 1.3, split devel package
 * Sun Jul 29 2007 - dougs@truemail.co.th

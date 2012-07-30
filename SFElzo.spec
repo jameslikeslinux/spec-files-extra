@@ -5,16 +5,28 @@
 
 %include Solaris.inc
 
-%define src_version  2.03
+%define src_version  2.06
 
 Name:                SFElzo
+IPS_Package_Name:	library/lzo
 Summary:             Lossless data compression library
-Version:             2.3
+License:             GPLv2
+SUNW_Copyright:	     lzo.copyright
+URL:                 http://www.oberhumer.com/opensource/lzo/
+Meta(info.upstream): Markus F.X.J. Oberhumer <markus@oberhumer.com>
+Version:             2.6
+Group:               System/Libraries
 Source:              http://www.oberhumer.com/opensource/lzo/download/lzo-%{src_version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{src_version}-build
 %include default-depend.inc
+
+%package devel
+Summary:        %summary - development files
+SUNW_BaseDir:   %_basedir
+%include default-depend.inc
+Requires: %name
 
 %prep
 %setup -q -n lzo-%src_version
@@ -25,7 +37,6 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
-
 
 export CFLAGS="%optflags"
 export LDFLAGS="%{_ldflags}"
@@ -51,10 +62,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/*
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
+%dir %attr (-, root, sys) %_datadir
+%dir %attr (-, root, other) %_docdir
+%_docdir/lzo
+
+%files devel
+%defattr (-, root, bin)
+%dir %attr (0755, root, bin) %_includedir
+%_includedir/lzo
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+- bump to 2.06
+* Tue Aug  8 2011 - Alex Viskovatoff
+- Package development files separately
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Sat Jun 25 2011 - Alex Viskovatoff
+- bump to 2.05
 * Mon 29 2010 - Milan Jurik
 - update to 2.03
 *  Mars 25 2010 - Gilles Dauphin

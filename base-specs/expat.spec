@@ -9,7 +9,7 @@ Summary:      libexpat - XML parser library
 License:      MIT
 Group:        Applications/Cryptography
 URL:          http://expat.sf.net/
-Source:       http://internap.dl.sourceforge.net/sourceforge/expat/expat-%{version}.tar.gz
+Source:       http://downloads.sourceforge.net/sourceforge/expat/expat-%{version}.tar.gz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -41,6 +41,8 @@ ln -s libexpat.so.1 libexpat.so.0
 rm -fr $RPM_BUILD_ROOT
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Mon Sep 10 2007 - nonsea@users.sourceforge.net
 - Bump to 2.0.1
 * Wed Mar 28 2007 - laca@sun.com

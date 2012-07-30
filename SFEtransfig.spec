@@ -12,17 +12,19 @@
 %define src_name transfig
 
 Name:		SFEtransfig
-Summary:      	Tool to convert fig drawings (xfig) to other formats.
+IPS_Package_Name:	image/transfig
+Summary:      	Tool to convert fig drawings (xfig) to other formats
 Version:       	3.2.5
+Group:		Applications/Graphics and Imaging
 Release:        a
 License:	Xfig license
 Url: 		http://xfig.org
-Source:	 	http://downloads.sourceforge.net/mcj/%{src_name}.%{version}%{release}.tar.gz
+Source:	 	%{sf_download}/mcj/%{src_name}.%{version}%{release}.tar.gz
 Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{src_name}-%{version}%{release}-build
 SUNW_Basedir:   %{_basedir}
-SUNW_Copyright: %{src_name}.copyright
+SUNW_Copyright: transfig.copyright
 
 %include default-depend.inc
 
@@ -90,6 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * may 2010 - Gilles Dauphiun
 - import in SFE, name is SFE...
 * Fri Jul 24 - beffa@ieee.org

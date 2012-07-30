@@ -18,7 +18,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:                SFEsugar
 BuildRequires:           SFEsugar
-
+Requires:		 SFEsugar-toolkit
+BuildRequires:		 SFEsugar-toolkit
 %if %build_l10n
 %package l10n
 Summary:      %{summary} - l10n files
@@ -74,9 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Sat Oct 23 2010 - Brian Cameron  <brian.cameron@oracle.com>
-- Bump to 35.
-* Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>
-- Bump to 34.
-* Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>
-- Created with 33.
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Requires: olpcsound
+- Created with 35.

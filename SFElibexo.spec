@@ -11,11 +11,15 @@
 %define python_version 2.6
 
 %define src_name exo
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/exo/0.6/
 
 Name:		SFElibexo
+IPS_Package_Name:	library/xfce/libexo
 Summary:	Application library for the Xfce desktop environment
-Version:	0.6.0
+Group:		Desktop (GNOME)/Libraries
+License:	GPLv2
+SUNW_Copyright:	libexo.copyright
+Version:	0.6.2
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 
@@ -30,6 +34,8 @@ BuildRequires:	SFEperl-uri
 Requires:	SUNWgnome-panel
 BuildRequires:	SUNWgnome-panel-devel
 BuildRequires:	SUNWlxsl
+BuildRequires:	SUNWgnome-python26-libs
+Requires:	SUNWgnome-python26-libs
 
 %package root
 Summary:	%{summary} - / filesystem
@@ -38,7 +44,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
@@ -70,7 +75,6 @@ export LDFLAGS="%_ldflags -lpython%{python_version}"
 	--mandir=%{_mandir}		\
 	--sysconfdir=%{_sysconfdir}	\
 	--enable-gtk-doc		\
-	--enable-xsltproc		\
 	--disable-static		\
 	--enable-python
 
@@ -155,6 +159,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Aug 29 2011 - Milan Jurik
+- fix download URL
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.6.2
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Mar 21 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Wed Aug 04 2010 - brian.cameron@oracle.com

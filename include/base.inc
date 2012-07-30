@@ -5,6 +5,8 @@
 #
 # Solaris.inc must be included before this file
 
+%define opt_arch64 0
+
 %ifarch sparc
 %define bld_arch        "sparc"
 %else
@@ -90,6 +92,8 @@
 %define xorg_lib_path   -L%xorg_lib -R%xorg_lib
 
 # ChangeLog:
+# 2011-10-21  Alex Viskovatoff
+# %define opt_arch64 0, since it is %defined 1 in arch64.inc
 # 2011-03-18  Milan Jurik
 # - move minimal x86 CPU to pentium_pro/i686
 # - move minimal SPARC CPU to UltraSPARC

@@ -14,45 +14,48 @@
 
 %include Solaris.inc
 
-%include base.inc
+%define pythonver 2.6
 
-Name:                    SFEgaupol
-Summary:                 gaupol - subtitle editor
-Version:                 0.15.1
-Release:                 1
-License:                 BSD
-Group:                   Applications/Multimedia
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
-URL:                     http://home.gna.org/gaupol
-Source:                  http://download.gna.org/gaupol/0.15/gaupol-%{version}.tar.gz
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgaupol
+IPS_Package_Name:	media/subtitles/gaupol
+Summary:	subtitle editor
+Version:	0.19.2
+License:	BSD
+Group:		Applications/Sound and Video
+URL:		http://home.gna.org/gaupol
+Source:		http://download.gna.org/gaupol/0.19/gaupol-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires: SUNWgnome-python26-libs
 Requires: SUNWPython26
-Requires: SFEgettext
+Requires: SUNWgnu-gettext
 BuildRequires: SUNWgnome-python26-libs-devel
 BuildRequires: SUNWPython26-devel
 
+%if %build_l10n
+%package l10n
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires:	%{name}
+%endif
 
 %prep
 %setup -q -n gaupol-%version
 
 %build
-# build!
 
 %install
 rm -rf $RPM_BUILD_ROOT
-python2.6 setup.py clean install --prefix=$RPM_BUILD_ROOT/usr
+python%{pythonver} setup.py clean install --prefix=/usr --root=$RPM_BUILD_ROOT
 
-rm $RPM_BUILD_ROOT/usr/share/applications/mimeinfo.cache
-
-# Fix some annoying hardcoded paths
-b=`echo $RPM_BUILD_ROOT | sed 's/\\//\\\\\\//g'` 
-perl -pi -e 's/'$b'//g' $RPM_BUILD_ROOT/usr/lib/python2.6/site-packages/gaupol/paths.py
-
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,11 +71,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gaupol/*
 %attr (-, root, other) %{_datadir}/icons
-%attr (-, root, other) %{_datadir}/locale
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/gaupol.desktop
 
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %_datadir
+%attr(-,root,other) %{_datadir}/locale
+%endif
 
 %changelog
+* Mon Feb 06 2012 - Milan Jurik
+- bump to 0.19.2
 * Sat May 08 2010 - jchoi42@pha.jhu.edu
 - initial spec

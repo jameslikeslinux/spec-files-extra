@@ -1,0 +1,12 @@
+--- brlcad-7.20.4/src/libpkg/pkg.c	2011-10-30 09:11:26.000000000 -0700
++++ brlcad-7.20.4-patched/src/libpkg/pkg.c	2012-04-20 19:26:17.256379518 -0700
+@@ -711,7 +711,9 @@
+ pkg_getclient(int fd, const struct pkg_switch *switchp, void (*errlog) (char *msg), int nodelay)
+ {
+     int s2;
++#ifdef FIONBIO
+     auto int onoff;
++#endif
+ #ifdef HAVE_WINSOCK_H
+     WORD wVersionRequested;		/* initialize Windows socket networking, increment reference count */
+     WSADATA wsaData;

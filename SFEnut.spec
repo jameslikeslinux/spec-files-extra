@@ -8,7 +8,7 @@
 Name:                SFEnut
 Summary:             Network UPS Tools
 Version:             2.0.3
-Source:              http://random.networkupstools.org/source/2.0/nut-%{version}.tar.gz
+Source:              http://www.networkupstools.org/source/2.0/nut-%{version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -53,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
-* 
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location 
 * Sat Sep 30 2006 - Eric Boutilier
 - Initial spec

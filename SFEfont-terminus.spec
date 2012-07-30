@@ -3,19 +3,21 @@
 #
 
 %include Solaris.inc
+%include osdistro.inc
+
 Name:                    SFEfont-terminus
 Summary:                 terminus - font terminus
-URL:                     http://www.is-vn.bg/hamster
-Version:                 4.28
-Source:                  http://www.is-vn.bg/hamster/terminus-font-%{version}.tar.gz
-Patch1:                  terminus-font-01-x11dir.diff
+URL:                     http://sourceforge.net/projects/terminus-font
+Version:                 4.38
+Source:                  %{sf_download}/project/terminus-font/terminus-font-%{version}/terminus-font-%{version}.tar.gz
+#Patch1:                  terminus-font-01-x11dir.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
 %setup -q -n terminus-font-%version
-%patch1 -p1
+#%patch1 -p1
 
 %build
 
@@ -23,8 +25,13 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 PATH=$PATH:/usr/openwin/bin:/usr/X11/bin
 
-./configure --prefix=%{_prefix}  \
-            --x11dir=%{_prefix}/openwin/lib/X11/fonts/pcf
+##TODO## determine the osbuild-number where the fonts moved from /usr/openwin over to /usr/share
+bash ./configure --prefix=%{_prefix}  \
+%if %(expr %{osbuild} '>=' 134)
+            --x11dir=%{_prefix}/share/fonts/X11/misc/
+%else
+            --x11dir=%{_basedir}/X11/lib/X11/fonts/pcf
+%endif
 
 #make psf
 #make txt
@@ -61,14 +68,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root, bin)
 %doc README
-%dir %attr (0755, root, bin) %{_basedir}/X11/lib/X11/fonts
+%if %(expr %{osbuild} '>=' 134)
+%{_prefix}/share/fonts/X11/misc/*
+%else
 %{_basedir}/X11/lib/X11/fonts/*
+%endif
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/consolefonts/*
 %dir %attr (0755, root, other) %{_docdir}
 
 
 %changelog
+* Mon Jul 16 2012 - Thomas Wagner
+- bump to 4.38
+- new source URL and URL
+- disable patch1
+* Sat Jun 23 2012 - Thomas Wagner
+- wrong path for fonts in configure if osbuild < 134
+* Wed Dec 14 2011 - Thomas Wagner
+- adjust paths depending on new fonts location with newer osbuild
 * Sat May 07 2009 - Thomas Wagner
 - bump to 4.28
 - rework patch1 new font path, adjust %files

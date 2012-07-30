@@ -7,6 +7,7 @@
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
 Name:		SFEextremetuxracer
+IPS_Package_Name:	games/extremetuxracer
 Summary:	Fork from the original tux-racer
 Version:	0.4
 Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz

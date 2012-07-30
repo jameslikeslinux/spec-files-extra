@@ -1,5 +1,5 @@
---- gsm-1.0-pl12/Makefile.orig	2007-08-01 13:16:42.866319697 +0700
-+++ gsm-1.0-pl12/Makefile	2007-08-01 13:50:03.271259284 +0700
+--- gsm-1.0-pl13/Makefile	Sun Oct 23 11:19:08 2011
++++ gsm-1.0-pl13/Makefile	Sun Oct 23 11:16:48 2011
 @@ -30,6 +30,8 @@
  ######### define this, and read about the GSM_OPT_WAV49 option in the
  ######### manual page on gsm_option(3).
@@ -20,7 +20,7 @@
  
  LD 		= $(CC)
  
-@@ -71,17 +73,17 @@
+@@ -71,7 +73,7 @@
  # Leave INSTALL_ROOT empty (or just don't execute "make install") to
  # not install gsm and toast outside of this directory.
  
@@ -29,6 +29,7 @@
  
  # Where do you want to install the gsm library, header file, and manpages?
  #
+@@ -78,10 +80,10 @@
  # Leave GSM_INSTALL_ROOT empty to not install the GSM library outside of
  # this directory.
  
@@ -92,16 +93,24 @@
  		$(GSM_INSTALL_INC)/gsm.h		\
  		$(GSM_INSTALL_MAN)/gsm.3		\
  		$(GSM_INSTALL_MAN)/gsm_explode.3	\
-@@ -301,8 +303,7 @@
+@@ -301,14 +303,14 @@
  
  $(LIBGSM):	$(LIB) $(GSM_OBJECTS)
  		-rm $(RMFLAGS) $(LIBGSM)
 -		$(AR) $(ARFLAGS) $(LIBGSM) $(GSM_OBJECTS)
 -		$(RANLIB) $(LIBGSM)
 +		$(LD) -G $(GSM_OBJECTS) -o $(LIBGSM) $(LDFLAGS)
++		ln -sf libgsm.so.$(MAJOR) $(LIB)/libgsm.so
  
  
  # Toast, Untoast and Tcat -- the compress-like frontends to gsm.
+ 
+ $(TOAST):	$(BIN) $(TOAST_OBJECTS) $(LIBGSM)
+-		$(LD) $(LFLAGS) -o $(TOAST) $(TOAST_OBJECTS) $(LIBGSM) $(LDLIB)
++		$(LD) $(LFLAGS) -o $(TOAST) $(TOAST_OBJECTS) -L./lib -lgsm $(LDLIB)
+ 
+ $(UNTOAST):	$(BIN) $(TOAST)
+ 		-rm $(RMFLAGS) $(UNTOAST)
 @@ -393,9 +394,10 @@
  		cp $? $@
  		chmod 444 $@
@@ -110,7 +119,7 @@
 +$(GSM_INSTALL_LIB)/libgsm.so.$(MAJOR):	$(LIBGSM)
  		-rm $@
  		cp $? $@
-+		( cd $(GSM_INSTALL_LIB) ; ln -s libgsm.so.$(MAJOR) libgsm.so )
++		( cd $(GSM_INSTALL_LIB) ; ln -sf libgsm.so.$(MAJOR) libgsm.so )
  		chmod 444 $@
- 
- 
+
+

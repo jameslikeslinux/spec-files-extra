@@ -4,16 +4,36 @@
 # includes module(s): GNU gcc
 #
 
-##NOTE## This spec file is an interim solution regarding the path layout on disk
-##       expect relocation to /usr/gcc/4.5/ and symlinks provided from /usr/gnu 
-##       into to that location (provided by the latest installed or "pkg fix"ed gcc-45 
-##NOTE## most likely the package name will change to SFEgcc-43 and another empty
-##       package SFEgcc will be created always requiring the latest SFEgcc-<major><minor>
-##NOTE## If you experience problems with that version bump, please drop us a note
-##NOTE## you will need "pkg uninstall SFEgccruntime and SFEgcc" *before* you can
-#        to get this spec build successfully. Reason: older runtime-libs interfere
-#        with building this eventually incompatible, newer gcc runtime from this spec
+# owner:  Thomas Wagner
+#
 
+##TODO## test sparc version of gcc-05-LINK_LIBGCC_SPEC-sparcv9.diff
+
+#provide symbolic links in places define below:
+#start the paths with a leading "/"
+#example:   %define gccsymlinks /usr/gcc /usr/gnu
+
+%define gccsymlinks /usr/gcc /usr/gnu
+#IMPORTANT! READ ON BELOW and set switches and paths accordingly
+
+#hack for the %files section. use define for each directory from above
+#to control the non scriptable %files section
+#1 = enabled    0 = disabled
+#and special<n>path point to one of the paths noted in %{gccsymlinks}
+%define symlinktarget1enabled      1
+%define symlinktarget1path /usr/gcc
+
+%define symlinktarget2enabled      1
+%define symlinktarget2path /usr/gnu
+
+#spare
+%define symlinktarget3enabled      0
+%define symlinktarget3path /usr
+
+# check for /usr/gnu/bin/cc and bail out
+# CR 7031722 (Solaris)
+# Bug-ID <TBD> (OI)
+%define compat_link_usr_gnu_bin_cc %( test -r /usr/gnu/bin/cc && echo 1 || echo 0 )
 
 # to more widely test if this change causes regressions, by default off:
 # want this? compile with: --with-handle_pragma_pack_push_pop
@@ -91,14 +111,47 @@
 %define SFElibmpc 1
 %endif
 
-%define _prefix /usr/gcc/4.5
-%define _infodir %{_prefix}/info
-%define _gnu_bindir %{_basedir}/gnu/bin
-%define _gnu_libdir %{_basedir}/gnu/lib
+#if you want a specific version of gcc be built, then change the default setting
+#below *or* specify the number on the command line (gcc_version), example see below
 
-Name:                SFEgccruntime
-Summary:             GNU gcc runtime libraries required by applications
-Version:             4.5.3
+# To set a specific gcc version to be build, do this from *outside*
+# pkgtool build SFEgcc --define 'gcc_version 4.6.1'
+
+%if %{!?gcc_version:1}
+#make version bump *here* - this is the default version being built
+%define version 4.6.3
+%else
+#gcc version is already defined from *outside*, from the pkgtool command line
+%define version %{gcc_version}
+%endif
+#special handling of version / gcc_version
+
+#transform full version to short version: 4.6.2 -> 4.6  or  4.7.1 -> 4.7
+#%define major_minor %( echo %{version} | sed -e 's/\([0-9]*\)\.\([0-9]*\)\..*/\1.\2/' )
+#below is a workaround for pkgbuild 1.3.104 failing to parse the escaped \( and \)
+%define major_minor %( echo %{version} |  sed -e 's/\.[0-9]*$//' )
+
+#for package or path names we need the version number _without_ the dots:
+#transform dottet version number to non-dotted:  4.6 -> 46
+%define majorminornumber %( echo %{major_minor} | sed -e 's/\.//g' )
+%define _prefix /usr/gcc/%major_minor
+%define _infodir %{_prefix}/info
+
+# This "Name:" SFEgcc and SFEgccruntime is a compatibility layer,
+# and delivering only symbolic links to corresponding versioned
+# directories with real files delivered in sub packages like 
+# SFEgcc-%majorminornumber and SFEgccruntime-%majorminornumber
+
+##TODO## make symlinks mediated symlinks for machine-local configured,
+#preferred versions. Not as flexible as we want (want: user selectable
+#gcc variant, but we get only whole machine defaults)
+
+Name:		SFEgcc
+IPS_package_name:	sfe/developer/gcc
+Summary:	GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
+#Version:	see above, %{version} is set elsewhere
+License:             GPLv3+
+SUNW_Copyright:      gcc.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff
 %if %with_handle_pragma_pack_push_pop
@@ -106,9 +159,38 @@ Patch2:              gcc-02-handle_pragma_pack_push_pop.diff
 %else
 %endif
 Patch3:              gcc-03-gnulib.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+
+#LINK_LIBGCC_SPEC
+#gcc-05 could be reworked to know both, amd64 and sparcv9
+%ifarch i386 amd64
+Patch5:              gcc-05-LINK_LIBGCC_SPEC-%{majorminornumber}.diff
+%endif
+%ifarch sparcv9
+Patch5:              gcc-05-LINK_LIBGCC_SPEC-sparcv9-%{majorminornumber}.diff
+%endif
+
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49347
+# if clause to apply only on specific gcc versions, see %prep
+Patch10:	gcc-10-spawn.diff
+
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+#Attention - this is the dependency chain for the compiler:
+#      SFEgcc -needs-> SFEgcc-46,SFEgccruntime-46
+# this is an example for a program which can have this
+# dependency chain (most common case)
+#      SFEapplication -needs-> SFEgccruntime 
+# *OR* in special cases
+#      SFEapplication -needs-> SFEgccruntime-46
+#
+# today we want exactly 4.6. later on if we can ask a minimum revision,
+# then a "Requires:" can be changed to request the minimum version which
+# is needed to e.g. >= 4.6
+Requires:      SFEgcc-%{majorminornumber},SFEgccruntime-%{majorminornumber}
+#cosmetic:
+Requires:      SFEgccruntime
 
 BuildRequires: SFElibiconv-devel
 Requires:      SFElibiconv
@@ -154,12 +236,29 @@ Requires: SUNWbinutils
 
 Requires: SUNWpostrun
 
-%package -n SFEgcc
-Summary:                 GNU gcc
+%package -n SFEgcc-%{majorminornumber}
+IPS_package_name:        sfe/developer/gcc-%{majorminornumber}
+Summary:                 GNU gcc compiler - version %{major_minor} compiler files
 Version:                 %{version}
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
-Requires: %name
+Requires: %{name}runtime-%{majorminornumber}
+
+%package -n SFEgccruntime
+IPS_package_name:        sfe/system/library/gcc-runtime
+Summary:                 GNU gcc runtime libraries for applications - metapackage with symbolic links to version %{major_minor} runtime available in %{gccsymlinks}
+Version:                 %{version}
+SUNW_BaseDir:            %{_basedir}
+%include default-depend.inc
+Requires: %{name}runtime-%{majorminornumber}
+
+%package -n SFEgccruntime-%{majorminornumber}
+IPS_package_name:        sfe/system/library/gcc-%{majorminornumber}-runtime        
+Summary:                 GNU gcc runtime libraries for applications - version %{version} runtime library files
+Version:                 %{version}
+SUNW_BaseDir:            %{_basedir}
+%include default-depend.inc
+#not apropriate Requires: %{name}
 
 %if %SFEgmp
 BuildRequires: SFEgmp-devel
@@ -197,7 +296,43 @@ Requires:                %{name}
 %endif
 
 %prep
+
+%if %{compat_link_usr_gnu_bin_cc}
+export BAILOUTMESSAGE="\n
+\n
+***READ THIS***\n
+\n
+bailing out (%name). Consider removing those symbolic links:\n
+  /usr/gnu/bin/cc and /usr/gnu/bin/cpp\n
+\n
+you can do this with:\n
+    pfexec rm /usr/gnu/bin/cc /usr/gnu/bin/cpp\n
+\n
+or on recent builds, use:\n
+    sudo rm /usr/gnu/bin/cc /usr/gnu/bin/cpp\n
+\n
+that symlink points to the gcc compiler which\n
+was an error in the development version of the OS.\n
+\n
+See also CR 7031722 (Solaris)\n
+See also Bug-ID <TBD> (OI)\n
+\n
+Besides that, remember to initialize your CBE environment\n
+before running the pkgtool.\n
+Run \"pkgtool\" with these SFE spec files only *after* initializing CBE:\n
+   . /opt/dtbld/bin/env.sh\n
+   pkgtool build SFEthisspec.spec\n
+\n
+***READ THIS***\n
+\n"
+
+/usr/bin/echo ${BAILOUTMESSAGE}
+
+exit 1
+%endif
+
 %setup -q -c -n %{name}-%version
+
 mkdir gcc
 #with 4.3.3 in new directory libjava/classpath/
 cd gcc-%{version}/libjava/classpath/
@@ -209,6 +344,15 @@ cd gcc-%{version}
 %else
 %endif
 %patch3 -p1
+%patch5 -p1
+##TODOÃ## check versions which apply. bug says 4.3.3 is not, but 4.6.0 is
+#fix maybe in 4.7.x
+# if          major_minor   >=  4.4 and       major_minor   <  4.7 
+%if %( expr %{major_minor} '>=' 4.4 )
+%if %( expr %{major_minor} '<' 4.7 )
+%patch10 -p1
+%endif
+%endif
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -229,23 +373,22 @@ nlsopt=-disable-nls
 
 %define ld_options      -zignore -zcombreloc -Bdirect -i
 
-export CC=gcc
-export CXX=g++
-#export CONFIG_SHELL=/usr/bin/bash
+export CC=cc
+export CXX=CC
 export CONFIG_SHELL=/usr/bin/ksh
-export CPP="cc -E -Xs"
+#maybe needed for stone old studio compilers, commented for reference
+#export CPP="cc -E -Xs"
+export CPP="cc -E"
 export CFLAGS="-O"
-# for stage2 and stage3 GCC
-#export BOOT_CFLAGS="%gcc_optflags -Os -Xlinker -i %gcc_picflags"
-#-m64 and i586 mutually exclusive
-export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags"
+
+export BOOT_CFLAGS="-Os -Xlinker -i %gcc_picflags %gnu_lib_path"
+export BOOT_LDLAGS="%_ldflags -R%{_prefix}/%major_minor/lib %gnu_lib_path"
+
 # for target libraries (built with bootstrapped GCC)
-#export CFLAGS_FOR_TARGET="%gcc_optflags -O2 -Xlinker -i %gcc_picflags"
-#-m64 and i586 mutually exclusive
 export CFLAGS_FOR_TARGET="-O2 -Xlinker -i %gcc_picflags"
+export LDFLAGS_FOR_TARGET="%_ldflags"
 export LDFLAGS="%_ldflags %gnu_lib_path"
-export LD_OPTIONS="%ld_options %gnu_lib_path"
-#export LD_LIBRARY_PATH="%gnu_lib_path"
+export LD_OPTIONS="%ld_options"
 
 # For pod2man
 export PATH="$PATH:/usr/perl5/bin"
@@ -259,6 +402,14 @@ export PATH="$PATH:/usr/perl5/bin"
 
 %if %build_gcc_with_gnu_ld
 export LD="/usr/gnu/bin/ld"
+%else
+#avoid slipping in gnu ld
+#might be changed to plain /usr/bin/ld instead of CBE ld-wrapper
+#export LD=`which ld-wrapper`
+#it's actually better to really specify /usr/bin/ld and skip the
+#extra options from the wrapper instead of ending up on a system
+#without the SFE build-env and have no ld-wrapper installed there
+export LD=/usr/bin/ld
 %endif
 
 
@@ -277,10 +428,10 @@ export LD="/usr/gnu/bin/ld"
 	--with-gnu-as				\
 %endif
 %if %build_gcc_with_gnu_ld
-	--with-ld=/usr/gnu/bin/ld		\
+	--with-ld=$LD                           \
 	--with-gnu-ld				\
 %else
-	--with-ld=`which ld-wrapper`     \
+	--with-ld=$LD                           \
 	--without-gnu-ld			\
 %endif
 	--enable-languages=c,c++,fortran,objc	\
@@ -304,13 +455,17 @@ export LD="/usr/gnu/bin/ld"
 %endif
 	$nlsopt
 
-make -j$CPUS bootstrap-lean BOOT_CFLAGS="$BOOT_CFLAGS" CFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET" CXXFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET"
+gmake -j$CPUS bootstrap-lean \
+             BOOT_CFLAGS="$BOOT_CFLAGS"                  \
+             CFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET"      \
+             CXXFLAGS_FOR_TARGET="$CFLAGS_FOR_TARGET"
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 cd gcc
-make install DESTDIR=$RPM_BUILD_ROOT
+gmake install DESTDIR=$RPM_BUILD_ROOT
 
 cd $RPM_BUILD_ROOT%{_prefix}
 ln -s share/man man
@@ -327,78 +482,53 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 #note: links only "basename_of_lib", then "major"-number version libs
 #leaves out "minor" and "micro" version libs, they are normally not
 #to be linked by userland binaries (runtime linking, see output of "ldd binaryname")
-mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}
-cd $RPM_BUILD_ROOT%{_gnu_libdir}
-ln -s ../../gcc/4.5/lib/libgcc_s.so.1
-ln -s ../../gcc/4.5/lib/libgcc_s.so
-ln -s ../../gcc/4.5/lib/libgfortran.so.3
-ln -s ../../gcc/4.5/lib/libgfortran.so
-ln -s ../../gcc/4.5/lib/libgomp.so.1
-ln -s ../../gcc/4.5/lib/libgomp.so
-ln -s ../../gcc/4.5/lib/libobjc_gc.so.2
-ln -s ../../gcc/4.5/lib/libobjc_gc.so
-ln -s ../../gcc/4.5/lib/libobjc.so.2
-ln -s ../../gcc/4.5/lib/libobjc.so
-ln -s ../../gcc/4.5/lib/libssp.so.0
-ln -s ../../gcc/4.5/lib/libssp.so
-ln -s ../../gcc/4.5/lib/libstdc++.so.6
-ln -s ../../gcc/4.5/lib/libstdc++.so
+
+# remove trailing slash, change to "../" and remove trailing slash again
+#  OFFSET=$( echo $SYMLINKTARGET | sed -e 's?/$??' -e 's?\w*/?../?g' -e 's?\w*$??' )
+
+for SYMLINKTARGET in %{gccsymlinks}
+do
+  # make from /usr/gcc this offset ../../
+  OFFSET=$( echo "$SYMLINKTARGET" | sed -e 's?/$??' -e 's?\w*/?../?g' -e 's?\w*$??' -e 's?/$??' )
+  # with CWD /usr/gcc/lib, an example is ../../gcc/%major_minor/lib/libgcc_s.so.1
+  mkdir -p $RPM_BUILD_ROOT/$SYMLINKTARGET/lib
+  cd $RPM_BUILD_ROOT/$SYMLINKTARGET/lib
+  for filepath in lib/libgcc_s.so.1 lib/libgcc_s.so lib/libgfortran.so.3 lib/libgfortran.so lib/libgomp.so.1 lib/libgomp.so lib/libobjc_gc.so.2 lib/libobjc_gc.so lib/libobjc.so.2 lib/libobjc.so lib/libssp.so.0 lib/libssp.so lib/libstdc++.so.6 lib/libstdc++.so lib/libquadmath.so lib/libquadmath.so.0
+  do
+  [ -r $OFFSET/gcc/%major_minor/$filepath ] && ln -s $OFFSET/gcc/%major_minor/$filepath
+  done #for file
+done #for SYMLINKTARGET
+
 #link arch runtime libs for compatibility
 %ifarch amd64 sparcv9
-mkdir -p $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
-cd $RPM_BUILD_ROOT%{_gnu_libdir}/%{_arch64}
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgcc_s.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so.3
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgfortran.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so.1
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libgomp.so
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so.2
-#ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc_gc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so.2
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libobjc.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so.0
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libssp.so
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so.6
-ln -s ../../../gcc/4.5/lib/%{_arch64}/libstdc++.so
+for SYMLINKTARGET in %{gccsymlinks}
+do
+  # make from /usr/gcc this offset ../../
+  OFFSET=$( echo "$SYMLINKTARGET" | sed -e 's?/$??' -e 's?\w*/?../?g' -e 's?\w*$??' -e 's?/$??' )
+  # with CWD /usr/gcc/lib, an example is ../../gcc/%major_minor/lib/libgcc_s.so.1
+  mkdir -p $RPM_BUILD_ROOT/$SYMLINKTARGET/lib/%{_arch64}
+  cd $RPM_BUILD_ROOT/$SYMLINKTARGET/lib/%{_arch64}
+  for filepath in lib/%{_arch64}/libgcc_s.so.1 lib/%{_arch64}/libgcc_s.so lib/%{_arch64}/libgfortran.so.3 lib/%{_arch64}/libgfortran.so lib/%{_arch64}/libgomp.so.1 lib/%{_arch64}/libgomp.so lib/%{_arch64}/libobjc.so.2 lib/%{_arch64}/libobjc.so lib/%{_arch64}/libssp.so.0 lib/%{_arch64}/libssp.so lib/%{_arch64}/libstdc++.so.6 lib/%{_arch64}/libstdc++.so lib/%{_arch64}/libquadmath.so lib/%{_arch64}/libquadmath.so.0
+  do
+  #note add one ../ for %{_arch64}
+  [ -r $OFFSET/../gcc/%major_minor/$filepath ] && ln -s $OFFSET/../gcc/%major_minor/$filepath
+  done #for file
+done #for SYMLINKTARGET
 %endif
 
-#link binaries into usual place the former SFEgcc used and 
-#a lot of spec files still use and are as well the recommended
-#paths to specify just what the "default" SFEgcc 4-series
-#compiler is called from. Note: binaries built that way *may*
-#point to libraries found in a compiler major.minor specific
-#directory in /usr/gcc/<majornumber>.<minornumber> 
-#This is in preparation for eventually getting a meta-level
-#package SFEgcc (contains symlinks only into /usr/gcc/<majornumber>.<minornumber>,
-#and is the package Requirement written in customer spec files.
-#below that SFEgcc packages, a SFEgcc-452 exists with the real compiler in it
-
-#NOTE: the os-distro delivers the "SFW" version of gcc 3.x.x
-#and therefore does deliver links into /usr/gnu/bin:
-#/usr/gnu/bin/cc    ->    ../../sfw/bin/gcc     (stays)
-#/usr/gnu/bin/cpp   ->    ../../sfw/bin/cpp     (stays, interferes with us)
-#we do exclude "cpp" from this SFEgcc.spec for that reason!
-
-#link binaries, enables CC=/usr/gnu/bin/gcc CXX=/usr/gnu/bin/g++ 
-#to get SFEgcc.spec version 4.x compiler in use without specifying
-#the exact SFEgcc compiler version number, just use the most recent 4.x.x
-mkdir -p $RPM_BUILD_ROOT%{_gnu_bindir}
-cd $RPM_BUILD_ROOT%{_gnu_bindir}
-ln -s ../../gcc/4.5/bin/c++
-# leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/4.5/bin/cpp
-ln -s ../../gcc/4.5/bin/g++
-ln -s ../../gcc/4.5/bin/gcc
-ln -s ../../gcc/4.5/bin/gccbug
-ln -s ../../gcc/4.5/bin/gcov
-ln -s ../../gcc/4.5/bin/gfortran
-#most likely not needed are those, you can specify in your spec file
-#/usr/gcc/4.5/bin/i386-pc-solaris2.11-* if you really want
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-c++
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-g++
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gcc-4.5.2
-#ln -s ../../gcc/4.5/bin/i386-pc-solaris2.11-gfortran
+for SYMLINKTARGET in %{gccsymlinks}
+do
+  # make from /usr/gcc this offset ../../
+  OFFSET=$( echo "$SYMLINKTARGET" | sed -e 's?/$??' -e 's?\w*/?../?g' -e 's?\w*$??' -e 's?/$??' )
+  # with CWD /usr/gcc/lib, an example is ../../gcc/%major_minor/lib/libgcc_s.so.1
+  mkdir -p $RPM_BUILD_ROOT/$SYMLINKTARGET/bin
+  cd $RPM_BUILD_ROOT/$SYMLINKTARGET/bin
+# leave out sfw gcc 3.x.x uses this name already ln -s ../../gcc/%major_minor/bin/cpp
+  for filepath in bin/c++ bin/g++ bin/gcc bin/gcov bin/gfortran
+  do
+  [ -r $OFFSET/gcc/%major_minor/$filepath ] && ln -s $OFFSET/gcc/%major_minor/$filepath
+  done #for file
+done #for SYMLINKTARGET
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
@@ -432,28 +562,16 @@ rm -rf $RPM_BUILD_ROOT
   echo 'done';
   echo 'exit 0' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -c SFE
 
-%files
-%defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_prefix}
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/lib*.so*
-%{_libdir}/lib*.spec
-%ifarch amd64 sparcv9 i386
-%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
-%{_libdir}/%{_arch64}/lib*.so*
-%{_libdir}/%{_arch64}/lib*.spec
-%endif
-%{_gnu_libdir}
 
 
-%files -n SFEgcc
+#SFEgcc-%{majorminornumber}, other packages see below
+
+%files -n SFEgcc-%{majorminornumber}
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_prefix}
 %{_prefix}/man
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
-%dir %attr (0755, root, bin) %{_gnu_bindir}
-%{_gnu_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/gcc
 %dir %attr (0755, root, sys) %{_datadir}
@@ -473,6 +591,47 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gcc-%{version}/python/libstdcxx/v6/__init__.py
 %{_datadir}/gcc-%{version}/python/libstdcxx/__init__.py
 
+
+%files -n SFEgccruntime-%{majorminornumber}
+%defattr (-, root, bin)
+%dir %attr (0755, root, bin) %{_prefix}
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*.so*
+%{_libdir}/lib*.spec
+%ifarch amd64 sparcv9 i386
+%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
+%{_libdir}/%{_arch64}/lib*.so*
+%{_libdir}/%{_arch64}/lib*.spec
+%endif
+
+%if %symlinktarget1enabled
+%files -n SFEgcc
+%defattr (-, root, bin)
+%{symlinktarget1path}/bin
+%files -n SFEgccruntime
+%defattr (-, root, bin)
+%{symlinktarget1path}/lib
+%endif
+
+%if %symlinktarget2enabled
+%files -n SFEgcc
+%defattr (-, root, bin)
+%{symlinktarget2path}/bin
+%files -n SFEgccruntime
+%defattr (-, root, bin)
+%{symlinktarget2path}/lib
+%endif
+
+%if %symlinktarget3enabled
+%files -n SFEgcc
+%defattr (-, root, bin)
+%{symlinktarget3path}/bin
+%files -n SFEgccruntime
+%defattr (-, root, bin)
+%{symlinktarget3path}/lib
+%endif
+
+
 %if %build_l10n
 %files -n SFEgcc-l10n
 %defattr (-, root, bin)
@@ -482,6 +641,91 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 22 2012 - Thomas Wagner
+- back to CC=cc and CXX=CC as solarisstudio is still needed for SFE anyways.
+  and that way we don't need gcc-3 installed generally. Maybe the wrong
+  symlink /usr/gnu/bin/cc missled to use CC=gcc before.
+- changed back CPP to run solarisstudio and not gcc, removed "-Xs" as it looks
+  like not longer needed, now it is CPP="cc -E"
+- Removed BuildRequires: SUNWgcc  (which is gcc-3 on IPS)
+- make a bail-out mechanism if user still has poisonous symlinks /usr/gnu/bin/cc
+  and /usr/gnu/bin/cpp. They need to be removed to avoid breakage for some
+  build systems ignoring $PATH variable (set by CBE to first find "cc" as
+  the solaristudio compiler)
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- Replaced CPP="cc -E -Xs" with CPP="gcc -E"
+* Wed Jun 20 2012 - Thomas Wagner
+- automate transform of version number to string for package names e.g. SFEgcc-46
+- apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
+- prepare fresh patches for LINK_LIBGCC_SPEC for 4.7.x/4.6.x/4.7.x
+  use %{majorminornumber} to match the right filename,
+  old patch name gcc-05-LINK_LIBGCC_SPEC.diff will remain because external 
+  documentation links to this filename!
+* Sat Mar 03 2012 - Milan Jurik
+- bump to 4.6.3
+* Wed Dec 23 2011 - Milan Jurik
+- add libquadmath symlinks
+* Sun Dec 04 2011 - Milan Jurik
+- patch10 for spawn issue
+* Sat Oct 29 2011 - Milan Jurik
+- bump to 4.6.2
+* Thr Oct 13 2011 - Thomas Wagner
+- add to LDFLAGS %gnu_lib_path or cc1 can't find libs in bootstrapping the compiler
+- remove typo in LDFLAGS_FOR_TARGET="%_ldflags"
+* Wed Oct 11 2011 - Thomas Wagner
+- add IPS_package_names
+- little cleaning up: remove development comments
+* Tue Sep 27 2011 - Thomas Wagner
+- add version control form outside, so you can build and version
+  (if the patches apply cleanly). Note: only one micro version at
+  a time is supported by the naming schema: 4.6.1 -> SFEgcc-46
+  4.5.3 -> SFEgcc-45, and not at the same time 4.5.2 -> SFEgcc-45.
+  Always send to the repo last, what then should be the version
+  providing the symlinks in /usr/gnu/<bin|lib>
+  e.g. first 4.5.3 then second 4.6.1 -> you get SFEgcc symlinks to 4.6.1 version
+* Thu Sep 22 2011 - Thomas Wagner
+- automate symlinks to be created in for instance /usr/gnu/bin or /usr/gcc/bin
+  as requested at compile time by the configure line --enable-languages=c,c++,fortran,objc
+  This works automaticly and independent of number of languages enabled
+- reverse package odering, make filename match package SFEgcc, this fixes --autodeps
+##TODO## review/verify documentatioin in patch gcc-03-gnulib.diff
+- document patch gcc-03-gnulib.diff backgrounds
+##TODO## review/verify documentatioin in patch gcc-05-LINK_LIBGCC_SPEC.diff
+- add patch gcc-05-LINK_LIBGCC_SPEC.diff (inspired by pkgsrc's gcc variant!)
+  to make gcc always know where the gcc compiler runtime lives. Needed to get
+  rid of excessive number of directories hardcoded in -R  (patch gcc-03-gnulib.diff
+  new version removed them, resultingin libgcc_s.so and libstdc++.so.6 not always
+  found). Only downside: if you want a user library then really *do* specify one
+  -R/usr/gnu/lib for instance. Else find a clean binary with the correct runpath
+- move %gnu_lib_path over from LDFLAGS + LD_OPTIONS to BOOT_CFLAGS, removes 
+  excessive number of directories in runpath of binaries, but still finds iconv, 
+  mpfr, gmp, mpc in /usr/gnu/lib at compiler bootstrap and when using the compiler 
+  itself.
+- second draft of a compile time selectable set of target directories where
+  gcc symlinks for compiler and runtime are support to going to. Current 
+  simplification is that all symlinks go into a single target package SFEgcc 
+  respectively SFEgccruntime.
+- avoid slipping in gnu-ld with the new consolidation of /usr/sfw/bin/<ld|*> and/or
+  /usr/ccs/bin over to /usr/bin which might be accidentially be the first in PATH.
+  Set LD=`which ld-wrapper`   -->> NOTE changd again later
+- it's actually better to really specify LD=/usr/bin/ld then specifying 
+  eventually unavailable ld-wrapper script (in case CBE is not installed)
+- make extra matapackages available to be set as "Requires:" in consumer packages
+  and add packages which version number in theyr names that can will be pulled 
+  in by the metapackages or consumer packages. In selected special cases
+  programs can "Requires:" the versioned SFEgccruntime-46 package name.
+- first draft patch5 gcc-05-LINK_LIBGCC_SPEC-sparcv9.diff for sparcv9 - needs
+  testing, please give feedback
+* Tue Aug 16 2011 - Thomas Wagner
+- first version of reworked gcc-03-gnulib.diff where user can
+  define libdirs everywhere in RUNPATH, e.g. /usr/g++/lib:/usr/gnu/lib:/usr/lib
+  please test results with  dump -Lv /usr/g++/lib/libQtNetwork.so | grep RUNPATH
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jul 17 2011 - Alex Viskovatoff
+- do not hardcode <majornumber>.<minornumber>
+* Sun Jul 17 2011 - Milan Jurik
+- bump to 4.6.1
 * Tue May 17 2011 - Milan Jurik
 - bump to 4.5.3
 * Thu Mar 17 2011 - Thomas Wagner

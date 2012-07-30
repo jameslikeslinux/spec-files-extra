@@ -34,6 +34,7 @@
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 
 #change these defaults if needed 
@@ -111,32 +112,50 @@
 %define	V_postfinger	1.30
 
 Name:                    SFEpostfix
-Summary:                 postfix - Mailer System
+IPS_Package_Name:	service/network/smtp/postfix
+Summary:                 Mailer System
+Group:		System/Services
 URL:                     http://postfix.org/
-Version:                 2.8.1
+Version:                 2.9.2
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
+License:		 IBM Public License v1.0
 Source3:                 postfix.xml
 Source5:                 postfix-spamassassin-wiki.apache.org-filter.sh
-Source6:		 http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
-Source7:		 postfix-sasl.conf
-Source8:		 README-Postfix-SASL-RedHat.txt
-Source9:		 postfix-saslauthd.conf
-#Patch1:			postfix-01-make-postfix.spec.diff
-#Patch2:			postfix-02-solarize-startscript.diff
-Patch3:			postfix-03-remove-nisplus-build130.diff
+Source6:	http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
+Source7:	postfix-sasl.conf
+Source8:	README-Postfix-SASL-RedHat.txt
+Source9:	postfix-saslauthd.conf
+#Patch1:		postfix-01-make-postfix.spec.diff
+#Patch2:		postfix-02-solarize-startscript.diff
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#Patch3:		postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
+SUNW_Copyright:		postfix.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqires:
 #BuildRequires: SFEcpio
-BuildRequires: SUNWrpm
-BuildRequires: SUNWggrp
+#BuildRequires: SUNWrpm
+BuildRequires: SUNWzlib
+Requires: SUNWzlib
+BuildRequires: %{pnm_buildrequires_SUNWbash}
+Requires:      %{pnm_requires_SUNWbash}
+BuildRequires: %{pnm_buildrequires_perl_default}
+Requires:      %{pnm_requires_perl_default}
+BuildRequires: %{pnm_buildrequires_SUNWpcre}
+Requires:      %{pnm_requires_SUNWpcre}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+Requires:      %{pnm_requires_SUNWopenssl}
+
+BuildRequires: %{pnm_buildrequires_SUNWggrp}
+
 #SASL
 %if %(test %{with_sasl} -eq 1 && echo 1 || echo 0)
-BuildRequires: SUNWlibsasl
-Requires: SUNWlibsasl
+BuildRequires: %{pnm_buildrequires_SUNWlibsasl}
+Requires: %{pnm_buildrequires_SUNWlibsasl}
 %endif
 #SASL2 
 ##TODO## untested, needs the /gnu/ include and libdir below to get found and adjusments to %files section
@@ -151,7 +170,10 @@ Requires: SFEcyrus-sasl
 Requires: %{name}-root
 
 #%config %class(preserve)
+%if %{os2nnn}
+%else
 Requires: SUNWswmt
+%endif
 
 %include default-depend.inc
 
@@ -198,8 +220,10 @@ mkdir tmp
 
 #%patch1 -p1
 #patch2 is below
-%patch3 -p1
-
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#%patch3 -p1
+sed -i -e '/^#define HAS_NISPLUS/ s,^,//,'    src/util/sys_defs.h
 
 #postfix manifest
 cp -p %{SOURCE3} postfix.xml
@@ -227,10 +251,14 @@ cp -p %{SOURCE9} tmp/
 #other patches are above
 #%patch2 -p1
 
-#last step: change /bin/sh into /usr/bin/bash
+#change /bin/sh into /usr/bin/bash
 #alternatively we could search for executables, then if it starts with "#!/bin/sh" , change it
-perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
 
+#change /usr/bin/perl to /usr/perl5/bin/perl (ON Perl Style Guidelines)
+#use -pi.bak if you need to examine the backups
+perl -w -pi -e "s,^#\!\s*/usr/bin/perl,#\!/usr/perl%{perl_major_version}/bin/perl," `find . -type f -exec grep -q "^#\!.*/usr/bin/perl" {} \; -print`
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -360,6 +388,7 @@ CCARGS="${CCARGS} -fsigned-char"
 
 export CCARGS AUXLIBS
 # not needed we are a fresh copy .-) 
+
 make tidy
 make -f Makefile.init makefiles
 unset CCARGS AUXLIBS
@@ -367,6 +396,10 @@ unset CCARGS AUXLIBS
 # suggestion by Eric Hoeve <eric@ehoeve.com>
 #make DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS -Wno-comment"
 make -j$CPUS DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
+
+#somehow manpages where missing from the build
+export PATH=$PATH:${RPM_BUILD_DIR}/%{src_name}-%{version}/mantools
+make manpages
 
 
 %install
@@ -390,7 +423,8 @@ rm -rf $RPM_BUILD_ROOT
 
 #adjust renamed manpages ./conf/postfix-files:$manpage_directory/man1/mailq.1:f:root:-:644
 perl -pi -e "s?/man(1|5)/(mailq|newaliases|sendmail|aliases).(1|5)?/man\1/\2.postfix.\3?; " \
-            conf/postfix-files
+            conf/postfix-files \
+            libexec/postfix-files
 
 # add missing man pages
 mantools/srctoman - auxiliary/qshape/qshape.pl >man/man1/qshape.1
@@ -871,6 +905,34 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Tue May  9 2012 - Thomas Wagner
+- bump to 2.9.2
+- rename some manpages to *.postfix.* to avoid conflicts with sendmail package
+* Tue Apr 10 2012 - Thomas Wagner
+- remove "bash" shell (debugging). Sorry was a left over...
+* Sun Mar 11 2012 - Thomas Wagner
+- fix build 2.9.1 remove patch3 (remove HAS_NISPLUS), replaced by sed
+  repair missing manpages
+* Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.9.1
+* Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.8
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.7
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.5
+* Sun Jul 31 2011 - Thomas Wagner
+- bump to 2.8.4
+- make all occurences /usr/bin/perl be /usr/perl%{perl_major_version}/bin/perl
+  (currently /usr/perl5/bin/perl)
+- use pnm_macros, %include packagenamemacros.inc (prev commit)
+- add (Build)Requires as pnm_macros: SUNWbash, %{pnm_requires_perl_default}, SUNWpcre, SUNWopenssl
+- add (Build)Requires SUNWzlib (change to pnm_macro later)
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
+* Sat Jun 18 2011 - Thomas Wagner
+- use only on non-IPS systems: Requires: SUNWswmt
+- currently no unpacking of rpm archives, comment SUNWrpm
 * Tue Mar 15 2011 - Thomas Wagner
 - bump to 2.8.1
 - add %actions to create users and groups (including predefined numeric uid/gid)

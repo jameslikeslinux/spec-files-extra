@@ -8,22 +8,18 @@
 %define src_name	physfs
 %define src_url		http://icculus.org/physfs/downloads
 
-%define SFEcmake      %(/usr/bin/pkginfo -q SFEcmake && echo 1 || echo 0)
-
 Name:                   SFEphysfs
+IPS_Package_Name:	developer/physfs
 Summary:                Yet another assembler
 Version:                1.1.1
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:			physfs-01-alloca.diff
 Patch2:                 physfs-02-inline.diff
+SUNW_Copyright:		libphysfs.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SFEcmake
 BuildRequires: SFEcmake
-%else
-BuildRequires: SUNWcmake
-%endif
 
 %package devel
 Summary:                 %{summary} - development files
@@ -68,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sat Jun 14 2008 - andras.barna@gmail.com
 - Remove useless gcc check which breaks the build, and we use Sun Studio by default anyway
 * Tue Jan 08 2008 - moinak.ghosh@sun.com

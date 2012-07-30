@@ -1,21 +1,16 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
 
 %define src_name xfce4-notes-plugin
-
-# http://goodies.xfce.org/
-
 Name:			SFExfce4-notes-plugin
 Summary:		Sticky Notes Plugin
-Version:		1.7.7
-URL:			http://www.xfce.org/
-Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-notes-plugin/1.7/%{src_name}-%{version}.tar.bz2
+Version:		1.6.4
+URL:			http://goodies.xfce.org/projects/panel-plugins/xfce4-notes-plugin
+Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-notes-plugin/1.6/xfce4-notes-plugin-%{version}.tar.bz2
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -26,7 +21,6 @@ Requires:		SFElibxfcegui4
 BuildRequires:		SFExfce4-panel-devel
 Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
-
 %prep
 %setup -q -n %{src_name}-%{version}
 
@@ -49,7 +43,6 @@ autoconf --force
             --sysconfdir=%{_sysconfdir} \
             --enable-gtk-doc \
             --disable-static
-
 make -j $CPUS
 
 %install
@@ -91,9 +84,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/icons
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Migrated to SFE from OSOL
-- Bump to 1.7.7
-
+* Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.6.4, Converted to SFE from OSOL xfce
 * Wed Apr 19 2007 - dougs@truemail.co.th
 - Initial version

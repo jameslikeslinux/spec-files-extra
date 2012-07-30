@@ -10,6 +10,7 @@
 %define src_version 2.4b1
 
 Summary:		Tools for network auditing and penetration testing
+IPS_Package_Name:	diagnostic/dsniff
 Name:			SFEdsniff
 Version:		2.4.0.1
 License:		GPL

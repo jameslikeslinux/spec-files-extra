@@ -6,8 +6,10 @@
 
 %include Solaris.inc
 %include stdcxx.inc
+%include packagenamemacros.inc
 
 Name:		SFEufraw
+IPS_Package_Name:	image/ufraw
 Summary:	Ufraw - Raw Photo Converter
 Group:		Graphics
 Version:	0.18
@@ -15,6 +17,8 @@ Source:		%{sf_download}/ufraw/ufraw-%{version}.tar.gz
 Patch1:		ufraw-01-openmp.diff
 Patch2:		ufraw-02-sunstudio.diff
 URL:		http://ufraw.sourceforge.net/
+License:	GPLv2
+SUNW_Copyright:	ufraw.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -46,7 +50,7 @@ BuildRequires: SUNWlibexif-devel
 # dos2unix:
 BuildRequires: SUNWesu
 # pod2man:
-BuildRequires: SUNWperl584usr
+BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWgnome-common-devel
 Requires: SUNWlibstdcxx4
 BuildRequires: SUNWlibstdcxx4
@@ -130,6 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Tue Mar 01 2011 - Milan Jurik
 - bump to 0.18
 * 18 May 2010 - Gilles Dauphin

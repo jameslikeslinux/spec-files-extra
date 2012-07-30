@@ -20,8 +20,11 @@
 %define SFEsdl	%(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-image
+IPS_Package_Name:	image/library/sdl-image
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
+Group:			System/Multimedia Libraries
+URL:			http://www.libsdl.org/projects/SDL_image/
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -121,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Mon May 17 2010 - Milan Jurik
 - fix SPARC packaging
 * Sun Apr 11 2010 - Milan Jurik

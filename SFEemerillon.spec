@@ -7,37 +7,35 @@
 #
 
 %include Solaris.inc
-Name:                    SFEemerillon
-License:                 GPL v3
-Group:                   Libraries/Multimedia
-Version:                 0.1.2
-Source:                  http://download.gnome.org/sources/emerillon/0.1/emerillon-%{version}.tar.bz2
-Patch1:                  emerillon-01-rest.diff
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
-Summary:                 Map Viewer
-URL:                     http://www.novopia.com/emerillon/
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-SUNW_BaseDir:            %{_basedir}
+Name:		SFEemerillon
+IPS_Package_Name:	desktop/emerillon
+License:	GPLv3
+Group:		Libraries/Multimedia
+Version:	0.1.2
+Source:		http://download.gnome.org/sources/emerillon/0.1/emerillon-%{version}.tar.bz2
+Patch1:		emerillon-01-rest.diff
+Summary:	Map Viewer
+URL:		http://www.novopia.com/emerillon/
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
-Requires:                SUNWglib2
-Requires:                SUNWgtk2
-Requires:                SUNWdbus-glib
-Requires:                SUNWgnome-config
-Requires:                SFElibchamplain
-Requires:                SFEgeoclue
-Requires:                SFElibrest
-Requires:                SFEethos
-BuildRequires:           SUNWglib2-devel
-BuildRequires:           SUNWgtk2-devel
-BuildRequires:           SUNWdbus-glib-devel
-BuildRequires:           SUNWgnome-config-devel
-BuildRequires:           SFElibchamplain-devel
-BuildRequires:           SFEgeoclue-devel
-BuildRequires:           SFElibrest-devel
-BuildRequires:           SFEethos-devel
-BuildRequires:           SUNWgtk-doc
+Requires:	SUNWglib2
+Requires:	SUNWgtk2
+Requires:	SUNWdbus-glib
+Requires:	SUNWgnome-config
+Requires:	SUNWlibchamplain
+Requires:	SFElibrest
+Requires:	SFEethos
+Requires:	SFEgeoclue
+BuildRequires:	SUNWglib2-devel
+BuildRequires:	SUNWgtk2-devel
+BuildRequires:	SUNWdbus-glib-devel
+BuildRequires:	SUNWgnome-config-devel
+BuildRequires:	SUNWlibchamplain-devel
+BuildRequires:	SFElibrest-devel
+BuildRequires:	SFEethos-devel
+BuildRequires:	SUNWgtk-doc
 
 %package root
 Summary:		 %{summary} - / filesystem
@@ -66,7 +64,8 @@ Requires:                %{name}
 ./configure \
    --prefix=%{_prefix} \
    --libexecdir=%{_libexecdir} \
-   --sysconfdir=%{_sysconfdir}
+   --sysconfdir=%{_sysconfdir} \
+   --enable-introspection=no
 make
 
 %install
@@ -99,12 +98,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}/emerillon
 %dir %attr (0755, root, bin) %{_libdir}/emerillon/plugins
 %dir %attr (0755, root, bin) %{_libdir}/emerillon/plugins/*
-%{_libdir}/gir*
+#%{_libdir}/gir*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
 %{_datadir}/emerillon
-%{_datadir}/gir*
+#%{_datadir}/gir*
 %{_datadir}/vala
 %dir %attr (-, root, other) %{_datadir}/gnome
 %{_datadir}/gnome/*
@@ -131,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Dec 23 2011 - Milan Jurik
+- disable introspection
 * Sat Jan 15 2011 - Milan Jurik
 - with locales build
 * Fri Jan 07 2011 - Milan Jurik

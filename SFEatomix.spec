@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                    SFEatomix
+IPS_Package_Name:	games/atomix
 Group:                   applications/games
 Summary:                 Atomix - puzzle game in which you build molecules from atoms
 Version:                 2.14.0
@@ -48,6 +49,9 @@ export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export LDFLAGS="%_ldflags"
 export MSGFMT="/usr/bin/msgfmt"
 
+aclocal
+automake -a -c -f
+autoconf
 ./configure --prefix=%{_prefix}			\
 	    --mandir=%{_mandir}			\
             --libdir=%{_libdir}			\

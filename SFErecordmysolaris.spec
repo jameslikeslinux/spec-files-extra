@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                SFErecordmysolaris
+IPS_Package_Name:	desktop/recordmysolaris
 Summary:             Recordmysolaris - Desktop recording tool
 Version:             0.3
 Source:              http://recordmysolaris.googlecode.com/files/recordmysolaris-%{version}.tar.gz
