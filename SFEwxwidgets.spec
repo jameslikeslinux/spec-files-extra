@@ -13,10 +13,18 @@
 Name:                    SFEwxwidgets
 Summary:                 wxWidgets - Cross-Platform GUI Library
 URL:                     http://wxwidgets.org/
-Version:                 2.8.12
-%define tarball_version  2.8.12
+Version:                 2.8.10
+%define tarball_version  2.8.10
 Source:			 %{sf_download}/wxwindows/wxWidgets-%{tarball_version}.tar.bz2
 Patch1:                  wxwidgets-01-msgfmt.diff
+# See bug #10660
+Patch2:                  wxwidgets-02-Tmacro.diff
+Patch3:                  wxwidgets-03-Tmacro.diff
+Patch4:                  wxwidgets-04-Tmacro.diff
+Patch5:                  wxwidgets-05-Tmacro.diff
+Patch6:                  wxwidgets-06-Tmacro.diff
+# See bug #10883
+Patch7:                  wxwidgets-07-gsocket.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -57,6 +65,12 @@ Requires:                %{name}
 %prep
 %setup -q -n wxWidgets-%{tarball_version}
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -149,9 +163,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Wed Jun 15 2011 - James Lee <jlee@thestaticvoid.com>
-- Bump to 2.8.12
-- Remove patches fixed upstream
 * Sat Sep 05 2009 - brian.cameron@sun.com
 - Add patch wxwidgtes-04-gsockets.diff to fix compile issue when building
   with the latest gio code.
