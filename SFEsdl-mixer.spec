@@ -4,6 +4,7 @@
 # includes module(s): SDL
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 %ifarch amd64 sparcv9
 %include arch64.inc
 %use sdl_64 = sdl-mixer.spec
@@ -17,8 +18,6 @@
 %include base.inc
 %use sdl = sdl-mixer.spec
 
-%define SFEsdl	%(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
-%define SFElibmikmod  %(/usr/bin/pkginfo -q SFElibmikmod && echo 1 || echo 0)
 
 Name:			%{sdl.name}
 IPS_Package_Name:	library/audio/sdl-mixer
@@ -31,20 +30,10 @@ SUNW_Copyright:		sdl-mixer.copyright
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SFEsdl
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%else
-BuildRequires: SUNWlibsdl-devel
-Requires: SUNWlibsdl
-%endif
-%if %SFElibmikmod
-BuildRequires: SFElibmikmod-devel
-Requires: SFElibmikmod
-%else
-BuildRequires: SUNWlibmikmod-devel
-Requires: SUNWlibmikmod
-%endif
+BuildRequires: %{pnm_buildrequires_SUNWlibsdl_devel}
+Requires:      %{pnm_requires_SUNWlibsdl}
+BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
+Requires:       %{pnm_requires_SUNWlibmikmod}
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac-devel
@@ -139,6 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 30 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibmikmod_devel}
+* Sun Jun 24 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibsdl_devel}, %include packagenamacros.inc
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Tue Jul 26 2011 - N.B.Prashanth
