@@ -42,7 +42,7 @@ export LD_OPTIONS="%gnu_lib_path"
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir}      \
-            --with-fileio=lame               \
+            --with-fileio=sndfile            \
             --enable-shared		     \
 	    --disable-static
 make -j$CPUS
