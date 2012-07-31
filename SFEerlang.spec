@@ -16,18 +16,19 @@
 %ifarch amd64 sparcv9 
 %include arch64.inc
 %define myldflags -m64 %{_ldflags} -L/usr/gnu/lib/%{_arch64} -R/usr/gnu/lib/%{_arch64}
-%define wx_config /usr/gnu/bin/%{_arch64}/wx-config
+%define wx_config /usr/g++/bin/%{_arch64}/wx-config
 %use erlang_64 = erlang.spec
 %endif
 %include base.inc
 %define myldflags %{_ldflags} -L/usr/gnu/lib -R/usr/gnu/lib
-%define wx_config /usr/gnu/bin/wx-config
+%define wx_config /usr/g++/bin/wx-config
 %if %can_isaexec
 %define mybindir %{_bindir}/%{base_isa}
 %endif
 %use erlang = erlang.spec
 
 Name:		SFEerlang
+IPS_Package_Name:	runtime/erlang
 Version:	%{erlang.version}
 Summary:	Erlang programming language and OTP libraries
 License:	Erlang Public License
@@ -44,10 +45,10 @@ BuildRequires:	SFEgcc
 BuildRequires:	SUNWj6dev
 BuildRequires:	SUNWopenssl-include
 BuildRequires:	SUNWopenssl-libraries
-BuildRequires:	SFEwxwidgets-gnu-devel
+BuildRequires:	SFEwxwidgets-gpp-devel
 Requires:	SFEgccruntime
 Requires:	SUNWopenssl-libraries
-Requires:	SFEwxwidgets-gnu
+Requires:	SFEwxwidgets-gpp
 
 %if %SFEunixodbc
 BuildRequires: SFEunixodbc-devel
@@ -174,6 +175,9 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(444,root,sys) %{_localstatedir}/svc/manifest/network/epmd.xml
 
 %changelog
+* Tue Jul 31 2012 - James Lee <jlee@thestaticvoid.com>
+- Update dependency on wxwidgets.
+- Add IPS package name.
 * Tue Jun 28 2011 - James Lee <jlee@thestaticvoid.com>
 - Add odbc dependency.
 - Add epmd service.

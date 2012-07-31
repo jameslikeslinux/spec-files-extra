@@ -24,8 +24,8 @@ sed -i -e 's,$rdir/include,$rdir/include/odbc,g' lib/odbc/configure lib/odbc/con
 sed -i -e 's,${libdir}/64,${libdir}/%{_arch64},g' lib/odbc/configure lib/odbc/configure.in
 
 %build
-export CC=/usr/gcc/bin/gcc
-export CXX=/usr/gcc/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{cxx_optflags}"
 export LDFLAGS="%{myldflags}"
