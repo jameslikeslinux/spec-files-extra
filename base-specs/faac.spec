@@ -51,6 +51,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jun 21 2012 - James Lee <jlee@thestaticvoid.com>
+- Linking with libmp4v2 requires libCrun 
 * Mon Oct 17 2011 - Milan Jurik
 - revert previous change to unbreak build
 * Sat Aug 13 2011 - Thomas Wagner
