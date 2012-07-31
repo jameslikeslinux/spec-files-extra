@@ -22,6 +22,7 @@ export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -lm"
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
         export LDFLAGS="$LDFLAGS -m64"
+	export CFLAGS="$CFLAGS -xO2"
 fi
 
 ./configure --prefix=%{_prefix}			\
@@ -45,6 +46,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 31 2012 - James Lee <jlee@thestaticvoid.com>
+- iropt fails with default -xO4 on 64 bit...replace with -xO2
 * Mon Oct 17 2011 - Milan Jurik
 - bump to 0.4.16
 * Tue Jul 26 2011 - Alex Viskovatoff
