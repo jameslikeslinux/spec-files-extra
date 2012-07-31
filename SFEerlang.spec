@@ -121,7 +121,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,bin)
+%dir %{_bindir}
+%dir %{_libdir}
 %ifarch amd64 sparcv9
+%dir %{_bindir}/%{_arch64}
+%dir %{_libdir}/%{_arch64}
 %{_bindir}/%{_arch64}/dialyzer
 %{_bindir}/%{_arch64}/epmd
 %{_bindir}/%{_arch64}/erl
@@ -134,6 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/erlang
 %endif
 %if %can_isaexec
+%dir %{_bindir}/%{base_isa}
 %{_bindir}/%{base_isa}/dialyzer
 %{_bindir}/%{base_isa}/epmd
 %{_bindir}/%{base_isa}/erl
