@@ -23,8 +23,6 @@
 %use lame = lame.spec
 %use toolame = toolame.spec
 
-%define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
-
 
 Name:		SFElame
 IPS_Package_Name:	audio/lame
@@ -40,14 +38,6 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
-
-%if %SFElibsndfile
-BuildRequires:	SFElibsndfile-devel
-Requires:	SFElibsndfile
-%else
-BuildRequires:	SUNWlibsndfile
-Requires:	SUNWlibsndfile
-%endif
 
 BuildRequires: SUNWncurses-devel
 Requires: SUNWncurses
@@ -140,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Jul 30 2012 - James Lee <jlee@thestaticvoid.com>
+- Remove libsndfile dependency which breaks stdio encoding.
 * Mon Oct 10 2011 - Milan Jurik
 - add IPS package name
 - remove GCC dependency

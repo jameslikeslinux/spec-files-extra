@@ -31,7 +31,7 @@ export LD_OPTIONS="%gnu_lib_path"
             --libdir=%{_libdir}		\
             --libexecdir=%{_libexecdir}	\
             --sysconfdir=%{_sysconfdir}	\
-            --with-fileio=sndfile	\
+            --with-fileio=lame		\
             --enable-shared		\
 	    --disable-static
 
@@ -45,6 +45,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul 30 2012 - James Lee <jlee@thestaticvoid.com>
+- Remove libsndfile dependency which breaks stdio encoding.
 * Fri Jun 22 2012 - Milan Jurik
 - bump to 3.99.5
 * Mon Oct 10 2011 - Milan Jurik
