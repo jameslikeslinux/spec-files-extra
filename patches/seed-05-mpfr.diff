@@ -1,0 +1,5 @@
+--- seed-2.30.0/configure.ac	Sat Nov 19 22:59:57 2011
++++ seed-2.30.0/configure.ac	Sat Nov 19 23:12:20 2011
+@@ -275,1 +275,1 @@
+-	AC_TRY_CPP([#include <mpfr.h>], have_mpfr_h=yes, have_mpfr_h=no)
++	AC_TRY_CPP([#include <mpfr/mpfr.h>], have_mpfr_h=yes, have_mpfr_h=no)

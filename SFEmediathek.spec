@@ -8,13 +8,13 @@
 %define subdir    mediathek
 
 Name:                    SFEmediathek
-Summary:                 mediathek - tool for writing very fast and very flexible scanners
+Summary:                 mediathek - download TV broadcasters online offers, download podcasts
 URL:                     http://mediathek.org/
-Version:                 2.0.1
-Source:                  %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{version}/Mediathek_mit_libs_%{version}.zip
-#http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%202.0.1/Mediathek_mit_libs_2.0.1.zip
-Source2:                 %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{version}/Anleitung_MediathekView_%{version}.pdf
-#http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%202.0.1/Anleitung_MediathekView_2.0.1.pdf
+Version:                 2.5.0
+#      http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%202.5.0/Mediathek_2.5.0.zip
+Source:                  %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{version}/Mediathek_%{version}.zip
+#      http://downloads.sourceforge.net/project/zdfmediathk/Mediathek/Mediathek%202.5.0/Kurzanleitung_2.5.0.pdf
+Source2:                 %{sf_download}/project/zdfmediathk/Mediathek/Mediathek\ %{version}/Kurzanleitung_%{version}.pdf
 
 
 SUNW_BaseDir:            %{_basedir}
@@ -48,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%doc Anleitung_MediathekView_%{version}.pdf 
+%doc Kurzanleitung_%{version}.pdf
 %dir %attr (0755, root, bin) %{_basedir}/lib/%{subdir}/
 %{_basedir}/lib/%{subdir}/*
 %dir %attr (0755, root, bin) %{_bindir}
@@ -58,5 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 15 2011 - Thomas Wagner
+- bump to version 2.5.0
+- new URLs
 * Sun Apr 25 2010 - Thomas Wagner
 - Initial spec

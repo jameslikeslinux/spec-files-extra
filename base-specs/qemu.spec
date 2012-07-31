@@ -5,11 +5,11 @@
 #
 
 %define src_url http://www.opensolaris.org/os/project/qemu/downloads
-
+http://hub.opensolaris.org/bin/download/Project+qemu/downloads/qemu-0.9.1-06222008-sol.tar.bz2
 Name:		qemu
 Summary:	QEMU CPU Emulator
-Version:	20070612
-Source:		%{src_url}/qemu-CVS-%{version}-patched.tar.bz2
+Version:	06222008
+Source:		%{src_url}/qemu-0.9.1-%{version}-sol.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %prep
@@ -46,5 +46,7 @@ mv $RPM_BUILD_ROOT/%{_prefix}/bin/qemu-system-x86_64 $RPM_BUILD_ROOT/%{_bindir}
 fi
 
 %changelog
+* Tue June 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.9.1-06222008
 * Mon Oct  8 2007 - dougs@truemail.co.th
 - Initial version

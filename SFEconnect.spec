@@ -5,19 +5,20 @@
 #
 
 %include Solaris.inc
-Name:                    SFEconnect
-Summary:                 Proxy command of OpenSSH
-Version:                 1.96
-Source1:                 http://www.meadowy.org/~gotoh/ssh/connect.c
-SUNW_BaseDir:            %{_basedir}
-URL:                     http://zippo.taiyo.co.jp/~gotoh/ssh/connect.html
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEconnect
+IPS_Package_Name:	network/ssh/ssh-connect
+Summary:	Proxy command of OpenSSH
+Version:	1.96
+Source:		http://www.meadowy.org/~gotoh/ssh/connect.c
+SUNW_BaseDir:	%{_basedir}
+URL:		http://zippo.taiyo.co.jp/~gotoh/ssh/connect.html
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
 test -d %name-%version && rm -rf %name-%version
 mkdir %name-%version
-install %SOURCE1 %name-%version
+install %SOURCE %name-%version
 
 %build
 cd %name-%version

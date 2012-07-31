@@ -1,3 +1,2284 @@
+2012-07-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.475.
+	* SFEecl.spec: updated to 12.7.1.
+
+2012-07-29 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/sdl-mixer.spec: bump to 1.2.12
+	* base-specs/sdl-image.spec: bump to 1.2.12
+	* SFEclamav.spec: bump to 0.97.5
+	* SFEldns.spec: bump to 1.6.13
+	* SFEunbound.spec: bump to 1.4.17
+	* SFEstellarium.spec: bump to 0.11.3
+	* SFElibebml-gpp.spec: bump to 1.2.2
+	* SFElibebml.spec: bump to 1.2.2
+	* base-specs/libmp4v2.spec: bump to 2.0.0
+
+2012-07-27 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnodejs.spec: bump to 0.8.4
+	* SFEgajim.spec: bump to 0.15
+
+2012-07-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEbzr.spec: bump to 2.5.1, rename IPS package to bzr
+	* SFEnetatalk.spec: bump to 2.2.3, fix rpath for /usr/gnu/lib
+
+2012-07-22 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEmpfr.spec: bump to 3.1.1
+	* SFElibmpc.spec: bump to 1.0
+
+2012-07-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEkatta.spec: replaced hadoop client library with
+	reference to more recent hadoop from hadoop pkg.
+
+2012-07-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: added (build)requires SUNWlua
+
+2012-07-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEkatta.spec: initial spec.
+	* copyright/SFEkatta.copyright
+	* ext-sources/katta.xml
+
+2012-07-05  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.13.1
+
+2012-07-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpigz.spec: initial spec.
+	* copyright/SFEpigz.copyright
+
+2012-07-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExz.spec: added ips name and bumped to 5.0.4
+
+	* SFEinkscape.spec: fixed build requires SFEboost-gpp-devel
+	instead of SFEboost-devel.
+
+2012-06-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhive.spec: Fixed a classpath, a minor mistake in the smf and
+	moved out of experimental.
+
+	* SFEnant.spec: initial spec.
+	* copyright/SFEnant.copyright
+
+	* SFEhbase.spec: add patch to fix hive integration and conditional
+	logic for rebuilding with patch.
+	* patches/hbase-01-jira-6069-hive.diff
+
+2012-06-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEmaven.spec: initial spec.
+
+	* SFExmlto.spec: for now, use a conditional to choose required
+	packages based on os.
+
+	* experimental/SFEhive.spec: initial spec.
+	* copyright/SFEhive.copyright
+	* ext-sources/hive.xml
+
+	* SFEderby.spec: updated to 10.9.1.0
+
+2012-06-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExmlto.spec: replaced requires SUNWgnome-xml-* with requires
+	data/docbook/docbook-style-xsl to make s11 happy.
+
+	* SFEgit.spec: bump to 1.7.11.1 and switch to python3.2
+
+	* SFEjenkins.spec: bump to 1.471.
+
+	* SFEinkscape.spec: added %gnu_lib_path to LDFLAGS so the runpath
+	for the gcc runtime is set.
+
+	* SFElibmagick-gpp.spec: updated to 6.7.6-10. switched
+	buildrequires from SUNWimagick to SFEimagemagick.
+
+2012-06-22 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFEmplayer.spec: bump to 1.1
+	* base-specs/lame.spec: bump to 3.99.5
+	* base-specs/libquicktime.spec: bump to 1.2.4
+
+2012-06-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEqt-gpp.spec: use psrinfo -pv instead of prtdiag -v to detect
+	CPU since only the former works in a zone.
+
+	* SFElibebml-gpp.spec: Accept either SFEcoreutils or
+	SUNWgnu-coreutils for buildrequires.
+
+	* SFElibebml.spec: Accept either SFEcoreutils or SUNWgnu-coreutils
+	for buildrequires.
+
+	* SFEcoreutils.spec: added missing soft link: /usr/bin/ginstall ->
+	/usr/gnu/bin/install.
+
+	* encumbered/SFEmpd.spec: added ips package name.
+
+	* SFElibshout.spec: added ips package name.
+
+	* SFElibsamplerate.spec: added ips package name.
+
+	* SFEgnugetopt.spec: added ips package name.
+
+2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpari.spec: autodetect whether to use SFEgmp or system
+	provided version.
+
+	* SFEgcc.spec: only add buildrequires SUNWgcc if there isn't some
+	version of SFEgcc available.
+
+	* SFEcoreutils.spec: restored spec, added ips name, bumped to
+	8.13, removed patch and updated conflict list.
+
+2012-06-21  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * include/osdistro.inc: osbuild needs to work with OI 151a4,
+          should print 151 and not 151a4, change sed pattern
+
+2012-06-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEyasm.spec: bump to 1.2.0
+	* SFEnasm.spec: bump to 2.10.01
+	* base-specs/libx264.spec: update to 20120620
+
+2012-06-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEecl.spec: autodetect whether to use SFEgmp or system provided
+	version.
+
+	* encumbered/SFElibx264.spec: autodetect whether to use SFEmpfr or
+	system provided version.
+
+	* SFElibass.spec: added missing requires for SFElibfribidi
+
+	* SFEgcc.spec: replaced CPP="cc -E -Xs" with CPP="gcc -E"
+
+2012-06-20  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEgcc.spec, patches/gcc-05-LINK_LIBGCC_SPEC-46.spec: 
+          - automate transform of version number to string for package names e.g. SFEgcc-46
+          - apply Patch 10 spawn as well for other versions 4.6 and higher, fixes build 4.5 (no spawn patch)
+          - prepare fresh patches for LINK_LIBGCC_SPEC for 4.7.x/4.6.x/4.7.x
+            use %{majorminornumber} to match the right filename,
+            old patch name gcc-05-LINK_LIBGCC_SPEC.diff will remain because external 
+            documentation links to this filename
+          - can use --define 'gcc_version 4.5.3' (4.6.3=default, 4.7.1)",
+            beware, SFEgcc contains symlinks of the latest gcc_version built
+
+2012-06-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEsage.spec: fixed download URL (avoid mirror which changed.)
+
+2012-06-18  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpngcrush.spec: bump to 1.7.29
+
+	* SFEhbase.spec: bumped to 0.94.0
+
+	* SFEhadoop.spec: bumped to 1.0.3
+
+	* SFEgit.spec: bump to 1.7.11
+
+	* SFEopenafs.spec: fixed default path for
+	krb5.conf (/etc/krb5.conf -> /etc/krb5/krb5.conf). Added missing
+	buildrequires for math headers.
+	* patches/openafs-04-krb5_conf_path.diff
+
+2012-06-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenconnect.spec: bump to 3.99
+	* base-specs/ffmpeg.spec: bump to 0.11.1
+
+2012-06-14 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.4.1
+
+2012-06-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: SMF manifest should have service disabled by
+	default.
+	* ext-sources/asterisk.xml
+	* SFEhbase.spec: Increased the startup and shutdown timeouts. It
+	can take longer with a lot of data in the cluster.
+	* ext-sources/hbase.xml
+	* SFEhadoop.spec: Increased the startup and shutdown timeouts. It
+	can take longer with a lot of data in the cluster.
+	* ext-sources/hadoop.xml
+
+2012-06-10 Pavel Heimlich <tropikhajma@gmail.com>
+
+	* base-specs/lapack.spec: update source location
+
+2012-06-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenssh.spec: added a missing with_editline conditional which
+	prevented compilation without editline
+	* SFEluke.spec: initial spec.
+	* copyright/SFEluke.copyright
+
+2012-06-07  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEsage.spec: initial spec.
+
+2012-06-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.13.0
+
+	* SFEgit.spec: bump to 1.7.10.4.
+
+2012-06-05 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEmidori.spec: bump to 4.0.4
+
+2012-06-02 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEeditline.spec: better multiarch
+	* SFEopenssh.spec: initial spec
+	* SFEclamav.spec: bump to 0.97.4
+
+2012-05-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEdovecot.spec: bump to 2.1.7
+
+2012-05-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEgit.spec: bump to 1.7.10.3
+
+2012-05-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: Enabled multi-arch. Added 32 bit kernel module
+	in addition to normal 64 bit kernel module.
+	* patches/openafs-03-enable-multiarch.diff
+
+2012-05-27 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFEffmpeg.spec: bump to 0.11
+	* SFEperl-lwp.spec: bump to 6.04
+	* SFEperl-http-message.spec: initial spec
+	* SFEperl-http-date.spec: initial spec
+
+2012-05-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEzzuf.spec: initial spec.
+	* patches/zzuf-01-void_rewind.diff
+	* patches/zzuf-02-void_socklen_t.diff
+	* copyright/SFEzzuf.copyright
+
+2012-05-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEllvm.spec: bump to 3.1
+
+2012-05-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEgit.spec: bump to 1.7.10.2
+
+	* SFEimagemagick.spec: update to 6.7.6-10
+
+2012-05-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* base-specs/boost.spec: bump to 1.49.0 and removed a patch that
+	is no longer needed.
+	* SFEboost.spec: added a missing define (stl_is_stdcxx) that is
+	now need due to changes in the base spec.
+
+	* SFEcppcheck.spec: initial spec.
+	* patches/cppcheck-01-strings.diff
+	* patches/cppcheck-02-fmod.diff
+	* patches/cppcheck-03-count.diff
+	* patches/cppcheck-04-string.diff
+	* patches/cppcheck-05-const-mismatch.diff
+	* patches/cppcheck-06-docbook.diff
+	* copyright/SFEcppcheck.copyright
+
+2012-05-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnodejs.spec: bump to 0.6.18
+
+2012-05-15 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEldns.spec: bump to 1.6.12
+	* SFEunbound.spec: bump to 1.4.16
+
+2012-05-14 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgraphviz.spec: bump to 2.28.0
+	* SFEcppunit.spec: bump to 1.12.1
+
+2012-05-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhbase.spec: moved out of experimental and fixed regionservers
+	variable.
+
+2012-05-11 Brian Cameron <brian.cameron@oracle.com>
+
+	* SFEcaribou.spec: Bump to 0.4.2.
+	* patches/caribou-01-m4.diff: Add patch needed to build.
+	* SFEspidermonkey.spec: Fix BuildRequires.
+	* SFEgjs.spec: Bump to 1.32.0.
+	* patches/gjs-01-solaris.diff: Rework.
+	* SFEmutter.spec: Bump to 3.4.1.
+	* patches/mutter-03-compile.diff: Rework.
+	* patches/mutter-04-mapfile.diff: Add patch needed to build.
+	* SFEgnome-shell.spec: Bump to 3.4.1.
+	* patches/gnome-shell-01-compile.diff: Rework.
+	* patches/gnome-shell-02-fixclick.diff: Remove patch no longer needed.
+	* base-specs/telepathy-glib.spec: Bump to 0.19.0.
+	* patches/telepathy-glib-01-compile.diff: Add patch needed to build.
+	* base-specs/telepathy-logger.spec: Bump to 0.4.0.
+
+2012-05-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEhbase.spec: initial spec.
+	* ext-sources/hbase.xml
+	* copyright/SFEhbase.copyright
+
+	* SFEswig.spec: bump to 2.0.6 and added ips package name.
+
+2012-05-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEgit.spec: bump to 1.7.10.1
+
+2012-05-06  Pavel Heimlich <tropikhajma@gmail.com>
+
+	* patches/octave-configure.diff patches/octave-configure.in.diff 
+	patches/octave-configure02.diff patches/octave-stlport4.diff
+	patches/octave-configure03.diff SFEoctave.spec: octave 3.6.1
+
+2012-05-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: increased the smf method start timeout.
+
+2012-05-05  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.12.0
+
+2012-05-03  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhadoop.spec: replaced linux file flags with solaris ones.
+
+2012-05-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpari.spec: initial spec.
+
+	* SFElibpng.spec: moved to /usr/gnu.
+
+2012-05-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEprotobuf.spec: initial spec
+
+2012-04-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEipf.spec: fix some permissions.
+
+	* SFEgnuplot.spec: bumped to 4.6.0. added an IPS package
+	name. removed a no longer needed patch.
+
+	* SFEwxmaxima.spec: bumped to 12.04.0
+
+	* SFEmaxima.spec: bumped to 5.27.0 and removed a no longer needed
+	patch.
+
+2012-04-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEimagemagick.spec: update to 6.7.5-10.
+
+	* SFEpngcheck.spec: initial spec.
+
+	* experimental/SFElibvirt.spec: porting changes to support qemu/kvm.
+
+	* SFElibpng.spec: split out -devel package so runtime libs can be
+	installed without conflicts, bumped to 1.5.10 and fixed some
+	permissions.
+	* patches/libpng-01-no_ld_version_script.diff
+
+2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: fixed some permissions and also changed it to
+	no longer enable the service by default.
+
+	* SFEbitlbee.spec: fixed another permission and also changed to no
+	longer enable service by default.
+
+2012-04-29 Pavel Heimlich <tropikhajma@gmail.com>
+	* patches/libgsm-01-makefile.diff: add symlink to make libgsm build without libgsm installed
+	* encumbered/SFEmpg123.spec: fix dependency (SUNWltdl is no more in S11)
+	* base-specs/lapack.spec: patch file not present, remove patch
+	* experimental/SFEblender-2.59.spec SFEtmux.spec SFEopenvpn.spec 
+	SFElyx.spec SFEghc.spec SFEtransmission.spec SFEdjview.spec 
+	SFEkchmviewer.spec SFEpython3.spec SFEscribus.spec SFEweechat.spec 
+	SFEqt-gpp.spec SFECorsixTH.spec base-specs/orc.spec: make sure
+	gawk is used as Solaris awk does not support this syntax
+	* encumbered/SFEffmpeg.spec base-specs/ffmpeg.spec: bump to 0.10.2, really add libvpx dependency
+	* patches/blas-01-shared.diff base-specs/blas.spec SFEblas.spec:
+	added shared library
+	* encumbered/SFEmplayer2.spec, patches/mplayer2-*: make mplayer2 work
+	with current liveMedia; refresh patches for current snapshot
+
+2012-04-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEhadoop.spec: Added snappy to requires (really optional.) Put
+	home directory back to hold ssh keys. Moved out of experimental
+	* SFEsnappy.spec: initial spec.
+	* copyright/SFEsnappy.copyright
+
+2012-04-27 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpython3.spec: bump to 3.2.3, fix packaging
+
+2012-04-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEhadoop.spec: fixes for building native
+	task-controller, better directory usage and such.
+	* patches/hadoop-01-task-controller-make.diff
+	* patches/hadoop-02-skip-jsvc.diff
+
+	* SFEasterisk.spec: bump to 1.8.11.1
+
+2012-04-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEbrlcad.spec: bumped to 7.20.4.
+	* copyright/SFEbrlcad.copyright
+	* patches/brlcad-01-opennurbs_brep_region.diff
+	* patches/brlcad-02-pkg.diff
+	* patches/brlcad-03-if_mem.diff
+	* patches/brlcad-04-disable-sunmath.diff
+
+	* SFEtk.spec: bump to 8.5.11. Set IPS name to tk-85 and moved to
+	/usr/gnu to avoid conflict with OS provided package. Switched to
+	gcc to avoid needing to pull in sunmath which can cause problems
+	for gcc compiled packages linking against IPS.
+	* copyright/SFEtk.copyright
+
+	* SFEtcl.spec: bump to 8.5.11. Set IPS name to tcl-85 and moved to
+	/usr/gnu to avoid conflict with OS provided package. Switched to
+	gcc to avoid needing to pull in sunmath which can cause problems
+	for gcc compiled packages linking against IPS.
+	* copyright/SFEtcl.copyright
+
+2012-04-26 Pavel Heimlich <tropikhajma@gmail.com>
+
+	* patches/liveMedia-02-config.diff: fix build (xlocale.h not present on Solaris)
+
+2012-04-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEhadoop.spec: initial spec.
+	* copyright/SFEhadoop.copyright
+
+2012-04-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.461.
+
+2012-04-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEcmake.spec: bump to 2.8.8 and enable parallel build.
+	* SFEgit.spec: bump to 1.7.10, update a patch and update files.
+	* patches/git-03-xmlto.diff
+	* SFExmlto.spec: bump to 0.0.25, added ips name and removed now
+	unnecessary patch.
+	* SFEasciidoc.spec: bump to 8.6.7
+
+2012-04-17  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEecl.spec: fixed some permissions.
+	* SFEbitlbee.spec: fixed some permissions.
+	* SFElibotr.spec: fixed some permissions.
+	* SFEcatdoc.spec: fixed some permissions.
+	* SFEmaxima.spec: fixed permissions and removed a conflicting file.
+
+2012-04-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExar.spec: fixed some permissions.
+	* SFEopenafs.spec: fixed some permissions and removed some
+	unnecessary and conflicting files.
+	* SFEaspell.spec: fixed permissions.
+	* SFEderby.spec: use java package names macro and fix some permissions.
+	* SFEwxmaxima.spec: initial spec.
+	* copyright/SFEwxmaxima.copyright
+	* SFEwxwidgets-gpp.spec: Enabled xml (--use-expat) and added IPS
+	package name.
+	* base-specs/wxwidgets-gnu.spec
+
+2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEopenafs.spec: relocated some directories and moved package
+	out of experimental
+
+2012-04-15 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscantailor.spec: Initial spec
+
+2012-04-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.11.0
+
+2012-04-14  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFER.spec: bumped to 2.15.0, switched to use gnu iconv since
+	iconv is no longer optional, added ips name, various minor fixes.
+	* SFEr-atlas.spec: rename to SFEr-atlas to keep atlas version
+	separate. Maybe merge or remove old one if we change SFEatlas to
+	be multiarch to better support the binary version of R plus atlas.
+	* SFEr.spec: initial spec.
+	* copyright/SFEr.copyright
+
+2012-04-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: switch to java package name macro and bump to 1.459.
+	* SFEatlas.spec: force 32 bit build to match lapack sfe build.
+
+2012-04-13 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscponly.spec: initial spec
+	* SFEopenttd.spec: bump to 1.1.5
+
+2012-04-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEatlas.spec: initial spec.
+	* copyright/SFEatlas.copyright
+
+2012-04-07  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: added a smf property to control max heap size.
+
+2012-04-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.458.
+
+2012-04-01  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEdovecot.spec: bump to 2.1.2, add user dovenull with group nogroup
+
+2012-04-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElives.spec: bump to 1.6.1
+
+2012-03-31  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEopenafs.spec: updated to 1.6.1.
+
+2012-04-01 Pavel Heimlich <tropikhajma@gmail.com>
+
+	* SFEnetspeed-applet.spec:fix download location, micro version bump
+	* SFEmurrine-engine.spec: fix project url, download location
+	* SFEmtools.spec: temporary download location (they do not keep <4.0 files)
+	* copyright/SFEmpack.copyright: add missing copyright
+	* SFElibpigment.spec: update project & download location
+	* SFEmc.spec: fix download location (snapshot no longer available), make IPS friendly
+	* SFEmaildrop: upstream does not keep such old versions, use alternate location
+	* SFElprng.spec: add IPS friendly version number
+	* SFElibtasn1.spec: fix download location
+	* SFElibmagick-gpp.spec: upstream does not keep old versions, provide alternate url
+	* copyright/SFEliblouisxml.copyright: add missing copyright
+	* SFEgsslib.spec: source url has changed since the past decade
+	* SFElibdvdplay.spec: package gone from upstream, providing alternate source
+	* SFElibcryptopp.spec: define missing src_url
+	* SFElib3ds.spec: project moved, provide temporary src_url, since upstream no longer keeps old versions
+	* base-specs/expat.spec: use generic sourceforge url
+	* SFEbusybox.spec: upstream no longer ships .gz, they use .bz2 only
+	* SFEctrlproxy.spec: project has moved, fix urls
+	* SFEdante.spec: upstream moved old versions to another dir - fix url
+	* SFEemerald-themes.spec: this is so old upstream removed it already. Alternate location provided.
+	* SFEgeoclue.spec: download location broke, replace with launchpad
+	* SFEfireflies.spec: source url has changed slightly
+	* SFEemacs.spec: bump to 23.3b, workaround for Studio 12.3
+	* SFEfox.spec: source url has changed slightly
+	* SFEfreetds.spec: upstream moved this version to /old
+
+2012-03-31  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * experimental/SFEphpldapadmin.spec: initial spec, needs php 5.3.x
+        * include/packagenames.define.allbuilds.inc: add pnm for java, SUNWltdl,
+          SUNWbtool, fix samba package names around build 170++
+        * base-specs/packagenamemacros.spec: add example for java
+        * SFEdovecot.spec: remove Requires: %name from SFEdovecot-root
+
+2012-03-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEderby.spec: initial spec.
+	* copyright/SFEderby.copyright
+
+2012-03-31 Pavel Heimlich <tropikhajma@gmail.com>
+
+	* SFExmlrpc-c.spec: fix IPS version
+	* base-specs/xmlrpc-c.spec: fix download location
+	* SFEvagalume.spec: fix download location
+	* SFEurxvt.spec: fix download location
+	* SFEm17n-db.spec: update file list
+	* SFEwordcut.spec: fix ips version
+	* base-specs/gd.spec: fix download location
+	* SFElibdatrie.spec: fix file list
+	* SFEtorsmo.spec: fix download location
+	* SFEtin.spec: fix download location
+	* SFEswt.spec: fix download location
+	* SFEsip.spec: fix download location
+	* SFErsync.spec: rsync 3.0.9
+	* SFEquagga.spec: fix download location
+	* SFEprozilla.spec: fix download location (project seems dead)
+	* SFEperl-netaddr-ip.spec: bump version (4.059)
+	* SFEperl-io-socket-inet6.spec: bump version (2.69)
+	* SFEpen.spec: fix broken download location
+	* SFEnut.spec: fix broken download location
+	* SFEntfs-3g.spec: temporary download location (tuxera does not keep old versions)
+
+2012-03-28  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEbzr.spec: bump to 2.5.0
+
+2012-03-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.456
+
+2012-03-25 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpython26-reportlab.spec: bump to 2.5, move to python 2.6
+	* SFEocrfeeder.spec: bump to 0.7.8
+
+2012-03-24  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.10.1
+	* SFEecl.spec: added --enable-threads flag.
+
+2012-03-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEpngcrush.spec: bump to 1.7.25
+
+2012-03-16  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEcatdoc.spec: initial spec.
+	* copyright/SFEcatdoc.copyright
+
+2012-03-15  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEtexlive.spec: update to 20110705
+	* SFEtexlive-texmf.spec: update to 20110705
+	* experimental/SFElibvirt.spec: initial spec.
+	* patches/libvirt-01-virnetdev.diff
+	* patches/libvirt-02-cfmakeraw.diff
+	* patches/libvirt-03-noversionscript.diff
+	* patches/libvirt-04-removexvmctrl.diff
+	* copyright/SFElibvirt.copyright
+
+2012-03-13  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEjenkins.spec: bump to 1.455.
+	* SFEmaxima.spec: initial spec.
+	* patches/maxima-01-xerprn.diff
+	* copyright/SFEmaxima.copyright
+
+2012-03-12  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEecl.spec: initial spec.
+	* copyright/SFEecl.copyright
+
+2012-03-12 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcrafty.spec: fix build with newer gcc
+
+2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEipf.spec: Fixed a ull formatting issue in ipfstat -t
+	output. (Resulting from using system curses instead of ncurses.)
+
+2012-03-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEdvdauthor.spec: bump to 0.7.0
+	* SFEddrescue.spec: bump to 1.15
+	* SFEfreeimage.spec: bump to 3.15.2
+
+2012-03-11  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEossec-server.spec: added ossecm and ossecr users. fixed some
+	permissions.
+	* SFElsof.spec: fixed zfs kernel struct binding and tcp use but
+	not icmp and udp. so, for example, lsof -p works but not lsof
+	-i. added ips package name. updated download url and unpack
+	steps. added copyright file.
+	* patches/lsof-01-machine.diff
+	* patches/lsof-02-dlsof.diff
+	* patches/lsof-03-dnode.diff
+	* patches/lsof-04-dsock.diff
+	* patches/lsof-05-print.diff
+
+2012-03-10  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEwordnet.spec: updated download url and added ips package name.
+
+2012-03-09 Ken Mays <kmays2000@gmail.com>
+
+	* SFEgmp.spec: bump to 5.0.4, enabled SIMD detection feature
+
+2012-03-09  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* ext-sources/bitlbee.xml: fix dependencies.
+	* SFEjenkins.spec: initial spec.
+	* ext-sources/jenkins.sh
+	* ext-sources/jenkins.xml
+	* copyright/SFEjenkins.copyright
+	* SFEhudson.spec: initial spec.
+	* ext-sources/hudson.sh
+	* ext-sources/hudson.xml
+	* copyright/SFEhudson.copyright
+
+2012-03-08  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: bump to 1.8.10.0
+	* experimental/SFEopenafs.spec: Updated to 1.6.1pre4, added
+	manifest, added ips name and relocated into standard directories
+	* ext-sources/openafs.xml
+	* patches/openafs-01-configure.diff
+	* patches/openafs-02-afs-rc.diff
+	* copyright/SFEopenafs.copyright
+
+2012-03-07 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4
+
+2012-03-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEipf.spec: Added multicast bug fix patch from Darren and
+	patched ipfboot to work in a zone.
+	* patches/ipf-05-ipfboot-etc-ipf.diff
+	* patches/ipf-06-multicast-bug.diff
+	* patches/ipf-07-ipfboot-in-zone.diff
+
+2012-03-05 Ken Mays <kmays2000@gmail.com>
+
+	* SFEflightgear.spec: Updated dependencies
+
+2012-03-04  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* ext-sources/ossec.xml: added config file dependency.
+	* ext-sources/asterisk.xml: fixed some dependencies.
+
+2012-03-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEsimgear.spec: merge from SFEsimgear20, bump to 2.6.0
+
+2012-03-03  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEipf.spec: create empty /etc/ipf directory.
+	* experimental/SFEminiupnpd.spec: added a smf manifest.
+	* ext-sources/miniupnpd.xml
+
+2012-03-03 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4-rc6
+	* SFEflightgear.spec: bump to 2.6.0, new CMake build
+	* SFEsimgear.spec: bump to 2.6.0
+
+2012-03-03 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgcc.spec: bump to 4.6.3
+
+2012-03-02  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: Added an smf manifest.
+	* SFEbitlbee.spec: New smf manifest, use a different runtime model
+	and switch from gnutls to openssl.
+
+2012-03-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEbitlbee.spec: initial spec.
+	* patches/bitlbee-01-ipc.diff
+	* patches/bitlbee-02-irc_im.diff
+	* patches/bitlbee-03-irc_commands.diff
+	* patches/bitlbee-04-irc_user.diff
+	* ext-sources/bitlbee.xml
+	* copyright/SFEbitlbee.copyright
+	* SFElibotr.spec: initial spec.
+	* copyright/SFElibotr.copyright
+	* experimental/SFEossec-server.spec: initial spec.
+	* patches/ossec-server-01-installserver.diff
+	* copyright/SFEossec-server.copyright
+
+2012-02-28  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* experimental/SFEminiupnpd.spec: initial spec.
+	* patches/miniupnpd-01-makefile.diff
+	* patches/miniupnpd-02-max.diff
+	* patches/miniupnpd-03-salen.diff
+	* patches/miniupnpd-04-syslog.diff
+	* patches/miniupnpd-05-syslog.diff
+	* patches/miniupnpd-06-syslog.diff
+	* patches/miniupnpd-07-max-uint64t.diff
+	* patches/miniupnpd-08-upnpredirect.diff
+	* patches/miniupnpd-09-ipf5-updates.diff
+	* patches/miniupnpd-10-upnpredirect.diff
+	* patches/miniupnpd-11-ignore-link-level.diff
+	* copyright/SFEminiupnpd.copyright
+	* SFEipf.spec: Fix isaexec usage. Moved /opt/ipf documents,
+	example and test pieces under /usr/share and /usr/sbin. Also moved
+	headers to be in the same place as default distribution.
+
+2012-02-28 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4-rc5
+
+2012-02-27  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEipf.spec: Initial spec.
+	* ext-sources/ipfilter.xml: initial manifest
+	* patches/ipf-01-ipsend.diff
+	* patches/ipf-02-enable-statetop.diff
+	* patches/ipf-03-workaround-zone-kernel-check.diff
+	* patches/ipf-04-xmodel-kernel.diff
+	* patches/ipf-05-ipfboot-etc-ipf.diff
+	* copyright/SFEipf.copyright
+	* SFEisaexec-opt-sfe.spec: Added basedir setting.
+
+2012-02-26  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEimagemagick.spec: update to 6.7.4-10 and added ips package name
+	* SFElibpng.spec: Brought back and bumped to 1.4.9. This fixes
+	security CVE-2011-3026 and with a rebuilt imagemagick support for
+	PNG which is broken with the OI bundled libpng.
+
+2012-02-26 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEviewnior.spec: initial spec
+	* SFEosg.spec: fix build, move to /usr/g++
+
+2012-02-25  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEossec-agent.spec: initial spec
+	* patches/ossec-agent-01-installagent.diff
+	* ext-sources/ossec.xml: initial manifest
+	* copyright/SFEossec-agent.copyright: add copyright file
+
+2012-02-24 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdovecot.spec: bump to 2.1.1
+	* SFEpostfix.spec: bump to 2.9.1
+
+2012-02-23  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEasterisk.spec: added back in BuildRequires: SFEgcc
+	* SFEaspell.spec: restored spec, added an ips package name,
+	restored /usr/bin binary placement, and man page installation
+	* SFEaspell-en.spec: restored spec and added an ips package name
+	* base-specs/aspell.spec: Fixed a typo, removed an outdated patch,
+	and added back in ispell compat script
+
+2012-02-23 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdrupal7.spec: bump to 7.12
+	* SFEdoxygen.spec: bump to 1.7.6.1
+
+2012-02-22  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExar.spec: add Solaris 10 porting note
+	* SFEasterisk.spec: bump to 1.8.9.2 and add IPS package name
+	* patches/asterisk-02-term.diff
+
+2012-02-21  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExar.spec: initial spec
+	* copyright/SFExar.copyright: add copyright file
+	* patches/xar-01-configure.diff
+
+2012-02-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFExmlstarlet.spec: initial spec
+	* copyright/SFExmlstarlet.copyright: add copyright file
+	* patches/xmlstarlet-01-configure.diff
+
+2012-02-19 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4-rc4
+
+2012-02-18 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEXaw3d.spec: fix deliverables, bump to 1.6.1
+	* SFEopenjpeg.spec: bump to 1.5.0
+	* SFExpaint.spec: initial spec
+	* SFElibxaw3dxft.spec: initial spec
+
+2012-02-15 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEqt-gpp.spec - build fPIC, specify no3dnow for Intel cpus
+	* SFElibgmtk.spec - Initial spec
+	* archive/SFEbinutils.spec - bump to 2.22
+	* SFEbinutils-gpp.spec - fork from SFEbinutils, use new g++ path
+	* patches/binutils-01-bug-2495.diff
+	* patches/binutils-04-non-constant_initializer_op.diff
+	* patches/binutils-05-lm.diff
+
+2012-02-13 Ken Mays <kmays2000@gmail.com>
+
+	* SFEfuse-exfat.spec: bump to 0.9.6
+	* SFEfuse-ext2.spec: bump to 0.0.7
+	* SFEgit.spec: bump to 1.7.9
+	* SFEwine.spec: bump to 1.4-rc3
+
+2012-02-12 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEfreemind.spec: bump to 0.9.0
+	* base-specs/libnice.spec: bump to 0.1.1
+	* SFElibglew.spec: bump to 1.7.0
+
+2012-02-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopencity.spec: bump to 0.0.6.4stable
+	* SFEcmake.spec: bump to 2.8.7
+	* SFEtor.spec: promote
+	* SFEvidalia.spec: initial spec
+	* base-specs/libevent2.spec: bump to 2.0.17
+
+2012-02-08 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEofflineimap.spec: bump to 6.4.0
+	* SFElxmenu-data.spec: bump to 0.1.2
+	* SFElibosip2.spec: bump to 3.6.0
+	* SFElibexosip2.spec: bump to 3.6.0
+	* SFElibpano13.spec: bump to 2.9.18
+
+2012-02-07 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEenet.spec: bump to 1.2.5
+	* SFEhatari.spec: bump to 1.6.1
+	* SFElibetpan.spec: bump to 1.1
+	* SFElibassuan.spec: bump to 2.0.3
+	* SFEfluidsynth.spec: bump to 1.1.5
+	* SFEscummvm.spec: bump to 1.4.1
+	* SFEnginx.spec: bump to 1.0.12
+
+2012-02-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEtea.spec: bump to 31.2.0 based on QT
+	* SFEgaupol.spec: bump to 0.19.2
+
+2012-02-06 Ken Mays <kmays2000@gmail.com>
+
+	* SFEpostfix.spec: bump to 2.8.8
+	* SFEdovecot.spec: bump to 2.0.17
+
+2012-02-05 Brian Cameron <brian.cameron@oracle.com>
+
+	* SFEladspa-swh-plugins.spec: Remove dependency on SUNWfftw2.
+	* SFEaudacity.spec: Bump to 1.3.14.
+	* base-specs/libsndfile.spec:
+
+2012-02-05 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpcre-gpp.spec: bump to 8.30, enable 16bit and JIT
+	* SFEgnote.spec: bump to 0.7.6
+	* SFElibfm.spec: bump to 0.1.17
+	* SFEpcmanfm.spec: bump to 0.9.10
+	* SFEwindowmaker.spec: package reorganization
+	* SFEimlib2.spec: bump to 1.4.5
+
+2012-02-04 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4-rc2
+
+2012-02-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEisomaster.spec: initial spec
+	* SFEdjvulibre.spec: fix build with the latest GCC
+	* SFEmsmtp.spec: bump to 1.4.27
+
+2012-01-28 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEfusefs.spec: add patches from Jean-Pierre Andre
+
+2012-01-28 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.4rc1
+
+2012-01-27 James Choi <jchoi42@pha.jhu.edu>
+
+	* base-specs/ffmpeg.spec - bump to 0.10, bump patch-09
+	* encumbered/SFEffmpeg.spec - update files for 0.10
+	* encumbered/SFEffmpeg-sse2-only.spec - add deps, intel/amd specify
+	* patches/ffmpeg-09-configure-gnuism-pod2man.diff - bump to 0.10
+	* patches/ffmpeg-12-unoverride.diff
+	* encumbered/SFEmplayer2.spec - intel/amd specify
+
+2012-01-26 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.3.37, tested with LibreOffice 3.5.0rc2
+
+2012-01-25 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEspareshash.spec - Initial spec
+	* base-specs/sparsehash.spec
+	* SFEqhull.spec - Initial spec
+	* base-specs/qhull.spec
+	* SFEglpk.spec - bump to 4.47, update g++ path
+	* base-specs/lapack.spec - bump to 3.4.0, fPIC
+	* base-specs/blas.spec - specify fPIC
+	* SFEpythia8.spec - Initial spec
+	* base-specs/pythia8.spec
+	* SFEroot-5.32-gpp.spec - Initial spec
+	* base-specs/root.spec
+
+2012-01-24 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/schroedinger.spec: bump to 1.0.11
+
+2012-01-19 Ken Mays <kmays2000@gmail.com>
+
+	* SFEimagemagick.spec: bump to 6.7.4-7
+
+2012-01-17 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibxfce4ui.spec: bump to 4.8.1
+	* SFExfce-calendar.spec: bump to 4.8.3
+	* SFExfwm4.spec: bump to 4.8.3
+	* SFExfconf.spec: bump to 4.8.1
+	* SFEtumbler.spec: bump to 0.1.23
+	* SFEmidori.spec: bump to 0.4.3
+	* SFExfce4-ristretto.spec: bump to 0.2.3
+
+2012-01-14 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEboost-stdcxx.spec: bump to 1.48.0
+	* base-specs/boost.spec: add support for stdcxx
+
+2012-01-13  Alex Viskovatoff <herzen@imap.cc>
+
+	* ffmpeg.spec: bump to 0.9.1
+	* SFEghc.spec: bump to 7.2.2
+
+2012-01-12 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/boost.spec: bump to 1.48.0
+	* SFEboost.spec: package restructuralization, static libs re-added
+	* SFEboost-gpp.spec: package restructuralization, static libs re-added
+
+2012-01-09 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEqt.spec: use libCstd, bump to 4.7.4
+
+2012-01-08 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEstellarium.spec: bump to 0.11.1, fix qt-stdcxx
+	* SFEscribus.spec: bump to 1.4.0
+	* SFElyx.spec: bump to 2.0.2
+	* SFEopenoffice-dmake.spec: initial spec
+
+2012-01-07 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEqt-stdcxx.spec: bump to 4.7.4, rename to SFEqt-stdcxx
+
+2012-01-03 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEgnome-sharp.spec: bump to 2.24.1
+	* patches/gnome-sharp-01-Wall.diff
+	* patches/gnome-sharp-03-getoptions.diff
+	* base-specs/icu.spec: specify MAKE for older pkgbuild
+	* SFEmono-gnome-desktop-sharp.spec: initial spec
+	* patches/gnome-desktop-sharp-01-Wall.diff
+	* SFEtileworld.spec: initial spec
+	* base-specs/tileworld.spec
+	* SFEzsnes.spec: initial spec
+	* base-specs/zsnes.spec
+	* patches/zsnes-01-devnull.diff
+	* patches/zsnes-02-solaris.diff
+	* patches/zsnes-03-naming.diff
+
+2012-01-01 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.3.36
+	* SFEstellarium-gpp.spec: bump to 0.11.1
+
+2012-01-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEguake.spec: add IPS restart services
+
+2011-12-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEnodejs.spec: bump to 0.6.6
+	* SFEgeany.spec: bump to 0.21
+	* SFEnetpbm.spec: bump to 10.35.83
+
+2011-12-30  Thomas Wagner  <tom68@users.sourceforge.net>
+
+        * SFEdrupal7.spec: bump to 7.10 - various fixes
+
+2011-12-30 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibwpd-gpp.spec: renamed from SFEwpd, bump to 0.9.4
+	* SFElibwpg-gpp.spec: initial spec
+	* SFEinkscape.spec: fix 0.48.2 build, add libwpg
+	* SFElibmagick-gpp.spec: fork from SFEimagemagick for g++ libs
+	* SFEscorched3d.spec: bump to 43.2a
+
+2011-12-28 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEsysstat.spec: bump version to 20111025
+	* SFElibwebp.spec: initial spec
+
+2011-12-25 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/conduit.spec: bump to 0.3.17
+
+2011-12-24 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEjasper.spec: add several security patches from Debian
+
+2011-12-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEliferea.spec: bump to 1.6.7
+	* SFEopenttd.spec: bump to 1.1.4
+
+2011-12-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgcc.spec: add libquadmath symlinks
+
+2011-12-12 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibass.spec: bump to 0.10.0
+	* encumbered/SFEffmpeg.spec: bump to 0.9
+	* SFEdspam.spec: bump to 3.10.1
+	* SFElibntlm.spec: bump to 1.3
+	* SFEcyrus-sasl.spec: bump to 2.1.25
+	* SFEgsl.spec: bump to 1.15
+	* SFEasciidoc.spec: bump to 8.6.6
+
+2011-12-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpngcrush.spec: bump to 1.7.22
+	* SFEjson-glib.spec: bump to 0.12.6
+	* SFEpidgin-facebookchat.spec: bump to 1.69
+	* SFEbzr.spec: bump to 2.4.2
+	* SFEuncrustify.spec: bump to 0.59
+	* SFEgeoip.spec: bump to 1.4.8
+	* SFEmtr.spec: bump to 0.82
+	* SFEclamav.spec: bump to 0.97.3
+	* SFEc-icap.spec: bump to 0.1.7
+
+2011-12-08 Ken Mays <kmays2000@gmail.com>
+
+	* SFEsupertuxkart.spec: bump to 0.7.3
+
+2011-12-08 Ken Mays <kmays2000@gmail.com>
+
+	* SFEimagemagick.spec: bump to 6.7.3-10
+
+2011-12-05 Milan Jurik <sfnet@xylab.cz>
+
+	* SFErcs.spec: bump to 5.8
+
+2011-12-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFExplanet.spec: 1.2.2
+	* SFEgcc.spec: patch10 for spawn issue
+	* SFEllvm.spec: bump to 3.0
+
+2011-12-02 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: bump to 1.3.34
+
+2011-11-30 Ken Mays <kmays2000@gmail.com>
+
+	* SFEbanshee.spec: bump to 0.13.2
+
+2011-11-26 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEmono.spec: bump to 2.10.6
+	* SFEmono-addins.spec: bump to 0.6.2
+
+2011-11-24 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEldns.spec: bump to 1.6.11
+	* SFElibelf.spec: fix packaging
+	* base-specs/libelf.spec: bump to 0.8.13
+
+2011-11-24 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdovecot.spec: bump to 2.0.16
+
+2011-11-21 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFEswfdec.spec: bump to 0.9.2
+
+2011-11-20 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFElibdvdcss.spec: bump to 1.2.11
+	* SFEgnome-js-common.spec: clean up
+	* SFEgconfmm.spec: bump to 2.28.3
+	* SFEepiphany.spec: bump to 2.30.6, add javascript
+	* base-specs/libquicktime.spec: bump to 1.2.3
+	* encumbered/SFEmjpegtools.spec: bump to 2.0.0
+
+2011-11-19 Ken Mays <kmays2000@gmail.com>
+
+	* SFEpostfix.spec: bump to 2.8.7
+	* SFElft.spec: Initial spec (LFT 3.33)
+	* SFEsugar.spec: Bump to 0.94.1
+	* SFEwine.spec: Bump to 1.3.33
+
+2011-11-19 Milan Jurik <sfnet@xylab.cz>
+
+	* SFECorsixTH.spec: bump to Beta8, add IPS package name
+	* SFEscummvm.spec: menu entry
+	* SFEperl-gettext.spec: add IPS package name, cleanup
+	* SFEfrozen-bubble.spec: add IPS package name, cleanup
+	* SFEsupertux.spec: add IPS package name, fix GCC build
+	* SFEnodejs.spec: bump to 0.6.2
+
+2011-11-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibevent2.spec: multiarch support, bump to 2.0.15
+	* experimental/SFEtor.spec: initial spec
+
+2011-11-14 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEviking.spec: bump to 1.2.2
+
+2011-11-09 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibfuse.spec: Bumped to 2.7.6
+	* Added patches/fuse-2.7.6-update.diff
+	* SFEfuse-ext.spec: Added fuse-ext2-0.0.7 patches
+	* patches/fuse-ext2-0.0.7-01-sunpro.diff
+	* patches/fuse-ext2-0.0.7-02-solaris.diff
+	* patches/fuse-ext2-0.0.7-03-readdir.diff
+
+2011-11-07 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEsilgraphite.spec: initial spec
+	* base-specs/icu.spec: bump to 4.8.1.1
+	* base-specs/ffmpeg.spec: bump to 0.8.6
+
+2011-11-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEliblinebreak.spec: bump to 2.1
+
+2011-11-05 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEc-ares.spec: bump to 1.7.5
+	* base-specs/xmlrpc-epi.spec: bump to 0.54.2
+
+2011-11-5 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.32
+
+2011-11-3 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEntfs-3g-2011.10.9-RC.spec: Bump to 2011.10.9-RC
+
+2011-11-1 Ken Mays <kmays2000@gmail.com>
+
+	* SFEfuse-exfat.spec: Bump to 0.9.5
+
+2011-10-31 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdrupal7.spec: Bump to 7.9
+
+2011-10-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEteckit.spec: initial spec
+
+2011-10-30 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEbdb-5.2.36.spec: Production release
+	* SFEweechat.spec: Bump to 0.3.6
+	* patches/weechat-03-fix-size-TIOCGWINSZ.diff: Added
+	* patches/weechat-04-fix-aspell.diff: Added for Enchant support
+
+2011-10-30 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEsmartmontools.spec: bump to 5.42
+	* SFEhatari.spec: bump to 1.5.0
+	* SFEviking.spec: fix for gpsd 2.96
+
+2011-10-29 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgcc.spec: bump to 4.6.2
+	* SFExpdf.spec: initial spec
+	* SFEzziplib.spec: bump to 0.13.60
+	* SFEgpsd.spec: bump to 2.96
+	* SFElibrest.spec: bump to 0.7.11
+	* SFEchrpath.spec: initial spec
+
+2011-10-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFElibtorrent-rasterbar.spec: bump to 0.15.8; add IPS_package_name
+	* SFEqbittorrent.spec: update to 2.9.1, disabling one patch;
+	  add IPS_package_name
+	* SFEmultitail.spec: update to 5.2.8; add IPS_package_name
+	* SFEsmplayer2.spec: fork spec off SFEsmplayer.spec
+	* SFEmpdscribble.spec: bump to 0.22
+
+2011-10-27 Ken Mays <kmays2000@gmail.com>
+
+	* SFEbdb.spec: Reverted to 4.8.30
+	* experimental/SFEbdb-5.2.36.spec: Test version
+
+2011-10-24 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEcaribou.spec: Improve packaging.
+
+2011-10-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmpg123.spec: bump to 1.13.4; fix executable; use xarch=sse;
+	  add IPS_package_name
+	* SFEffmpeg-sse2-only.spec: remove dep on SFEfaad2; downgrade cpu
+	* ffmpeg.spec: remove --extra-ldflags=-mimpure-text
+	* libx264.spec: update to new tarball; change version numbering
+	* SFElibx264-no-mp4.spec: delete redundant spec
+	* SFEmplayer2.spec: add missing dep; disable libmad
+	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
+	* SFErtmpdump.spec: move to encumbered/
+	* SFExulrunner.spec import spec from BeleniX into experimental/
+
+2011-10-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmpg123.spec: bump to 1.13.4; fix executable; use xarch=sse;
+	  add IPS_package_name
+        * SFEffmpeg-sse2-only.spec: remove dep on SFEfaad2; downgrade cpu
+        * ffmpeg.spec: remove --extra-ldflags=-mimpure-text
+        * libx264.spec: update to new tarball; change version numbering
+        * SFElibx264-no-mp4.spec: delete redundant spec
+        * SFEmplayer2.spec: add missing dep; disable libmad
+	* SFEmpd.spec: use mpg123 instead of libmad for mp3s
+	* SFErtmpdump.spec: move to encumbered/
+	* SFExulrunner.spec import spec from BeleniX into experimental/
+
+2011-10-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEmpg123.spec: bump to 1.13.4; fix executable; use xarch=sse;
+	  add IPS_package_name
+
+2011-10-24 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEt1lib.spec: initial spec
+
+2011-10-23 Milan Jurik <sfnet@xylab.cz>
+
+	* include/arch64.inc: use -m64 instead of -xarch=generic64
+	* encumbered/SFElibgsm.spec: fix multiarch
+	* encumbered/SFEffmpeg.spec: add IPS package name, add rtmp dep
+	* SFEtaglib.spec: bump to 1.7
+	* SFEsoundtouch.spec: bump to 1.6.0
+	* base-specs/libvpx.spec: bump to 0.9.7-p1
+	* base-specs/libmms.spec: bump to 0.6.2
+	* SFEpython26-genshi.spec: bump to 0.6
+	* SFEassaultcube.spec: bump to 1.1.0.4
+
+2011-10-22 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.31
+
+2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnome-shell.spec, patches/gnome-shell-02-fixclick.diff:  Add
+	  patch to workaround an issue that makes GNOME Shell not very usable.
+
+2011-10-22 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnome-shell.spec, patches/gnome-shell-01-compile.diff: Bump to
+	  3.2.1.
+	* SFEgnome-shell-extensions.spec: Bump to 3.2.0.
+	* SFEcaribou.spec: Add new spec, version 0.4.1.
+	* SFEspidermonkey.spec, patches/spidermonkey-01-js-ctypes.diff,
+	  patches/spidermonkey-02-jsfunc.diff,
+	  patches/spidermonkey-03-methodjit-sparc.diff,
+	  patches/spidermonkey-04-jemalloc.diff,
+	  patches/spidermonkey-05-pgo-ss12_2.diff,
+	  patches/spidermonkey-06-use-system-libffi.diff,
+	  patches/spidermonkey-07-makefile.diff: Add spec-file for the
+	  Mozilla SpiderMonkey JavaScript Engine (js185).
+	* SFEmutter.spec, patches/mutter-03-compile.diff: Bump to 3.2.1.
+	* SFEgjs.spec, patches/gjs-01-solaris.diff: Bump to 1.30.0.  Rework
+	  patch.
+	* base-specs/telepathy-glib.spec: Bump to 0.16.0.
+
+2011-10-22 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEfreeciv.spec: bump to 2.3.0
+
+2011-10-21 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFElibx264.spec: autodetect gpac
+
+2011-10-20 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibdvdnav.spec: Bump to 4.2.0
+	* SFElibdvdread.spec: Bump to 4.2.0
+
+2011-10-19  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFElibx264-no-mp4.spec: fork new spec off SFElibx264.spec
+	* SFEmkvtoolnix.spec: bump to 5.0.1
+	* SFEperl-xml-xpath.spec: fix directory attributes
+
+2011-10-19 Ken Mays <kmays2000@gmail.com>
+
+	* SFEvlc-1.1.12.spec: Patches updated for current build
+	* vlc-26-1112-pulseaudio-fix.diff: Added
+	* vlc-23-1114-dirfd.diff: Fixed
+
+2011-10-18 Ken Mays <kmays2000@gmail.com>
+
+	* SFEvlc-1.1.12.spec: Renamed for current build review
+
+2011-10-17 Ken Mays <kmays2000@gmail.com>
+
+	* SFElighttpd.spec: Added MySQL 5.1 support
+	* SFEwine.spec: Added V4L for Skype 5.6
+	* SFExfce-loginmgr.spec: Migrated from OSOL to SFE
+
+2011-10-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEorc.spec: add IPS package name
+	* base-specs/orc.spec: bump to 0.4.16
+	* SFElibschroedinger.spec: add IPS package name
+	* base-specs/schroedinger.spec: bump to 1.0.10
+	* encumbered/SFEfaac.spec: add IPS package name
+	* encumbered/SFEmplayer.spec: add IPS package name
+	* SFEwebkitgtk.spec: add IPS package name
+	* SFEliferea.spec: add IPS package name
+	* SFEjasper.spec: add IPS package name
+	* SFEaaphoto.spec: add IPS package name
+	* SFEe2fsprogs.spec: add IPS package name
+	* SFEforemost.spec: add IPS package name
+	* SFEusbmodeswitch.spec: add IPS package name, bump data package
+	* SFEboost.spec: add IPS package name
+	* SFEsdl-mixer.spec: add IPS package name
+	* SFEsdl-sound.spec: add IPS package name
+	* SFEsdl-net.spec: add IPS package name
+	* SFEsdl-image.spec: add IPS package name
+	* SFEsdl-pango.spec: add IPS package name
+	* SFEsdl-perl.spec: add IPS package name
+	* SFEsdl-ttf.spec: add IPS package name
+	* SFEphysfs.spec: add IPS package name
+	* SFEsdl-gfx.spec: add IPS package name
+	* SFElzo.spec: add IPS package name, bump to 2.06
+	* SFEopenttd.spec: add IPS package name, bump to 1.1.3, opengfx 0.3.7
+
+2011-10-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEfreeglut.spec: add IPS package name
+	* SFEyasm.spec: add IPS package name
+	* encumbered/SFEgpac.spec: add IPS package name
+	* SFElibmp4v2.spec: add IPS package name
+	* base-specs/libmp4v2.spec: fix sun studio build
+	* encumbered/SFEfaad2.spec: add IPS package name, fix build
+	* encumbered/SFElibx264.spec: add IPS package name,
+	  keep SFEgpac as mandatory
+	* base-specs/libx264.spec: fix multicore build
+	* SFEgiflib.spec: add IPS package name
+
+2011-10-14 Ken Mays <kmays2000@gmail.com>
+
+	* SFEdrupal.spec: Bump to 7.8
+	* SFElighttpd.spec: Bump to 1.4.29
+	* SFEphp.spec: Bump to 5.3.8
+
+2011-10-13  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEffmpeg-sse2-only.spec: add dependency on SFErtmpdump
+	* ffmpeg.spec: bump to 0.8.5; enable librtmp
+	* SFErtmpdump.spec: fix librtmp.pc; add IPS_package_name
+	* SFElibx264.spec: add new build dependency on library/mpfr
+	* libx264.spec: update to new tarball
+	* SFEgit.spec: bump to 1.7.7; add IPS_package_name
+	* SFEgraphicsmagick.spec: add IPS_package_name
+	* SFEwine.spec: add IPS_package_name
+
+2011-10-11 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.30
+	* SFEsupertuxkart.spec: Bump to 0.7.2
+
+2011-10-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenjpeg.spec: bump to 1.4, add IPS package name
+	* SFEautomake-111.spec: initial spec
+	* SFEcmake.spec: bump to 2.8.6, add IPS package name
+	* SFEopenal.spec: bump to 1.13, add IPS package name
+	* base-specs/xvid.spec: bump to 1.3.2
+	* encumbered/SFExvid.spec: add IPS package name
+
+2011-10-10 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEmpfr.spec: bump to 3.1.0, add IPS package name
+	* SFEgmp.spec: bump to 5.0.2, go with proper multiarch
+	* SFEnasm.spec: add IPS package name
+	* SFElibmpc.spec: add IPS package name
+	* base-specs/libmpc.spec: bump to 0.9
+	* SFEgcc.spec: add IPS package name
+	* SFElibfribidi.spec: add IPS package name
+	* encumbered/SFElame.spec: add IPS package name, remove GCC dependency
+	* encumbered/SFElibdvdcss.spec: add IPS package name
+	* encumbered/SFElibmad.spec: add IPS package name
+	* encumbered/SFEliba52.spec: add IPS package name
+	* encumbered/SFElibmpcdec.spec: add IPS package name
+	* encumbered/SFEtwolame.spec: bump to 0.3.13, add IPS package name
+	* SFEladspa.spec: add IPS package name
+	* SFElibdvdread.spec: add IPS package name
+	* SFElibdvdnav.spec: add IPS package name
+	* encumbered/SFElibgsm.spec: add IPS package name
+	* encumbered/SFEopencore-amr.spec: add IPS package name
+
+2011-10-08 Ken Mays <kmays2000@gmail.com>
+
+	* SFEthunar.spec: Bump to 1.2.3 (stable)
+	* SFEthunar-vcs-plugin.spec: Initial spec (0.1.4)
+	* SFExfce4-clipman-plugin.spec: Initial spec (1.1.3)
+	* SFExfce4-cpufreq-plugin.spec: Initial spec (1.0.0)
+	* SFExfce4-cpugraph-plugin.spec: Initial spec (1.0.1)
+	* SFExfce4-diskperf-plugin.spec: Initial spec (4.4.1)
+	* SFExfce4-eyes-plugin.spec: Initial spec (2.3.0)
+	* SFExfce4-qcklaunch-plugin.spec: Initial spec (1.9.4)
+	* SFExfce4-smartbmark-plugin.spec: Initial spec (0.4.2)
+	* SFExfce4-systemload-plugin.spec: Initial spec (0.4.2)
+	* SFExfce4-time-out-plugin.spec: Initial spec (1.0.0)
+	* SFExfce4-timer-plugin.spec: Initial spec (0.6.2)
+	* SFExfce4-xfswitch-plugin.spec: Initial spec (0.0.1)
+	* SFExfce4-xmms-plugin.spec: Initial spec (0.5.3)
+	* SFEthunar-vfs.spec: Added patch to resolve Xfce Bug #5561
+
+2011-10-07 Ken Mays <kmays2000@gmail.com>
+
+	* SFEthunar-archive-plugin.spec:  Bump to 0.3.0
+	* SFExfce4-battery-plugin.spec:  Initial spec (1.0.0)
+	* SFExfce4-dict-plugin.spec: Revised (0.3.0)
+	* SFExfce4-gvfs-mount.spec: Initial spec (4.0.0-6d2684b)
+	* SFExfce4-notes-plugin.spec: Bump to 1.6.4
+	* SFExfce4-ristretto.spec: Bump to 0.1.0
+	* SFExfce4-sensors-plugin.spec: Initial spec (1.2.3)
+	* SFExfce4-verve-plugin.spec: Bump to 1.0.0
+	* SFExfce4-xfapplet-plugin.spec: Revised (0.1.0)
+
+2011-10-06 Ken Mays <kmays2000@gmail.com>
+
+	* SFExen.spec: Initial spec (experimental, xen 4.1.1)
+	* SFExfce4-cpugraph-plugin.spec (experimental, 1.0.1)
+
+2011-10-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEtun.spec: add IPS package name
+	* SFEopenconnect.spec: bump to 3.13, add IPS package name
+	* SFEliveMedia.spec: clean up, add IPS package name
+	* SFElibiconv.spec: bump to 1.14, add IPS package name
+	* SFElibcddb.spec: clean up, add IPS package name
+	* SFElibcdio.spec: clean up, add IPS package name
+
+2011-10-06 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnumeric.spec: Bump to 1.10.17.
+
+2011-10-05  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEemacs.spec: info files should go in /usr/gnu
+	* SFExfwm4.spec: bump to 4.8.2
+	* SFEmidori.spec: fix file attributes
+	* SFEtmux.spec: SFElibevent2 is in /usr/gnu; update to 1.5
+
+2011-10-05 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce4-netload-plugin.spec: Bump to 1.0.0
+	* SFExfce4-screenshooter.spec: Initial spec (1.7.9)
+	* SFExfce4-ristretto.spec: Initial spec (0.0.93)
+	* SFExfce4-weather-plugin.spec: Bump to 0.7.4
+
+2011-10-04 Ken Mays <kmays2000@gmail.com>
+
+	* SFEgnumeric-gpp.spec: Revised to 1.10.7
+
+2011-10-03 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.29
+
+2011-10-02 Ken Mays <kmays2000@gmail.com>
+
+	* SFEmeld.spec: bump to 1.5.2
+	* SFEopenbox.spec: Bump to 3.5.0
+	* SFEmidori.spec: Bump to 0.4.0
+	* SFEparole.spec: Fixed build
+
+2011-09-30 Ken Mays <kmays2000@gmail.com>
+
+	* SFEbdb.spec: bump to 5.2.36
+
+2011-09-30 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpython26-django.spec: bump to 1.3.1
+
+2011-09-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEpcmanfm.spec: fix %files root
+	* SFEeasytag.spec: disable mp4, which breaks the build
+	* SFEghc.spec: require gcc-3, because without it ghc cannot do
+	  builds; move out of haskell/
+	* SFEntfs-3g.spec: build with gcc-3, as does not duild with gcc 4.6
+	* SFEgmpc.spec: let the environment choose the gcc
+	* SFEenscript.spec: bump to 1.6.5.2
+	* SFEscons.spec: bump to 2.1.0
+	* SFEopenvpn.spec: update to 2.2.1, fixing %files
+
+2011-09-28 James Choi <jchoi42@pha.jhu.edu>
+
+	* SFEmono.spec: bump to 2.10.5
+	* patches/mono-02-sgen.diff: updated for 2.10.5
+	* SFEgtk-sharp.spec: bump to 2.12.11
+	* SFEmono-addins.spec: bump to 0.6.1
+	* SFEgecko-sharp.spec: bump to 2.0-0.13
+
+2011-09-27 Ken Mays <kmays2000@gmail.com>
+	* SFEdovecot: Bump to 2.0.15
+	* SFEinkscape.spec: Bump to 0.48.2
+	* SFExfce-calendar.spec: Changed from SFExfcalendar
+	Updated to Sugar Desktop Environment v0.93.5
+	* SFEsugar-abacus.spec: Bumped to 23
+	* SFEsugar-artwork.spec: Bumped to 0.93.4
+	* SFEsugar-base.spec: Bumped to 0.93.2
+	* SFEsugar-bounce.spec: Bumped to 7
+	* SFEsugar-calculate.spec: Bumped to 37
+	* SFEsugar-cardsort.spec: Bumped to 5
+	* SFEsugar-cartoonbuilder.spec: Bumped to 3
+	* SFEsugar-chat.spec: Bumped to 71
+	* SFEsugar-clock.spec: Bumped to 6
+	* SFEsugar-colors.spec: Bumped to 15
+	* SFEsugar-datastore.spec: Bumped to 0.93.2
+	* SFEsugar-erikos.spec: Bumped to 3
+	* SFEsugar-finance.spec: Initial.spec
+	* SFEsugar-flipsticks.spec: Bumped to 8
+	* SFEsugar-geogebra.spec: Initial spec
+	* SFEsugar-getiabooks.spec: Bumped to 3
+	* SFEsugar-imageviewer.spec: Bumped to 27
+	* SFEsugar-infoslicer.spec: Bumped to 9
+	* SFEsugar-irc.spec: Bumped to 10
+	* SFEsugar-jukebox.spec: Bumped to 20
+	* SFEsugar-labyrinth.spec: Bumped to 7
+	* SFEsugar-measure.spec: Bumped to 33
+	* SFEsugar-memorize.spec: Initial spec
+	* SFEsugar-moon.spec: Bumped to 12
+	* SFEsugar-napier.spec: Initial spec
+	* SFEsugar-paint.spec: Bumped to 25
+	* SFEsugar-physics.spec: Bumped to 8
+	* SFEsugar-pippy.spec: Bumped to 41
+	* SFEsugar-presence-service.spec: Bumped to 0.90.2
+	* SFEsugar-pukllanapac.spec: Initial spec
+	* SFEsugar-read.spec: Bumped to 88
+	* SFEsugar-readetexts.spec: Bumped to 17
+	* SFEsugar-record.spec: Bumped to 87
+	* SFEsugar-ruler.spec: Bumped to 12
+	* SFEsugar-sliderule.spec: Bumped to 22
+	* SFEsugar-storybuilder.spec: Initial spec
+	* SFEsugar-terminal.spec: Bumped to 34
+	* SFEsugar-toolkit.spec: Bumped to 0.93.4
+	* SFEsugar-turtleart.spec: Bumped to 115
+	* SFEsugar-turtleconfusion.spec: Initial spec
+	* SFEsugar-typingturtle.spec: Bumped to 17
+	* SFEsugar-visualmatch.spec: Bumped to 29
+	* SFEsugar-xoeditor.spec: Bumped to 2
+	* SFEsugar.spec: Bumped to 0.93.5
+
+2011-09-27 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEsmfgui.spec: bump to 0.9.5.3
+
+2011-09-25 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEtumbler.spec: fix build
+	* SFEfltk2.spec: fix Sun Studio build
+	* SFEfltk.spec: bump to 1.3.0
+	* SFElibxfce4util.spec: fix download URL
+
+2011-09-25 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfcalendar.spec: Bump to 4.8.2
+
+2011-09-24 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibxfce4util.spec: Bump to 4.8.2
+	* SFExfce-utils.spec: Bump to 4.8.3
+	* SFExfce4-session: Bump to 4.8.2
+	* SFExfce4-settings.spec: Bump to 4.8.3
+	* SFExfce-terminal.spec: Bump to 0.4.8
+	* SFEtumbler: Bump to 0.1.22
+
+2011-09-22 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce4-session.spec: Added *simple-splash-remove-shadows.diff
+	* SFExfce4-panel.spec: Bump to 4.8.6
+
+2011-09-19 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEscummvm.spec: bump to 1.3.1
+
+2011-09-17  Alex Viskovatoff <herzen@imap.cc>
+
+	SFEabiword.spec: add missing dependency on runtime/gcc
+	SFEemacs.spec: bump to 23.3a
+
+2011-09-17 Ken Mays <kmays2000@gmail.com>
+
+	* SFEpostfix.spec: Bump to 2.8.5
+	* Provided fix to postfix.xml manifest for SMF issue (#1519)
+	* SFEgnucash.spec: Bump to 2.4.7
+	* base-specs/gnucash-docs.spec: Bump to 2.4.1
+
+2011-09-16 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.13
+
+2011-09-14  Thomas Wagner  <tom68@users.sourceforge.net>
+	* experimental/SFEgcc-runpath.spec patches/gcc-05-LINK_LIBGCC_SPEC.diff:
+	  rework for clean runpath, add patch gcc-05-* to always find libgcc_s.so.1
+	  libstdc++.so.6 in our location, add doc to gcc-03-*,
+	  this is project part 1 of 2"
+	* SFEosg.spec, SFEflightgear.spec, SFEdillo.spec,
+	  SFEsimgear20.spec: back to SFE default compiler location /usr/gnu/bin/gcc
+
+2011-09-14 Ken Mays <kmays2000@gmail.com>
+
+	* SFEimagemagick.spec: Bump to 6.7.2-6
+	* SFEslypheed.spec: Bump to 3.1.2
+	* SFEclaws-mail.spec: Bump to 3.7.10
+	* SFEwordpress.spec: Bump to 3.2.1
+	* SFEdillo: Minor fixes
+	* SFEtcl.spec: Bump to 8.5.10
+
+2011-09-07 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.5.
+
+2011-09-06 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEopenttd.spec: bump to 1.1.2
+
+2011-09-04 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEusbmodeswitch.spec: bump to 1.1.9
+
+2011-09-02 Ken Mays <kmays2000@gmail.com>
+
+	* SFEflightgear.spec: Bump to 2.4.0
+	* SFEsimgear20.spec: Bump to 2.4.0
+	* SFEosg.spec: Bump to 3.0.1
+
+2011-09-01 Ken Mays <kmays2000@gmail.com>
+
+	* Archived KDE3* specs
+	* Moved xfce4-plugins specs to experimental
+	* SFEstellarium.spec: Bump to 0.11.0
+	* Created stellarium-0.11.0-01-sunstudio.diff SS12 patch
+
+2011-09-01 Milan Jurik <sfnet@xylab.cz>
+
+	* encumbered/SFEmpg123.spec: bump to 1.13.3
+	* encumbered/SFEmpg321.spec: bump to 0.2.13-3
+
+2011-08-30 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Working spec for Wine 1.1.44
+	* experimental/SFEwine-1.3.spec: Test spec for Wine 1.3.x builds 
+	* patches/dillo-01-dynarray.diff: Updated for Dillo 2.2.1
+
+2011-08-28  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqbittorrent.spec: initial spec
+	* SFElibtorrent-rasterbar.spec: initial.spec
+	* libx264.spec: update tarball
+
+2011-08-27 Ken Mays <kmays2000@gmail.com>
+
+	* SFExfce-terminal.spec: Bump to 0.4.8
+	* SFExfce-panel.spec: Bump to 4.8.5
+	* SFEaspell.spec: Sent to archive
+	* SFEaspell-en.spec: Sent to archive
+	* SFEwine.spec: Bump to 1.3.27 w/ wine_gecko-1.3-x86_64.msi
+
+2011-08-26 Ken Mays <kmays2000@gmail.com>
+
+	* SFEwine.spec: Bump to 1.3.26
+	* /experimental/SFEblender-2.59.spec: Bump to 2.59
+
+2011-08-25 Ken Mays <kmays2000@gmail.com>
+
+	* SFEfluxbox.spec: Bump to 1.3.1
+	* base-specs/doxygen.spec: Bump to 1.7.5.1
+
+2011-08-24  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEgtksourceviewmm-gpp.spec: initial spec
+	* SFElibevent2.spec: install in /usr/gnu
+	* SFEffmpeg-sse2-only.spec: adapt to changes made to ffmpeg.spec
+	* ffmpeg.spec: directory names do not contain useless string "SFE"
+	* qt-gpp-03-qmake.SFE.diff: set QMAKE_LFLAGS_RPATH correctly
+	* SFEgnotes.spec: install GNOME_GnoteApplet.server
+	* SFEghc.spec: bump to 7.2.1
+
+2010-08-24 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.4.
+	* patches/lightdm-02-vala.diff: Remove patch no longer needed.
+
+2011-08-24 Ken Mays <kmays2000@gmail.com>
+
+	* SFEcmake.spec: Bump to 2.8.5
+	* SFEdillo.spec: Bump to 2.2.1
+	* SFEfltk2.spec: Bump to 2.0.x-alpha-r8800
+	* patches/fltk2-01-scandir.diff: Fixed configure.in patch for r8800
+	* SFEimagemagick.spec: Bump to 6.7.1-10
+	* SFEweechat.spec: Bump to 0.3.5
+	* patches/weechat-03-fix-array-overflow.diff: Already implemented
+	* /experimental/SFEwebkitgtk-1.5.2.spec: Revising for 1.5.2 build
+	* SFEnasm.spec: Bump to 2.10rc8
+	* base-specs/aspell-en.spec: Bump to 7.1-0
+	* base-specs/aspell.spec: Bump to 0.60.6.1
+	* SFEaspell.spec: Minor fixes, validated build with GCC 3.4.3
+
+2011-08-23 Ken Mays <kmays2000@gmail.com>
+
+	* SFElibxfcegui4.spec: Minor dep fixes
+	* SFExfce4-session.spec: Minor dep fixes
+	* SFExfce4-panel.spec: Bump to 4.8.4
+	* SFExfdesktop.spec: Bump to 4.8.2
+	* SFExfce-utils.spec: Bump to 4.8.2
+	* SFElibexo.spec: Bump to 0.6.2
+	* SFEgarcon.spec: Bump to 0.1.8
+
+2011-08-23 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEclamav.spec: bump to 0.97.2, move docs to doc package and fix
+	  docdir group
+
+2011-08-15  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEgnote.spec: initial spec
+	* SFEpcre-gpp.spec: initial spec
+	* SFEgtkmm-gpp.spec: add missing dependency
+
+2011-08-15  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEfvwm.spec: Added build dependency
+	* base-specs/fvwm.spec: Run configure with /bin/bash
+
+2011-08-12  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEfvwm.spec: Fix directory permissions, update dependencies
+	* base-specs/fvwm.spec: Bump to 2.6.2, update dependencies
+
+2011-08-10  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEofflineimap.spec: Bump to 6.3.4, use packagenamemacros.inc
+	  for Python version
+
+2011-08-10  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEinkscape.spec: adjust to SFElibgc now going in /usr/g++
+	* SFElibgc-gpp.spec: install in /usr/g++; rename from SFElibgc
+	* encumbered/SFEmplayer2.spec: require driver/graphics/nvidia
+	* encumbered/SFEffmpeg-sse2-only.spec: require nvidia
+	* SFEgit.spec: install in /usr/gnu
+	* SFEtransmission.spec: install in /usr/gnu
+	* SFExchat.spec: install in /usr/gnu
+	* encumbered/SFEmpd.spec: add missing (build) dependencies
+	* SFEmkvtoolnix.spec: add missing (build) dependency
+	* SFElzo.spec: package development files separately
+
+2011-08-05  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEinkscape.spec: fix inkscape-01-combo.diff; use new g++ path
+	  layout;  use SFElibgc; add missing dependency
+	* SFEsigcpp-gpp: use new g++ path layout; bump to 2.2.10
+	* SFEglibmm-gpp.spec: use new g++ path layout; bump to 2.24.2
+	* SFEcairomm-gpp.spec: use new g++ path layout; update to 1.8.6
+	* SFEpangomm-gpp.spec: use new g++ path layout; bump to 2.26.3
+	* SFEgtkmm-gpp.spec: use new g++ path layout; bump to 2.20.3
+	* SFEpoppler-gpp.spec: use new g++ path layout; update to 0.14.5
+	* SFEmplayer2.spec: add missing (build) dependency
+	* SFEblender.spec: use packagenamemacros.inc for Python version
+	* SFEaalib.spec: archive: system package is at newer version
+	* SFEgnomad2.spec: archive: base spec is missing
+
+2011-08-01  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqt-gpp.spec: enable exceptions
+	* SFEqmpdclient.spec: initial spec
+	* SFElyx.spec: deliver desktop file so application appears in menu
+	* SFEscribus.spec: deliver desktop file
+
+2011-08-01 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgrsync.spec: bump to 1.2.0
+
+2011-07-31  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqt47-gpp.spec: add two WebKit patches; stop deleting imports/
+	* SFEarora.spec: build with gcc (to avoid building second Qt)
+	* SFEweechat.spec: don't link against aspell, which doesn't build
+	* SFEcairo-dock-plugins.spec: don't package %_datadir/vala-0.10
+	* SFEgajim.spec: bump to 0.14.4
+	* ffmpeg.spec: add --enable-version3 option, to make build succeed
+	* blas.spec: "-03" is not a gcc option
+	* orc.spec: revert to 0.4.11, to not break libschroedinger
+	* abiword.spec: suppress --no-undefined flag, rejected by gcc 4.6
+	* SFEabiword.spec: add missing (build) dependency
+	* SFEimagemagick.spec: add missing (build) dependency
+	* SFEscribus.spec: add missing (build) dependencies
+	* SFEopenttd.spec: add missing depedency on gcc
+	* SFEbullet.spec: add -fpermissive to CXXFLAGS for gcc 4.6
+	* SFEboost-gpp.spec: set correct runpath for some shared libraries
+	* SFElyx.spec: add missing (build) dependency
+
+2011-07-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEviking.spec: bump to 1.2.1
+	* SFEmono.spec: bump to 2.10.2
+
+2011-07-30 Milan Jurik <sfnet@xylab.cz>
+
+	* base-specs/boost.spec: bump to 1.47.0
+	* experimental/SFEopengrok.spec: moved from jucr, needs more work
+
+2010-07-27 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFElightdm.spec, patches/lightdm-01-compile.diff: Update to 0.9.2.
+
+2011-07-24  Alex Viskovatoff <herzen@immap.cc>
+
+	* SFEmkvtoolnix.spec: bump to 4.9.1
+	* SFElyx.spec: use system (SFE) Boost
+	* encumbered/SFEmplayer2: do not rename mplayer to "mplayer2"
+	* SFElibdvdread.spec: build with gcc so mplayer2 can play DVDs
+	* SFElibdvdnav.spec: build with gcc so mplayer2 can play DVDs
+	* base-specs/orc.spec: update to 0.4.14, disabling the sole patch
+
+2011-07-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibcdio.spec: de-gcc spec
+
+2011-07-20  Alex Viskovatoff <herzen@immap.cc>
+
+	* experimental/SFEllvm-subversion.spec: fork new spec off
+	  SFEllvm.spec, using development version from SVN
+	* encumbered/SFEmplayer-snap.spec: fix version number
+
+2011-07-20  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* SFEmpack.spec: initial spec, migrated form spec-files-jucr, added
+	  pnm_macros
+	* include/packagenames.define.allbuilds.inc: add initial (limited)
+	  support for pnm_buildrequires_python_default,
+	  pnm_requires_python_default -> SUNWPython26
+
+2011-07-19  Alex Viskovatoff <herzen@immap.cc>
+
+	* SFEgcc-45.spec: move SFEgcc-46.spec out of archive and downgrade
+	  to gcc 4.5.3; disable patch which adds /usr/gnu/lib to runpath
+	* SFEllvm.spec: build with SFEgcc-45 (doesn't build with gcc 4.6)
+	* SFEqt47-gpp.spec: add patch to enable building with gcc 4.6
+	* SFEwxwidgets-gpp.spec: add -fpermissive flag to please gcc 4.6
+	* SFEncmpcpp.spec: add -fpermissive flag for benefit of gcc 4.6
+	* SFEmkvtoolnix.spec: modify CXXXFLAGS to fix gcc 4.6 build
+	* encumbered/SFElame.spec: build with SFEgcc by default;
+	  add -msse2 flag to make i386 build succeed
+	* encumbered/SFEmpd.spec: disable ffmpeg, which breaks build
+	* encumbered/SFEffmpeg-sse2-only.spec: do not use x86_sse2.inc
+	* base-specs/ffmpeg.spec: hard delete all patches
+	* base-specs/doxygen.spec: add -features=tmplrefstatic to build
+	* patches/liveMedia-02-config.diff: delete obsolete -Kpic flag
+
+2010-07-19 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEbzr.spec: Bump to 2.4.
+	* SFElightdm.spec: Bump to 0.4.4.
+	* patches/lightdm-01-compile.diff: Add new patch needed to compile.
+	* patches/lightdm-01-branding.diff, patches/lightdm-03-compile.diff:
+	  patches/lightdm-04-vt.diff: Removed patches that are no longer
+	  needed.
+
+2011-07-17  Alex Viskovatoff <herzen@immap.cc>
+
+	* encumbered/SFEffmpeg.spec: add --disable-asm as option for i386
+	* SFEffmpeg-sse2-only.spec: fork new spec off SFEffmpeg.spec
+	* base-specs/ffmpeg.spec: update to 0.8, disabling all patches
+	* base-specs/libx264.spec: update tarball
+	* encumbered/SFEmplayer-snap.spec: update tarball
+	* encumbered/SFEmplayer2.spec: update to git version
+	* encumbered/SFElame.spec: revert to building with gcc-3
+	* SFElibass.spec: initial spec
+	* encumbered/SFEsox.spec: update source URL
+
+2011-07-17 Milan Jurik <sfnet@xylab.cz>
+
+	* SFElibgc.spec: use GCC and enable pthreads support
+	* SFEgcc.spec: bump to 4.6.1
+	* SFEgcc-46.spec: obsolete
+
+2011-07-14  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* SFEmediathek.spec, experimental/SFEmediathek-testing.spec: bump to
+	  2.5.0, testing: 2011.07.08
+
+2011-07-14 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.12
+
+2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEpulseaudio.spec, patches/pulseaudio-04-xcb.diff:  Add patch to
+	  address compile issue.  Also add SFElibatomic-ops as a requires.
+
+2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEgnome-shell-extensions.spec: New spec file.
+	* SFEgnome-shell.spec: Remove comment.
+
+2010-07-13 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEtelepathy-logger.spec, base-specs/telepathy-logger.spec,
+	  patches/telepathy-logger-01-configure.diff: Add new spec file
+	  for telepathy-logger.
+
+2011-07-13 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEcairo-dock.spec: bump to 2.3.0~3
+	* SFEcairo-dock-plugins.spec: bump to 2.3.0~3
+
+2010-07-12 Brian Cameron  <brian.cameron@oracle.com>
+
+	* SFEtelepathy-glib.spec: Now requires GTK3.
+	* base-specs/telepathy-glib.spec: Update to 0.15.2.
+	* patches/telepathy-glib-01-void.diff: Remove upstream patch.
+	* SFEgnome-shell.spec: Update to 3.1.3.
+	* patches/gnome-shell-01-compile.diff: New patch needed to compile.
+	* SFEmutter.spec: Update to 3.1.3.1.
+	* patches/mutter-01-suncc-xc99.diff: Rework.
+	* patches/mutter-03-compile.diff: Rework.
+	* SFEgjs.spec: Update to 0.7.14.
+	* patches/jds-01-solaris.diff: Rework.
+
+2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEliferea.spec: bump to 1.6.6
+
+2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEdia.spec: bump to 0.97.1; Updated tags
+
+2011-07-13 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEcpio.spec: bump to 2.11; Fixed %files section
+
+2011-07-12  Alex Viskovatoff <herzen@immap.cc>
+
+	* SFElibast.spec: build with SFEgcc instead of gcc-3
+	* SFElibcdio.spec: build with SFEgcc instead of gcc-3
+	* encumbered/SFElame.spec: build with SFEgcc by default
+	* encumbered/SFExvid.spec: build with SFEgcc by default
+	* perl/SFEperl-lwp.spec: use packagenamemacros.inc
+
+2011-07-12  Guido Berhoerster  <gber@openindiana.org>
+
+	* SFEasciidoc.spec: add copyright file
+	* copyright/SFEasciidoc.copyright: add copyright file
+	* SFEaaphoto.spec: add copyright file
+	* copyright/SFEaaphoto.copyright: add copyright file
+
+2011-07-12 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEmidori.spec: Initial spec
+	  Needs WebKitGTK+ 1.4.x dependency, review Vala language compiler.
+
+2011-07-12 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEclamav.spec: bump to 0.97.1
+	* SFEc-icap.spec: bump to 0.1.6
+	* SFEc-icap-modules.spec: bump to 0.1.6
+	* SFEopenttd.spec: bump to 1.1.1
+
+2011-07-11 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEfvwm.spec: fix packaging
+	* base-specs/fvwm.spec: bump to 2.5.31
+
+2011-07-09  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEemacs.spec, SFEtun.spec, SFEpostgres-90.spec, SFEllvm.spec,
+	  perl-depend.inc, SFEffmpeg.spec, SFEpessulus.spec, SFEgit.spec,
+	  SFEgeany.spec, SFEpkgbuild.spec, SFEabiword.spec, SFEufraw.spec,
+	  SFEaspell.spec, SFExfce4-panel.spec, SFEgraphviz.spec,
+	  SFEtransmageddon.spec, SFEtightvnc.spec, SFEviking.spec,
+	  FEperl-xml-parser.spec, SFEperl-xml-xpath.spec, SFEperl-tk,spec:
+	  use packagenamemacros.inc
+
+2011-07-08 Ken Mays <kmays2000@gmail.com>
+
+	* SFEblender258.spec: added new python 3.2 build in IPS
+	* SFEseamonkey.spec: Bump to 2.2
+
+2011-07-07  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEstellarium-gpp.spec: fork new spec off SFEstellarium.spec
+	* SFEqt47-gpp.spec: add missing dependency on SFEgcc
+	* SFElzo.spec: bump to 2.5
+	^ SFEfltk2.spec: bump to 8411
+	* base-spec/gob2.spec: bump to 2.0.18
+	* SFElibexo.spec: add missing dependency
+	* SFElibmaa: add missing build dependency
+	* SFExerces-c-gpp: use CC=/usr/gnu/bin/cc; create devel package
+	* base-specs/xerces-c.spec: fix download URL
+	* base-specs/giflib.spec: fix download URL
+	* SFElibcddb.spec: fix download URL
+	* SFEtransmageddon.spec: update download URL
+	* SFEfusefs.spec: revert previous change, so source gets found
+	* SFElibfuse.spec: revert previous change, so package gets built
+	* SFEntfs-3g.spec: revert previous change, so package gets built
+	* SFEphysfs.spec: use SFEcmake
+	* SFEeterm.spec: use modern gcc
+	* SFEportaudio.spec: use not more than 4 CPUs to build
+	* SFEsdl-ixer.spec, SFEiodine.spec, SFElv.spec, SFEsbcl.spec,
+	  SFElibetpan.spec, SFExfconf.spec, SFEpython3.spec,
+	  SFEfltk2.spec, SFEtransfig.spec, SFEcabextract.spec,
+	  SFElame.spec, SFElibiconv.spec, SFEvala.spec, SFEp7zip.spec,
+	  SFEqt47-gpp.spec, SFEmtr.spec, SFEgmp.spec, SFElibassuan.spec,
+	  SFEscreen.spec, giflib.spec, gob2.spec, SFEimlib2.spec,
+	  SFEllvm.spec, SFEsylpheed.spec, SFEghc.spec, SFEviking.spec,
+	  SFEopenttd.spec, SFEtightnvc.spec, SFEsakura.spec,
+	  SFElightdm.spec, SFEportaudio.spec, SFExcircuit.spec,
+	  SFEimagemagick.spec, SFEgraphviz.spec:
+	  make various cosmetic changes, such as adding Group tag
+
+2011-07-03  Knut Anders Hatlen  <knut.hatlen@oracle.com>
+
+	* SFEdovecot.spec: Bump to 2.0.13.
+
+2011-07-02  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* SFEperl-*: move out of perl/, modify to use pnm_macros, more
+	  ChangeLog info to come
+	* SFEimagemagick.spec: Bump to 6.7.0-10
+
+2011-07-01  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEsbcl.spec: initial spec, contributed by James Lee
+	* SFEargyll.spec: initial spec, contributed by James Lee
+
+2011-06-30  Alex Viskovatoff <herzen@imap.cc>
+
+	* SFEqt47-gpp.spec: use kde-solaris patches; bump to 4.7.3
+	* SFEwxwidgets-gpp.spec: initial spec, from SFEwxwidgets-gnu.spec
+	* SFEicu-gpp.spec: initial spec, derived from SFEicu.spec
+	* base-specs/icu.spec: implement building with gcc
+	* base-specs/boost.spec: enable ICU when building with gcc
+	* SFEboost-gpp.spec: set correct runpath for libboost_regex
+	* SFEmkvtoolnix.spec: build with gcc; bump to 4.8.0; build GUI
+	* SFEsmplayer.spec: build with gcc
+	* SFEkchmviewer.spec: build with gcc
+	* SFEdjvulibre.spec: install in /usr/g++
+	* SFEdjview.spec: look for Qt in /usr/g++
+	* SFEemacs.spec: install in /usr/gnu
+	* SFElibevent2.spec: bump to 2.0.11
+	* SFEscribus.spec: bump to 1.4.0.rc5
+	* SFEtransmission.spec: go back to 2.22, so seeding works
+	* SFEhunspell.spec: don't create separate IPS devel package
+	* SFEgmpc.spec: add missing dependency
+	* SFEpython3.spec: initial spec, contributed by A Hettinger
+	* SFEpython26-mpd: initial spec, contributed by James Lee
+	* SFEsonata.spec: initial spec, contributed by James Lee
+
+2011-06-30 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEunbound.spec: bump to 1.4.11
+	* SFEldns.spec: bump to 1.6.10
+	* SFEnodejs.spec: bump to 0.4.9
+
+2011-06-27 Ken Mays <kmays2000@gmail.com>
+
+	* Added experimental/SFEblender258.spec: Req Python 3.2.x
+	* Added patches/blender-2.58-sunos5-config.diff
+
+2011-06-25 Ken Mays <kmays2000@gmail.com>
+
+	* SFEseamonkey.spec: Bump to 2.1
+	* SFEgnucash.spec: Bump to 2.4.6
+	* patches/gnucash-04-void-return.diff: Revised
+	* patches/gnucash-05-solaris-guile.diff: Revised
+
+2011-06-22 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEwesnoth-1.8.spec: Bump to 1.8.6
+	* Removed SFEwesnoth-dev and old patches
+
+2011-06-21 Ken Mays <kmays2000@gmail.com>
+
+	* base-specs/kqemu.spec: Bump to 1.4.0pre1-07032008
+	* base-specs/qemu.spec: Bump to 0.9.1-06222008
+	* base-specs/libogg.spec : Bump to 1.3.2
+	* base-specs/libvorbis.spec: Bump to 1.2.2
+	* base-specs/xsane.spec: Bump to 0.998
+
+2011-06-21 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEgajim.spec: bump to 0.14.3
+
+2011-06-18 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFElibreoffice.spec: Initial spec (3.3.3.1)
+
+2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEgettext.spec: Removed patch; Patched file removed upstream
+
+2011-06-17  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* TODO: new file (experimental) with free or assigned tasks, short/long
+	  term
+	* osdistro.inc: renamed OI147 / os2010.11 to OpenIndiana /
+	  Solaris11Express, added boolean flags for: openindiana
+	  solaris11express oi201009 oi201100 s11ex201011 s11ex201100, removed
+	  boolean flags for: os201011 (renamed to s11ex201011), oi147 (renamed
+	  to oi201009), added OpenIndiana 151 (oi201100), Solaris 11 (Express)
+	  (s11ex201100)
+	* packagenames.define.allbuilds.inc: handle different perl versions
+	  (5.8.4, 5.10, 5.12) and create macros for module paths 
+	* packagenamemacros.spec: new osdistro variables (osdistro.inc),
+	  add perl version specific examples
+	* packagenamemacros-simulate-builds.spec: new osdistro variables
+	  (osdistro.inc), add Solaris 11 Express builds, add OpenIndiana build
+	  151, more pretty print output
+
+2011-06-17 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEcabextract.spec: Bump to 1.4.
+
+2011-06-16 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEgnuplot.spec: Bump to 4.4.0; Updated spec and removed 
+	  obsolete patch
+
+2011-06-16 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEeterm.spec: Bump to 0.9.6
+
+2011-06-16 Ken Mays <kmays2000@gmail.com>
+
+	* experimental/SFEblender257b.spec: Req SUNWPython >=2.6.6/3.2
+
+2011-06-16 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* SFEp7zip.spec: Bump to 9.20.1; Patch not used
+	* SFExz.spec: Bump to 5.0.3
+	* SFExcircuit.spec: Bump to 3.7.26
+
+2011-06-15 Ken Mays  <kmays2000@gmail.com>
+
+	* Fixed patches for blender-2.49b (No HUNK warnings)
+	* Added blender-2.57b-01-sunos5-config.diff
+
+2011-06-15 N.B.Prashanth <nbprash.mit@gmail.com>
+
+	* base-specs/ncursesw.spec: Bump to 5.9
+
 2011-06-14 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEdoxygen.spec: Bump to 1.7.4
@@ -5,48 +2286,48 @@
 
 2011-06-13  Thomas Wagner  <tom68@users.sourceforge.net>
 
-        * SFExclip.spec: initial spec
-        * SFEperl-clipboard.spec: initial spec
+	* SFExclip.spec: initial spec
+	* SFEperl-clipboard.spec: initial spec
 
 2011-06-13 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEaspell.spec: Bump to Aspell 0.60.6
 	* base-specs/aspell.spec: Bump to Aspell 0.60.6
-	* patches/aspell-01-forte.diff: fixed for Aspell 0.60.6 
+	* patches/aspell-01-forte.diff: fixed for Aspell 0.60.6
 
 2011-06-11  Ken Mays  <kmays2000@gmail.com>
 
 	* SFExfce-xfmpc.spec: Initial spec
-        * SFExfce4-battery-plugin.spec: Initial spec
-        * SFExfce4-cddrive-plugin.spec: Initial spec
-        * SFExfce4-cellmodem-plugin.spec: Initial spec
-        * SFExfce4-clipman-plugin.spec: Initial spec
-        * SFExfce4-cpufreq-plugin.spec: Initial spec
-        * SFExfce4-cpugraph-plugin.spec: Initial spec
-        * SFExfce4-diskperf-plugin.spec: Initial spec
-        * SFExfce4-eyes-plugin.spec: Initial spec
-        * SFExfce4-fsguard-plugin.spec
-        * SFExfce4-genmon-plugin.spec: Initial spec
-        * SFExfce4-indicator-plugin.spec: Initial spec
-        * SFExfce4-linelight-plugin.spec: Initial spec
-        * SFExfce4-modemlights-plugin.spec: Initial spec
-        * SFExfce4-mount-plugin.spec: Initial spec
-        * SFExfce4-mpc-plugin.spec: Initial spec
-        * SFExfce4-netload-plugin.spec: Initial spec
-        * SFExfce4-notes-plugin.spec: Initial spec
-        * SFExfce4-places-plugin.spec: Initial spec
-        * SFExfce4-radio-plugin.spec: Initial spec
-        * SFExfce4-smartbookmark-plugin.spec: Initial spec
-        * SFExfce4-stopwatch-plugin.spec: Initial spec
-        * SFExfce4-systemload-plugin.spec: Initial spec
-        * SFExfce4-time-out-plugin.spec: Initial spec
-        * SFExfce4-timer-plugin.spec: Initial spec
-        * SFExfce4-verve-plugin.spec: Initial spec
-        * SFExfce4-wavelan-plugin.spec: Initial spec
-        * SFExfce4-weather-plugin.spec: Initial spec
-        * SFExfce4-xfapplet-plugin.spec: Initial spec
-        * SFExfce4-xkb-plugin.spec: Initial spec
-        * SFExfce4-xmms-plugin.spec: Initial spec
+	* SFExfce4-battery-plugin.spec: Initial spec
+	* SFExfce4-cddrive-plugin.spec: Initial spec
+	* SFExfce4-cellmodem-plugin.spec: Initial spec
+	* SFExfce4-clipman-plugin.spec: Initial spec
+	* SFExfce4-cpufreq-plugin.spec: Initial spec
+	* SFExfce4-cpugraph-plugin.spec: Initial spec
+	* SFExfce4-diskperf-plugin.spec: Initial spec
+	* SFExfce4-eyes-plugin.spec: Initial spec
+	* SFExfce4-fsguard-plugin.spec
+	* SFExfce4-genmon-plugin.spec: Initial spec
+	* SFExfce4-indicator-plugin.spec: Initial spec
+	* SFExfce4-linelight-plugin.spec: Initial spec
+	* SFExfce4-modemlights-plugin.spec: Initial spec
+	* SFExfce4-mount-plugin.spec: Initial spec
+	* SFExfce4-mpc-plugin.spec: Initial spec
+	* SFExfce4-netload-plugin.spec: Initial spec
+	* SFExfce4-notes-plugin.spec: Initial spec
+	* SFExfce4-places-plugin.spec: Initial spec
+	* SFExfce4-radio-plugin.spec: Initial spec
+	* SFExfce4-smartbookmark-plugin.spec: Initial spec
+	* SFExfce4-stopwatch-plugin.spec: Initial spec
+	* SFExfce4-systemload-plugin.spec: Initial spec
+	* SFExfce4-time-out-plugin.spec: Initial spec
+	* SFExfce4-timer-plugin.spec: Initial spec
+	* SFExfce4-verve-plugin.spec: Initial spec
+	* SFExfce4-wavelan-plugin.spec: Initial spec
+	* SFExfce4-weather-plugin.spec: Initial spec
+	* SFExfce4-xfapplet-plugin.spec: Initial spec
+	* SFExfce4-xkb-plugin.spec: Initial spec
+	* SFExfce4-xmms-plugin.spec: Initial spec
 	* Added patches/xfce4-cpugraph-plugin-01-solaris_support.diff
 	* Added patches/xfce4-cpugraph-plugin-02-fixmaxcpu.diff
 	* Added patches/xfce4-mpc-plugin-01-libnsl.diff
@@ -57,7 +2338,6 @@
 
 	* SFExfce4-screenshooter.spec: Initial spec
 	* SFExfce4-dict.spec: Initial spec
-
 
 2010-06-09 Brian Cameron  <brian.cameron@oracle.com>
 
@@ -322,7 +2602,8 @@
 
 2011-04-13  Alex Viskovatoff <herzen@imap.cc>
 
-	* SFEboost-gpp.spec: use new g++ libs pathname; build multithreaded libs
+	* SFEboost-gpp.spec: use new g++ libs pathname; build multithreaded
+	  libs
 	* SFEmpd.spec: bump to 0.16.2; add --without-encumbered option
 	* base-specs/icu.spec: update to 4.6.1
 	* SFEicu.spec: package pkgconfig files
@@ -648,7 +2929,7 @@
 
 	* SFEcmake.spec: fix compile errors (configure thinks that EXT2 is
 	  present:
-	                 archive_write_disk.c: .* _IOR)
+		   	 archive_write_disk.c: .* _IOR)
 	* SFEopenal.spec: BuildRequire SFEcmake (avoid /usr/bin/cmake with
 	  ./sfw_stage in it)
 
@@ -14365,9 +16646,7 @@
 	* SFEindent.spec: *NEW* GNU indent - /usr/gnu
 	* patches/indent-01-gcc4.diff: gcc4 patch
 	* patches/libstroke-03-link.diff: makefile patch
-	* patches/libstroke-01-am15.diff: makefile patch
-	* patches/indent-06-po-fix.diff: gettext patch
-	* patches/indent-02-info.diff: texinfo patch
+	* po patch
 	* patches/tea-02-pipe.diff: remove -pipe
 	* patches/indent-08-po-makefile.diff: makefile patch
 	* patches/indent-04-overflow.diff: size check

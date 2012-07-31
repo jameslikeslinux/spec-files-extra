@@ -3,40 +3,50 @@
 #
 # includes module(s): gnome-shell
 #
+# Note, to build GNOME Shell, you need to build the GNOME 3 modules from
+# spec-files.  To access.
+#
+# svn co svn+ssh://anon@svn.opensolaris.org/svn/jds/spec-files/trunk
 
 %define pythonver 2.6
 
 %include Solaris.inc
 Name:                    SFEgnome-shell
 Summary:                 GNOME Shell
-Version:                 2.91.0
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/2.91/gnome-shell-%{version}.tar.bz2
+Version:                 3.4.1
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/gnome-shell/3.4/gnome-shell-%{version}.tar.xz
+# This patch is not well written, and could use work.
+#
+Patch1:                  gnome-shell-01-compile.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-BuildRequires:           SUNWPython26-devel
+BuildRequires:           runtime/python-26
 BuildRequires:           SUNWdbus-glib-devel
-BuildRequires:           SUNWgnome-base-libs-devel
+BuildRequires:           SUNWgtk3-devel
 BuildRequires:           SUNWgnome-media-devel
-BuildRequires:           SUNWgnome-panel-devel
 BuildRequires:           SUNWlibrsvg-devel
 BuildRequires:           SUNWclutter-devel
 BuildRequires:           SUNWgobject-introspection-devel
 BuildRequires:           SFEgjs-devel
-Requires:                SUNWPython26
+BuildRequires:           SFEcaribou-devel
+BuildRequires:           SFElibtelepathy-devel
+BuildRequires:           SFEtelepathy-logger-devel
 Requires:                SUNWdbus-glib
-Requires:                SUNWgnome-base-libs
+Requires:                SUNWgtk3
 Requires:                SUNWgnome-media
-Requires:                SUNWgnome-panel
 Requires:                SUNWlibrsvg
 Requires:                SUNWclutter
 Requires:                SUNWgobject-introspection
+BuildRequires:           SFEcaribou
 Requires:                SFEgjs
 Requires:                SFEmutter
+Requires:                SFElibtelepathy
+Requires:                SFEtelepathy-logger
 %include default-depend.inc
 
-%package root
-Summary:		 %{summary} - / filesystem
-SUNW_BaseDir:		 /
+%package devel
+Summary:                 %{summary} - development files
+SUNW_BaseDir: %{_basedir}
 %include default-depend.inc
 
 %if %build_l10n
@@ -49,16 +59,23 @@ Requires:                %{name}
 
 %prep
 %setup -q -n gnome-shell-%version
+%patch1 -p1
 
 %build
-#export LDFLAGS="%_ldflags -lmalloc"
+
+# This is needed for the gobject-introspection compile to find libdrm.
+export LD_LIBRARY_PATH="/usr/lib/xorg:/usr/lib/firefox"
+
 export PYTHON=/usr/bin/python%{pythonver}
+aclocal-1.11 $ACLOCAL_FLAGS -I ./m4
+automake-1.11 -a -c -f
+autoconf
 ./configure \
    --prefix=%{_prefix} \
    --libexecdir=%{_libexecdir} \
    --mandir=%{_mandir} \
    --sysconfdir=%{_sysconfdir} \
-   --with-clutter
+   --without-ca-certificates
 make
 
 %install
@@ -89,20 +106,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/gnome-shell
-%{_libdir}/mutter/plugins
+%{_libdir}/gnome-shell-hotplug-sniffer
+%{_libdir}/gnome-shell-perf-helper
+%{_libdir}/mozilla
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+%{_datadir}/dbus-1
+%{_datadir}/GConf
+%{_datadir}/glib-2.0
 %{_datadir}/gnome-shell
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/man1/*
 
-
-%files root
-%defattr(-, root, sys)
-%attr(0755, root, sys) %dir %{_sysconfdir}
-%{_sysconfdir}/gconf/schemas/gnome-shell.schemas
+%files devel
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %dir %{_datadir}
+%{_datadir}/gtk-doc
 
 %if %build_l10n
 %files l10n
@@ -112,6 +133,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu May 10 2012 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.4.1.
+* Fri Oct 21 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.2.1.
+* Wed Jul 06 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.1.3.
 * Fri Oct 22 2010 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 2.91.0.
 * Wed Jun 23 2010 - Lin Ma <lin.ma@sun.com>

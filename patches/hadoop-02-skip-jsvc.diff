@@ -1,0 +1,14 @@
+--- hadoop-1.0.2/build.xml	2012-03-24 17:01:44.000000000 -0700
++++ hadoop-1.0.2-patched/build.xml	2012-04-27 13:53:13.848910426 -0700
+@@ -1771,9 +1771,11 @@
+       <fileset dir="." includes="build.xml"/>
+     </subant>
+ 
++<!--
+     <subant target="jsvc">
+       <fileset dir="." includes="build.xml"/>
+     </subant>
++-->
+ 
+     <chmod perm="ugo+x" type="file" parallel="false">
+         <fileset dir="${dist.dir}/bin"/>

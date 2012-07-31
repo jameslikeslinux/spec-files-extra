@@ -1,0 +1,11 @@
+--- lsof_4.83_src/print.c	2010-01-18 11:01:17.000000000 -0800
++++ lsof_4.83_src-patched/print.c	2012-03-11 00:52:52.131942408 -0800
+@@ -188,6 +188,8 @@
+ #endif	/* defined(CAN_USE_CLNT_CREATE) */
+ 
+ 	    return;
++
++	extern bool_t xdr_pmaplist();
+ 	if (clnt_call(c, PMAPPROC_DUMP, XDR_VOID, NULL, XDR_PMAPLIST,
+ 		      (caddr_t)&p, tm)
+ 	!= RPC_SUCCESS) {

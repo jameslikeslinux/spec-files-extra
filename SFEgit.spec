@@ -13,14 +13,18 @@
 #
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/sfw/bin/g++
 %include base.inc
+%include usr-gnu.inc
+%include packagenamemacros.inc
 
 Name:                SFEgit
+IPS_Package_Name:    sfe/developer/versioning/git
 Summary:             Git - the fast version control system
-Version:             1.7.5.4
+Version:             1.7.11.1
+License:             GPLv2
+SUNW_Copyright:      git.copyright
 URL:                 http://git-scm.com/
-Source:              http://kernel.org/pub/software/scm/git/git-%{version}.tar.bz2
+Source:              http://git-core.googlecode.com/files/git-%{version}.tar.gz
 Patch1:              git-01-solaris-shell.diff
 Patch2:              git-02-fixshell.diff
 Patch3:              git-03-xmlto.diff
@@ -33,8 +37,8 @@ Requires: SUNWsshu
 Requires: SUNWopenssl-libraries
 Requires: SUNWlexpt
 Requires: SUNWcurl
-Requires: SUNWperl584core
-Requires: SUNWPython
+Requires: %pnm_requires_perl_default
+Requires: SFEpython3
 Requires: SUNWbash
 Requires: SUNWlexpt
 %if %(pkginfo -q SUNWgnu-diffutils && echo 1 || echo 0)
@@ -43,7 +47,6 @@ Requires: SUNWgnu-diffutils
 Requires: SFEdiffutils
 %endif
 Requires: SUNWTk
-%define perl_version 5.8.4
 BuildRequires: SFEasciidoc
 BuildRequires: SFExmlto
 
@@ -70,8 +73,9 @@ make configure
         --prefix=%{_prefix} \
         --mandir=%{_mandir} \
         --libexecdir=%{_libexecdir} \
-        --with-perl=/usr/perl5/bin/perl
-make all doc
+        --with-perl=/usr/perl5/bin/perl \
+        --with-python=/usr/bin/python3
+make -j$CPUS all doc
 
 # fix path to wish (tk shell)
 perl -pi -e 's,exec wish ,exec /usr/sfw/bin/wish8.3,' gitk
@@ -96,12 +100,12 @@ rm -rf $RPM_BUILD_ROOT
 
 make install install-doc DESTDIR=$RPM_BUILD_ROOT INSTALL=install
 
-# move perl stuff to vendor_perl
-mkdir -p $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
-mv $RPM_BUILD_ROOT%{_libdir}/site_perl/*.pm $RPM_BUILD_ROOT/usr/perl5/vendor_perl/%{perl_version}
+# move perl stuff to vendor_perl in /usr/gnu
+mkdir -p $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
+mv $RPM_BUILD_ROOT%{_libdir}/site_perl/* $RPM_BUILD_ROOT/usr/gnu/perl5/vendor_perl/%{perl_version}
 
 # remove unwanted stuff like .packlist and perllocal.pod
-rm -r $RPM_BUILD_ROOT%{_libdir}/site_perl
+rm -rf $RPM_BUILD_ROOT%{_libdir}/site_perl
 rm $RPM_BUILD_ROOT%{_libdir}/*-solaris-*/perllocal.pod
 rmdir $RPM_BUILD_ROOT%{_libdir}/*-solaris-*
 
@@ -114,7 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/git*
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/git-core
-%{_libdir}/python2.6/site-packages
+%{_libdir}/python3.2/site-packages
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gitk
 %dir %{_datadir}/git-core
@@ -137,8 +141,32 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl
 %dir %attr (0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
 %{_prefix}/perl5/vendor_perl/%{perl_version}/*
+%dir %attr (0755, root, bin) %{_datadir}/locale
+%{_datadir}/locale/*
 
 %changelog
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.11.1 and switch to python3.2
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.11
+* Wed Jun 6 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10.4
+* Sun May 28 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10.3
+* Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10.2
+* Tue May 8 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10.1
+* Fri Apr 20 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.10, update a patch and update files.
+* Tue Feb 14 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.9
+* Wed Oct 13 2011 - Alex Viskovatoff
+- Bump to 1.7.7; add IPS_package_name
+* Sun Aug  7 2011 - Alex Viskovatoff
+- install in /usr/gnu, to avoid conflict with system package
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.7.5.4
 * Sat Apr 16 2011 - Alex Viskovatoff

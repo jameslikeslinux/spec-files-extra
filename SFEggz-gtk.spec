@@ -17,6 +17,7 @@
 %define SFElibggz	%(/usr/bin/pkginfo -q SFElibggz && echo 1 || echo 0)
 
 Name:               SFEggz-gtk
+IPS_Package_Name:	games/library/ggz-gtk
 Summary:            ggz-gtk - Gtk+ client libraries for GGZ gaming zone
 Version:            %{ggzgtk.version}
 SUNW_BaseDir:       %{_basedir}

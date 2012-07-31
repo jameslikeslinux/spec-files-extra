@@ -6,15 +6,18 @@
 
 %include Solaris.inc
 Name:		SFEviking
+IPS_Package_Name:	desktop/map/viking
 License:	GPL v2
 Group:		Applications
 Summary:	GPS Viewer
-Version:	1.1
-URL:		viking.sf.net
+Version:	1.2.2
+URL:		http://viking.sf.net
 Source:		%{sf_download}/project/viking/viking/%{version}/viking-%{version}.tar.gz
-Patch1:		viking-01-return.diff
+License:	GPLv2
+Patch1:		viking-01-gpsd-2.96.diff
 Patch2:		viking-02-wall.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright:	viking.copyright
 SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
@@ -47,6 +50,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
+autoconf
 ./configure --prefix=%{_prefix} 
 
 make -j$CPUS
@@ -88,6 +92,14 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Nov 14 2011 - Milan Jurik
+- bump to 1.2.2
+* Sun Oct 30 2011 - Milan Jurik
+- fix for gpsd 2.96
+* Sun Jul 31 2011 - Milan Jurik
+- bump to 1.2.1
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Fri Feb 11 2011 - Milan Jurik
 - bump to 1.1
 * Sat Jan 15 2011 - Milan Jurik

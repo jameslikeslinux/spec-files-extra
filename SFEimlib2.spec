@@ -5,25 +5,25 @@
 
 %include Solaris.inc
 
-Name:                SFEimlib2
-Summary:             general Image loading and rendering library
-Version:             1.4.4
-Source:              %{sf_download}/enlightenment/imlib2-%{version}.tar.gz
-
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEimlib2
+IPS_Package_Name:	image/library/imlib2
+Summary:	General image loading and rendering library
+Group:		System/Multimedia Libraries
+Version:	1.4.5
+License:	BSD
+SUNW_Copyright:	imlib2.copyright
+Source:		%{sf_download}/enlightenment/imlib2-%{version}.tar.gz
+Patch1:		imlib2-01-std99.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-
-%if %option_with_fox
-Requires: FSWxorg-clientlibs
-Requires: FSWxwrtl
-BuildRequires: FSWxorg-headers
-%else
-Requires: SUNWxwplt
-%endif
+Requires:	SUNWxwplt
+BuildRequires:	SFElibid3tag-devel
+Requires:	SFElibid3tag
 
 %prep
 %setup -q -n imlib2-%version
+%patch1 -p1
 
 %build
 
@@ -33,11 +33,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CFLAGS="%optflags"
-%if %option_with_fox
-export CFLAGS="$CFLAGS -I/usr/X11/include"
-%endif
 export LDFLAGS="%_ldflags"
-
+autoconf
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir} \
             --enable-static=no
@@ -72,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
+* Sun Feb 05 2012 - Milan Jurik
+- bump to 1.4.5
 * Thu Aug 26 2010 - brian.cameron@oracle.com
 - Bump to 1.4.4.
 * Mon Jan 05 2008 - brian.cameron@sun.com

@@ -1,0 +1,12 @@
+--- miniupnpd-1.6.20120207/bsd/ifacewatcher.c	2011-06-04 09:19:51.000000000 -0700
++++ miniupnpd-1.6.20120207-patched/bsd/ifacewatcher.c	2012-02-28 18:49:53.901387915 -0800
+@@ -97,7 +97,8 @@
+ 			sa = (struct sockaddr *)p;
+ 			sockaddr_to_string(sa, tmp, sizeof(tmp));
+ 			syslog(LOG_DEBUG, "  %s", tmp);
+-			p += SA_RLEN(sa);
++			/* p += SA_RLEN(sa); */
++			p += sizeof(struct sockaddr);
+ 		}
+ 		if(ifam->ifam_index == ext_if_name_index) {
+ 			should_send_public_address_change_notif = 1;

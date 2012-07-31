@@ -1,0 +1,11 @@
+--- ip_fil5.1.1/tools/ipfstat.c	2012-01-25 21:44:26.000000000 -0800
++++ ip_fil5.1.1-patched/tools/ipfstat.c	2012-03-11 23:15:59.458626797 -0700
+@@ -1590,7 +1590,7 @@
+ 
+ 			/* print #pkt/#bytes */
+ #ifdef	USE_QUAD_T
+-			printw(" %7qu %9qu", (unsigned long long) tp->st_pkts,
++			printw(" %7"PRIu64" %9"PRIu64, (unsigned long long) tp->st_pkts,
+ 				(unsigned long long) tp->st_bytes);
+ #else
+ 			printw(" %7lu %9lu", tp->st_pkts, tp->st_bytes);

@@ -1,0 +1,20 @@
+--- ip_fil5.1.1/SunOS5/Makefile	2012-01-27 05:44:14.000000000 -0800
++++ ip_fil5.1.1-patched/SunOS5/Makefile	2012-02-28 01:29:27.660369539 -0800
+@@ -235,13 +235,13 @@
+ 	$(CC) -I$(TOP) -DIPFILTER_COMPILED $(DFLAGS) -c $(OBJ)/ip_rules.c -o $@
+ 
+ $(OBJ)/ipfrule: $(OBJ)/ip_rulesx.o $(OBJ)/mlso_rule.o
+-	ld -r $(OBJ)/ip_rulesx.o $(OBJ)/mlso_rule.o -o $@
++	/usr/ccs/bin/ld -r $(OBJ)/ip_rulesx.o $(OBJ)/mlso_rule.o -o $@
+ 
+ $(OBJ)/ipf: $(MODOBJS)
+-	if [ -f /kernel/misc/sparcv9/neti -o -f /kernel/misc/neti ] ; then \
+-		ld -dy -Nmisc/hook -Nmisc/neti -Nmisc/md5 -Ndrv/ip -r $(MODOBJS) -o $@; \
++	if [ -f /kernel/misc/sparcv9/neti -o -f /kernel/misc/neti -o `uname -r | cut -d. -f2` -ge 11 ] ; then \
++		/usr/ccs/bin/ld -dy -Nmisc/hook -Nmisc/neti -Nmisc/md5 -Ndrv/ip -r $(MODOBJS) -o $@; \
+ 	else \
+-		ld -dy -Ndrv/ip -Ndrv/pfil -Nmisc/md5 -r $(MODOBJS) -o $@; \
++		/usr/ccs/bin/ld -dy -Ndrv/ip -Ndrv/pfil -Nmisc/md5 -r $(MODOBJS) -o $@; \
+ 	fi
+ 	$(CTFMERGE) $@ $(MODOBJS)
+ 

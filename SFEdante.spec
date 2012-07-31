@@ -11,7 +11,7 @@ Summary:                 Tool connecting to external networks via SOCKS.
 Version:                 1.1.19
 License:                 BSD/Carnegie Mellon University
 URL:                     http://www.inet.no/dante/
-Source:                  ftp://ftp.inet.no/pub/socks/dante-%{version}.tar.gz
+Source:                  ftp://ftp.inet.no/pub/socks/old/dante-%{version}.tar.gz
 Source1:                 ftp://ftp.inet.no/pub/socks/extracted/example/socks.conf
 SUNW_BaseDir:            %{_basedir}
 URL:                     http://www.inet.no/dante/
@@ -97,5 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix source url
 * Tue Sep 26 2006 - halton.huo@sun.com
 - Initial spec file

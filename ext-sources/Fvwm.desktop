@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Fvwm
+Comment=Fvwm
+Exec=fvwm2
+Terminal=False
+TryExec=fvwm2
+Type=Application
+
+[Window Manager]
+SessionManaged=true

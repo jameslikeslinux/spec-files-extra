@@ -1,6 +1,17 @@
---- freeciv-2.2.3/client/climisc.c	2010-09-12 22:17:04.000000000 +0200
-+++ freeciv-2.2.3-patch/client/climisc.c	2010-09-23 17:11:45.884748550 +0200
-@@ -326,9 +326,10 @@
+--- freeciv-2.3.0/server/scripting/api_actions.c	Mon Aug  8 06:17:03 2011
++++ freeciv-2.3.0/server/scripting/api_actions.c	Fri Oct 21 10:49:54 2011
+@@ -58,7 +58,7 @@
+   SCRIPT_CHECK_ARG_NIL(pplayer, 2, Player);
+   SCRIPT_CHECK_ARG(0 <= sq_radius, 4, "radius must be positive");
+   SCRIPT_CHECK(0 < num_role_units(L_PARTISAN), "no partisans in ruleset");
+-  return place_partisans(ptile, pplayer, count, sq_radius);
++  place_partisans(ptile, pplayer, count, sq_radius);
+ }
+ 
+ /**************************************************************************
+--- freeciv-2.3.0/client/climisc.c	Mon Aug  8 06:20:48 2011
++++ freeciv-2.3.0/client/climisc.c	Fri Oct 21 10:52:04 2011
+@@ -315,7 +315,7 @@
  **************************************************************************/
  void global_warming_scaled(int *chance, int *rate, int max)
  {
@@ -8,11 +19,8 @@
 +  catastrophe_scaled(chance, rate, max,
                              game.info.heating, game.info.globalwarming,
                              game.info.warminglevel);
-+  return;
  }
- 
- /**************************************************************************
-@@ -336,9 +337,10 @@
+@@ -325,7 +325,7 @@
  **************************************************************************/
  void nuclear_winter_scaled(int *chance, int *rate, int max)
  {
@@ -20,7 +28,4 @@
 +  catastrophe_scaled(chance, rate, max,
                              game.info.cooling, game.info.nuclearwinter,
                              game.info.coolinglevel);
-+  return;
  }
- 
- /**************************************************************************

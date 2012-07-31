@@ -10,9 +10,10 @@
 Name:		SFElibmpdclient
 Summary:	Asynchronous API library for interfacing to MPD
 URL:		http://mpd.wikia.com/wiki/ClientLib:libmpdclient
-Vendor:		Max Kellermann
+Meta(info.upstream):	Max Kellermann <max@duempel.org>
 Version:	2.4
-License:	BSD revised
+License:	BSD
+SUNW_Copyright:	libmpdclient.copyright
 Source:		%sf_download/project/musicpd/%srcname/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -69,12 +70,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %_includedir
 %dir %attr (0755, root, other) %_includedir/mpd
 %_includedir/mpd/*
-%_libdir/pkgconfig
+%dir %attr (0755, root, other) %_libdir/pkgconfig 
+%_libdir/pkgconfig/%srcname.pc
 %dir %attr (0755, root, sys) %_datadir
 %dir %attr (0755, root, other) %_datadir/doc
 %_datadir/doc/*
 
 
 %changelog
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Initial spec

@@ -61,6 +61,9 @@ Windows and most Unix Systems. Features include:
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+cd src
+sed 's/--no-undefined //g' Makefile.in > Makefile.in.new
+mv Makefile.in.new Makefile.in
 
 %build
 %ifos linux
@@ -113,6 +116,8 @@ rm -rf ${RPM_BUILD_ROOT}
 /usr/X11R6/bin/abiword
 
 %changelog
+* Wed Jul 27 2011 - Alex Viskovatoff
+- Do not supply --no-undefined to gcc at link time: gcc 4.6 rejects it
 * Fri Nov 12 2010 - Alex Viskovatoff
 - Use --libdir=%_cxx_libdir, since compilation is with g++
 * Sat Aug 07 2010 - brian.cameron@oracle.com

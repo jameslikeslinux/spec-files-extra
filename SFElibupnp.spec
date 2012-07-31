@@ -10,10 +10,11 @@
 
 Name:                SFElibupnp
 Summary:             Portable C library for UPnP
+URL:                 http://sourceforge.net/projects/pupnp/
 Version:             1.6.6
 Source:              %{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		     libupnp-01-solaris.spec
-#Patch2:		     libupnp-02-inline.spec
+#Patch2:	     libupnp-02-inline.spec
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -23,6 +24,11 @@ Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_prefix}
 %include default-depend.inc
 Requires: %name
+
+%description
+The portable Universal Plug and Play (UPnP) SDK provides support for
+building UPnP-compliant control points, devices, and bridges on several
+operating systems.
 
 %prep
 %setup -q -n %{src_name}-%version
@@ -71,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thu Nov 13 2008 - alfred.peng@sun.com
-- Bump to 1.6.6. Remove the inline patch.
+- Bump to 1.6.6. Removee the inline patch.
   Update the solaris related patch.
 * Sun Jul 15 2007 - dougs@truemail.co.th
 - Initial spec

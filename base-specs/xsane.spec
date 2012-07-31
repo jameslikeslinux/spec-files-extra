@@ -3,7 +3,7 @@
 #
 Name:         xsane
 License:      GPL
-Version:      0.995
+Version:      0.998
 Release:      1
 Distribution: Java Desktop System
 Vendor:       Sun Microsystems, Inc.

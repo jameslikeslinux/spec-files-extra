@@ -1,22 +1,16 @@
 #
-# Copyright (c) 2007 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
-
-# http://goodies.xfce.org/
-
-%define src_name xfce4-mpc-plugin 
 
 Name:			SFExfce4-mpc-plugin
 Summary:		Plugin for controling mpd deamon from the Xfce panel
 Version:		0.3.6
 URL:			http://www.xfce.org/
 Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-mpc-plugin/0.3/xfce4-mpc-plugin-%{version}.tar.bz2		
-Patch1:			xfce4-mpc-plugin-01-libnsl.diff
+#Patch1:			xfce4-mpc-plugin-01-libnsl.diff
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/mpc-plugin-%{version}-build
@@ -30,7 +24,7 @@ Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
 %prep
 %setup -q -n xfce4-mpc-plugin-%{version}
-%patch1 -p1
+#%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,7 +32,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -lsocket -lnsl"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -49,7 +43,6 @@ export LDFLAGS="%_ldflags"
             --sysconfdir=%{_sysconfdir} \
             --enable-gtk-doc \
             --disable-static
-
 make -j $CPUS
 
 %install
@@ -88,9 +81,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/locale*
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Migrated to SFE from OSOL
-- Bump to 0.3.6
-
+* Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.3.6
 * Mon Apr 11 2007 - sobotkap@students.zcu.cz
 - Initial Version

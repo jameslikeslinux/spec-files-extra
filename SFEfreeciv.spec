@@ -7,43 +7,37 @@
 #
 %include Solaris.inc
 
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
-
-Name:                    SFEfreeciv
-Summary:                 freeciv - a multiplayer strategy game
-URL:                     http://freeciv.wikia.com/
-Version:                 2.2.5
-Group:                   Amusements/Games
-Source:                  http://%{sf_mirror}/freeciv/freeciv-%{version}.tar.bz2
+Name:		SFEfreeciv
+IPS_Package_Name:	games/freeciv
+Summary:	freeciv - a multiplayer strategy game
+URL:		http://freeciv.wikia.com/
+Version:	2.3.0
+Group:		Amusements/Games
+Source:		%{sf_download}/freeciv/freeciv-%{version}.tar.bz2
 # date:2008-12-23 type:bug owner:halton bugid:40661
-Patch3:                  freeciv-03-strlcpy.diff
-Patch4:                  freeciv-04-nothing.diff
-Patch5:                  freeciv-05-return.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Patch3:		freeciv-03-strlcpy.diff
+Patch4:		freeciv-04-nothing.diff
+Patch5:		freeciv-05-return.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SUNWlibsdl
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%else
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%endif
-Requires:       SFEsdl-mixer
-Requires:       SFEggz-gtk
-BuildRequires:  SFEsdl-mixer-devel
-BuildRequires:  SFEggz-gtk-devel
+Requires:	SFEsdl-mixer
+Requires:	SFEggz-gtk
+BuildRequires:	SFEsdl-mixer-devel
+BuildRequires:	SFEggz-gtk-devel
 BuildRequires:	SUNWgnome-common-devel
 
 %package root
-Summary:       %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 Requires: SUNWpostrun-root
 
 %prep
 %setup -q -n freeciv-%version
-%patch3 -p1
+#%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
@@ -100,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/ggz.modules
 
 %changelog
+* Sat Oct 22 2011 - Milan Jurik
+- bump to 2.3.0
 * Wed Mar 30 2011 - Milan Jurik
 - bump to 2.2.5
 * Wed Jan 05 2010 - Milan Jurik

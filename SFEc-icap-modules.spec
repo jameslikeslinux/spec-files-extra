@@ -14,9 +14,12 @@
 %define	src_name c_icap_modules
 
 Name:		SFEc-icap-modules
-Summary:	C-ICAP modules
-Version:	0.1.4
-Group:		System/Utilities
+IPS_Package_Name:	web/proxy/c-icap/c-icap-modules
+Summary:	Modules for the C-ICAP server
+License:	GPLv2
+SUNW_Copyright:	c-icap-modules.copyright
+Version:	0.1.6
+Group:		Web Services/Application and Web Servers
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
@@ -76,5 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}
 
 %changelog
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 0.1.6
 * Tue Mar 29 2011 - Milan Jurik
 - initial spec

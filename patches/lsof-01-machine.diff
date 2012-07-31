@@ -1,0 +1,12 @@
+--- lsof_4.83_src/dialects/sun/machine.h	2009-03-25 12:22:23.000000000 -0700
++++ lsof_4.83_src-patched/dialects/sun/machine.h	2012-03-11 01:03:37.112282027 -0800
+@@ -38,6 +38,9 @@
+ #if	!defined(LSOF_MACHINE_H)
+ #define	LSOF_MACHINE_H	1
+ 
++#define _KERNEL
++#include <sys/mutex.h>
++#undef _KERNEL
+ 
+ # if	solaris>=90000
+ /*

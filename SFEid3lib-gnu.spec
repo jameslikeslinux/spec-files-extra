@@ -5,10 +5,14 @@
 #
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 %include usr-gnu.inc
+%include base.inc
+
 
 Name:                    SFEid3lib-gnu
-Summary:                 id3lib  - a software library for manipulating ID3v1/v1.1 and ID3v2 tags (g++)
+IPS_package_name:	 library/audio/id3lib-gnu
+Summary:                 software library for manipulating ID3v1/v1.1 and ID3v2 tags
 Version:                 3.8.3
 Source:                  %{sf_download}/id3lib/id3lib-%{version}.tar.gz
 Patch1:                  id3lib-01-wall.diff
@@ -18,7 +22,8 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWzlib
-Requires: SUNWlibC
+BuildRequires: %{pnm_buildrequires_SUNWlibC}
+Requires: %{pnm_buildrequires_SUNWlibC}
 Requires: SUNWlibms
 
 %package devel
@@ -40,10 +45,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
-export CC=gcc
-export CFLAGS="%{gcc_optflags}"
-export CXX=g++
-export CXXFLAGS="%{gcc_cxx_optflags}"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
 export LDFLAGS="%{_ldflags}"
 export LD_OPTIONS="-i -L%{_libdir} -R%{_libdir}"
 
@@ -82,6 +85,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Apr 21 2012 - Thomas Wagner
+- create pure studio compiled lib, for g++ see %name-gpp
+- copy from SFEid3lib.spec (was gcc) and set *Studio compiler
+- add IPS_package_name
 * Fri Sep 25 2009 - trisk@opensolaris.org
 - Add patch3
 - Update build system

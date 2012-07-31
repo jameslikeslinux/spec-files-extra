@@ -9,12 +9,12 @@
 %define src_url		http://www.tortall.net/projects/yasm/releases
 
 Name:                   SFEyasm
+IPS_Package_Name:	developer/yasm
 Summary:                Yet another assembler
-Version:                1.1.0
+Version:                1.2.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
-Patch1:                 yasm-01-bin_multi_test.sh.diff
-Patch2:                 yasm-02-configure.diff
-Patch3:                 yasm-03-out_test.sh.diff
+License:		LGPL
+SUNW_Copyright:		yasm.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -26,10 +26,6 @@ SUNW_BaseDir:            %{_prefix}
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1 -b .patch01
-%patch2 -p1 -b .patch02
-%patch3 -p1 -b .patch03
-
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -44,9 +40,8 @@ fi
             --libdir=%{_libdir}		\
             --datadir=%{_datadir}	\
             --libexecdir=%{_libexecdir} \
-            --sysconfdir=%{_sysconfdir} \
-            --enable-shared		\
-	    --disable-static
+            --sysconfdir=%{_sysconfdir}
+
 make -j$CPUS 
 
 %install
@@ -69,6 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Thu Jun 21 2012 - Milan Jurik
+- bump to 1.2.0
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Thu Nov 4 2010 - Alex Viskovatoff
 - Update to 1.1.0
 * Wed Jun 2 2008 - oboril.lukas@gmail.com

@@ -5,23 +5,23 @@
 #
 %include Solaris.inc
 
-Name:                    SFEdvdauthor
-Summary:                 dvdauthor a program that will generate a DVD movie
-Version:                 0.6.14
-Source:                  %{sf_download}/dvdauthor/dvdauthor-%{version}.tar.gz
-Patch2:			 dvdauthor-02-wall.diff
-Patch4:                  dvdauthor-04-decl.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEdvdauthor
+IPS_Package_Name:	video/dvdauthor
+Summary:	dvdauthor a program that will generate a DVD movie
+Version:	0.7.0
+Source:		%{sf_download}/dvdauthor/dvdauthor-%{version}.tar.gz
+Patch2:		dvdauthor-02-wall.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWlibC
 Requires: SFElibdvdnav
 BuildRequires: SFElibdvdnav-devel
+Requires: SFElibfribidi
+BuildRequires: SFElibfribidi-devel
 
 %prep
-%setup -q -n dvdauthor-%version
+%setup -q -n dvdauthor
 %patch2 -p1
-%patch4 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -29,17 +29,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export CFLAGS="%optflags"
-export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
 export MSGFMT="/usr/bin/msgfmt"
 
-LDFLAGS="-L/usr/X11/lib -L/usr/sfw/lib -R/usr/X11/lib:/usr/sfw/lib" \
-CPPFLAGS="-I/usr/X11/include -I/usr/sfw/include" \
+autoreconf
+
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir}      \
-            --enable-shared		     \
-	    --disable-static                 
+            --sysconfdir=%{_sysconfdir}
 
 make -j$CPUS 
 
@@ -58,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
+* Sun Mar 11 2012 - Milan Jurik
+- bump to 0.7.0
 * Fri Aug 21 2009 - Milan Jurik
 - update to 0.6.14
 * Thu Aug 07 2008 - trisk@acm.jhu.edu

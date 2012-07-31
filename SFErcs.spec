@@ -8,12 +8,14 @@
 %define srcname rcs
 
 Name:	        SFErcs
+IPS_Package_Name:	developer/versioning/rcs
 Summary:	GNU Revision Control System
 URL:		http://www.cs.purdue.edu/homes/trinkle/RCS/
 Vendor:		GNU Project
-Version:        5.7
+Version:        5.8
 License:	GPLv2
-Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/%srcname-%version.tar.Z
+SUNW_Copyright:	rcs.copyright
+Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -33,23 +35,18 @@ fi
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
-./configure --prefix=$RPM_BUILD_ROOT%_prefix
+./configure --prefix=%{_prefix} --mandir=%{_mandir}
 
-gmake -j$CPUS
-
+make -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
-gmake install
+rm -rf %{buildroot}
+make install DESTDIR=%{buildroot}
 
-cd $RPM_BUILD_ROOT%_prefix
-mkdir share
-mv man share
-
+rm -rf %{buildroot}%{_infodir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
-
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
@@ -64,5 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 05 2011 - Milan Jurik
+- bump to 5.8
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Jan 18 2011 - Alex Viskovatoff
 - Initial spec

@@ -13,6 +13,7 @@
 %use aspell = aspell-en.spec
 
 Name:          SFEaspell-en
+IPS_Package_Name:	 library/spell-checking/aspell-en
 Summary:       A Spell Checker - English
 Version:       %{aspell.version}
 SUNW_BaseDir:  %{_prefix}
@@ -47,6 +48,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Thu Feb 23 2012 - Logan Bruns <logan@gedanken.org>
+- restored spec and added an ips package name
 * Tue Mar 13 2007 - jeff.cai@sun.com
 - Move to sourceforge from opensolaris.
 * Sun Jun 11 2006 - laca@sun.com

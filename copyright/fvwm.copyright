@@ -1,0 +1,90 @@
+Authors: read /usr/share/doc/fvwm/AUTHORS 
+
+License: GPL version 2 (see /usr/share/doc/fvwm/COPYING) and
+additional copyrights of the fvwm main module:
+
+ Portions of fvwm are:
+  Copyright © 1988  by Evans and Sutherland Computer Corporation, Salt
+                      Lake City, Utah,
+  Copyright © 1989  by the Massachusetts Institute of Technology,
+                      Cambridge, Massachusetts, All rights reserved.
+  Copyright © 1992  Alan Richardson (mppa3@uk.ac.sussex.syma)
+  Copyright © 1992, 1995-2004 Free Software Foundation, Inc.
+  Copyright © 1993, 1994 by Robert Nation.
+  Copyright © 1994  Mr. Per Persson
+  Copyright © 1993, 1998 The Open Group
+  Copyright © 1994  Mark Boyns  (boyns@sdsu.edu)
+  Copyright © 1994  Mark Scott
+  Copyright © 1994  Mike Finger (mfinger@mermaid.micro.umn.edu)
+  Copyright © 1994, 1995 Nobutaka Suzuki
+  Copyright © 1995  Bo Yang
+  Copyright © 1995  Carsten Paeth
+  Copyright © 1995  Pekka Pietik{inen (pp@netppl.fi)
+  Copyright © 1995  Thomas Zuwei Feng
+  Copyright © 1996  Alfredo Kengi Kojima (kojima@inf.ufrgs.br)
+  Copyright © 1996  Alfredo Kojima
+  Copyright © 1996  Beat Christen.
+  Copyright © 1996  Caesar Crusius
+  Copyright © 1996  Frederic Cordier
+  Copyright © 1996  Jarl Totland
+  Copyright © 1996  Kaj Groner <kajg@mindspring.com>
+  Copyright © 1996  Romano Giannetti
+  Copyright © 1996-1999 Andrew T. Veliath
+  Copyright © 1997  Frank Scheelen <scheelen@worldonline.nl>
+  Copyright © 1998  Albrecht Kadlec
+  Copyright © 1998  Dan Espen <dane@mk.bellcore.com>
+  Copyright © 1996-1998  Toshi Isogai
+  Copyright © 1998-2009  Mikhael Goikhman
+  Copyright © 1999  Fabien Villard
+  Copyright © 1999  Carsten Haitzler and various contributors (imlib2)
+  Copyright © 1999  Matthias Clasen <clasen@mathematik.uni-freiburg.de>
+  Copyright © 1999  Sir Boris. sir_boris@bigfoot.com
+  Copyright © 1999, 2001, 2002, 2003  Dominik Vogt
+  Copyright © 1999, 2002 Joey Shutup.
+  Copyright © 2001  Dmitry Bolkhovityanov
+  Copyright © 2001-2004 Olivier Chapuis
+  Copyright © 2002  Jason Weber
+  Copyright © 2002  Nadim Shaikli (arabeyes.org) 
+  Copyright © 2002-2006 Scott Smedley ss@aao.gov.au
+  Copyright © 2003  Marcus Lundblad
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for any purpose and without fee is hereby granted,
+provided that the above copyright notice appear in all copies and that
+both that copyright notice and this permission notice appear in
+supporting documentation, and that the names of Evans & Sutherland and
+M.I.T. not be used in advertising in publicity pertaining to
+distribution of the software without specific, written prior
+permission.
+
+ROBERT NATION, CHARLES HINES, EVANS & SUTHERLAND, AND M.I.T. DISCLAIM
+ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL EVANS &
+SUTHERLAND OR M.I.T. BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+
+Portions of the DocBook documentation are:
+ Copyright 1992-2004 HaL Computer Systems, Inc.,
+ O'Reilly & Associates, Inc., ArborText, Inc., Fujitsu Software
+ Corporation, Norman Walsh, Sun Microsystems, Inc., and the
+ Organization for the Advancement of Structured Information
+ Standards (OASIS).
+  Permission to use, copy, modify and distribute the DocBook DTD
+  and its accompanying documentation for any purpose and without fee
+  is hereby granted in perpetuity, provided that the above copyright
+  notice and this paragraph appear in all copies.  The copyright
+  holders make no representation about the suitability of the DTD for
+  any purpose.  It is provided "as is" without expressed or implied
+  warranty.
+
+  If you modify the DocBook DTD in any way, except for declaring and
+  referencing additional sets of general entities and declaring
+  additional notations, label your DTD as a variant of DocBook.  See
+  the maintenance documentation for more information.
+
+  Please direct all questions, bug reports, or suggestions for
+  changes to the docbook@lists.oasis-open.org mailing list. For more
+  information, see http://www.oasis-open.org/docbook/.

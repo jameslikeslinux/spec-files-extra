@@ -4,24 +4,24 @@
 # includes module(s): offlineimap
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
-%define version_suffix g37d0fe8
-%define build_dir_suffix 64c2baa
-%define python_version 2.6
+%define build_dir_suffix b1bff15
 
 Name:		SFEofflineimap
+IPS_Package_Name:	mail/offlineimap
 Summary:	Bi-directional syncing of IMAP/Maildir email boxes
-Version:	6.3.2.1
+Version:	6.4.0
 Group:		Applications/Internet
-Source:		http://download.github.com/nicolas33-offlineimap-v%{version}-0-%{version_suffix}.tar.gz
+Source:		http://githubredir.debian.net/github/nicolas33/offlineimap/v%{version}.tar.gz
 URL:		http://offlineimap.org/
 License:	GPLv2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SUNWPython26-devel
-Requires: SUNWPython26
+BuildRequires:  %{pnm_buildrequires_python_default}
+Requires:       %{pnm_requires_python_default}
 
 %prep
 %setup -q -n nicolas33-offlineimap-%{build_dir_suffix}
@@ -44,6 +44,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 6.4.0
+* Wed Aug 10 2011 - Knut Anders Hatlen
+- Bump to 6.3.4
+- Use packagenamemacros.inc for Python version
 * Fri May 13 2011 - Knut Anders Hatlen
 - Fix Python 2.6 dependencies
 * Wed Mar 23 2011 - Knut Anders Hatlen

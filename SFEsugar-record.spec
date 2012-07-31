@@ -10,7 +10,7 @@
 Name:                    SFEsugar-record
 Summary:                 Sugar Record
 URL:                     http://www.sugarlabs.org/
-Version:                 64 
+Version:                 87 
 Source:                  http://download.sugarlabs.org/sources/honey/Record/Record-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 87.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>
 - Created with 64.

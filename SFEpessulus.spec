@@ -5,21 +5,25 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define pythonver 2.6
 
 Name:		SFEpessulus
-Summary:	Pessulus
+IPS_Package_Name:	gnome/pessulus
+Summary:	A lockdown editor for GNOME
 Version:	2.30.4
-Group:		System/GUI/GNOME
+Group:		Desktop (GNOME)
 URL:		http://live.gnome.org/Pessulus
+License:	GPLv2+
+SUNW_Copyright:	pessulus.copyright
 Source:		http://ftp.gnome.org/pub/GNOME/sources/pessulus/2.30/pessulus-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+%include perl-depend.inc
 BuildRequires: SUNWgnome-common-devel
-BuildRequires: SUNWperl-xml-parser
-BuildRequires: SUNWperl584usr
+BuildRequires: library/perl-5/xml-parser
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-python26-libs-devel
 BuildRequires: SUNWPython26
@@ -28,10 +32,10 @@ Requires: SUNWgnome-python26-libs
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 %endif
 
 %prep
@@ -130,6 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sat Dec 18 2010 - Milan Jurik
 - bump to 2.30.4
 * Mon Jan 15 2007 - daymobrew@users.sourceforge.net

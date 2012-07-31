@@ -13,11 +13,12 @@
 %define src_url http://ftp.gnome.org/pub/gnome/sources/ocrfeeder/0.7/
 
 Name:		SFEocrfeeder
+IPS_Package_Name:	image/ocrfeeder
 Summary:	OCRFeeder - Optical Character Recognition program
-Version:	0.7.4
+Version:	0.7.8
 Group:		Graphical desktop/GNOME/OCR
 URL:		http://live.gnome.org/OCRFeeder
-Source:		%{src_url}/%{src_name}-%{version}.tar.gz
+Source:		%{src_url}/%{src_name}-%{version}.tar.xz
 License:	GPLv3
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -29,6 +30,8 @@ Requires:	SFEpy26goocanvas
 BuildRequires:	SFEpython26-enchant
 Requires:	SFEpython26-enchant
 Requires:	SFEpython26-imaging-sane
+BuildRequires:	SFEpython26-reportlab
+Requires:	SFEpython26-reportlab
 Requires:	SFEunpaper
 
 %if %build_l10n
@@ -43,9 +46,10 @@ OCRFeeder is a complete Optical Character Recognition and Document Analysis
 and Recognition program.
 
 %prep
-%setup -q -n %{src_name}-%version
+xz -dc  %SOURCE | tar -xf -
 
 %build
+cd %{src_name}-%version
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
@@ -59,6 +63,7 @@ export LDFLAGS="%_ldflags"
 make -j $CPUS
 
 %install
+cd %{src_name}-%version
 rm -rf %buildroot
 make install DESTDIR=$RPM_BUILD_ROOT  \
     pyexecdir=%{_libdir}/python%{python_version}/vendor-packages \
@@ -95,5 +100,7 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Sun Mar 25 2012 - Milan Jurik
+- bump to 0.7.8
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec

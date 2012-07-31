@@ -1,0 +1,68 @@
+--- a/src/gui/guifuncs.c	2012-01-01 22:16:15.105384199 -0500
++++ b/src/gui/guifuncs.c	2012-01-01 22:16:49.950029232 -0500
+@@ -67,7 +67,7 @@
+ extern unsigned char ShowTimer, savecfgforce;
+ extern unsigned int SnowTimer, NumSnow, NumComboGlob;
+ extern unsigned char GUIFontData1[705], GUIFontData[705];
+-enum vtype { UB, UW, UD, SB, SW, SD };
++enum myvtype { UB, UW, UD, SB, SW, SD };
+ 
+ unsigned int ConvertBinaryToInt(char data[])
+ {
+@@ -262,7 +262,7 @@
+   fclose(fp);
+ }
+ 
+-static void CheckValueBounds(void *ptr, int min, int max, int val, enum vtype type)
++static void CheckValueBounds(void *ptr, int min, int max, int val, enum myvtype type)
+ {
+   switch (type)
+   {
+--- a/src/tools/depbuild.cpp	2012-01-01 22:28:00.294568724 -0500
++++ b/src/tools/depbuild.cpp	2012-01-01 22:28:31.631746109 -0500
+@@ -24,6 +24,7 @@
+ #include <iostream>
+ #include <string>
+ #include <cstdio>
++#include <cstdlib>
+ using namespace std;
+ 
+ #include "fileutil.h"
+--- a/src/parsegen.cpp	2012-01-01 22:14:23.759649992 -0500
++++ b/src/parsegen.cpp	2012-01-01 22:15:27.708056642 -0500
+@@ -31,6 +31,8 @@
+ #include <sstream>
+ #include <set>
+ #include <stack>
++#include <cstring>
++#include <cstdlib>
+ using namespace std;
+ 
+ #include <errno.h>
+@@ -399,7 +401,7 @@
+ 
+ namespace variable
+ {
+-  enum ctype { NT, UC, US, UD, SC, SS, SD, LT };
++  enum ctype { NT, UC, US, UD, SC, mySS, SD, LT };
+ 
+   static struct
+   {
+@@ -927,7 +929,7 @@
+   output_array_write(c_stream, variable::US);
+   output_array_write(c_stream, variable::UD);
+   output_array_write(c_stream, variable::SC);
+-  output_array_write(c_stream, variable::SS);
++  output_array_write(c_stream, variable::mySS);
+   output_array_write(c_stream, variable::SD);
+ 
+   c_stream << "\n"
+@@ -1190,7 +1192,7 @@
+   output_array_read(c_stream, variable::US);
+   output_array_read(c_stream, variable::UD);
+   output_array_read(c_stream, variable::SC);
+-  output_array_read(c_stream, variable::SS);
++  output_array_read(c_stream, variable::mySS);
+   output_array_read(c_stream, variable::SD);
+ 
+   c_stream << "\n"

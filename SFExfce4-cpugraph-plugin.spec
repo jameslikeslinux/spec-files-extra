@@ -5,17 +5,16 @@
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
+%define xfce_version 4.4.0
 
 %define _localedir %{_libdir}/locale
 
 %define src_name xfce4-cpugraph-plugin
-
 Name:			SFExfce4-cpugraph-plugin
 Summary:		CPU Graph Plugin
 Version:		1.0.1
 URL:			http://www.xfce.org/
-Source0:                http://archive.xfce.org/src/panel-plugins/xfce4-cpugraph-plugin/1.0/%{src_name}-%{version}.tar.bz2
+Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-cpugraph-plugin/1.0/xfce4-cpugraph-plugin-%{version}.tar.bz2
 Group:			User Interface/Desktops
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -26,7 +25,6 @@ Requires:		SFElibxfcegui4
 BuildRequires:		SFExfce4-panel-devel
 Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
-
 %prep
 %setup -q -n %{src_name}-%{version}
 
@@ -36,10 +34,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -lkstat"
 export LDFLAGS="%_ldflags"
-
-autoconf --force
 
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -87,16 +83,12 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %dir %attr (0755, root, sys) %{_datadir}
 %{_libdir}/xfce4
 %{_datadir}/xfce4
-
 %changelog
 
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
+* Thu Oct 6 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.0.1
-- Migrated to SFE
-
 * Thu Nov 22 2007 - Petr Sobotka sobotkap@centrum.cz
 - Bump to 0.4
 - New code for multiple cpus/cores
-
 * Tue Apr 12 2007 - dougs@truemail.co.th
 - Initial version

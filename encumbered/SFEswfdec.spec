@@ -5,17 +5,18 @@
 #
 %include Solaris.inc
 
-Name:                    SFEswfdec
-Summary:                 Macromedia Flash Rendering Library
-Version:                 0.4.1
-#Version:                 0.8.2
-Source:                  http://swfdec.freedesktop.org/download/swfdec/0.4/swfdec-%{version}.tar.gz
-#Source:                  http://swfdec.freedesktop.org/download/swfdec/0.8/swfdec-%{version}.tar.gz
-URL:                     http://swfdec.freedesktop.org/wiki/
-Group:                   library/multimedia
-Patch1:                  swfdec-01-build-fix.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEswfdec
+IPS_Package_Name:	library/video/swfdec
+Summary:	Macromedia Flash Rendering Library
+Version:	0.9.2
+Source:		http://swfdec.freedesktop.org/download/swfdec/0.9/swfdec-%{version}.tar.gz
+URL:		http://swfdec.freedesktop.org/wiki/
+Group:		library/multimedia
+Patch1:		swfdec-01-build-fix.diff
+Patch2:		swfdec-02-gnu99.diff
+Patch3:		swfdec-03-no-test.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWfirefox
 Requires: SUNWgnome-base-libs
@@ -28,6 +29,7 @@ Requires: SUNWxwrtl
 Requires: SUNWzlib
 Requires: SFElibmad
 Requires: SFEffmpeg
+Requires: SFEalsa-lib
 BuildRequires: SUNWfirefox-devel
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWgnome-media
@@ -35,6 +37,7 @@ BuildRequires: SUNWlibm
 BuildRequires: SUNWliboil-devel
 BuildRequires: SUNWmlibh
 BuildRequires: SFElibmad-devel
+BuildRequires: SFEalsa-lib-devel
 
 %package devel
 Summary:                 %{summary} - development files
@@ -45,6 +48,8 @@ Requires: %name
 %prep
 %setup -q -n swfdec-%version
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -53,7 +58,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 export CFLAGS="%optflags -I/usr/include/firefox -I/usr/include/firefox/js -I/usr/include/libavcodec"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
-export PERL5LIB=%{_prefix}/perl5/site_perl/5.6.1/sun4-solaris-64int
 export LDFLAGS="%_ldflags"
 
 glib-gettextize -f 
@@ -65,19 +69,18 @@ automake -a -c -f
 autoconf
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_libdir}              \
-            --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir}      \
-            --disable-mozilla-plugin
+            --libdir=%{_libdir}		\
+            --libexecdir=%{_libexecdir}	\
+            --sysconfdir=%{_sysconfdir}	\
+	--enable-gtk-doc		\
+	--disable-static
 
-make
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-rm $RPM_BUILD_ROOT%{_libdir}/*.a
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -rf $RPM_BUILD_ROOT%{_libdir}/mozilla
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -98,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Mon Nov 21 2011 - Milan Jurik
+- bump to 0.9.2
 * Thu Dec 02 2008 - dauphin@enst.fr
 - just a try to the last release.
 - but don't succeed 

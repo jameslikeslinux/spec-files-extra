@@ -47,7 +47,7 @@ export LDFLAGS="%_ldflags"
 	    --enable-shared		\
             --disable-compile-c
 
-make
+make -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT

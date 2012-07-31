@@ -1,0 +1,20 @@
+--- xar-1.5.2/configure	2007-12-29 10:49:57.000000000 -0800
++++ xar-1.5.2-patched/configure	2012-02-21 15:11:00.214022135 -0800
+@@ -3405,9 +3405,14 @@
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }; }; then
+ 
+-cat >>confdefs.h <<\_ACEOF
+-#define HAVE_SYS_ACL_H 1
+-_ACEOF
++# Solaris has sys/acl.h and act_t but not acl_get_file which is what
++# really counts so disable it.
++echo "$as_me:$LINENO: not defining HAVE_SYS_ACL_H on Solaris since there is no acl_get_file." >&5
++echo "not defining HAVE_SYS_ACL_H on Solaris since there is no acl_get_file" >&6
++
++# cat >>confdefs.h <<\_ACEOF
++# #define HAVE_SYS_ACL_H 1
++# _ACEOF
+ 
+ else
+   echo "$as_me: failed program was:" >&5

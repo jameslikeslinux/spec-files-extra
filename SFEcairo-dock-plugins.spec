@@ -5,20 +5,27 @@
 # package are under the same license as the package itself.
 #
 
+# NOTE: -Denable_alsa_mixer="no" does not seem to work at the moment, so
+#	you must ensure that Alsa is not installed to get this to build.
+
 %include Solaris.inc
 %define cc_is_gcc 1
 %include base.inc
 
 %define	src_name	cairo-dock-plugins
-%define ver_major	2.2.0
-%define ver_minor	4
+%define ver_major	2.3.0
+%define ver_minor	3.1
 
 %define SUNWlibxklavier %(/usr/bin/pkginfo -q SUNWlibxklavier && echo 1 || echo 0)
 
 Name:           SFEcairo-dock-plugins
-Summary:        cairo-dock plugins
+IPS_Package_Name:	desktop/dock/cairo-dock/plugins
+Summary:        Plugins for Cairo-Dock
+Group:		Applications/Plug-ins and Run-times
 Version:        %{ver_major}.%{ver_minor}
-Source:		http://launchpad.net/cairo-dock-plug-ins/2.2/%{ver_major}/+download/%{src_name}-%{ver_major}-%{ver_minor}.tar.gz
+License:        GPLv3+ and LGPLv2+
+SUNW_Copyright: cairo-dock-plugins.copyright
+Source:		http://launchpad.net/cairo-dock-plug-ins/2.3/%{ver_major}/+download/%{src_name}-%{ver_major}~%{ver_minor}.tar.gz
 Patch1:		cairo-dock-plugins-01-cmake.diff
 Patch2:		cairo-dock-plugins-02-solaris.diff
 SUNW_BaseDir:   %{_basedir}
@@ -46,6 +53,8 @@ Requires:	SFElibetpan
 BuildRequires:	SFElibetpan-devel
 Requires:	SUNWlibexif
 BuildRequires:	SUNWlibexif-devel
+Requires:	SUNWvala
+BuildRequires:	SUNWvala-devel
 Requires:	SFEwebkitgtk
 BuildRequires:	SFEwebkitgtk-devel
 
@@ -59,7 +68,7 @@ Requires:	%{name}
 %endif
 
 %prep
-%setup -q -n %{src_name}-%{ver_major}-%{ver_minor}
+%setup -q -n %{src_name}-%{ver_major}~3
 %patch1 -p1
 %patch2 -p1
 
@@ -101,6 +110,7 @@ rm -rf %{buildroot}
 %{_libdir}
 %dir %attr(0755, root, sys) %{_datadir}
 %{_datadir}/cairo-dock
+#%{_datadir}/vala-0.10
 
 %if %build_l10n
 %files l10n
@@ -110,6 +120,12 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Wed Jul 27 2011 - Alex Viskovatoff
+- don't package %{_datadir}/vala-0.10, which no longer gets created
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Wed Jul 13 2011 - Milan Jurik
+- update to 2.3.0-3
 * Wed May 11 2011 - Alex Viskovatoff
 - Disable alsa-mixer plugin, which breaks the build
 * Mon Feb 21 2011 - Milan Jurik

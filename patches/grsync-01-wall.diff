@@ -1,0 +1,5 @@
+--- /export/home/sfebuild/packages/BUILD/grsync-1.2.0/configure.in	2010-07-01 16:27:22.000000000 +0200
++++ grsync-1.2.0/configure.in	2011-08-01 21:09:57.873248598 +0200
+@@ -8,2 +7,0 @@
+-CFLAGS="-Wall -rdynamic $CFLAGS"
+-

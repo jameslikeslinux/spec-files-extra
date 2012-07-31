@@ -102,7 +102,7 @@ CDDL HEADER END
             <documentation>
 <!-- FIXME:
 	When man page is done, update this.
-	--Matt Lewandowsky <matt@greenviolet.net> 16Nov2010
+	Matt Lewandowsky <matt@greenviolet.net> 16Nov2010
 -->
                 <manpage title='nginx' section='8'
                     manpath='/usr/share/man' />

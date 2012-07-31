@@ -10,8 +10,11 @@
 %define src_name	gsl
 
 Name:		SFEgsl
+IPS_Package_Name:	library/gsl
 Summary:	The GNU Scientific Library is a numerical library for C and C++ programmers
-Version:	1.14
+Version:	1.15
+License:	GPLv3+
+SUNW_Copyright:	gsl.copyright
 Group:		Development/Libraries
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 URL:		http://www.gnu.org/software/gsl
@@ -105,6 +108,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 1.15
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat Jun 12 2010 - Milan Jurik
 - bump to 1.14, removing "finite" patch
 * Sun Nov 04 2007 - Ananth Shrinivas <ananth@sun.com>

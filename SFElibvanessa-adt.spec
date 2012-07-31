@@ -13,7 +13,8 @@
 Name:                    SFElibvanessa-adt
 Summary:                 vanessa-adt - abstract data type library to support perdition imap/pop3 proxy/loadbalancer
 URL:                     http://www.vergenet.net/linux/perdition/
-Version:                 0.0.8
+#Version:                 n.m.o
+Version:		%{libvanessa_adt_version}
 Source:                  http://www.vergenet.net/linux/perdition/download/%{perditionparentversion}/vanessa_adt-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -71,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 02 2010 - Thomas Wagner
+- export Version to include/perditionparentversion.inc and detect automaticly 
+  libraries version
+- bump to 0.0.8 (in file include/perditionparentversion.inc)
 * Fri Jul  9 2010 - Thomas Wagner
 - %include perditionparentversion.inc
 - bump to 0.0.8

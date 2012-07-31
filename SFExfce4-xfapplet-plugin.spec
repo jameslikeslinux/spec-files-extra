@@ -1,13 +1,9 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
-
-# http://goodies.xfce.org/
 
 Name:			SFExfce4-xfapplet-plugin
 Summary:		Allows you to use Gnome panel applets within Xfce
@@ -50,7 +46,6 @@ export LDFLAGS="%_ldflags"
             --sysconfdir=%{_sysconfdir} \
             --enable-gtk-doc \
             --disable-static
-
 make -j $CPUS
 
 %install
@@ -84,8 +79,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/locale
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Migrated to SFE from OSOL
-
+* Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
+- Converted from OSOL xfce
 * Sun Mar 2 2007 - dougs@truemail.co.th
 - Initial version

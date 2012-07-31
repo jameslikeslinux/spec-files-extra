@@ -1,0 +1,1407 @@
+diff -Naur stellarium-0.11.3/CMakeLists.txt stellarium-0.11.3-patch/CMakeLists.txt
+--- stellarium-0.11.3/CMakeLists.txt	Fri May 18 14:19:24 2012
++++ stellarium-0.11.3-patch/CMakeLists.txt	Sun Jul 29 21:33:13 2012
+@@ -53,2 +53,2 @@
+- SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-unused-parameter")       # additional C compile flags
+- SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")     # additional CPP compile flags
++ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")       # additional C compile flags
++ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")     # additional CPP compile flags
+diff -Naur stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp
+--- stellarium-0.11.1/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/Oculars/src/gui/PropertyBasedTableModel.cpp	2012-01-07 22:25:56.780612827 +0100
+@@ -57,7 +57,7 @@
+ 		 && index.column() < mappings.size()
+ 		 && index.column() >= 0){
+ 			QObject *object = content->at(index.row());
+-			data = object->property(mappings[index.column()].toStdString().c_str());
++			data = object->property(mappings[index.column()].toLocal8Bit().data());
+   }
+ 	return data;
+ }
+@@ -95,7 +95,7 @@
+ 	bool changeMade = false;
+ 	if (index.isValid() && role == Qt::EditRole && index.column() < mappings.size()) {
+ 		QObject* object = content->at(index.row());
+-		object->setProperty(mappings[index.column()].toStdString().c_str(), value);
++		object->setProperty(mappings[index.column()].toLocal8Bit().data(), value);
+ 		emit(dataChanged(index, index));
+ 
+ 		changeMade = true;
+diff -Naur stellarium-0.11.1/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp stellarium-0.11.1-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp
+--- stellarium-0.11.1/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/SolarSystemEditor/src/gui/MpcImportWindow.cpp	2012-01-07 22:25:56.782643816 +0100
+@@ -501,8 +501,8 @@
+ 		//Round to the greatest possible derived unit
+ 		while (bytesTotal > 1024)
+ 		{
+-			bytesReceived = std::floor(bytesReceived / 1024);
+-			bytesTotal    = std::floor(bytesTotal / 1024);
++			bytesReceived = std::floor((long double)bytesReceived / 1024);
++			bytesTotal    = std::floor((long double)bytesTotal / 1024);
+ 		}
+ 		currentValue = bytesReceived;
+ 		endValue = bytesTotal;
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/InterpolatedPosition.cpp	2012-01-07 22:25:56.785033657 +0100
+@@ -86,7 +86,7 @@
+ 				double f = rval.lengthSquared();
+ 				if (f > 0.0)
+ 				{
+-					return (1.0/sqrt(f))*rval;
++					return (1.0/std::sqrt(f))*rval;
+ 				}
+ 			}
+ 			break;
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/clients/TelescopeClient.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/clients/TelescopeClient.hpp	2012-01-07 22:25:56.785737307 +0100
+@@ -121,7 +121,7 @@
+ 		XYZ = XYZ * 31.0 + desired_pos;
+ 		const double lq = XYZ.lengthSquared();
+ 		if (lq > 0.0)
+-			XYZ *= (1.0/sqrt(lq));
++			XYZ *= (1.0/std::sqrt(lq));
+ 		else
+ 			XYZ = desired_pos;
+ 		return true;
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Connection.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Connection.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Connection.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Connection.cpp	2012-01-07 22:25:56.787674835 +0100
+@@ -26,9 +26,9 @@
+ #include "Server.hpp"
+ #include "LogFile.hpp"
+ 
+-using namespace std;
++//using namespace std;
+ 
+-#include <math.h>
++#include <cmath>
+ 
+ #ifdef DEBUG5
+ #include <QTextStream>
+@@ -43,7 +43,7 @@
+ static QTextStream &operator<<(QTextStream &o, const PrintRaDec &x)
+ {
+ 	unsigned int h = x.ra_int;
+-	int d = (int)floor(0.5+x.dec_int*(360*3600*1000/4294967296.0));
++	int d = (int)std::floor(0.5+x.dec_int*(360*3600*1000/4294967296.0));
+ 	char dec_sign;
+ 	if (d >= 0)
+ 	{
+@@ -64,7 +64,7 @@
+ 		d = -d;
+ 		dec_sign = '-';
+ 	}
+-	h = (unsigned int)floor(0.5+h*(24*3600*10000/4294967296.0));
++	h = (unsigned int)std::floor(0.5+h*(24*3600*10000/4294967296.0));
+ 	const int ra_ms = h % 10000; h /= 10000;
+ 	const int ra_s = h % 60; h /= 60;
+ 	const int ra_m = h % 60; h /= 60;
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.cpp	2012-01-07 22:25:56.788777189 +0100
+@@ -26,12 +26,12 @@
+ #include "TelescopeClientDirectLx200.hpp"
+ #include "LogFile.hpp"
+ 
+-#include <math.h>
++#include <cmath>
+ #include <stdlib.h> // abs
+ 
+ #include <QByteArray>
+ 
+-using namespace std;
++//using namespace std;
+ 
+ Lx200Command::Lx200Command(Server &server)
+              : server(*static_cast<TelescopeClientDirectLx200*>(&server)),
+@@ -432,7 +432,7 @@
+ 	
+ 	buff = p;
+ 	server.longFormatUsedReceived(long_format);
+-	server.raReceived((unsigned int)floor(ra * (4294967296.0/86400.0)));
++	server.raReceived((unsigned int)std::floor(ra * (4294967296.0/86400.0)));
+ 	return 1;
+ }
+ 
+@@ -550,7 +550,7 @@
+ 		dec = -dec;
+ 	buff = p;
+ 	server.longFormatUsedReceived(long_format);
+-	server.decReceived((int)floor(dec* (4294967296.0/(360*3600.0))));
++	server.decReceived((int)std::floor(dec* (4294967296.0/(360*3600.0))));
+ 	return 1;
+ }
+ 
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Command.hpp	2012-01-07 22:25:56.789495577 +0100
+@@ -27,7 +27,7 @@
+ #define _LX200_COMMAND_HPP_
+ 
+ #include <QTextStream>
+-using namespace std;
++//using namespace std;
+ 
+ class Server;
+ class TelescopeClientDirectLx200;
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Connection.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/Lx200Connection.cpp	2012-01-07 22:25:56.790584409 +0100
+@@ -27,9 +27,9 @@
+ #include "TelescopeClientDirectLx200.hpp"
+ #include "LogFile.hpp"
+ 
+-using namespace std;
++//using namespace std;
+ 
+-#include <math.h>
++#include <cmath>
+ 
+ 
+ Lx200Connection::Lx200Connection(Server &server, const char *serial_device) : SerialPort(server, serial_device)
+@@ -71,7 +71,7 @@
+ {
+ 	if (goto_commands_queued <= 1)
+ 	{
+-		int dec = (int)floor(0.5 + dec_int * (360*3600/4294967296.0));
++		int dec = (int)std::floor(0.5 + dec_int * (360*3600/4294967296.0));
+ 		if (dec < -90*3600)
+ 		{
+ 			dec = -180*3600 - dec;
+@@ -82,7 +82,7 @@
+ 			dec = 180*3600 - dec;
+ 			ra_int += 0x80000000;
+ 		}
+-		int ra = (int)floor(0.5 + ra_int * (86400.0/4294967296.0));
++		int ra = (int)std::floor(0.5 + ra_int * (86400.0/4294967296.0));
+ 		if (ra >= 86400)
+ 			ra -= 86400;
+ 		sendCommand(new Lx200CommandStopSlew(server));
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.cpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.cpp	2012-01-07 22:25:56.791298020 +0100
+@@ -26,9 +26,9 @@
+ #include "TelescopeClientDirectNexStar.hpp"
+ #include "LogFile.hpp"
+ 
+-#include <math.h>
++#include <cmath>
+ 
+-using namespace std;
++//using namespace std;
+ 
+ NexStarCommand::NexStarCommand(Server &server) : server(*static_cast<TelescopeClientDirectNexStar*>(&server)), has_been_written_to_buffer(false)
+ {
+diff -Naur stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.hpp stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp
+--- stellarium-0.11.1/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2011-11-04 10:59:34.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TelescopeControl/src/servers/NexStarCommand.hpp	2012-01-07 22:25:56.791969151 +0100
+@@ -26,7 +26,7 @@
+ #define _NEXSTAR_COMMAND_HPP_
+ 
+ #include <QTextStream>
+-using namespace std;
++//using namespace std;
+ 
+ class Server;
+ class TelescopeClientDirectNexStar;
+diff -Naur stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp
+--- stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/DefineTimeZoneWindow.cpp	2012-01-08 09:33:55.749693968 +0100
+@@ -472,7 +472,7 @@
+ 		return;
+ 
+ 	double offset = TimeZoneConfigurationWindow::readTzOffsetString(tzFormat.cap(2));
+-	if (fabs(offset) >= 24)
++	if (std::fabs(offset) >= 24)
+ 		return;
+ 
+ 	QString name = tzFormat.cap(1).trimmed();
+@@ -493,7 +493,7 @@
+ 		if (!dstOffsetString.isEmpty())
+ 		{
+ 			double dstOffset = TimeZoneConfigurationWindow::readTzOffsetString(dstOffsetString);
+-			if (fabs(dstOffset) >= 24)
++			if (std::fabs(dstOffset) >= 24)
+ 				return;
+ 
+ 			ui->checkBoxOffsetDst->setChecked(true);
+diff -Naur stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp
+--- stellarium-0.11.1/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2011-11-04 10:59:35.000000000 +0100
++++ stellarium-0.11.1-patch/plugins/TimeZoneConfiguration/src/gui/TimeZoneConfigurationWindow.cpp	2012-01-07 22:25:56.792752352 +0100
+@@ -162,7 +162,7 @@
+ 	int hours, minutes, seconds;
+ 	readTzTimeString((signChar.isDigit()) ? string : string.mid(1),
+ 	                 hours, minutes, seconds);
+-	const double offset = sign * (hours + floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
++	const double offset = sign * (hours + std::floor(((minutes * 60 + seconds)/3600.0) * 100) / 100.0);//Round to the second digit
+ 	return offset;
+ }
+ 
+diff -Naur stellarium-0.11.1/src/core/SimbadSearcher.hpp stellarium-0.11.1-patch/src/core/SimbadSearcher.hpp
+--- stellarium-0.11.1/src/core/SimbadSearcher.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/SimbadSearcher.hpp	2012-01-07 22:25:56.793486439 +0100
+@@ -32,7 +32,7 @@
+ class SimbadLookupReply : public QObject
+ {
+ 	Q_OBJECT
+-	Q_ENUMS(SimbadLookupStatus);
++	Q_ENUMS(SimbadLookupStatus)
+ 
+ public:
+ 	friend class SimbadSearcher;
+diff -Naur stellarium-0.11.1/src/core/SphericMirrorCalculator.cpp stellarium-0.11.1-patch/src/core/SphericMirrorCalculator.cpp
+--- stellarium-0.11.1/src/core/SphericMirrorCalculator.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/SphericMirrorCalculator.cpp	2012-01-07 22:25:56.795051808 +0100
+@@ -37,13 +37,13 @@
+ conf.value("spheric_mirror/projector_position_z",-0.2).toFloat());
+   P = (projector_position - mirror_position) * (1.0/mirror_radius);
+   PP = P.lengthSquared();
+-  lP = sqrt(PP);
++  lP = std::sqrt(PP);
+   p = P * (1.0/lP);
+   float image_distance_div_height
+ 			  = conf.value("spheric_mirror/image_distance_div_height",-1e100).toFloat();
+   if (image_distance_div_height <= -1e100)
+   { const float scaling_factor = conf.value("spheric_mirror/scaling_factor", 0.8).toFloat();
+-    image_distance_div_height = sqrt(PP-1.0) * scaling_factor;
++    image_distance_div_height = std::sqrt(PP-1.0) * scaling_factor;
+     qDebug() << "INFO: spheric_mirror:scaling_factor is deprecated and may be removed in future versions.";
+     qDebug() << "      In order to keep your setup unchanged, please use spheric_mirror:image_distance_div_height = "
+              << image_distance_div_height << " instead";
+@@ -65,8 +65,8 @@
+     initRotMatrix(0.0,0.0,0.0);
+ 	transform(Vec3f(0,0,1),x,y);
+ 	const float zenith_y(conf.value("spheric_mirror/zenith_y",0.125).toFloat());
+-    delta = -atan(y/image_distance_div_height)
+-          + atan(zenith_y/image_distance_div_height);
++    delta = -std::atan(y/image_distance_div_height)
++          + std::atan(zenith_y/image_distance_div_height);
+     qDebug() << "INFO: spheric_mirror:zenith_y is deprecated and may be removed in future versions.";
+     qDebug() << "      In order to keep your setup unchanged, please use spheric_mirror:projector_delta = "
+              << (delta*(180.0/M_PI)) << " instead";
+@@ -79,12 +79,12 @@
+ void SphericMirrorCalculator::initRotMatrix(float alpha,
+ 											float delta,
+ 											float phi) {
+-  const float ca = cos(alpha);
+-  const float sa = sin(alpha);
+-  const float cd = cos(delta);
+-  const float sd = sin(delta);
+-  const float cp = cos(phi);
+-  const float sp = sin(phi);
++  const float ca = std::cos(alpha);
++  const float sa = std::sin(alpha);
++  const float cd = std::cos(delta);
++  const float sd = std::sin(delta);
++  const float cp = std::cos(phi);
++  const float sp = std::sin(phi);
+ 
+   alphaDeltaPhi[0] =   ca*cp - sa*sd*sp;
+   alphaDeltaPhi[1] = - sa*cp - ca*sd*sp;
+@@ -181,11 +181,11 @@
+   if (discr < 0) {
+     return false;
+   }
+-  const Vec3f Q = P + v*((-Pv-sqrt(discr))/vv);
++  const Vec3f Q = P + v*((-Pv-std::sqrt(discr))/vv);
+   const Vec3f w = v - Q*(2*v.dot(Q));
+   const Vec3f MQ = Q - DomeCenter;
+   float f = -MQ.dot(w);
+-  f += sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
++  f += std::sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
+   const Vec3f S = Q + w*(f/vv);
+   v = S - DomeCenter;
+   v *= (1.0/DomeRadius);
+@@ -227,13 +227,13 @@
+   if (discr < 0) {
+     return false;
+   }
+-  const Vec3f Q = P + v*((-Pv-sqrt(discr))/vv);
+-  const Vec3f Q_x = vX*((-Pv-sqrt(discr))/vv)
+-                  + v*( (vv*(-PvX-0.5*discr_x/sqrt(discr))
+-                        -vvX*(-Pv-sqrt(discr))) /(vv*vv));
+-  const Vec3f Q_y = vY*((-Pv-sqrt(discr))/vv)
+-                  + v*( (vv*(-PvY-0.5*discr_y/sqrt(discr))
+-                        -vvY*(-Pv-sqrt(discr))) /(vv*vv));
++  const Vec3f Q = P + v*((-Pv-std::sqrt(discr))/vv);
++  const Vec3f Q_x = vX*((-Pv-std::sqrt(discr))/vv)
++                  + v*( (vv*(-PvX-0.5*discr_x/std::sqrt(discr))
++                        -vvX*(-Pv-std::sqrt(discr))) /(vv*vv));
++  const Vec3f Q_y = vY*((-Pv-std::sqrt(discr))/vv)
++                  + v*( (vv*(-PvY-0.5*discr_y/std::sqrt(discr))
++                        -vvY*(-Pv-std::sqrt(discr))) /(vv*vv));
+ 
+   const Vec3f w = v - Q*(2*v.dot(Q));
+   const Vec3f w_x = vX - Q_x*(2*v.dot(Q)) - Q*(2*(vX.dot(Q)+v.dot(Q_x)));
+@@ -248,13 +248,13 @@
+   float f_x = -Q_x.dot(w)-MQ.dot(w_x);
+   float f_y = -Q_y.dot(w)-MQ.dot(w_y);
+ 
+-  float f1 = f + sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
++  float f1 = f + std::sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
+   float f1_x = f_x + 0.5*(2*f*f_x - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vvX
+                                    - 2*MQ.dot(Q_x)*vv )
+-              / sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
++              / std::sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
+   float f1_y = f_y + 0.5*(2*f*f_y - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vvY
+                                    - 2*MQ.dot(Q_y)*vv )
+-              / sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
++              / std::sqrt(f*f - (MQ.dot(MQ)-DomeRadius*DomeRadius)*vv);
+ 
+   const Vec3f S = Q + w*(f1/vv);
+   const Vec3f S_x = Q_x + w*((vv*f1_x-vvX*f1)/(vv*vv)) + w_x*(f1/vv);
+diff -Naur stellarium-0.11.1/src/core/StelFileMgr.cpp stellarium-0.11.1-patch/src/core/StelFileMgr.cpp
+--- stellarium-0.11.1/src/core/StelFileMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelFileMgr.cpp	2012-01-07 22:25:56.795972194 +0100
+@@ -510,17 +510,17 @@
+ 		qDebug() << "Creating directory " << uDir.filePath();
+ 		if (!QDir("/").mkpath(uDir.filePath()))
+ 		{
+-			throw std::runtime_error(QString("Could not create directory: " +uDir.filePath()).toStdString());
++			throw std::runtime_error(QString("Could not create directory: " +uDir.filePath()).toLocal8Bit().data());
+ 		}
+ 		QFileInfo uDir2(dirFullPath);
+ 		if (!uDir2.isWritable())
+ 		{
+-			throw std::runtime_error(QString("Directory is not writable: " +uDir2.filePath()).toStdString());
++			throw std::runtime_error(QString("Directory is not writable: " +uDir2.filePath()).toLocal8Bit().data());
+ 		}
+ 	}
+ 	else if (!uDir.isWritable())
+ 	{
+-		throw std::runtime_error(QString("Directory is not writable: " +uDir.filePath()).toStdString());
++		throw std::runtime_error(QString("Directory is not writable: " +uDir.filePath()).toLocal8Bit().data());
+ 	}
+ }
+ 
+diff -Naur stellarium-0.11.1/src/core/StelGeodesicGrid.cpp stellarium-0.11.1-patch/src/core/StelGeodesicGrid.cpp
+--- stellarium-0.11.1/src/core/StelGeodesicGrid.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelGeodesicGrid.cpp	2012-01-07 22:25:56.796901477 +0100
+@@ -38,8 +38,8 @@
+ #include <cmath>
+ #include <cstdlib>
+ 
+-static const float icosahedron_G = 0.5*(1.0+sqrt(5.0));
+-static const float icosahedron_b = 1.0/sqrt(1.0+icosahedron_G*icosahedron_G);
++static const float icosahedron_G = 0.5*(1.0+std::sqrt(5.0));
++static const float icosahedron_b = 1.0/std::sqrt(1.0+icosahedron_G*icosahedron_G);
+ static const float icosahedron_a = icosahedron_b*icosahedron_G;
+ 
+ static const Vec3f icosahedron_corners[12] =
+diff -Naur stellarium-0.11.1/src/core/StelGeodesicGrid.hpp stellarium-0.11.1-patch/src/core/StelGeodesicGrid.hpp
+--- stellarium-0.11.1/src/core/StelGeodesicGrid.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelGeodesicGrid.hpp	2012-01-07 22:25:56.797571766 +0100
+@@ -47,7 +47,7 @@
+ class StelGeodesicGrid
+ {
+ public:
+-	StelGeodesicGrid(int maxLevel);
++	StelGeodesicGrid(const int lev);
+ 	~StelGeodesicGrid(void);
+ 	
+ 	int getMaxLevel(void) const {return maxLevel;}
+diff -Naur stellarium-0.11.1/src/core/StelLocaleMgr.cpp stellarium-0.11.1-patch/src/core/StelLocaleMgr.cpp
+--- stellarium-0.11.1/src/core/StelLocaleMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelLocaleMgr.cpp	2012-01-07 22:25:56.798331322 +0100
+@@ -213,7 +213,7 @@
+ 		shift = StelUtils::getGMTShiftFromQT(JD)*0.041666666666;
+ 	}
+ 	StelUtils::getDateFromJulianDay(JD+shift, &year, &month, &day);
+-	dayOfWeek = (int)floor(fmod(JD, 7));
++	dayOfWeek = (int)std::floor(std::fmod(JD, 7));
+ 	QString str;
+ 	switch (dateFormat)
+ 	{
+diff -Naur stellarium-0.11.1/src/core/StelMovementMgr.cpp stellarium-0.11.1-patch/src/core/StelMovementMgr.cpp
+--- stellarium-0.11.1/src/core/StelMovementMgr.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelMovementMgr.cpp	2012-01-07 22:25:56.799553892 +0100
+@@ -561,7 +561,7 @@
+ 			}
+ 			else
+ 			{
+-				c = 1. - pow(1.-1.11*move.coef,3.);
++				c = 1. - std::pow(1.-1.11*move.coef,3.);
+ 			}
+ 		}
+ 		else if (zoomingMode==-1)
+@@ -573,7 +573,7 @@
+ 			}
+ 			else
+ 			{
+-				c =  pow(1.11*(move.coef-.1),3.);
++				c =  std::pow(1.11*(move.coef-.1),3.);
+ 			}
+ 		}
+ 		else
+diff -Naur stellarium-0.11.1/src/core/StelObjectMgr.cpp stellarium-0.11.1-patch/src/core/StelObjectMgr.cpp
+--- stellarium-0.11.1/src/core/StelObjectMgr.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelObjectMgr.cpp	2012-01-08 09:36:53.771897584 +0100
+@@ -143,7 +143,7 @@
+ 	foreach (const StelObjectP& obj, candidates)
+ 	{
+ 		prj->project(obj->getJ2000EquatorialPos(core), winpos);
+-		float distance = sqrt((xpos-winpos[0])*(xpos-winpos[0]) + (ypos-winpos[1])*(ypos-winpos[1]))*distanceWeight;
++		float distance = std::sqrt((xpos-winpos[0])*(xpos-winpos[0]) + (ypos-winpos[1])*(ypos-winpos[1]))*distanceWeight;
+ 		float priority =  obj->getSelectPriority(core);
+ 		// qDebug() << (*iter).getShortInfoString(core) << ": " << priority << " " << distance;
+ 		if (distance + priority < best_object_value)
+diff -Naur stellarium-0.11.1/src/core/StelObserver.cpp stellarium-0.11.1-patch/src/core/StelObserver.cpp
+--- stellarium-0.11.1/src/core/StelObserver.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelObserver.cpp	2012-01-07 22:25:56.802013980 +0100
+@@ -78,7 +78,7 @@
+ 	const RotationElements &r(dest->getRotationElements());
+ 	lastJD = StelApp::getInstance().getCore()->getJDay();
+ 
+-	re.offset = r.offset + fmod(re.offset - r.offset + 360.0*( (lastJD-re.epoch)/re.period - (lastJD-r.epoch)/r.period), 360.0);
++	re.offset = r.offset + std::fmod(re.offset - r.offset + 360.0*( (lastJD-re.epoch)/re.period - (lastJD-r.epoch)/r.period), 360.0);
+ 
+ 	re.epoch = r.epoch;
+ 	re.period = r.period;
+@@ -88,12 +88,12 @@
+ 
+ void ArtificialPlanet::setRot(const Vec3d &r)
+ {
+-	const double ca = cos(r[0]);
+-	const double sa = sin(r[0]);
+-	const double cd = cos(r[1]);
+-	const double sd = sin(r[1]);
+-	const double cp = cos(r[2]);
+-	const double sp = sin(r[2]);
++	const double ca = std::cos(r[0]);
++	const double sa = std::sin(r[0]);
++	const double cd = std::cos(r[1]);
++	const double sd = std::sin(r[1]);
++	const double cp = std::cos(r[2]);
++	const double sp = std::sin(r[2]);
+ 	Mat4d m;
+ 	m.r[ 0] = cd*cp;
+ 	m.r[ 4] = sd;
+@@ -117,9 +117,9 @@
+ Vec3d ArtificialPlanet::getRot(const Planet* p)
+ {
+ 	const Mat4d m(p->getRotEquatorialToVsop87());
+-	const double cos_r1 = sqrt(m.r[0]*m.r[0]+m.r[8]*m.r[8]);
++	const double cos_r1 = std::sqrt(m.r[0]*m.r[0]+m.r[8]*m.r[8]);
+ 	Vec3d r;
+-	r[1] = atan2(m.r[4],cos_r1);
++	r[1] = std::atan2(m.r[4],cos_r1);
+ 	// not well defined if cos(r[1])==0:
+ 	if (cos_r1 <= 0.0)
+ 	{
+@@ -127,12 +127,12 @@
+ 		// else sin,cos(a+p)=m.r[ 9],m.r[10]
+ 		// so lets say p=0:
+ 		r[2] = 0.0;
+-		r[0] = atan2(m.r[9],m.r[10]);
++		r[0] = std::atan2(m.r[9],m.r[10]);
+ 	}
+ 	else
+ 	{
+-		r[0] = atan2(-m.r[6],m.r[5]);
+-		r[2] = atan2( m.r[8],m.r[0]);
++		r[0] = std::atan2(-m.r[6],m.r[5]);
++		r[2] = std::atan2( m.r[8],m.r[0]);
+ 	}
+ 	return r;
+ }
+diff -Naur stellarium-0.11.1/src/core/StelPainter.cpp stellarium-0.11.1-patch/src/core/StelPainter.cpp
+--- stellarium-0.11.1/src/core/StelPainter.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelPainter.cpp	2012-01-07 22:25:56.805258242 +0100
+@@ -34,6 +34,8 @@
+ #include <QVarLengthArray>
+ #include <QPaintEngine>
+ 
++#include <algorithm>
++
+ #ifndef GL_MULTISAMPLE
+ #define GL_MULTISAMPLE  0x809D
+ #endif
+diff -Naur stellarium-0.11.1/src/core/StelProjector.cpp stellarium-0.11.1-patch/src/core/StelProjector.cpp
+--- stellarium-0.11.1/src/core/StelProjector.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelProjector.cpp	2012-01-07 22:25:56.806045258 +0100
+@@ -115,7 +115,7 @@
+ {
+ 	bool ok = unProject(viewportXywh[0]+0.5f*viewportXywh[2], viewportXywh[1]+0.5f*viewportXywh[3], boundingCap.n);
+ 	Q_ASSERT(ok);	// The central point should be at a valid position by definition
+-	const bool needNormalization = fabs(boundingCap.n.lengthSquared()-1.)>0.00000001;
++	const bool needNormalization = std::fabs(boundingCap.n.lengthSquared()-1.)>0.00000001;
+ 
+ 	// Now need to determine the aperture
+ 	Vec3d e0,e1,e2,e3,e4,e5;
+diff -Naur stellarium-0.11.1/src/core/StelProjectorClasses.hpp stellarium-0.11.1-patch/src/core/StelProjectorClasses.hpp
+--- stellarium-0.11.1/src/core/StelProjectorClasses.hpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelProjectorClasses.hpp	2012-01-07 22:25:56.806870518 +0100
+@@ -23,6 +23,10 @@
+ #include <limits>
+ #include "StelProjector.hpp"
+ 
++#ifndef M_SQRT2
++#define M_SQRT2 1.4142135623730950488016887
++#endif
++
+ class StelProjectorPerspective : public StelProjector
+ {
+ public:
+diff -Naur stellarium-0.11.1/src/core/StelSkyDrawer.cpp stellarium-0.11.1-patch/src/core/StelSkyDrawer.cpp
+--- stellarium-0.11.1/src/core/StelSkyDrawer.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelSkyDrawer.cpp	2012-01-07 22:25:56.807980476 +0100
+@@ -47,6 +47,8 @@
+ #include <QDebug>
+ #include <QtGlobal>
+ 
++#include <map>
++
+ // The 0.025 corresponds to the maximum eye resolution in degree
+ #define EYE_RESOLUTION (0.25f)
+ #define MAX_LINEAR_RADIUS 8.f
+diff -Naur stellarium-0.11.1/src/core/StelSphereGeometry.cpp stellarium-0.11.1-patch/src/core/StelSphereGeometry.cpp
+--- stellarium-0.11.1/src/core/StelSphereGeometry.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelSphereGeometry.cpp	2012-01-07 22:25:56.809905932 +0100
+@@ -462,8 +462,8 @@
+ 	const double& b2 = n2[1];
+ 	const double& c2 = n2[2];
+ 
+-	Q_ASSERT(fabs(n1.lengthSquared()-1.)<0.000001);
+-	Q_ASSERT(fabs(n2.lengthSquared()-1.)<0.000001);
++	Q_ASSERT(std::fabs(n1.lengthSquared()-1.)<0.000001);
++	Q_ASSERT(std::fabs(n2.lengthSquared()-1.)<0.000001);
+ 
+ 	// Compute the parametric equation of the line at the intersection of the 2 planes
+ 	Vec3d u = n1^n2;
+@@ -476,7 +476,7 @@
+ 
+ 	// u gives the direction of the line, still need to find a suitable start point p0
+ 	// Find the axis on which the line varies the fastest, and solve the system for value == 0 on this axis
+-	int maxI = (fabs(u[0])>=fabs(u[1])) ? (fabs(u[0])>=fabs(u[2]) ? 0 : 2) : (fabs(u[2])>fabs(u[1]) ? 2 : 1);
++	int maxI = (std::fabs(u[0])>=std::fabs(u[1])) ? (std::fabs(u[0])>=std::fabs(u[2]) ? 0 : 2) : (std::fabs(u[2])>std::fabs(u[1]) ? 2 : 1);
+ 	Vec3d p0(0);
+ 	switch (maxI)
+ 	{
+@@ -524,8 +524,8 @@
+ 	p1 = p0+u*t1;
+ 	p2 = p0+u*t2;
+ 
+-	Q_ASSERT(fabs(p1.lengthSquared()-1.)<0.000001);
+-	Q_ASSERT(fabs(p2.lengthSquared()-1.)<0.000001);
++	Q_ASSERT(std::fabs(p1.lengthSquared()-1.)<0.000001);
++	Q_ASSERT(std::fabs(p2.lengthSquared()-1.)<0.000001);
+ 
+ 	return true;
+ }
+@@ -552,10 +552,10 @@
+ #endif
+ 	Vec3d c(c1.n);
+ 	c*=c1.d;
+-	const double a1 = std::acos((p1-c)*(p2-c)/(1.-fabs(c1.d)))/(2.*M_PI)*area1 - OctahedronPolygon::sphericalTriangleArea(p1,p2,c1.n);
++	const double a1 = std::acos((p1-c)*(p2-c)/(1.-std::fabs(c1.d)))/(2.*M_PI)*area1 - OctahedronPolygon::sphericalTriangleArea(p1,p2,c1.n);
+ 	c=c2.n;
+ 	c*=c2.d;
+-	const double a2 = std::acos((p1-c)*(p2-c)/(1.-fabs(c2.d)))/(2.*M_PI)*area2 - OctahedronPolygon::sphericalTriangleArea(p2,p1,c2.n);
++	const double a2 = std::acos((p1-c)*(p2-c)/(1.-std::fabs(c2.d)))/(2.*M_PI)*area2 - OctahedronPolygon::sphericalTriangleArea(p2,p1,c2.n);
+ 	const double overlapArea = a1+a2;
+ 	return qMin(overlapArea/area1, overlapArea/area2);
+ }
+diff -Naur stellarium-0.11.1/src/core/StelToneReproducer.cpp stellarium-0.11.1-patch/src/core/StelToneReproducer.cpp
+--- stellarium-0.11.1/src/core/StelToneReproducer.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelToneReproducer.cpp	2012-01-07 22:25:56.810690174 +0100
+@@ -23,6 +23,11 @@
+ # define pow10(x) std::exp((x) * 2.3025850930)
+ #endif
+ 
++/* Cannot include math.h because of exception */
++#ifndef M_PI
++#define M_PI 3.14159265358979323846
++#endif  /*  M_PI  */
++
+ #include "StelToneReproducer.hpp"
+ 
+ /*********************************************************************
+diff -Naur stellarium-0.11.1/src/core/StelTranslator.cpp stellarium-0.11.1-patch/src/core/StelTranslator.cpp
+--- stellarium-0.11.1/src/core/StelTranslator.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelTranslator.cpp	2012-01-07 22:25:56.811562366 +0100
+@@ -134,7 +134,7 @@
+ 
+ 	putenv(envstr);
+ #ifndef Q_OS_WIN
+-	setlocale(LC_MESSAGES, "");
++	std::setlocale(LC_MESSAGES, "");
+ #else
+ 	setlocale(LC_CTYPE,"");
+ #endif
+diff -Naur stellarium-0.11.1/src/core/StelUtils.cpp stellarium-0.11.1-patch/src/core/StelUtils.cpp
+--- stellarium-0.11.1/src/core/StelUtils.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelUtils.cpp	2012-01-08 09:38:23.946887854 +0100
+@@ -314,42 +314,42 @@
+ 
+ void spheToRect(double lng, double lat, Vec3d& v)
+ {
+-	const double cosLat = cos(lat);
+-	v.set(cos(lng) * cosLat, sin(lng) * cosLat, sin(lat));
++	const double cosLat = std::cos(lat);
++	v.set(std::cos(lng) * cosLat, std::sin(lng) * cosLat, std::sin(lat));
+ }
+ 
+ void spheToRect(float lng, float lat, Vec3f& v)
+ {
+-	const double cosLat = cos(lat);
+-	v.set(cos(lng) * cosLat, sin(lng) * cosLat, sin(lat));
++	const double cosLat = std::cos(lat);
++	v.set(std::cos(lng) * cosLat, std::sin(lng) * cosLat, std::sin(lat));
+ }
+ 
+ void rectToSphe(double *lng, double *lat, const Vec3d& v)
+ {
+ 	double r = v.length();
+-	*lat = asin(v[2]/r);
+-	*lng = atan2(v[1],v[0]);
++	*lat = std::asin(v[2]/r);
++	*lng = std::atan2(v[1],v[0]);
+ }
+ 
+ void rectToSphe(float *lng, float *lat, const Vec3d& v)
+ {
+ 	double r = v.length();
+-	*lat = asin(v[2]/r);
+-	*lng = atan2(v[1],v[0]);
++	*lat = std::asin(v[2]/r);
++	*lng = std::atan2(v[1],v[0]);
+ }
+ 
+ void rectToSphe(float *lng, float *lat, const Vec3f& v)
+ {
+ 	float r = v.length();
+-	*lat = asin(v[2]/r);
+-	*lng = atan2(v[1],v[0]);
++	*lat = std::asin(v[2]/r);
++	*lng = std::atan2(v[1],v[0]);
+ }
+ 
+ void rectToSphe(double *lng, double *lat, const Vec3f& v)
+ {
+ 	double r = v.length();
+-	*lat = asin(v[2]/r);
+-	*lng = atan2(v[1],v[0]);
++	*lat = std::asin(v[2]/r);
++	*lng = std::atan2(v[1],v[0]);
+ }
+ 
+ // GZ: some additions. I need those just for quick conversions for text display.
+@@ -451,7 +451,7 @@
+ 	static const int JB_MAX_WITHOUT_OVERFLOW = 107374182;
+ 	long julian;
+ 
+-	julian = (long)floor(jd + 0.5);
++	julian = (long)std::floor(jd + 0.5);
+ 
+ 	long ta, jalpha, tb, tc, td, te;
+ 
+@@ -501,8 +501,8 @@
+ 
+ void getTimeFromJulianDay(double julianDay, int *hour, int *minute, int *second)
+ {
+-	double frac = julianDay - (floor(julianDay));
+-	int s = (int)floor((frac * 24.0 * 60.0 * 60.0) + 0.0001);  // add constant to fix floating-point truncation error
++	double frac = julianDay - (std::floor(julianDay));
++	int s = (int)std::floor((frac * 24.0 * 60.0 * 60.0) + 0.0001);  // add constant to fix floating-point truncation error
+ 
+ 	*hour = ((s / (60 * 60))+12)%24;
+ 	*minute = (s/(60))%60;
+@@ -783,8 +783,8 @@
+ {
+ 	double extra = (100.0* y) + m - 190002.5;
+ 	double rjd = 367.0 * y;
+-	rjd -= floor(7.0*(y+floor((m+9.0)/12.0))/4.0);
+-	rjd += floor(275.0*m/9.0) ;
++	rjd -= std::floor(7.0*(y+std::floor((m+9.0)/12.0))/4.0);
++	rjd += std::floor(275.0*m/9.0) ;
+ 	rjd += d;
+ 	rjd += (h + (min + s/60.0)/60.)/24.0;
+ 	rjd += 1721013.5;
+diff -Naur stellarium-0.11.1/src/core/StelUtils.hpp stellarium-0.11.1-patch/src/core/StelUtils.hpp
+--- stellarium-0.11.1/src/core/StelUtils.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelUtils.hpp	2012-01-07 22:25:56.815890897 +0100
+@@ -25,6 +25,15 @@
+ #include <QVariantMap>
+ #include <QDateTime>
+ #include <QString>
++#include <cmath>
++
++/* Cannot include math.h because of exception */
++#ifndef M_PI
++#define M_PI 3.14159265358979323846
++#endif  /*  M_PI  */
++#ifndef M_PI_2
++#define M_PI_2 (M_PI * 0.5)
++#endif  /*  M_PI_2  */
+ 
+ // astonomical unit (km)
+ #define AU 149597870.691
+diff -Naur stellarium-0.11.1/src/core/StelViewportEffect.cpp stellarium-0.11.1-patch/src/core/StelViewportEffect.cpp
+--- stellarium-0.11.1/src/core/StelViewportEffect.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/StelViewportEffect.cpp	2012-01-07 22:25:56.816764749 +0100
+@@ -29,6 +29,8 @@
+ #include <QSettings>
+ #include <QFile>
+ 
++#include <math.h>
++
+ void StelViewportEffect::paintViewportBuffer(const QGLFramebufferObject* buf) const
+ {
+ 	StelPainter sPainter(StelApp::getInstance().getCore()->getProjection2d());
+diff -Naur stellarium-0.11.1/src/core/VecMath.hpp stellarium-0.11.1-patch/src/core/VecMath.hpp
+--- stellarium-0.11.1/src/core/VecMath.hpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/VecMath.hpp	2012-01-08 09:42:43.713459860 +0100
+@@ -27,6 +27,11 @@
+ #include <cmath>
+ #include <QString>
+ 
++/* Cannot include math.h because of exception */
++#ifndef M_PI
++#define M_PI 3.14159265358979323846
++#endif  /*  M_PI  */
++
+ template<class T> class Vector2;
+ template<class T> class Vector3;
+ template<class T> class Vector4;
+@@ -566,7 +571,7 @@
+ // Angle in radian between two vectors
+ template<class T> T Vector3<T>::angle(const Vector3<T>& b) const
+ {
+-	const T cosAngle = dot(b)/sqrt(lengthSquared()*b.lengthSquared());
++	const T cosAngle = dot(b)/std::sqrt(lengthSquared()*b.lengthSquared());
+ 	return cosAngle>=1 ? 0 : (cosAngle<=-1 ? M_PI : std::acos(cosAngle));
+ }
+ 
+@@ -579,7 +584,7 @@
+ 
+ template<class T> T Vector3<T>::length() const
+ {
+-	return (T) sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
++	return (T) std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+ }
+ 
+ template<class T> T Vector3<T>::lengthSquared() const
+@@ -747,7 +752,7 @@
+ 
+ template<class T> T Vector4<T>::length() const
+ {
+-	return (T) sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
++	return (T) std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
+ }
+ 
+ template<class T> T Vector4<T>::lengthSquared() const
+@@ -757,7 +762,7 @@
+ 
+ template<class T> void Vector4<T>::normalize()
+ {
+-	T s = (T) (1. / sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]));
++	T s = (T) (1. / std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]));
+ 	v[0] *= s;
+ 	v[1] *= s;
+ 	v[2] *= s;
+@@ -857,8 +862,8 @@
+ {
+ 	Vector3<T> a(axis);
+ 	a.normalize();
+-	const T c = (T) cos(angle);
+-	const T s = (T) sin(angle);
++	const T c = (T) std::cos(angle);
++	const T s = (T) std::sin(angle);
+ 	const T d = 1-c;
+ 	return Matrix4<T>(	a[0]*a[0]*d+c     , a[1]*a[0]*d+a[2]*s, a[0]*a[2]*d-a[1]*s, 0,
+ 						a[0]*a[1]*d-a[2]*s, a[1]*a[1]*d+c     , a[1]*a[2]*d+a[0]*s, 0,
+@@ -868,8 +873,8 @@
+ 
+ template<class T> Matrix4<T> Matrix4<T>::xrotation(T angle)
+ {
+-	T c = (T) cos(angle);
+-	T s = (T) sin(angle);
++	T c = (T) std::cos(angle);
++	T s = (T) std::sin(angle);
+ 
+ 	return Matrix4<T>(1, 0, 0, 0,
+ 					  0, c, s, 0,
+@@ -880,8 +885,8 @@
+ 
+ template<class T> Matrix4<T> Matrix4<T>::yrotation(T angle)
+ {
+-	T c = (T) cos(angle);
+-	T s = (T) sin(angle);
++	T c = (T) std::cos(angle);
++	T s = (T) std::sin(angle);
+ 
+ 	return Matrix4<T>( c, 0,-s, 0,
+ 					   0, 1, 0, 0,
+@@ -892,8 +897,8 @@
+ 
+ template<class T> Matrix4<T> Matrix4<T>::zrotation(T angle)
+ {
+-	T c = (T) cos(angle);
+-	T s = (T) sin(angle);
++	T c = (T) std::cos(angle);
++	T s = (T) std::sin(angle);
+ 
+ 	return Matrix4<T>(c, s, 0, 0,
+ 					 -s, c, 0, 0,
+@@ -1016,11 +1021,11 @@
+ 	  r3[7] = 1.0, r3[4] = r3[5] = r3[6] = 0.0;
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[0]) > fabs(r2[0]))
++   if (std::fabs(r3[0]) > std::fabs(r2[0]))
+ 	  SWAP_ROWS(r3, r2);
+-   if (fabs(r2[0]) > fabs(r1[0]))
++   if (std::fabs(r2[0]) > std::fabs(r1[0]))
+ 	  SWAP_ROWS(r2, r1);
+-   if (fabs(r1[0]) > fabs(r0[0]))
++   if (std::fabs(r1[0]) > std::fabs(r0[0]))
+ 	  SWAP_ROWS(r1, r0);
+    if (0.0 == r0[0])
+ 	  return Matrix4<T>();
+@@ -1067,9 +1072,9 @@
+    }
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[1]) > fabs(r2[1]))
++   if (std::fabs(r3[1]) > std::fabs(r2[1]))
+ 	  SWAP_ROWS(r3, r2);
+-   if (fabs(r2[1]) > fabs(r1[1]))
++   if (std::fabs(r2[1]) > std::fabs(r1[1]))
+ 	  SWAP_ROWS(r2, r1);
+    if (0.0 == r1[1])
+ 	  return Matrix4<T>();
+@@ -1103,7 +1108,7 @@
+    }
+ 
+    /* choose pivot - or die */
+-   if (fabs(r3[2]) > fabs(r2[2]))
++   if (std::fabs(r3[2]) > std::fabs(r2[2]))
+ 	  SWAP_ROWS(r3, r2);
+    if (0.0 == r2[2])
+ 	  return Matrix4<T>();
+diff -Naur stellarium-0.11.3/src/core/modules/ConstellationMgr.cpp stellarium-0.11.3-patch/src/core/modules/ConstellationMgr.cpp
+--- stellarium-0.11.3/src/core/modules/ConstellationMgr.cpp	Fri May 18 14:19:21 2012
++++ stellarium-0.11.3-patch/src/core/modules/ConstellationMgr.cpp	Sun Jul 29 21:57:18 2012
+@@ -42,7 +42,7 @@
+ #include "StelPainter.hpp"
+ #include "StelSkyDrawer.hpp"
+ 
+-using namespace std;
++//using namespace std;
+ 
+ // constructor which loads all data from appropriate files
+ ConstellationMgr::ConstellationMgr(StarMgr *_hip_stars)
+@@ -67,7 +67,7 @@
+ 		delete(*iter);
+ 	}
+ 
+-	vector<vector<Vec3f> *>::iterator iter1;
++	std::vector<std::vector<Vec3f> *>::iterator iter1;
+ 	for (iter1 = allBoundarySegments.begin(); iter1 != allBoundarySegments.end(); ++iter1)
+ 	{
+ 		delete (*iter1);
+@@ -318,7 +318,7 @@
+ 	in.seek(0);
+ 
+ 	// delete existing data, if any
+-	vector < Constellation * >::iterator iter;
++	std::vector < Constellation * >::iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 		delete(*iter);
+ 
+@@ -442,7 +442,7 @@
+ 				{
+ 					texturePath = StelFileMgr::findFile(QString("textures/")+texfile);
+ 				}
+-				catch(exception& e2)
++				catch(std::exception& e2)
+ 				{
+ 					qWarning() << "ERROR: could not find texture, " << texfile << ": " << e2.what();
+ 				}
+@@ -529,7 +529,7 @@
+ 	glEnable(GL_BLEND);
+ 	glEnable(GL_CULL_FACE);
+ 
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	SphericalRegionP region = sPainter.getProjector()->getViewportConvexPolygon();
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+@@ -546,7 +546,7 @@
+ 	glEnable(GL_BLEND);
+ 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+ 	const SphericalCap& viewportHalfspace = sPainter.getProjector()->getBoundingCap();
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		(*iter)->drawOptim(sPainter, core, viewportHalfspace);
+@@ -559,7 +559,7 @@
+ 	glEnable(GL_BLEND);
+ 	sPainter.enableTexture2d(true);
+ 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); iter++)
+ 	{
+ 		// Check if in the field of view
+@@ -570,7 +570,7 @@
+ 
+ Constellation *ConstellationMgr::isStarIn(const StelObject* s) const
+ {
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		// Check if the star is in one of the constellation
+@@ -587,7 +587,7 @@
+ 	// search in uppercase only
+ 	QString tname = abbreviation.toUpper();
+ 
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		if ((*iter)->abbreviation == tname)
+@@ -608,7 +608,7 @@
+ 	if (asterisms.empty()) return;
+ 
+ 	// clear previous names
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		(*iter)->englishName.clear();
+@@ -677,7 +677,7 @@
+ void ConstellationMgr::updateI18n()
+ {
+ 	StelTranslator trans = StelApp::getInstance().getLocaleMgr().getSkyTranslator();
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		(*iter)->nameI18 = trans.qtranslate((*iter)->englishName);
+@@ -687,7 +687,7 @@
+ // update faders
+ void ConstellationMgr::update(double deltaTime)
+ {
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	const int delta = (int)(deltaTime*1000);
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+@@ -700,7 +700,7 @@
+ 	if (artIntensity != intensity)
+ 	{
+ 		artIntensity = intensity;
+-		vector < Constellation * >::const_iterator iter;
++		std::vector < Constellation * >::const_iterator iter;
+ 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 		{
+ 			(*iter)->artFader.setMaxValue(artIntensity);
+@@ -719,7 +719,7 @@
+ 	if(artFadeDuration != duration)
+ 	{
+ 		artFadeDuration = duration;
+-		vector < Constellation * >::const_iterator iter;
++		std::vector < Constellation * >::const_iterator iter;
+ 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 		{
+ 			(*iter)->artFader.setDuration((int) (duration * 1000.f));
+@@ -740,7 +740,7 @@
+ 		linesDisplayed = displayed;
+ 		if (selected.begin() != selected.end()  && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(linesDisplayed);
+@@ -748,7 +748,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(linesDisplayed);
+@@ -770,7 +770,7 @@
+ 		boundariesDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagBoundaries(boundariesDisplayed);
+@@ -778,7 +778,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagBoundaries(boundariesDisplayed);
+@@ -800,7 +800,7 @@
+ 		artDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagArt(artDisplayed);
+@@ -808,7 +808,7 @@
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagArt(artDisplayed);
+@@ -830,13 +830,13 @@
+ 		namesDisplayed = displayed;
+ 		if (selected.begin() != selected.end() && isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 				(*iter)->setFlagLabels(namesDisplayed);
+ 		}
+ 		else
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 				(*iter)->setFlagLabels(namesDisplayed);
+ 		}
+@@ -858,7 +858,7 @@
+ 		// when turning off isolated selection mode, clear exisiting isolated selections.
+ 		if (!isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 				(*iter)->setFlagLines(getFlagLines());
+@@ -912,12 +912,12 @@
+ 
+ 		if (isolateSelected)
+ 		{
+-			vector < Constellation * >::const_iterator iter;
++			std::vector < Constellation * >::const_iterator iter;
+ 			for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 			{
+ 
+ 				bool match = 0;
+-				vector < Constellation * >::const_iterator s_iter;
++				std::vector < Constellation * >::const_iterator s_iter;
+ 				for (s_iter = selected.begin(); s_iter != selected.end(); ++s_iter)
+ 				{
+ 					if( (*iter)==(*s_iter) )
+@@ -946,7 +946,7 @@
+ 		if (selected.begin() == selected.end()) return;
+ 
+ 		// Otherwise apply standard flags to all constellations
+-		vector < Constellation * >::const_iterator iter;
++		std::vector < Constellation * >::const_iterator iter;
+ 		for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 		{
+ 			(*iter)->setFlagLines(getFlagLines());
+@@ -968,7 +968,7 @@
+ 	if (c != NULL)
+ 	{
+ 
+-		vector < Constellation * >::const_iterator iter;
++		std::vector < Constellation * >::const_iterator iter;
+ 		int n=0;
+ 		for (iter = selected.begin(); iter != selected.end(); ++iter)
+ 		{
+@@ -1017,7 +1017,7 @@
+ 	unsigned int i, j;
+ 
+ 	// delete existing boundaries if any exist
+-	vector<vector<Vec3f> *>::iterator iter;
++	std::vector<std::vector<Vec3f> *>::iterator iter;
+ 	for (iter = allBoundarySegments.begin(); iter != allBoundarySegments.end(); ++iter)
+ 	{
+ 		delete (*iter);
+@@ -1039,12 +1039,12 @@
+ 	float DE, RA;
+ 	Vec3f XYZ;
+ 	unsigned num, numc;
+-	vector<Vec3f> *points = NULL;
++	std::vector<Vec3f> *points = NULL;
+ 	QString consname;
+ 	i = 0;
+ 	while (!istr.atEnd())
+ 	{
+-		points = new vector<Vec3f>;
++		points = new std::vector<Vec3f>;
+ 
+ 		num = 0;
+ 		istr >> num;
+@@ -1100,7 +1100,7 @@
+ 	glLineStipple(2, 0x3333);
+ 	glEnable(GL_LINE_STIPPLE);
+ #endif
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		(*iter)->drawBoundaryOptim(sPainter);
+@@ -1114,7 +1114,7 @@
+ {
+ 	QString objw = nameI18n.toUpper();
+ 
+-	vector <Constellation*>::const_iterator iter;
++	std::vector <Constellation*>::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		QString objwcap = (*iter)->nameI18.toUpper();
+@@ -1126,7 +1126,7 @@
+ StelObjectP ConstellationMgr::searchByName(const QString& name) const
+ {
+ 	QString objw = name.toUpper();
+-	vector <Constellation*>::const_iterator iter;
++	std::vector <Constellation*>::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		QString objwcap = (*iter)->englishName.toUpper();
+@@ -1145,7 +1145,7 @@
+ 
+ 	QString objw = objPrefix.toUpper();
+ 
+-	vector < Constellation * >::const_iterator iter;
++	std::vector < Constellation * >::const_iterator iter;
+ 	for (iter = asterisms.begin(); iter != asterisms.end(); ++iter)
+ 	{
+ 		QString constw = (*iter)->getNameI18n().mid(0, objw.size()).toUpper();
+diff -Naur stellarium-0.11.1/src/core/modules/Orbit.cpp stellarium-0.11.1-patch/src/core/modules/Orbit.cpp
+--- stellarium-0.11.1/src/core/modules/Orbit.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/modules/Orbit.cpp	2012-01-07 22:25:56.826306580 +0100
+@@ -21,8 +21,7 @@
+ 
+ #define EPSILON 1e-10
+ 
+-#if defined(_MSC_VER)
+-// cuberoot is missing in VC++ !?
++#ifndef cbrt
+ #define cbrt(x) pow((x),1./3.)
+ #endif
+ 
+diff -Naur stellarium-0.11.1/src/core/modules/ZoneArray.cpp stellarium-0.11.1-patch/src/core/modules/ZoneArray.cpp
+--- stellarium-0.11.1/src/core/modules/ZoneArray.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/core/modules/ZoneArray.cpp	2012-01-07 22:25:56.827125272 +0100
+@@ -54,24 +54,24 @@
+ 	double mu0,mu1,f,h;
+ 	mu0 = (c0-z.center)*z.axis0;
+ 	mu1 = (c0-z.center)*z.axis1;
+-	f = 1.0/sqrt(1.0-mu0*mu0-mu1*mu1);
+-	h = fabs(mu0)*f;
++	f = 1.0/std::sqrt(1.0-mu0*mu0-mu1*mu1);
++	h = std::fabs(mu0)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+-	h = fabs(mu1)*f;
++	h = std::fabs(mu1)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+ 	mu0 = (c1-z.center)*z.axis0;
+ 	mu1 = (c1-z.center)*z.axis1;
+-	f = 1.0/sqrt(1.0-mu0*mu0-mu1*mu1);
+-	h = fabs(mu0)*f;
++	f = 1.0/std::sqrt(1.0-mu0*mu0-mu1*mu1);
++	h = std::fabs(mu0)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+-	h = fabs(mu1)*f;
++	h = std::fabs(mu1)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+ 	mu0 = (c2-z.center)*z.axis0;
+ 	mu1 = (c2-z.center)*z.axis1;
+-	f = 1.0/sqrt(1.0-mu0*mu0-mu1*mu1);
+-	h = fabs(mu0)*f;
++	f = 1.0/std::sqrt(1.0-mu0*mu0-mu1*mu1);
++	h = std::fabs(mu0)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+-	h = fabs(mu1)*f;
++	h = std::fabs(mu1)*f;
+ 	if (star_position_scale < h) star_position_scale = h;
+ }
+ 
+@@ -141,8 +141,7 @@
+ 		if (use_mmap)
+ 		{
+ 			// mmap only with gcc:
+-			dbStr += "warning - you must convert catalogue "
+-				  += "to native format before mmap loading";
++			dbStr += "warning - you must convert catalogue to native format before mmap loading";
+ 			qDebug(qPrintable(dbStr));
+ 
+ 			return 0;
+@@ -500,7 +500,7 @@
+ 	    Vec3d altAz=core->j2000ToAltAz(Vec3d(vf[0], vf[1], vf[2]), StelCore::RefractionOn);
+ 	    float extMagShift=0.0f;
+ 	    extinction.forward(&altAz, &extMagShift);
+-            int extMagShiftStep=qMin((int)floor(extMagShift/k), 4096-mag_steps); // this number muist be equal StarMgr.cpp line 649
++            int extMagShiftStep=qMin((int)std::floor(extMagShift/k), 4096-mag_steps); // this number muist be equal StarMgr.cpp line 649
+ 	    tmpRcmag = rcmag_table+2*(s->mag+extMagShiftStep);
+ 	}
+ 
+diff -Naur stellarium-0.11.1/src/gui/AngleSpinBox.cpp stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp
+--- stellarium-0.11.1/src/gui/AngleSpinBox.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/AngleSpinBox.cpp	2012-01-07 22:25:56.829070644 +0100
+@@ -340,7 +340,7 @@
+ 				angle *= -1;
+ 				sign = false;
+ 			}
+-			angle = fmod(angle,2.0*M_PI);
++			angle = std::fmod(angle,2.0*M_PI);
+ 			angle *= 180./M_PI;
+ 
+ 			d = (int)angle;
+@@ -348,7 +348,7 @@
+ 			s = (angle-d)*3600-60*m;
+ 
+ 			// we may have seconds as 60 and one less minute...
+-			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 			{
+ 				m+=1;
+ 				s-=60.0;
+@@ -362,9 +362,9 @@
+ 			}
+ 
+ 			// fix when we have tiny tiny tiny values.
+-			if (s < ::pow(10, -1 * (decimalPlaces+1)))
++			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+-			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+ 
+ 			QString signInd = positivePrefix(currentPrefixType);
+@@ -386,7 +386,7 @@
+ 			unsigned int h, m;
+ 			double s;
+ 			double angle = radAngle;
+-			angle = fmod(angle,2.0*M_PI);
++			angle = std::fmod(angle,2.0*M_PI);
+ 			if (angle < 0.0) angle += 2.0*M_PI; // range: [0..2.0*M_PI)
+ 			angle *= 12./M_PI;
+ 			h = (unsigned int)angle;
+@@ -394,7 +394,7 @@
+ 			s = (angle-h)*3600.-60.*m;
+ 
+ 			// we may have seconds as 60 and one less minute...
+-			if (s > 60.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			if (s > 60.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 			{
+ 				m+=1;
+ 				s-=60.0;
+@@ -408,9 +408,9 @@
+ 			}
+ 
+ 			// fix when we have tiny tiny tiny values.
+-			if (s < ::pow(10, -1 * (decimalPlaces+1)))
++			if (s < std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+-			else if (s < 0.0 && 0.0 - ::pow(10, -1 * (decimalPlaces+1)))
++			else if (s < 0.0 && 0.0 - std::pow((double)10, -1 * (decimalPlaces+1)))
+ 				s= 0.0;
+ 
+ 			if (angleSpinBoxFormat == HMSLetters)
+@@ -436,7 +436,7 @@
+ 
+ 			lineEdit()->setText(QString("%1%2%3")
+                                 .arg(signInd)
+-                                .arg(fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
++                                .arg(std::fmod(angle * 180.0 / M_PI, 360.0), 0, 'f', decimalPlaces, ' ')
+                                 .arg(QChar(176)));
+ 			break;
+ 		}
+diff -Naur stellarium-0.11.1/src/gui/SkyGui.cpp stellarium-0.11.1-patch/src/gui/SkyGui.cpp
+--- stellarium-0.11.1/src/gui/SkyGui.cpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/SkyGui.cpp	2012-01-07 22:25:56.829677400 +0100
+@@ -28,6 +28,8 @@
+ #include <QSettings>
+ #include <QTextDocument>
+ 
++#include <math.h>
++
+ InfoPanel::InfoPanel(QGraphicsItem* parent) : QGraphicsTextItem("", parent)
+ {
+ 	QSettings* conf = StelApp::getInstance().getSettings();
+diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.cpp stellarium-0.11.1-patch/src/gui/StelGuiItems.cpp
+--- stellarium-0.11.3/src/gui/StelGuiItems.cpp	Fri May 18 14:19:22 2012
++++ stellarium-0.11.3-patch/src/gui/StelGuiItems.cpp	Sun Jul 29 21:43:17 2012
+@@ -45,6 +45,8 @@
+ #include <QGraphicsLinearLayout>
+ #include <QSettings>
+ 
++#include <math.h>
++
+ StelButton::StelButton(QGraphicsItem* parent,
+                        const QPixmap& apixOn,
+                        const QPixmap& apixOff,
+diff -Naur stellarium-0.11.1/src/gui/StelGuiItems.hpp stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp
+--- stellarium-0.11.1/src/gui/StelGuiItems.hpp	2011-11-04 10:59:42.000000000 +0100
++++ stellarium-0.11.1-patch/src/gui/StelGuiItems.hpp	2012-01-07 22:25:56.832581860 +0100
+@@ -43,7 +43,7 @@
+ class CornerButtons : public QObject, public QGraphicsItem
+ {
+ 	Q_OBJECT
+-	Q_INTERFACES(QGraphicsItem);
++	Q_INTERFACES(QGraphicsItem)
+ public:
+ 	CornerButtons(QGraphicsItem* parent=NULL);
+ 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+@@ -150,7 +150,7 @@
+ class LeftStelBar : public QObject, public QGraphicsItem
+ {
+ 	Q_OBJECT
+-	Q_INTERFACES(QGraphicsItem);
++	Q_INTERFACES(QGraphicsItem)
+ public:
+ 	LeftStelBar(QGraphicsItem* parent);
+ 	~LeftStelBar();
+@@ -174,7 +174,7 @@
+ class BottomStelBar : public QObject, public QGraphicsItem
+ {
+ 	Q_OBJECT
+-	Q_INTERFACES(QGraphicsItem);
++	Q_INTERFACES(QGraphicsItem)
+ public:
+ 	BottomStelBar(QGraphicsItem* parent, const QPixmap& pixLeft=QPixmap(), const QPixmap& pixRight=QPixmap(), const QPixmap& pixMiddle=QPixmap(), const QPixmap& pixSingle=QPixmap());
+ 	virtual ~BottomStelBar();
+diff -Naur stellarium-0.11.1/src/main.cpp stellarium-0.11.1-patch/src/main.cpp
+--- stellarium-0.11.1/src/main.cpp	2011-11-04 10:59:41.000000000 +0100
++++ stellarium-0.11.1-patch/src/main.cpp	2012-01-07 22:25:56.833135717 +0100
+@@ -36,6 +36,8 @@
+ #include <windows.h>
+ #endif //Q_OS_WIN
+ 
++#include <locale.h>
++
+ //! @class GettextStelTranslator
+ //! Provides i18n support through gettext.
+ class GettextStelTranslator : public QTranslator
+--- stellarium-0.11.3/plugins/Oculars/src/gui/OcularsGuiPanel.cpp	Sun Jul 29 22:08:14 2012
++++ stellarium-0.11.3-patch/plugins/Oculars/src/gui/OcularsGuiPanel.cpp	Sun Jul 29 22:08:41 2012
+@@ -36,6 +36,8 @@
+ #include <QSignalMapper>
+ #include <QWidget>
+ 
++#include <math.h>
++
+ OcularsGuiPanel::OcularsGuiPanel(Oculars* plugin,
+                                  QGraphicsWidget *parent,
+                                  Qt::WindowFlags wFlags):
+--- stellarium-0.11.3/plugins/Satellites/src/CMakeLists.txt	Sun Jul 29 22:11:36 2012
++++ stellarium-0.11.3-patch/plugins/Satellites/src/CMakeLists.txt	Sun Jul 29 22:11:54 2012
+@@ -88,1 +88,1 @@
+-	        SET_TARGET_PROPERTIES(Satellites-static PROPERTIES COMPILE_FLAGS "-DQT_STATICPLUGIN -Wno-unused-parameter -Wno-unused-but-set-parameter -Wno-unused-but-set-variable")
++	        SET_TARGET_PROPERTIES(Satellites-static PROPERTIES COMPILE_FLAGS "-DQT_STATICPLUGIN")

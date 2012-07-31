@@ -20,6 +20,7 @@
 %define SUNWlibsdl	%(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-pango
+IPS_Package_Name:	library/graphics/sdl-pango
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 SUNW_BaseDir:		%{_basedir}
@@ -112,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Tue Mar 24 2009 - andras.barna@gmail.com
 - remove %doc
 * Wed Aug 15 2007 - dougs@truemail.co.th

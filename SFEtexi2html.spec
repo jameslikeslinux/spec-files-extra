@@ -12,10 +12,7 @@
 Name: SFEtexi2html
 Version: 5.0
 Release: 1
-# GPLv2+ is for the code
-# OFSFDL (Old FSF Documentation License) for the documentation
-# CC-BY-SA or GPLv2 for the images
-License: GPLv2+ and OFSFDL and (CC-BY-SA or GPLv2)
+License: GPLv3
 Group: Applications/Text
 Summary: A highly customizable texinfo to HTML and other formats translator
 Source0: http://download.savannah.nongnu.org/releases/%{srcname}/%{srcname}-%{version}.tar.bz2
@@ -33,6 +30,7 @@ URL: http://www.nongnu.org/texi2html/
 #Requires: perl(Text::Unidecode)
 #BuildArch: noarch
 SUNW_BaseDir:        %{_basedir}
+SUNW_Copyright:	     texi2html.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
@@ -93,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 #%dir %{_sysconfdir}/texinfo
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun May 15 2011 Alex Viskovatoff
 - adapt spec from source tarball to SFE
 * Sun Sep  9 2007 Patrice Dumas <pertusus@free.fr> 5.0-1

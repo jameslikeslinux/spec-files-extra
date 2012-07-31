@@ -10,6 +10,7 @@
 %define src_name splint
 
 Name:		SFEsplint
+IPS_Package_Name:	developer/splint
 Version:	3.1.2
 Summary:	An implementation of the lint program
 Group:		Development/Tools

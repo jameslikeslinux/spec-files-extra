@@ -13,11 +13,13 @@
 %use fribidi = fribidi.spec
 
 Name:                   SFElibfribidi
+IPS_Package_Name:	library/fribidi 
 Summary:                %{fribidi.summary}
 URL:			%{fribidi.url}
 Version:                %{fribidi.version}
 License:		%{fribidi.license}
 Group:			%{fribidi.group}
+SUNW_Copyright:		fribidi.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -68,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Apr 11 2010 - Milan Jurik
 - cleanup for the latest pkgtool
 * Sun Aug 17 2008 - nonsea@users.sourceofrge.net

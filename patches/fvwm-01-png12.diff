@@ -1,0 +1,16 @@
+--- fvwm-2.5.31/configure.ac	Mon Aug  9 14:22:48 2010
++++ fvwm-2.5.31-patch/configure.ac	Mon Jul 11 20:12:09 2011
+@@ -813,11 +813,11 @@
+ AC_SUBST(xpm_CFLAGS)
+ 
+ # ********* png
+-problem_png=": png library or header not found"
++problem_png=": png12 library or header not found"
+ 
+ $UNSET ac_cv_header_png_h
+ $UNSET ac_cv_lib_png_png_read_info
+-smr_CHECK_LIB(png, png, for coloured or shaped icons,
++smr_CHECK_LIB(png, png12, for coloured or shaped icons,
+     png_read_info, png.h, -lz -lm,)
+ 
+ if test ! x"$png_LIBS" = x; then

@@ -8,7 +8,8 @@
 Name:                SFEquagga
 Summary:             Routing software suite
 Version:             0.99.6
-Source:              http://www.quagga.net/download/quagga-%{version}.tar.gz
+#Source:              http://www.quagga.net/download/quagga-%{version}.tar.gz
+Source:              http://download.savannah.gnu.org/releases/quagga/attic/quagga-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -106,5 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/info/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- download location
 * Wed Mar 28 2007 - Eric Boutilier
 - Initial spec

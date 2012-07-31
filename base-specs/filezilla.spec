@@ -7,21 +7,20 @@
 # bugdb: http://trac.filezilla-project.org/wiki
 #
 
-%define version_str 3.2.4.1_src
 Name:		filezilla
 Summary:	FileZilla FTP client
-Version:	3.2.4.1
+Version:	3.5.3
 License:	GPL
 URL:		http://filezilla.sourceforge.net/
-Source:	    http://superb-east.dl.sourceforge.net/sourceforge/filezilla/FileZilla_%{version_str}.tar.bz2
+Source:         %{sf_download}/filezilla/FileZilla_Client/%{version}/FileZilla_%{version}_src.tar.bz2
 # date:2008-03-06 owner:halton type:bug bugid:3424
 Patch1:     %{name}-01-msgfmt.diff
 #Patch2:     filezilla-02-pthread.diff
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-FileZilla is a fast and reliable FTP client and server with lots of
-useful features and an intuitive interface.
+FileZilla is a fast and reliable FTP and SFTP client and server
+with lots of useful features and an intuitive interface.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -40,13 +39,19 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-./autogen.sh
-./configure  --prefix=%{_prefix}     \
+autoconf --force
+libtoolize --copy --force
+aclocal -I m4
+automake -a -f
+autoconf -f
+perl -pi -e 's?^#!.*/bin/sh?#!/bin/bash?' configure
+./configure --prefix=%{_prefix}     \
 			--libdir=%{_libdir}     \
 			--libexecdir=%{_libexecdir} \
 			--datadir=%{_datadir}       \
 			--mandir=%{_mandir}     \
-			--sysconfdir=%{_sysconfdir}
+			--sysconfdir=%{_sysconfdir} \
+                        --with-tinyxml=builtin
 
 make -j $CPUS
 
@@ -70,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 29 2012 - Thomas Wagner
+- bump to 3.5.3
+- new source URL
+- use auto* and libtoolize to rewrite configure, change configure to really use bash
+- enable  --with-tinyxml=builtin
 * Aug 2009 - gilles dauphin
 - back to libcstd, wx was compiled with it
 * Tue Jun 02 2009 - alfred.peng@sun.com

@@ -6,13 +6,15 @@
 %include Solaris.inc
 
 Name:		SFElibassuan
+IPS_Package_Name:	system/library/security/libassuan
 Summary:	An IPC libbray used by GnuPG 2, GPGME etc. 
-Version:	2.0.1
+Version:	2.0.3
 URL:		http://www.gnupg.org/related_software/libassuan/
 Source:		ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-%{version}.tar.bz2
 URL:		http://www.gnupg.org/
-License:	GPLv3
-Group:		Development/Libraries
+License:	GPLv3+
+SUNW_Copyright:	libassuan.copyright
+Group:		System/Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -20,6 +22,12 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 BuildRequires: SUNWlibgpg-error
 Requires: SUNWlibgpg-error
 Requires: SUNWtexi
+
+%description
+Libassuan is a small library implementing the so-called Assuan protocol. This
+protocol is used for IPC between most newer GnuPG components. Both server and
+client side functions are provided. Assuan's primary use is to allow a client
+to interact with a non-persistent server.
 
 %package devel
 Summary:	%{summary} - development files
@@ -96,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/info/*
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 2.0.3
 * Wed Dec 01 2010 - Milan Jurik
 - bump to 2.0.1
 * Sat Jun 12 2010 - Milan Jurik

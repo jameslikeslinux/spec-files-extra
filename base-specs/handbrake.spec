@@ -99,7 +99,7 @@ cp -r $handbraketmpdir/* download
 
 # All this is necessary to free up enough registers on x86
 %ifarch i386
-export CFLAGS="%optflags -Os -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
+export CFLAGS="%optflags -msse2 -Os -fno-rename-registers -fomit-frame-pointer -fno-PIC -UPIC -mpreferred-stack-boundary=4 -I%{xorg_inc} -I%{_includedir}"
 %else
 export CFLAGS="%optflags -Os -I%{xorg_inc} -I%{_includedir}"
 %endif
@@ -124,5 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- fix build
 * Wed Dec 16 2010 - jchoi42@pha.jhu.edu
 - initial spec

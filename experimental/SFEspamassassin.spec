@@ -6,7 +6,9 @@
 #TODO# re-work perl specific prerequisites...
 
 %define src_name spamassassin
-%define module_version 3.2.5
+%define module_version 3.3.1
+%define rules_version 3.3.2-r1104058
+%define rules_version_IPS $( echo %{rules_version} | sed -e 's/-r/./' )
 %define module_name Mail-Spamassassin
 %define module_name_major Mail
 %define module_package_name mail-spamassassin
@@ -15,6 +17,7 @@
 %define perl_version 5.8.4
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define perlmodulepkgnameprefix SFEperl
 %define contact_address_spamreport postmaster@localhost
@@ -24,14 +27,19 @@ Summary:                 spamassassin - a spam filter for email which can be inv
 URL:                     http://spamassassin.apache.org/
 Version:                 %{module_version}
 Source:                  http://ftp.uni-erlangen.de/pub/mirrors/apache/spamassassin/source/Mail-SpamAssassin-%{version}.tar.bz2
-Source1:		 spamassassin.xml
+#                        example: Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz
+Source1:                 http://ftp.uni-erlangen.de/pub/mirrors/apache/spamassassin/source/Mail-SpamAssassin-rules-%{rules_version}.tar.gz
+Source2:		 spamassassin.xml
+#Patch1:			 spamassassin-sa-compile-env-cc.diff
+Patch1:			 spamassassin-01-3.3.1-sa-compile-env-cc.diff
 License: Apache License 2.0
 
 SUNW_BaseDir:            /
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWperl584core
-BuildRequires:           SUNWperl584core
-BuildRequires:           SUNWsfwhea
+BuildRequires:		%{pnm_buildrequires_perl_default}
+Requires:		%{pnm_requires_perl_default}
+##TODO## check if necessary: BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
+
 
 #Absolutely necessary perl modules
 BuildRequires: SFEperl-digest-sha1
@@ -89,7 +97,7 @@ Requires: SFEperl-archive-tar
 Requires: SFEperl-io-zlib
 #for sa-update we need more
 Requires: SFEperl-package-constants
-Requires: SFEgnupg2
+Requires: %{pnm_requires_SFEgnupg2}
 
 #INSTALL file says this is highly recommended:
 #DB_File
@@ -143,6 +151,10 @@ mail.
 #we have gpg2 in requirements, but sa-update only knows the gpg binary
 perl -w -pi.bak -e "s,GPGPath = \'gpg\' ,GPGPath = \'gpg2\' ," sa-update.raw
 
+#use ENV{CC} since we not necessarily have "cc" in $PATH
+#
+%patch1 -p1
+
 # below: not rock solid detection of missing perl modules because manually installed perl modules would not"
 # result in complete (Build)Requires entries (package dependencies) in this spec file
 # it uses the spamassassin provided check script in build/check_dependencies
@@ -179,7 +191,7 @@ fi #$WANTEDPERLMODULES
 
 
 #smapassassin manifest
-cp -p %{SOURCE1} spamassassin.xml
+cp -p %{SOURCE2} spamassassin.xml
 
 %build
 
@@ -188,13 +200,17 @@ cp -p %{SOURCE1} spamassassin.xml
 perl Makefile.PL \
 	PREFIX=%{_prefix} SYSCONFDIR=%{_sysconfdir} DESTDIR=$RPM_BUILD_ROOT \
 	CONFDIR=%{_sysconfdir}/%{src_name} \
-	INSTALLSITELIB=%{_prefix}/perl5/vendor_perl/%{perl_version} \
-	INSTALLSITEARCH=%{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir} \
+        INSTALLSITELIB=%{_prefix}/%{perl_path_vendor_perl_version} \
+        INSTALLSITEARCH=%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
+        INSTALLSITEMAN1DIR=%{_mandir}/man1 \
+        INSTALLSITEMAN3DIR=%{_mandir}/man3 \
+        INSTALLMAN1DIR=%{_mandir}/man1 \
+        INSTALLMAN3DIR=%{_mandir}/man3 \
 	ENABLE_SSL=yes \
 	CONTACT_ADDRESS=%{contact_address_spamreport} \
 	--no-online-tests
 
-make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC \
+make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 
 #TODO# check if the make libspamc.so is needed
 [ -f spamd/libspamc.so ] && cp -p spamd/libspamc.so spamd/libspamc.so.$$
@@ -204,15 +220,7 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install \
-	INSTALLSITELIB=%{_prefix}/perl5/vendor_perl/%{perl_version} \
-	INSTALLSITEARCH=%{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir} \
-	INSTALLMAN1DIR=%{_mandir}/man1 \
-	INSTALLMAN3DIR=%{_mandir}/man3 \
-	INSTALLSITEMAN1DIR=%{_mandir}/man1 \
-	INSTALLSITEMAN3DIR=%{_mandir}/man3 \
-	INSTALLVENDORMAN1DIR=%{_mandir}/man1 \
-	INSTALLVENDORMAN3DIR=%{_mandir}/man3
+make install
 
 mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
 cp spamassassin.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
@@ -235,6 +243,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 #%doc README Changes sample-nonspam.txt sample-spam.txt INSTALL LICENSE TRADEMARK USAGE UPGRADE
 %dir %attr (0755, root, sys) %{_prefix}
+%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
+%{_prefix}/%{perl_path_vendor_perl_version}/*
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, sys) %{_datadir}/%{src_name}
 %{_datadir}/%{src_name}/*
@@ -246,10 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 %class(renamenew) %{_sysconfdir}/%{src_name}/*
 %dir %attr (0755,root,bin) %{_bindir}
 %{_bindir}/*
-%dir %attr(0755, root, bin) %{_prefix}/perl5
-%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl
-%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
-%{_prefix}/perl5/vendor_perl/%{perl_version}/*
+#%dir %attr(0755, root, bin) %{_prefix}/perl5
+#%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl
+#%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}
+#%{_prefix}/perl5/vendor_perl/%{perl_version}/*
 #%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir}/%{module_name_major}
 #%{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir}/%{module_name_major}/*
 #%dir %attr(0755, root, bin) %{_prefix}/perl5/vendor_perl/%{perl_version}/%{perl_dir}/auto
@@ -263,9 +273,41 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, sys)
 %class(manifest) %attr(0444, root, sys)/var/svc/manifest/site/spamassassin.xml
 
+%changelog
+     /usr/share/man/man3/Mail::SpamAssassin::SQLBasedAddrList.3
+        /usr/share/man/man3/Mail::SpamAssassin::Plugin::TextCat.3
+        /usr/perl5/vendor_perl/5.8.4/Mail
+        /usr/perl5/vendor_perl/5.8.4/Mail/SpamAssassin
+        /usr/perl5/vendor_perl/5.8.4/Mail/SpamAssassin/Util
+        /usr/perl5/vendor_perl/5.8.4/Mail/SpamAssassin/Util/RegistrarBoundaries.pm
+        /usr/perl5/vendor_perl/5.8.4/Mail/SpamAssassin/Util/ScopedTimer.pm
+
+
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/perl5
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/perl5/vendor_perl
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/perl5/vendor_perl/5.8.4
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/perl5/vendor_perl/5.8.4/*
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/share/man
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/share/man/man1
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/share/man/man1/*
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/share/man/man3
+pkgbuild: File not found by glob: /var/tmp/pkgbuild-tom/SFEspamassassin-3.3.1-build/usr/share/man/man3/*
+ERROR: SFEspamassassin FAILED
 
 
 %changelog
+* Thu May 17 2012 - Thomas Wagner
+- change Requires to %{pnm_requires_SUNWgnupg}
+* Sat May 12 2012 - Thomas Wagner
+- Change (Build)Requires to %{pnm_buildrequires_perl_default}, %include packagenamemacros.inc
+* Fri May 11 2012 - Thomas Wagner
+- bump to 3.3.1
+- rework patch1 spamassassin-01-3.3.1-sa-compile-env-cc.diff
+- inserted Source1 to fetch the rules bundle
+##TODO## split out rules bundle into a new package to enable updates of only the rules
+* Sat Aug  7 2010 - Thomas Wagner
+- remove BuildRequires: SUNWsfwhea
+- add patch1 to let sa-compile read $ENV{CC} - in crontab use CC=/opt/SUNWspro/bin/cc sa-compile; svcadm restart svc:/site/spamassassin:default
 * Sat Jul 11 2009 - Thomas Wagner
 - add Requires: SFEperl-archive-tar, SFEperl-io-zlib, SFEgnupg2.spec to have sa-update working
 - add patch to sa-update (use /usr/bin/gpg2 instead /usr/bin/gpg)

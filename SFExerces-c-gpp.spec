@@ -4,6 +4,7 @@
 # includes module(s): Xerces-C++
 #
 
+%define _basedir /usr/g++
 %include Solaris.inc
 
 # don't build the sample code, it's built in the no-gpp spec file
@@ -12,13 +13,11 @@
 
 %ifarch amd64 sparcv9
 %include arch64.inc
-%define _libdir %{_cxx_libdir}
 %define rcopts -b 64
 %use xerces64 = xerces-c.spec
 %endif
 
 %include base.inc
-%define _libdir %{_cxx_libdir}
 %define rcopts -b 32
 %use xerces = xerces-c.spec
 
@@ -35,7 +34,7 @@ SUNW_BaseDir: %{_basedir}
 Autoreqprov:  on
 %include default-depend.inc
 BuildRequires: SFEdoxygen
-BuildRequires: SFEfindutils
+#BuildRequires: SFEfindutils
 BuildRequires: SUNWgnu-coreutils
 
 %description
@@ -48,6 +47,12 @@ The parser provides high performance, modularity, and scalability. Source
 code, samples and API documentation are provided with the parser. For
 portability, care has been taken to make minimal use of templates, no RTTI,
 and minimal use of #ifdefs.
+
+%package devel
+Summary:       %{summary} - development files
+SUNW_BaseDir:  %{_basedir}
+%include default-depend.inc
+Requires:      %name
 
 %prep
 rm -rf %name-%version
@@ -62,8 +67,8 @@ mkdir %name-%version/%{base_arch}
 %xerces.prep -d %name-%version/%{base_arch}
 
 %build
-export CC=gcc
-export CXX=g++
+export CC=/usr/gnu/bin/gcc
+export CXX=/usr/gnu/bin/g++
 
 %ifarch amd64 sparcv9
 %xerces64.build -d %name-%version/%_arch64
@@ -81,9 +86,8 @@ mv $RPM_BUILD_ROOT%{_prefix}/lib/lib* $RPM_BUILD_ROOT%{_libdir}/%{_arch64}
 
 %xerces.install -d %name-%version/%{base_arch}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mv $RPM_BUILD_ROOT%{_prefix}/lib/lib* $RPM_BUILD_ROOT%{_libdir}
-
-rm -rf $RPM_BUILD_ROOT%{_includedir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/xerces-c
+/usr/gnu/bin/cp -a $XERCESCROOT/samples $RPM_BUILD_ROOT%{_datadir}/xerces-c
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
@@ -97,6 +101,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/libxerces-*.so
 %endif
 
+%files devel
+%defattr(-, root, bin)
+%{_includedir}
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/xerces-c/samples
+
 %changelog
+* Sun Jul  3 2010 - Alex Viskovatoff
+- use CC=/usr/gnu/bin/cc; create devel package
 * Sun Feb 17 2008 - laca@sun.com
 - create based on xerces-c.spec distributed with Xerces-C-2.8.0

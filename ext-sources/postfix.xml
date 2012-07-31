@@ -98,15 +98,15 @@
 	</dependent>
 
 	<exec_method type='method' name='start'
-		exec='/etc/init.d/postfix start'
+		exec='/usr/sbin/postfix start'
 		timeout_seconds='180' />
 
 	<exec_method type='method' name='stop'
-		exec='/etc/init.d/postfix stop'
+		exec='/usr/sbin/postfix stop'
 		timeout_seconds='60' />
 
 	<exec_method type='method' name='restart'
-		exec='/etc/init.d/postfix reload'
+		exec='/usr/sbin/postfix reload'
 		timeout_seconds='60' />
 
 	<stability value='Unstable' />

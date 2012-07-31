@@ -5,7 +5,7 @@
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
+#%define xfce_version 4.4.0
 
 Name:			SFExfce4-weather-plugin
 Summary:		Weather applet for Xfce
@@ -38,7 +38,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -lsocket -lnsl"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -75,15 +75,12 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %dir %attr (0755, root, bin) %{_libdir}
 %{_libdir}/xfce4
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/xfce4
 %defattr(-,root,other)
 %{_datadir}/locale
+%{_datadir}/xfce4/panel-plugins
+%{_datadir}/xfce4/weather/icons/liquid
 %{_datadir}/icons
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Migrated to SFE from OSOL
-- Bump to 0.7.4
-
 * Sun Mar 2 2007 - dougs@truemail.co.th
 - Initial version

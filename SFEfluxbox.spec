@@ -8,7 +8,7 @@
 # Software specific variable definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %define src_name	fluxbox
-%define src_version	1.1.1
+%define src_version	1.3.1
 %define pkg_release	1
 # %{_topdir} is by default set to RPM_BUILD_ROOT
 # Default path for RPM_BUILD_ROOT is /var/tmp/pkgbuild-{username}
@@ -126,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Aug 25 2011 - Ken Mays  <kmays2000@gmail.com>
+- Bump to 1.3.1
+- Add imlib2-devel package
 * Sun Oct 11 2009 - Brian Cameron  <brian.cameron@sun.com>
 - Bump to 1.1.1.
 * 2007.Nov.15 - <shivakumar dot gn at gmail dot com>

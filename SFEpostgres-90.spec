@@ -77,8 +77,8 @@ Requires: %{pnm_requires_SUNWcsl}
 IPS_package_name: database/postgres-90/language-bindings
 Summary: PostgreSQL additional Perl, Python & TCL server procedural languages
 
-#Requires: runtime/perl-584
-#Requires: runtime/python-24
+Requires: %pnm_requires_perl_default
+Requires: runtime/python-26
 Requires: %{pnm_requires_SUNWlibms}
 Requires: %{pnm_requires_SUNWcsl}
 Requires: %{pnm_requires_SUNWTcl}
@@ -161,7 +161,7 @@ export CCAS=/usr/bin/cc
 export CCASFLAGS=
 export CC=cc
 # export CFLAGS="%optflags"
-export CFLAGS="-i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xCC"
+export CFLAGS="-i -xO4 -xspace -xstrconst -Kpic -xregs=no%frameptr -xCC"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -lncurses"
 export LD_OPTIONS="-R/usr/sfw/lib:/usr/gnu/lib -L/usr/sfw/lib:/usr/gnu/lib"
 
@@ -202,7 +202,7 @@ gmake -j$CPUS world
 cd ../%{tarball_name}-%{tarball_version}-64
 
 #export CFLAGS="%optflags64"
-export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -fast -Kpic -xregs=no%frameptr -xCC"
+export CFLAGS="-m64 -i -xO4 -xspace -xstrconst -Kpic -xregs=no%frameptr -xCC"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib/%{_arch64} -R/usr/gnu/lib/%{_arch64} -lncurses"
 export LD_OPTIONS="-R/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64} -L/usr/sfw/lib/%{_arch64}:/usr/gnu/lib/%{_arch64}"
 
@@ -1527,6 +1527,8 @@ user ftpuser=false gcos-field="PostgreSQL Reserved UID" username="postgres" pass
 %{_prefix}/%{major_version}/bin/amd64/vacuumlo
 
 %changelog
+* Sun Jul 31 JST 2011 TAKI, Yasushi <taki@justplayer.com>
+- omit -fast option.
 * Sun Jun  5 JST 2011 TAKI, Yasushi <taki@justplayer.com>
 - fix dependency using for pnm.
 * Mon Apr 18 JST 2011 TAKI, Yasushi <taki@justplayer.com>

@@ -9,13 +9,13 @@
 Name:                    glibmm
 License:        	 LGPL
 Group:                   System/Libraries
-Version:                 2.28.0
+Version:                 2.24.2
 Release:                 1
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
 Summary:                 glibmm - C++ Wrapper for the Glib2 Library
 URL:                     http://www.gtkmm.org/
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.28/%{name}-%{version}.tar.bz2
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.24/%{name}-%{version}.tar.bz2
 #Patch1:                  glibmm-01-m4-macro.diff
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           libsigc++-devel >= 2.0.0
@@ -44,12 +44,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 #aclocal $ACLOCAL_FLAGS -Iscripts
-aclocal $ACLOCAL_FLAGS -Ibuild
-automake --add-missing
-autoconf
+#aclocal $ACLOCAL_FLAGS -Ibuild
+#automake --add-missing
+#autoconf
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_cxx_libdir}              \
-            --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir} --disable-python
 make -j$CPUS 
 
@@ -72,6 +70,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- Bring back to 2.24.2, on account of outdated system GTK+ libraries
 * Sat Apr 16 2011 - Alex Viskovatoff
 - Bump to 2.28.0
 * Fri Nov 06 2009 - jchoi42@pha.jhu.edu

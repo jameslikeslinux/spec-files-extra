@@ -29,7 +29,10 @@
 %define build_gui %{?_with_gui:1}%{?!_with_gui:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1 
+%include base.inc
 
 %define with_faad %(pkginfo -q SFEfaad2 && echo 1 || echo 0)
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
@@ -48,8 +51,8 @@
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 
 %if %with_constant_tarball
-%define revision 33159
-#else
+%define ver 33805
+%else
 %define ver %(date '+%Y%m%d')
 %endif
 
@@ -60,7 +63,7 @@ Summary:                 mplayer - The Movie Player
 Version:                 1.0.3.%ver
 URL:                     http://www.mplayerhq.hu/
 %if %with_constant_tarball
-Source7:		 ftp://ftp.archlinux.org/other/mplayer/mplayer-%revision.tar.xz
+Source7:		 ftp://ftp.archlinux.org/other/mplayer/mplayer-%ver.tar.xz
 %else
 Source:                  http://www.mplayerhq.hu/MPlayer/releases/mplayer-export-snapshot.tar.bz2
 %endif
@@ -80,30 +83,37 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-build
 
 %include default-depend.inc
-Requires: SUNWsmbau
 Requires: SUNWgnome-audio
 BuildRequires: SUNWgnome-audio-devel
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
-Requires: SUNWfreetype2
+# OI 151 is at a newer version than S11X, so this dependency blocks installation on S11X
+#Requires: SUNWfreetype2
 Requires: SUNWspeex
 Requires: SUNWjpg
 Requires: SUNWpng
 Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
-Requires: SUNWgccruntime
+Requires: SFEgccruntime
 Requires: SUNWgnome-base-libs
-Requires: SUNWsmbau
+Requires: %{pnm_requires_SUNWlibmng}
+Requires: SFElzo
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
+Requires: %{pnm_requires_SUNWsmba}
 Requires: SFEliveMedia
 Requires: SFElibcdio
+Requires: SFElibvpx
+BuildRequires: SFElibvpx-devel
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
+BuildRequires: %{pnm_buildrequires_SUNWlibmng_devel}
+BuildRequires: SFElzo-devel
 %if %with_constant_tarball
-BuildRequires: SFExz
+BuildRequires: %{pnm_buildrequires_SFExz}
 %endif
 
 %if %SFElibsndfile
@@ -120,7 +130,7 @@ BuildRequires: SFElame-devel
 Requires: SFEtwolame
 BuildRequires: SFEtwolame-devel
 %endif
-Requires: SUNWgawk
+#Requires: SUNWgawk
 Requires: SFEfaad2
 BuildRequires: SFEfaad2-devel
 Requires: SFElibmpcdec
@@ -188,14 +198,11 @@ cd %builddir
 %patch4 -p1
 %patch5 -p1
 #%patch6 -p1
-# The presence of the following file causes git to try to pull ffmpeg.
-# It is not clear if that file will be here permanently, or whether
-# its presence was an oversight by the Arch Linux maintainer.
-rm ffmpeg/mp_auto_pull
+
 
 %build
 cd %name-build/%builddir
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 %if %debug_build
 dbgflag=--enable-debug
@@ -226,7 +233,6 @@ bash ./configure				\
 %endif
             --enable-live			\
 	    --enable-rpath			\
-            --enable-largefiles			\
 	    --enable-crash-debug		\
             --enable-dynamic-plugins            \
 	    $dbgflag
@@ -286,6 +292,16 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SFExz (solves SFExz conflict w/ compress/xz)
+* Mon Dec 12 2012 - Thomas Wagner
+- add (Build)Requires pnm_(build)requires_SUNWlibmng(_devel) SFElzo(-devel)
+- change to (Build)Requires pnm_requires_SUNWsmba, include packagenamemacros.inc
+- add re-%include base.inc after cc_is_gcc 1
+* Wed Jul 20 1011 - Alex Viskovatoff
+- Fix version number used for constant tarball
+* Sat Jul 16 2011 - Alex Viskovatoff
+- Update to new tarball, removing obsolete configure option
 * Wed Apr 27 2011 - Alex Viskovatoff
 - Add missing optional dependencies
 * Sat Apr  2 2011 - Alex Viskovatoff

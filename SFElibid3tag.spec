@@ -12,17 +12,22 @@
 %include base.inc
 %use libid3tag = libid3tag.spec
 
-Name:                    SFElibid3tag
-Summary:                 %{libid3tag.summary}
-Version:                 %{libid3tag.version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibid3tag
+IPS_Package_Name:	library/audio/libid3tag
+Summary:	%{libid3tag.summary}
+Group:		System/Multimedia Libraries
+Version:	%{libid3tag.version}
+License:	GPLv2
+SUNW_Copyright:	libid3tag.copyright
+URL:		http://www.underbit.com/products/mad/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires:     SUNWzlib
+Requires:	SUNWzlib
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 
@@ -78,6 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Sep 26 2010 - Alex Viskovatoff
 - multiarch support, based on SFElibmad.spec
 * Wed Jul  5 2006 - laca@sun.com

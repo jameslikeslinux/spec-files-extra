@@ -11,10 +11,19 @@
 Name:                SFEvala
 Summary:             Vala programming language
 Version:             0.12.0
+URL:                 http://live.gnome.org/Vala
 Source:              %{src_url}/%{src_name}-%{version}.tar.bz2
+License:	     GPLv2
+SUNW_Copyright:	     vala.copyright
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%description
+Vala is a new programming language that aims to bring modern programming
+language features to GNOME developers without imposing any additional runtime
+requirements and without using a different ABI compared to applications and
+libraries written in C.
 
 %package devel
 Summary:                 %{summary} - development files
@@ -78,6 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- add SUNW_Copyright
 * Sat May 14 2011 - nbprashanth <nbprash.mit@gmail.com>
 - Bump to 0.12.0.
 * Wed Mar 10 2010 - brian.cameron@sun.com

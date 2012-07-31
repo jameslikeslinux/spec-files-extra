@@ -9,6 +9,7 @@
 %define src_name libnids
 
 Summary:	NIDS E-component.
+IPS_Package_Name:	system/library/libnids
 Name:		SFElibnids
 Version:	1.24
 License:	GPL

@@ -24,6 +24,7 @@
 %define SFEsdl	%(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-gfx
+IPS_Package_Name:	library/graphics/sdl-gfx
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 URL:			%{sdl.url}
@@ -115,6 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun Apr 11 2010 - Milan Jurik
 - minor cleanup
 * Fri Aug 21 2009 - Milan Jurik

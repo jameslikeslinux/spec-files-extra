@@ -11,7 +11,7 @@ Summary:      Image metadata library
 Group:        System/Libraries
 License:      LGPL
 URL:          http://trac.bjourne.webfactional.com
-Source:       http://trac.bjourne.webfactional.com/chrome/common/releases//%{name}-%{version}.tar.gz
+Source:       http://trac.bjourne.webfactional.com/chrome/common/releases/%{name}-%{version}.tar.gz
 Patch1:       gtkimageview-01-cflags.diff 
 Patch2:       gtkimageview-02-void.diff 
 

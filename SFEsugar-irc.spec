@@ -10,7 +10,7 @@
 Name:                    SFEsugar-irc
 Summary:                 Sugar IRC
 URL:                     http://www.sugarlabs.org/
-Version:                 6 
+Version:                 10 
 Source:                  http://download.sugarlabs.org/sources/honey/IRC/IRC-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 10.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Created with 6.

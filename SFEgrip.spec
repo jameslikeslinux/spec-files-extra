@@ -4,6 +4,7 @@
 
 %include Solaris.inc
 Name:                    SFEgrip
+IPS_Package_Name:	desktop/audio/grip
 Summary:                 Cd-player and cd-ripper for the Gnome desktop
 URL:                     http://nostatic.org/grip/
 Version:                 3.3.1

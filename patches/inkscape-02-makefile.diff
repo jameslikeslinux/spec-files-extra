@@ -1,0 +1,5 @@
+--- inkscape-0.48.2/src/Makefile.in	Fri Jul  8 21:25:02 2011
++++ inkscape-0.48.2/src/Makefile.in	Thu Dec 29 22:30:33 2011
+@@ -2983,1 +2983,1 @@
+-@PLATFORM_OSX_FALSE@inkscape_LDFLAGS = -Wl,--export-dynamic $(kdeldflags) $(mwindows)
++@PLATFORM_OSX_FALSE@inkscape_LDFLAGS = $(kdeldflags) $(mwindows)

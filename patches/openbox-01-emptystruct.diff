@@ -1,0 +1,10 @@
+--- openbox-3.5.0/obt/link.c	2012-02-05 15:47:56.836489805 +0100
++++ openbox-3.5.0/obt/link.c	2012-02-05 15:47:52.366251086 +0100
+@@ -58,6 +58,7 @@
+             gchar *addr;
+         } url;
+         struct _ObtLinkDir {
++int i;
+         } dir;
+     } d;
+ };

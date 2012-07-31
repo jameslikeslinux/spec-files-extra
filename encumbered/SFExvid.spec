@@ -4,8 +4,8 @@
 # includes module(s): xvid
 #
 
-# want this? compile with: pkgtool --with-gcc4 build <specfile>
-%define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
+# want this? compile with: pkgtool --with-gcc3 build <specfile>
+%define use_gcc4 %{?_with_gcc3:0}%{?!_with_gcc3:1}
 
 %include Solaris.inc
 %define cc_is_gcc 1
@@ -25,9 +25,11 @@
 %use xvid = xvid.spec
 
 Name:		SFExvid
+IPS_Package_Name:	library/video/xvid 
 Summary:	%{xvid.summary}
 Version:	%{xvid.version}
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	xvid.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -96,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Tue Oct 11 2011 - Mila Jurik
+- add IPS package name
+* Sun Jul 10 2011 - Alex Viskovatoff
+- build with SFEgcc by default
 * Wed Mar 03 2010 - Milan Jurik
 - use_gcc4 support
 * Sat Aug 22 2009 - Milan Jurik

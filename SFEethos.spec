@@ -8,6 +8,7 @@
 
 %include Solaris.inc
 Name:                    SFEethos
+IPS_Package_Name:	library/gnome/ethos
 License:                 LGPL v2.1
 Group:                   Libraries/Multimedia
 Version:                 0.2.2

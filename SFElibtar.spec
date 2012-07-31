@@ -10,6 +10,7 @@
 
 Name:                SFElibtar
 Summary:             C library for manipulating POSIX tar files
+URL:                 http://www.feep.net/libtar/
 Version:             1.2.11
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		     libtar-01-shared.diff

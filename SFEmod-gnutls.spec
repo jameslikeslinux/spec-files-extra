@@ -15,6 +15,7 @@
 %use mod_gnutls = mod_gnutls.spec
 
 Name:		SFEmod-gnutls
+IPS_Package_Name:	web/server/apache-22/module/mod-gnutls
 Version:	%{mod_gnutls.version}
 Summary:	%{mod_gnutls.summary}
 Group:		System Environment/Daemons

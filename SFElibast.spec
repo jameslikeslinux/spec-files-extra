@@ -4,16 +4,22 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 Name:                SFElibast
 Summary:             Library of Assorted Spiffy Things
 Version:             0.7
 Source:              http://eterm.org/download/libast-%{version}.tar.gz
+License:             MIT
+SUNW_Copyright:      libast.copyright
+URL:                 http://www.eterm.org/download/
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SFEgcc
 BuildRequires: SFEimlib2
 Requires: SFEimlib2
 Requires: SUNWfreetype2
@@ -24,7 +30,7 @@ BuildRequires: FSWxorg-headers
 %else
 Requires: SUNWxwplt
 %endif
-Requires: SUNWgccruntime
+Requires: SFEgccruntime
 
 %prep
 %setup -q -n libast-%version
@@ -37,9 +43,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # This source is gcc-centric, therefore...
-export CC=/usr/sfw/bin/gcc
-# export CFLAGS="%optflags"
-export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
+export CC=gcc
+export CFLAGS="%optflags"
+#export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
 %if %option_with_fox
 export CFLAGS="$CFLAGS -I/usr/X11/include"
 %endif
@@ -75,6 +81,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
+* Sun Jul 10 2011 - Alex Viskovatoff
+- Build with SFEgcc
 * Fri Mar 21 2008 - nonsea@users.sourceforge.net
 - Fix Source error.
 * Thu Nov 15 2007 - daymobrew@users.sourceforge.net
