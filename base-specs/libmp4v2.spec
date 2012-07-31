@@ -24,8 +24,8 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
-export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags"
+export CFLAGS="%optflags -features=extensions"
+export CXXFLAGS="%cxx_optflags -features=extensions"
 export LDFLAGS="%_ldflags" 
 
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
@@ -54,6 +54,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jul 31 2012 - James Lee <jlee@thestaticvoid.com>
+- Enable -features=extensios for __FUNCTION__ macro
 * Sun Jul 29 2012 - Milan Jurik
 - bump to 2.0.0
 * Sun Oct 16 2011 - Milan Jurik
