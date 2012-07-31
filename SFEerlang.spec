@@ -15,12 +15,12 @@
 %define mybindir %{_bindir}
 %ifarch amd64 sparcv9 
 %include arch64.inc
-%define myldflags -m64 %{_ldflags}
+%define myldflags -m64 %{_ldflags} -L/usr/gnu/lib/%{_arch64} -R/usr/gnu/lib/%{_arch64}
 %define wx_config /usr/gnu/bin/%{_arch64}/wx-config
 %use erlang_64 = erlang.spec
 %endif
 %include base.inc
-%define myldflags %{_ldflags}
+%define myldflags %{_ldflags} -L/usr/gnu/lib -R/usr/gnu/lib
 %define wx_config /usr/gnu/bin/wx-config
 %if %can_isaexec
 %define mybindir %{_bindir}/%{base_isa}
