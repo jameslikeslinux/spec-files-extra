@@ -23,6 +23,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SFEcmake
+BuildRequires: SFElcms2
+Requires:      SFElcms2
 
 %package devel
 Summary:         %{summary} - development files
@@ -45,7 +47,7 @@ export LDFLAGS="%_ldflags"
 mkdir -p builds/unix
 cd builds/unix
 
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
+/usr/gnu/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
 make VERBOSE=1 -j$CPUS
 
 %install
@@ -76,6 +78,9 @@ rm -rf %{buildroot}
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Tue Jul 31 2012 - James Lee <jlee@thestaticvoid.com>
+- Add dependency on LCMS2
+- Use full path to /usr/gnu/bin/cmake
 * Sat Feb 18 2012 - Milan Jurik
 - bump to 1.5.0
 * Tue Oct 11 2011 - Milan Jurik
