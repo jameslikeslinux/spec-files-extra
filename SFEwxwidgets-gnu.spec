@@ -7,7 +7,7 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 %include usr-gnu.inc
-%define cc_is_gcc 1
+#studio not gcc %define cc_is_gcc 1
 %include base.inc
 
 %ifarch amd64 sparcv9
@@ -31,11 +31,9 @@ Version:		 %{wxwidgets.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires:      SUNWgccruntime
 Requires:      SUNWgnome-libs
 Requires:      SUNWgnome-vfs
 Requires:      %{pnm_requires_SUNWlibsdl}
-BuildRequires: SUNWgcc
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-vfs-devel
 %ifarch i386 amd64
@@ -73,8 +71,8 @@ mkdir %{name}-%{version}/%{base_arch}
 
 
 %build
-export CC=/usr/gcc/bin/gcc
-export CXX=/usr/gcc/bin/g++
+export CC=cc
+export CXX=CC
 %ifarch amd64 sparcv9
 %wxwidgets_64.build -d %name-%version/%_arch64
 %endif
