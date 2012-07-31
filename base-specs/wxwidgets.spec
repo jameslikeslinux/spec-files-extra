@@ -83,7 +83,8 @@ perl -pi -e 's,PATH=".*\$PATH",:,' configure
             --with-subdirs			\
             --with-sdl                          \
             --with-opengl			\
-            --without-libmspack
+            --without-libmspack			\
+            --with-libpng=builtin
 
 [ -r bk-make-pch ] && sed -i -e 's,${compiler} -o ${outfile} -MMD -MF,${compiler} -c -o ${outfile} -MMD -MF,' bk-make-pch
 
