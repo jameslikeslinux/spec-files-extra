@@ -22,13 +22,13 @@ Name:		SFE%srcname
 Summary:	Lightweight console IRC client
 URL:		http://www.weechat.org/
 Vendor:		Sebastien Helleu <flashcode@flashtux.org>
-Version:	0.3.6
+Version:	0.3.8
 License:	GPLv3+
 Source:		http://www.weechat.org/files/src/%srcname-%version.tar.bz2
-Patch1:		weechat-01-fix-strftime.diff
-Patch2:		weechat-02-remove-date-time.diff
-Patch3:		weechat-03-fix-size-TIOCGWINSZ.diff
-Patch4:		weechat-04-fix-aspell.diff
+#Patch1:		weechat-01-fix-strftime.diff
+#Patch2:		weechat-02-remove-date-time.diff
+#Patch3:		weechat-03-fix-size-TIOCGWINSZ.diff
+#Patch4:		weechat-04-fix-aspell.diff
 SUNW_Copyright:	weechat.copyright
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -61,9 +61,9 @@ Sebastien Helleu <flashcode@flashtux.org>
 
 %prep
 %setup -q -n %srcname-%version
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
+#%patch1 -p1
+#%patch2 -p0
+#%patch3 -p1
 #%patch4 -p1
 
 mkdir build
@@ -122,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 30 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.3.8
 * Sun Oct 30 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.3.6
 - Patched TIOCGWINSZ and Aspell issue (use Enchant)
