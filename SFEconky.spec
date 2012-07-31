@@ -9,6 +9,7 @@
 %include base.inc
 
 Name:                    SFEconky
+IPS_Package_Name:	desktop/system-monitor/conky
 Summary:                 Light-weight system monitor for X  
 Version:                 1.5.1
 Source:                  %{sf_download}/conky/conky-%{version}.tar.gz

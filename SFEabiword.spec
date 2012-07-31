@@ -15,16 +15,19 @@
 %use abiword = abiword.spec
 
 Name:               SFEabiword
+IPS_Package_Name:	desktop/word-processor/abiword
 Summary:            %abiword.summary
 Version:            %{default_pkg_version}
 URL:                http://www.abisource.com/
 License:            GPLv2
 SUNW_BaseDir:       %{_basedir}
-SUNW_Copyright:      %{name}.copyright
-Group:		    Office/Spreadsheet
+SUNW_Copyright:     %{name}.copyright
+Group:		    Applications/Office
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires:      SFEgcc
+Requires:           SFEgccruntime
 Requires:           SUNWuiu8
 Requires:           SUNWzlib
 Requires:           SUNWgnome-base-libs
@@ -35,6 +38,7 @@ Requires:           SUNWgnome-spell
 Requires:           SUNWgnome-character-map
 Requires:           SUNWgnome-print
 Requires:           SUNWfontconfig
+Requires:           SUNWlibgoffice
 Requires:           %pnm_requires_perl_default
 Requires:           SUNWlibgsf
 Requires:           SUNWlibrsvg
@@ -47,6 +51,7 @@ BuildRequires:      SUNWlibpopt-devel
 BuildRequires:      SUNWgnome-spell-devel
 BuildRequires:      SUNWgnome-character-map-devel
 BuildRequires:      SUNWgnome-print-devel
+BuildRequires:      SUNWlibgoffice
 BuildRequires:      SUNWlibgsf-devel
 BuildRequires:      SFElibfribidi-devel
 BuildRequires:      SFEwv-devel
@@ -118,6 +123,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_cxx_libdir}/pkgconfig/*
 
 %changelog
+* Wed Sep 14 2011 - Alex Viskovatoff
+- Add missing dependency on runtime/gcc
 * Fri Nov 12 2010 - Alex Viskovatoff
 - Abiword has an internal spell checker, so do not require SFEaspell
   but require library/myspell/dictionary/en (with SUNW name)

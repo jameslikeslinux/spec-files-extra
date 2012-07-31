@@ -6,7 +6,9 @@
 
 %include Solaris.inc
 Name:                    SFEmemphis
+IPS_Package_Name:	library/desktop/memphis
 Summary:                 Map Rendering Application
+Group:		Desktop (GNOME)/Libraries
 URL:                     https://trac.openstreetmap.ch/trac/memphis/
 Version:                 0.2.3
 License:                 LGPL
@@ -29,7 +31,6 @@ BuildRequires:           SUNWgnome-xml-share
 Summary:		 %{summary} - development files
 SUNW_BaseDir:		 %{_basedir}
 %include default-depend.inc
-Requires: SFEhippo-canvas
 
 %prep
 %setup -q -n memphis-%version

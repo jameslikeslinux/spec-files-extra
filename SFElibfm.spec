@@ -7,49 +7,46 @@
 #
 %include Solaris.inc
 
-Name:                    SFElibfm
-Summary:                 LXDE lightweight file manager library
-License:                 GPLv2+
-SUNW_Copyright:	         libfm.copyright
-Version:                 0.1.14
-Source:                  http://downloads.sourceforge.net/pcmanfm/libfm-%{version}.tar.gz
-Patch1:                  libfm-01-studio.diff
-Patch2:                  libfm-02-fixcompile.diff
-URL:                     http://sourceforge.net/projects/pcmanfm/
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibfm
+IPS_Package_Name:	library/lxde/libfm
+Summary:	LXDE lightweight file manager library
+License:	GPLv2+
+SUNW_Copyright:	libfm.copyright
+Version:	0.1.17
+Source:		%{sf_download}/pcmanfm/libfm-%{version}.tar.gz
+Patch1:		libfm-01-studio.diff
+URL:		http://sourceforge.net/projects/pcmanfm/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-%if %{!?_without_gtk_doc:1}%{?_without_gtk_doc:0}
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: SUNWgtk-doc
-%endif
-
 Requires: SFEmenu-cache
 BuildRequires: SFEmenu-cache
+BuildRequires:	SUNWgtk-doc
 
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 %endif
 
 %prep
 %setup -q -n libfm-%version
 %patch1 -p1
-%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -69,7 +66,8 @@ autoconf
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
         --sysconfdir=%{_sysconfdir} \
-        --localstatedir=%{_localstatedir}
+        --localstatedir=%{_localstatedir}	\
+	--enable-gtk-doc
 	
 make -j$CPUS 
 
@@ -79,10 +77,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.a" -exec rm -f {} ';'
-
-%if %{!?_without_gtk_doc:0}%{?_without_gtk_doc:1}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/gtk-doc
-%endif
 
 %if %build_l10n
 %else
@@ -99,7 +93,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %dir %attr (0755,root,bin) %{_libdir}
 %{_libdir}/lib*.so*
-%{_libdir}/libfm
 %{_libdir}/gio
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
@@ -116,10 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %dir %attr (0755, root, bin) %dir %{_includedir}
 %{_includedir}/*
-%if %{!?_without_gtk_doc:1}%{?_without_gtk_doc:0}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gtk-doc
-%endif
 
 %files root
 %defattr (-, root, sys)
@@ -136,6 +127,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Feb 05 2012 - Milan Jurik
+- bump to 0.1.17
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Jun 08 2011 - brian.cameron@oracle.com
 - Bump to 0.1.15.
 * Thu Sep 16 2010 - brian.cameron@oracle.com

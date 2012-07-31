@@ -12,16 +12,15 @@
 %define src_name xfig
 
 Name:		SFExfig
+IPS_Package_Name:	image/editor/xfig
 Summary:      	Xfig is an interactive drawing tool for X
 Version:       	3.2.5
 Release:        b
 License:	Xfig license
 Url: 		http://xfig.org
-Source:	 	http://downloads.sourceforge.net/mcj/xfig.%{version}%{release}.full.tar.gz
-Distribution:   OpenSolaris
-Vendor:		OpenSolaris Community
+Source:	 	%{sf_download}/mcj/xfig.%{version}%{release}.full.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{release}-build
-SUNW_Basedir:   /
+SUNW_Basedir:   %{_basedir}
 SUNW_Copyright: %{src_name}.copyright
 
 %include default-depend.inc
@@ -49,19 +48,17 @@ Patch2:         xfig-03-3.2.5b-Fig.ad.diff
 Patch3:         xfig-04-3.2.5b-urwfonts.diff
 Patch4:         xfig-05-3.2.5b-w_drawprim.c.diff
 
-# OpenSolaris IPS Package Manifest Fields
-Meta(info.upstream):	 	Brian V. Smith<bvsmith@lbl.gov>
-Meta(info.maintainer):	 	Federico Beffa<beffa@ieee.org>
-Meta(info.detailed_url):        http://xfig.org
-Meta(info.repository_url):	http://downloads.sourceforge.net/mcj/xfig.3.2.5b.full.tar.gz
-Meta(info.classification):      org.opensolaris.category.2008:Applications/Graphics and Imaging
-
 %description 
 XFig is a menu-driven tool that allows the user to draw
 and manipulate objects interactively in an X window. The resulting
 pictures can be saved, printed on postscript printers, or converted to
 a variety of other formats (e.g. to allow inclusion in LaTeX documents
 or web pages) using the transfig program.
+
+%package root
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
+%include default-depend.inc
 
 %prep
 rm -rf %{src_name}.%{version}%{release}
@@ -73,21 +70,15 @@ rm -rf %{src_name}.%{version}%{release}
 %patch4 -p1 -b .w_drawprim
 
 %build
-#export CFLAGS="%optflags -I%{_basedir}/X11/include -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E"
-export CFLAGS="-g -I%{_basedir}/X11/include -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E -DNEWARROWTYPES"
-#export LDFLAGS="%{_ldflags} -R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d"
-export LDFLAGS=" -g -R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d"
+export CFLAGS="%optflags -DUSE_JPEG -DUSE_XPM -DUSE_XPM_ICON -DXAW3D -DXAW3D1_5E"
+export LDFLAGS="%{_ldflags} -lXaw3d"
 export PATH=${PATH}:/usr/X11/bin
 xmkmf
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/opt/dtbld/bin/install MAKE=/usr/gnu/bin/make XAWLIB="-R%{_basedir}/X11/lib -L%{_basedir}/X11/lib -lXaw3d" CFLAGS="$CFLAGS"
+make DESTDIR=$RPM_BUILD_ROOT XFIGLIBDIR=%{_datadir}/%{src_name} XAWLIB="-lXaw3d" CFLAGS="$CFLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/usr/bin/ginstall MAKE=/usr/gnu/bin/make install.all MKDIRHIER="mkdir -p" XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
-
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} XFIGLIBDIR=%{_datadir}/%{src_name} XFIGDOCDIR=%{_docdir}/%{src_name}-%{version}%{release} MANDIR=%{_mandir}/man1 INSTALL=/usr/bin/ginstall MAKE=/usr/gnu/bin/make install.man MKDIRHIER="mkdir -p" XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
-
-rm -rf $RPM_BUILD_ROOT/usr/X11/man
+make DESTDIR=$RPM_BUILD_ROOT XFIGLIBDIR=%{_datadir}/%{src_name} install.all XAPPLOADDIR=/usr/X11/lib/X11/app-defaults
 
 # install icon
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
@@ -122,20 +113,25 @@ fi
 %files
 %defattr(-,root, bin)
 %{_bindir}/*
-%dir %attr (0755, root, bin) %{_docdir}
-%doc /%{_docdir}/%{src_name}-%{version}%{release}/*
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%doc %{_docdir}/%{src_name}/*
 %dir %attr (0755, root, bin) %{_mandir}
 %{_mandir}/man*/*
 %dir %attr (0755, root, bin) %{_datadir}/%{src_name}
 %{_datadir}/%{src_name}/*
-%dir %attr (0755, root, bin) /usr/X11/lib/X11/app-defaults/
-/usr/X11/lib/X11/app-defaults/Fig
+%{_prefix}/X11/lib/X11/app-defaults/Fig
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%defattr (-, root, other)
 %dir %attr (0755, root, other) %{_datadir}/icons
-%{_datadir}/icons/*
-%attr (-, root, root) /etc/X11/fontpath.d/ghostscript:pri=60
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/apps/
+%{_datadir}/icons/hicolor/32x32/apps/%{src_name}.png
+
+%files root
+%defattr (-, root, sys)
+%attr (-, root, root) %{_sysconfdir}/X11/fontpath.d/ghostscript:pri=60
 
 %changelog
 * May 2010 - Gilles dauphin

@@ -3,15 +3,22 @@
 #
 # includes module(s): GNU emacs
 #
-%define _basedir /usr/gnu
 %include Solaris.inc
+
+# Avoid conflict with editor/gnu-emacs
+%include usr-gnu.inc
+%define _infodir %_datadir/info
+
 %include packagenamemacros.inc
 
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
-Version:                 23.3
-%define emacs_version    23.3
-Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%{emacs_version}.tar.bz2
+Version:                 23.3.2
+License:                 GPLv3+
+SUNW_Copyright:          emacs.copyright
+%define emacs_version    23.3b
+%define src_version      23.3
+Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%emacs_version.tar.bz2
 Patch1:                  emacs-01-sound.diff
 URL:                     http://www.gnu.org/software/emacs/emacs.html
 SUNW_BaseDir:            %{_basedir}
@@ -55,7 +62,7 @@ SUNW_BaseDir:            /
 %include default-depend.inc
 
 %prep
-%setup -q -n emacs-%version
+%setup -q -n emacs-%src_version
 %patch1 -p1
 
 %build
@@ -64,7 +71,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export CPP="cc -E -Xs"
-export CFLAGS='-i -xO3 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+#export CFLAGS='-i -xO3 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+#Studio 12.3 crashes when building emacs with -xOn
+export CFLAGS='-i -xO0 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+
 export PERL=/usr/perl5/bin/perl
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
@@ -99,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, root)
+%dir %attr (0755, root, bin) %{_prefix}
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
@@ -142,6 +153,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- bump to 23.3b, workaround for Studio 12.3
+* Sun Oct  2 2011 - Alex Viskovatoff
+- Work around usr-gnu.inc not placing info dir in /usr/gnu
+* Mon Sep 12 2011 - Alex Viskovatoff
+- bump to version 23.3a
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jun 27 2011 - Alex Viskovatoff
 - Install in /usr/gnu so as not to conflict with system gnu-emacs
 * Sun Apr 12 2011 - Alex Viskovatoff

@@ -13,13 +13,11 @@
 
 %ifarch amd64 sparcv9
 %include arch64.inc
-%define _libdir %{_cxx_libdir}
 %define rcopts -b 64
 %use xerces64 = xerces-c.spec
 %endif
 
 %include base.inc
-%define _libdir %{_cxx_libdir}
 %define rcopts -b 32
 %use xerces = xerces-c.spec
 
@@ -88,7 +86,6 @@ mv $RPM_BUILD_ROOT%{_prefix}/lib/lib* $RPM_BUILD_ROOT%{_libdir}/%{_arch64}
 
 %xerces.install -d %name-%version/%{base_arch}
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mv $RPM_BUILD_ROOT%{_prefix}/lib/lib* $RPM_BUILD_ROOT%{_libdir}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/xerces-c
 /usr/gnu/bin/cp -a $XERCESCROOT/samples $RPM_BUILD_ROOT%{_datadir}/xerces-c
 

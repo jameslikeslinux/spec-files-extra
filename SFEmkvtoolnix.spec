@@ -4,21 +4,21 @@
 # includes module: mkvtoolnix
 #
 
-# TODO: Get mmg (the GUI front end) to build
-
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname mkvtoolnix
+%define _pkg_docdir %_docdir/%srcname
 %define with_SUNWruby %(pkginfo -q SFEruby && echo 0 || echo 1)
 
 Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
+Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
-Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	4.8.0
+Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
+Version:	5.0.1
 License:	GPLv2
+SUNW_Copyright:	mkvtoolnix.copyright
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
@@ -31,7 +31,7 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 %if %with_SUNWruby
-BuildRequires: SUNWruby18r
+BuildRequires: runtime/ruby-18
 %endif
 
 # Starting with 4.7.0, MKVToolnix only links statically
@@ -44,6 +44,8 @@ BuildRequires: SUNWlexpt
 Requires: SUNWlexpt
 BuildRequires: SUNWzlib
 Requires: SUNWzlib
+BuildRequires: SFElzo-devel
+Requires: SFElzo
 BuildRequires: SUNWogg-vorbis
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac
@@ -92,27 +94,28 @@ CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 ./drake -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-./drake install DESTDIR=$RPM_BUILD_ROOT
+./drake install DESTDIR=%buildroot
 
 %if %build_l10n
 %else
-rm -rf $RPM_BUILD_ROOT%_datadir/locale
-rm -rf $RPM_BUILD_ROOT%_docdir/%srcname/guide/zh_CN
+rm -rf %buildroot%_datadir/locale
+rm -rf %buildroot%_docdir/%srcname/guide/zh_CN
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
 %defattr (-, root, bin)
+%dir %attr (-, root, other) %_docdir
+%doc ChangeLog README AUTHORS
 %_bindir
 %dir %attr (-, root, sys) %_datadir
 %_mandir
-%dir %attr (-, root, other) %_docdir
-%_docdir/%srcname
+%_docdir/%srcname/guide
 %dir %attr (-, root, other) %_datadir/applications
 %_datadir/applications/mkvinfo.desktop
 %_datadir/applications/mkvmergeGUI.desktop
@@ -139,6 +142,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 14 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 5.0.1
+* Tue Aug  9 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Add missing (build) dependency
+* Sat Jul 23 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 4.9.1; add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Modify CXXXFLAGS to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff <herzen@imap.cc>

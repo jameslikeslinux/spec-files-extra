@@ -8,13 +8,13 @@
 
 %include Solaris.inc
 Name:                    SFElightdm
-License:                 GPL v3
-Version:                 0.4.4
-Source:                  http://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
+License:                 GPLv3
+SUNW_Copyright:	         lightdm.copyright
+Version:                 1.1.7
+Source:                  https://launchpad.net/lightdm/trunk/%{version}/+download/lightdm-%{version}.tar.gz
 Source1:                 lightdm.xml
 Source2:                 svc-lightdm
 Patch1:                  lightdm-01-compile.diff
-Patch2:                  lightdm-02-vala.diff
 Distribution:            Java Desktop System
 Vendor:                  Sun Microsystems, Inc.
 Summary:                 Light Display Manager
@@ -44,12 +44,12 @@ Requires:                SUNWgtk2
 Requires:                SUNWconsolekit
 Requires:                SUNWdbus-glib
 Requires:                SUNWlibxklavier
-#Requires:                SFEwebkitgtk
+Requires:                SUNWgobject-introspection
 BuildRequires:           SUNWglib2-devel
 BuildRequires:           SUNWgtk2-devel
 BuildRequires:           SUNWdbus-glib-devel
 BuildRequires:           SUNWlibxklavier-devel
-#BuildRequires:           SFEwebkitgtk-devel
+BuildRequires:           SUNWgobject-introspection
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -64,7 +64,6 @@ SUNW_BaseDir:            %{_basedir}
 %prep
 %setup -q -n lightdm-%version
 %patch1 -p1
-%patch2 -p1
 
 %build
 libtoolize --force
@@ -105,19 +104,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
-%attr (0755, root, bin)%{_bindir}/*
+%{_bindir}/*
+%dir %attr (0755, root, bin) %{_sbindir}
+%attr (0755, root, bin)%{_sbindir}/*
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, bin) %{_libdir}/lib*.so*
 %dir %attr (0755, root, bin) %{_libdir}/girepository-1.0
+%dir %attr (0755, root, bin) %{_libdir}/lightdm/*
+%dir %attr (0755, root, bin) %{_libdir}/lightdm-set-defaults
 %{_libdir}/girepository-1.0/*
-%{_libexecdir}/lightdm-example-gtk-greeter
-%{_libexecdir}/lightdm-example-python-gtk-greeter
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/gir-1.0/*
 %{_datadir}/gtk-doc/*
-%{_datadir}/lightdm/*
+%{_datadir}/lightdm-gtk-greeter
 %{_datadir}/vala
-%{_datadir}/lightdm-example-gtk-greeter
+%{_datadir}/xgreeters
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/lightdm.1
@@ -149,6 +150,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Nov 28 2011 - brian.cameron@oracle.com
+- Bump to 1.0.6.
+* Wed Sep 07 2011 - brian.cameron@oracle.com
+- Bump to 0.9.5.
+* Wed Aug 24 2011 - brian.cameron@oracle.com
+- Bump to 0.9.4.
+* Wed Jul 27 2011 - brian.cameron@oracle.com
+- Bump to 0.9.2.
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Jul 19 2011 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 0.4.4.
 * Fri May 20 2011 - Brian Cameron  <brian.cameron@oracle.com>

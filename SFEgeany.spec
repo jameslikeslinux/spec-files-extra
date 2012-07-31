@@ -9,33 +9,36 @@
 %define src_url     http://download.geany.org
 %define src_name    geany
 
-Name:                SFEgeany
-Summary:             A small and lightweight integrated developer environment
-Version:             0.20
-Source:              %{src_url}/%{src_name}-%{version}.tar.bz2
-URL:                 http://geany.uvena.de/Main/HomePage
-Group:               Development/Tools
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgeany
+IPS_Package_Name:	developer/geany
+Summary:	A small and lightweight integrated developer environment
+Version:	0.21
+License:	GPLv2+
+SUNW_Copyright:	geany.copyright
+Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+URL:		http://www.geany.org/
+Group:		Development/Integrated Development Environments
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:       library/perl-5/xml-parser
+BuildRequires:	library/perl-5/xml-parser
 
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 
 %package doc
-Summary:                 %{summary} - documentation, man pages
-SUNW_BaseDir:            %{_basedir}
-Requires:                %{name}
+Summary:	%{summary} - documentation, man pages
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
 
 %package devel
-Summary:                %{summary} - development files
-SUNW_BaseDir:           %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 
 %prep 
 %setup -q -n %{src_name}-%{version}
@@ -106,6 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/geany/*
 
 %changelog
+* Sat Dec 31 2011 - Milan Jurik
+- bump to 0.21
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Jan 25 2011 - Milan Jurik
 - bump to 0.20
 * Wed Jan 05 2011 - Milan Jurik

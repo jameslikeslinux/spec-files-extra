@@ -6,13 +6,20 @@
 
 ##TODO##  Make x264 executable link to SFEffmpeg
 
-%include Solaris.inc
+# libx264 complains on yasm too old, just uninstall
+# the one you got with the CBE 1.6.x or 1.7.x release
+# pfexec pkgrm CBEyasm
+#The following package is currently installed:
+#   CBEyasm  Desktop CBE: Yet another assembler
+#            (i386) 0.6.2,REV=1.7.0
+#Do you want to remove this package? [y,n,?,q] y
 
-# To enable the x264 executable to create mp4 files, GPAC is required: use
-#   pkgtool build --with-mp4 <spec>
-# But x264 can create Matroska files, and mp4 has no advantages over
-# Matroska whereas Matroska has features mp4 lacks.
-%define with_gpac %{?_with_mp4:1}%{?!_with_mp4:0}
+#or
+
+#pfexec pkg uninstall CBEyasm
+
+
+%include Solaris.inc
 
 %define cc_is_gcc 1 
 %ifarch amd64 sparcv9
@@ -23,12 +30,32 @@
 %include base.inc
 %use libx264 = libx264.spec
 
+%define with_gpac %(pkginfo -q SFEgpac && echo 1 || echo 0)
+
 Name:                    SFElibx264
+IPS_Package_Name:	library/video/x264 
 Summary:                 %{libx264.summary}
+Group:                   System/Multimedia Libraries
+License:                 GPLv2
+SUNW_Copyright:	         libx264.copyright
+URL:                     http://www.videolan.org/developers/x264.html
 Version:                 %{libx264.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%define SFEmpfr         %(/usr/bin/pkginfo -q SFEmpfr 2>/dev/null  && echo 1 || echo 0)
+
+%if %SFEmpfr
+BuildRequires: SFEmpfr-devel
+Requires: SFEmpfr
+#workaround on IPS which is wrong with BASEdir as "/" -> then assume /usr/gnu
+%define SFEmpfrbasedir %(pkgparam SFEmpfr BASEDIR 2>/dev/null | sed -e 's+^/$+/usr/gnu+')
+%else
+BuildRequires: SUNWgnu-mpfr
+Requires: SUNWgnu-mpfr
+%endif
+
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
@@ -37,6 +64,31 @@ BuildRequires: SFEyasm
 BuildRequires: SFEgpac-devel
 Requires: SFEgpac
 %endif
+
+%description
+x264 is a free software library and application for encoding video streams into
+the H.264/MPEG-4 AVC format.
+
+Encoder features:
+
+    * 8x8 and 4x4 adaptive spatial transform
+    * Adaptive B-frame placement
+    * B-frames as references / arbitrary frame order
+    * CAVLC/CABAC entropy coding
+    * Custom quantization matrices
+    * Intra: all macroblock types (16x16, 8x8, 4x4, and PCM with all predictions)
+    * Inter P: all partitions (from 16x16 down to 4x4)
+    * Inter B: partitions from 16x16 down to 8x8 (including skip/direct)
+    * Interlacing (MBAFF)
+    * Multiple reference frames
+    * Ratecontrol: constant quantizer, constant quality, single or multipass ABR, optional VBV
+    * Scenecut detection
+    * Spatial and temporal direct mode in B-frames, adaptive mode selection
+    * Parallel encoding on multiple CPUs
+    * Predictive lossless mode
+    * Psy optimizations for detail retention (adaptive quantization, psy-RD, psy-trellis)
+    * Zones for arbitrarily adjusting bitrate distribution
+
 
 %package devel
 Summary:                 %{summary} - development files
@@ -115,6 +167,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 21 2012 - Logan Bruns <logan@gedanken.org>
+- autodetect whether to use SFEmpfr or system provided version.
+* Fri Oct 21 2011 - Milan Jurik
+- autodetect gpac
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name, keep SFEgpac as mandatory
+* Wed Oct 12 2011 - Alex Viskovatoff
+- Add new build dependency on library/mpfr
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Wed Nov 10 2010 - Alex Viskovatoff
 - add optional (Build)Requires: SFEgpac(-devel)
 * Fri Apr 09 - Milan Jurik

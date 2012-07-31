@@ -3,36 +3,30 @@
 #
 # includes module(s): libcddb
 #
-# works: snv104 / pkgbuild 1.3.91 / Sun Ceres C 5.10 SunOS_i386 2008/10/22
-# works: snv104 / pkgbuild 1.2.0  / Sun C 5.9 SunOS_i386 Patch 124868-02 2007/11/27
-# works: snv103 / pkgbuild 1.3.0  / Sun C 5.9 SunOS_i386 Patch 124868-02 2007/11/27
-# works: snv96  / pkgbuild 1.3.1  / Sun Ceres C 5.10 SunOS_i386 2008/07/10
-# does not work: 
 
 %include Solaris.inc
 
-%define CBEgettext      %(/usr/bin/pkginfo -q CBEgettext && echo 1 || echo 0)
-
 %define	src_name libcddb
 
-Name:                SFElibcddb
-Summary:             C library to access data on a CDDB server
-Version:             1.3.2
-License:             LGPLv2
-SUNW_Copyright:	     libcddb.copyright
-URL:                 http://libcddb.sourceforge.net/
-Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.bz2
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
-Requires:            SFElibiconv
-BuildRequires:       SFElibiconv-devel
+Name:		SFElibcddb
+IPS_Package_Name:	library/audio/libcddb 
+Summary:	C library to access data on a CDDB server
+Group:		System/Libraries
+Version:	1.3.2
+License:	LGPLv2
+SUNW_Copyright:	libcddb.copyright
+URL:		http://libcddb.sourceforge.net/
+Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tar.bz2
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+Requires:	SFElibiconv
+BuildRequires:	SFElibiconv-devel
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_prefix}
-%include default-depend.inc
-Requires: %name
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_prefix}
+Requires:	%name
 
 %prep
 %setup -q -n %{src_name}-%version
@@ -46,11 +40,7 @@ fi
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
-%if %CBEgettext
-export ACLOCAL_FLAGS="-I `pkgparam CBEgettext BASEDIR`/share/aclocal"
-%else
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
-%endif
 
 libtoolize --copy --force
 #aclocal needed otherwise version mismatch
@@ -98,6 +88,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/demo/libcddb/bin/cddb_query
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- clean up, add IPS package name
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Dev 21 2008 - Thomas Wagner
 - changed ACLOCAL_FLAGS to conditionally use m4 files from CBEgettext location (/opt/dtbld or /opt/jdsbld, ..) bcs. missing AM_GNU_GETTEXT_VERSION|AM_ICONV when using jds cbe 1.7.0(-rc1)
 * Tue Sep 02 2008 - halton.huo@sun.com

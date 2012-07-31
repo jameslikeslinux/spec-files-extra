@@ -5,13 +5,14 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 Name:                SFEeterm
 Summary:             Terminal emulator intended as a replacement for xterm
 Group:               Applications/System Utilities
 Version:             0.9.6
+License:             MIT
+SUNW_Copyright:      eterm.copyright
 Source:              %{sf_download}/eterm/Eterm-%{version}.tar.gz
 Source2:			 http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
@@ -34,8 +35,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # This source is gcc-centric, therefore...
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 
 #export LDFLAGS="%_ldflags -L/usr/sfw/lib -R/usr/sfw/lib"
@@ -79,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/Eterm/*
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Jun 16 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
 - Bump to 0.9.6
 * Tue Oct 22 2008  - Pradhap Devarajan <pradhap (at) gmail.com>

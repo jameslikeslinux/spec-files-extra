@@ -14,14 +14,14 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 
 Name:		SFEstellarium
-Version:	0.10.6
+Version:	0.11.1
 Summary:	Photo-realistic night sky renderer
 Group:		Applications/Games
 License:	GPLv2+
+SUNW_Copyright:	stellarium.copyright
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
 #Patch1:		stellarium-01-sunstudio.diff
@@ -34,8 +34,8 @@ BuildRequires: SFEsdl-mixer-devel
 Requires: SFEsdl-mixer
 #BuildRequires: SUNWimagick
 BuildRequires: SFEcmake
-BuildRequires: SFEqt47-gpp-devel
-Requires: SFEqt47-gpp
+BuildRequires: SFEqt-gpp-devel
+Requires: SFEqt-gpp
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -63,8 +63,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # pod2man
-export CC=/usr/gnu/bin/cc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export PATH=/usr/g++/bin:$PATH:/usr/perl5/bin
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -D__C99FEATURES__"
@@ -118,6 +118,12 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jan 1 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.11.1
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.11.0
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Sat Jul 02 2011 - Alex Viskovatoff
 - fork new spec using gcc to build off SFEstellarium.spec
 * Mon Mar 07 2011 - Alex Viskovatoff

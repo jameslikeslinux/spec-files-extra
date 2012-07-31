@@ -5,30 +5,31 @@
 #
 
 %include Solaris.inc
-Name:                    SFEhippo-canvas
-Summary:                 Hippo Canvas
-URL:                     http://live.gnome.org/HippoCanvas
-Version:                 0.3.0
-License:                 LGPL
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/hippo-canvas/0.3/hippo-canvas-%{version}.tar.gz
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWPython26
-Requires:                SUNWlibcroco
-Requires:                SUNWlibrsvg
-Requires:                SUNWgtk2
-Requires:                SUNWgnome-python26-libs
-BuildRequires:           SUNWPython26-devel
-BuildRequires:           SUNWlibcroco-devel
-BuildRequires:           SUNWlibrsvg-devel
-BuildRequires:           SUNWgtk2-devel
-BuildRequires:           SUNWgnome-python26-libs-devel
+Name:		SFEhippo-canvas
+IPS_Package_Name:	library/desktop/hippo-canvas
+Summary:	Hippo Canvas
+URL:		http://live.gnome.org/HippoCanvas
+Version:	0.3.0
+License:	LGPL
+Source:		http://ftp.gnome.org/pub/GNOME/sources/hippo-canvas/0.3/hippo-canvas-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+Requires:	SUNWPython26
+Requires:	SUNWlibcroco
+Requires:	SUNWlibrsvg
+Requires:	SUNWgtk2
+Requires:	SUNWgnome-python26-libs
+BuildRequires:	SUNWPython26-devel
+BuildRequires:	SUNWlibcroco-devel
+BuildRequires:	SUNWlibrsvg-devel
+BuildRequires:	SUNWgtk2-devel
+BuildRequires:	SUNWgnome-python26-libs-devel
 
 %include default-depend.inc
 
 %package devel
-Summary:		 %{summary} - development files
-SUNW_BaseDir:		 %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: SFEhippo-canvas
 
@@ -38,9 +39,16 @@ Requires: SFEhippo-canvas
 %setup -q -n hippo-canvas-%version
 
 %build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+    CPUS=1
+fi
+
 export PYTHON=/usr/bin/python%{python_version}
-./configure --prefix=%{_prefix}
-make 
+./configure --prefix=%{_prefix}	\
+	--disable-static
+
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT

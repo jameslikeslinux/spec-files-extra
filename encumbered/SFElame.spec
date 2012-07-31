@@ -4,17 +4,8 @@
 # includes module(s): lame, toolame
 #
 
-# want this? compile with: pkgtool --with-gcc3 build <specfile>
-%define use_gcc4 %{?_with_gcc3:0}%{?!_with_gcc3:1}
-
-
 %include Solaris.inc
-%define cc_is_gcc 1
-%if %use_gcc4
-%define _gpp /usr/gnu/bin/g++
-%else
-%define _gpp /usr/sfw/bin/g++
-%endif
+#%define cc_is_gcc 1
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -23,7 +14,11 @@
 %endif
 
 %include base.inc
+%if %cc_is_gcc
 %define optflags %gcc_optflags -msse2
+%else
+%define optflags -xO4 -xspace -xstrconst -xarch=sse2 -mr -xregs=no%frameptr
+%endif
 
 %use lame = lame.spec
 %use toolame = toolame.spec
@@ -31,23 +26,20 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 
-Name:                    SFElame
-Summary:                 MP3 encoders - lame and toolame
-Version:                 %{lame.version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElame
+IPS_Package_Name:	audio/lame
+Summary:	MP3 encoders - lame and toolame
+Group:		System/Media
+URL:		http://lame.sourceforge.net/
+Version:	%{lame.version}
+License:	LGPLv2.1+
+SUNW_Copyright:	lame.copyright
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SUNWlibms
 Requires: SUNWlibms
-
-%if %use_gcc4
-BuildRequires: SFEgcc
-Requires: SFEgccruntime
-%else
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
-%endif
 
 %if %SFElibsndfile
 BuildRequires:	SFElibsndfile-devel
@@ -148,6 +140,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+- remove GCC dependency
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jul 18 2011 - Alex Viskovatoff
 - build with SFEgcc by default; add -msse2 flag to make i386 build succeed
 * Thu Nov 04 2010 - Milan Jurik

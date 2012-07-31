@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Name:                SFEagg
+IPS_Package_Name:	library/agg
 Summary:             Anti-Grain Geometry (AGG) rendering engine
 Version:             2.5
 Source:              http://www.antigrain.com/agg-%{version}.tar.gz

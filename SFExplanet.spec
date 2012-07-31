@@ -17,15 +17,16 @@
 #
 %include Solaris.inc
 
-Name:                    SFExplanet
-Summary:                 XPlanet
-Group:                   Utility
-Version:                 1.2.0
-Source:                  %{sf_download}/xplanet/xplanet-%{version}.tar.gz         
-Patch1:                  xplanet-01-forte.diff
-SUNW_Copyright:          %{name}.copyright
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFExplanet
+IPS_Package_Name:	desktop/xplanet
+Summary:	XPlanet
+Group:		Amusements/Games
+Version:	1.2.2
+Source:		%{sf_download}/xplanet/xplanet-%{version}.tar.gz         
+Patch1:		xplanet-01-forte.diff
+SUNW_Copyright:	%{name}.copyright
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWTiff
 Requires: SUNWfreetype2
@@ -82,6 +83,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sun Dec 04 2011 - Milan Jurik
+- bump to 1.2.2
 * Fri Jun 30 2006 - laca@sun.com
 - rename to SFExplanet
 - delete -share subpkg

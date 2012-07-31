@@ -42,11 +42,14 @@
 %define srcname hunspell
 
 Name:		SFEhunspell
+IPS_Package_Name:	library/spell-checking/hunspell
 Summary:	Spell checker
+Group:		Applications/Accessories
 URL:		http://hunspell.sourceforge.net
 Vendor:		László Németh
 Version:	1.3.2
-License:	MPL 1.1/GPL 2.0/LGPL 2.1
+License:	MPLv1.1 or GPLv2+ or LGPLv2.1+
+SUNW_Copyright:	hunspell.copyright
 Source:		http://downloads.sourceforge.net/%srcname/%srcname-%version.tar.gz
 Patch1:		hunspell-01-dict-path.diff
 
@@ -57,8 +60,8 @@ BuildRequires:	SUNWgmake
 BuildRequires:	SUNWaconf
 BuildRequires:	SUNWgnu-automake-19
 BuildRequires:	SFElibiconv-devel
-BuildRequires:	SFEncursesw-devel
-Requires:	SFEncursesw
+BuildRequires:	SUNWncurses
+Requires:	SUNWncurses
 Requires:	SUNWgnu-readline
 Requires:	SFElibiconv
 Requires:	SUNWmyspell-dictionary-en
@@ -76,10 +79,10 @@ Requires:	%name
 
 %build
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 export CFLAGS="%optflags"
 
-export CXXFLAGS="%cxx_optflags -I/usr/gnu/include/ncursesw"
+export CXXFLAGS="%cxx_optflags -I/usr/include/ncurses"
 export LIBS="-lsocket -lpthread -lCrun"
 export LDFLAGS="%_ldflags %gnu_lib_path"
 ./configure --prefix=%_prefix --enable-threads=solaris --disable-static --with-ui --with-readline
@@ -116,6 +119,10 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Use SUNWncurses instead of SFEncursesw
 * Fri Jun 10 2011 - Alex Viskovatoff <herzen@imap.cc>
 - don't create separate IPS devel package
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>

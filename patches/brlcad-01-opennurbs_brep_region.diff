@@ -1,0 +1,45 @@
+--- brlcad-7.20.4/src/other/openNURBS/opennurbs_brep_region.cpp	2011-10-30 09:11:19.000000000 -0700
++++ brlcad-7.20.4-patched/src/other/openNURBS/opennurbs_brep_region.cpp	2012-04-20 18:18:02.564907089 -0700
+@@ -1144,7 +1144,7 @@
+   if ( rtop_brep == brep || 0 == rtop_brep || rtop_brep->m_F.Count() <= 0 || m_fsi.Count() <= 0 )
+     return 0;
+ 
+-  ON_SimpleArray<const ON_BrepFaceSide*> FS(m_fsi.Count());
++  ON_SimpleArray<const ON_BrepFaceSide*> FS_(m_fsi.Count());
+   ON_SimpleArray<int> subfi(m_fsi.Count());
+ 
+   int rfsi, i;
+@@ -1153,26 +1153,26 @@
+     const ON_BrepFaceSide* fs = FaceSide(rfsi);
+     if ( 0 == fs || fs->m_fi < 0 || fs->m_fi >= rtop_brep->m_F.Count() )
+       return 0;
+-    for ( i = 0; i < FS.Count(); i++ )
++    for ( i = 0; i < FS_.Count(); i++ )
+     {
+-      if ( fs->m_fi == FS[i]->m_fi )
++      if ( fs->m_fi == FS_[i]->m_fi )
+         break;
+     }
+-    if ( i < FS.Count() )
++    if ( i < FS_.Count() )
+       continue;
+-    FS.Append(fs);
++    FS_.Append(fs);
+     subfi.Append(fs->m_fi);
+   }
+ 
+   brep = rtop_brep->SubBrep(subfi.Count(),subfi.Array(),brep);
+   if ( !brep )
+     return 0;
+-  if ( brep->m_F.Count() != FS.Count() )
++  if ( brep->m_F.Count() != FS_.Count() )
+     return 0;
+-  for ( i = 0; i < FS.Count(); i++ )
++  for ( i = 0; i < FS_.Count(); i++ )
+   {
+     ON_BrepFace& face = brep->m_F[i];
+-    face.m_bRev = ( FS[i]->m_srf_dir < 0 );
++    face.m_bRev = ( FS_[i]->m_srf_dir < 0 );
+   }
+ 
+   ON_BOOL32 bIsOriented = false;

@@ -12,15 +12,13 @@
 Name:           libmms
 Summary:        mms stream protocol library
 Group:          Libraries/Multimedia
-Version:        0.6
+Version:        0.6.2
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
 URL:            http://sourceforge.net/projects/libmms/
 License:      	LGPL
 Source:         %{sf_download}/%{name}/%{name}-%{version}.tar.gz
-# date:2008-09-02 owner:halton type:bug bugid:263864
-Patch1:         %{name}-01-solaris-uint.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -36,16 +34,9 @@ to allow you to devel with libmms
 
 %prep
 %setup -q
-%patch1 -p0
 
 %build
-%ifos linux
-if [ -x /usr/bin/getconf ]; then
-  CPUS=`getconf _NPROCESSORS_ONLN`
-fi
-%else
-  CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-%endif
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
@@ -97,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/libmms.pc
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- bump to 0.6.2
 * Thu Jun 10 2010 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.6
 - Update URLs

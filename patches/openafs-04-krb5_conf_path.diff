@@ -1,0 +1,13 @@
+--- openafs-1.6.1/src/aklog/aklog.c.orig	2012-03-26 16:03:34.000000000 -0700
++++ openafs-1.6.1/src/aklog/aklog.c	2012-06-18 03:57:07.485389001 -0700
+@@ -1520,7 +1520,9 @@
+ #if defined(KRB5_PROG_ETYPE_NOSUPP) && !(defined(HAVE_KRB5_ENCTYPE_ENABLE) || defined(HAVE_KRB5_ALLOW_WEAK_CRYPTO))
+     {
+ 	char *filepath = NULL, *newpath = NULL;
+-#ifndef AFS_DARWIN_ENV
++#ifdef __sun
++	char *defaultpath = "/etc/krb5/krb5.conf";
++#elif !defined(AFS_DARWIN_ENV)
+ 	char *defaultpath = "/etc/krb5.conf";
+ #else
+ 	char *defaultpath = "~/Library/Preferences/edu.mit.Kerberos:/Library/Preferences/edu.mit.Kerberos";

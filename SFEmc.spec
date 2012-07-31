@@ -8,7 +8,10 @@
 Name:                SFEmc
 Summary:             Clone of the Norton Commander file manager
 Version:             2007-06-23-14
-Source:              http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/snapshots/mc-%{version}.tar.gz
+IPS_component_version: 0.2007062314
+#Source:              http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/snapshots/mc-%{version}.tar.gz
+#temporary download location
+Source:              http://pkgs.fedoraproject.org/repo/pkgs/mc/mc-2007-06-23-14.tar.gz/3d4e56a1152564331abe82e6570898ad/mc-2007-06-23-14.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -59,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- download location, make IPS friendly
 * Thu Jul 12, 2007 - Dick Hoogendijk
 - Changed to the snapshot release
 - Stable version 4.6.1 has some nasty bugs

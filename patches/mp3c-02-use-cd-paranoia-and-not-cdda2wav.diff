@@ -1,0 +1,13 @@
+--- mp3c-0.31/src/conf.c.orig	2006-03-08 13:13:46.000000000 +0100
++++ mp3c-0.31/src/conf.c	2011-06-03 17:18:15.156109462 +0200
+@@ -69,8 +69,8 @@
+ #define DEF_MP3_ENC_NF	PRE2_ENC_NF
+ #define DEF_MP3_ENC_OF	PRE2_ENC_OF
+ #endif
+-#define DEF_CD_RIP_NF   "cdda2wav -H -D \"%1\" -t %2 -O wav -paranoia \"%3\""
+-#define DEF_CD_RIP_OF   "cdda2wav -H -D \"%1\" -t %2 -O wav -paranoia -"
++#define DEF_CD_RIP_NF   "cd-paranoia -d \"%1\" %2 \"%3\""
++#define DEF_CD_RIP_OF   "cd-paranoia -p -d \"%1\" %2 -"
+ #define DEF_FRM_MULTI   214
+ #define DEF_M3U_PATTERN "%1-%3.m3u"    /* pattern for m3u-playlist: %1 = artist,
+ 					  %2 = songtitle, %3 = album */

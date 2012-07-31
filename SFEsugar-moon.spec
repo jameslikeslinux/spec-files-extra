@@ -10,7 +10,7 @@
 Name:                    SFEsugar-moon
 Summary:                 Sugar Moon
 URL:                     http://www.sugarlabs.org/
-Version:                 11 
+Version:                 13 
 Source:                  http://download.sugarlabs.org/sources/honey/Moon/Moon-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 13
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 12.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 11.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>

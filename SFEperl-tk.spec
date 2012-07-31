@@ -20,7 +20,8 @@ Name:		SFEperl-tk
 Version:	804.029
 IPS_component_version: 804.29
 Summary:	a graphical user interface toolkit for Perl
-License:	Artistic
+License:	GPL+ or Artistic
+SUNW_Copyright:	perl-tk.copyright
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 Url:		http://search.cpan.org/~tkml/%{tarball_name}-%{tarball_version}
@@ -65,6 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Jul  8 2011 - Alex Viskovatoff
 - Change (Build)Requires to %{pnm_buildrequires_perl_default}
 * Sun Mar 20 2011 - Alex Viskovatoff

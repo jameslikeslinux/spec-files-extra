@@ -6,27 +6,27 @@
 %include Solaris.inc
 
 %define src_name	zziplib
-%define src_url		http://jaist.dl.sourceforge.net/sourceforge/zziplib
 
-Name:                   SFEzziplib
-Summary:                ZZIPlib library
-Version:                0.13.49
-Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
-Patch1:			zziplib-01-ldflags.diff
-Patch2:			zziplib-02-export-inline.diff
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+Name:		SFEzziplib
+IPS_Package_Name:	library/zziplib
+Summary:	ZZIPlib library
+Version:                0.13.60
+Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tar.bz2
+URL:		http://zziplib.sourceforge.net/
+License:	LGPLv2.1+
+Patch1:		zziplib-01-ldflags.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_prefix}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
-%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -34,13 +34,9 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-
-libtoolize --force --copy
-aclocal -I m4
-automake -a
-autoconf --force
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
+autoconf
 ./configure --prefix=%{_prefix}		\
 	    --bindir=%{_bindir}		\
 	    --mandir=%{_mandir}		\
@@ -79,5 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- bump to 0.13.60
 * Mon May  7 2007 - dougs@truemail.co.th
 - Initial version

@@ -10,18 +10,32 @@
 %include Solaris.inc
 
 Name:                SFElsof
+IPS_Package_Name:    developer/lsof
 Summary:             List open files
-Version:             4.83K
-Source:              http://ftp.cerias.purdue.edu/pub/tools/unix/sysutils/lsof/NEW/lsof_%{version}.sun.tar.bz2
-
+Version:             4.83
+Source:              http://ftp.cerias.purdue.edu/pub/tools/unix/sysutils/lsof/lsof_%{version}.tar.bz2
+Patch1:              lsof-01-machine.diff
+Patch2:              lsof-02-dlsof.diff
+Patch3:              lsof-03-dnode.diff
+Patch4:              lsof-04-dsock.diff
+Patch5:              lsof-05-print.diff
+SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
-%setup -q -n lsof_%version.sun
+%setup -q -n lsof_%version
+tar xf lsof_%{version}_src.tar
+cd lsof_%{version}_src
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build 
+cd lsof_%{version}_src
 
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -36,6 +50,7 @@ export LDFLAGS="%_ldflags"
 make -j$CPUS
 
 %install
+cd lsof_%{version}_src
 rm -rf $RPM_BUILD_ROOT
 install -D lsof $RPM_BUILD_ROOT%{_bindir}/lsof
 install -D lsof.8   $RPM_BUILD_ROOT%{_mandir}/man8/lsof.8
@@ -53,6 +68,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/lsof.8
 
 %changelog
+* Sun Mar 11 2012 - Logan Bruns <logan@gedanken.org>
+- fixed zfs kernel struct binding and tcp use but not icmp and
+  udp. so, for example, lsof -p works but not lsof -i.
+- added ips package name.
+- updated download url and unpack steps.
+- added copyright file.
 * Tue Sep 15 2009 - Olivier Mauras <oliver.mauras@gmail.com>
 - Version bump to 4.83K
 - Add automated default configuration

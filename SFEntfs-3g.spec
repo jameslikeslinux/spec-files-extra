@@ -9,13 +9,14 @@
 %define cc_is_gcc 1
 %include base.inc
 
-%define SUNWlibfuse	%(/usr/bin/pkginfo -q SUNWlibfuse && echo 1 || echo 0)
 
 Name:                    SFEntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
 Version:                 2011.1.15
 License:                 GPLv2
-Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
+#Source:			 http://www.tuxera.com/opensource/ntfs-3g-%{version}.tgz
+#temporary download location (tuxera does not keep old versions):
+Source:                  http://pkgs.fedoraproject.org/repo/pkgs/ntfs-3g/ntfs-3g-2011.1.15.tgz/15a5cf5752012269fa168c24191f00e2/ntfs-3g-2011.1.15.tgz
 Url:                     http://www.tuxera.com/community/ntfs-3g-download/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -25,15 +26,12 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SUNWgnome-common-devel
 
-%if %SUNWlibfuse
-BuildRequires:	SUNWlibfuse
-Requires:	SUNWfusefs
-Requires:	SUNWlibfuse
-%else
-BuildRequires:	SFElibfuse
+#not the *olaris implementation
+#we use the older fuse kernel modules
 Requires:	SFEfusefs
+#not the *olaris implementation (missing calls?)
+#we use the older libfuse implementation
 Requires:	SFElibfuse
-%endif
 
 %package devel
 Summary:                 %{summary} - development files
@@ -41,11 +39,8 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-%if %SUNWlibfuse
-Requires:	SUNWlibfuse
-%else
+BuildRequires:	SFElibfuse-devel
 Requires:	SFElibfuse
-%endif
 
 %prep
 %setup -q -n ntfs-3g-%version
@@ -73,10 +68,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CC=gcc
-export CFLAGS="%gcc_optflags"
-export FUSE_MODULE_CFLAGS="-D_FILE_OFFSET_BITS=64 -I/usr/include/fuse"
-export FUSE_MODULE_LIBS="-pthread -lfuse"
+export CC=/usr/sfw/bin/gcc
+export CFLAGS="%optflags -I%{gnu_inc} %{gnu_lib_path}"
+export FUSE_MODULE_CFLAGS="$CFLAGS %{gnu_lib_path} -D_FILE_OFFSET_BITS=64 -I/usr/gnu/include/fuse"
+export FUSE_MODULE_LIBS="%{gnu_lib_path} -pthread -lfuse"
 
 ./configure --prefix=%{_prefix}			\
 	    --libdir=%{_libdir}                 \
@@ -88,7 +83,7 @@ export FUSE_MODULE_LIBS="-pthread -lfuse"
             --exec-prefix=%{_execprefix}	\
 	    --with-fuse=external
 
-make -j $CPUS
+gmake -j $CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -127,6 +122,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
+* Sat Jan 28 2012 - Thomas Wagner
+- use gcc3 (or get missing definitions for __BYTE_ORDER)
+* Wed Jan 11 2012 - Thomas Wagner
+- go for SFElibfuse/SFEfusefs in any case (SUNWlibfuse was not contained in distros)
+* Tue Sep 27 2011 - Alex Viskovatoff
+- Build with gcc-3, as does not duild with gcc 4.6
 * Thu Jul 07 2011 - Alex Viskovatoff
 - Revert the previous change, so the package gets built
 * Mon Jun 06 2011 - Ken Mays <kmays2000@gmail.com>

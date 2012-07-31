@@ -9,6 +9,7 @@
 %define src_name	smf-grey
 
 Name:		SFEsmf-grey
+IPS_Package_Name:	service/network/smtp/smf-grey
 Summary:	Sendmail milter implementing greylisting
 Version:	2.1.0
 License:	GPLv2

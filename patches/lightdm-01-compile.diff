@@ -1,60 +1,33 @@
---- lightdm-0.4.4/greeters/Makefile.am-orig	2011-07-19 11:02:44.566471481 -0500
-+++ lightdm-0.4.4/greeters/Makefile.am	2011-07-19 11:02:50.206873997 -0500
-@@ -4,9 +4,9 @@ if HAVE_GTK_GREETER
- SUBDIRS += gtk
- endif
+--- lightdm-0.9.4/utils/Makefile.am-orig	2011-08-24 12:45:59.093772069 -0500
++++ lightdm-0.9.4/utils/Makefile.am	2011-08-24 12:52:36.208255904 -0500
+@@ -1,5 +1,6 @@
+ bin_PROGRAMS = dm-tool
+ libexec_PROGRAMS = lightdm-set-defaults
++pkglibexecdir = $(libexecdir)/@PACKAGE@
+ dist_pkglibexec_SCRIPTS = gdmflexiserver
  
--if HAVE_VALA_GTK_GREETER
--SUBDIRS += vala-gtk
--endif
-+#if HAVE_VALA_GTK_GREETER
-+#SUBDIRS += vala-gtk
-+#endif
- 
- if HAVE_QT_GREETER
- SUBDIRS += qt
---- lightdm-0.4.4/src/display-manager.c-orig	2011-07-19 11:06:12.534564590 -0500
-+++ lightdm-0.4.4/src/display-manager.c	2011-07-19 11:11:43.553705943 -0500
-@@ -13,6 +13,7 @@
- 
- #include <stdlib.h>
- #include <string.h>
-+#include <sys/wait.h>
- 
- #include "display-manager.h"
- #include "configuration.h"
---- lightdm-0.4.4/src/lightdm.c-orig	2011-07-19 11:04:25.053333794 -0500
-+++ lightdm-0.4.4/src/lightdm.c	2011-07-19 11:05:13.888291514 -0500
-@@ -17,6 +17,7 @@
- #include <glib/gi18n.h>
- #include <unistd.h>
- #include <fcntl.h>
-+#include <sys/stat.h>
- 
- #include "configuration.h"
- #include "display-manager.h"
---- lightdm-0.4.4/tests/src/test-runner.c-orig	2011-07-19 11:06:27.044721584 -0500
-+++ lightdm-0.4.4/tests/src/test-runner.c	2011-07-19 11:12:27.478006096 -0500
-@@ -9,6 +9,7 @@
- #include <sys/types.h>
- #include <sys/socket.h>
- #include <sys/un.h>
-+#include <sys/wait.h>
- 
- /* For some reason sys/un.h doesn't define this */
- #ifndef UNIX_PATH_MAX
---- lightdm-0.4.4/tests/src/Makefile.am-orig	2011-07-19 11:12:45.912942352 -0500
-+++ lightdm-0.4.4/tests/src/Makefile.am	2011-07-19 11:14:55.971351465 -0500
-@@ -9,7 +9,7 @@ test_runner_CFLAGS = \
+ dm_tool_SOURCES = \
+--- lightdm-1.0.6/tests/src/Makefile.am-orig	2011-11-28 17:50:57.820835098 -0600
++++ lightdm-1.0.6/tests/src/Makefile.am	2011-11-28 17:51:30.822504803 -0600
+@@ -12,7 +12,7 @@ test_runner_CFLAGS = \
  	-DBUILDDIR=\"$(abs_top_builddir)\"
  test_runner_LDADD = \
  	$(GLIB_LIBS) \
 -	$(GIO_LIBS)
 +	$(GIO_LIBS) -lsocket -lnsl
  
- test_xserver_SOURCES = test-xserver.c status.c status.h
- test_xserver_CFLAGS = \
-@@ -22,7 +22,7 @@ test_xserver_LDADD = \
+ X_SOURCES = X.c x-authority.c x-authority.h x-common.c x-common.h x-server.c x-server.h xdmcp-client.c xdmcp-client.h status.c status.h
+ X_CFLAGS = \
+@@ -25,7 +25,7 @@ X_LDADD = \
+ 	$(GOBJECT_LIBS) \
+ 	$(GLIB_LIBS) \
+ 	$(GIO_LIBS) \
+-	$(GIO_UNIX_LIBS)
++	$(GIO_UNIX_LIBS) -lsocket -lnsl
+ 
+ Xvnc_SOURCES = Xvnc.c x-authority.c x-authority.h x-common.c x-common.h x-server.c x-server.h status.c status.h
+ Xvnc_CFLAGS = \
+@@ -38,7 +38,7 @@ Xvnc_LDADD = \
  	$(GOBJECT_LIBS) \
  	$(GLIB_LIBS) \
  	$(GIO_LIBS) \
@@ -63,18 +36,63 @@
  
  test_gobject_greeter_SOURCES = test-gobject-greeter.c status.c status.h
  test_gobject_greeter_CFLAGS = \
-@@ -30,7 +30,7 @@ test_gobject_greeter_CFLAGS = \
+@@ -52,21 +52,21 @@ test_gobject_greeter_LDADD = \
+ 	-llightdm-gobject-1 \
+ 	$(GLIB_LIBS) \
+ 	$(GOBJECT_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ test_guest_account_SOURCES = test-guest-account.c status.c status.h
+ test_guest_account_CFLAGS = \
  	$(WARN_CFLAGS) \
- 	$(GLIB_CFLAGS) \
- 	$(GOBJECT_CFLAGS) \
--	$(XCB_CFLAGS)
-+	$(XCB_CFLAGS) -lsocket -lnsl
- test_gobject_greeter_LDADD = \
- 	-L$(top_builddir)/liblightdm-gobject \
- 	-llightdm-gobject-0 \
-@@ -45,4 +45,4 @@ test_session_CFLAGS = \
+ 	$(GLIB_CFLAGS)
+ test_guest_account_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ test_script_hook_SOURCES = test-script-hook.c status.c status.h
+ test_script_hook_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ test_script_hook_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ test-qt-greeter_moc.cpp: test-qt-greeter.h
+ 	moc $< -o $@
+@@ -79,7 +79,7 @@ test_qt_greeter_LDADD = \
+ 	-L$(top_builddir)/liblightdm-qt \
+ 	-llightdm-qt-1 \
+ 	$(LIGHTDM_QT_GREETER_LIBS) \
+-	$(XCB_LIBS)
++	$(XCB_LIBS) -lsocket -lnsl
+ 
+ test_session_SOURCES = test-session.c status.c status.h
+ test_session_CFLAGS = \
+@@ -88,14 +88,14 @@ test_session_CFLAGS = \
  	$(XCB_CFLAGS)
  test_session_LDADD = \
  	$(GLIB_LIBS) \
 -	$(XCB_LIBS)
 +	$(XCB_LIBS) -lsocket -lnsl
+ 
+ plymouth_SOURCES = plymouth.c status.c status.h
+ plymouth_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GLIB_CFLAGS)
+ plymouth_LDADD = \
+-	$(GLIB_LIBS)
++	$(GLIB_LIBS) -lsocket -lnsl
+ 
+ vnc_client_SOURCES = vnc-client.c status.c status.h
+ vnc_client_CFLAGS = \
+@@ -104,7 +104,7 @@ vnc_client_CFLAGS = \
+ 	$(GIO_CFLAGS)
+ vnc_client_LDADD = \
+ 	$(GLIB_LIBS) \
+-	$(GIO_LIBS)
++	$(GIO_LIBS) -lsocket -lnsl
+ 
+ CLEANFILES = \
+ 	test-qt-greeter_moc.cpp

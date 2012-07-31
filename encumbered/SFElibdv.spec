@@ -13,11 +13,15 @@
 %use libdv = libdv.spec
 
 Name:		SFElibdv
+IPS_Package_Name:	library/video/libdv
 Summary:	%{libdv.summary}
 Version:	%{libdv.version}
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%description
+The Quasar DV Codec (libdv) is a software decoder for DV format video, as defined by the IEC 61834 and SMPTE 314M standards. DV is the encoding format used by consumer-grade digital camcorders.
 
 %package devel
 Summary:         %{summary} - development files

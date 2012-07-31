@@ -1,0 +1,22 @@
+--- chrpath-0.14/protos.h	Mon Sep 26 20:13:23 2011
++++ chrpath-0.14-patch/protos.h	Sat Oct 29 23:02:41 2011
+@@ -4,1 +4,1 @@
+-#include <byteswap.h>
++#include <sys/byteorder.h>
+@@ -36,4 +36,4 @@
+-#define DO_SWAPU32(x) ( !swap_bytes() ? x : (uint32_t)bswap_32(x) )
+-#define DO_SWAPU64(x) ( !swap_bytes() ? x : (uint64_t)bswap_64(x) )
+-#define DO_SWAPS32(x) ( !swap_bytes() ? x : (int32_t)bswap_32(x) )
+-#define DO_SWAPS64(x) ( !swap_bytes() ? x : (int64_t)bswap_64(x) )
++#define DO_SWAPU32(x) ( !swap_bytes() ? x : (uint32_t)BSWAP_32(x) )
++#define DO_SWAPU64(x) ( !swap_bytes() ? x : (uint64_t)BSWAP_64(x) )
++#define DO_SWAPS32(x) ( !swap_bytes() ? x : (int32_t)BSWAP_32(x) )
++#define DO_SWAPS64(x) ( !swap_bytes() ? x : (int64_t)BSWAP_64(x) )
+--- chrpath-0.14/chrpath.c	Mon Sep 26 20:13:45 2011
++++ chrpath-0.14-patch/chrpath.c	Sat Oct 29 23:02:58 2011
+@@ -191,1 +191,1 @@
+-        bswap_32(DT_RUNPATH) : DT_RUNPATH;
++        BSWAP_32(DT_RUNPATH) : DT_RUNPATH;
+@@ -194,1 +194,1 @@
+-        bswap_64(DT_RUNPATH) : DT_RUNPATH;
++        BSWAP_64(DT_RUNPATH) : DT_RUNPATH;

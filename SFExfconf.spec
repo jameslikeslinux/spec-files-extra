@@ -7,14 +7,17 @@
 %include Solaris.inc
 
 %define src_name xfconf
-%define src_url http://archive.xfce.org/xfce/4.8/src/
+%define src_url http://archive.xfce.org/src/xfce/xfconf/4.8
 
 Name:		SFExfconf
+IPS_Package_Name:	xfce/config/xfce-config
 Summary:	Configuration management for Xfce
-Version:	4.8.0
+Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+License:	GPLv2
+Group:		Desktop (GNOME)/Libraries
+SUNW_Copyright:	xfconf.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -101,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.8.1
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Wed Aug 19 2009 - sobotkap@gmail.com

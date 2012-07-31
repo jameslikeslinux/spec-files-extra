@@ -8,8 +8,8 @@
 Name:                    SFEtorsmo
 Summary:                 Tyopoyta ORvelo System MOnitor
 Version:                 0.18
-Source:                  http://www.belenix.org/binfiles/torsmo-%{version}.tar.gz
-Source1:                 nicdrivers
+Source:                  %{sf_download}/torsmo/torsmo/torsmo%%20%{version}/torsmo-%{version}.tar.gz
+#Source1:                 nicdrivers
 Patch1:                  torsmo-01-gcc.diff
 URL:                     http://torsmo.sourceforge.net/
 #SUNW_BaseDir:            %{_basedir}
@@ -77,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Mon May 5 2008 - andras.barna@gmail.com
 - Bump to 0.18, fix gccism
 * Apr Sun 6 2008 - pradhap (at) gmail.com

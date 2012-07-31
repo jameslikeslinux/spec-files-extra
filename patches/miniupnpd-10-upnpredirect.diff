@@ -1,0 +1,10 @@
+--- miniupnpd-1.6.20120207/upnpredirect.h	2011-06-22 13:34:50.000000000 -0700
++++ miniupnpd-1.6.20120207-patched/upnpredirect.h	2012-02-28 22:15:17.777825062 -0800
+@@ -12,6 +12,7 @@
+ #include <sys/types.h>
+ 
+ #include "config.h"
++#include "miniupnpdtypes.h"
+ 
+ #ifdef ENABLE_LEASEFILE
+ int reload_from_lease_file(void);

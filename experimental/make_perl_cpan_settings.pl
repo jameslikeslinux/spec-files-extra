@@ -113,6 +113,7 @@ print OUT <<_END ;
 # includes module(s):
 #
 \%include Solaris.inc
+\%include packagenamemacros.inc
 
 \%define tarball_version $mod->{RO}->{CPAN_VERSION}
 \%define tarball_name    $module_name
@@ -130,10 +131,8 @@ SUNW_Basedir:	\%{_basedir}
 SUNW_Copyright: \%{name}.copyright
 Source0:	http://search.cpan.org/CPAN/authors/id/$cpan_file
 
-BuildRequires:	SUNWperl584core
-BuildRequires:	SUNWperl584usr
-Requires:	SUNWperl584core
-Requires:	SUNWperl584usr
+BuildRequires:	%pnm_buildrequires_perl_default
+Requires:	%pnm_requires_perl_default
 
 Meta(info.maintainer):          roboporter by pkglabo.justplayer.com <pkgadmin\@justplayer.com>
 Meta(info.upstream):            $vendor
@@ -146,7 +145,7 @@ $mod->{RO}->{description}
 \%setup -q -n \%{tarball_name}-\%{tarball_version}
 
 \%build
-perl Makefile.PL PREFIX=\%{_prefix} DESTDIR=\$RPM_BUILD_ROOT LIB=/usr/perl5/vendor_perl/5.8.4
+perl Makefile.PL PREFIX=\%{_prefix} DESTDIR=\$RPM_BUILD_ROOT LIB=%{_prefix}/%{perl_path_vendor_perl_version}
 make
 
 \%install
@@ -161,10 +160,10 @@ rm -rf \$RPM_BUILD_ROOT
 
 \%files
 \%defattr(-,root,bin)
-\%{_prefix}/perl5
+\%{_prefix}/perl%{perl_major_version}
 \%dir \%attr(0755,root,sys) \%{_datadir}
 \%{_mandir}
-\#\%dir \%attr(0755,root,sys) \%{_bindir}
+\#\%dir \%attr(0755,root,bin) \%{_bindir}
 \#\%{_bindir}/*
 
 \%changelog
@@ -173,6 +172,13 @@ _END
 close(OUT);
 
 print "1st, check SFEperl-$pkg.spec and copyright/SFEperl-$pkg.copyright.\n";
-print "License parameter is always Artistic. check it.\n";
+print "License parameter is always Artistic. You'll have to check it and change\n";
+print "to the right copyright string and file in case this module uses other licensing.\n";
 print "2nd,\n../bin/specbuild.sh SFEperl-$pkg.spec\n";
 
+
+__DATA__
+%changelog
+* Wed Jul 20 2011 - Thomas Wagner
+- use pnm_macros, prepare for perl versions other then 5.8.4
+- adujst notes at the end

@@ -43,7 +43,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 # This source is gcc-centric, therefore...
-export CC=/usr/gnu/bin/gcc
+export CC=gcc
 export CFLAGS="%optflags"
 #export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointer"
 %if %option_with_fox
@@ -81,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Jul 10 2011 - Alex Viskovatoff
 - Build with SFEgcc
 * Fri Mar 21 2008 - nonsea@users.sourceforge.net

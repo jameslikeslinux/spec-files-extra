@@ -1,33 +1,30 @@
 #
 # spec file for package SFEsmplayer
 #
-# includes module: smplayer
-#
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname smplayer
+%define pkgname smplayer
 
 Name:		SFEsmplayer
-Summary:	MPlayer front-end
+IPS_package_name: media/smplayer
+Summary:	MPlayer front-end using Qt
+Group:		Applications/Sound and Video
 URL:		http://smplayer.sourceforge.net
-Vendor:		Ricardo Villalba
+Meta(info.upstroam):	Ricardo Villalba
 Version:	0.6.9
 License:	GPL
 Source:		%sf_download/%srcname/%srcname-%version.tar.bz2
 Patch1:		smplayer-01-std-namespace.diff
+SUNW_Copyright:	smplayer.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
-%include default-depend.inc
+%include	default-depend.inc
 
-BuildRequires: SUNWgmake
-BuildRequires: SUNWgnu-coreutils
-BuildRequires: SUNWgtar
-BuildRequires: SFEqt47-gpp-devel
-Requires: SFEqt47-gpp
-Requires: SUNWzlib
+BuildRequires:	SFEqt-gpp-devel
+Requires:	SFEqt-gpp
 
 
 %prep
@@ -35,15 +32,10 @@ Requires: SUNWzlib
 %patch1 -p1
 
 %build
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
-
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
-export LIBS=-lz
+export CC=gcc
+export CXX=g++
 export PATH=/usr/g++/bin:$PATH
 export QMAKESPEC=solaris-g++
 export QTDIR=/usr/g++
@@ -60,31 +52,33 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%_bindir/%srcname
+%_bindir/%pkgname
 %dir %attr (-, root, sys) %_datadir
 %dir %attr (-, root, other) %_datadir/applications
 %_datadir/applications/*.desktop
 %dir %attr (-, root, other) %_docdir
-%_docdir/%srcname
+%_docdir/%pkgname
 %_mandir
-%_datadir/%srcname
+%_datadir/%pkgname
 %dir %attr (-, root, other) %_datadir/icons
 %dir %attr (-, root, other) %_datadir/icons/hicolor
 %dir %attr (-, root, other) %_datadir/icons/hicolor/16x16
 %dir %attr (-, root, other) %_datadir/icons/hicolor/16x16/apps
-%_datadir/icons/hicolor/16x16/apps/smplayer.png
+%_datadir/icons/hicolor/16x16/apps/%pkgname.png
 %dir %attr (-, root, other) %_datadir/icons/hicolor/22x22
 %dir %attr (-, root, other) %_datadir/icons/hicolor/22x22/apps
-%_datadir/icons/hicolor/22x22/apps/smplayer.png
+%_datadir/icons/hicolor/22x22/apps/%pkgname.png
 %dir %attr (-, root, other) %_datadir/icons/hicolor/32x32
 %dir %attr (-, root, other) %_datadir/icons/hicolor/32x32/apps
-%_datadir/icons/hicolor/32x32/apps/smplayer.png
+%_datadir/icons/hicolor/32x32/apps/%pkgname.png
 %dir %attr (-, root, other) %_datadir/icons/hicolor/64x64
 %dir %attr (-, root, other) %_datadir/icons/hicolor/64x64/apps
-%_datadir/icons/hicolor/64x64/apps/smplayer.png
+%_datadir/icons/hicolor/64x64/apps/%pkgname.png
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Fri Jan 28 2011 - Alex Viskovatoff
 - Stop linking to libCstd (which did not cause crashes for some reason)
 - Add the Qt bin directory to $PATH, so one patch is no longer needed

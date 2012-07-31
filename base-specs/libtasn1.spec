@@ -17,7 +17,7 @@ Docdir:         %{_datadir}/doc
 Autoreqprov:	on
 URL:		http://www.sun.com/software/javadesktopsystem/
 Epoch:		2
-Source:		ftp://ftp.gnutls.org/pub/gnutls/libtasn1/%{name}-%{version}.tar.gz
+Source:		http://ftp.gnu.org/gnu/libtasn1/%{name}-%{version}.tar.gz
 Summary:	Libtasn is a library written in C for manipulating ASN.1 objects.
 
 %description
@@ -86,5 +86,7 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix download location
 * Tue Mar 28 2007 - jeff.cai@sun.com
 - Split to two spec files.

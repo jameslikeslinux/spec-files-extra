@@ -38,6 +38,7 @@ Name:                   SFE%{src_name}
 Summary:                LPRng - enhanced printer spooler RFC1179
 URL:                    http://www.lprng.com/
 Version:                3.8.A
+IPS_component_version:  3.8.1
 Source:                 http://%{sf_mirror}/sourceforge/%{src_name}/LPRng-%{version}.tar.gz
 Source2:                lprng.xml
 
@@ -167,6 +168,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- IPS friendly version
 * Sat May 16 2009 - Thomas Wagner
 - adjust %doc section
 * Sun Oct 18 2008  - Thomas Wagner

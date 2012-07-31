@@ -11,6 +11,8 @@
 
 Name:                SFEswftools
 Summary:             SWF manipulation and generation utilities
+License:             GPLv2
+SUNW_Copyright:      swftools.copyright
 Version:             0.8.1
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:              swftools-01-sunpro.diff

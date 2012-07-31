@@ -14,7 +14,11 @@
 
 Name:                    SFEossp-uuid
 IPS_package_name:        library/ossp-uuid
+Group:                   Applications/System Utilities
 Summary:                 %{ossp_uuid.summary}
+URL:                     http://www.ossp.org/pkg/lib/uuid/
+License:                 MIT
+SUNW_Copyright:          ossp-uuid.copyright
 Version:                 %{ossp_uuid.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -89,5 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu May 12 2011 - Albert Lee <trisk@opensolaris.org>
 - Initial sepc

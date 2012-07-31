@@ -8,10 +8,13 @@
 %define src_name smfgui
 
 Name:		SFEsmfgui
+IPS_Package_Name:	system/management/smfgui
 Summary:	SMF GUI
-Version:	0.9.5.1
+Version:	0.9.5.3
 URL:		http://smfgui.sourceforge.net/
-Source:		%{sf_download}/%{src_name}/%{src_name}_%{version}_src.tar.bz2
+Source:		%{sf_download}/%{src_name}/%{src_name}_%{version}_src.tar.gz
+License:	CDDL
+SUNW_copyright:	smfgui.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -36,5 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}
 
 %changelog
+- Tue Sep 27 2011 - Alex Viskovatoff
+- add SUNW_copyright
+* Tue Sep 27 2011 - Milan Jurik
+- bump to 0.9.5.3
 * Sat Mar 26 2011 - Milan Jurik
 - initial spec

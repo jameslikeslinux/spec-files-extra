@@ -15,6 +15,7 @@
 %use fluidsynth = fluidsynth.spec
 
 Name:		SFEfluidsynth
+IPS_Package_Name:	media/fluidsynth
 Summary:	%{fluidsynth.summary}
 Version:	%{fluidsynth.version}
 License:	%{fluidsynth.license}

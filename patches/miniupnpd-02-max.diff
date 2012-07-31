@@ -1,0 +1,10 @@
+--- miniupnpd-1.6.20120207/upnphttp.c	2012-02-07 02:18:59.000000000 -0800
++++ miniupnpd-1.6.20120207-patched/upnphttp.c	2012-02-28 21:51:20.602964752 -0800
+@@ -25,6 +25,7 @@
+ #include "upnpsoap.h"
+ #include "upnpevents.h"
+ #include "upnputils.h"
++#include "miniupnpdtypes.h"
+ 
+ struct upnphttp * 
+ New_upnphttp(int s)

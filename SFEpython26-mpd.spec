@@ -19,8 +19,8 @@ License:	GPLv3
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 Url:		http://jatreuman.indefero.net/p/python-mpd/
+SUNW_Copyright: python-mpd.copyright
 SUNW_Basedir:	%{_basedir}
-SUNW_Copyright: python26-mpd.copyright
 
 Source0:	http://pypi.python.org/packages/source/p/python-mpd/python-mpd-%{version}.tar.bz2
 
@@ -67,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages/python_mpd-%{version}-py%{python_version}.egg-info
 
 %changelog
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Thu Jun 30 2011 - Alex Viskovatoff
 - Bump to 0.3.0
 * Tue Dec 01 2009 - jlee@thestaticvoid.com

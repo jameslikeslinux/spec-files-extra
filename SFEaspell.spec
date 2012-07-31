@@ -15,14 +15,18 @@
 %use aspell = aspell.spec
 
 Name:          SFEaspell
+IPS_Package_Name:	 library/spell-checking/aspell
 Summary:       A Spell Checker
 Version:       %{aspell.version}
+License:       LGPLv2.0+
+SUNW_Copyright: aspell.copyright
 SUNW_BaseDir:  %{_prefix}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:      SUNWlibC
 Requires:      SUNWlibms
 Requires:      SUNWlibmsr
+Requires:      SUNWncurses
 Requires:      %pnm_requires_perl_default
 BuildConflicts:	SUNWaspell
 
@@ -49,13 +53,6 @@ export MSGFMT="/usr/bin/msgfmt"
 export CXXFLAGS="%cxx_optflags -staticlib=stlport4"
 
 %aspell.install -d %name-%version
-mv $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_libdir}/aspell/
-rm -rf $RPM_BUILD_ROOT%{_bindir}
-
-# The only stuff in datadir is doc, info and man which we do not want
-# to package.  
-#
-rm -rf $RPM_BUILD_ROOT%{_datadir}
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -68,16 +65,23 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}
 #%doc COPYING README
 #%doc manual/aspell.html
-%{_mandir}/*/*
-%{_bindir}/spell
+%dir %attr (0755, root, bin) %{_mandir}
+%dir %attr (0755, root, bin) %{_mandir}/man1
+%{_mandir}/man1/*
+%dir %attr (0755, root, bin) %{_bindir}
+%{_bindir}/aspell
 %{_bindir}/aspell-import
 %{_bindir}/run-with-aspell
 %{_bindir}/word-list-compress
 %{_bindir}/ispell
 %{_bindir}/pre*
 %{_bindir}/pspell-config
+%defattr (-, root, other)
 %{_libdir}/lib*.so*
-%{_libdir}/aspell
+%dir %attr (0755, root, bin) %{_libdir}/aspell
+%{_libdir}/aspell/*
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/locale/*/LC_MESSAGES/aspell.mo
 
 %files devel
 %defattr (-, root, bin)
@@ -85,6 +89,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
+- fixed permissions.
+* Thu Feb 23 2012 - Logan Bruns <logan@gedanken.org>
+- restored spec, added an ips package name, restored /usr/bin binary placement, and man page installation
+* Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jun 13 2011 - Ken Mays <kmays2000@gmail.com>
 - Fixed packaging per BUG #2110810.
 * Fri Mar 05 2010 - Brian Cameron <brian.cameron@oracle.com>

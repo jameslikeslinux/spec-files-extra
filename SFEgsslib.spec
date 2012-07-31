@@ -7,7 +7,7 @@
 %include usr-gnu.inc
 
 %define	src_name gss
-%define	src_url	http://josefsson.org/gss/releases
+%define	src_url	ftp://alpha.gnu.org/gnu/gss
 
 Name:                SFEgsslib
 Summary:             GNU Generic Security Service
@@ -120,5 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Fri Jul 27 2007 - dougs@truemail.co.th
 - Initial spec

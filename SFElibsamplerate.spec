@@ -16,7 +16,12 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                SFElibsamplerate
+IPS_Package_Name:    library/audio/libsamplerate
 Summary:             %{libsamplerate.summary}
+URL:                 http://www.mega-nerd.com/SRC/
+Meta(info.upstream): Erik de Castro Lopo <erikd@mega-nerd.com>
+License:             GPLv2
+SUNW_Copyright:	     libsamplerate.copyright
 Version:             %{libsamplerate.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -37,6 +42,17 @@ Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
+
+%description
+Secret Rabbit Code (aka libsamplerate) is a Sample Rate Converter for audio. One
+example of where such a thing would be useful is converting audio from the CD
+sample rate of 44.1kHz to the 48kHz sample rate used by DAT players.
+
+SRC is capable of arbitrary and time varying conversions; from downsampling by
+a factor of 256 to upsampling by the same factor. Arbitrary in this case means
+that the ratio of input and output sample rates can be an irrational number. The
+conversion ratio can also vary with time for speeding up and slowing down
+effects.
 
 %prep
 rm -rf %name-%version
@@ -93,6 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- added ips package name.
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Feb 04 2010 - Halton Huo <halton.huo@gmail.com>
 - Add SUNWaudioh as BuildRequires
 * Tue Feb 17 2009 - Thomas Wagner

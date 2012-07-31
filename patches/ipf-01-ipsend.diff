@@ -1,0 +1,15 @@
+--- ip_fil5.1.1/ipsend/ipsend.h	2006-06-15 09:31:45.000000000 -0700
++++ ip_fil5.1.1-patched/ipsend/ipsend.h	2012-02-27 21:40:25.165142645 -0800
+@@ -26,8 +26,11 @@
+ #include "ipf.h"
+ #ifdef	linux
+ #include <linux/sockios.h>
+-#endif
++#elif defined(SOLARIS2)
++#include <netinet/tcpip.h>
++#else
+ #include "tcpip.h"
++#endif
+ #include "ipt.h"
+ 
+ extern	int	resolve __P((char *, char *));

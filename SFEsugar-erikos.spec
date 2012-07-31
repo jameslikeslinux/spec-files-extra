@@ -10,7 +10,7 @@
 Name:                    SFEsugar-erikos
 Summary:                 Sugar Erikos
 URL:                     http://www.sugarlabs.org/
-Version:                 3 
+Version:                 4 
 Source:                  http://download.sugarlabs.org/sources/honey/Erikos/Erikos-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4
 * Wed Mar 10 2010 - Brian Cameron  <brian.cameron@sun.com>
 - Bump to 3.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>

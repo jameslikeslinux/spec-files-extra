@@ -29,7 +29,10 @@
 %define build_gui %{?_with_gui:1}%{?!_with_gui:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1 
+%include base.inc
 
 %define with_faad %(pkginfo -q SFEfaad2 && echo 1 || echo 0)
 %define with_fribidi %(pkginfo -q SFElibfribidi && echo 1 || echo 0)
@@ -80,7 +83,6 @@ SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-build
 
 %include default-depend.inc
-Requires: SUNWsmbau
 Requires: SUNWgnome-audio
 BuildRequires: SUNWgnome-audio-devel
 Requires: SUNWxorg-clientlibs
@@ -94,18 +96,24 @@ Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
 Requires: SFEgccruntime
 Requires: SUNWgnome-base-libs
-Requires: SUNWsmbau
+Requires: %{pnm_requires_SUNWlibmng}
+Requires: SFElzo
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
+Requires: %{pnm_requires_SUNWsmba}
 Requires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibvpx
+BuildRequires: SFElibvpx-devel
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
+BuildRequires: %{pnm_buildrequires_SUNWlibmng_devel}
+BuildRequires: SFElzo-devel
 %if %with_constant_tarball
-BuildRequires: SFExz
+BuildRequires: %{pnm_buildrequires_SFExz}
 %endif
 
 %if %SFElibsndfile
@@ -284,6 +292,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SFExz (solves SFExz conflict w/ compress/xz)
+* Mon Dec 12 2012 - Thomas Wagner
+- add (Build)Requires pnm_(build)requires_SUNWlibmng(_devel) SFElzo(-devel)
+- change to (Build)Requires pnm_requires_SUNWsmba, include packagenamemacros.inc
+- add re-%include base.inc after cc_is_gcc 1
 * Wed Jul 20 1011 - Alex Viskovatoff
 - Fix version number used for constant tarball
 * Sat Jul 16 2011 - Alex Viskovatoff

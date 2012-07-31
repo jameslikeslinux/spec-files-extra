@@ -14,10 +14,15 @@
 %define drv_base %{usr_kernel}/drv
 
 Name:		SFEfusefs
+IPS_Package_Name:	system/file-system/fusefs
 Summary:	File system in User Space
-Version:	0.%{tarball_version}
+Version:	0.%{tarball_version}.1
+License:	CDDL and BSD
+Group:		System/File System
+SUNW_Copyright:	fusefs.copyright
 URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
 Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
+Patch1:		fuse-01-jean-pierre.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -32,6 +37,7 @@ included in the Linux kernel (2.6.14+).
 
 %prep
 %setup -q -n %{src_name}
+%patch1 -p1
 
 %build
 export PATH=/opt/onbld/bin/`uname -p`:$PATH
@@ -63,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 )
 
 %actions
-driver name=fuse
+driver name=fuse devlink=type=ddi_pseudo;name=fuse\t\D perms="* 0666 root sys"
 
 %files
 %defattr (-, root, bin)
@@ -77,6 +83,12 @@ driver name=fuse
 %endif
 
 %changelog
+* Sat Jan 28 2012 - Milan Jurik
+- add patches from Jean-Pierre Andre 
+* Fri Nov 04 2011 - Guido Berhoerster <gber@openindiana.org>
+- fixed driver action to create devlinks entry
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu Jul 07 2011 - Alex Viskovatoff
 - Revert previous change: source file does not get found
 * Mon Jun 06 2011 - Ken Mays <kmays2000@igmail.com>

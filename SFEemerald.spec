@@ -12,7 +12,8 @@
 Name:		SFEemerald
 Summary:      	Window decorator for compiz
 Version:       	0.8.8
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	emerald.copyright
 Url: 		http://wiki.compiz.org/Decorators/Emerald
 Source:	 	http://releases.compiz.org/0.8.8/emerald-0.8.8.tar.gz
 Group:		Applications/Accessories
@@ -90,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, other) %{_datadir}/locale/*
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Thu May 13 2010 - N.B.Prashanth <nbprash.mit@gmail.com>
 - update to 0.8.8; use SUNWcompiz
 * Thu Nov 15 2007 - daymobrew@users.sourceforge.net

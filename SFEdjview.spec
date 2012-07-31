@@ -12,10 +12,13 @@
 %define srcname djview
 
 Name:		SFEdjview
+IPS_Package_Name:	desktop/djview
 Summary:	DjVu file viewer
 URL:		http://djvu.sourceforge
+Group:		Applications/Office
 Vendor:		Léon Bottou
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	djview.copyright
 Version:	4.7
 Source:		%sf_download/project/djvu/DjView/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -23,11 +26,11 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-gpp-devel
+BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEdjvulibre-devel
 
 Requires:	SFEgccruntime
-Requires:	SFEqt47-gpp
+Requires:	SFEqt-gpp
 Requires:	SFEdjvulibre
 
 
@@ -37,7 +40,7 @@ Requires:	SFEdjvulibre
 
 %build
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++
@@ -77,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sun Jun 12 2011 - Alex Viskovatoff
 - Qt gcc libs are now in their own place
 * Tue Apr 12 2011 - Alex Viskovatoff

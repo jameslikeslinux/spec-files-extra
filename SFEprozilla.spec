@@ -9,7 +9,7 @@
 Name:                    SFEprozilla
 Summary:                 Prozilla download accelerator
 Version:                 2.0.4
-Source:                  http://prozilla.genesys.ro/downloads/prozilla/tarballs/prozilla-%{version}.tar.bz2
+Source:                  ftp://ftp.mgts.by/pub/FreeBSD/ports/distfiles/prozilla-%{version}.tar.bz2
 URL:                     http://prozilla.genesys.ro/
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Patch1:                  prozilla-solaris.patch
@@ -59,6 +59,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/prozilla/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Wed Aug 20 2008 - pradhap (at) gmail.com
 - Initial prozilla spec file.
 

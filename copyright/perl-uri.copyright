@@ -1,0 +1,13 @@
+Copyright  ©1998-2009 Gisle Aas.
+Copyright  ©1998 Graham Barr.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+Perl is distributed under the Artistic and GNU Public licences.
+
+The Artistic licence can be read by running
+perldoc perlartistic
+
+The GNU Public Licence can be read by running
+perldoc perlgpl

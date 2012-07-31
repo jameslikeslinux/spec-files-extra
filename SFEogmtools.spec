@@ -8,9 +8,13 @@
 %define src_name ogmtools
 
 Name:                SFEogmtools
-Summary:             ogmtools - Tools for manipulating Ogg media streams
+IPS_Package_Name:	media/ogmtools
+Summary:             Tools for manipulating Ogg media streams
+Group:               Applications/Sound and Video
 Version:             1.5
 License:             GPLv2+
+SUNW_Copyright:      ogmtools.copyright
+Meta(info.upstream): Moritz Bunkus <moritz@bunkus.org>
 Source:              http://www.bunkus.org/videotools/ogmtools/%{src_name}-%{version}.tar.bz2
 Patch1:              ogmtools-01-nogcc.diff
 Patch2:              ogmtools-02-inttypes.diff
@@ -31,10 +35,7 @@ Requires: SFElibdvdread
 %patch2 -p1
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 aclocal
 automake -a -c -f
@@ -68,5 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jul 25 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Mar 15 2010 - Albert Lee <trisk@opensolaris.org>
 - Initial spec

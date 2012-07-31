@@ -1,0 +1,5 @@
+--- viewnior-1.2/configure.ac	2012-02-24 21:49:19.000000000 +0100
++++ viewnior-1.2/configure.ac	2012-02-26 11:06:58.266787639 +0100
+@@ -20 +20 @@
+-VNR_WARNINGS=-Wall
++VNR_WARNINGS=

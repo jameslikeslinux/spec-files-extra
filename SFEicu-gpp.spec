@@ -14,7 +14,6 @@
 %define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -22,15 +21,15 @@
 %endif
 
 %include base.inc
-# arch64.inc defines opt_arch64 as 1, but base.inc doesn't define it as 0
-%define opt_arch64 0
 %use icu = icu.spec
 
 Name:			SFEicu-gpp
+IPS_Package_Name:	library/g++/icu
 Summary:		%icu.summary (g++ built)
 Version:		%icu.version
 URL:			http://site.icu-project.org/
 License:		BSD.icu
+SUNW_Copyright:		icu.copyright
 SUNW_BaseDir:		%_basedir
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -117,18 +116,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_libdir}/lib*.so*
 %{_libdir}/icu
-%{_libdir}/pkgconfig
 %ifarch amd64 sparcv9
 %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 %{_libdir}/%{_arch64}/lib*.so*
 %{_libdir}/%{_arch64}/icu
-%{_libdir}/%{_arch64}/pkgconfig
 %endif
 
 %files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
+%dir %attr (0755, root, other) %_libdir/pkgconfig 
+%_libdir/pkgconfig/*
+%ifarch amd64 sparcv9
+%dir %attr (0755, root, other) %_libdir/%_arch64/pkgconfig 
+%_libdir/%_arch64/pkgconfig/*
+%endif
 
 
 %changelog

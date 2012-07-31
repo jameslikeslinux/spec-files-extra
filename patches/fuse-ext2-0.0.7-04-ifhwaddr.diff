@@ -1,0 +1,12 @@
+--- e2fsprogs-1.41.9/uuid/gen_uuid.c.old	2012-02-13 15:24:23.153095640 +0000
++++ e2fsprogs-1.41.9/uuid/gen_uuid.c	2012-02-13 15:36:21.263732401 +0000
+@@ -188,7 +188,8 @@
+ #ifdef SIOCGIFHWADDR
+ 		if (ioctl(sd, SIOCGIFHWADDR, &ifr) < 0)
+ 			continue;
+-		a = (unsigned char *) &ifr.ifr_hwaddr.sa_data;
++/**		a = (unsigned char *) &ifr.ifr_hwaddr.sa_data;
++**/
+ #else
+ #ifdef SIOCGENADDR
+ 		if (ioctl(sd, SIOCGENADDR, &ifr) < 0)

@@ -21,14 +21,16 @@
 
 %use libcdio = libcdio.spec
 
-Name:                    SFElibcdio
-Summary:                 GNU Compact Disc Input and Control Library
-License:                 GPLv3
-SUNW_Copyright:	         libcdio.copyright
-URL:                     http://www.gnu.org/software/libcdio/
-Version:                 %{libcdio.version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibcdio
+IPS_Package_Name:	library/audio/libcdio 
+Summary:	GNU Compact Disc Input and Control Library
+Group:		System/Libraries
+License:	GPLv3
+SUNW_Copyright:	libcdio.copyright
+URL:		http://www.gnu.org/software/libcdio/
+Version:	%{libcdio.version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 Requires: SUNWlexpt
@@ -116,8 +118,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/cdio
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- clean up, add IPS package name
 * Thu Jul 21 2011 - Milan Jurik
 - de-gcc spec, leave decision about compiler to environment
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sun Jul 10 2011 - Alex Viskovatoff
 - Build with SFEgcc
 * Sun Apr 11 2010 - Milan Jurik

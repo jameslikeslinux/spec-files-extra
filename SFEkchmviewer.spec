@@ -6,7 +6,6 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname kchmviewer
 
@@ -15,16 +14,17 @@ Summary:	CHM help file viewer based on Qt
 URL:		http://www.kchmviewer.net
 Vendor:		George Yunaev
 Version:	5.2
-License:	GPL
+License:	GPLv3+
+SUNW_Copyright:	kchmviewer.copyright
 Source:		http://downloads.sourceforge.net/%srcname/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SFEqt47-gpp-devel
+BuildRequires: SFEqt-gpp-devel
 BuildRequires: SFEchmlib
 
-Requires: SFEqt47-gpp
+Requires: SFEqt-gpp
 Requires: SFEchmlib
 Requires: SUNWzlib
 
@@ -37,7 +37,7 @@ mv build-%version %srcname-%version
 %build
 cd %srcname-%version
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export PATH=/usr/g++/bin:$PATH
 export QMAKESPEC=solaris-g++
@@ -63,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Apr 13 2011 - Alex Viskovatoff
 - Use only 2 cpus: using 16 cpus breaks build
 * Sat Mar 12 2011 - Alex Viskovatoff

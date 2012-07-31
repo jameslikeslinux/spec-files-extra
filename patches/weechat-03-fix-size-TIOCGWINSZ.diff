@@ -1,0 +1,19 @@
+--- weechat-0.3.6/src/gui/curses/gui-curses-window.c_old	2011-10-30 17:02:33.652427573 +0000
++++ weechat-0.3.6/src/gui/curses/gui-curses-window.c	2011-10-30 17:26:36.274039960 +0000
+@@ -32,6 +32,7 @@
+ #include <stdarg.h>
+ #include <libgen.h>
+ #include <sys/ioctl.h>
++#include <sys/termios.h>
+ 
+ #include "../../core/weechat.h"
+ #include "../../core/wee-config.h"
+@@ -94,7 +95,7 @@
+     struct winsize size;
+     int new_width, new_height;
+     
+-    if (ioctl (fileno (stdout), TIOCGWINSZ, &size) == 0)
++    if ( (fileno (stdout), TIOCGWINSZ, &size) == 0)
+     {
+         resizeterm (size.ws_row, size.ws_col);
+         gui_term_cols = size.ws_col;

@@ -6,14 +6,15 @@
 
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 %define srcname ncmpcpp
 
 Name:		SFEncmpcpp
 Summary:	Text-mode Music Player Daemon client
+License:	GPLv2
+SUNW_Copyright:	ncmpcpp.copyright
 URL:		http://unkart.ovh.org/ncmpcpp
-Vendor:		Andrzej Rybczak <electricityispower.gmail.com>
+Meta(info.upstream):	Andrzej Rybczak <electricityispower.gmail.com>
 Version:	0.5.7
 License:	GPLv2
 Source:		http://unkart.ovh.org/%srcname/%srcname-%version.tar.bz2
@@ -45,7 +46,7 @@ export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
 export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/include/ncurses -L/usr/gnu/lib -R/usr/gnu/lib"
 export LIBS=-lsocket
-export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
+export LDFLAGS="%_ldflags %gnu_lib_path"
 # Very strangely, without "--without-taglib" link errors are produced
 # even if taglib is not installed
 ./configure --prefix=%_prefix \
@@ -81,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff
 - Add -fpermissive flag to allow compilation with gcc 4.6
 * Sun May 22 2011 - N.B.Prashanth <nbprash.mit@gmail.com>

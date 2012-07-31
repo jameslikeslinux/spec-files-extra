@@ -28,7 +28,7 @@
 +#include <math.h>
  #include <cassert>
  #include <cmath>
-+#include <iostream.h>
++#include <iostream>
  
  #ifndef _MSC_VER
  using std::floor;

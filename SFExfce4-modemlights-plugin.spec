@@ -1,11 +1,10 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Initial modemlights plugin specs for Xfce by Ken Mays
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
 
-%define xfce_version 4.8.0
 
 Name:			SFExfce4-modemlights-plugin
 Summary:		Modem PPP connection applet for Xfce
@@ -30,7 +29,7 @@ Requires:		SFExfce4-panel
 Requires:		SUNWpostrun
 
 %prep
-%setup -q -n xfce4-weather-plugin-%{version}
+%setup -q -n xfce4-modemlights-plugin-%{version}
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -38,7 +37,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -lsocket -lnsl"
 export LDFLAGS="%_ldflags"
 ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
@@ -47,7 +46,6 @@ export LDFLAGS="%_ldflags"
             --mandir=%{_mandir} \
             --sysconfdir=%{_sysconfdir} \
 	    --with-locales-dir=%{_datadir}/locale \
-            --enable-gtk-doc \
             --disable-static
 
 make -j $CPUS
@@ -73,14 +71,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 
 %files
 %defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/xfce4
-%dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/xfce4
-%defattr(-,root,other)
-%{_datadir}/locale
-%{_datadir}/icons
+%{_libdir}
+%{_datadir}
 
 %changelog
 * Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
-- Initial version
+- Initial version (0.1.3.99)
+

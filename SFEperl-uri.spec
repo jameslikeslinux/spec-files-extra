@@ -14,7 +14,11 @@
 %define uri_version 1.58
 
 Name:                    SFEperl-uri
+IPS_Package_Name:	library/perl-5/uri
 Summary:                 URI-%{uri_version} PERL module
+Group:		Development/Perl
+License:                 GPL+ or Artistic
+SUNW_Copyright:          perl-uri.copyright
 Version:                 %{perl_version}.%{uri_version}
 Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-%{uri_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}

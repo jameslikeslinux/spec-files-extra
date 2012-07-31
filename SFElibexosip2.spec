@@ -10,8 +10,10 @@
 %include Solaris.inc
 
 Name:		SFElibexosip2
+IPS_Package_Name:	library/libexosip2
 Summary:	eXosip is a library that hides the complexity of using the SIP protocol for mutlimedia session establishement
-Version:	3.5.0
+Version:	3.6.0
+Group:		System/Libraries
 Source:		http://download.savannah.gnu.org/releases/exosip/libeXosip2-%{version}.tar.gz
 URL:		http://savannah.nongnu.org/projects/exosip/
 SUNW_BaseDir:	%{_basedir}
@@ -64,5 +66,7 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 3.6.0
 * Thu Feb 10 2011 - Milan Jurik
 - initial spec

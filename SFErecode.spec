@@ -5,28 +5,29 @@
 #
 %include Solaris.inc
 
-Name:                SFErecode
-Summary:             library that converts files between character sets and usages
-Version:             3.6
-Source:              ftp://ftp.gnu.org/pub/gnu/recode/recode-%{version}.tar.gz
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
-Patch1:		     recode.01.diff
+Name:		SFErecode
+IPS_Package_Name:	library/recode
+Summary:	library that converts files between character sets and usages
+Version:	3.6
+Source:		http://recode.progiciels-bpi.ca/archives/recode-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+Patch1:		recode.01.diff
 %include default-depend.inc
 Requires: SUNWpostrun
 BuildRequires:	SUNWtexi
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 %endif
 
 %package devel
-Summary:                 %{summary} - developer files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - developer files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 

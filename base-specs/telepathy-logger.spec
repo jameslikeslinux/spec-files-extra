@@ -7,7 +7,7 @@
 Name:           telepathy-logger
 License:        GPL
 Group:          Applications/Internet
-Version:        0.2.10
+Version:        0.4.0
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
@@ -65,5 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Thu May 10 2012 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 0.4.0.
 * Wed Jul 06 2011 - Brian Cameron <brian.cameron@oracle.com>
 - Created with version 0.2.10.

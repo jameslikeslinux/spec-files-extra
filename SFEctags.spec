@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                SFEctags
+IPS_Package_Name:	developer/exctags
 Summary:             Exuberant ctags
 Version:             5.8
 License:             GPLv2

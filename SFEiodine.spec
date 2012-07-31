@@ -8,8 +8,12 @@
 %define src_version 0.6.0-rc1
 
 Name:                SFEiodine
+IPS_Package_Name:	service/network/iodine
 Summary:             iodine - IP over DNS is now easy
 Version:             0.5.99.1
+License:             MIT
+SUNW_Copyright:      iodine.copyright
+Group:		System/Services
 URL:                 http://code.kryo.se/iodine/
 Source:              http://code.kryo.se/iodine/iodine-%{src_version}.tar.gz
 Patch1:              iodine-01-solaris.diff
@@ -59,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Fri Mar 25 2011 - Albert Lee <trisk@opensolaris.org>
 - Bump to 0.6.0-rc1
 - Add patch1, patch2

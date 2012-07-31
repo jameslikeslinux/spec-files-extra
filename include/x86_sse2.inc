@@ -12,7 +12,11 @@
 %define can_isaexec 1
 %define gtk_doc_option --disable-gtk-doc
 
+%if %cc_is_gcc
+%define arch_ldadd           -L%{_libdir} -R%{_libdir}
+%else
 %define arch_ldadd           -xarch=sse2 -L%{_libdir} -R%{_libdir}
+%endif
 
 %if %debug_build
 %define pkgbuild_postprocess /bin/true
@@ -71,6 +75,10 @@
 %define xorg_lib_path	-L%xorg_lib -L/usr/X11/lib -R%xorg_lib -R/usr/X11/lib
 
 # ChangeLog:
+# Sat Aug 13 2011 - Thomas Wagner
+# do not set -xarch=sse2 in arch_ldadd for case cc_is_gcc == 1,
+# this avoids gcc errors in configure "gcc: error: language arch=sse2 not recognized"
+# replace for gcc -mcpu with -march
 # 2011-05-02  Alex Viskovatoff <herzen@imap.cc>
 # use -march instead of deprecated -mcpu flag
 # 2007-04-23  Doug Scott  <dougs@truemail.co.th>

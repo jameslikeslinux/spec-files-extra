@@ -32,17 +32,20 @@
 #for now just cut out all char [A-z]
 IPS_component_version: $( echo %{version} | sed -e s'/[A-z]//' )
 
-Name:                    SFEliveMedia
-Summary:                 liveMedia - live555 Streaming Media
-Version:                 %{version_detected}
-Source:                  http://www.live555.com/liveMedia/public/live.%{src_version}.tar.gz
-Patch1:                  liveMedia-01-SOLARIS-macro.diff
-Patch2:                  liveMedia-02-config.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{src_version}-build
+Name:		SFEliveMedia
+IPS_Package_Name:	library/video/liveMedia 
+Summary:	liveMedia - live555 Streaming Media
+License:	LGPLv2
+SUNW_Copyright:	livemedia.copyright
+URL:		http://www.live555.com
+Version:	%{version_detected}
+Source:		http://www.live555.com/liveMedia/public/live.%{src_version}.tar.gz
+Patch1:		liveMedia-01-SOLARIS-macro.diff
+Patch2:		liveMedia-02-config.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{src_version}-build
 %include default-depend.inc
 
-BuildRequires: %{pnm_buildrequires_SUNWwget}
 BuildRequires: SUNWxcu4
 
 %prep
@@ -74,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- clean up, add IPS package name
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff
 - remove obsolete flag -Kpic from liveMedia-02-config.diff
 * Thr Mar 17 2011 - Thomas Wagner

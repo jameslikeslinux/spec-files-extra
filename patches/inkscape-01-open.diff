@@ -1,0 +1,13 @@
+--- inkscape-0.48.2/src/color-profile.cpp	Fri Jul  8 20:25:09 2011
++++ inkscape-0.48.2/src/color-profile.cpp	Thu Dec 29 17:41:24 2011
+@@ -5,7 +5,9 @@
+ #define noDEBUG_LCMS
+ 
+ #include <glib/gstdio.h>
+-#include <sys/fcntl.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
+ #include <gdkmm/color.h>
+ #include <glib/gi18n.h>
+ 

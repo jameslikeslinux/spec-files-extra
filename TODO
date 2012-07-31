@@ -1,10 +1,15 @@
 usage: no ChangeLog for this TODO file needed. Just edit and commit with a very short note, e.g. solved 2) short_issue, added 5) pnm for perl5.x.x
 
+*YOU* do this:  svn up TODO, make your changes, then immediately commit with 
+    echo "TODO: added 67) headsup-mini-description" | svn commit -F - TODO
+
 1)
 SFEhplip.spec: pnm_macros for SFEcups/SUNWcups, SFEsane-backends/SUNWsanebackends/SUNWsanebackendu, eventually python version macro 2.4/2.6
 
 2)
 SFErsnapshot.spec: pnm_macros for SUNWsshu
+SFEsmf-grey.spec:  pnm_macros for SUNWsndm* / sendmail
+SFEwine.spec: pnm_macros for audio headers
 
 3)
 SFEp7zip.spec: check saprc build, especially enianness (old patch p7zip-01-makefile.diff)
@@ -24,8 +29,9 @@ write pnm_macros to get perl584 or perl510 or other future versions properly (Bu
 20110618 update: basic functionality is now there, please test your personal SFEperl-<module> now (Osol134, OI, S11Express)
 
 6)
-once Solaris 11 Express build is out delivering a new perl version, check + adjust
-the build-number and remove corresponding ##TODO## in include/packagenames.define.allbuilds.inc
+#updated once Solaris 11 Express build is out delivering a new perl version, check + adjust
+#updated the build-number and remove corresponding ##TODO## in include/packagenames.define.allbuilds.inc
+testing now Solaris 11 (Express) Build >= 166 to use perl-512
 
 7)
 need one general license file for "perl" licensed packages. all specs can point to that file with SUNW_Copyright:
@@ -73,8 +79,12 @@ Only _prefix get's set, except you again include base.inc like that
 14)
 re-visit dependencies on other perl modules and make them (Build)Requires in those spec files: SFEperl-net-dns.spec SFEperl-mail-spf.spec
 
-15)
+15) packages should record dependencies needed to work
 check dependencies on SFEgcc* for SFEkchmviewer.spec, ...
+check dependencies on "at least" the gcc runtime runtime-libraries. Programs 
+and other libs may rely on e.g. SFEgccruntime and other libs.
+*verify* that gcc-runtime-libraries are searched in the right place, /usr/gnu/,
+if they are independent of the exact gcc-compiler version.
 
 16)
 make up a file or a wiki page with current notes like "deprecated" and "recommeded"
@@ -111,3 +121,136 @@ make usage note on the wiki and enter wiki url into the include file
 22)
 package wish list
 SFEmpack (see spec-files-jucr/specs/mpack.spec, clear dependencies)  #easy-jucr
+
+23)
+check dependencies on mysql for SFEfreeradius.spec (pnm_macros? somthing like pnm_mysql_default)
+
+24)
+pkgbuild.wiki.sourcefore.net: add implementation note for SFE maintainers to 
+check the search order be /usr/g++/lib then all others like /usr/lib and /usr/gnu/lib
+
+25)
+add helper script to do this at the end of a pkgtool run as the last line in 
+section %install: use env info and read 
+/var/tmp/pkgbuild-$LOGNAME/<packagename>/*all*those*files*and*dirs*
+print-out a nice %files section with all the well-known-defaults which can then
+be included into the new spec file with the previously empty %files section.
+The user just re-runs the pkgbuild --short-circuit -bb SFEpackagename to see 
+if files are nicely catched. Eliminates / reduced the great try+error cycles
+when defining %files
+eventually "pkg" has a nice list of defaults in the code, else assemble from
+man filesystem or existing spec files
+
+26)
+SFEqt-gpp.spec - test QT itself for working properly (low priority)
+- re-visit package dependency with check-deps, add (Build)Requires if needed 
+- examine runtime library paths created by patched/unpached SFEgcc, especially
+  /usr/g++/lib appearing early - just to be sure (med priority)
+
+29)
+Requires: SUNWgnome-python26-libs - check if this could be done similar to 
+pnm_python_default. Could be used by SFEpessulus.spec and possibly others
+SFEpygoocanvas.spec SFEsabayon.spec
+
+30)
+SFEtransmageddon.spec: use pnm_python_default  and *test* if it works
+
+#resolved# 31)
+#resolved# SFEqt-gpp.spec -> Qt*pc wrong setting mysql: Libs.private: -L/usr/gnu/lib -L/usr/g++/{mysql/5.1/lib}  ...
+
+32)
+check in S11 and OI which packages got added with S11 Updates and with OI151a<n>
+and create pnm_macro rules to simplify (Build)Requires in the consuming spec-files
+check for identical/alias packages in SFE which have similar *new* packages in 
+SUNW, create pnm_macro rules for them. 
+Those packages below are known to have a good replacement in the distro: 
+(else: relocate ours to /usr/gnu. "not:" to collect replacements not usable for SFE)
+SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
+
+not: OI gcc 4.4  (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
+not: S11 gcc 4.x (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
+
+33)
+pkgbuild.wiki: Review lonely pages in draft status and enhance them, link them:
+https://sourceforge.net/apps/mediawiki/pkgbuild/index.php?title=Special:LonelyPages
+
+34)
+bug: %define _gpp is used to find the right runtime libs, this is pointing to 
+non-existing directory in some cases
+include/base.inc, include/arch64.inc, %if cc_is_gcc equals 1
+ %define _gpp_version %(%{?_gpp:%_gpp}%{!?_gpp:g++} --version | head -1 | cut -f3 -d' ')
+ %define _cxx_libdir        %{_prefix}/lib/g++/%{_gpp_version}
+checks: _prefix can be set to /usr or to /usr/gnu .
+our g++ lives for gcc 3.x in place A and for SFEgcc 4.x.x in place B
+
+35)
+reverse SFEgccruntime and SFEgcc to make pkgtool --autodeps find the spec file providing the runtime
+remove intermediate symlink SFEgccruntime.spec -> SFEgcc.spec
+
+36)
+make these spec files dual 32/64 bit:
+  SFEqt-gpp (cost: somewhat larger)  (owner:  TBD, volunteers?)
+ 
+37) 
+overhaul SFEphp*spec. base pacakge and extensions, get base and extensions in 
+sync, version bump, use pnm_macros ( change database/postgres-90/library, 
+database/postgres-90/developer SUNWphp52r SUNWphp52u ) Note: postgres base
+package name and spec-filename should read: SFE or SUNWpostgr-90 like the
+older versions did. IPS name set with IPS_package_name: database/postgres-90 ... )
+
+38)
+postgres*.spec make SVR4 ready (Solaris 10) and provide IPS package names
+with IPS_package_name: database/postgres-90 ... 
+would it make sense to keep subpackages in sync with SUNWpostgr-84(-****) ?
+use pnm_macros for dependencies which aren't recoded with legacy
+SUNWpackagename in IPS repositories of OI or Solaris 11 (Express)
+
+39)
+make new SFElv2.spec http://lv2plug.in http://lv2plug.in/spec/
+make new SFElv2-swh-plugins.spec - find tarball / calculate package version
+     number from e.g. git checkout_number. use e.g. 0.0.<calced_number>   https://github.com/swh/lv2
+
+40)
+test some stacks of spec files with the SFEgcc-runpath.spec experimental compiler,
+this should result in gcc compiled packages using libgcc_s.so.1 and libstdc++.so.6
+from /usr/gcc/4.6/lib/* or fallback shared directory /usr/gcc/lib
+dump -Lv <binary|library.so.n> print RUNPATH /usr/gcc/4.6/lib:/usr/gcc/lib first
+ldd <binary|library.so.n> no unresolved dependencies on libs and gcc runtime from /usr/gcc/4.6/lib
+
+41)
+check if those package should better go to /usr/gnu, remember checking other packages
+to still find those packages in the new location:
+SFEwxwidgets: The following packages all deliver file actions to usr/include/wx-2.8/wx/dir.h:
+  pkg://localhost/SFEwxwidgets@2.8.10,5.11-0.170:20110921T212701Z
+  pkg://solaris/library/graphics/wxwidgets@2.8.12,5.11-0.172:20110815T100013Z
+
+42)
+need a better method for AMD/Intel specific instructions, generic binary repos can't build
+binariy with instructions specific to the local CPU used for building the package.
+Check if it is necessary/usefull to make AMD/Intel specific distinction at all (who can tell).
+SFEffmpeg.spec, SFEmplayer2.spec
+
+43)
+make css a dependency in vlc
+add "easy-rsa2 scripts to openvpn package (convenient and common way to generte certificates)
+
+44)
+verify that nvidia package does not change compile results of packages. If it doesn't,
+deprecate adding Requires: nvidia. It can be set as BuildRequires: if that changes
+the resulting package in an imporant way. Examples: ffmpeg compiles with nvidia
+package present or absend, binary compare and/or functional and/or performance comparison.
+
+45)
+check those package names SVR4 and IPS for always lowercase (and spec file filenames)
+Update new names in (Build)Requires of other spec files as well
+SFEXaw3d
+(search for more)
+
+46)
+set categories for all packages (at least for those which alread have IPS_package_names)
+search for example packages with more then one category, to have multi-purpose packages
+appear in all relevant category displays
+package name                   category
+xypackage                      xycategory-first
+xypackage                      xycategory-second
+zzpackage                      zzcategory

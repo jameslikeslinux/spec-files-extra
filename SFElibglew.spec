@@ -9,8 +9,9 @@
 %define src_name glew
 
 Summary:	OpenGL Extension Wrangler Library
+IPS_Package_Name:	x11/library/glew
 Name:		SFElibglew
-Version:	1.5.8
+Version:	1.7.0
 License:	BSD
 Group:		Development/Libraries
 URL:		http://glew.sourceforge.net/
@@ -43,7 +44,7 @@ you will need to install %{name}-devel.
 %setup -q -n %{src_name}-%{version}
 
 %build
-make
+make LDFLAGS.EXTRA="-lc"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -58,8 +59,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%{_bindir}/glewinfo
-%{_bindir}/visualinfo
 %{_libdir}/libGLEW.so.*
 
 %files devel
@@ -70,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Feb 12 2012 - Milan Jurik
+- bump to 1.7.0
 * Sat Mar 05 2011 - Milan Jurik
 - bump to 1.5.8
 * Sun Dec 19 2010 - Milan Jurik

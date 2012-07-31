@@ -21,6 +21,7 @@
 %define SFEfreetype	%(/usr/bin/pkginfo -q SFEfreetype && echo 1 || echo 0)
 
 Name:			SFEsdl-ttf
+IPS_Package_Name:	library/graphics/sdl-ttf
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 SUNW_BaseDir:		%{_basedir}
@@ -123,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Wed Jan 05 2011 - Milan Jurik
 - pkgconfig support 
 * Sun Apr 11 2010 - Milan Jurik

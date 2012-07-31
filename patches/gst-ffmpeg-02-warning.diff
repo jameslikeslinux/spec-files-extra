@@ -1,0 +1,11 @@
+--- configure	2011-07-20 12:15:51.000000000 +0200
++++ configure	2011-08-30 21:28:13.797288656 +0200
+@@ -16630 +16630 @@
+-                 -Wno-deprecated-declarations"
++                 "
+@@ -16640 +16640 @@
+-                   -Wno-deprecated-declarations"
++                   "
+@@ -16649 +16649 @@
+-                  -Wno-deprecated-declarations"
++                  "

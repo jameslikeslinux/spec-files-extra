@@ -4,6 +4,8 @@
 # includes module(s): SDL
 #
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %ifarch amd64 sparcv9
 %include arch64.inc
 %use sdl_64 = sdl-sound.spec
@@ -20,22 +22,19 @@
 %define SUNWlibsdl	%(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
 Name:			SFEsdl-sound
+IPS_Package_Name:	library/audio/sdl-sound
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SUNWlibsdl
-BuildRequires: SUNWlibsdl-devel
-Requires: SUNWlibsdl
-%else
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%endif
+
+BuildRequires: %{pnm_buildrequires_SUNWlibsdl_devel}
+Requires:      %{pnm_requires_SUNWlibsdl}
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
-BuildRequires: SFElibmikmod-devel
-Requires: SFElibmikmod
+BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
+Requires:       %{pnm_requires_SUNWlibmikmod}
 BuildRequires: SUNWflac-devel
 Requires: SUNWflac
 BuildRequires: SUNWspeex-devel
@@ -121,6 +120,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/SDL/
 
 %changelog
+* Mon Jul 30 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibmikmod_devel}, %include packagenamemacros.inc
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibsdl_devel}
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
 * Sun May 16 2010 - Milan Jurik
 - added missing build dependencies
 * Tue Mar 02 2010 - matt@greenviolet.net

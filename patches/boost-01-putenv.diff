@@ -1,0 +1,15 @@
+Index: boost/test/utils/runtime/config.hpp
+===================================================================
+--- boost/test/utils/runtime/config.hpp	(revision 182)
++++ boost/test/utils/runtime/config.hpp	(working copy)
+@@ -45,7 +45,9 @@
+ #endif
+ 
+ #ifdef __SUNPRO_CC
+-extern int putenv(char*);
++extern "C" {
++    extern int putenv(char*);
++}
+ #endif
+ 
+ namespace boost {

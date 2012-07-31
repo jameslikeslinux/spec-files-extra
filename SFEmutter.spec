@@ -9,15 +9,16 @@
 
 Name:                    SFEmutter
 Summary:                 Clutter enabled metacity window manager
-Version:                 3.1.3.1
-Source:	                 http://ftp.gnome.org/pub/GNOME/sources/mutter/3.1/mutter-%{version}.tar.bz2
+Version:                 3.4.1
+Source:	                 http://ftp.gnome.org/pub/GNOME/sources/mutter/3.4/mutter-%{version}.tar.xz
 Patch1:                  mutter-01-suncc-xc99.diff
 # Bug #612506.
 Patch2:                  mutter-02-wait.diff
 Patch3:                  mutter-03-compile.diff
+Patch4:                  mutter-04-mapfile.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-BuildRequires:           SUNWPython26-devel
+BuildRequires:           runtime/python-26
 BuildRequires:           SUNWgtk3-devel
 BuildRequires:           SUNWclutter-devel
 BuildRequires:           SUNWgobject-introspection-devel
@@ -27,11 +28,6 @@ Requires:                SUNWgtk3
 Requires:                SUNWclutter
 Requires:                SUNWgobject-introspection
 Requires:                SFEgjs
-%include default-depend.inc
-
-%package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
 %include default-depend.inc
 
 %package devel
@@ -52,6 +48,7 @@ Requires:                %{name}
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export CFLAGS="%optflags"
@@ -59,9 +56,9 @@ export LDFLAGS="%{_ldflags} -L/usr/lib/thunderbird"
 export PYTHON=/usr/bin/python%{pythonver}
 
 libtoolize --force
-aclocal $ACLOCAL_FLAGS
+aclocal-1.11 $ACLOCAL_FLAGS
 autoheader
-automake -a -c -f
+automake-1.11 -a -c -f
 autoconf
 ./configure \
    --prefix=%{_prefix} \
@@ -91,9 +88,6 @@ rm -rf $RPM_BUILD_ROOT
 %post
 %restart_fmri desktop-mime-cache icon-cache gconf-cache
 
-%post root
-cat >> $BASEDIR/var/svc/profile/upgrade <<\EOF
-
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
@@ -105,16 +99,14 @@ cat >> $BASEDIR/var/svc/profile/upgrade <<\EOF
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
 %dir %attr (0755, root, other) %{_datadir}/gnome
+%{_datadir}/GConf/*
+%{_datadir}/glib-2.0/*
 %{_datadir}/gnome/wm-properties
+%{_datadir}/gnome-control-center/*
 %{_datadir}/mutter
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
-
-%files root
-%defattr(-, root, sys)
-%attr(0755, root, sys) %dir %{_sysconfdir}
-%{_sysconfdir}/gconf/schemas/mutter.schemas
 
 %files devel
 %defattr (-, root, bin)
@@ -132,6 +124,10 @@ cat >> $BASEDIR/var/svc/profile/upgrade <<\EOF
 %endif
 
 %changelog
+* Thu May 10 2012 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.4.1.
+* Fri Oct 21 2011 - Brian Cameron <brian.cameron@oracle.com>
+- Bump to 3.2.1.
 * Tue Jul 05 2011 - Brian Cameron <brian.cameron@oracle.com>
 - Bump to 3.1.3.1.
 * Fri Oct 22 2010 - Brian Cameron  <brian.cameron@oracle.com>

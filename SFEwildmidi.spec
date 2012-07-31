@@ -6,8 +6,9 @@
 %include Solaris.inc
 
 Name:		SFEwildmidi
-Summary:	wildmidi - software MIDI synthesizer
-Group:		Audio
+IPS_Package_Name:	media/wildmidi
+Summary:	Software MIDI synthesizer
+Group:		Applications/Sound and Video
 Version:	0.2.3.4
 License:	LGPLv3
 Source:		%{sf_download}/wildmidi/wildmidi-%{version}.tar.gz
@@ -15,6 +16,7 @@ Patch1:		wildmidi-01-solaris.diff
 Patch2:		wildmidi-02-sunstudio.diff
 Patch3:		wildmidi-03-config.diff
 URL:		http://wildmidi.sourceforge.net/
+SUNW_Copyright:	wildmidi.copyright
 SUNW_BaseDir:	%{_prefix}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -77,6 +79,8 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sun Dec 26 2010 - Milan Jurik
 - bump to 0.2.3.4
 * Sat Jan 13 2009 - Milan Jurik

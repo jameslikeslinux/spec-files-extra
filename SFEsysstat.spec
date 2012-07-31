@@ -4,15 +4,16 @@
 #
 %include Solaris.inc
 
-Name:                SFEsysstat
-Summary:             Most important perf metrics at a single glance
-Version:             20100528
-IPS_component_version: 2010.5.28
-License:             GPLv3
-Source:              http://www.maier-komor.de/sysstat/sysstat-%{version}.tgz
-URL:                 http://www.maier-komor.de/sysstat.html
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEsysstat
+IPS_Package_Name:	diagnostic/sysstat
+Summary:	Most important perf metrics at a single glance
+Version:	20111025
+IPS_component_version: 2011.10.25
+License:	GPLv3
+Source:		http://www.maier-komor.de/sysstat/sysstat-%{version}.tgz
+URL:		http://www.maier-komor.de/sysstat.html
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SUNWcsl
@@ -22,8 +23,6 @@ Requires: SUNWcsl
 %setup -q -n sysstat-%{version}
 
 %build
-
-
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
@@ -57,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1m/sysstat.1m
 
 %changelog
+* Wed Dec 28 2011 - Milan Jurik
+- bump version to 20111025
 * Wed Jun 30 2010 - Milan Jurik
 - bump version to 20100528, fix sparc install
 * Mon Aug 10 2009 - matt@greenviolet.net

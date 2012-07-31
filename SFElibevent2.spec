@@ -4,62 +4,89 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-%define _pkg_docdir %_docdir/libevent
+%include usr-gnu.inc
 
-Name:                SFElibevent2
-Summary:             An event notification library for event-driven network servers.
-License:             BSD
-SUNW_Copyright:	     libevent.copyright
-Version:             2.0.11
-Source:              %sf_download/levent/libevent/libevent-2.0/libevent-%version-stable.tar.gz
-URL:                 http://monkey.org/~provos/libevent/
-License:             BSD
-Group:               System/Libraries
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+%ifarch amd64 sparcv9
+%include arch64.inc
+%use libevent2_64 = libevent2.spec
+%endif
+
+%include base.inc
+%use libevent2 = libevent2.spec
+
+Name:		SFElibevent2
+IPS_Package_Name:	library/libevent2
+Summary:	An event notification library for event-driven network servers.
+License:	BSD
+SUNW_Copyright:	libevent.copyright
+Version:	%{libevent2.version}
+URL:		http://monkey.org/~provos/libevent/
+Group:		System/Libraries
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+%package devel
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
+%include default-depend.inc
+Requires: %name
+
 %prep
-%setup -q -n libevent-%version-stable
+rm -rf %name-%version
+%ifarch amd64 sparcv9
+mkdir -p %name-%version/%_arch64
+%libevent2_64.prep -d %name-%version/%_arch64
+%endif
+
+mkdir -p %name-%version/%base_arch
+%libevent2.prep -d %name-%version/%base_arch
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+%ifarch amd64 sparcv9
+%libevent2_64.build -d %name-%version/%_arch64
+%endif
 
-export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
-
-./configure --prefix=%{_prefix}  \
-            --mandir=%{_mandir}  \
-            --disable-static
-
-make -j$CPUS
+%libevent2.build -d %name-%version/%{base_arch}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+%ifarch amd64 sparcv9
+%libevent2_64.install -d %name-%version/%_arch64
+%endif
 
-make install DESTDIR=$RPM_BUILD_ROOT
-rm ${RPM_BUILD_ROOT}%{_libdir}/libevent*.la
+%libevent2.install -d %name-%version/%{base_arch}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
-%doc README ChangeLog
-%dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/event_rpcgen.py
-%dir %attr (0755, root, bin) %{_libdir}
 %_libdir/lib*.so*
+%ifarch amd64 sparcv9
+%{_libdir}/%{_arch64}/lib*.so*
+%endif
+
+%files devel
+%defattr (-, root, bin)
 %dir %attr (0755, root, other) %_libdir/pkgconfig
 %_libdir/pkgconfig/*.pc
-%_includedir/event2
-%_includedir/*.h
-%dir %attr (0755, root, sys) %{_datadir}
+%ifarch amd64 sparcv9
+%dir %attr (0755, root, other) %{_libdir}/%{_arch64}/pkgconfig
+%{_libdir}/%{_arch64}/pkgconfig/*.pc
+%endif
+%{_includedir}
 
 %changelog
+* Thu Nov 17 2011 - Milan Jurik
+- multiarch support
+- IPS package name
+- bump to 2.0.15
+* Thu Aug 18 2011 - Alex Viskovatoff
+- install in /usr/gnu so as not to conflict with system libevent; bump to 2.0.12
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue May 31 2011 - Alex Viskovatoff
 - bump to 2.0.11
 * Fri Mar 18 2011 - Alex Viskovatoff

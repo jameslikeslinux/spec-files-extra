@@ -1,0 +1,21 @@
+--- ip_fil5.1.1/Makefile	2012-01-29 10:18:35.000000000 -0800
++++ ip_fil5.1.1-patched/Makefile	2012-02-27 22:14:26.906708605 -0800
+@@ -81,15 +81,16 @@
+ #
+ # Uncomment the next 3 lines if you want to view the state table a la top(1)
+ # (requires that you have installed ncurses).
+-#STATETOP_CFLAGS=-DSTATETOP
++STATETOP_CFLAGS=-DSTATETOP
+ #
+ # Where to find the ncurses include files (if not in default path),
+ #
+-#STATETOP_INC=
++STATETOP_INC=
+ #STATETOP_INC=-I/usr/local/include
+ #
+ # How to link the ncurses library
+ #
++STATETOP_LIB=-lcurses
+ #STATETOP_LIB=-lncurses
+ #STATETOP_LIB=-L/usr/local/lib -lncurses
+ 

@@ -85,13 +85,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages/sonata
 %{_libdir}/python%{python_version}/vendor-packages/Sonata-%{version}-py%{python_version}.egg-info
 %{_libdir}/python%{python_version}/vendor-packages/mmkeys.so
-%attr(755,root,sys) %dir %{_datadir}
-%attr(755,root,other) %dir %{_datadir}/applications
+%attr(0755,root,sys) %dir %{_datadir}
+%attr(0755,root,other) %dir %{_datadir}/applications
 %{_datadir}/applications/sonata.desktop
 %{_mandir}/man1/sonata.1
-%attr(755,root,other) %dir %{_docdir}
+%attr(0755,root,other) %dir %{_docdir}
 %{_docdir}/sonata
-%attr(755,root,other) %dir %{_datadir}/pixmaps
+%attr(0755,root,other) %dir %{_datadir}/pixmaps
 %{_datadir}/pixmaps/*
 
 %if %build_l10n

@@ -13,8 +13,12 @@
 %use libmad = libmad.spec
 
 Name:                    SFElibmad
+IPS_Package_Name:	library/audio/libmad 
 Summary:                 %{libmad.summary}
 Version:                 %{libmad.version}
+License:                 GPLv2
+SUNW_Copyright:	         libmad.copyright
+URL:                     http://www.underbit.com/products/mad/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -77,6 +81,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Aug 21 2009 - Milan Jurik
 - multiarch support
 * Thu Jul 30 2009 - oliver.mauras@gmail.com

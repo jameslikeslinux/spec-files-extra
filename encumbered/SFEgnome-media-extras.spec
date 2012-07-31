@@ -15,7 +15,6 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 %define with_amrnb %(pkginfo -q SFEamrnb && echo 1 || echo 0)
 %define with_amrwb %(pkginfo -q SFEamrwb && echo 1 || echo 0)
-%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define NVDAgraphics %(/usr/bin/pkginfo -q NVDAgraphics && echo 1 || echo 0)
 
 %use gst_ffmpeg = gst-ffmpeg.spec
@@ -24,11 +23,13 @@
 
 %define gst_minmaj %(echo %{gst_plugins_ugly.version} | cut -f1,2 -d.)
 
-Name:                    SFEgnome-media-extras
-Summary:                 GNOME streaming media framework - extra plugins
-Version:                 %{default_pkg_version}
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgnome-media-extras
+IPS_Package_Name:	gnome/media/gnome-media-extras
+Summary:	GNOME streaming media framework - extra plugins
+Group:		Applications/Sound and Video
+Version:	%{default_pkg_version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 
@@ -37,8 +38,8 @@ Requires: SUNWlxml
 Requires: SUNWzlib
 Requires: SUNWfreetype2
 BuildRequires: SUNWbison
-BuildRequires: SUNWPython
-BuildRequires: SUNWPython-extra
+BuildRequires: SUNWPython26
+BuildRequires: SUNWPython26-extra
 BuildRequires: SUNWgtk-doc
 BuildRequires: SUNWgnome-xml-share 
 Requires: SUNWgnome-libs
@@ -102,13 +103,8 @@ BuildRequires: SUNWmusicbrainz-devel
 #BuildRequires: SUNWlibrsvg-devel
 Requires: SUNWxorg-clientlibs
 BuildRequires: SUNWxorg-clientlibs
-%if %SFEsdl
-Requires: SFEsdl
-BuildRequires: SFEsdl-devel
-%else
 Requires: SUNWlibsdl
 BuildRequires:  SUNWlibsdl-devel
-%endif
 %if %NVDAgraphics
 # VDPAU
 BuildRequires: NVDAgraphics
@@ -158,6 +154,9 @@ BuildRequires: SFEamrnb-devel
 Requires: SFEamrwb
 BuildRequires: SFEamrwb-devel
 %endif
+# To use ffmpeg bundled with gst-ffmpeg
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -256,7 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gstreamer-%{gst_minmaj}/lib*.so*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/gstreamer-*
-#%{_datadir}/gstreamer-*/presets/*
+%{_datadir}/gstreamer-*/presets/*
 %{_datadir}/gstreamer-*/camera-apps/*
 
 %files devel
@@ -278,6 +277,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Sep 01 2011 - Milan Jurik
+- python 2.6
 * Sat Mar 19 2011 - Milan Jurik
 - add VP8 plugin support
 * Sun Feb 06 2011 - Milan Jurik

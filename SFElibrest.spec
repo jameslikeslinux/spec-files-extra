@@ -3,33 +3,30 @@
 #
 # includes module(s): librest
 #
-# bugdb: bugzilla.freedesktop.org
-#
 
 %include Solaris.inc
-Name:                    SFElibrest
-License:                 LGPL v2
-Group:                   Libraries/Multimedia
-Version:                 0.6
-Distribution:            Java Desktop System
-Vendor:                  Sun Microsystems, Inc.
-Summary:                 Interface to access RESTful web services.
-Source:                  http://moblin.org/sites/all/files/rest-%{version}.tar.gz
-Patch1:                  librest-01-wall.diff
-Patch2:                  librest-02-example.diff
-URL:                     http://moblin.org/projects/librest
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-SUNW_BaseDir:            %{_basedir}
+Name:		SFElibrest
+IPS_Package_Name:	system/library/librest
+License:	LGPL v2
+Group:		Libraries/Multimedia
+Version:	0.7.11
+Summary:	Interface to access RESTful web services.
+Source:		http://ftp.gnome.org/pub/GNOME/sources/rest/0.7/rest-%{version}.tar.bz2
+Patch1:		librest-01-wall.diff
+Patch2:		librest-02-example.diff
+URL:		http://live.gnome.org/Librest
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
-Requires:                SUNWglib2
-Requires:                SUNWlibsoup
-BuildRequires:           SUNWglib2-devel
-BuildRequires:           SUNWlibsoup-devel
+Requires:	SUNWglib2
+Requires:	SUNWlibsoup
+BuildRequires:	SUNWglib2-devel
+BuildRequires:	SUNWlibsoup-devel
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 
 %prep
@@ -38,16 +35,14 @@ SUNW_BaseDir:            %{_basedir}
 %patch2 -p1
 
 %build
-libtoolize --force
-aclocal $ACLOCAL_FLAGS
-automake -a -c -f
 ./configure \
 	--prefix=%{_prefix} \
 	--sysconfdir=%{_sysconfdir} \
-	--libdir=%{_libdir}	    \
-	--bindir=%{_bindir}	    \
+	--libdir=%{_libdir}	\
+	--bindir=%{_bindir}	\
 	--libexecdir=%{_libexecdir} \
-	--mandir=%{_mandir}
+	--mandir=%{_mandir}	\
+	--enable-introspection=no
 make
 
 %install
@@ -79,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Sat Oct 29 2011 - Milan Jurik
+- bump to 0.7.11
 * Sun Oct 11 2009 - Brian Cameron  <brian.cameron@sun.com>
 - Created with version 0.6

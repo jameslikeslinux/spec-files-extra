@@ -1,0 +1,14 @@
+--- vidalia-0.2.15/src/vidalia/network/TorMapImageView.cpp	Fri Oct  7 21:16:56 2011
++++ vidalia-0.2.15/src/vidalia/network/TorMapImageView.cpp	Sat Feb 11 21:25:00 2012
+@@ -235,1 +235,1 @@
+-  lat = floor(longitude * (deg * lerp(abs(int(latitude)), plen))
++  lat = std::floor(longitude * (deg * lerp(abs(int(latitude)), plen))
+@@ -239,1 +239,1 @@
+-    lon = floor((height/2) + (lerp(abs(int(latitude)), pdfe) * (height/2))
++    lon = std::floor((height/2) + (lerp(abs(int(latitude)), pdfe) * (height/2))
+@@ -242,1 +242,1 @@
+-    lon = floor((height/2) - (lerp(abs(int(latitude)), pdfe) * (height/2))
++    lon = std::floor((height/2) - (lerp(abs(int(latitude)), pdfe) * (height/2))
+@@ -253,1 +253,1 @@
+-  int x = int(floor(input / 5));
++  int x = int(std::floor(input / 5));

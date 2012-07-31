@@ -3,18 +3,18 @@
 #
 
 %include Solaris.inc
-Name:                    SFEcuetools
-Summary:                 cuetools - utilities for working with cue files and TOC files
-URL:                     http://developer.berlios.de/projects/cuetools/
-Version:                 1.3.1
-Source:                  http://download.berlios.de/cuetools/cuetools-%{version}.tar.gz
-
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-
+Name:		SFEcuetools
+IPS_Package_Name:	media/cuetools
+Summary:	utilities for working with cue files and TOC files
+URL:		http://developer.berlios.de/projects/cuetools/
+Version:	1.3.1
+Source:		http://download.berlios.de/cuetools/cuetools-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+%description
+cuetools is a set of utilities for working with cue files and toc files.
 
 %prep
 %setup -q -n cuetools-%version

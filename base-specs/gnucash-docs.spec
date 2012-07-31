@@ -13,12 +13,12 @@ Name:           gnucash-docs
 Summary:        This is the documentation module for GnuCash
 License:        GNU Free Documentation License
 Group:          Applications/Finance
-Version:        2.2.0
+Version:        2.4.1
 Release:        1
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
 URL:            http://www.gnucash.org/
-Source:         http://www.gnucash.org/pub/gnucash/sources/stable/%{name}-%{version}.tar.gz
+Source:         http://downloads.sourceforge.net/project/gnucash/gnucash-docs/2.4.1/gnucash-docs-%{version}.tar.gz
 BuildRoot:      %{tmpdir}/%{name}-%{version}-root
 
 Requires:       gnucash >= 1.8.0, scrollkeeper >= 0.3.4
@@ -82,6 +82,8 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 %doc AUTHORS COPYING-DOCS ChangeLog NEWS README HACKING
 
 %changelog
+* Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.4.1 
 * Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 2.2.0, Fixed link from gnome-docs 2.4.5 (non exists)
 * Wed Jun 25 2008 - nonsea@users.sourceforge.net

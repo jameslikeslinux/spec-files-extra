@@ -2,8 +2,13 @@
 # spec file for package SFEorc
 #
 
+
+########## BIG NOTE ################# version 0.4.16 (probably others as well)
+# SunStudio 12.1 compiler runs into a internal compiler error
+# upgrade to SunStudio 12.2 or SolStudio 12.3 
+
 %include Solaris.inc
-%include osdistro.inc
+%include packagenamemacros.inc
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -23,55 +28,23 @@
 %define src_name orc
 
 Name:		%{orc.name}
+IPS_Package_Name:	system/library/orc 
 Version:	%{orc.version}
 Summary:	%{orc.summary}
 
 Group:		%{orc.group}
 License:	%{orc.license}
+SUNW_Copyright:	orc.copyright
+Meta(info.upstream):	David Schleef <ds@schleef.org>
 URL:		%{orc.url}
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
-%if %{os2nnn}
-%if %(expr %{osbuild} '>=' 134)
-buildRequires: library/desktop/gtk2
-BuildRequires: developer/documentation-tool/gtk-doc
-BuildRequires: developer/gnome/gettext
-BuildRequires: data/docbook
-%endif
-%endif
-
-%if %{os2nnn}
-%if %(expr %{osbuild} '>=' 116)
-%if %(expr %{osbuild} '<' 134)
-#library/desktop/gtk1
-# >=75 <= 133
-BuildRequires: SUNWGtk 
-#developer/documentation-tool/gtk-doc
-# >=116 <=133
-BuildRequires: SUNWgtk-doc
-#developer/gnome/gettext
-BuildRequires: SUNWgnome-common-devel
-#data/docbook
-BuildRequires: SUNWgnome-xml
-%endif
-%endif
-%endif
-
-# note build versions in %{os2nnn} before 116 aren't covered
-
-
-#SXCE
-%if %SXCE
-%if %(expr %{osbuild} '<=' 130)
-BuildRequires: SUNWGtku
-BuildRequires: SUNWGtkr
-BuildRequires: SUNWgtk-doc
-# BuildRequires: data/docbook
-BuildRequires: SUNWgnome-xml-root
-BuildRequires: SUNWgnome-xml-share
-%endif
-%endif
+BuildRequires: %{pnm_buildrequires_library_desktop_gtk2}
+Requires:      %{pnm_requires_library_desktop_gtk2}
+BuildRequires: %{pnm_buildrequires_data_docbook}
+BuildRequires: %{pnm_buildrequires_developer_gnome_gettext}
+BuildRequires: %{pnm_buildrequires_developer_documentation_tool_gtk_doc}
 
 
 %description
@@ -181,9 +154,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{_arch64}/pkgconfig/*.pc
 %endif
 %{_bindir}/orcc
-
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/aclocal
+%{_datadir}/aclocal/orc.m4
 
 %changelog
+* Mon Nov 21 2011 - Thomas Wagner
+- use packagenamemacros to shorten the (Build)Requires
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Sun Jul 24 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Dec 02 2010 - Milan Jurik
 - update to 0.4.11, enable only SSE backend because of Sun Studio
 * Sat Oct 20 2010 - Thomas Wagner
@@ -194,21 +175,17 @@ rm -rf $RPM_BUILD_ROOT
 - update to 0.4.4 and integration to SFE
 * Thu Mar 04 2010 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.3-1
 - Updated to 0.4.3
-
 * Sun Oct 18 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-4
 - Removed unused libdir
-
 * Sun Oct 18 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-3
 - Specfile cleanup
 - Removed tools subpackage
 - Added docs subpackage
-
 * Sat Oct 03 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-2
 - Use orc as pakage name
 - spec-file cleanup
 - Added devel requirements
 - Removed an rpath issue
-
 * Fri Oct 02 2009 Fabian Deutsch <fabian.deutsch@gmx.de> - 0.4.2-1
 - Initial release
 

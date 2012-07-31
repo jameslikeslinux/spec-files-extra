@@ -1,0 +1,20 @@
+--- xpaint-2.9.9/Makefile.am	2012-02-14 09:03:45.000000000 +0100
++++ xpaint-2.9.9/Makefile.am	2012-02-18 17:30:39.894936576 +0100
+@@ -29 +29 @@
+-ARCH_DEFINES = -g -O2 -fno-strict-aliasing -fPIC
++ARCH_DEFINES = -g -O2 -fPIC
+--- xpaint-2.9.9/configure.ac	2012-02-09 07:29:09.000000000 +0100
++++ xpaint-2.9.9/configure.ac	2012-02-18 17:31:25.060413176 +0100
+@@ -38 +38 @@
+-  AC_SUBST([X_LIBS], ["-lXmu -lXt -lSM -lICE -lXext -lX11 -lXpm -ldl -rdynamic"])
++  AC_SUBST([X_LIBS], ["-lXmu -lXt -lSM -lICE -lXext -lX11 -lXpm -ldl"])
+--- xpaint-2.9.9/rw/readWriteICO.c	2010-08-02 18:41:07.000000000 +0200
++++ xpaint-2.9.9/rw/readWriteICO.c	2012-02-18 17:26:19.729438001 +0100
+@@ -34,7 +34,6 @@
+ #include <ctype.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#include <error.h>
+ #include <errno.h>
+ #include <getopt.h>
+ 

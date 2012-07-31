@@ -4,40 +4,33 @@
 # includes module(s): frozen-bubble
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
-%define perl_version 5.8.4
-
-Name:                    SFEfrozen-bubble
-Summary:                 Frozen Bubble - Colorful 3D rendered bubble shooting game
-Version:                 2.2.0
-Source:                  http://www.frozen-bubble.org/data/frozen-bubble-%{version}.tar.bz2
-URL:                     http://www.frozen-bubble.org
+Name:		SFEfrozen-bubble
+IPS_Package_Name:	games/frozen-bubble
+Summary:	Frozen Bubble - Colorful 3D rendered bubble shooting game
+Version:	2.2.0
+Source:		http://www.frozen-bubble.org/data/frozen-bubble-%{version}.tar.bz2
+URL:		http://www.frozen-bubble.org
 
 # owner:alfred date:2009-01-12 type:bug
-Patch1:                  frozen-bubble-01-build-sun-studio.diff
+Patch1:		frozen-bubble-01-build-sun-studio.diff
 
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+%include perl-depend.inc
 
-Requires:                SUNWperl584core
-Requires:                SFEsdl-image
-Requires:                SFEsdl-mixer
-Requires:                SFEsdl-pango
-Requires:                SFEsdl-perl
-Requires:                SFEperl-gettext
+Requires:	SFEsdl-image
+Requires:	SFEsdl-mixer
+Requires:	SFEsdl-pango
+Requires:	SFEsdl-perl
+Requires:	SFEperl-gettext
 
-BuildRequires:           SUNWperl584usr
-BuildRequires:           SFEsdl-image-devel
-BuildRequires:           SFEsdl-mixer-devel
-BuildRequires:           SFEsdl-pango-devel
-BuildRequires:           SUNWgnome-common-devel
-
-%ifarch sparc
-%define perl_dir sun4-solaris-64int
-%else
-%define perl_dir i86pc-solaris-64int
-%endif
+BuildRequires:	SFEsdl-image-devel
+BuildRequires:	SFEsdl-mixer-devel
+BuildRequires:	SFEsdl-pango-devel
+BuildRequires:	SUNWgnome-common-devel
 
 %prep
 %setup -q -n frozen-bubble-%{version}
@@ -75,6 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/frozen-bubble/*
 
 %changelog
+* Sat Nov 19 2011 - Milan Jurik
+- add IPS package name, cleanup
 * Sun Apr 11 2010 - Milan Jurik
 - adding missing build deps
 * Mon Jan 12 2009 - alfred.peng@sun.com

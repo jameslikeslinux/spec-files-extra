@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:		SFEngrep
+IPS_Package_Name:	network/ngrep
 Summary:	network grep -- regexp matching against packets
 Group:		Network
 Version:	1.45

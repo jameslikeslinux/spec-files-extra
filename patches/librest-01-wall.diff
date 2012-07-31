@@ -1,11 +1,10 @@
---- rest-0.6/rest/Makefile.am-orig	2009-10-11 12:30:57.211009503 -0500
-+++ rest-0.6/rest/Makefile.am	2009-10-11 12:31:02.105573201 -0500
-@@ -3,7 +3,7 @@ lib_LTLIBRARIES = librest.la
- librest_la_CFLAGS = $(GLIB_CFLAGS) $(GTHREAD_CFLAGS) \
- 		    $(SOUP_CFLAGS) $(SOUP_GNOME_CFLAGS) \
- 		    $(XML_CFLAGS) \
+--- rest-0.7.10/rest/Makefile.in	Thu Mar 31 23:12:11 2011
++++ rest-0.7.10/rest/Makefile.in	Sat Oct 29 16:48:04 2011
+@@ -351,1 +351,1 @@
 -		    -I$(top_srcdir) -Wall -DG_LOG_DOMAIN=\"Rest\"
 +		    -I$(top_srcdir) -DG_LOG_DOMAIN=\"Rest\"
- librest_la_LIBADD = $(GLIB_LIBS) $(GTHREAD_LIBS) \
-                     $(SOUP_LIBS) $(SOUP_GNOME_LIBS) $(XML_LIBS)
- librest_la_SOURCES = rest-proxy.c 	\
+--- rest-0.7.10/rest-extras/Makefile.in	Sat Oct 29 16:50:56 2011
++++ rest-0.7.10/rest-extras/Makefile.in	Sat Oct 29 16:51:01 2011
+@@ -322,1 +322,1 @@
+-		    -I$(top_srcdir) -Wall -DG_LOG_DOMAIN=\"Rest\"
++		    -I$(top_srcdir) -DG_LOG_DOMAIN=\"Rest\"

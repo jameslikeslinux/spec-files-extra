@@ -5,19 +5,22 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFEasciidoc
+IPS_Package_Name:	developer/documentation-tool/asciidoc
 Summary:                 AsciiDoc - Text based document generation
-Group:                   Tools
+Group:                   Development/Distribution Tools
 License:                 GPLv2
-Version:                 8.6.3
+Version:                 8.6.7
 URL:                     http://www.methods.co.nz/asciidoc/
 Source:                  %{sf_download}/asciidoc/asciidoc-%{version}.tar.gz
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWPython
+Requires: 	         %{pnm_requires_python_default}
+BuildRequires: 	         %{pnm_buildrequires_python_default}
 Requires: %{name}-root
 
 %package root
@@ -60,6 +63,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/asciidoc
 
 %changelog
+* Fri Apr 20 2011 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_python_default}, %include packagenamemacros.inc
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 8.6.7
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 8.6.6
 * Mon Jul 11 2011 - Guido Berhoerster
 - added copyright file
 * Sat Feb 05 2011 - Milan Jurik

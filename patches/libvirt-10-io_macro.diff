@@ -1,0 +1,12 @@
+--- libvirt-0.9.11.3/src/qemu/qemu_driver.c	2012-04-27 11:24:17.000000000 -0700
++++ libvirt-0.9.11.3-patched/src/qemu/qemu_driver.c	2012-04-28 22:14:00.375640715 -0700
+@@ -106,6 +106,9 @@
+ 
+ #if HAVE_LINUX_KVM_H
+ # include <linux/kvm.h>
++#else
++#include <kvm.h>
++#include <drm/drm.h>
+ #endif
+ 
+ /* device for kvm ioctls */

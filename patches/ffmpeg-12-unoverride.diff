@@ -1,0 +1,11 @@
+--- a/ffmpeg-0.10/configure	Fri Jan 27 21:56:11 2012
++++ b/ffmpeg-0.10/configure	Fri Jan 27 21:57:06 2012
+@@ -2599,7 +2599,7 @@
+         # the Solaris assembler.  As our libraries contain their own
+         # guards for processor-specific code, instead suppress
+         # generation of the HWCAPS ELF section on Solaris x86 only.
+-        enabled_all suncc x86 && echo "hwcap_1 = OVERRIDE;" > mapfile && add_ldflags -Wl,-M,mapfile
++        echo "hwcap_1 = SSE SSE2 OVERRIDE;" > mapfile && add_ldflags -Wl,-M,mapfile
+         nm_opts='-P -g'
+         ;;
+     netbsd)
