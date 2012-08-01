@@ -4,44 +4,54 @@
 # includes module: mkvtoolnix
 #
 
-# TODO: Get mmg (the GUI front end) to build
-
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 %define srcname mkvtoolnix
+%define _pkg_docdir %_docdir/%srcname
 %define with_SUNWruby %(pkginfo -q SFEruby && echo 0 || echo 1)
 
 Name:		SFEmkvtoolnix
 Summary:	Tools for the Matroska video container
+Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
-Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	4.6.0
+Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
+Version:	5.0.1
 License:	GPLv2
+SUNW_Copyright:	mkvtoolnix.copyright
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
 Patch3:		mkvtoolnix-03-rmff.diff
 Patch4:		mkvtoolnix-04-mpegparser.diff
 Patch5:		mkvtoolnix-05-terminal.diff
 Patch6:		mkvtoolnix-06-r_flac.diff
+Patch7:		libebml-02-headers.diff
 
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 %if %with_SUNWruby
-BuildRequires: SUNWruby18r
+BuildRequires: runtime/ruby-18
 %endif
 
-BuildRequires: SFElibmatroska-devel
-Requires: SFElibmatroska
-BuildRequires: SFEboost-stdcxx-devel
-Requires: SFEboost-stdcxx
+# Starting with 4.7.0, MKVToolnix only links statically
+# to libebml and libmatroska
+#BuildRequires: SFElibmatroska-devel
+#Requires: SFElibmatroska
+BuildRequires: SFEboost-gpp-devel
+Requires: SFEboost-gpp
 BuildRequires: SUNWlexpt
 Requires: SUNWlexpt
 BuildRequires: SUNWzlib
 Requires: SUNWzlib
+BuildRequires: SFElzo-devel
+Requires: SFElzo
 BuildRequires: SUNWogg-vorbis
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWflac
 Requires: SUNWflac
+BuildRequires: SFEwxwidgets-gpp-devel
+Requires: SFEwxwidgets-gpp
 
 %description
 
@@ -66,48 +76,62 @@ Requires:       %name
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-sed 's/-Wall -Wno-comment //' Rakefile > Rakefile.new
-mv Rakefile.new Rakefile
-
+cd lib/libebml
+%patch7 -p1
 
 %build
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export USER_CXXFLAGS="%cxx_optflags -library=stdcxx4 \
-  -D_XOPEN_SOURCE=500 -D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS \
-  -erroff=identexpected,badargtype2w,storenotokw"
-export USER_LDFLAGS="%_ldflags -library=stdcxx4 -L/usr/stdcxx/lib -R/usr/stdcxx/lib"
+export CC=gcc
+export CXX=g++
+export USER_CXXFLAGS="%cxx_optflags -fpermissive -D_POSIX_PTHREAD_SEMANTICS"
+export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
 
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
---with-extra-includes=/usr/stdcxx/include --with-boost-libdir=/usr/stdcxx/lib
+--with-extra-includes=/usr/g++/include --with-boost-libdir=/usr/g++/lib \
+--with-wx-config=/usr/g++/bin/wx-config
 ./drake -j$CPUS
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-./drake install DESTDIR=$RPM_BUILD_ROOT
+./drake install DESTDIR=%buildroot
 
 %if %build_l10n
 %else
-rm -rf $RPM_BUILD_ROOT%_datadir/locale
-rm -rf $RPM_BUILD_ROOT%_docdir/%srcname/guide/zh_CN
+rm -rf %buildroot%_datadir/locale
+rm -rf %buildroot%_docdir/%srcname/guide/zh_CN
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
 
 %files
 %defattr (-, root, bin)
+%dir %attr (-, root, other) %_docdir
+%doc ChangeLog README AUTHORS
 %_bindir
 %dir %attr (-, root, sys) %_datadir
 %_mandir
-%dir %attr (-, root, other) %_docdir
-%_docdir/%srcname
+%_docdir/%srcname/guide
+%dir %attr (-, root, other) %_datadir/applications
+%_datadir/applications/mkvinfo.desktop
+%_datadir/applications/mkvmergeGUI.desktop
+%dir %attr (-, root, root) %_datadir/mime
+%dir %attr (-, root, root) %_datadir/mime/packages
+%_datadir/mime/packages/%srcname.xml
+%dir %attr (-, root, other) %_datadir/icons
+%dir %attr (-, root, other) %_datadir/icons/hicolor
+%dir %attr (-, root, other) %_datadir/icons/hicolor/32x32
+%dir %attr (-, root, other) %_datadir/icons/hicolor/32x32/apps
+%_datadir/icons/hicolor/32x32/apps/mkvinfo.png
+%_datadir/icons/hicolor/32x32/apps/mkvmergeGUI.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/64x64
+%dir %attr (-, root, other) %_datadir/icons/hicolor/64x64/apps
+%_datadir/icons/hicolor/64x64/apps/mkvinfo.png
+%_datadir/icons/hicolor/64x64/apps/mkvmergeGUI.png
 
 %if %build_l10n
 %files l10n
@@ -118,6 +142,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 14 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 5.0.1
+* Tue Aug  9 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Add missing (build) dependency
+* Sat Jul 23 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Bump to 4.9.1; add SUNW_Copyright
+* Mon Jul 18 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Modify CXXXFLAGS to enable building with gcc 4.6
+* Thu Jun 23 2011 - Alex Viskovatoff <herzen@imap.cc>
+- Build with g++
+- Update to 4.8.0; build GUI
 * Tue Apr 12 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Add patch to make build on oi_147
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>

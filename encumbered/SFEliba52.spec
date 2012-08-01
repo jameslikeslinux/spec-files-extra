@@ -13,8 +13,11 @@
 %use liba52 = liba52.spec
 
 Name:                    SFEliba52
+IPS_Package_Name:	library/audio/liba52
 Summary:                 %{liba52.summary}
 Version:                 %{liba52.version}
+License:                 GPLv2+
+SUNW_Copyright:          liba52.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -98,6 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Aug 15 2007 - dougs@truemail.co.th
 - converted to build 64bit
 * Mon Jun 12 2006 - laca@sun.com

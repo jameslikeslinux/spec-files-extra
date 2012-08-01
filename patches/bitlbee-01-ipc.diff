@@ -1,0 +1,28 @@
+--- bitlbee-3.0.5/ipc.c	2012-02-18 02:55:09.000000000 -0800
++++ bitlbee-3.0.5-patched/ipc.c	2012-03-01 19:48:26.981226601 -0800
+@@ -186,8 +186,10 @@
+ 		return;
+ 	
+ 	if( child->to_child == NULL ||
+-	    g_slist_find( child_list, child->to_child ) == NULL )
+-		return ipc_master_takeover_fail( child, FALSE );
++	    g_slist_find( child_list, child->to_child ) == NULL ) {
++		ipc_master_takeover_fail( child, FALSE );
++		return;
++	}
+ 	
+ 	if( strcmp( cmd[1], "AUTH" ) == 0 )
+ 	{
+@@ -207,8 +209,10 @@
+ 				ipc_master_free_one( child );
+ 			g_free( fwd );
+ 		}
+-		else
+-			return ipc_master_takeover_fail( child, TRUE );
++		else {
++			ipc_master_takeover_fail( child, TRUE );
++			return;
++		}
+ 	}
+ 	else if( strcmp( cmd[1], "DONE" ) == 0 || strcmp( cmd[1], "FAIL" ) == 0 )
+ 	{

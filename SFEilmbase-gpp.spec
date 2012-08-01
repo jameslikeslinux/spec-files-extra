@@ -34,17 +34,17 @@ fi
 
 export CC=gcc
 export CXX=g++
-export CXXFLAGS="%{gcc_cxx_optflags}"
-export CFLAGS="%optflags"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
 
-ln -s `which automake-1.9` automake
-ln -s `which aclocal-1.9` aclocal
-export PATH=$PWD:$PATH
+#test off ln -s `which automake-1.9` automake
+#test off ln -s `which aclocal-1.9` aclocal
+#test off export PATH=$PWD:$PATH
 
 X11LIBS="-L/usr/X11/lib -R/usr/X11/lib"
 SFWLIBS="-L/usr/sfw/lib -R/usr/sfw/lib"
 export CPPFLAGS="-I/usr/X11/include"
-export LDFLAGS="$X11LIBS $SFWLIBS -lstdc++"
+export LDFLAGS="%{_ldflags} %{gnu_lib_path} $X11LIBS $SFWLIBS -lstdc++"
 export LD_OPTIONS="-i"
 bash ./bootstrap
 ./configure --prefix=%{_prefix}		\
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_cxx_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- use standard %{_ldflags} in LDFLAGS
+- use %{gnu_lib_path} in LDFLAGS before /usr/sfw/lib (wrong c++ runtime)
 * Thu Oct  9 2008 - markgraf@med.ovgu.de
 - Initial version based on SFEilmbase.spec
   reworked to put libs into /usr/lib/g++/<g++-version>/

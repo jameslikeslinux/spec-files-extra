@@ -4,12 +4,12 @@
 # includes module(s): xvid
 #
 
-%define	src_ver 1.2.2
+%define	src_ver 1.3.2
 %define	src_name xvidcore
 %define	src_url	http://downloads.xvid.org/downloads
 
 
-Name:		SFExvid
+Name:		xvid
 Summary:	ISO MPEG-4 compliant video codec
 Version:	%{src_ver}
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -57,13 +57,15 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
 (
    cd $RPM_BUILD_ROOT%{_libdir}
-   ln -s libxvidcore.so.4.2 libxvidcore.so.4
-   ln -s libxvidcore.so.4.2 libxvidcore.so
+   ln -s libxvidcore.so.4.3 libxvidcore.so.4
+   ln -s libxvidcore.so.4.3 libxvidcore.so
 )
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Oct 11 2011 - Milan Jurik
+- bump to 1.3.2
 * Sat Aug 22 2009 - Milan Jurik
 - Initial base spec file

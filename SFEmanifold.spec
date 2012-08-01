@@ -11,15 +11,16 @@
 %define  python_version  2.6
 
 
-Name:                    SFEmanifold
-Summary:                 manifold - create Solaris SMF manifest by asking simple questions
-Version:                 0.2.0
-License:                 MIT
-Group:                   Development/Tools
-URL:                     http://code.google.com/p/manifold/
-Source:                  http://pypi.python.org/packages/source/M/Manifold/Manifold-%{version}.tar.gz
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEmanifold
+IPS_Package_Name:	system/manifold
+Summary:	manifold - create Solaris SMF manifest by asking simple questions
+Version:	0.2.0
+License:	MIT
+Group:		Development/Tools
+URL:		http://code.google.com/p/manifold/
+Source:		http://pypi.python.org/packages/source/M/Manifold/Manifold-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWpython26-setuptools
@@ -85,8 +86,8 @@ The group to change to when executing the
   start/stop/refresh methods (example: 'webservd') [] webservd
 
 Manifest written to memcached.xml
-You can validate the XML file with ßvccfg validate memcached.xml"
-And create the SMF service with ßvccfg import memcached.xml"
+You can validate the XML file with svccfg validate memcached.xml"
+And create the SMF service with svccfg import memcached.xml"
 
 %prep
 %setup -q -n %src_name-%version

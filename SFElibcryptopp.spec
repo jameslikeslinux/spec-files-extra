@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 %define src_name	cryptopp
+%define src_url         http://sourceforge.net/projects/cryptopp/files
 %define src_version	552
 %define pkg_release	1
 
@@ -56,6 +57,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Thu Nov 13 2008 - alfred.peng@sun.com
 - Remove unnecessary CC/CXX.
 * Sat Sep 27 2008 - alfred.peng@sun.com

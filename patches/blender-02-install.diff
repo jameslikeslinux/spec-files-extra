@@ -1,6 +1,6 @@
---- blender-2.48a/release/Makefile	2008-10-23 00:35:32.000000000 +0800
-+++ blender-2.48a.mod/release/Makefile	2008-11-17 15:51:20.575967560 +0800
-@@ -190,8 +190,8 @@ pkg: install
+--- blender-2.49b/release/Makefile.orig	2011-06-15 12:42:11.797465500 -0400
++++ blender-2.49b/release/Makefile	2011-06-15 12:43:06.961373500 -0400
+@@ -196,8 +196,8 @@
  	@echo "----> Compressing distribution to $(BLENDNAME)$(EXT1)$(EXT2)"
  	@$(COMPRESS) $(COMPRESSFLAGS) $(NAN_OBJDIR)/$(VERSION)/$(BLENDNAME)$(EXT1)
      endif

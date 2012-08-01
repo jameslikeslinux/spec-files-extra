@@ -1,14 +1,16 @@
 #
-# spec file for package SFEnvu
+# spec file for package SFEseamonkey
 #
-# includes module(s): nvu
+# SFEseamonkey-2.2.en-US.opensolaris-x86_64.tar.bz2
 #
+# License: MPLv1.1 or GPLv2+ or LGPLv2+
 
 %include Solaris.inc
 
 Name:          SFEseamonkey
 Summary:       Mozilla Seamonkey - All-in-one internet application suite
-Version:       1.1.19
+Url:           http://www.mozilla.org/projects/seamonkey
+Version:       2.2
 Source:        http://releases.mozilla.org/pub/mozilla.org/seamonkey/releases/%{version}/seamonkey-%{version}.source.tar.bz2
 URL:           http://www.mozilla.org/projects/seamonkey/
 SUNW_BaseDir:  %{_basedir}
@@ -30,6 +32,7 @@ Requires:      SUNWlibmsr
 Requires:      SUNWpango
 Requires:      SUNWsqlite3
 Requires:      SUNWxwplt
+#Requires:      SFEhunspell
 
 %description
 Web-browser, advanced e-mail and newsgroup client, IRC chat client,
@@ -90,13 +93,29 @@ ac_add_options --enable-ctl
 ac_add_options --enable-default-toolkit=gtk2
 ac_add_options --enable-ldap
 ac_add_options --disable-tests
-ac_add_options --disable-debug
+ac_add_options --disable-debug --disable-dtd-debug
 ac_add_options --disable-auto-deps
 ac_add_options --with-xprint
 ac_add_options --enable-system-cairo
+ac_add_options --disable-mochitest 
+#ac_add_options --disable-crashreporter 
+#ac_add_options --enable-ldap-experimental
+#ac_add_options --enable-libxul 
+#ac_add_options --with-system-nspr 
+#ac_add_options --with-system-nss 
+#ac_add_options --with-system-jpeg 
+#ac_add_options --with-system-zlib 
+#ac_add_options --with-system-png  
+#ac_add_options --disable-installer 
+#ac_add_options --enable-startup-notification 
+#ac_add_options --enable-system-hunspell 
+#ac_add_options --enable-libproxy 
+#ac_add_options --enable-system-mozldap 
 mk_add_options MOZ_CO_PROJECT=suite
 mk_add_options BUILD_OFFICIAL=1
 mk_add_options MOZILLA_OFFICIAL=1
+#mk_add_options MOZ_MAKE_FLAGS=%{?jobs:-j%jobs}
+#mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/../obj
 EOF
 
 make -f client.mk build_all
@@ -143,6 +162,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Jul 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.2
+* Sat Jun 25 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.1
+- Added SFEhunspell and additional config options 
 * Thu Mar 18 2010 - matt@greenviolet.net
 - bump to 1.1.19
 - first attempt to fix dependencies

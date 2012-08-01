@@ -10,6 +10,7 @@
 %define src_edition	justice_edition_linux
 
 Name:                   SFEsauerbraten
+IPS_Package_Name:	games/sauerbraten
 Summary:                Sauerbraten game engine
 Version:                2010_07_28
 IPS_component_version:	20100728

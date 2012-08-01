@@ -20,9 +20,11 @@ SUNW_ProdVers:	%{src_version}
 SUNW_BaseDir:	%{_basedir}
 
 Name:         	SFE%{src_name}
+IPS_Package_Name:	library/desktop/gtkglext
 Summary:      	GtkGLExt is an OpenGL extension to GTK+ 2.0 or later
 Version:      	%{src_version}
-License:      	LGPL
+License:      	GPLv2+
+SUNW_Copyright:	gtkglext.copyright
 Group:          System/Libraries
 Source:         %{sf_download}/gtkglext/%{src_name}-%{version}.tar.bz2
 URL:            http://gtkglext.sourceforge.net
@@ -75,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Feb 21 2011 - Milan Jurik
 - fix packaging and linking error
 * Sun Feb 20 2011 - Milan Jurik

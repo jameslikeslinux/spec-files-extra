@@ -6,11 +6,11 @@
 %include Solaris.inc
 
 %define with_libmad %(pkginfo -q SFElibmad && echo 1 || echo 0)
-%define with_libmpeg2 %(pkginfo -q SFElibmpeg2 && echo 1 || echo 0)
 
 Name:                    SFEscummvm
+IPS_Package_Name:	games/scummvm
 Summary:                 ScummVM - emulator for classic graphical games
-Version:                 1.2.1
+Version:                 1.4.1
 Group:                   System/Emulators/Other
 Source:                  %{sf_download}/scummvm/scummvm-%{version}.tar.bz2
 URL:                     http://www.scummvm.org/
@@ -27,13 +27,11 @@ BuildRequires: SUNWflac-devel
 Requires: SUNWflac
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SUNWogg-vorbis
+BuildRequires: SFEfluidsynth-devel
+Requires: SFEfluidsynth
 %if %with_libmad
 BuildRequires: SFElibmad-devel
 Requires: SFElibmad
-%endif
-%if %with_libmpeg2
-BuildRequires: SFElibmpeg2-devel
-Requires: SFElibmpeg2
 %endif
 %ifarch i386 amd64
 BuildRequires: SFEnasm
@@ -58,20 +56,29 @@ export CXX=/usr/sfw/bin/gcc
 export CC=/usr/sfw/bin/gcc
 export PATH=$PATH:/usr/ccs/bin
 
-%if %with_libmpeg2
-CONFIG_MPEG2=--enable-mpeg2
-%endif
-
 ./configure --prefix=%{_prefix}		\
             --mandir=%{_mandir}		\
             --enable-all-engines	\
             --enable-plugins		\
-            $CONFIG_MPEG2
+            --enable-release
 
 make -j$CPUS 
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
+
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/scummvm.desktop << EOF
+[Desktop Entry]
+Name=ScummVM
+Comment=Emulator for classic graphical games
+Exec=%{_bindir}/scummvm
+Icon=scummvm
+Terminal=false
+Type=Application
+Categories=Game;
+EOF
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -81,17 +88,23 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/scummvm.desktop
 %dir %attr (0755, root, other) %{_datadir}/scummvm
 %{_datadir}/scummvm/*
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/*
-%dir %attr (0755, root, other) %{_datadir}/doc
-%{_datadir}/doc/*
-%dir %attr (0755, root, bin) %{_mandir}
-%dir %attr (0755, root, bin) %{_mandir}/man6
-%{_mandir}/man6/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
+%{_mandir}
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.4.1
+* Sat Nov 19 2011 - Milan Jurik
+- menu entry
+* Mon Sep 19 2011 - Milan Jurik
+- bump to 1.3.1
 * Thu Dec 16 2010 - Milan Jurik
 - bump to 1.2.1
 * Wed Dec 01 2010 - Milan Jurik

@@ -7,15 +7,17 @@
 %include Solaris.inc
 
 %define src_name xfdesktop
-#%define src_url http://archive.xfce.org/xfce/4.8/src/
 %define src_url http://archive.xfce.org/src/xfce/xfdesktop/4.8/
 
 Name:		SFExfdesktop
+IPS_Package_Name:	xfce/xfce-desktop
 Summary:	Desktop manager for the Xfce Desktop Environment
-Version:	4.8.1
+Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+License: 	GPLv2
+Group:		Desktop (GNOME)/Sessions
+SUNW_Copyright: xfdesktop4.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -126,6 +128,12 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.3
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.2
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Thu Apr 9 2011 - kmays2000@gmail.com

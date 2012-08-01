@@ -25,6 +25,7 @@ export CXX=g++
 %use gpac = gpac.spec
 
 Name:                SFEgpac
+IPS_Package_Name:	library/video/gpac
 Summary:             %{gpac.summary}
 Version:             %{gpac.version}
 URL:                 http://gpac.sourceforge.net/
@@ -120,6 +121,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Wed Sep 16 2009 - trisk@forkgnu.org
 - Add (disabled) support for jack and pulseaudio
 * Wed Sep 02 2009 - trisk@forkgnu.org

@@ -15,6 +15,7 @@
 
 %define srcname pkgbuild
 %define _pkg_docdir %_docdir/%srcname
+%include packagenamemacros.inc
 
 Name:         SFEpkgbuild
 #IPS_Package_Name: package/pkgbuild
@@ -54,7 +55,7 @@ Meta(info.classification):	org.opensolaris.category.2008:System/Packaging
 
 %ifos Solaris
 Requires:     SUNWbash
-Requires:     SUNWperl584core
+Requires:     %pnm_requires_perl_default
 Requires:     SUNWgpch
 %else
 Requires:     perl >= 5.0.0

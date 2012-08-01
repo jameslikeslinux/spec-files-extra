@@ -10,6 +10,8 @@
 
 %include base.inc
 
+%include packagenamemacros.inc
+
 %use boost = boost.spec
 
 Name:                SFEboost-gpp-mt
@@ -20,7 +22,7 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 BuildRequires: SUNWicud
-BuildRequires: SUNWPython
+BuildRequires: %{pnm_buildrequires_python_default}
 Requires: SUNWicu
 
 %package devel
@@ -66,5 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_cxx_libdir}/lib*.a
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_python_default}, %include packagenamacros.inc
 * Fri Jan 29 2010 - Brian Cameron <brian.cameron@sun.com>
 - Initial version of spec-file to build mt variants of boost libraries.

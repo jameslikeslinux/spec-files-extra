@@ -11,14 +11,14 @@
 Name:		gob2
 License:	GPL
 Group:		Development/Libraries
-Version:	2.0.17
+Version:	2.0.18
 Release:	1
 License:        GPL
 Distribution:   Java Desktop System
 Vendor:         Sun Microsystems, Inc.
 URL:		http://www.5z.com/jirka/gob.html
 Summary:	The GObject Builder
-Source:         http://download.gnome.org/sources/gob2/2.0/%{name}-%{version}.tar.gz
+Source:         http://download.gnome.org/sources/gob2/2.0/%{name}-%{version}.tar.bz2
 # date:2009-11-18 owner:halton type:bug
 # "#line 0" is not supportted in C99, gcc allow it but sun cc does not.
 Patch1:         %{name}-01-line-control.diff
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/share/aclocal/*
 
 %changelog
+* Mon May 30 2011 - Alex Viskovatoff
+- Bump to 2.0.18
 * Thu Apr 29 2010 - halton.huo@sun.com
 - Bump to 2.0.17
 * Wed Nov 18 2009 - halton.huo@sun.com

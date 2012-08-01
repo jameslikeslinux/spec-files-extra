@@ -1,0 +1,163 @@
+--- lsof_4.83_src/dialects/sun/dsock.c	2010-01-18 11:04:03.000000000 -0800
++++ lsof_4.83_src-patched/dialects/sun/dsock.c	2012-03-11 10:33:46.681168883 -0700
+@@ -707,7 +707,7 @@
+ 		ty = "IPv6";
+ 	    (void) snpf(Lf->type, sizeof(Lf->type), ty);
+ 
+-	    switch (cs.conn_ulp) {
++	    switch (cs.conn_proto) {
+ 	    case IPPROTO_TCP:
+ 
+ 	    /*
+@@ -769,8 +769,10 @@
+ 		    ta = (unsigned char *)&cs.connua_v6addr.connua_faddr;
+ 		    la = (unsigned char *)&cs.connua_v6addr.connua_laddr;
+ 		} else {
+-		    ta = (unsigned char *)&cs.conn_rem;
+-		    la = (unsigned char *)&cs.conn_src;
++		    /* ta = (unsigned char *)&cs.conn_rem; */
++		    /* la = (unsigned char *)&cs.conn_src; */
++		    ta = (unsigned char *)&cs.conn_faddr_v4;
++		    la = (unsigned char *)&cs.conn_laddr_v4;
+ 		}
+ 		if (!IPv_ADDR_UNSPEC(af, ta) || (u_short)cs.conn_fport) {
+ 		    fa = ta;
+@@ -796,8 +798,8 @@
+ 	    /*
+ 	     * Save TCP state information.
+ 	     */
+-		if (tc.tcp_tcp_hdr_len
+-		&&  (ka = (KA_T)tc.tcp_tcph)
++		if (/*tc.tcp_tcp_hdr_len*/ tc.tcp_tcpha
++		&&  (ka = (KA_T)tc.tcp_tcpha)
+ 		&&  !kread(ka, (char *)&th, sizeof(th))
+ 		) {
+ 		    tha = &th;
+@@ -871,8 +873,10 @@
+ 		    ta = (unsigned char *)&cs.connua_v6addr.connua_faddr;
+ 		    la = (unsigned char *)&cs.connua_v6addr.connua_laddr;
+ 		} else {
+-		    ta = (unsigned char *)&cs.conn_rem;
+-		    la = (unsigned char *)&cs.conn_src;
++		    /* ta = (unsigned char *)&cs.conn_rem; */
++		    /* la = (unsigned char *)&cs.conn_src; */
++		    ta = (unsigned char *)&cs.conn_faddr_v4;
++		    la = (unsigned char *)&cs.conn_laddr_v4;
+ 		}
+ 		if (!IPv_ADDR_UNSPEC(af, ta) || (u_short)cs.conn_fport) {
+ 		    fa = ta;
+@@ -930,7 +934,7 @@
+ 	     *
+ 	     * Set protocol name.
+ 	     */
+-		if (cs.conn_ulp == IPPROTO_ICMP)
++		if (cs.conn_proto == IPPROTO_ICMP)
+ 		    ty = "ICMP";
+ 		else
+ 		    ty = "ICMP6";
+@@ -1013,7 +1017,7 @@
+ 		(void) snpf(Namech, Namechl - 1,
+ 		    "unsupported conn_s AF_INET%s protocol: %u",
+ 		    (af == AF_INET6) ? "6" : "",
+-		    (unsigned int)cs.conn_ulp);
++		    (unsigned int)cs.conn_proto);
+ 		Namech[Namechl - 1] = '\0';
+ 		enter_nm(Namech);
+ 		return(1);
+@@ -1093,7 +1097,7 @@
+ 
+ 	    break;
+ 	default:
+-	    (void) printiproto((int)cs.conn_ulp);
++	    (void) printiproto((int)cs.conn_proto);
+ 	    (void) snpf(Namech, Namechl - 1, "unsupported socket family: %u",
+ 		so->so_family);
+ 	    Namech[Namechl - 1] = '\0';
+@@ -1341,7 +1345,7 @@
+ #else	/* solaris>90000 && defined(HAS_IPCLASSIFIER_H) */
+ # if	solaris>=110000
+ 		if (!kread(pcb, (char *)&cs, sizeof(cs))
+-		&&  (cs.conn_ulp == IPPROTO_TCP)
++		&&  (cs.conn_proto == IPPROTO_TCP)
+ 		) {
+ 		    ics = 1;
+ 		    if ((ka = (KA_T)cs.conn_proto_priv.cp_tcp)
+@@ -1409,7 +1413,7 @@
+ 		    ucs = 1;
+ #else	/* solaris>=110000 */
+ 		if (!kread(pcb, (char *)&cs, sizeof(cs))
+-		&&  (cs.conn_ulp == IPPROTO_UDP)
++		&&  (cs.conn_proto == IPPROTO_UDP)
+ 		) {
+ 		    ics = 1;
+ 		    if ((ka = (KA_T)cs.conn_proto_priv.cp_udp)
+@@ -1548,7 +1552,8 @@
+ #  if	solaris>=110000
+ 		    la = (af == AF_INET6)
+ 		       ? (unsigned char *)&cs.connua_v6addr.connua_laddr
+-		       : (unsigned char *)&cs.conn_src;
++		       /* : (unsigned char *)&cs.conn_src; */
++		       : (unsigned char *)&cs.conn_laddr_v4;
+ 	            lp = cs.conn_lport;
+ #  else	/* solaris<110000 */
+ #   if	defined(HASIPv6)
+@@ -1624,7 +1629,8 @@
+ #  if	solaris>=110000
+ 		    ta = (af == AF_INET6)
+ 		       ? (unsigned char *)&cs.connua_v6addr.connua_faddr
+-		       : (unsigned char *)&cs.conn_rem;
++		       /* : (unsigned char *)&cs.conn_rem; */
++		       : (unsigned char *)&cs.conn_faddr_v4;
+ 		    if (!IPv_ADDR_UNSPEC(af, ta) || ((u_short)cs.conn_fport)) {
+ 			fa = ta;
+ 			fp = (u_short)cs.conn_fport;
+@@ -1852,23 +1858,23 @@
+ 
+ #if	defined(HASSOOPT)
+ 	if (Ftcptpi & TCPTPI_FLAGS) {
+-	    if (tc->tcp_broadcast)
++	    if (tc->tcp_connp->conn_broadcast)
+ 		Lf->lts.opt |= SO_BROADCAST;
+-	    if (tc->tcp_debug)
++	    if (tc->tcp_connp->conn_debug)
+ 		Lf->lts.opt |= SO_DEBUG;
+-	    if (tc->tcp_dgram_errind)
++	    if (tc->tcp_connp->conn_dgram_errind)
+ 		Lf->lts.opt |= SO_DGRAM_ERRIND;
+-	    if (tc->tcp_dontroute)
+-		Lf->lts.opt |= SO_DONTROUTE;
++	    /* if (tc->tcp_connp->conn_dontroute) */
++	    /* 	Lf->lts.opt |= SO_DONTROUTE; */
+ 	    if (tc->KEEPALIVE_INTERVAL) {
+ 		Lf->lts.opt |= SO_KEEPALIVE;
+ 		Lf->lts.kai = (unsigned int)tc->KEEPALIVE_INTERVAL;
+ 	    }
+-	    if (tc->tcp_linger) {
++	    if (tc->tcp_connp->conn_linger) {
+ 		Lf->lts.opt |= SO_LINGER;
+-		Lf->lts.ltm = (unsigned int)tc->tcp_lingertime;
++		Lf->lts.ltm = (unsigned int)tc->tcp_connp->conn_lingertime;
+ 	    }
+-	    if (tc->tcp_oobinline)
++	    if (tc->tcp_connp->conn_oobinline)
+ 		Lf->lts.opt |= SO_OOBINLINE;
+ 	    Lf->lts.pqlen = (unsigned int)tc->tcp_conn_req_cnt_q0;
+ 	    Lf->lts.qlen = (unsigned int)tc->tcp_conn_req_cnt_q;
+@@ -1878,7 +1884,7 @@
+ 
+ # if	solaris>=80000
+ #  if	defined(HAS_IPCLASSIFIER_H)
+-	    if (tc->tcp_reuseaddr)
++	    if (tc->tcp_connp->conn_reuseaddr)
+ #  else	/* !defined(HAS_IPCLASSIFIER_H) */
+ 	    if (tb && tb->tcpb_reuseaddr)
+ #  endif	/* !defined(HAS_IPCLASSIFIER_H) */
+@@ -1886,7 +1892,7 @@
+ 	    Lf->lts.opt |= SO_REUSEADDR;
+ # endif	/* solaris>=80000 */
+ 
+-	    if (tc->tcp_useloopback)
++	    if (tc->tcp_connp->conn_useloopback)
+ 		Lf->lts.opt |= SO_USELOOPBACK;
+ #endif	/* defined(HASSOOPT) */
+ 

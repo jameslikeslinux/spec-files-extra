@@ -1,14 +1,16 @@
---- fltk-2.0.x-r7513/configure.in	Fri Jul 24 01:08:12 2009
-+++ fltk-2.0.x-r7513-patch/configure.in	Sat Jun 12 20:56:38 2010
-@@ -327,7 +327,7 @@
- AC_CHECK_HEADER(sys/select.h,AC_DEFINE(HAVE_SYS_SELECT_H))
- AC_CHECK_HEADER(sys/stdtypes.h,AC_DEFINE(HAVE_SYS_SELECT_H))
+--- fltk-2.0.x-r8514/configure.in.old    2011-08-24 09:31:00.343750000 -0400
++++ fltk-2.0.x-r8514/configure.in        2011-08-24 09:33:22.218750000 -0400
+@@ -358,8 +358,8 @@ if test "$ac_cv_cxx_scandir_posix" = yes
+ fi
+
  AC_CHECK_FUNC(scandir,[
--    if test "$uname" = SunOS -o "$uname" = QNX; then
-+    if test "$uname" = QNX; then
-         AC_MSG_WARN(Not using $uname scandir emulation function.)
+-    if test \( "$uname" = SunOS -o "$uname" = QNX \) -a "$ac_cv_cxx_scandir_posix" != yes; then
+-        AC_MSG_WARN(Not using $uname scandir emulation function.)
++if test "$uname" = QNX; then
++       AC_MSG_WARN(Not using $uname scandir emulation function.)
      else
          AC_DEFINE(HAVE_SCANDIR)
+     fi])
 --- fltk-2.0.x-r7513/src/filename_list.cxx	Fri Jul 24 01:08:12 2009
 +++ fltk-2.0.x-r7513-patch/src/filename_list.cxx	Sat Jun 12 20:59:22 2010
 @@ -67,6 +67,9 @@

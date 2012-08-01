@@ -1,0 +1,12 @@
+--- miniupnpd-1.6.20120207/testgetifaddr.c	2011-04-11 03:44:18.000000000 -0700
++++ miniupnpd-1.6.20120207-patched/testgetifaddr.c	2012-02-28 20:29:20.748009023 -0800
+@@ -14,7 +14,8 @@
+ 		fprintf(stderr, "Usage:\t%s interface_name\n", argv[0]);
+ 		return 1;
+ 	}
+-	openlog("testgetifaddr", LOG_CONS|LOG_PERROR, LOG_USER);
++	/* openlog("testgetifaddr", LOG_CONS|LOG_PERROR, LOG_USER); */
++	openlog("testgetifaddr", LOG_CONS, LOG_USER);
+ 	if(getifaddr(argv[1], addr, sizeof(addr)) < 0) {
+ 		fprintf(stderr, "Cannot get address for interface %s.\n", argv[1]);
+ 		return 1;

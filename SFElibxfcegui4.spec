@@ -10,11 +10,14 @@
 %define src_url http://archive.xfce.org/src/xfce/libxfcegui4/4.8/
 
 Name:		SFElibxfcegui4
+IPS_Package_Name:	library/desktop/libxfcegui
 Summary:	Various gtk widgets for xfce
+License:	LGPLv2+
+SUNW_Copyright:	libxfcegui4.copyright
 Version:	4.8.1
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -31,7 +34,6 @@ BuildRequires:	SUNWgtk-doc
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
@@ -118,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Apr 21 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 4.8.1
 * Mon Mar 21 2011 - Milan Jurik

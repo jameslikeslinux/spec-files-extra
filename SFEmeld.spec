@@ -7,14 +7,13 @@
 
 Name:                    SFEmeld
 Summary:                 Meld Diff and Merge Tool
-Version:                 1.1.5.1
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/meld/1.1/meld-%{version}.tar.bz2
-Patch1:                  meld-01-msgfmt-no-checks.diff
+Version:                 1.5.2
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/meld/1.5/meld-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires: SUNWgnome-libs-devel
-BuildRequires: CBEbison
+BuildRequires: SUNWbison
 BuildRequires: SUNWPython
 BuildRequires: SUNWgnome-python-libs-devel
 Requires: SUNWgnome-libs
@@ -30,7 +29,6 @@ Requires:                %{name}
 
 %prep
 %setup -q -n meld-%version
-%patch1 -p1
 for po in po/*.po; do
   dos2unix -ascii $po $po
 done
@@ -114,8 +112,9 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sun Oct 2 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.5.2
 * Thu Jun 14 2007 - damien.carbery@sun.com
 - Bump to 1.1.5.1.
-
 * Tue Nov 28 2006 - glynn.foster@sun.com
 - Initial version

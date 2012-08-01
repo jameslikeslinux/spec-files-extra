@@ -3,7 +3,7 @@ Group:        System/Libraries
 Version:      2.8.0
 %define tarball_version 2_8_0
 Summary:      Xerces-C++ - validating XML parser
-Source:       http://www.apache.org/dist/xerces/c/sources/xerces-c-src_%{tarball_version}.tar.gz
+Source:       http://www.eu.apache.org/dist/xerces/c/2/sources/xerces-c-src_%{tarball_version}.tar.gz
 URL:          http://xerces.apache.org/index.html
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 Docdir:	      %{_defaultdocdir}/doc
@@ -28,7 +28,7 @@ export CXXFLAGS="%{cxx_optflags}"
 export LDFLAGS="%_ldflags %{cxx_optflags}"
 cd $XERCESCROOT/src/xercesc
 ./runConfigure %{rcopts} -c `basename ${CC}` -x `basename ${CXX}` -p solaris -C \
-    --libdir="%{_libdir}" -minmem -nsocket -tnative -r pthread \
+    --libdir="%_prefix/lib" -minmem -nsocket -tnative -r pthread \
     -P%{_prefix}
 make -j $CPUS DESTDIR=$RPM_BUILD_ROOT
 

@@ -2,14 +2,16 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
-%define python_version 2.6
 %define src_version 2.49b
 %define src_url http://download.blender.org/source
 
 Name:           SFEblender
 Summary:        Blender - Open source 3D creation tools
 Version:        2.49.2
+License:        GPLv2+
+SUNW_Copyright: blender.copyright
 Source:		%{src_url}/blender-%{src_version}.tar.gz
 Patch1:		blender-01-build.diff
 Patch2:		blender-02-install.diff
@@ -23,12 +25,13 @@ Requires: 	SUNWilmbase
 %ifarch i386 amd64
 Requires: 	SUNWxorg-mesa
 %endif
-Requires: 	SUNWfreetype2
+# Don't require freetype2 as that blocks installation on Solaris 11
+#Requires: 	SUNWfreetype2
 Requires: 	SUNWpng
 BuildRequires: 	SUNWTiff
 BuildRequires: 	SUNWopensslr
 BuildRequires: 	SUNWlibsdl-devel
-BuildRequires: 	SUNWPython
+BuildRequires: 	%{pnm_buildrequires_python_default}
 
 %package root
 Summary:         %summary - platform dependent files, / filesystem
@@ -83,7 +86,8 @@ export CXXFLAGS="%cxx_optflags"
 
 cd blender-%{src_version}
 
-gmake REL_CFLAGS="$CFLAGS -DNDEBUG" REL_CCFLAGS="$CXXFLAGS -DNDEBUG"
+gmake REL_CFLAGS="$CFLAGS -DNDEBUG" REL_CCFLAGS="$CXXFLAGS -DNDEBUG" \
+      REL_LDFLAGS="%_ldflags -lumem"
 
 %install
 
@@ -178,6 +182,13 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Sun Dec  4 2011 - Alex Viskovatoff
+- add -lumem to LDFLAGS to prevent core dumps which occur on some machines
+  (https://www.illumos.org/issues/1334)
+* Wed Aug  3 2011 - Alex Viskovatoff
+- use packagenamemacros.inc for Python version; do not require freetype
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * May 18 2010 - G.D.
 - exec in bindir
 * Wed May 12 2010 - Albert Lee <trisk@opensolaris.org>

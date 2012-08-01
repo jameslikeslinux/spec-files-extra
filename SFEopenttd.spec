@@ -2,27 +2,31 @@
 # spec file for package SFEopenttd.spec
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
 %define src_name openttd
-%define src_version 1.1.0
 
 Name:           SFEopenttd
-Version:        1.1.0
+IPS_Package_Name:	games/openttd
+Version:        1.1.5
 Summary:        Transport system simulation game
-Source:         http://binaries.openttd.org/releases/%{src_version}/%{src_name}-%{src_version}-source.tar.gz
-Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.3.3/opengfx-0.3.3.zip
-Source2:	http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip
+Source:         http://binaries.openttd.org/releases/%{version}/%{src_name}-%{version}-source.tar.gz
+Source1:	http://bundles.openttdcoop.org/opengfx/releases/0.4.3/opengfx-0.4.3.zip
+Source2:	http://bundles.openttdcoop.org/opensfx/releases/0.2.3/opensfx-0.2.3.zip
 Source3:	http://bundles.openttdcoop.org/openmsx/releases/0.3.1/openmsx-0.3.1.zip
 Patch1:		openttd-01-makedependlimit.diff
 URL:		http://www.openttd.org/
-Group:		Amusements/Games
+Group:		Applications/Games
 License:	GPLv2
+SUNW_Copyright:	openttd.copyright
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-build
 
 %include default-depend.inc
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 BuildRequires:  SUNWlibsdl-devel
 Requires:  SUNWlibsdl
 BuildRequires:  SUNWpng-devel
@@ -34,11 +38,11 @@ BuildRequires:  SUNWfontconfig
 Requires:  SUNWfontconfig
 BuildRequires:  SUNWfreetype2
 Requires:  SUNWfreetype2
-BuildRequires:  SUNWdoxygen
+BuildRequires: SUNWdoxygen
 Requires: SFElzo
 BuildRequires: SFElzo
-Requires: SFExz
-BuildRequires: SFExz
+Requires: 	%{pnm_requires_SFExz}
+BuildRequires:	%{pnm_buildrequires_SFExz}
 BuildRequires:	SUNWgsed
 BuildRequires:	SUNWgnome-desktop-prefs
 
@@ -49,7 +53,7 @@ were inspired by TTDPatch while others are original.
 
 
 %prep
-%setup -q -n openttd-%{src_version}
+%setup -q -n openttd-%{version}
 
 
 %build
@@ -151,6 +155,23 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/openttd/*
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
+* Fri Apr 13 2012 - Milan Jurik
+- bump to 1.1.5
+* Fri Dec 23 2011 - Milan Jurik
+- bump to 1.1.4
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+- bump to 1.1.3, opengfx 0.3.7
+* Tue Sep 06 2011 - Milan Jurik
+- bump to 1.1.2, opengfx 0.3.5
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add missing dependency on SFEgcc
+* Sun Jul 24 2011 - Alex Viskovatoff
+- add SUNW_Copyright
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 1.1.1
 * Sun May 22 2011 - Milan Jurik
 - bump to 1.1.0
 - disable libicu support to allow cross-version build

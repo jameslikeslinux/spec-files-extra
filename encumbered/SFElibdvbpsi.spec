@@ -7,7 +7,8 @@
 %define srcname libdvbpsi
 
 Name:                    SFElibdvbpsi
-Summary:                 libdvbpsi  - a simple library designed for decoding and generation of MPEG TS and DVB PSI tables
+Summary:                 A simple library designed for decoding and generation of MPEG TS and DVB PSI tables
+URL:                     http://www.videolan.org/developers/libdvbpsi.html
 Version:                 0.1.7
 Source:                  http://download.videolan.org/pub/%srcname/%version/%srcname-%version.tar.bz2
 Patch1:			 libdvbpsi-01-configure.diff

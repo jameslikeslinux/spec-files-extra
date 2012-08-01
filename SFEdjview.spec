@@ -8,14 +8,17 @@
 %define cc_is_gcc 1
 %define _gpp /usr/gnu/bin/g++
 %include base.inc
-%define  _cxx_libdir /usr/stdcxx/lib/g++/%_gpp_version
+%define  _cxx_libdir /usr/g++/lib
 %define srcname djview
 
 Name:		SFEdjview
+IPS_Package_Name:	desktop/djview
 Summary:	DjVu file viewer
 URL:		http://djvu.sourceforge
+Group:		Applications/Office
 Vendor:		Léon Bottou
-License:	GPL
+License:	GPLv2+
+SUNW_Copyright:	djview.copyright
 Version:	4.7
 Source:		%sf_download/project/djvu/DjView/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -23,11 +26,11 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-devel
+BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEdjvulibre-devel
 
 Requires:	SFEgccruntime
-Requires:	SFEqt47-gpp
+Requires:	SFEqt-gpp
 Requires:	SFEdjvulibre
 
 
@@ -37,19 +40,16 @@ Requires:	SFEdjvulibre
 
 %build
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags -pthreads -L%_cxx_libdir"
 export LDFLAGS="%_ldflags -pthreads -L%_cxx_libdir -L/usr/gnu/lib -R%_cxx_libdir:/usr/gnu/lib"
-export QMAKE=/usr/stdcxx/bin/qmake
+export QMAKE=/usr/g++/bin/qmake
 export QMAKESPEC=solaris-g++
-export QTDIR=/usr/stdcxx
+export QTDIR=/usr/g++
 export PKG_CONFIG_PATH="%_cxx_libdir/pkgconfig"
 
 ./configure --prefix=%_prefix
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Sun Jun 12 2011 - Alex Viskovatoff
+- Qt gcc libs are now in their own place
 * Tue Apr 12 2011 - Alex Viskovatoff
 - Update to 4.7
 * Tue Feb  8 2011 - Alex Viskovatoff

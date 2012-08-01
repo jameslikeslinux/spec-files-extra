@@ -1,0 +1,63 @@
+--- libvirt-0.9.11.3-patched/src/qemu/qemu_process.c	2012-04-27 11:14:58.000000000 -0700
++++ libvirt-0.9.11.3/src/qemu/qemu_process.c	2012-04-28 21:38:57.940614522 -0700
+@@ -27,7 +27,7 @@
+ #include <sys/stat.h>
+ #include <sys/time.h>
+ #include <sys/resource.h>
+-#include <linux/capability.h>
++//#include <linux/capability.h>
+ 
+ #include "qemu_process.h"
+ #include "qemu_domain.h"
+@@ -1795,6 +1795,7 @@
+ qemuProcessInitCpuAffinity(struct qemud_driver *driver,
+                            virDomainObjPtr vm)
+ {
++#if 0
+     int ret = -1;
+     int i, hostcpus, maxcpu = QEMUD_CPUMASK_LEN;
+     virNodeInfo nodeinfo;
+@@ -1888,6 +1889,9 @@
+ cleanup:
+     VIR_FREE(cpumap);
+     return ret;
++#else
++    return -1;
++#endif
+ }
+ 
+ /* set link states to down on interfaces at qemu start */
+@@ -2532,6 +2536,7 @@
+     struct rlimit rlim;
+ 
+     if (driver->maxProcesses > 0) {
++#if 0
+         rlim.rlim_cur = rlim.rlim_max = driver->maxProcesses;
+         if (setrlimit(RLIMIT_NPROC, &rlim) < 0) {
+             virReportSystemError(errno,
+@@ -2539,6 +2544,12 @@
+                                  driver->maxProcesses);
+             return -1;
+         }
++#else
++            virReportSystemError(errno,
++                                 _("cannot limit number of processes to %d"),
++                                 driver->maxProcesses);
++            return -1;
++#endif
+     }
+ 
+     if (driver->maxFiles > 0) {
+@@ -3555,10 +3566,12 @@
+         virCommandClearCaps(cmd);
+ 
+     /* in case a certain disk is desirous of CAP_SYS_RAWIO, add this */
++#if 0
+     for (i = 0; i < vm->def->ndisks; i++) {
+         if (vm->def->disks[i]->rawio == 1)
+             virCommandAllowCap(cmd, CAP_SYS_RAWIO);
+     }
++#endif
+ 
+     virCommandSetPreExecHook(cmd, qemuProcessHook, &hookData);
+ 

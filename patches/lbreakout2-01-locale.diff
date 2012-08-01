@@ -11,11 +11,11 @@
  /***** EXTERNAL VARIABLES **************************************************/
  
  extern int net_buffer_cur_size, msg_read_pos;
---- lbreakout2-2.6.1/client/main.c	2009-10-26 16:38:44.000000000 +0100
-+++ lbreakout2-2.6.1-patch/client/main.c	2010-05-17 20:03:49.570619339 +0200
-@@ -38,6 +38,10 @@
- #include "client.h"
+--- lbreakout2-2.6.3/client/main.c	Tue Mar  8 12:14:24 2011
++++ lbreakout2-2.6.3-patch/client/main.c	Sat Oct 29 21:57:17 2011
+@@ -39,6 +39,10 @@
  #include "../gui/gui.h"
+ #include "setselect.h"
  
 +#if defined(ENABLE_NLS) && (defined(__sun) || defined(sun))
 +#include <locale.h>

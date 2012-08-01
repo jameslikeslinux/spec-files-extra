@@ -8,6 +8,7 @@
 %define gimp_api_ver 2.0
 
 Name:		SFEgimpfx-foundry
+IPS_Package_Name:	image/editor/gimp/plugin/gimpfx-foundry
 Summary:	Cross-platform development framework/toolkit
 Version:	2.6-1
 IPS_component_version:	2.6.1

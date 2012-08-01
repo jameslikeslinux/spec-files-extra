@@ -13,8 +13,8 @@
 Name:                    SFEnetspeed-applet
 Summary:                 Netspeed applet for GNOME
 Group:                   System/GUI/GNOME
-Version:                 0.15
-Source:                  http://www.wh-hms.uni-ulm.de/~mfcn/netspeed/packages/netspeed_applet-%{version}.tar.gz
+Version:                 0.15.2
+Source:                  http://launchpad.net/netspeed/trunk/%{version}/+download/netspeed_applet-%{version}.tar.gz
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}_%{version}-build
@@ -120,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix download location, micro version bump
 * Sun Sep 07 2008 - Andras Barna (andras.barna@gmail.com)
 - New version, remove patch01, fixed upstream
 * Sun Aug 03 2008 - Andras Barna (andras.barna@gmail.com)

@@ -7,6 +7,7 @@
 %define src_name uptimed
 
 Name:		SFEuptimed
+IPS_Package_Name:	service/uptimed
 Summary:	An uptime daemon
 Version:	0.3.16
 URL:		http://podgorny.cz/uptimed/

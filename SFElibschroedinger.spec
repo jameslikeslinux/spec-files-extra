@@ -5,6 +5,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -23,21 +24,23 @@
 
 
 Name:           SFElibschroedinger
+IPS_Package_Name:	library/video/libschroedinger 
 Version:        %{schroedinger.version}
 Summary:        %{schroedinger.summary}
 
 Group:          %{schroediner.group}
 License:        %{schroedinger.license}
 URL:            %{schroedinger.url}
+SUNW_Copyright:	schroedinger.copyright
 
-SUNW_BaseDir:            %{_basedir}
+SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-build
 
 %include default-depend.inc
 
 BuildRequires:  SFEorc-devel
-Requires: SFEorc
-BuildRequires:  SUNWgtk-doc
+Requires:       SFEorc
+BuildRequires:  %{pnm_buildrequires_SUNWgtk_doc}
 BuildRequires:  SUNWliboil
 BuildRequires:  SUNWgnome-media-devel
 
@@ -138,32 +141,34 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/schroedinger
 
 %changelog
+* Sat Apr 28 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWgtk_doc}
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Oct 30 2010 - Thomas Wagner
 - relocate %description area to workaround catching all Statements
   below like (Build)Requires SFEorc(-devel), until the next 
   line with %prep.  %description is now last section before %prep
 * Fri Oct 29 2010 - Thomas Wagner
-- rename BuildRequires to SFEorc-devel. NOTE: dependency resolving  by pkgbuild --autodeps 
-  doesn't work. For now you *must* run pkgbuild build SFEorc SFElibschroedinger   in that order
+- rename BuildRequires to SFEorc-devel.  NOTE: dependency resolving by pkgbuild
+  --autodeps doesn't work.  For now you *must* run pkgbuild build SFEorc
+  SFElibschroedinger in that order
 * Thu Jun 03 2010 - Milan Jurik
 - rename from SFEschroedinger.spec to SFElibschroedinger.spec
 * Fri Apr 09 2010 - Milan Jurik
 - initial import to SFE
 * Wed May 7 2008 Christian Schaller <christian.schaller@collabora.co.uk>
 - Added Schrovirtframe.h
-
 * Fri Feb 22 2008 David Schleef <ds@schleef.org>
 - Update for 1.0
-
 * Fri Feb 1 2008 Christian F.K. Schaller <christian.schaller@collabora.co.uk>
 - add schromotionest.h
 - remove schropredict.h
-
 * Tue Jan 22 2008 Christian F.K. Schaller <christian.schaller@collabora.co.uk>
 - Update for latest changes
-
 * Thu Apr 05 2007 Thomas Vander Stichele <thomas at apestaart dot org>
 - Further updates.
-
 * Thu Apr 27 2006 Christian F.K. Schaller <christian@fluendo.com>
 - Updates for carid -> schroedinger change

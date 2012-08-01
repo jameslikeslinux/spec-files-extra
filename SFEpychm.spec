@@ -6,17 +6,19 @@
 %include Solaris.inc
 
 %define	src_name pychm
-%define	src_url	http://nchc.dl.sourceforge.net/sourceforge/gnochm
 
-Name:                SFEpychm
-Summary:             Python CHM module
-Version:             0.8.4
-Source:              %{src_url}/%{src_name}-%{version}.tar.gz
-Patch1:		     pychm-01-inline.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEpychm
+IPS_Package_Name:	library/python2/pychm
+Summary:	Python CHM module
+Version:	0.8.4
+URL:		http://gnochm.sourceforge.net/pychm.html
+Source:		%{sf_download}/gnochm/%{src_name}-%{version}.tar.gz
+Patch1:		pychm-01-inline.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SFEchmlib
+Requires: SUNWPython26
 
 %prep
 %setup -q -n %{src_name}-%version
@@ -39,5 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Sun Oct 30 2011 - Milan Jurik
+- fix download URL
 * Fri Jul 27 2007 - dougs@truemail.co.th
 - Initial spec

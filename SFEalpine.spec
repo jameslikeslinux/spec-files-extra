@@ -8,6 +8,7 @@
 %define SUNWgawk      %(/usr/bin/pkginfo -q SUNWgawk && echo 1 || echo 0)
 
 Name:                SFEalpine
+IPS_Package_Name:	mail/alpine
 License:             Apache
 Summary:             University of Washington Alpine mail user agent
 Version:             2.00

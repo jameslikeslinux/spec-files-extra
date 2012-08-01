@@ -1,86 +1,74 @@
 #
-# Copyright (c) 2006 Sun Microsystems, Inc.
+# Initial XFCE Battery plugin spec by Ken Mays
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
 %include Solaris.inc
+%define src_name xfce4-battery-plugin
 
-%define xfce_version 4.8.0
-
-Name:			SFExfce4-battery-plugin
-Summary:		Battery applet for Xfce
-Version:		1.0.0
-URL:			http://www.xfce.org/
-Source0:		http://archive.xfce.org/src/panel-plugins/xfce4-battery-plugin/1.0/xfce4-battery-plugin-%{version}.tar.bz2
-Group:			User Interface/Desktops
-SUNW_BaseDir:		%{_basedir}
-BuildRoot:		%{_tmppath}/%{name}-%{version}-build
-BuildRequires:		SUNWgnome-component-devel
-Requires:		SUNWgnome-component
-BuildRequires:		SUNWgnome-base-libs-devel
-Requires:		SUNWgnome-base-libs
-BuildRequires:		SUNWgnome-panel-devel
-Requires:		SUNWgnome-panel
-BuildRequires:		SFElibxfcegui4-devel
-Requires:		SFElibxfcegui4
-BuildRequires:		SFElibxfce4util-devel
-Requires:		SFElibxfce4util
-BuildRequires:		SFExfce4-panel-devel
-Requires:		SFExfce4-panel
-Requires:		SUNWpostrun
-
+Name:       		SFExfce4-battery-plugin
+Version:    		1.0.0
+Summary:    		Battery monitor for the Xfce panel
+Group:      		User Interface/Desktops
+License:    		GPLv2+
+URL:        		http://goodies.xfce.org/projects/panel-plugins/
+Source0:    		http://archive.xfce.org/src/panel-plugins/xfce4-battery-plugin/1.0/xfce4-battery-plugin-%{version}.tar.bz2
+SUNW_BaseDir:           %{_basedir}
+BuildRoot:              %{_tmppath}/xfce4-battery-plugin-%{version}
+BuildRequires:          SFElibxfcegui4-devel
+Requires:               SFElibxfcegui4
+BuildRequires:          SFExfce4-panel-devel
+Requires:               SFExfce4-panel
+Requires:               SUNWpostrun
+ 
+%description
+A battery monitor plugin for the Xfce panel, compatible with APM and ACPI.
+ 
 %prep
-%setup -q -n xfce4-weather-plugin-%{version}
+%setup -q -n %{src_name}-%{version}
 
+ 
 %build
+
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
   CPUS=1
 fi
 
-export CFLAGS="%optflags"
+export CFLAGS="%optflags -lsocket -lnsl"
 export LDFLAGS="%_ldflags"
-./configure --prefix=%{_prefix} \
+
+%configure ./configure --prefix=%{_prefix} \
             --libdir=%{_libdir} \
             --libexecdir=%{_libexecdir} \
-            --datadir=%{_datadir} \
-            --mandir=%{_mandir} \
-            --sysconfdir=%{_sysconfdir} \
-	    --with-locales-dir=%{_datadir}/locale \
-            --enable-gtk-doc \
-            --disable-static
-
+	    --disable-static
 make -j $CPUS
-
+ 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir}
-
+make install DESTDIR=$RPM_BUILD_ROOT
+%find_lang %{name}
+ 
+%post
+touch --no-create %{_datadir}/icons/hicolor || :
+%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+ 
+%postun
+touch --no-create %{_datadir}/icons/hicolor || :
+%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+ 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post
-( echo 'test -x /usr/bin/update-desktop-database || exit 0';
-  echo '/usr/bin/update-desktop-database'
-) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -u
-
-%postun
-test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
-( echo 'test -x /usr/bin/update-desktop-database || exit 0';
-  echo '/usr/bin/update-desktop-database'
-) | $PKG_INSTALL_ROOT/usr/lib/postrun -b -u
-
-
-%files
+ 
+%files 
 %defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/xfce4
-%dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/xfce4
-%defattr(-,root,other)
-%{_datadir}/locale
-%{_datadir}/icons
+%doc AUTHORS COPYING COPYING.LIB ChangeLog README
+%{_libexecdir}/xfce4/panel-plugins/xfce4-battery-plugin
+%{_datadir}/xfce4/panel-plugins/*.desktop
+%{_datadir}/icons/hicolor/scalable/apps/*.svg 
+%{_datadir}/icons/hicolor/*/apps/*.png
+%{_datadir}/locale/*
 
 %changelog
-* Sat Jun 11 2011 - Ken Mays <kmays2000@gmail.com>
+* Fri Oct 7 2011 - Ken Mays <kmays2000@gmail.com>
 - Initial version

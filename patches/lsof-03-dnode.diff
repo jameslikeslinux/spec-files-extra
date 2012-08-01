@@ -1,0 +1,194 @@
+--- lsof_4.83_src/dialects/sun/dnode.c	2010-01-18 11:03:59.000000000 -0800
++++ lsof_4.83_src-patched/dialects/sun/dnode.c	2012-03-11 10:04:36.905537113 -0700
+@@ -178,16 +178,18 @@
+ 	vfs_t	*z_vfs;			/* pointer to VFS */
+ } zfsvfs_t;
+ 
+-typedef struct znode_phys {
+-	uint64_t	zp_size;	/* file size */
+-	uint64_t	zp_links;	/* links */
+-} znode_phys_t;
++/* typedef struct znode_phys { */
++/* 	uint64_t	zp_size;	/\* file size *\/ */
++/* 	uint64_t	zp_links;	/\* links *\/ */
++/* } znode_phys_t; */
+ 
+ typedef struct znode {
+ 	zfsvfs_t	*z_zfsvfs;	/* pointer to associated vfs */
+ 	vnode_t		*z_vnode;	/* pointer to associated vnode */
+ 	uint64_t	z_id;		/* node ID */
+-	znode_phys_t	*z_phys;	/* pointer to persistent znode */
++	/* znode_phys_t	*z_phys;	/\* pointer to persistent znode *\/ */
++	uint64_t        z_size;         /* file size (cached) */
++	uint64_t        z_links;        /* file links (cached) */
+ } znode_t;
+ 
+ 
+@@ -220,25 +222,30 @@
+     CTF_MEMBER(z_link_node),
+ #define	MX_z_link_node		3
+ 
+-    CTF_MEMBER(z_phys),
+-#define	MX_z_phys		4
++/*     CTF_MEMBER(z_phys), */
++/* #define	MX_z_phys		4 */
+ 
++    CTF_MEMBER(z_size),
++#define	MX_z_size		4
++
++    CTF_MEMBER(z_links),
++#define	MX_z_links		5
+ 
+     { NULL, 0 }
+ };
+ 
+ 
+-#define ZNODE_PHYS_TYPE_NAME    "znode_phys_t"
++/* #define ZNODE_PHYS_TYPE_NAME    "znode_phys_t" */
+ 
+-static	CTF_member_t znode_phys_members[] = {
+-    CTF_MEMBER(zp_size),
+-#define	MX_zp_size		0
++/* static	CTF_member_t znode_phys_members[] = { */
++/*     CTF_MEMBER(zp_size), */
++/* #define	MX_zp_size		0 */
+ 
+-    CTF_MEMBER(zp_links),
+-#define	MX_zp_links		1
++/*     CTF_MEMBER(zp_links), */
++/* #define	MX_zp_links		1 */
+ 
+-     { NULL, 0 }
+-};
++/*      { NULL, 0 } */
++/* }; */
+ 
+ 
+ #define ZFSVFS_TYPE_NAME        "zfsvfs_t"
+@@ -257,7 +264,7 @@
+ 
+ static	CTF_request_t ZFS_requests[] = {
+     { ZNODE_TYPE_NAME,		znode_members },
+-    { ZNODE_PHYS_TYPE_NAME,	znode_phys_members },
++    /* { ZNODE_PHYS_TYPE_NAME,	znode_phys_members }, */
+     { ZFSVFS_TYPE_NAME,		zfsvfs_members },
+     { NULL,			NULL }
+ };
+@@ -268,7 +275,7 @@
+  */
+ 
+ _PROTOTYPE(static int read_nzn,(KA_T na, KA_T nza, znode_t *z));
+-_PROTOTYPE(static int read_nznp,(KA_T nza, KA_T nzpa, znode_phys_t *zp));
++/* _PROTOTYPE(static int read_nznp,(KA_T nza, KA_T nzpa, znode_phys_t *zp)); */
+ _PROTOTYPE(static int read_nzvfs,(KA_T nza, KA_T nzva, zfsvfs_t *zv));
+ #endif	/* defined(HAS_ZFS) && defined(HAS_LIBCTF) */
+ 
+@@ -1289,9 +1296,9 @@
+ #if	defined(HAS_ZFS)
+ 	vfs_t zgvfs;
+ 	unsigned char zns = 0;
+-	unsigned char zps = 0;
++	/* unsigned char zps = 0; */
+ 	znode_t zn;
+-	znode_phys_t znp;
++	/* znode_phys_t znp; */
+ 	zfsvfs_t zvfs;
+ #endif	/* defined(HAS_ZFS) */
+ 
+@@ -3143,14 +3150,15 @@
+ #if	defined(HAS_ZFS)
+ 	    case N_ZFS:
+ 		if (zns) {
+-		    if (!read_nznp((KA_T)v->v_data, (KA_T)zn.z_phys, &znp)) {
+-			zps = 1;
++		    /* if (!read_nznp((KA_T)v->v_data, (KA_T)zn.z_phys, &znp)) { */
++		    /* 	zps = 1; */
+ 			if (type == VREG || type == VDIR) {
+-			    Lf->sz = (SZOFFTYPE)znp.zp_size;
++			    /* Lf->sz = (SZOFFTYPE)znp.zp_size; */
++			    Lf->sz = (SZOFFTYPE)zn.z_size;
+ 			    Lf->sz_def = 1;
+ 			} else if ((type == VCHR || type == VBLK) && !Fsize)
+ 			    Lf->off_def = 1;
+-		    }
++		    /* } */
+ 		}
+ 		break;
+ #endif	/* defined(HAS_ZFS) */
+@@ -3302,8 +3310,10 @@
+ 
+ #if	defined(HAS_ZFS)
+ 	    case N_ZFS:
+-		if (zps) {
+-		    Lf->nlink = (long)MIN(znp.zp_links, UINT32_MAX);
++		/* if (zps) { */
++		if (zns) {
++		    /* Lf->nlink = (long)MIN(znp.zp_links, UINT32_MAX); */
++		    Lf->nlink = (long)MIN(zn.z_links, UINT32_MAX);
+ 		    Lf->nlink_def = 1;
+ 		}
+ 		break;
+@@ -4941,7 +4951,9 @@
+ 	||  CTF_MEMBER_READ(nza, zn, znode_members, z_zfsvfs)
+ 	||  CTF_MEMBER_READ(nza, zn, znode_members, z_vnode)
+ 	||  CTF_MEMBER_READ(nza, zn, znode_members, z_id)
+-	||  CTF_MEMBER_READ(nza, zn, znode_members, z_phys)
++	    /* ||  CTF_MEMBER_READ(nza, zn, znode_members, z_phys) */
++	||  CTF_MEMBER_READ(nza, zn, znode_members, z_size)
++	||  CTF_MEMBER_READ(nza, zn, znode_members, z_links)
+ 	) {
+ 	    (void) snpf(Namech, Namechl - 1,
+ 		"node at %s: can't read znode: %s",
+@@ -4959,29 +4971,29 @@
+  * read_nznp() - read znode's persistent znode
+  */
+ 
+-static int
+-read_nznp(nza, nzpa, zp)
+-	KA_T nza;			/* containing znode's address */
+-	KA_T nzpa;			/* persistent znode address */
+-	znode_phys_t *zp;		/* persistent znode receiver */
+-{
+-	char tbuf[32];
+-
+-	(void) CTF_init(&ZFS_ctfs, ZFS_MOD_FORMAT, ZFS_requests);
+-	if (!nzpa
+-	||  CTF_MEMBER_READ(nzpa, zp, znode_phys_members, zp_size)
+-	||  CTF_MEMBER_READ(nzpa, zp, znode_phys_members, zp_links)
+-	) {
+-	    (void) snpf(Namech, Namechl - 1, "znode at %s: "
+-	                                 "can't read znode_phys: %s",
+-		print_kptr(nza, tbuf, sizeof(tbuf)),
+-		print_kptr(nzpa, (char *)NULL, 0));
+-	    Namech[Namechl - 1] = '\0';
+-	    enter_nm(Namech);
+-	    return(1);
+-	}
+-	return(0);
+-}
++/* static int */
++/* read_nznp(nza, nzpa, zp) */
++/* 	KA_T nza;			/\* containing znode's address *\/ */
++/* 	KA_T nzpa;			/\* persistent znode address *\/ */
++/* 	znode_phys_t *zp;		/\* persistent znode receiver *\/ */
++/* { */
++/* 	char tbuf[32]; */
++
++/* 	(void) CTF_init(&ZFS_ctfs, ZFS_MOD_FORMAT, ZFS_requests); */
++/* 	if (!nzpa */
++/* 	||  CTF_MEMBER_READ(nzpa, zp, znode_phys_members, zp_size) */
++/* 	||  CTF_MEMBER_READ(nzpa, zp, znode_phys_members, zp_links) */
++/* 	) { */
++/* 	    (void) snpf(Namech, Namechl - 1, "znode at %s: " */
++/* 	                                 "can't read znode_phys: %s", */
++/* 		print_kptr(nza, tbuf, sizeof(tbuf)), */
++/* 		print_kptr(nzpa, (char *)NULL, 0)); */
++/* 	    Namech[Namechl - 1] = '\0'; */
++/* 	    enter_nm(Namech); */
++/* 	    return(1); */
++/* 	} */
++/* 	return(0); */
++/* } */
+ 
+ 
+ /*

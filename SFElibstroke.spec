@@ -9,9 +9,13 @@
 %define	src_url	http://www.etla.net/%{src_name}
 
 Name:		SFElibstroke
+IPS_Package_Name:	library/desktop/libstroke
 Summary:	A stroke translation library
+Group:		Desktop (GNOME)/Libraries
 Version:	0.5.1
-License:	GPL
+License:	GPLv2
+SUNW_Copyright:	libstroke.copyright
+URL:		http://etla.net/libstroke/
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		libstroke-01-am15.diff
 Patch2:		libstroke-02-am18.diff
@@ -44,14 +48,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export PKG_CONFIG_PATH=/usr/sfw/lib/pkgconfig
 export CPPFLAGS="-I/usr/sfw/include -I/usr/X11/lib"
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 export LD_LIBRARY_PATH="-L/usr/sfw/lib -R/usr/sfw/lib -L/usr/X11/lib -RL/usr/X11/lib"
 
 libtoolize --copy --force
-aclocal -I /usr/sfw/share/aclocal
+aclocal
 autoconf -f
 automake -a -c -f
 ./configure --prefix=%{_prefix}		\

@@ -9,11 +9,14 @@
 %define src_url		http://www.portaudio.com/archives
 
 Name:                   SFEportaudio
+IPS_Package_Name:	library/audio/portaudio
 Summary:                Portable cross-platform Audio API
 Version:                v19_20110326
 IPS_component_version:	0.19.0.20110326
 Source:                 %{src_url}/pa_stable_%{version}.tgz
+URL:			http://www.portaudio.com
 SUNW_BaseDir:           %{_basedir}
+SUNW_Copyright:		portaudio.copyright
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires:		SUNWaudh
@@ -48,7 +51,8 @@ export LDFLAGS="%_ldflags"
 	    --without-jack		\
 	    --enable-cxx
 
-make -j$CPUS 
+# Parallelism breaks with 16 cpus, so don't use more than 4
+make -j$(test $CPUS -ge 4 && echo 4 || echo $CPUS)
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -72,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Fri Apr 15 2011 - Milan Jurik
 - new snapshot available
 * Tue Feb 24 2009 - Albert Lee

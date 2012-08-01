@@ -8,7 +8,7 @@
 Name:                SFEfox
 Summary:             C++ based Toolkit for developing graphical interfaces
 Version:             1.6.18
-Source:              http://www.fox-toolkit.org/ftp/fox-%{version}.tar.gz
+Source:              http://ftp.fox-toolkit.org/pub/fox-%{version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
-* 
+* Sun Apr 01 2012 - Pavel Heimlich
+- update source url
 * Tue Nov 07 2006 - Eric Boutilier
 - Initial spec

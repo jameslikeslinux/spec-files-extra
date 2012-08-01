@@ -9,16 +9,16 @@
 
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
-Name:                    SFEtwolame
-Summary:                 twolame - MP3 Encoder
-Version:                 0.3.12
-Source:                  http://downloads.sourceforge.net/twolame/twolame-%{version}.tar.gz
-# date:2008-08-17 owner:halton type:bug bugid:2054218
-Patch1:			 twolame-01-configure.diff
-Patch2:                  twolame-02-configure.diff
-Patch3:                  twolame-03-configure.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEtwolame
+IPS_Package_Name:	audio/twolame
+Summary:	twolame - MP3 Encoder
+Version:	0.3.13
+URL:		http://www.twolame.org/
+Source:		http://downloads.sourceforge.net/twolame/twolame-%{version}.tar.gz
+License:	LGPLv2.1+
+SUNW_Copyright:	twolame.copyright
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %if %SFElibsndfile
@@ -40,9 +40,6 @@ Requires: %name
 
 %prep
 %setup -q -n twolame-%version
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -52,11 +49,6 @@ fi
 export CFLAGS="%optflags -xcrossfile=1"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal -I ."
 
-libtoolize --copy --force
-aclocal $ACLOCAL_FLAGS
-autoheader
-automake -a -c -f
-autoconf
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
@@ -96,6 +88,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 10 2011 - Milan Jurik
+- bump to 0.3.13, add IPS package name
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Jul 05 2009 - Milan Jurik
 - patch2 and patch3 to remove potential building problems
 * Tue Feb 17 2009 - Thomas Wagner

@@ -1,0 +1,10 @@
+--- libs/locale/src/util/codecvt_converter.cpp	2012-01-14 21:44:30.428950659 +0100
++++ libs/locale/src/util/codecvt_converter.cpp	2012-01-14 21:44:23.250065466 +0100
+@@ -21,6 +21,7 @@
+ #include <string.h>
+ #include <vector>
+ #include <algorithm>
++#include <wchar.h>
+ 
+ //#define DEBUG_CODECVT
+ 

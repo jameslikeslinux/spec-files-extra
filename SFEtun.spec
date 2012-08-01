@@ -12,12 +12,25 @@
 %define drv_base %{usr_kernel}/drv
 
 Name:		SFEtun
+IPS_Package_Name:	system/network/tuntap
 Summary:	Virtual Point-to-Point network device
+URL:		http://www.whiteboard.ne.jp/~admin2/tuntap/
+License:        GPLv2
+SUNW_Copyright:	tuntap.copyright
+Meta(info.upstream): Kazuyoshi Aizawa <admin2@whiteboard.ne.jp>
 Version:	1.1
 Source:		%{src_url}/%{src_name}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%description
+tuntap is a TAP driver for Solaris that can be used for OpenVPN, OpenConnect,
+and vpnc.
+
+The code is based on the Universal TUN/TAP driver. Some changes were made and
+code added for supporting Ethernet tunneling feature, since the Universal
+TUN/TAP driver for Solaris only supports IP tunneling known as TUN.
 
 %package devel
 Summary:                 %{summary} - development files
@@ -91,6 +104,10 @@ driver name=tap
 %endif
 
 %changelog
+* Thu Oct 06 2011 - Milan Jurik
+- add IPS package name
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Wed May 12 2010 - Milan Jurik
 - update according the latest upstream
 - IPS support added

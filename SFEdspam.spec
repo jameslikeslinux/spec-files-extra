@@ -6,8 +6,9 @@
 %include Solaris.inc
 
 Name:                SFEdspam
+IPS_Package_Name:	service/network/smtp/dspam
 Summary:             Extremely scalable, statistical-hybrid anti-spam filter
-Version:             3.9.0
+Version:             3.10.1
 Source:              %{sf_download}/dspam/dspam-%{version}.tar.gz
 Source1:             dspam.xml
 
@@ -101,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, bin) %{_includedir}/*
 
 %changelog
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 3.10.1
 * Thu Mar 17 2011 - Thomas Wagner
 - fix %files -devel catching /usr, setting SUNW_BaseDir: %{_basedir}
 * Sun Feb 14 2010 - Albert Lee <trisk@opensolaris.org>

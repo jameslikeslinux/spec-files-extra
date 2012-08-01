@@ -10,11 +10,11 @@
 %include packagenamemacros.inc
 
 Name:           SFEnetatalk
-Summary:        Open Source AFP fileserver
-Version:        2.1.2
-Epoch:          1
-License:        GPLv3
-Copyright:	GPLv3
+IPS_package_name:       service/network/netatalk
+Summary:        Open Source Apple Filing Protocol (AFP) fileserver
+Group:		System/Services
+Version:        2.2.3
+License:        GLPv2
 Source:         %{sf_download}/netatalk/netatalk-%{version}.tar.bz2
 URL:            http://netatalk.sourceforge.net/
 Group:          Network
@@ -23,14 +23,26 @@ Vendor:         OpenSolaris Community
 
 %include default-depend.inc
 
-BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
-Requires: %{pnm_requires_SUNWgnu_dbm}
+BuildRequires: SFEbdb
+BuildRequires: %{pnm_buildrequires_SUNWlibgcrypt}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+BuildRequires: %{pnm_buildrequires_system_network_avahi}
+BuildRequires: %{pnm_buildrequires_SUNWavahi_bridge_dsd}
+BuildRequires: %{pnm_buildrequires_SUNWavahi_bridge_dsd_devel}
+BuildRequires: %{pnm_buildrequires_avahi_bridge_dsd}
+Requires: SFEbdb
+Requires: %{pnm_requires_SUNWlibgcrypt}
+Requires: %{pnm_requires_SUNWopenssl}
+Requires: %{pnm_requires_system_network_avahi}
+Requires: %{pnm_requires_SUNWavahi_bridge_dsd}
+Requires: %{pnm_requires_avahi_bridge_dsd}
+
 #make the root package to be installed first
 Requires: %name-root
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:            %{_basedir}
-SUNW_Copyright: %{name}.copyright
+SUNW_Copyright: netatalk.copyright
 
 # OpenSolaris IPS Manifest Fields
 Meta(info.upstream): http://netatalk.sourceforge.net/ 
@@ -56,7 +68,7 @@ rm -rf %name-%version
 
 %build
 export CFLAGS="%optflags -xc99=all "
-#export LDFLAGS="%_ldflags"
+export LIBS="-R/usr/gnu/lib"
 ./configure --prefix=%{_prefix}                  \
             --bindir=%{_bindir}                  \
             --mandir=%{_mandir}                  \
@@ -68,6 +80,8 @@ export CFLAGS="%optflags -xc99=all "
             --disable-ddp                        \
             --with-pam \
             --with-bdb=/usr/gnu \
+            --with-libgcrypt-dir=/usr \
+            --with-ssl-dir=/usr \
             --enable-nfsv4acls
 
 make
@@ -79,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
   DESTDIR=$RPM_BUILD_ROOT \
   MANDIR=$RPM_BUILD_ROOT%{_mandir}
 
-install -D -m 755 distrib/initscripts/rc.atalk.sysv $RPM_BUILD_ROOT%{_sysconfdir}/init.d/netatalk
+ginstall -D -m 755 distrib/initscripts/rc.atalk.sysv $RPM_BUILD_ROOT%{_sysconfdir}/init.d/netatalk
 
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/spool/netatalk
 rm -rf $RPM_BUILD_ROOT/var/tmp
@@ -101,7 +115,7 @@ rm -rf %name-%version
 
 
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/netatalk/*
+#%{_datadir}/netatalk/*
 %dir %attr (0755, root, bin) %{_mandir}
 %dir %attr (0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
@@ -118,13 +132,34 @@ rm -rf %name-%version
 
 %files root
 %defattr (-, root, sys)
+%attr (0755, root, sys) %dir %{_sysconfdir}
+%attr (0755, root, sys) %dir %{_sysconfdir}/init.d
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netatalk/*
 %{_sysconfdir}/init.d/netatalk
+%defattr (-, root, bin)
 %dir %attr (0755, root, sys) %{_localstatedir}
+%dir %attr (0755, root, bin) %{_localstatedir}/spool
 %dir %{_localstatedir}/spool/netatalk
 
 
 %changelog
+* Mon Jul 23 2012 - Milan Jurik
+- bump to 2.2.3
+- fix rpath for /usr/gnu/lib
+* Sun Jan 22 2012 - TAKI, Yasushi
+- bump to 2.2.2.
+- Add IPS_package_name service/network/netatalk like samba package.
+- Add dependency libgcrypt and ssl dir for supporting TimeMachine for Mac OSX Lion.
+* Mon Aug  1 2011 - Alex Viskovatoff
+- add SUNW_Copyright
+* Mon Aug  1 2011 - Thomas Wagner
+- hard (Build)Requires SFEbdb (depdend resol. won't work with SUNWgnu_dbm)
+- fix %files permissions for /var/spool
+* Mon Aug  1 2011 - Thomas Wagner
+- bump to 2.2.0 in a separate commit, this is first stable 2.2.x for early adopters
+- fix %files
+* Mon Aug  1 2011 - Thomas Wagner
+- bump to 2.1.5
 * Sat Mar 20 2011 - Thomas Wagner
 - fix permissions by rewriting %files section
 - remove static libs

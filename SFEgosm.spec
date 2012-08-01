@@ -6,12 +6,14 @@
 %include Solaris.inc
 
 Name:           SFEgosm
+IPS_Package_Name:	desktop/gosm
 Summary:        gosm let's you browse the free map-data from the Openstreetmap-project
 Version:        0.0.9
 Source:         %{sf_download}/gosm/0.09/gosm.%{version}.tar.gz
 Patch1:		gosm-01-makefile.diff
 Patch2:		gosm-02-init.diff
 URL:            http://gosm.sourceforge.net/
+Group:		Applications/Internet
 License:	GPLv3
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build

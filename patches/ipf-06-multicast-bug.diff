@@ -1,0 +1,11 @@
+--- ip_fil5.1.1/fil.c	2012-01-28 21:30:35.000000000 -0800
++++ ip_fil5.1.1-patched/fil.c	2012-03-06 08:11:21.850415507 -0800
+@@ -1705,7 +1705,7 @@
+ 	fin->fin_crc += fi->fi_saddr;
+ 	fi->fi_daddr = ip->ip_dst.s_addr;
+ 	fin->fin_crc += fi->fi_daddr;
+-	if (IN_CLASSD(fi->fi_daddr))
++	if (IN_CLASSD(ntohl(fi->fi_daddr)))
+ 		fin->fin_flx |= FI_MULTICAST|FI_MBCAST;
+ 
+ 	/*

@@ -8,7 +8,7 @@
 Name:                    cairomm
 License:		 LGPL
 Group:			 System/Libraries
-Version:                 1.4.6
+Version:                 1.8.6
 Release:		 1
 Distribution:		 Java Desktop System
 Vendor:			 Sun Microsystems, Inc.
@@ -31,8 +31,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_cxx_libdir}              \
-            --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir} 	\
 	    --disable-python 		\
 	    --disable-docs
@@ -42,25 +40,25 @@ make -j$CPUS
 make install DESTDIR=$RPM_BUILD_ROOT
 
 # Copied the example programs and binaries for testing
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
-cp examples/pdf-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
-cp examples/pdf-surface/.libs/example_pdf_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
+#mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
+#cp examples/pdf-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
+#cp examples/pdf-surface/.libs/example_pdf_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/pdf-surface
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
-cp examples/png_file/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
-cp examples/png_file/.libs/example_png_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
+#mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
+#cp examples/png_file/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
+#cp examples/png_file/.libs/example_png_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/png-file
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
-cp examples/ps-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
-cp examples/ps-surface/.libs/example_ps_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
+# mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
+# cp examples/ps-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
+# cp examples/ps-surface/.libs/example_ps_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/ps-surface
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
-cp examples/svg-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
-cp examples/svg-surface/.libs/example_svg_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
+# mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
+# cp examples/svg-surface/main.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
+# cp examples/svg-surface/.libs/example_svg_file $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/svg-surface
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
-cp examples/text-rotate/text-rotate.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
-cp examples/text-rotate/.libs/text_rotate $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
+# mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
+# cp examples/text-rotate/text-rotate.cc $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
+# cp examples/text-rotate/.libs/text_rotate $RPM_BUILD_ROOT/%{_datadir}/doc/cairomm/examples/text-rotate
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 
@@ -68,6 +66,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- update to 1.8.6
 * Tue Feb 19 2008 - ghee.teo@sun.com
 - Modified according to review comments.
 * Fri Feb 08 2008 - ghee.teo@sun.com

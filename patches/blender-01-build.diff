@@ -1,53 +1,5 @@
---- blender-2.49/extern/bullet2/src/LinearMath/btScalar.h.orig  Mon Jun 15 16:17:37 2009
-+++ blender-2.49/extern/bullet2/src/LinearMath/btScalar.h       Mon Jun 15 16:18:13 2009
-@@ -21,8 +21,8 @@
- 
- #include <stdlib.h>//size_t for MSVC 6.0
- 
--#include <cstdlib>
--#include <cfloat>
-+//#include <cstdlib>
-+//#include <cfloat>
- #include <float.h>
- 
- #define BT_BULLET_VERSION 274
-@@ -226,11 +226,11 @@ SIMD_FORCE_INLINE btScalar btPow(btScala
- 	
- #endif
- 
--#define SIMD_2_PI         btScalar(6.283185307179586232)
--#define SIMD_PI           (SIMD_2_PI * btScalar(0.5))
--#define SIMD_HALF_PI      (SIMD_2_PI * btScalar(0.25))
--#define SIMD_RADS_PER_DEG (SIMD_2_PI / btScalar(360.0))
--#define SIMD_DEGS_PER_RAD  (btScalar(360.0) / SIMD_2_PI)
-+#define SIMD_2_PI         (btScalar)(6.283185307179586232)
-+#define SIMD_PI           (SIMD_2_PI * (btScalar)(0.5))
-+#define SIMD_HALF_PI      (SIMD_2_PI * (btScalar)(0.25))
-+#define SIMD_RADS_PER_DEG (SIMD_2_PI / (btScalar)(360.0))
-+#define SIMD_DEGS_PER_RAD  ((btScalar)(360.0) / SIMD_2_PI)
- 
- #ifdef BT_USE_DOUBLE_PRECISION
- #define SIMD_EPSILON      DBL_EPSILON
-@@ -256,6 +256,8 @@ SIMD_FORCE_INLINE btScalar btAtan2Fast(b
- 	return (y < 0.0f) ? -angle : angle;
- }
- 
-+#define bool int
-+
- SIMD_FORCE_INLINE bool      btFuzzyZero(btScalar x) { return btFabs(x) < SIMD_EPSILON; }
- 
- SIMD_FORCE_INLINE bool	btEqual(btScalar a, btScalar eps) {
-@@ -267,7 +269,7 @@ SIMD_FORCE_INLINE bool	btGreaterEqual (b
- 
- 
- SIMD_FORCE_INLINE int       btIsNegative(btScalar x) {
--    return x < btScalar(0.0) ? 1 : 0;
-+    return x < (btScalar)(0.0) ? 1 : 0;
- }
- 
- SIMD_FORCE_INLINE btScalar btRadians(btScalar x) { return x * SIMD_RADS_PER_DEG; }
---- blender-2.49/intern/memutil/MEM_Allocator.h.orig	Mon Jun 15 17:31:59 2009
-+++ blender-2.49/intern/memutil/MEM_Allocator.h	Mon Jun 15 17:34:04 2009
+--- blender-2.49b/intern/memutil/MEM_Allocator.h.orig	2011-06-15 13:34:38.141431000 -0400
++++ blender-2.49b/intern/memutil/MEM_Allocator.h	2011-06-15 13:38:31.787673000 -0400
 @@ -83,7 +83,8 @@
  
  #ifndef MS_VISUALC_6_0_WORKAROUND
@@ -58,40 +10,78 @@
  		MEM_freeN(__p);
  	}
  #else
---- blender-2.49-bk/source/Makefile.orig	Mon Jun 15 18:06:23 2009
-+++ blender-2.49-bk/source/Makefile	Mon Jun 15 18:06:37 2009
-@@ -103,7 +103,7 @@
- COMLIB += $(NAN_IKSOLVER)/lib/libiksolver.a
- COMLIB += $(NAN_SUPERLU)/lib/$(DEBUG_DIR)libsuperlu.a	
- COMLIB += $(OCGDIR)/blender/avi/$(DEBUG_DIR)libavi.a
--COMLIB += $(NAN_JPEG)/lib/libjpeg.a
-+COMLIB += $(NAN_JPEG)/lib/libjpeg.so
- COMLIB += $(OCGDIR)/blender/gpu/$(DEBUG_DIR)libgpu.a
- COMLIB += $(NAN_GLEW)/lib/libglew.a
-
-@@ -160,7 +160,7 @@
- COMLIB += $(NAN_GUARDEDALLOC)/lib/libguardedalloc.a
- COMLIB += $(NAN_MEMUTIL)/lib/libmemutil.a
- COMLIB += $(NAN_BMFONT)/lib/$(DEBUG_DIR)libbmfont.a
--COMLIB += $(NAN_PNG)/lib/libpng.a
-+COMLIB += $(NAN_PNG)/lib/libpng.so
- COMLIB += $(OCGDIR)/blender/yafray/$(DEBUG_DIR)libyafrayexport.a
- COMLIB += $(OCGDIR)/blender/blenlib/$(DEBUG_DIR)libblenlib.a
+--- blender-2.49b/config/sunos5-config.py.orig	2009-09-01 11:23:25.000000000 -0400
++++ blender-2.49b/config/sunos5-config.py	2011-06-15 12:55:38.113554500 -0400
+@@ -30,7 +30,7 @@
  
-@@ -337,8 +337,8 @@
- endif
+ WITH_BF_OPENEXR = True
+ WITH_BF_STATICOPENEXR = False
+-BF_OPENEXR = '/usr/local'
++BF_OPENEXR = '/usr'
+ BF_OPENEXR_INC = ['${BF_OPENEXR}/include', '${BF_OPENEXR}/include/OpenEXR' ]
+ BF_OPENEXR_LIBPATH = '${BF_OPENEXR}/lib'
+ BF_OPENEXR_LIB = 'Half IlmImf Iex Imath '
+@@ -40,18 +40,18 @@
+ WITH_BF_DDS = True
+ 
+ WITH_BF_JPEG = True
+-BF_JPEG = '/usr/local'
++BF_JPEG = '/usr'
+ BF_JPEG_INC = '${BF_JPEG}/include'
+ BF_JPEG_LIBPATH = '${BF_JPEG}/lib'
+ BF_JPEG_LIB = 'jpeg'
+ 
+ WITH_BF_PNG = True
+-BF_PNG = '/usr/local'
++BF_PNG = '/usr'
+ BF_PNG_INC = '${BF_PNG}/include'
+ BF_PNG_LIBPATH = '${BF_PNG}/lib'
+ BF_PNG_LIB = 'png'
+ 
+-BF_TIFF = '/usr/local'
++BF_TIFF = '/usr'
+ BF_TIFF_INC = '${BF_TIFF}/include'
+ 
+ WITH_BF_ZLIB = True
+@@ -60,7 +60,7 @@
+ BF_ZLIB_LIBPATH = '${BF_ZLIB}/lib'
+ BF_ZLIB_LIB = 'z'
+ 
+-WITH_BF_INTERNATIONAL = True
++WITH_BF_INTERNATIONAL = False
+ 
+ BF_GETTEXT = '/usr/local'
+ BF_GETTEXT_INC = '${BF_GETTEXT}/include'
+@@ -72,6 +72,7 @@
+ BF_FTGL_INC = '${BF_FTGL}/include'
+ BF_FTGL_LIB = 'extern_ftgl'
+ 
++#WITH_BF_GAMEENGINE=True
+ WITH_BF_GAMEENGINE=False
+ 
+ WITH_BF_ODE = False
+@@ -108,7 +109,7 @@
+ #BF_PARANOID = True
+ 
+ # enable freetype2 support for text objects
+-BF_FREETYPE = '/usr/local'
++BF_FREETYPE = '/usr'
+ BF_FREETYPE_INC = '${BF_FREETYPE}/include ${BF_FREETYPE}/include/freetype2'
+ BF_FREETYPE_LIBPATH = '${BF_FREETYPE}/lib'
+ BF_FREETYPE_LIB = 'freetype'
+@@ -117,7 +118,7 @@
+ BF_QUICKTIME = '/usr/local'
+ BF_QUICKTIME_INC = '${BF_QUICKTIME}/include'
+ 
+-WITH_BF_ICONV = True
++WITH_BF_ICONV = False
+ BF_ICONV = "/usr"
+ BF_ICONV_INC = '${BF_ICONV}/include'
+ BF_ICONV_LIB = 'iconv'
 
- ifeq ($(OS),solaris)
--    PULIB += $(NAN_ZLIB)/lib/libz.a
--    SPLIB += $(NAN_ZLIB)/lib/libz.a
-+    PULIB += $(NAN_ZLIB)/lib/libz.so
-+    SPLIB += $(NAN_ZLIB)/lib/libz.so
- endif
-
- # OpenAL libs are already compiled as shared code!
---- blender-2.48a/source/nan_compile.mk	2008-10-23 00:36:53.000000000 +0800
-+++ blender-2.48a.mod/source/nan_compile.mk	2008-11-17 14:20:47.174621922 +0800
-@@ -174,22 +174,22 @@ endif
+--- blender-2.49b/source/nan_compile.mk.orig	2009-09-01 11:21:54.000000000 -0400
++++ blender-2.49b/source/nan_compile.mk	2011-06-15 12:56:20.535429500 -0400
+@@ -191,22 +191,22 @@
  
  ifeq ($(OS),solaris)
      # Adding gcc flag to $CC is not good, however if its not there makesdna wont build - Campbell
@@ -127,7 +117,7 @@
  
      # Note, you might still want to compile a 32 bit binary if you have a 64bit system. if so remove the following lines
  #    ifeq ($(findstring 64,$(CPU)), 64)
-@@ -197,8 +197,8 @@ ifeq ($(OS),solaris)
+@@ -214,8 +214,8 @@
  #        CCFLAGS	+= -m64
  #    endif
  
@@ -138,8 +128,90 @@
  
      NAN_DEPEND = true
  #    ifeq ($(CPU),sparc)
---- blender-2.48a/source/nan_warn.mk	2008-10-23 00:36:53.000000000 +0800
-+++ blender-2.48a.mod/source/nan_warn.mk	2008-11-17 14:29:38.816645630 +0800
+
+--- blender-2.49b/extern/bullet2/src/LinearMath/btScalar.h.orig	2009-09-01 11:23:22.000000000 -0400
++++ blender-2.49b/extern/bullet2/src/LinearMath/btScalar.h	2011-06-15 12:55:24.144804500 -0400
+@@ -21,8 +21,8 @@
+ 
+ #include <stdlib.h>//size_t for MSVC 6.0
+ 
+-#include <cstdlib>
+-#include <cfloat>
++//#include <cstdlib>
++//#include <cfloat>
+ #include <float.h>
+ 
+ #define BT_BULLET_VERSION 274
+@@ -244,11 +244,11 @@
+ 	
+ #endif
+ 
+-#define SIMD_2_PI         btScalar(6.283185307179586232)
+-#define SIMD_PI           (SIMD_2_PI * btScalar(0.5))
+-#define SIMD_HALF_PI      (SIMD_2_PI * btScalar(0.25))
+-#define SIMD_RADS_PER_DEG (SIMD_2_PI / btScalar(360.0))
+-#define SIMD_DEGS_PER_RAD  (btScalar(360.0) / SIMD_2_PI)
++#define SIMD_2_PI         (btScalar)(6.283185307179586232)
++#define SIMD_PI           (SIMD_2_PI * (btScalar)(0.5))
++#define SIMD_HALF_PI      (SIMD_2_PI * (btScalar)(0.25))
++#define SIMD_RADS_PER_DEG (SIMD_2_PI / (btScalar)(360.0))
++#define SIMD_DEGS_PER_RAD  ((btScalar)(360.0) / SIMD_2_PI)
+ 
+ #ifdef BT_USE_DOUBLE_PRECISION
+ #define SIMD_EPSILON      DBL_EPSILON
+@@ -274,6 +274,8 @@
+ 	return (y < 0.0f) ? -angle : angle;
+ }
+ 
++#define bool int
++
+ SIMD_FORCE_INLINE bool      btFuzzyZero(btScalar x) { return btFabs(x) < SIMD_EPSILON; }
+ 
+ SIMD_FORCE_INLINE bool	btEqual(btScalar a, btScalar eps) {
+@@ -285,7 +287,7 @@
+ 
+ 
+ SIMD_FORCE_INLINE int       btIsNegative(btScalar x) {
+-    return x < btScalar(0.0) ? 1 : 0;
++    return x < (btScalar)(0.0) ? 1 : 0;
+ }
+ 
+ SIMD_FORCE_INLINE btScalar btRadians(btScalar x) { return x * SIMD_RADS_PER_DEG; }
+
+--- blender-2.49b/source/Makefile.orig	Mon Jun 15 18:06:23 2009
++++ blender-2.49b/source/Makefile	Mon Jun 15 18:06:37 2009
+@@ -103,7 +103,7 @@
+ COMLIB += $(NAN_IKSOLVER)/lib/libiksolver.a
+ COMLIB += $(NAN_SUPERLU)/lib/$(DEBUG_DIR)libsuperlu.a	
+ COMLIB += $(OCGDIR)/blender/avi/$(DEBUG_DIR)libavi.a
+-COMLIB += $(NAN_JPEG)/lib/libjpeg.a
++COMLIB += $(NAN_JPEG)/lib/libjpeg.so
+ COMLIB += $(OCGDIR)/blender/gpu/$(DEBUG_DIR)libgpu.a
+ COMLIB += $(NAN_GLEW)/lib/libglew.a
+
+@@ -160,7 +160,7 @@
+ COMLIB += $(NAN_GUARDEDALLOC)/lib/libguardedalloc.a
+ COMLIB += $(NAN_MEMUTIL)/lib/libmemutil.a
+ COMLIB += $(NAN_BMFONT)/lib/$(DEBUG_DIR)libbmfont.a
+-COMLIB += $(NAN_PNG)/lib/libpng.a
++COMLIB += $(NAN_PNG)/lib/libpng.so
+ COMLIB += $(OCGDIR)/blender/yafray/$(DEBUG_DIR)libyafrayexport.a
+ COMLIB += $(OCGDIR)/blender/blenlib/$(DEBUG_DIR)libblenlib.a
+ 
+@@ -337,8 +337,8 @@
+ endif
+
+ ifeq ($(OS),solaris)
+-    PULIB += $(NAN_ZLIB)/lib/libz.a
+-    SPLIB += $(NAN_ZLIB)/lib/libz.a
++    PULIB += $(NAN_ZLIB)/lib/libz.so
++    SPLIB += $(NAN_ZLIB)/lib/libz.so
+ endif
+
+ # OpenAL libs are already compiled as shared code!
+
+--- blender-2.49b/source/nan_warn.mk	2008-10-23 00:36:53.000000000 +0800
++++ blender-2.49b/source/nan_warn.mk	2008-11-17 14:29:38.816645630 +0800
 @@ -32,11 +32,11 @@
  #
  
@@ -157,76 +229,9 @@
  
  ########################################################################
  # Level 1: basic C warnings.
---- blender-2.48a/config/sunos5-config.py	2008-10-23 00:38:22.000000000 +0800
-+++ blender-2.48a.mod/config/sunos5-config.py	2009-01-15 17:31:30.467569828 +0800
-@@ -33,7 +33,7 @@ BF_FMOD = LIBDIR + '/fmod'
- 
- WITH_BF_OPENEXR = True
- WITH_BF_STATICOPENEXR = False
--BF_OPENEXR = '/usr/local'
-+BF_OPENEXR = '/usr'
- BF_OPENEXR_INC = ['${BF_OPENEXR}/include', '${BF_OPENEXR}/include/OpenEXR' ]
- BF_OPENEXR_LIBPATH = '${BF_OPENEXR}/lib'
- BF_OPENEXR_LIB = 'Half IlmImf Iex Imath '
-@@ -43,18 +43,18 @@ BF_OPENEXR_LIB_STATIC = '${BF_OPENEXR}/l
- WITH_BF_DDS = True
- 
- WITH_BF_JPEG = True
--BF_JPEG = '/usr/local'
-+BF_JPEG = '/usr'
- BF_JPEG_INC = '${BF_JPEG}/include'
- BF_JPEG_LIBPATH = '${BF_JPEG}/lib'
- BF_JPEG_LIB = 'jpeg'
- 
- WITH_BF_PNG = True
--BF_PNG = '/usr/local'
-+BF_PNG = '/usr'
- BF_PNG_INC = '${BF_PNG}/include'
- BF_PNG_LIBPATH = '${BF_PNG}/lib'
- BF_PNG_LIB = 'png'
- 
--BF_TIFF = '/usr/local'
-+BF_TIFF = '/usr'
- BF_TIFF_INC = '${BF_TIFF}/include'
- 
- WITH_BF_ZLIB = True
-@@ -63,7 +63,7 @@ BF_ZLIB_INC = '${BF_ZLIB}/include'
- BF_ZLIB_LIBPATH = '${BF_ZLIB}/lib'
- BF_ZLIB_LIB = 'z'
- 
--WITH_BF_INTERNATIONAL = True
-+WITH_BF_INTERNATIONAL = False
- 
- BF_GETTEXT = '/usr/local'
- BF_GETTEXT_INC = '${BF_GETTEXT}/include'
-@@ -75,6 +75,7 @@ BF_FTGL = '#extern/bFTGL'
- BF_FTGL_INC = '${BF_FTGL}/include'
- BF_FTGL_LIB = 'extern_ftgl'
- 
-+#WITH_BF_GAMEENGINE=True
- WITH_BF_GAMEENGINE=False
- 
- WITH_BF_ODE = False
-@@ -111,7 +112,7 @@ WITH_BF_YAFRAY = True
- #BF_PARANOID = True
- 
- # enable freetype2 support for text objects
--BF_FREETYPE = '/usr/local'
-+BF_FREETYPE = '/usr'
- BF_FREETYPE_INC = '${BF_FREETYPE}/include ${BF_FREETYPE}/include/freetype2'
- BF_FREETYPE_LIBPATH = '${BF_FREETYPE}/lib'
- BF_FREETYPE_LIB = 'freetype'
-@@ -120,7 +121,7 @@ WITH_BF_QUICKTIME = False # -DWITH_QUICK
- BF_QUICKTIME = '/usr/local'
- BF_QUICKTIME_INC = '${BF_QUICKTIME}/include'
- 
--WITH_BF_ICONV = True
-+WITH_BF_ICONV = False
- BF_ICONV = "/usr"
- BF_ICONV_INC = '${BF_ICONV}/include'
- BF_ICONV_LIB = 'iconv'
---- blender-2.49/source/nan_definitions.mk.orig Mon Jun 15 18:24:15 2009
-+++ blender-2.49/source/nan_definitions.mk      Tue Jun 16 11:25:00 2009
+
+--- blender-2.49b/source/nan_definitions.mk.orig Mon Jun 15 18:24:15 2009
++++ blender-2.49b/source/nan_definitions.mk      Tue Jun 16 11:25:00 2009
 @@ -209,7 +209,7 @@
      export NAN_OPENEXR ?= $(LCGDIR)/openexr
      export NAN_OPENEXR_INC ?= -I$(NAN_OPENEXR)/include -I$(NAN_OPENEXR)/include/OpenEXR

@@ -5,16 +5,19 @@
 #
 %include Solaris.inc
 
-%define src_name        pngcrush
+%define src_name	pngcrush
 
-Name:                   pngcrush
-SUNW_Pkg:               SFEpngcrush
-Summary:                pngcrush - utility for recompressing PNG files
-Version:                1.6.7
-Source:                 http://%{sf_mirror}/sourceforge/pmt/%{src_name}-%{version}.tar.bz2
-SUNW_BaseDir:           %{_basedir}
-SUNW_Copyright:         %{name}.copyright
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+Name:		SFEpngcrush
+IPS_Package_Name:	image/pngcrush
+Summary:	Utility for recompressing PNG files
+Version:	1.7.29
+Group:		Applications/Graphics and Imaging
+License:	pngcrush
+Source:		 %{sf_download}/project/pmt/pngcrush/%{version}/%{src_name}-%{version}.tar.bz2
+URL:		http://pmt.sourceforge.net/pngcrush/
+SUNW_BaseDir:	%{_basedir}
+SUNW_Copyright:	%{name}.copyright
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWlibms
 Requires: SUNWzlib
@@ -43,5 +46,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/pngcrush
 
 %changelog
+* Mon Jun 18 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.29
+* Wed Mar 21 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.7.25
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 1.7.22
 * Thu Aug 14 2008 - laca@sun.com
 - create

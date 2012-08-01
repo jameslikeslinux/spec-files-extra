@@ -1,0 +1,8 @@
+--- qwidget_window/qwidget_window.pro.orig	2011-05-05 17:56:37.919524342 +0200
++++ qwidget_window/qwidget_window.pro	2011-05-05 17:56:54.428375059 +0200
+@@ -1,4 +1,5 @@
+ load(qttest_p4)
++CONFIG += x11
+ SOURCES  += tst_qwidget_window.cpp
+ 
+ x11 {

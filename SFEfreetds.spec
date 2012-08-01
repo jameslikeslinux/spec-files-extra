@@ -8,7 +8,7 @@
 Name:                SFEfreetds
 Summary:             Implementation of the TDS (SQL Server/Sybase) protocol
 Version:             0.82
-Source:              http://ibiblio.org/pub/Linux/ALPHA/freetds/stable/freetds-%{version}.tar.gz
+Source:              http://ibiblio.org/pub/Linux/ALPHA/freetds/old/%{version}/freetds-%{version}.tar.gz
 Patch:               freetds-01-shell.diff
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -92,6 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- update source url
 * Wed Mar 03 2010 - matt@greenviolet.net
 - Update man page packaging
 - Fix configure to work with old Solaris /bin/sh

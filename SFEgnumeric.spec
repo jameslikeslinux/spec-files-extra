@@ -5,12 +5,13 @@
 %include Solaris.inc
 
 Name:		SFEgnumeric
-Summary:	gnumeric - Spreadsheet for GNOME
+IPS_Package_Name:	desktop/spreadsheet/gnumeric
+Summary:	Spreadsheet for GNOME
 URL:		http://www.gnome.org/projects/gnumeric/
-Version:	1.10.9
+Version:	1.10.17
 Group:		Applications/Spreadsheet
 License:	GPLv2
-Source:		http://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.10/gnumeric-%{version}.tar.gz
+Source:		http://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.10/gnumeric-%{version}.tar.bz2
 Patch1:		gnumeric-01-numtheory.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -129,6 +130,7 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/gnumeric
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
+%{_datadir}/glib-2.0
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
@@ -186,6 +188,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Fri Sep 30 2011 - Brian Cameron  <brian.cameron@oracle.com>
+- Bump to 1.10.17.
 * Fri Sep 24 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Remove all .la files.
 * Thu Aug 26 2010 - Brian Cameron  <brian.cameron@oracle.com>

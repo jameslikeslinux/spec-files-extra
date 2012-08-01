@@ -11,6 +11,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %use libgda = libgda.spec
 
@@ -27,7 +28,7 @@ Requires:           SUNWgnome-libs
 Requires:           SUNWgnome-vfs
 Requires:           SUNWlxml
 BuildRequires:      SUNWgnome-common-devel
-BuildRequires:      SUNWgtk-doc
+BuildRequires:      %{pnm_buildrequires_SUNWgtk_doc}
 BuildRequires:      SUNWgnome-doc-utils
 
 %package devel
@@ -131,6 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/libgda*
 
 %changelog
+* Sat Jan 28 2012 - Thomas Wagner
+- change to BuildRequires: %{pnm_buildrequires_SUNWgtk_doc}, %include packagenamemacros.inc
 * Sun Nov 28 2010 - Milan Jurik
 - added missing build dep
 * Mon May 10 2010 - Milan Jurik

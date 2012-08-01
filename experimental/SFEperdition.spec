@@ -15,6 +15,10 @@
 
 ##TODO## might love a refresh of the patch1 for the more recent Makefile.am/Makefile.in
 
+##TODO## Make a SMF manifest for automatic perdition start / monitoring
+
+##TODO## check (Build)Requirements
+
 %define src_name perdition
 
 #set the base version number (->download dir libvanessa-* and ->perdition version)
@@ -27,9 +31,17 @@
 IPS_component_version: $( echo %{perditionparentversion} | sed -e '/-rc[0-9][0-9]*/ s/-rc/.0./' )
 
 
-
-
 %include Solaris.inc
+%include packagenamemacros.inc
+## mysql version
+##TODO## enhance packagenamemacros.inc to know the variables below,
+#then use the variables from packagenamemacros.inc instead defining locally
+%define mysql_version 5.1
+%define mysql_lib      /usr/mysql/%{mysql_version}/lib
+%define mysql_lib_path -L%{mysql_lib} -R%{mysql_lib}
+%define mysql_include  /usr/mysql/%{mysql_version}/include
+%define mysql_include_path -I%{mysql_include}
+
 
 #%define cc_is_gcc 1
 #%define _gpp /usr/sfw/bin/g++
@@ -78,7 +90,7 @@ fi
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{cxx_optflags}"
 
-export LDFLAGS="%{_ldflags} -lsocket -lxnet"
+export LDFLAGS="%{_ldflags} -lsocket -lxnet %{mysql_lib_path}"
 
 #spyed on perdition.spec (from source tarball)
 aclocal
@@ -89,11 +101,11 @@ autoconf
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}  \
-            --sysconfdir=%{_sysconfdir}/%{src_name} \
+            --sysconfdir=%{_sysconfdir} \
             --disable-static     \
             --disable-odbc       \
-            --with-mysql-includes=/usr/mysql/5.1/include/mysql \
-            --with-mysql-libraries=/usr/mysql/5.1/lib
+            --with-mysql-includes=%{mysql_include} \
+            --with-mysql-libraries=%{mysql_lib}
 
 
 gmake -j $CPUS
@@ -103,10 +115,17 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
+#temporarily remove the supplied pam configuration
+rm -r $RPM_BUILD_ROOT/etc/pam.d/perdition
+rmdir $RPM_BUILD_ROOT/etc/pam.d
+
 rm $RPM_BUILD_ROOT%{_libdir}/*la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+#the script is found automaticly in ext-sources w/o a Source<n> keyword
+%iclass renamenew -f i.renamenew
 
 %files
 %defattr(-, root, bin)
@@ -114,12 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_sbindir}
-%{_sbindir}/perdition.imaps
-%{_sbindir}/perdition.pop3s
-%{_sbindir}/perdition.imap4s
-%{_sbindir}/perdition.imap4
-%{_sbindir}/perdition.pop3
-%{_sbindir}/perdition
+%{_sbindir}/*
 %dir %attr (0755,root,bin) %{_libdir}
 %{_libdir}/lib*
 #%dir %attr (0755, root, bin) %{_includedir}
@@ -134,10 +148,17 @@ rm -rf $RPM_BUILD_ROOT
 %files root
 %defattr (-, root, bin)
 %attr (0755, root, sys) %dir %{_sysconfdir}
-%attr (0755, root, sys) %dir %{_sysconfdir}/%{src_name}
-%{_sysconfdir}/%{src_name}/*
+%attr (0755, root, sys) %dir %{_sysconfdir}/perdition
+%class(renamenew) %{_sysconfdir}/perdition/*
 
 %changelog
+* Sun Feb  2 2012 - Thomas Wagner
+- bump to 1.19-rc4 (in file include/perditionparentversion.inc)
+* Mon Aug 02 2010 - Thomas Wagner
+- change %files _sbindir to catch all files *
+- export Version to include/perditionparentversion.inc and detect automaticly 
+  libraries version
+- bump to 1.19-rc3 (in file include/perditionparentversion.inc)
 * Fri Jul  9 2010 - Thomas Wagner
 - missing symbol inet_*, add to LDFLAGS (-lsocket) -lxnet 
 - automate IPS version numbers if you insist on using release candidates

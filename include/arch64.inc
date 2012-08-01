@@ -59,8 +59,8 @@
 %endif
 
 %ifarch i386
-%define suncc_optflags64           -i %_cc64_opt_level -xstrconst -xarch=generic64 -Kpic -xregs=no%%frameptr
-%define suncc_cxx_optflags64       -i %_cxx64_opt_level -xarch=generic64 -Kpic -mr -norunpath -xregs=no%%frameptr
+%define suncc_optflags64           -i %_cc64_opt_level -xstrconst -m64 -Kpic -xregs=no%%frameptr
+%define suncc_cxx_optflags64       -i %_cxx64_opt_level -m64 -Kpic -mr -norunpath -xregs=no%%frameptr
 %endif
 
 %if %cc_is_gcc
@@ -108,6 +108,8 @@
 %define xorg_lib_path   -L%xorg_lib -R%xorg_lib
 
 # ChangeLog:
+# 2011-10-23  Milan Jurik
+# - use -m64 instead of -xarch=generic64
 # 2011-03-18  Milan Jurik
 # - move minimal SPARC CPU to UltraSPARC
 # 2008-02-17  Laszlo (Laca) Peter  <laca@sun.com>

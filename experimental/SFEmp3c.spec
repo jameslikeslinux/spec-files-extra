@@ -14,6 +14,8 @@ Summary:                 mp3c - ripp audio cd
 URL:                     http://wspse.de/WSPse/Linux-MP3c.php3
 Version:                 0.31
 Source:                  ftp://ftp.wspse.de/pub/linux/wspse/mp3c-%{version}.tar.bz2
+Patch1:			mp3c-01-cdio-define.diff
+Patch2:			mp3c-02-use-cd-paranoia-and-not-cdda2wav.diff
 
 
 SUNW_BaseDir:            %{_basedir}
@@ -26,22 +28,24 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SUNWncurses-devel
 Requires: SUNWncurses
-
+#BuildRequires: SFElame-devel
+Requires: SFElame
+#BuildRequires: SFElibcdio
+Requires: SFElibcdio
 
 %prep
 %setup -q -n mp3c-%version
+%patch1 -p1
+%patch2 -p1
 
 %build
 
 export CC=gcc
 export CXX=g++
 
-#export CFLAGS="%optflags -I/usr/gnu/include/ncurses -DHAVE_LINUX_CDROM_H"
-#export CXXFLAGS="%cxx_optflags -I/usr/gnu/include/ncurses -DHAVE_LINUX_CDROM_H"
-
-export CFLAGS="%optflags -I/usr/include/ncurses -DHAVE_SYS_CDIO_H"
-export CXXFLAGS="%cxx_optflags -I/usr/include/ncurses -DHAVE_SYS_CDIO_H"
-export LDFLAGS="%_ldflags"
+export CFLAGS="%optflags -I/usr/include/ncurses "
+export CXXFLAGS="%cxx_optflags -I/usr/include/ncurses "
+export LDFLAGS="%_ldflags %{gnu_lib_path} -lsocket -lnsl"
 
 
 
@@ -62,15 +66,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%doc README ChangeLog CREDITS COPYING INSTALL NEWS AUTHORS TODO ABOUT-NLS
+%doc README BATCH.README CDDB_HOWTO ChangeLog INSTALL NEWS AUTHORS BUGS COPYING FAQ OTHERS TODO ABOUT-NLS
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%dir %attr (-, root, other) %{_datadir}/doc
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
 
 
 %changelog
+* Sat Oct  1 2011 - Thomas Wagner
+- fix permissions /usr/share/doc
+- LDFLAGS add %{gnu_lib_path} to have ncurses found
+- add Requires: SFElame, SFElibcdio (to get cd-paranoia)
 * Mon Feb 23 2009  - Thomas Wagner
 - Initial spec

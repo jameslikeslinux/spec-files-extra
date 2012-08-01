@@ -16,6 +16,7 @@
 %use murrine = murrine-engine.spec
 
 Name:		SFEmurrine-engine
+IPS_Package_Name:	gnome/theme/gtk2-murrine-engine
 Version:	%{murrine.version}
 Summary:	Gtk2 Engine Featuring a Modern Glassy Look
 License:	GPLv2
@@ -48,11 +49,12 @@ Murrine is a Gtk2 engine, written in C language, using cairo vectorial drawing
 library to draw widgets. It features a modern glassy look, and it is elegant
 and clean on the eyes. It is also extremely customizable.
 
-%package themes
+%package -n SFEmurrine-themes
+IPS_Package_Name:       gnome/theme/gtk2-murrine-themes
 Summary:	Themes for the Murrine engine by Cimi
 Requires:	%{name}
 
-%description themes
+%description -n SFEmurrine-themes
 This package includes themes by Cimi for the Murrine Gtk2 engine.  The themes
 include: MurrinaGilouche, MurrinaAquaish, MurrinaVerdeOlivo, MurrinaBlue,
 MurrinaFancyCandy, MurrinaLoveGray, and MurrineRounded.
@@ -92,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,sys) %dir %{_datadir}
 %{_datadir}/gtk-engines/murrine.xml
 
-%files themes
+%files -n SFEmurrine-themes
 %defattr(-,root,bin)
 %attr(755,root,sys) %dir %{_datadir}
 %{_datadir}/themes/MurrinaAquaIsh/gtk-2.0/gtkrc
@@ -113,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 01 2012 - James Lee <jlee@thestaticvoid.com>
+- Add IPS package names.
 * Mon Jun 13 2011 - jlee@thestaticvoid.com
 - Update for SFE inclusion. 
 * Sun May 31 2009 - jlee@thestaticvoid.com

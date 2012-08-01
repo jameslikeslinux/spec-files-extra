@@ -5,19 +5,19 @@
 #
 %include Solaris.inc
 
-Name:                    SFElxmenu-data
-Summary:                 LXDE desktop menu
-Version:                 0.1.1
-Source:                  http://downloads.sourceforge.net/lxde/lxmenu-data-%{version}.tar.gz
-URL:                     http://sourceforge.net/projects/lxde/
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElxmenu-data
+IPS_Package_Name:	lxde/lxmenu-data
+Summary:	LXDE desktop menu
+Version:	0.1.2
+Source:		http://downloads.sourceforge.net/lxde/lxmenu-data-%{version}.tar.gz
+URL:		http://sourceforge.net/projects/lxde/
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 
 %prep
@@ -54,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/xdg/*
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 0.1.2
 * Tue Aug 04 2009 - brian.cameron@sun.com
 - Bump to 0.1.1.
 * Sun Mar 16 2009 - alfred.peng@sun.com

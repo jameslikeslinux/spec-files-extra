@@ -10,7 +10,7 @@
 Name:                    SFEsugar-physics
 Summary:                 Sugar Physics
 URL:                     http://www.sugarlabs.org/
-Version:                 7 
+Version:                 9 
 Source:                  http://download.sugarlabs.org/sources/honey/Physics/Physics-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 9
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8.
 * Sat Oct 23 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 7.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>

@@ -1,0 +1,11 @@
+--- ip_fil5.1.1/buildsunos	2011-11-15 04:39:16.000000000 -0800
++++ ip_fil5.1.1-patched/buildsunos	2012-02-28 01:11:42.455690979 -0800
+@@ -98,7 +98,7 @@
+ 		XARCH32_sparc="-Xa -xildoff -xarch=v8 -xmemalign=8s"
+ 		if [ `cc -xarch=amd64 -xarch=v9 2>&1 | grep -c deprec` -eq 1 ] ; then
+ 			XARCH64_sparc="-Xa -xildoff -m64 -xmemalign=8s"
+-			XARCH64_i386="$XARCH32 -m64"
++			XARCH64_i386="$XARCH32 -m64 -xmodel=kernel"
+ 		else
+ 			XARCH64_sparc="-Xa -xildoff -xarch=v9 -xchip=ultra -xmemalign=8s -xcode=abs32"
+ 			XARCH64_i386="$XARCH32 -xarch=amd64 -xcode=abs32"

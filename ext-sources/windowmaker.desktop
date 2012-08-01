@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=WindowMaker
+Comment=This session logs you into WindowMaker
+Exec=wmaker
+TryExec=wmaker
+Icon=
+Type=Application

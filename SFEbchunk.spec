@@ -8,7 +8,8 @@
 %define src_name bchunk
 
 Name:                SFEbchunk
-Summary:             bchunk - Convert ".bin/.cue" files into ISO 9660 images
+IPS_Package_Name:	media/bchunk
+Summary:             Convert ".bin/.cue" files into ISO 9660 images
 Version:             1.2.0
 License:             GPLv2+
 Source:              http://he.fi/bchunk/%{src_name}-%{version}.tar.gz

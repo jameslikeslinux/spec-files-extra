@@ -2,10 +2,10 @@
 # Default system dependencies for PERL packages on Solaris
 #
 
-%define 		perl_version 5.8.4
+%include packagenamemacros.inc
 
-BuildRequires:  SUNWperl584core
-Requires:       SUNWperl584core
+BuildRequires:  %pnm_buildrequires_perl_default
+Requires:       %pnm_requires_perl_default
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int
@@ -13,4 +13,4 @@ Requires:       SUNWperl584core
 %define perl_dir i86pc-solaris-64int 
 %endif
 
-%define perl_bin /usr/perl5/5.8.4/bin
+%define perl_bin /usr/bin
