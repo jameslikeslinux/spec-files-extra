@@ -38,9 +38,10 @@ rm -rf %name-%version
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/share/nant
 mv bin doc examples schema *.txt $RPM_BUILD_ROOT/usr/share/nant
+gsed -i "s|\${path::combine(prefix, 'bin/mono')}|/usr/mono/bin/mono|g" $RPM_BUILD_ROOT/usr/share/nant/bin/NAnt.exe.config
 mkdir -p $RPM_BUILD_ROOT/usr/bin
 echo "#!/bin/sh" > $RPM_BUILD_ROOT/usr/bin/nant
-echo "/usr/mono/bin/mono /usr/share/nant/bin/NAnt.exe \$*" >> $RPM_BUILD_ROOT/usr/bin/nant
+echo '/usr/mono/bin/mono /usr/share/nant/bin/NAnt.exe "$*"' >> $RPM_BUILD_ROOT/usr/bin/nant
 chmod 0755 $RPM_BUILD_ROOT/usr/bin/nant
 
 %clean
@@ -56,5 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Tue Jul 31 2012 - Logan Bruns <logan@gedanken.org>
+- Updated mono install path in configuration.
 * Mon Jun 25 2012 - Logan Bruns <logan@gedanken.org>
 - Initial spec.
