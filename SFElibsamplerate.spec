@@ -16,6 +16,7 @@
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
 
 Name:                SFElibsamplerate
+IPS_Package_Name:    library/audio/libsamplerate
 Summary:             %{libsamplerate.summary}
 URL:                 http://www.mega-nerd.com/SRC/
 Meta(info.upstream): Erik de Castro Lopo <erikd@mega-nerd.com>
@@ -108,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- added ips package name.
 * Thu Jul 21 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Feb 04 2010 - Halton Huo <halton.huo@gmail.com>

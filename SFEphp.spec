@@ -8,9 +8,8 @@
 %define SUNWgnugettext      %(/usr/bin/pkginfo -q SUNWgnu-gettext && echo 1 || echo 0)
 
 Name:                    SFEphp
-IPS_package_name:	 web/php-53
 Summary:                 php - Hypertext Preprocessor - general-purpose scripting language for Web development
-Version:                 5.3.8
+Version:                 5.2.5
 Source:                  http://www.php.net/distributions/php-%{version}.tar.bz2
 URL:                     http://www.php.net/
 SUNW_BaseDir:            %{_basedir}
@@ -18,6 +17,13 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 Requires: SUNWapch2u
+%if %SUNWgnugettext
+BuildRequires: SUNWgnu-gettext-devel
+Requires: SUNWgnu-gettext
+%else
+BuildRequires: SFEgettext-devel
+Requires: SFEgettext
+%endif
 
 %package root
 Summary:                 %{summary} - / filesystem
@@ -37,7 +43,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export LDFLAGS="%{_ldflags}"
-export CFLAGS="%optflags -I/usr/postgres/9.0/include"
+export CFLAGS="%optflags"
 
 cd php-%{version}-fastcgi
 ./configure --prefix=%{_prefix}			\
@@ -45,11 +51,12 @@ cd php-%{version}-fastcgi
 	    --mandir=%{_mandir}			\
 	    --libexec=%{_libexec}		\
 	    --sysconfdir=%{_sysconfdir}		\
-            --enable-fastcgi                    \
+         --enable-fastcgi                    \
 	    --with-bz2                          \
 	    --with-zlib                         \
 	    --enable-mbstring                   \
-	    --with-gettext=/usr/gnu             
+	    --with-gettext=/usr/gnu             \
+	    --with-pgsql=/usr
 
 make -j$CPUS
 cd ..
@@ -64,6 +71,7 @@ cd php-%version
 	    --with-zlib                         \
 	    --enable-mbstring                   \
 	    --with-gettext=/usr/gnu             \
+	    --with-pgsql=/usr                   \
 	    --with-apxs2=/usr/apache2/bin/apxs	
 
 make -j$CPUS
@@ -124,10 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/apache2
 
 %changelog
-* Fri Oct 14 2011 - Ken Mays <kmays2000@gmail.com>
-- Bump to 5.3.8
-* Wed Jun 8 2011 - Ken Mays <kmays2000@gmail.com>
-- Bump to 5.3.6
 * Sat Nov 17 2007 - daymobrew@users.sourceforge.net
 - Enable building with either SUNWgnu-gettext or SFEgettext.
 * Sat May 5 2007 - Thomas Wagner
@@ -141,3 +145,4 @@ rm -rf $RPM_BUILD_ROOT
 - Bump: to 5.2.1
 * Fri Jan 19 2007 - daymobrew@users.sourceforge.net
 - Initial spec
+

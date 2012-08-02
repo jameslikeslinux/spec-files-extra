@@ -112,21 +112,25 @@
 %define	V_postfinger	1.30
 
 Name:                    SFEpostfix
-Summary:                 postfix - Mailer System
+IPS_Package_Name:	service/network/smtp/postfix
+Summary:                 Mailer System
+Group:		System/Services
 URL:                     http://postfix.org/
-Version:                 2.8.5
+Version:                 2.9.2
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
 Source3:                 postfix.xml
 Source5:                 postfix-spamassassin-wiki.apache.org-filter.sh
-Source6:		 http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
-Source7:		 postfix-sasl.conf
-Source8:		 README-Postfix-SASL-RedHat.txt
-Source9:		 postfix-saslauthd.conf
-#Patch1:			postfix-01-make-postfix.spec.diff
-#Patch2:			postfix-02-solarize-startscript.diff
-Patch3:			postfix-03-remove-nisplus-build130.diff
+Source6:	http://ftp.wl0.org/postfinger/postfinger-%{V_postfinger}
+Source7:	postfix-sasl.conf
+Source8:	README-Postfix-SASL-RedHat.txt
+Source9:	postfix-saslauthd.conf
+#Patch1:		postfix-01-make-postfix.spec.diff
+#Patch2:		postfix-02-solarize-startscript.diff
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#Patch3:		postfix-03-remove-nisplus-build130.diff
 
 SUNW_BaseDir:            %{_basedir}
 SUNW_Copyright:		postfix.copyright
@@ -216,8 +220,10 @@ mkdir tmp
 
 #%patch1 -p1
 #patch2 is below
-%patch3 -p1
-
+#HAS_NISPLUS is defined for the Solaris Release
+#replaced by sed
+#%patch3 -p1
+sed -i -e '/^#define HAS_NISPLUS/ s,^,//,'    src/util/sys_defs.h
 
 #postfix manifest
 cp -p %{SOURCE3} postfix.xml
@@ -382,6 +388,7 @@ CCARGS="${CCARGS} -fsigned-char"
 
 export CCARGS AUXLIBS
 # not needed we are a fresh copy .-) 
+
 make tidy
 make -f Makefile.init makefiles
 unset CCARGS AUXLIBS
@@ -389,6 +396,10 @@ unset CCARGS AUXLIBS
 # suggestion by Eric Hoeve <eric@ehoeve.com>
 #make DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS -Wno-comment"
 make -j$CPUS DEBUG="%{?_with_debug:-g}" OPT="$RPM_OPT_FLAGS"
+
+#somehow manpages where missing from the build
+export PATH=$PATH:${RPM_BUILD_DIR}/%{src_name}-%{version}/mantools
+make manpages
 
 
 %install
@@ -412,7 +423,8 @@ rm -rf $RPM_BUILD_ROOT
 
 #adjust renamed manpages ./conf/postfix-files:$manpage_directory/man1/mailq.1:f:root:-:644
 perl -pi -e "s?/man(1|5)/(mailq|newaliases|sendmail|aliases).(1|5)?/man\1/\2.postfix.\3?; " \
-            conf/postfix-files
+            conf/postfix-files \
+            libexec/postfix-files
 
 # add missing man pages
 mantools/srctoman - auxiliary/qshape/qshape.pl >man/man1/qshape.1
@@ -893,6 +905,20 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Tue May  9 2012 - Thomas Wagner
+- bump to 2.9.2
+- rename some manpages to *.postfix.* to avoid conflicts with sendmail package
+* Tue Apr 10 2012 - Thomas Wagner
+- remove "bash" shell (debugging). Sorry was a left over...
+* Sun Mar 11 2012 - Thomas Wagner
+- fix build 2.9.1 remove patch3 (remove HAS_NISPLUS), replaced by sed
+  repair missing manpages
+* Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.9.1
+* Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.8
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.7
 * Sat Sep 17 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.8.5
 * Sun Jul 31 2011 - Thomas Wagner

@@ -5,35 +5,36 @@
 #
 %include Solaris.inc
 
-Name:                    SFEgconfmm
-Summary:                 gconfmm - configuration dialogues for gtkmm
-Version:                 2.28.0
-URL:                     http://www.gtkmm.org/
-Source:                  http://ftp.acc.umu.se/pub/GNOME/sources/gconfmm/2.28/gconfmm-%{version}.tar.bz2
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgconfmm
+IPS_Package_Name:	gnome/config/gconfmm
+Summary:	gconfmm - configuration dialogues for gtkmm
+Version:	2.28.3
+URL:		http://www.gtkmm.org/
+Source:		http://ftp.acc.umu.se/pub/GNOME/sources/gconfmm/2.28/gconfmm-%{version}.tar.bz2
+Group:		Desktop (GNOME)
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SFEglibmm-gpp
-Requires: SFEgtkmm-gpp
+Requires: SUNWglibmm
+Requires: SUNWgtkmm
 Requires: SUNWgnome-base-libs
 Requires: SUNWgnome-config
 Requires: SUNWlibms
-Requires: SFEsigcpp-gpp
-Requires: SUNWlibC
-BuildRequires: SFEsigcpp-gpp-devel
-BuildRequires: SFEglibmm-gpp-devel
-BuildRequires: SFEgtkmm-gpp-devel
+Requires: SUNWsigcpp
+BuildRequires: SUNWsigcpp-devel
+BuildRequires: SUNWglibmm-devel
+BuildRequires: SUNWgtkmm-devel
 BuildRequires: SUNWgnome-base-libs-devel
 BuildRequires: SUNWgnome-config-devel
 
 %package devel
-Summary:                 %{summary} - developer files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - developer files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 Requires: SUNWgnome-base-libs-devel
-Requires: SFEglibmm-gpp-devel
-Requires: SFEsigcpp-gpp-devel
+Requires: SUNWglibmm-devel
+Requires: SUNWsigcpp-devel
 
 
 %prep
@@ -52,10 +53,7 @@ export CXXFLAGS="%cxx_optflags"
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir} --disable-python
-
-# prevent useless extra_defs_gen from being built
-sed -i 's/tools//' Makefile
+            --sysconfdir=%{_sysconfdir}
 
 make -j$CPUS 
 
@@ -80,11 +78,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 %{_libdir}/gconfmm*
 #%{_libdir}/gdkmm*
-#%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/*
 
 %changelog
+* Sun Nov 20 2011 - Milan Jurik
+- bump to 2.28.3
 * Oct 08 2009 - jchoi42@pha.jhu.edu
 - Bump to 2.28.0, prevent useless extra_defs_gen from being built
 * Sep 19 2007 - trisk@acm.jhu.edu

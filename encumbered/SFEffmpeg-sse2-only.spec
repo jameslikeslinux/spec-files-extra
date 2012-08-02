@@ -22,6 +22,13 @@
 %define extra_gcc_flags
 %endif
 
+# On some Intel CPUs, ffmpeg incorrectly builds libraries for AMD
+%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+%if %noamd3d
+%define arch_opt --cpu=pentiumpro --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
+%define extra_gcc_flags
+%endif
+
 %use ffmpeg = ffmpeg.spec
 
 Name:                    SFEffmpeg
@@ -31,6 +38,7 @@ License:                 GPLv2+ and LGPLv2.1+
 SUNW_Copyright:          ffmpeg.copyright
 URL:                     %{ffmpeg.url}
 Group:		         System/Multimedia Libraries
+Patch12:                 ffmpeg-12-unoverride.diff
 
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -79,8 +87,12 @@ BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
 BuildRequires: SFErtmpdump-devel
 Requires: SFErtmpdump
+BuildRequires: SFElibass-devel
+Requires: SFElibass
+BuildRequires: SFEopenal-devel
+Requires: SFEopenal
 BuildRequires: driver/graphics/nvidia
-#Requires: driver/graphics/nvidia
+Requires: driver/graphics/nvidia
 %if %with_alsa
 BuildRequires: SFEalsa-lib
 Requires: SFEalsa-lib
@@ -100,6 +112,10 @@ mkdir %name-%version
 mkdir %name-%version/%base_arch
 %ffmpeg.prep -d %name-%version/%base_arch
 
+%if %noamd3d
+cd %name-%version/%base_arch
+%patch12 -p1
+%endif
 
 %build
 %ffmpeg.build -d %name-%version/%base_arch
@@ -124,6 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, sys) %dir %{_datadir}
 %dir %attr(0755, root, bin) %{_datadir}/ffmpeg
 %{_datadir}/ffmpeg/*.ffpreset
+%{_datadir}/ffmpeg/ffprobe.xsd
 %dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
 %dir %attr (0755, root, other) %dir %_docdir
@@ -143,9 +160,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libavdevice
 %{_includedir}/libpostproc
 %{_includedir}/libswscale
+%{_includedir}/libswresample
 
 
 %changelog
+* Tue Jan 24 2012 - James Choi
+- Add libass, openal dependency
 * Tue Nov  1 2011 - Alex Viskovatoff
 - Add dependency on libvpx and conditional dependency on alsa-lib
 * Wed Oct 19 2011 - Alex Viskovatoff

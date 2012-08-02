@@ -12,19 +12,21 @@ Source:		ftp://ftp.netlib.org/blas/blas.tgz
 #Source1:	blas.Makefile
 Group:		Math
 URL:		http://www.netlib.org/blas/
+Patch1:		blas-01-shared.diff
 
 Requires: SUNWcsl
 Requires: SUNWlibms
 
 %prep
 %setup -q -c -n %{name}
+%patch1
 
 %build
 cd BLAS
 if $( echo "%{_libdir}" | /usr/xpg4/bin/grep -q %{_arch64} ) ; then
   make CC=cc CXX=CC F77=f77 FORTRAN=f77 LOADER=f77 PLAT="" OPTS="-03 -m64"
 else
-  make F77=gfortran FORTRAN=gfortran LOADER=gfortran PLAT="" OPTS="-O3"
+  make F77=gfortran FORTRAN=gfortran LOADER=gfortran PLAT="" OPTS="-O3 -fPIC"
 fi
 
 %install
@@ -32,11 +34,16 @@ cd BLAS
 mv blas.a libblas.a
 install -d -m 0755 $RPM_BUILD_ROOT/%{_libdir}
 install -m 0755 libblas.a $RPM_BUILD_ROOT%{_libdir}
+install -m 0755 libblas.so $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- added shared library
+* Tue Jan 17 2012 - James Choi
+- specify fPIC 
 * Sat Jul 30 2011 - Alex Viskovatoff
 - "-03" is not a gcc option
 * Tue May 25 2010 - Milan Jurik

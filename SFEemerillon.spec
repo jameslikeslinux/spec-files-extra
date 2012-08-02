@@ -64,7 +64,8 @@ Requires:                %{name}
 ./configure \
    --prefix=%{_prefix} \
    --libexecdir=%{_libexecdir} \
-   --sysconfdir=%{_sysconfdir}
+   --sysconfdir=%{_sysconfdir} \
+   --enable-introspection=no
 make
 
 %install
@@ -97,12 +98,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %{_libdir}/emerillon
 %dir %attr (0755, root, bin) %{_libdir}/emerillon/plugins
 %dir %attr (0755, root, bin) %{_libdir}/emerillon/plugins/*
-%{_libdir}/gir*
+#%{_libdir}/gir*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
 %{_datadir}/emerillon
-%{_datadir}/gir*
+#%{_datadir}/gir*
 %{_datadir}/vala
 %dir %attr (-, root, other) %{_datadir}/gnome
 %{_datadir}/gnome/*
@@ -129,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Dec 23 2011 - Milan Jurik
+- disable introspection
 * Sat Jan 15 2011 - Milan Jurik
 - with locales build
 * Fri Jan 07 2011 - Milan Jurik

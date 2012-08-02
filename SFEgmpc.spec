@@ -2,12 +2,10 @@
 # spec file for package SFEgmpc
 #
 # use gcc to compile
-# works: snv104 / pkgbuild 1.3.91
-# works: snv104 / pkgbuild 1.2.0
-# works: snv96  / pkgbuild 1.3.1
 
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 %define srcname gmpc
@@ -26,9 +24,10 @@ Source:                  http://download.sarine.nl/Programs/%srcname/%{version}/
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:		 SFEgob
-BuildRequires:		 developer/vala
-BuildRequires:		 library/perl-5/xml-parser
-Requires:		 library/perl-5/xml-parser
+BuildRequires:		 %{pnm_buildrequires_developer_vala}
+Requires:		 %{pnm_requires_developer_vala}
+BuildRequires:		 SUNWperl-xml-parser
+Requires:		 SUNWperl-xml-parser
 BuildRequires:		 SFElibmpd-devel
 #test#BuildRequires:           SFEavahi-devel
 Requires:		SFElibmpd
@@ -72,16 +71,18 @@ Requires:                %{name}
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export LDFLAGS="%_ldflags -lxnet -lz"
+export LDFLAGS="%_ldflags %{gnu_lib_path} -lX11 -lxnet -lz"
+export CFLAGS="%{optflags} -I/usr/gnu/include %{gnu_lib_path}"
 
 export CC=gcc
 export CXX=g++
 %if %option_with_gnu_iconv
-export CFLAGS="$CFLAGS -I/usr/gnu/include -L/usr/gnu/lib -R/usr/gnu/lib -lintl"
+export CFLAGS="${CFLAGS} -lintl"
 %endif
 
 CC=$CC CXX=$CXX CFLAGS="$CFLAGS" XGETTEXT=/bin/gxgettext MSGFMT=/bin/gmsgfmt \
-./configure --prefix=%_prefix
+./configure --prefix=%{_prefix} \
+
 gmake -j$CPUS
 
 %install
@@ -109,6 +110,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 %dir %attr (0755, root, other) %{_datadir}/gmpc
 %{_datadir}/gmpc/*
+%defattr(-, root, other)
+#%dir %attr (0755, root, other) %{_datadir}/icons
+#%{_datadir}/icons/*
+%defattr(-, root, bin)
 %dir %attr (0755, root, bin) %{_libdir}
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
@@ -162,10 +167,18 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Apr 24 2012 - Thomas Wagner
+- merge with workspace changes
+- change BuildRequires to %{pnm_buildrequires_developer_vala}
 * Mon Aug 19 2011 - Alex Viskovatoff
 - Conform to the SFE practice of letting the environment choose the gcc
 * Thu Aug 11 2011 - Alex Viskovatoff
 - Fix directory attributes
+* Tue Aug  2 2011 - Thomas Wagner
+- (Build)Requires SUNWperl-xml-parser instead new IPS name
+* Wed Jun 27 2011 - Thomas Wagner
+- changed to BuildRequires: SFEvala
+- %files fix root:other for icons
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue Apr 12 2011 - Alex Viskovatoff

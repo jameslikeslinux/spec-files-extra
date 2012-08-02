@@ -9,13 +9,14 @@
 %define _pkg_docdir %_docdir/%src_name
 
 Name:                SFEclamav
+IPS_Package_Name:	antivirus/clamav
 Summary:             Unix anti-virus scanner
 License:             GPLv2
 SUNW_Copyright:      clamav.copyright
-Version:             0.97.2
+Version:             0.97.5
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
-Group:               System/Utilities
+Group:               Applications/System Utilities
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -74,6 +75,7 @@ make -j$CPUS
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/clamav
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,7 +116,6 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %defattr (-, root, sys)
 %{_sysconfdir}
 %dir %attr (0775, clamav, clamav) %{_localstatedir}/clamav
-%{_localstatedir}/clamav/*.cvd
 
 %files doc
 %defattr (-, root, bin)
@@ -124,6 +125,12 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 0.97.5
+* Sat Jun 02 2012 - Milan Jurik
+- bump to 0.97.4
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 0.97.3
 * Tue Aug 23 2011 - Milan Jurik
 - bump to 0.97.2
 - move docs to doc package and fix docdir group

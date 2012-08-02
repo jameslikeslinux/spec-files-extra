@@ -1,0 +1,22 @@
+--- telepathy-glib-0.19.0/telepathy-glib/base-contact-list.c-orig	2012-05-10 01:35:54.800416527 -0500
++++ telepathy-glib-0.19.0/telepathy-glib/base-contact-list.c	2012-05-10 01:36:04.561885667 -0500
+@@ -3197,7 +3197,7 @@ tp_base_contact_list_download_async (TpB
+   g_return_if_fail (cls != NULL);
+   g_return_if_fail (cls->download_async != NULL);
+ 
+-  return cls->download_async (self, callback, user_data);
++  cls->download_async (self, callback, user_data);
+ }
+ 
+ /**
+--- telepathy-glib-0.19.0/examples/cm/call/call-channel.c-orig	2012-05-10 01:45:56.382375968 -0500
++++ telepathy-glib-0.19.0/examples/cm/call/call-channel.c	2012-05-10 01:47:17.040342669 -0500
+@@ -313,7 +313,7 @@ close_channel (TpBaseChannel *base)
+ static void call_accept (TpBaseCallChannel *self);
+ static TpBaseCallContent * call_add_content (TpBaseCallChannel *self,
+       const gchar *name,
+-      TpMediaStreamType media,
++      guint content_type,
+       TpMediaStreamDirection initial_direction,
+       GError **error);
+ static void call_hangup (TpBaseCallChannel *self,

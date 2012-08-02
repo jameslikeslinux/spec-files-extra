@@ -42,7 +42,9 @@
 %define srcname hunspell
 
 Name:		SFEhunspell
+IPS_Package_Name:	library/spell-checking/hunspell
 Summary:	Spell checker
+Group:		Applications/Accessories
 URL:		http://hunspell.sourceforge.net
 Vendor:		László Németh
 Version:	1.3.2

@@ -4,6 +4,7 @@
 %include Solaris.inc
 
 Name:                SFEssmtp
+IPS_Package_Name:	service/network/smtp/ssmtp
 Summary:             Extremely simple SMTP Send-Only MTA
 URL:                 http://alioth.debian.org/projects/ssmtp/
 Version:             2.64

@@ -9,6 +9,7 @@
 %define src_name        mutagen
 
 Name:                   SFEpython26-mutagen
+IPS_Package_Name:	library/python-2/python-mutagen-26
 Summary:                Mutagen - A Python module to handle audio metadata
 URL:                    http://www.sacredchao.net/quodlibet/wiki/Development/Mutagen
 Version:                1.20
@@ -55,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Wed Aug 01 2012 - James Lee <jlee@thestaticvoid.com>
+- Add IPS package name.
 * Mon Nov 14 2011 - James Lee <jlee@thestaticvoid.com>
 - Correct dependency on SUNWPython26
 * Tue Dec 28 2010 - James Lee <jlee@thestaticvoid.com>

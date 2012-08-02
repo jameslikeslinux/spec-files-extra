@@ -23,6 +23,8 @@ Name:			SFEsdl-net
 IPS_Package_Name:	library/network/sdl-net
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
+Group:			System/Multimedia
+URL:			http://www.libsdl.org/projects/SDL_net/
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

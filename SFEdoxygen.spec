@@ -44,6 +44,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 23 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.7.6.1
 * Thu Jul 28 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Mon Jul 18 2011 - Alex Viskovatoff

@@ -24,8 +24,8 @@ Meta(info.classification): %{classification_prefix}:System/Multimedia Libraries
 License:	 LGPL v2.1
 Vendor:          fluendo.com
 Version:         %{version}
-URL:             https://core.fluendo.com/pigment/trac
-Source0:         http://elisa.fluendo.com/static/download/pigment/pigment-%{version}.tar.bz2
+URL:             https://launchpad.net/pigment
+Source0:         http://launchpad.net/pigment/0.3/0.3.17/+download/pigment-%{version}.tar.bz2
 SUNW_BaseDir:    %{_basedir}
 
 BuildRoot:       %{_tmppath}/%{name}-%{version}-build
@@ -110,6 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- update project & download location
 * Tue Dec 07 2010 - brian.cameron@oracle.com
 - Migrated to SFE.
 * Sat Apr 24 2010 - dave.lin@sun.com

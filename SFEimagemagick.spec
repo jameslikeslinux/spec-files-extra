@@ -6,17 +6,21 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick
-%define major		6.7.2
-%define minor		6
-#%define src_url         %{sf_download}/project/imagemagick/files/%{major}-sources
+%define major		6.7.6
+%define minor		10
+
+# Note: we purposely take the latest version from legacy since these
+# are stable (permanent) links whereas the absolute latest version is
+# placed one directory up but only temporarily while it is new.
+%define src_url		ftp://ftp.imagemagick.org/pub/ImageMagick/legacy
 
 Name:                   SFEimagemagick
+IPS_Package_Name:	image/editor/imagemagick
 Summary:                ImageMagick - Image Manipulation Utilities and Libraries
 Version:                %{major}.%{minor}
 License:                ImageMagick License
 SUNW_Copyright:         imagemagick.copyright
-Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.xz
+Source:                 %{src_url}/%{src_name}-%{major}-%{minor}.tar.gz
 Group:			Graphics
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -25,6 +29,8 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SFEjasper-devel
 Requires:	SFEjasper
+BuildRequires:	SUNWlibrsvg-devel
+Requires:	SUNWlibrsvg
 
 %package devel
 Summary:                 %{summary} - development files
@@ -107,6 +113,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
+- update to 6.7.6-10
+* Sun Apr 29 2012 - Logan Bruns <logan@gedanken.org>
+- update to 6.7.5-10
+* Sun Feb 26 2012 - Logan Bruns <logan@gedanken.org>
+- update to 6.7.4-10 and added ips package name
+* Thu Jan 19 2012 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.4-7
+* Thu Dec 8 2011 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.3-10
 * Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.2-6
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>

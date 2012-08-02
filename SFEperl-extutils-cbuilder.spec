@@ -36,23 +36,15 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %build
 cd %{module_name}-%{module_version}
-perl Makefile.PL \
-    UNINST=0 \
-    PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-    INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
-    INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
-    INSTALLSITEMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
-    INSTALLSITEMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
-    INSTALLMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
-    INSTALLMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3
-make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
+/usr/perl%{perl_major_version}/%{perl_version}/bin/perl Build.PL installdirs=vendor
+CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC ./Build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd %{module_name}-%{module_version}
-make install
+./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 
-rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+#rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -64,14 +56,21 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{module_name_major}
 %{_prefix}/%{perl_path_vendor_perl_version}/%{module_name_major}/*
-%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
-%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
-%dir %attr(0755, root, sys) %{_datadir}
-%dir %attr(0755, root, bin) %{_mandir}
-%dir %attr(0755, root, bin) %{_mandir}/man3
-%{_mandir}/man3/*
+
+#/usr/perl5/5.12/bin and /usr/perl5/5.12/man/man<1|3>
+#/usr/perl5/5.8.4/bin and /usr/perl5/5.8.4/man/man<1|3>
+%{_prefix}/perl%{perl_major_version}/%{perl_version}/*
+#%dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto
+#%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir}/auto/*
+#%dir %attr(0755, root, sys) %{_datadir}
+#%dir %attr(0755, root, bin) %{_mandir}
+#%dir %attr(0755, root, bin) %{_mandir}/man3
+#%{_mandir}/man3/*
 
 %changelog
+* Sat May 12 2012 - Thomas Wagner
+- changed to use Build because old build system ended up in wrong
+  target directories with perl 5.12
 * Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

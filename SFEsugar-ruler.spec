@@ -10,7 +10,7 @@
 Name:                    SFEsugar-ruler
 Summary:                 Sugar Ruler
 URL:                     http://www.sugarlabs.org/
-Version:                 12 
+Version:                 14 
 Source:                  http://download.sugarlabs.org/sources/honey/Ruler/Ruler-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 14
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 12.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>

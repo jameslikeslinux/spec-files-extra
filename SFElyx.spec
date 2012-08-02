@@ -18,17 +18,21 @@
 # pfexec elfedit -e 'dyn:runpath /usr/gnu/lib' pdftex
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1
 %include base.inc
 %define srcname lyx
 
 Name:		SFElyx
+IPS_Package_Name:	desktop/publishing/lyx
 Summary:	Graphical LaTeX front end: What you see is what you mean
 URL:		http://www.lyx.org
 License:	GPLv2
+Group:		Applications/Office
 SUNW_Copyright:	lyx.copyright
-Version:	2.0.1
-Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.xz
+Version:	2.0.2
+Source:		ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/%srcname-%version.tar.gz
 Source1:	%srcname.desktop
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -38,13 +42,13 @@ BuildRequires:	SFEgcc
 BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
 BuildRequires:	SUNWgnome-spell
-BuildRequires:	runtime/python-26
+BuildRequires:	%{pnm_buildrequires_python_default}
 Requires:	SFEgccruntime
 Requires:	SFEqt-gpp
 Requires:	SFEboost-gpp
 Requires:	SUNWgnome-spell
 Requires:	SFElibiconv
-Requires:	runtime/python-26
+Requires:	%{pnm_requires_python_default}
 
 %if %build_l10n
 %package l10n
@@ -60,7 +64,7 @@ Requires:       %name
 
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++
@@ -112,6 +116,10 @@ rm -rf %buildroot
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- make (Build)Requries  %{pnm_buildrequires_python_default}
+* Sun Jan 08 2012 - Milan Jurik
+- bump to 2.0.2
 * Sun Jul 31 2011 - Alex Viskovatoff
 - Add missing (build) dependency
 * Sat Jul 23 2011 - Alex Viskovatoff

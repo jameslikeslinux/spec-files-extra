@@ -14,36 +14,38 @@
 
 %define src_name	netpbm
 
-Name:                    SFEnetpbm
-Summary:                 netpbm - network portable bitmap tools
-License:                 BSD, GPLv2, IJG, Public Domain
-URL:                     http://netpbm.sourceforge.net/
-Distribution:            OpenSolaris
-Vendor:                  OpenSolaris Community
+Name:		SFEnetpbm
+IPS_Package_Name:	image/editor/netpbm
+Summary:	Network Portable Bitmap Tools
+License:	BSD, GPLv2, IJG, Public Domain
+URL:		http://netpbm.sourceforge.net/
+Group:		Applications/Graphics and Imaging
+Distribution:	OpenSolaris
+Vendor:		OpenSolaris Community
 %if %{?_with_svn_code:0}%{?!_with_svn_code:1}
 # stable tarball build
-Version:                 10.35.77
-Source:                  http://downloads.sourceforge.net/netpbm/%{src_name}-%{version}.tgz
+Version:	10.35.83
+Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tgz
 %else
 # svn code
-Version:                 10.35
+Version:	10.35
 %endif
 
 %if %is_s10
-Source1:		 netpbm-s10-Makefile.conf
+Source1:	netpbm-s10-Makefile.conf
 %else
 # FIXME: consider adding PNGLIB like in netpbm-s10-Makefile.conf to build pngtopnm
-Source1:		 netpbm-Makefile.conf
+Source1:	netpbm-Makefile.conf
 %endif
 
-Patch1:			 netpbm-01-strings.diff
-Patch2:			 netpbm-02-no-XDefs.diff
-Patch3:                  netpbm-03-Makefile.manpage.diff
-Patch4:                  netpbm-04-pngver.diff
+Patch1:		netpbm-01-strings.diff
+Patch2:		netpbm-02-no-XDefs.diff
+Patch3:		netpbm-03-Makefile.manpage.diff
+Patch4:		netpbm-04-pngver.diff
 
-SUNW_Basedir:            /
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-SUNW_Copyright:          %{src_name}.copyright
+SUNW_Basedir:	/
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright:	%{src_name}.copyright
 
 %include default-depend.inc
 
@@ -212,6 +214,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Dec 31 2011 - Milan Jurik
+- bump to 10.35.83
 * Thr Mar 17 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWwget}
 - change Requires to %{pnm_requires_SUNWghostscript}

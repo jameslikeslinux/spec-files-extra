@@ -1,0 +1,23 @@
+--- picard/musicdns/avcodec.c.old	2012-08-01 23:39:58.578546320 -0400
++++ picard/musicdns/avcodec.c	2012-08-01 23:38:20.143189206 -0400
+@@ -55,7 +55,7 @@
+ static PyObject *
+ decode(PyObject *self, PyObject *args)
+ {
+-    AVFormatContext *format_context;
++    AVFormatContext *format_context = NULL;
+     AVCodecContext *codec_context;
+     AVCodec *codec;
+     PyObject *filename;
+@@ -69,7 +69,11 @@
+         return NULL;
+ 
+     Py_UNBLOCK_THREADS
++#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 2, 0)
+     if (av_open_input_file(&format_context, PyString_AS_STRING(filename), NULL, 0, NULL) != 0) {
++#else
++    if (avformat_open_input(&format_context, PyString_AS_STRING(filename), NULL, NULL) != 0) {
++#endif
+         Py_BLOCK_THREADS
+         PyErr_SetString(PyExc_Exception, "Couldn't open the file.");
+         return NULL;

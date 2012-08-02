@@ -84,25 +84,25 @@
  void
 --- gjs-0.6/Makefile.am-orig	2010-04-27 05:04:19.043692872 -0500
 +++ gjs-0.6/Makefile.am	2010-04-27 05:04:25.898641234 -0500
-@@ -89,8 +89,7 @@ libgjs_la_CFLAGS = 		\
+@@ -91,8 +91,7 @@ libgjs_la_CFLAGS = 		\
  	$(AM_CFLAGS)
  libgjs_la_LDFLAGS = 		\
  	-export-symbols-regex "^[^_]" -version-info 0:0:0	\
 -	-no-undefined \
 -	-rdynamic
 +	-no-undefined
- if HAVE_FIREFOX_JS_LIBDIR
- libgjs_la_LDFLAGS += -R $(FIREFOX_JS_LIBDIR) 
- endif
-@@ -179,7 +178,7 @@ gjs_console_LDADD =		\
+ libgjs_la_LIBADD = 		\
+ 	$(GJS_LIBS)
+ 
+@@ -185,7 +184,7 @@ gjs_console_LDADD =		\
  	$(JS_LIBS)		\
  	$(GOBJECT_LIBS)		\
  	libgjs.la
 -gjs_console_LDFLAGS = -rdynamic
 +gjs_console_LDFLAGS =
- if HAVE_FIREFOX_JS_LIBDIR
- gjs_console_LDFLAGS += -R $(FIREFOX_JS_LIBDIR)
- endif
+ gjs_console_SOURCES = gjs/console.c
+ 
+ install-exec-hook:
 --- gjs-0.7/gjs/native.h        2010-04-18 02:55:15.000000000 +0200
 +++ gjs-0.7-sunpro/gjs/native.h 2010-05-26 14:29:17.761796993 +0200
 @@ -65,8 +65,18 @@

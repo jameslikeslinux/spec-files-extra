@@ -10,23 +10,28 @@
 %include base.inc
 
 %define src_name   asterisk
-%define src_version    1.8.3.2
+%define src_version    1.8.13.1
 
 Name:         	SFE%{src_name}
+IPS_Package_Name:	 voip/asterisk
 Summary:      	Asterisk : Complete IP PBX in software
 Version:      	%{src_version}
 License:      	GPLv2
 SUNW_Copyright: asterisk.copyright
 Group:          Communication
 Source:         http://downloads.digium.com/pub/asterisk/releases/%{src_name}-%{version}.tar.gz
+Source2:        ext-sources/asterisk.xml
 Patch1:        	asterisk-01-oss.diff
+Patch2:        	asterisk-02-term.diff
 URL:            http://www.asterisk.org
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires: SFEgcc
-Requires: SFEgccruntime
+BuildRequires:      SFEgcc
+Requires:           SFEgccruntime
+BuildRequires:      SUNWlua
+Requires:           SUNWlua
 
 %description 
 Asterisk is a complete IP PBX in software. It runs on a wide variety of operating systems and provides all of the features one would expect from a PBX including many advanced features that are often associated with high end (and high cost) proprietary PBXs. Asterisk supports Voice over IP in many protocols, and can interoperate with almost all standards-based telephony equipment using relatively inexpensive hardware.
@@ -45,6 +50,9 @@ Requires: %name
 %prep 
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
+%patch2 -p1
+
+cp -p %{SOURCE2} asterisk.xml
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -56,7 +64,7 @@ export CC=gcc
 export CXX=g++
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
-./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir}
+./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --localstatedir=%{_localstatedir}
 
 make -j$CPUS
 
@@ -83,6 +91,9 @@ done
 rmdir $RPM_BUILD_ROOT%{_localstatedir}/run/%{src_name}
 rmdir $RPM_BUILD_ROOT%{_localstatedir}/run
 
+mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+cp asterisk.xml ${RPM_BUILD_ROOT}/var/svc/manifest/site/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -107,9 +118,32 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/log/%{src_name}
 %dir %attr (0755, root, other) %{_localstatedir}/lib
 %{_localstatedir}/lib/%{src_name}
-
+%dir %attr (0755, root, sys) /var/svc
+%class(manifest) %attr(0444, root, sys) /var/svc/manifest/site/asterisk.xml
 
 %changelog
+* Sun July 8 2012 - Logan Bruns <logan@gedanken.org>
+- Added (build)requires SUNWlua
+* Thu July 5 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.13.1
+* Sun Jun 10 2012 - Logan Bruns <logan@gedanken.org>
+- SMF manifest should have service disabled by default.
+* Wed Jun 6 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.13.0
+* Sat May 5 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.12.0
+* Fri Apr 27 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.11.1
+* Sun Apr 15 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.11.0
+* Sat Mar 24 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.10.1
+* Thu Mar 8 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.10.0
+* Fri Mar 2 2012 - Logan Bruns <logan@gedanken.org>
+- Added an smf manifest.
+* Tue Feb 22 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.8.9.2 and add IPS package name
 * Fri Jul 22 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sat Mar 19 2011 - Milan Jurik

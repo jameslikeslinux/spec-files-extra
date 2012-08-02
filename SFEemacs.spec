@@ -13,10 +13,10 @@
 
 Name:                    SFEemacs
 Summary:                 GNU Emacs - an operating system in a text editor
-Version:                 23.3.1
+Version:                 23.3.2
 License:                 GPLv3+
 SUNW_Copyright:          emacs.copyright
-%define emacs_version    23.3a
+%define emacs_version    23.3b
 %define src_version      23.3
 Source:                  http://ftp.gnu.org/pub/gnu/emacs/emacs-%emacs_version.tar.bz2
 Patch1:                  emacs-01-sound.diff
@@ -71,7 +71,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 export CPP="cc -E -Xs"
-export CFLAGS='-i -xO3 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+#export CFLAGS='-i -xO3 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+#Studio 12.3 crashes when building emacs with -xOn
+export CFLAGS='-i -xO0 -xspace -xstrconst -xpentium -mr -xregs=no%frameptr '
+
 export PERL=/usr/perl5/bin/perl
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
@@ -150,6 +153,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/games/emacs/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- bump to 23.3b, workaround for Studio 12.3
 * Sun Oct  2 2011 - Alex Viskovatoff
 - Work around usr-gnu.inc not placing info dir in /usr/gnu
 * Mon Sep 12 2011 - Alex Viskovatoff

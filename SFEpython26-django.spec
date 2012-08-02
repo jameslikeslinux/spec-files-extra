@@ -8,6 +8,7 @@
 %define python_version  2.6
 
 Name:		SFEpython26-django
+IPS_Package_Name:	web/python/django
 Version:	1.3.1
 Summary:	A high-level Python Web framework that enables Rapid Development
 License:	BSD

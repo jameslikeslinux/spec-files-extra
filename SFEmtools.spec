@@ -8,7 +8,9 @@
 Name:                    SFEmtools
 Summary:                 mtools - utilities to access MS-DOS disks from Unix
 Version:                 3.9.11
-Source:			 http://mtools.linux.lu/mtools-%{version}.tar.bz2
+#Source:			 http://mtools.linux.lu/mtools-%{version}.tar.bz2
+#temporary download location (they do not keep <4.0 files)
+Source:                  http://pkgs.fedoraproject.org/repo/pkgs/mtools/mtools-3.9.11.tar.bz2/8508a3ea9b612a926f3ed0f229e6c21a/mtools-3.9.11.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -75,5 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- download location
 * Wed Oct 10 2007 - trisk@acm.jhu.edu
 - Initial spec

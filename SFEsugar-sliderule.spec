@@ -10,7 +10,7 @@
 Name:                    SFEsugar-sliderule
 Summary:                 Sugar Sliderule
 URL:                     http://www.sugarlabs.org/
-Version:                 22 
+Version:                 24 
 Source:                  http://download.sugarlabs.org/sources/honey/Sliderule/Sliderule-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 24
 * Sat Aug 23 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 22.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>

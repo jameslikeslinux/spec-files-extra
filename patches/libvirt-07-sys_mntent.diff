@@ -1,0 +1,11 @@
+--- libvirt-0.9.11.3/src/qemu/qemu_conf.c	2012-04-27 11:14:41.000000000 -0700
++++ libvirt-0.9.11.3-patched/src/qemu/qemu_conf.c	2012-04-28 21:29:22.527287154 -0700
+@@ -34,7 +34,7 @@
+ #include <sys/wait.h>
+ #include <arpa/inet.h>
+ #include <sys/utsname.h>
+-#include <mntent.h>
++#include <sys/mntent.h>
+ 
+ #include "virterror_internal.h"
+ #include "qemu_conf.h"

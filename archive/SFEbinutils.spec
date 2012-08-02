@@ -7,12 +7,12 @@
 %include usr-gnu.inc
 
 Name:                SFEbinutils
-Summary:             GNU binutils
-Version:             2.18
+Summary:             GNU binutils (g++-built)
+Version:             2.22
 Source:              http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.bz2
 Patch1:              binutils-01-bug-2495.diff
 #Patch2:              binutils-02-ld-m-elf_i386.diff
-Patch3:              binutils-03-lib-amd64-ld-so-1.diff
+#Patch3:              binutils-03-lib-amd64-ld-so-1.diff
 Patch4:              binutils-04-non-constant_initializer_op.diff
 Patch5:              binutils-05-lm.diff
 SUNW_BaseDir:        %{_basedir}
@@ -46,7 +46,7 @@ cd ..
 %ifarch i386 amd64
 cd binutils-%{version}
 #%patch2 -p1 -b .patch02
-%patch3 -p1 -b .patch03
+#%patch3 -p1 -b .patch03
 cd ..
 %endif
 %ifarch amd64 sparcv9
@@ -205,6 +205,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Feb 09 2012 - James Choi
+- bump to 2.22
 * Sat Jan 26 2008 - moinak.ghosh@sun.com
 - Add workaround for a potential spurious build issue.
 * Sun Oct 14 2007 - Mark Wright <markwright@internode.on.net>

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-napier
 Summary:                 Sugar Napier
 URL:                     http://www.sugarlabs.org/
-Version:                 3 
+Version:                 4 
 Source:                  http://download.sugarlabs.org/sources/honey/Napier/Napier-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Created with 3.

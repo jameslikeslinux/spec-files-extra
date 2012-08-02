@@ -10,7 +10,7 @@
 Name:                    SFEsugar-abacus
 Summary:                 Sugar Abacus
 URL:                     http://www.sugarlabs.org/
-Version:                 23 
+Version:                 28 
 Source:                  http://download.sugarlabs.org/sources/honey/Abacus/Abacus-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 28
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 23.
 * Sat Oct 23 2010 - Brian Cameron  <brian.cameron@oracle.com>

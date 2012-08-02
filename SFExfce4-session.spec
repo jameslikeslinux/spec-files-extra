@@ -7,17 +7,17 @@
 %include Solaris.inc
 
 %define src_name xfce4-session
-#%define src_url http://archive.xfce.org/xfce/4.8/src/
 %define src_url http://archive.xfce.org/src/xfce/xfce4-session/4.8/
 
 Name:		SFExfce4-session
+IPS_Package_Name:	xfce/xfce-session
 Summary:	Xfce Session manager
 Version:	4.8.2
 URL:		http://www.xfce.org/
 License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Sessions
 SUNW_Copyright:	xfce4-session.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -69,7 +69,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 

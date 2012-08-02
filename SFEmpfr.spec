@@ -31,7 +31,7 @@ Group:		Development/Libraries
 License:	GPLv3
 SUNW_Copyright:	mpfr.copyright
 URL:		http://www.mpfr.org/
-Version:	3.1.0
+Version:	3.1.1
 Source:		http://ftp.gnu.org/gnu/mpfr/mpfr-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}/%{_subdir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
@@ -188,6 +188,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Jul 22 2012 - Milan Jurik
+- bump to 3.1.1
 * Mon Oct 10 2011 - Milan Jurik
 - bump to 3.1.0, add IPS package name with sfe prefix to avoid collision
 * Sat Jul 23 2011 - Alex Viskovatoff

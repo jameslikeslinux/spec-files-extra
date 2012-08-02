@@ -8,11 +8,12 @@
 %include base.inc
 
 %define src_name opencity
-%define src_version 0.0.6.2stable
+%define src_version 0.0.6.4stable
 
 Name:		SFEopencity
+IPS_Package_Name:	games/opencity
 Summary:	opencity - OpenCity Game
-Version:	0.0.6.2
+Version:	0.0.6.4
 Source:		%{sf_download}/%{src_name}/%{src_name}-%{src_version}.tar.bz2
 Patch1:		opencity-01-errors.diff
 URL:		http://www.opencity.info/
@@ -89,27 +90,27 @@ test -x $BASEDIR/lib/postrun || exit 0
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr (-, root, other)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
-%defattr (-, root, other)
+%defattr (-, root, bin)
+%{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/pixmaps
+%dir %attr (0755, root, other) %{_datadir}/pixmaps
+%{_datadir}/pixmaps/%{src_name}.png
 %{_datadir}/%{src_name}
-%{_datadir}/applications
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/%{src_name}.desktop
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/%{src_name}/*
-%dir %attr(0755, root, bin) %{_mandir}
-%{_mandir}/man6/*
+%{_mandir}
 
 %files root
 %defattr (-, root, bin)
-%attr (0755, root, bin) %dir %{_sysconfdir}
-%defattr (-, root, bin)
+%attr (0755, root, sys) %dir %{_sysconfdir}
 %attr (0755, root, bin) %dir %{_sysconfdir}/%{src_name}
 %{_sysconfdir}/%{src_name}/*
 
 %changelog
+* Sat Feb 11 2012 - Milan Jurik
+- bump to 0.0.6.4stable
 * Mon May 17 2010 - Milan Jurik
 - update to 0.0.6.2stable
 * Sun Apr 22 2007 - dougs@truemail.co.th

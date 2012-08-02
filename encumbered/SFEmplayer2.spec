@@ -19,6 +19,8 @@
 %define rename %{?_with_rename:1}%{?!_with_rename:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 %define cc_is_gcc 1
 %include base.inc
 
@@ -33,26 +35,28 @@
 %define with_giflib %(pkginfo -q SFEgiflib && echo 1 || echo 0)
 %define with_alsa %(pkginfo -q SFEalsa-lib && echo 1 || echo 0)
 %define SFElibsndfile %(pkginfo -q SFElibsndfile && echo 1 || echo 0)
+%define with_libdca %(pkginfo -q SFElibdts && echo 1 || echo 0)
 
 Name:                    SFEmplayer2
 Summary:                 MPlayer fork with some additional features
 License:                 GPLv3
 SUNW_Copyright:	         mplayer2.copyright
 Version:                 2.0.0.%snap
-#Version:                2.0.99
 URL:                     http://www.mplayer2.org/
 #Source:                 http://ftp.mplayer2.org/pub/release/mplayer2-%version.tar.xz
 # Use the development version, since current release is incompatible
 # with the new ffmpeg API
 Source: http://git.mplayer2.org/mplayer2/snapshot/mplayer2-master.tar.bz2
 Patch3:                  mplayer-snap-03-ldflags.diff
-Patch4:                  mplayer-snap-04-realplayer.diff
-Patch5:                  mplayer-snap-05-cpudetect.diff
+Patch4:                  mplayer2-04-realplayer.diff
+Patch5:                  mplayer2-05-cpudetect.diff
+#https://bugs.archlinux.org/task/28759
+Patch7:			 mplayer2-07-liveMedia.diff
+Patch8:			 mplayer2-08-liveMedia-config.diff
 SUNW_BaseDir:            %_basedir
 BuildRoot:               %_tmppath/%name-build
 
 %include default-depend.inc
-Requires: SUNWsmbau
 Requires: SUNWxorg-clientlibs
 Requires: SUNWfontconfig
 Requires: SUNWfreetype2
@@ -61,7 +65,8 @@ Requires: SUNWjpg
 Requires: SUNWpng
 Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
-Requires: SUNWsmbau
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
+Requires: %{pnm_requires_SUNWsmba}
 BuildRequires: SFEffmpeg-devel
 Requires: SFEffmpeg
 Requires: SFEliveMedia
@@ -69,7 +74,6 @@ Requires: SFElibcdio
 Requires: SFElibdvdnav
 BuildRequires: SFEfaad2-devel
 Requires: SFEfaad2
-#Requires: driver/graphics/nvidia
 %ifarch i386 amd64
 BuildRequires: SFEyasm
 %endif
@@ -77,6 +81,7 @@ BuildRequires: SFElibcdio-devel
 BuildRequires: SFElibdvdnav-devel
 BuildRequires: SUNWgroff
 BuildRequires: SUNWesu
+Requires: driver/graphics/nvidia
 BuildRequires: driver/graphics/nvidia
 
 %if %SFElibsndfile
@@ -119,6 +124,10 @@ BuildRequires: SFElibass-devel
 Requires: SFElibass
 BuildRequires: SUNWttf-dejavu
 Requires: SUNWttf-dejavu
+%if %with_libdca
+BuildRequires: SFElibdts-devel
+Requires: SFElibdts
+%endif
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
@@ -131,7 +140,8 @@ Requires: SUNWttf-dejavu
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-
+%patch7 -p1
+%patch8 -p1
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -147,6 +157,14 @@ export CFLAGS="-O2 -march=prescott -fomit-frame-pointer -D__hidden=\"\""
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -liconv" 
 export CC=gcc
 
+# On some Intel CPUs, ffmpeg incorrectly builds libraries for AMD
+%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+%if %noamd3d
+echo "hwcap_1 = V0x00800 V0x01000 OVERRIDE;" > mapfile
+%else
+echo "hwcap_1 = SSE;" > mapfile
+%endif
+
 # Enabling gl makes mplayer crash before printing anything 
 # when built with gcc 4.6.2 (OK on gcc 4.6.1).  Even with
 # 4.6.1, using -vo gl produces crashes when it tries to play.
@@ -155,12 +173,13 @@ bash ./configure				\
 	    --mandir=%_mandir			\
             --libdir=%_libdir			\
             --confdir=%_sysconfdir		\
-            --extra-cflags="-I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include -I/usr/lib/live/BasicUsageEnvironment/include" \
-            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment" \
+            --extra-cflags="-I/usr/lib/live" \
+            --extra-ldflags="-L/usr/lib/live/liveMedia -R/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -R/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment -R/usr/lib/live/UsageEnvironment -L/usr/lib/live/BasicUsageEnvironment -R/usr/lib/live/BasicUsageEnvironment -Wl,-Mmapfile" \
             --extra-libs="-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv" \
             --enable-faad			\
             --disable-mad			\
             --disable-gl			\
+            --disable-esd			\
             --enable-3dnow			\
             --enable-3dnowext			\
             --enable-live			\
@@ -230,6 +249,14 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Sun Apr 29 2012 - Pavel Heimlich
+- make mplayer2 work with current liveMedia
+* Tue Jan 24 2012 - James Choi
+- Intel/AMD detection override
+* Mon Dec 12 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SUNWsmba
+* Thu Nov 17 2011 - Alex Viskovatoff
+- Add optional dependency on SFElibdts; disable esd (not part of Solaris 11)
 * Sun Oct 30 2011 - Alex Viskovatoff
 - Update tarball and switch to new versioning scheme
 - Disable gt (causes crashes with gcc 4.6.2) and enable runtime cpu detection

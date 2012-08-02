@@ -14,6 +14,7 @@
 %define html_tagset_version 3.20 
 
 Name:                    SFEperl-html-tagset
+IPS_Package_Name:	library/perl-5/html-tagset
 Summary:                 HTML-%{html_tagset_version} PERL module
 Version:                 %{perl_version}.%{html_tagset_version}
 Source:                  http://www.cpan.org/modules/by-module/HTML/HTML-Tagset-%{html_tagset_version}.tar.gz
@@ -23,7 +24,6 @@ Group:                   Development
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
-BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 
 %ifarch sparc
 %define perl_dir sun4-solaris-64int

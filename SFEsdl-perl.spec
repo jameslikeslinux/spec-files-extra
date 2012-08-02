@@ -48,6 +48,7 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+rm -r $RPM_BUILD_ROOT/usr/perl5/5.12/lib/*/perllocal.pod
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -58,6 +59,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_basedir}/perl5/*
 
 %changelog
+* Tue Nov 22 2011 - Thomas Wagner
+- conflicting file (foomatic-* delivers in error as well) SFEperl-io-compress-zlib.spec
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Mon Apr 12 2010 - Milan Jurik

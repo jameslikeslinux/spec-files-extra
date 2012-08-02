@@ -1,0 +1,29 @@
+--- brlcad-7.20.4/src/libfb/if_mem.c	2011-10-30 09:11:26.000000000 -0700
++++ brlcad-7.20.4-patched/src/libfb/if_mem.c	2012-04-20 20:07:27.949553631 -0700
+@@ -37,7 +37,7 @@
+ 
+ 
+ /* Per connection private info */
+-struct meminfo {
++struct conn_meminfo {
+     FBIO *fbp;		/* attached frame buffer (if any) */
+     unsigned char *mem;	/* memory frame buffer */
+     ColorMap cmap;		/* color map buffer */
+@@ -45,7 +45,7 @@
+     int cmap_dirty;	/* !0 implies unflushed written cmap */
+     int write_thru;	/* !0 implies pass-thru write mode */
+ };
+-#define MI(ptr) ((struct meminfo *)((ptr)->u1.p))
++#define MI(ptr) ((struct conn_meminfo *)((ptr)->u1.p))
+ #define MIL(ptr) ((ptr)->u1.p)		/* left hand side version */
+ 
+ #define MODE_1MASK	(1<<1)
+@@ -126,7 +126,7 @@
+     }
+ 
+     /* build a local static info struct */
+-    if ((MIL(ifp) = (char *)calloc(1, sizeof(struct meminfo))) == NULL) {
++    if ((MIL(ifp) = (char *)calloc(1, sizeof(struct conn_meminfo))) == NULL) {
+ 	fb_log("mem_open:  meminfo malloc failed\n");
+ 	return -1;
+     }

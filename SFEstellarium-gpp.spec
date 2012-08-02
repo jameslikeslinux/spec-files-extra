@@ -17,7 +17,7 @@
 %include base.inc
 
 Name:		SFEstellarium
-Version:	0.11.0
+Version:	0.11.1
 Summary:	Photo-realistic night sky renderer
 Group:		Applications/Games
 License:	GPLv2+
@@ -34,8 +34,8 @@ BuildRequires: SFEsdl-mixer-devel
 Requires: SFEsdl-mixer
 #BuildRequires: SUNWimagick
 BuildRequires: SFEcmake
-BuildRequires: SFEqt47-gpp-devel
-Requires: SFEqt47-gpp
+BuildRequires: SFEqt-gpp-devel
+Requires: SFEqt-gpp
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -118,6 +118,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jan 1 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.11.1
 * Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 0.11.0
 * Fri Jul 29 2011 - Alex Viskovatoff

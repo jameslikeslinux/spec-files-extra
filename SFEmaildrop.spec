@@ -9,7 +9,9 @@ Name:                    SFEmaildrop
 Summary:                 maildrop - mail delivery agent with filtering capabilities
 Version:                 2.3.0
 License:                 GPLv2
-Source:                  %{sf_download}/courier/files/maildrop/%{version}/maildrop-%{version}.tar.bz2
+#Source:                  %{sf_download}/courier/files/maildrop/%{version}/maildrop-%{version}.tar.bz2
+#upstream does not keep such old versions
+Source:			 ftp://ftp7.freebsd.org/sites/ftp.freebsd.org/pub/FreeBSD/ports/distfiles/maildrop-2.3.0.tar.bz2
 # owner:trisk type:bug debian:564601
 Patch1:                  maildrop-01-cve-2010-0301.diff
 SUNW_BaseDir:            %{_basedir}
@@ -89,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- download location
 * Fri Feb 05 2010 - Albert Lee <trisk@opensolaris.org>
 - Add patch1 for CVE-2010-0301
 - Drop setuid root

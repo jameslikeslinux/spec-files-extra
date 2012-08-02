@@ -17,6 +17,7 @@
 %define oss      %(/usr/bin/pkginfo -q oss && echo 1 || echo 0)
 
 Name:                    SFEalsa-plugins
+IPS_Package_Name:	library/audio/alsa/alsa-plugins
 Summary:                 %{alsa.summary}
 Version:                 %{alsa.version}
 SUNW_BaseDir:            %{_basedir}

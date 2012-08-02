@@ -8,6 +8,7 @@
 %define src_name	guake
 
 Name:		SFEguake
+IPS_Package_Name:	terminal/guake
 URL:		http://guake.org/
 Summary:	Guake is a top-down terminal for Gnome
 Version:	0.4.2
@@ -84,6 +85,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 ( echo 'test -x /usr/bin/update-desktop-database || exit 0';
   echo '/usr/bin/update-desktop-database'
 ) | $PKG_INSTALL_ROOT/usr/lib/postrun
+%restart_fmri icon-cache
 
 %postun
 test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
@@ -102,6 +104,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
   echo 'export GCONF_CONFIG_SOURCE';
   echo '/usr/bin/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/*.schemas'
 ) | $PKG_INSTALL_ROOT/usr/lib/postrun
+%restart_fmri gconf-cache
 
 %preun root
 test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
@@ -148,6 +151,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sun Jan 01 2012 - Milan Jurik
+- add IPS restart services
 * Wed Dec 01 2010 - Milan Jurik
 - bump to 0.4.2
 * Sun Jun 06 2010 - Milan Jurik

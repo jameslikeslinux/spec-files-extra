@@ -16,9 +16,9 @@ IPS_Package_Name:	runtime/hatari
 URL:		http://hatari.berlios.de/
 License:	GPLv2
 Group:		System/Emulators/Other
-Version:	1.5.0
+Version:	1.6.1
 Summary:	an Atari ST emulator suitable for playing games
-Source:		http://download.berlios.de/%{src_name}/%{src_name}-%{version}.tar.bz2
+Source:		http://download.tuxfamily.org/%{src_name}/%{version}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{src_name}-%{version}-build
 
@@ -91,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %_docdir/%{src_name}/images/*.png
 
 %changelog -n hatari
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.6.1
 * Sun Oct 30 2011 - Milan Jurik
 - bump to 1.5.0
 * Sun Jan 24 2010 - Milan Jurik

@@ -10,8 +10,10 @@
 %include Solaris.inc
 
 Name:                SFEwv
+IPS_Package_Name:	library/desktop/wv
 License:             GPL
 Summary:             A library that allows access to Microsoft Word files
+Group:		Desktop (GNOME)/Libraries
 Version:             1.2.4
 URL:                 http://wvware.sourceforge.net/
 Source:              %{sf_download}/wvware/wv-%{version}.tar.gz

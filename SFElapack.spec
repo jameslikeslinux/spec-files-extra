@@ -27,11 +27,14 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SUNWcsl
 Requires: SUNWcsl
+BuildRequires: SUNWlibms
 Requires: SUNWlibms
-BuildRequires: SFEblas
 BuildRequires: SFEgcc
 Requires: SFEgccruntime
+BuildRequires: SFExblas
+Requires: SFExblas
 
 
 %prep
@@ -67,12 +70,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr(0755,root,bin) %{_libdir}
 %{_libdir}/lib*.a
+%{_libdir}/lib*.so
 #%ifarch amd64 sparcv9
 #%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
 #%{_libdir}/%{_arch64}/lib*.a
+#%{_libdir}/%{_arch64}/lib*.so
 #%endif
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- add missing (Build)Requires
+* Mon Apr 30 2012 - Pavel Heimlich
+- make shared libraries
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Tue May 25 2010 - Milan Jurik

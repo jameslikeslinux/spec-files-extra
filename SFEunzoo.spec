@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Name:		SFEunzoo
+IPS_Package_Name:	compress/unzoo
 Version:	4.4
 Summary:	ZOO archive extractor
 

@@ -8,10 +8,12 @@
 %define python_version 2.6
 
 Name:			SFEsip
+IPS_Package_Name:	developer/python/sip
 Summary:		Python binding creator for C++ libraries
 License:		Riverbank
-Version:		4.12.1
+Version:		4.13.3
 Source:			http://www.riverbankcomputing.co.uk/static/Downloads/sip4/sip-%{version}.tar.gz
+#Source:                 http://pkgs.fedoraproject.org/repo/pkgs/sip/sip-4.12.1.tar.gz/0f8e8305b14c1812191de2e0ee22fea9/sip-4.12.1.tar.gz
 URL:			http://www.riverbankcomputing.co.uk/software/sip/
 Group:			Development/Languages/Python
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
@@ -54,6 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{python_version}/vendor-packages/*
 
 %changelog
+* Wed Aug 01 2012 - James Lee <jlee@thestaticvoid.com>
+- Add IPS package name.
+- Bump to 4.13.3
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix temporary download location
 * Tue Feb 01 2011 - Alex Viskovatoff
 - bump to 4.12.1, so the tarball downloads
 * Sat Nov 06 2010 - Milan Jurik

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-terminal
 Summary:                 Sugar Terminal
 URL:                     http://www.sugarlabs.org/
-Version:                 34 
+Version:                 35 
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/Terminal/Terminal-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 35
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 34.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>

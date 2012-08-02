@@ -1,0 +1,23 @@
+--- libvirt-0.9.10/daemon/libvirtd.c	2011-12-28 23:26:45.000000000 -0800
++++ libvirt-0.9.10-patched/daemon/libvirtd.c	2012-03-15 20:22:05.563796477 -0700
+@@ -1111,16 +1111,20 @@
+ }
+ 
+ #ifdef __sun
++#include <priv.h>
++#define SYSTEM_UID 0
+ static int
+ daemonSetupPrivs(void)
+ {
+     chown ("/var/run/libvirt", SYSTEM_UID, SYSTEM_UID);
+ 
++#if 0
+     if (__init_daemon_priv (PU_RESETGROUPS | PU_CLEARLIMITSET,
+         SYSTEM_UID, SYSTEM_UID, PRIV_XVM_CONTROL, NULL)) {
+         VIR_ERROR(_("additional privileges are required"));
+         return -1;
+     }
++#endif
+ 
+     if (priv_set (PRIV_OFF, PRIV_ALLSETS, PRIV_FILE_LINK_ANY, PRIV_PROC_INFO,
+         PRIV_PROC_SESSION, PRIV_PROC_EXEC, PRIV_PROC_FORK, NULL)) {

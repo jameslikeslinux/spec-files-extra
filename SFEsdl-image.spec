@@ -23,6 +23,8 @@ Name:			SFEsdl-image
 IPS_Package_Name:	image/library/sdl-image
 Summary: 		%{sdl.summary}
 Version:		%{sdl.version}
+Group:			System/Multimedia Libraries
+URL:			http://www.libsdl.org/projects/SDL_image/
 SUNW_BaseDir:		%{_basedir}
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

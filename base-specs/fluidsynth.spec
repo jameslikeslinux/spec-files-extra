@@ -1,18 +1,16 @@
 Summary:	A real-time software synthesizer based on SoundFont 2 specifications.
 Name:		fluidsynth
-Version:	1.1.1
+Version:	1.1.5
 License:	LGPL
 Group:		Sound
-Source:		http://download.savannah.gnu.org/releases/fluid/%{name}-%{version}.tar.gz
-Patch1:		fluidsynth-01-Wall.diff
-Patch2:		fluidsynth-02-oss.diff
+Source:		%{sf_download}/%{name}/%{name}-%{version}.tar.bz2
+Patch1:		fluidsynth-01-rtkit.diff
 URL:		http://www.fluidsynth.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p1
 
 %build
 export CFLAGS="%optflags"
@@ -25,7 +23,8 @@ fi
 
 
 autoconf
-./configure --prefix=%{_prefix} --libdir=%{_libdir} --mandir=%{_mandir}
+./configure --prefix=%{_prefix} --libdir=%{_libdir} --mandir=%{_mandir} \
+	--disable-portaudio-support
 make
 
 %install
@@ -38,7 +37,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libquicktime/lib*.*a
 if [ -d $RPM_BUILD_ROOT ]; then rm -rf $RPM_BUILD_ROOT; fi
 
 %changelog
-* Wed May 05 2010 Milan Jurik
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.1.5
+* Wed May 05 2010 - Milan Jurik
 - Initial import to SFE
 * Mon Aug 25 2003 Josh Green <jgreen@users.sourceforge.net>
 - Created initial fluidsynth.spec.in

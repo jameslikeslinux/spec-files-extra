@@ -10,10 +10,12 @@
 %include Solaris.inc
 
 Name:		SFEargyll
+IPS_Package_Name:	image/argyll
 Version:	1.3.3
 Summary:	Argyll Color Management System
 License:	AGPLv3
 Url:		http://www.argyllcms.com/
+Group:		Applications/Graphics and Imaging
 SUNW_BaseDir:   %{_basedir}
 SUNW_Copyright: %{name}.copyright
 

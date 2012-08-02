@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:		SFEleafpad
+IPS_Package_Name:	editor/leafpad
 Summary:	Leafpad - A GTK+ based text editor
 Version:	0.8.18.1
 Source:		http://savannah.nongnu.org/download/leafpad/leafpad-%{version}.tar.gz

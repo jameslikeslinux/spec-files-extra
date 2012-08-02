@@ -10,12 +10,13 @@
 %define srcname gnote
 
 Name:		SFEgnote
+IPS_Package_Name:	gnome/note-taking/gnote
 Summary:	Desktop notetaking application for Unix cloned from Tomboy
 URL:		http://live.gnome.org/Gnote
 License:	GPLv3
 SUNW_Copyright:	%srcname.copyright
-Version:	0.7.5
-Source:		http://ftp.gnome.org/pub/GNOME/sources/%srcname/0.7/%srcname-%version.tar.xz
+Version:	0.7.6
+Source:		http://ftp.gnome.org/pub/GNOME/sources/%srcname/0.7/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -66,7 +67,10 @@ export CXXFLAGS="%cxx_optflags -pthreads"
 export LDFLAGS="%_ldflags -pthreads -L/usr/g++/lib -L/usr/lib/ext2fs -R/usr/g++/lib:/usr/lib/ext2fs"
 export PKG_CONFIG_PATH=/usr/g++/lib/pkgconfig
 
-./configure --prefix=%_prefix --sysconfdir=%_sysconfdir --with-boost=/usr/g++ --disable-static
+./configure --prefix=%_prefix	\
+	--sysconfdir=%_sysconfdir	\
+	--with-boost=/usr/g++	\
+	--disable-static
 
 make -j$CPUS
 
@@ -104,6 +108,8 @@ rm -rf %buildroot
 %_datadir/omf/%srcname
 %dir %attr(0755, root, other) %_datadir/gnome
 %_datadir/gnome/help/%srcname/C
+%_datadir/gnome/help/%srcname/[a-z][a-z]
+%_datadir/gnome/help/%srcname/[a-z][a-z]_[A-Z][A-Z]
 %_libdir/bonobo/servers/GNOME_GnoteApplet.server
 
 %files root
@@ -140,18 +146,12 @@ rm -rf %buildroot
 %dir %attr (0755, root, sys) %_datadir
 %attr (-, root, other) %_datadir/locale
 %dir %attr(0755, root, other) %_datadir/gnome
-%_datadir/gnome/help/%srcname/cs
-%_datadir/gnome/help/%srcname/de
-%_datadir/gnome/help/%srcname/el
-%_datadir/gnome/help/%srcname/es
-%_datadir/gnome/help/%srcname/fr
-%_datadir/gnome/help/%srcname/sl
-%_datadir/gnome/help/%srcname/sv
-%_datadir/gnome/help/%srcname/zh_CN
 %endif
 
 
 %changelog
+* Sun Feb 05 2012 - Milan Jurik
+- bump to 0.7.6
 * Tue Sep 13 2011 - Alex Viskovatoff
 - Add SUNW_copyright
 * Thu Aug 18 2011 - Alex Viskovatoff

@@ -1,0 +1,11 @@
+--- bitlbee-3.0.5/irc_user.c	2012-02-18 02:55:09.000000000 -0800
++++ bitlbee-3.0.5-patched/irc_user.c	2012-03-01 19:54:39.725048820 -0800
+@@ -237,7 +237,7 @@
+ 	else if( g_strcasecmp( ctcp[0], "PING" ) == 0 )
+ 	{
+ 		irc_send_msg_f( iu, "NOTICE", iu->irc->user->nick, "\001%s %s\001",
+-		                ctcp[0], ctcp[1] ? : "" );
++		                ctcp[0], ctcp[1] ? ctcp[1] : "" );
+ 	}
+ 	
+ 	return TRUE;

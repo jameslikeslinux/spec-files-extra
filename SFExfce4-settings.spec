@@ -10,12 +10,13 @@
 %define src_url http://archive.xfce.org/src/xfce/xfce4-settings/4.8/
 
 Name:		SFExfce4-settings
+IPS_Package_Name:	xfce/config/xfce-settings
 Summary:	Various gtk widgets for xfce
 Version:	4.8.3
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Libraries
 SUNW_Copyright: xfce4-settings.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

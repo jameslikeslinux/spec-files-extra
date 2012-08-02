@@ -7,6 +7,7 @@
 # spec file for package SFElibmikmod
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define oss      %(/usr/bin/pkginfo -q oss && echo 1 || echo 0)
 %define src_version 3.2.2-beta1
@@ -26,8 +27,8 @@ BuildRequires: oss
 %else
 BuildRequires: SUNWaudh
 %endif
-Requires: SFElibmikmod
-BuildRequires: SFElibmikmod-devel
+BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
+Requires:       %{pnm_requires_SUNWlibmikmod}
 
 %prep
 %setup -q -n mikmod-%src_version
@@ -73,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jul 30 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibmikmod_devel}, %include packagenamemacros.inc
 * Sun May 09 2010 - Milan Jurik
 - dependency cleanup
 * Thu May 29 2008 - river@wikimedia.org

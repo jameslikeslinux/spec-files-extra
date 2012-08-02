@@ -1,0 +1,28 @@
+--- libvirt-0.9.11.3/src/qemu/qemu_command.c	2012-04-27 11:14:58.000000000 -0700
++++ libvirt-0.9.11.3-patched/src/qemu/qemu_command.c	2012-04-28 21:25:11.893917661 -0700
+@@ -4638,7 +4638,7 @@
+         }
+     } else {
+         for (i = 0 ; i < def->ndisks ; i++) {
+-            char dev[NAME_MAX];
++            char dev[PATH_MAX];
+             char *file;
+             const char *fmt;
+             virDomainDiskDefPtr disk = def->disks[i];
+@@ -4667,14 +4667,14 @@
+             if (STREQ(disk->dst, "hdc") &&
+                 disk->device == VIR_DOMAIN_DISK_DEVICE_CDROM) {
+                 if (disk->src) {
+-                    snprintf(dev, NAME_MAX, "-%s", "cdrom");
++                    snprintf(dev, PATH_MAX, "-%s", "cdrom");
+                 } else {
+                     continue;
+                 }
+             } else {
+                 if (STRPREFIX(disk->dst, "hd") ||
+                     STRPREFIX(disk->dst, "fd")) {
+-                    snprintf(dev, NAME_MAX, "-%s", disk->dst);
++                    snprintf(dev, PATH_MAX, "-%s", disk->dst);
+                 } else {
+                     qemuReportError(VIR_ERR_INTERNAL_ERROR,
+                                     _("unsupported disk type '%s'"), disk->dst);

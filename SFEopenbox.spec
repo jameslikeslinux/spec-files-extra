@@ -7,19 +7,22 @@
 #
 %include Solaris.inc
 
-Name:                    SFEopenbox
-Summary:                 A free window manager for the X Window System
-License:                 GPLv2
-SUNW_Copyright:          openbox.copyright
-Version:                 3.5.0
-Source:                  http://icculus.org/openbox/releases/openbox-%{version}.tar.gz
-URL:                     http://icculus.org/openbox/index.php/Main_Page
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEopenbox
+IPS_Package_Name:	desktop/window-manager/openbox
+Summary:	A free window manager for the X Window System
+License:	GPLv2
+SUNW_Copyright:	openbox.copyright
+Version:	3.5.0
+Source:		http://icculus.org/openbox/releases/openbox-%{version}.tar.gz
+Patch1:		openbox-01-emptystruct.diff
+URL:		http://icculus.org/openbox/index.php/Main_Page
+Group:		Desktop (GNOME)/Window Managers
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:		 SFEimlib2
+BuildRequires:	SFEimlib2
+Requires:	SFEimlib2
 
 %if %build_l10n
 %package l10n
@@ -36,6 +39,7 @@ SUNW_BaseDir:            /
 
 %prep
 %setup -q -n openbox-%version
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`

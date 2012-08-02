@@ -6,13 +6,14 @@
 %include Solaris.inc
 
 Name:		SFEjoe
+IPS_Package_Name:	editor/joe
 Summary:	Full feature editor reminiscent of WordStar and Turbo-C
 Version:	3.7
+Group:		Development/Editors
 URL:		http://joe-editor.sourceforge.net/
 Source:		%{sf_download}/joe-editor/joe-%{version}.tar.gz
 License:	GPLv1+
 SUNW_Copyright:	joe.copyright
-Group:		Applications
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

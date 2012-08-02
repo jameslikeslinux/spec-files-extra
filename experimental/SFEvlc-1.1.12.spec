@@ -3,49 +3,28 @@
 #
 # includes module(s): vlc
 #
-# Work done for vlc 1.1.12 By Ken Mays 10/17/2011
-#
+# owner: tom68
+
+%define debug_build 1
+
+##TODO## re-enable and test taglib later
+%define enable_taglib 0
+%define enable_matroska 1
+%define enable_libumem 1
 
 ##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
 #        then you *first* uninstall the old copy of vlc and re-try. 
 
-##NOTE##  works/tested with gcc    4.6.1  oi_151a
-##NOTE##  works/tested with gcc    4.6.1  Solaris 11 
+##NOTE## if you are adding C++ compiled libraries, you need them compiled
+#        with g++ ! .. you can use location /usr/g++/lib and /usr/g++/include 
+#        to keep those external libraries separated from the SolStudio C++ 
+#        compiled libs
 
 ##TODO##
 #see this notes below, we might want those features compiled in,
 #then we need to put BuildRequires and maybe need to make new 
 #additional spec files 
 
-# This is from vlc-1.1.12 <kmays>
-#configure: WARNING: lua5.1 not found, trying lua >= 5.1 instead
-#configure: WARNING: The development files for liveMedia (live555) can't be found
-#configure: WARNING: Library libraw1394 >= 2.0.1 libdc1394-2 >= 2.1.0 needed for dc1394 was not found
-#configure: WARNING: Library libraw1394 >= 2.0.1 libavc1394 >= 0.5.3 needed for dv was not found
-#configure: WARNING: LibV4L support disabled because libv4l development headers were not found
-#configure: WARNING: LibV4L2 support disabled because libv4l2 development headers  were not found
-#configure: WARNING: linux-dvb headers not found
-#configure: WARNING: linux-dvb headers not found
-#configure: WARNING: Library shout >= 2.1 needed for shout was not found
-#configure: WARNING: libmodplug not found or a broken version (0.8.8.0) was found!
-#configure: WARNING: libva not found
-#configure: WARNING: Library dirac >= 0.10.0 needed for dirac was not found
-#configure: WARNING: Library fluidsynth needed for fluidsynth was not found
-#configure: WARNING: ZVBI library not found. Enabling the telx module instead
-#configure: WARNING: LIBASS library not found
-#configure: WARNING: Not building Roku HD1000 compatible video output
-#configure: WARNING: Not building Roku HD1000 compatible video output
-#configure: WARNING: Library caca >= 0.99.beta14 needed for caca was not found
-#configure: WARNING: Library libpulse >= 0.9.11 needed for pulse was not found
-#configure: WARNING: It is STRONGLY advised to update to pulse 0.9.22
-#configure: WARNING: Library portaudio-2.0 needed for portaudio was not found
-#configure: WARNING: Library alsa >= 1.0.0 needed for alsa was not found
-#configure: WARNING: Library jack needed for jack was not found
-#configure: WARNING: Library libgoom2 needed for goom was not found
-#configure: WARNING: libprojectM library not found
-#configure: WARNING: Library libudev >= 142 needed for udev was not found
-#configure: WARNING: Library libmtp >= 1.0.0 needed for mtp was not found
-#configure: WARNING: Library libosso needed for osso_screensaver was not found
 
 ##TODO##
 #'t find: SFElibdts developer/documentation-tool/gtk SUNWsmbau SUNWgtk
@@ -55,18 +34,19 @@
 #then re-run the resolveipspackages script
 
 
-# NOTE EXPERIMENTAL
-# current stat: Really needs a smart solution for NAME_MAX
-# see patch header in Patch24 vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
-#
-# X consolidation for build 153 adds "x11-xcb" which is needed for vlc to
-# display video inside the main window (and more) - see http://twitter.com/#!/alanc/status/29060334076
-# and http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6667057 Fixed in: snv_153
-# on old osbuilds you get two separate windows. on new osbuild xcb helps with videodisplay
-# inside the vlc window
+# NOTE EXPERIMENTAL - current stat: 1.1.4.1 compiles, really needs a smart solution for NAME_MAX
+#                     see patch header in Patch24 vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff,
+#                     needs review of disabled patches if they still apply to 1.1.4.1,
+#                     X consolidation for build 153 adds "x11-xcb" which is needed for vlc to
+#                     display video inside the main window (and more) - see http://twitter.com/#!/alanc/status/29060334076
+#                     and http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6667057 Fixed in: snv_153
+#                     on old osbuilds you get two separate windows. on new osbuild xcb helps with videodisplay inside the vlc
+#                     window
+
 
 # NOTE EXPERIMENTAL - does contain a few null pointer uses, so you might want to  " LD_PRELOAD=/usr/lib/0@0.so.1 vlc  "
 # NOTE EXPERIMENTAL - uses SFEqt-gpp which is installed in the new location /usr/g++ (GNU C++ library) - needs patching
+# NOTE EXPERIMENTAL - patches from old revision are not all reviewd if they are still needed
 
 # tickets
 #
@@ -103,20 +83,18 @@
  
 %include base.inc
 
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
+##TODO## use pnm_macros to determine which osdistro/osbuild needs SFE or SUNW libsdl
+%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
 #we have new X-org with x11-xcb CR 6667057
 ##TODO## check if other solarish OS do have same x11-xcb integrated with build 153
 %if %( expr %{osbuild} '>=' 153 )
 %define enable_x11_xcb 1
+# more fresh builds all use IPS long package names
+BuildRequires: x11/library/libxcb
+Requires: x11/library/libxcb
 %else
 %define enable_x11_xcb 0
-#just in case it is unexpectedly present, use it
-%define enable_x11_xcb %(/usr/bin/pkginfo -q SUNWlibxcb && echo 1 || echo 0)
-%if %{enable_x11_xcb}
-BuildRequires: SUNWlibxcb
-Requires: SUNWlibxcb
-%endif
 %endif
 
 #just in case it is present, use SFElibxcb-devel anyways
@@ -126,8 +104,8 @@ Requires: SUNWlibxcb
 ##Requires: SFElibxcb
 ##%endif
 
-##TODO## Samba lives /usr/sfw/include and /usr/lib/samba
-#  Disabled for now
+##TODO## temporarily disable building samba support (needs better detection
+#  where smbclient.so lives)
 %define enable_samba 0
 
 ##TODO## temporarily disable building pulseaudio support
@@ -142,14 +120,23 @@ Summary:                vlc - multimedia player and streaming server
 Version:                1.1.12
 Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.bz2
 Patch3:                 vlc-03-1141-oss.diff
-Patch21:                vlc-21-1114-filesystem.c-NAME_MAX.diff
-Patch22:                vlc-22-remove-dirent.h-checks.diff
-Patch23:                vlc-23-1114-dirfd.diff
-Patch24:                vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
+
+## reminder: review if patches 4 .. 18 still valid/needed,
+## just because something compiles doesn't mean a temporarily 
+## disabled patch is not longer needed
+## remove this note once the spec file leaves experimental/*
+Patch21:               vlc-21-1114-filesystem.c-NAME_MAX.diff
+Patch22:               vlc-22-remove-dirent.h-checks.diff
+Patch23:               vlc-23-1114-dirfd.diff
+Patch24:               vlc-24-1114-NAME_MAX-dirty-fix-need-rework-x11_factory.cpp.diff
 ##TODO## vlc-25-1111 needs a better solution
-Patch25:                vlc-25-1111-hack-define-posix_fadvise.diff
-##TODO## Patch26 due to possible PortAudio support
-Patch26:                vlc-26-1112-postaudio-fix.diff
+Patch25:               vlc-25-1111-hack-define-posix_fadvise.diff
+Patch26:               vlc-26-1112-pulseaudio.diff
+Patch27:               vlc-27-1112-xcb-xvideo.c-fix-memory-leak_remove-for-vlc-1.2.diff
+
+#note: ts.c:2455:21: error: implicit declaration of function 'dvbpsi_SDTServiceAddDescriptor'
+#needs libdvbpsi >=0.1.6
+
 
 IPS_package_name: media/vlc
 
@@ -165,15 +152,17 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-%if %SUNWlibsdl
-BuildRequires:  SUNWlibsdl-devel
-Requires:       SUNWlibsdl
-%else
+##TODO## check for a pnm_macro to fetch SFEsdl (depends on the addon SFEsdl-image below)
+%if %SFEsdl
 BuildRequires:  SFEsdl-devel
 Requires:       SFEsdl
-%endif
 BuildRequires:  SFEsdl-image-devel
 Requires:       SFEsdl-image
+%else
+BuildRequires:  SUNWlibsdl-devel
+Requires:       SUNWlibsdl
+##TODO## check if sdl-image is integrated or still needed separatly
+%endif
 Requires:       SUNWhal
 BuildRequires:  SUNWdbus-devel
 Requires:       SUNWdbus
@@ -194,8 +183,10 @@ BuildRequires:  SFElibmad-devel
 Requires:       SFElibmad
 BuildRequires:  SFElibmpcdec-devel
 Requires:       SFElibmpcdec
-BuildRequires:  SFElibmatroska-devel
-Requires:       SFElibmatroska
+%if %{enable_matroska}
+BuildRequires:  SFElibmatroska-gpp
+Requires:       SFElibmatroska-gpp
+%endif
 BuildRequires:  SUNWogg-vorbis-devel
 Requires:       SUNWogg-vorbis
 BuildRequires:  SFElibdvbpsi-devel
@@ -236,8 +227,10 @@ Requires: SUNWavahi-bridge-dsd
 Requires: SUNWlibgpg-error
 BuildRequires: SFEtwolame-devel
 Requires: SFEtwolame
+%if %{enable_taglib}
 BuildRequires: SFEtaglib-devel
 Requires: SFEtaglib 
+%endif
 BuildRequires: SFElibid3tag-devel
 Requires: SFElibid3tag
 BuildRequires: SFEfaad2-devel
@@ -277,6 +270,7 @@ Requires:                %{name}
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
 
 perl -w -pi.bak -e "s,#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "#\!.*/bin/sh" {} \; -print | egrep -v "/libtool"`
 
@@ -312,35 +306,63 @@ export CXX=/usr/gnu/bin/g++
 # Ticket #3040 (closed defect: fixed) https://trac.videolan.org/vlc/ticket/3040
 # need to define _XPG4_2 on Solaris
 
-export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
-export CFLAGS="%optflags -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib $GNULIB -L/usr/lib/live/liveMedia"
+##TODO## why make an extra "-L/lib -R/lib" ... can't see why we should do this
+#export CXXFLAGS="%cxx_optflags -fpermissive -D_XPG4_2 -D__EXTENSIONS__ -L/lib -R/lib"
+export CXXFLAGS="%cxx_optflags -L/lib -R/lib -fpermissive -D_XPG4_2 -D__EXTENSIONS__"
+export CFLAGS="%optflags -L/lib -R/lib -D_XPG4_2 -D__EXTENSIONS__ -L/usr/gcc/lib -R/usr/gcc/lib $GNULIB"
 
 #give these flags only to the C-Pre-Processor
-export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__ -I/usr/sfw/include -I/usr/lib/live/liveMedia/include"
+export CPPFLAGS="-I/usr/X11/include -I/usr/gnu/include -I/usr/include/libavcodec -I./include -D_XPG4_2 -D__EXTENSIONS__"
+
+#extend CFLAGS and CPPFLAGS with more Include locations for special libraries
+#live555 aka liveMedia
+export EXTRA_CFLAGS="${EXTRA_CFLAGS} -I/usr/lib/live/liveMedia/include -I/usr/lib/live/groupsock/include -I/usr/lib/live/UsageEnvironment/include"
+
+%if %{enable_matroska}
+#to find matroska as g++ variant we use -I/usr/g++/include
+export EXTRA_CFLAGS="${EXTRA_CFLAGS} -I/usr/g++/include"
+%else
+%endif
+
+export CFLAGS="${CFLAGS} ${EXTRA_CFLAGS}"
+export CPPFLAGS="${CPPFLAGS} ${EXTRA_CFLAGS}"
 
 
-%if %debug_build
+
+%if %{debug_build}
+##TODO## might need to filter out "-O<n>" flags to switch off optimization and help switch on debuging
 export CFLAGS="$CFLAGS -g"
 %else
 export CFLAGS="$CFLAGS -O4"
 %endif
-##TODO## experime
-#export LD=/usr/gnu/bin/ld
-#export LDFLAGS="%_ldflags $X11LIB $GNULIB"
-##TODO## experime
-#export LDFLAGS="%_ldflags $X11LIB $GNULIB -lsocket -lxnet"
-#export EXTRA_LDFLAGS="-L/usr/g++/lib -R/usr/g++/lib $X11LIB $GNULIB -lsocket -lxnet"
+
 export LD=/opt/dtbld/bin/ld-wrapper
 export AR=/usr/bin/ar
 export PATH=/usr/bin:$PATH
-export EXTRA_LDFLAGS="$X11LIB $GNULIB -lsocket -lxnet"
-#let the runpath be determined dynamicly at runtime to get a better optimized library then
-#the default one, currently for ffmpeg:
-#paused export LD_OPTIONS='-f libavcodec.so.53 -f libavdevice.so.53 -f libavfilter.so.2 -f libavformat.so.53 -f libavutil.so.51 -f libswscale.so.2 -f libpostproc.so.51'
-#export LD_FLAGS="-R%{_libdir}/\$ISALIST %_ldflags"
-export LD_FLAGS="%_ldflags"
-#export LD_FLAGS="         $X11LIB $GNULIB -lsocket -lxnet"
+export LDFLAGS="%_ldflags -L/lib -R/lib"
 
+#extend EXTRA_LDFLAGS with more library locations for special libraries
+%if %{enable_matroska}
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} $X11LIB $GNULIB -lsocket -lxnet"
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} -L/usr/lib/live/liveMedia -L/usr/lib/live/groupsock -L/usr/lib/live/UsageEnvironment"
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} -R/usr/lib/live/liveMedia -R/usr/lib/live/groupsock -R/usr/lib/live/UsageEnvironment"
+#to find matroska it is sufficient to add -L and -R/usr/stdcxx/lib
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} -L/usr/stdcxx/lib"
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} -R/usr/stdcxx/lib"
+%else
+%endif
+
+#vlc's  xcb_glx module core dumps if running with at lest Nvidia driver .280.
+#contained in S11 FCS release (osbuild 175)
+#workaround, to be checked if that is a performance penalty if using libumem 
+#(just a guess, needs not be true!!)
+
+%if %{enable_libumem}
+export EXTRA_LDFLAGS="${EXTRA_LDFLAGS} -lumem"
+%else
+%endif
+
+export LDFLAGS="${LDFLAGS} ${EXTRA_LDFLAGS}"
 
 export CONFIG_SHELL=/usr/bin/bash
 
@@ -354,18 +376,21 @@ sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtGui.pc > pk
 sed -e '/^Libs:/s/-L\([^ ]*\)/-L\1 -R\1/' < /usr/g++/lib/pkgconfig/QtCore.pc > pkgconfig/QtCore.pc
 export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 
-./configure --prefix=%{_prefix}                 \
-            --bindir=%{_bindir}                 \
-            --mandir=%{_mandir}                 \
-            --libdir=%{_libdir}                 \
-            --libexecdir=%{_libexecdir}         \
-            --sysconfdir=%{_sysconfdir}         \
-            --enable-shared                     \
-            --disable-static                    \
-            --enable-live555                    \
-            --enable-ffmpeg                     \
-            --enable-real                       \
-            --enable-realrtsp                   \
+# invalid options: --enable-ffmpeg                     \
+#./configure --help | gegrep -i3 ffm prints only --enable-merge-ffmpeg   merge FFmpeg-based plugins (default disabled)
+
+./configure --prefix=%{_prefix}			\
+	    --bindir=%{_bindir}			\
+	    --mandir=%{_mandir}			\
+            --libdir=%{_libdir}			\
+            --libexecdir=%{_libexecdir}		\
+            --sysconfdir=%{_sysconfdir}		\
+	    --enable-shared			\
+	    --disable-static			\
+	    --enable-live555			\
+	    --enable-real			\
+	    --enable-realrtsp			\
+            --disable-dvb                       \
             --enable-id3tag                     \
             --enable-merge-ffmpeg               \
             --enable-tremor                     \
@@ -377,7 +402,6 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
             --enable-omxil                      \
             --enable-switcher                   \
             --enable-faad                       \
-
 %if %{enable_x11_xcb}
             --enable-xcb                        \
 %else
@@ -393,10 +417,19 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 %else
             --disable-pulse                        \
 %endif
+%if %{enable_taglib}
+            --enable-taglib                    \
+%else
+            --disable-taglib                   \
+%endif
+%if %{enable_matroska}
+            --enable-mkv                    \
+%else
+            --disable-mkv                   \
+%endif
 %if %debug_build
 	    --enable-debug=yes			\
 %endif
-	    --disable-static			\
 	    $nlsopt
 
 #           --with-gnu-ld                       \
@@ -407,11 +440,23 @@ export PKG_CONFIG_PATH=`pwd`/pkgconfig:/usr/g++/lib/pkgconfig:/usr/lib/pkgconfig
 printf '%%%s/\/intl\/libintl.a/-lintl/\nwq\n' | ex - vlc-config
 %endif
 
-gmake -j$CPUS  || gmake || gmake
+
+##TODO## investigate. Test if this goes away with new vlc version
+#sometimes it fails with a core dump at vlc-cache-gen, just try again.
+#does vlc-cache-gen work at all?
+gmake -j$CPUS || echo "gmake 1. run failed, start over without vlc-cache-gen..."
+mv bin/vlc-cache-gen bin/vlc-cache-gen.orig
+touch bin/vlc-cache-gen
+chmod a+rx bin/vlc-cache-gen
+gmake
+##NOTE## If you run into compile problems and "vlc-cache-gen" core dumps,
+#        then you *first* uninstall the old copy of vlc and re-try. 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 gmake install DESTDIR=$RPM_BUILD_ROOT
+#Fix for disabled because core dumping vlc-cache-gen
+cp -p bin/vlc-cache-gen.orig $RPM_BUILD_ROOT/%{_libdir}/vlc/vlc-cache-gen
 #rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 find $RPM_BUILD_ROOT%{_libdir}/ -name '*.la' -exec rm {} \;
 rm -f $RPM_BUILD_ROOT%{_libdir}/charset.alias
@@ -507,10 +552,34 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Dec  3 2011 - Thomas Wagner
+- add patch27 vlc-27-1112-xcb-xvideo.c-fix-memory-leak_remove-for-vlc-1.2.diff fixed
+  in vlc-1.2.* http://www.mail-archive.com/vlc-commits@videolan.org/msg07284.html
+- add temporarily check for present SFEsdl, to be changed into a pnm_macro 
+  with a check on the osbuild introducting SUNWlibsdl
+- switch for (Build)Requires x11/library/libxcb in case osbuild >= 153
+- bump to 1.1.12 (again after repair/merge with 1.1.11)
+- use again renamed patch vlc-26-1112-pulseaudio.diff
+- add patch vlc-27-1112-xcb-xvideo.c-fix-memory-leak_remove-for-vlc-1.2.diff (thanks to EC)
+- make SFElibmatroska-gpp and SFEtaglib switchable, taglib *disabled* (enable again later)
+  add includes only conditionally and use EXTRA_LDFLAGS / EXTRA_CFLAGS
+- re-enable SFEtwolame/SFElame
+- CFLAGS add -L/usr/gcc/lib -R/usr/gcc/lib
+- LDFLAGS add -L/lib -R/lib
+- use libumem (-l umem) to avoid core dumps at startup when loading modules and
+  at program exit. To be monitored it the use of libumem changes performance
+* Tue Nov 29 2011 - Thomas Wagner
+- re-work starting from 1.1.11 svn rev pre-3893 to maintain the SVN LOG !!
+- repair patches format, merge spec changes for 1.1.12, re-add patches/vlc-26-1112-pulseaudio.diff
+  (former wrong patch name: portaudio)
+- repair liveMedia, matroska,  detection (rework *FLAGS for that)
+- works on Solaris 11 11/11
+- disable taglib as source for plugin loading errors, vlc-cache-gen core dump, 
+  vlc program-end core dump. Is taglib evil?
 * Wed Oct 19 2011 - Ken Mays <kmays2000@gmail.com>
 - Major review and analysis
 * Tue Oct 18 2011 - Ken Mays <kmays2000@gmail.com>
-- Bumped to 1.11.12
+- Bumped to 1.1.12
 - Reviewed for Crash issues and future PulseAudio 1.0 support
 - Resolves security issue in the HTTP and RTSP server components
 * Fri Aug 26 2011 - Thomas Wagner

@@ -12,7 +12,8 @@
 %define python_version 2.6
 
 Name:		SFEpicard
-Version:	0.16
+IPS_Package_Name:	desktop/picard
+Version:	1.0
 Summary:	MusicBrainz Picard
 License:	GPLv2
 Url:		http://musicbrainz.org/doc/MusicBrainz_Picard
@@ -20,6 +21,7 @@ SUNW_Basedir:	%{_basedir}
 SUNW_Copyright: %{name}.copyright
 
 Source0:	ftp://ftp.musicbrainz.org/pub/musicbrainz/picard/%{sname}-%{version}.tar.gz
+Patch0:		picard-01-avcodec.diff
 
 %include default-depend.inc
 BuildRequires:	SUNWPython26
@@ -46,6 +48,7 @@ written in Python and is the official MusicBrainz tagger.
 
 %prep
 %setup -q -n %{sname}-%{version}
+%patch0
 
 %build
 python%{python_version} setup.py config
@@ -89,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,other) %{_datadir}/locale
 
 %changelog
+* Wed Aug 01 2012 - James Lee <jlee@thestaticvoid.com>
+- Bump to version 1.0.
+- Add IPS package name.
 * Mon Nov 14 2011 - James Lee <jlee@thestaticvoid.com>
 - Bump to 0.16.
 * Mon Aug 01 2011 - James Lee <jlee@thestaticvoid.com>

@@ -14,7 +14,9 @@
 %define src_url http://archive.xfce.org/src/xfce/exo/0.6/
 
 Name:		SFElibexo
+IPS_Package_Name:	library/xfce/libexo
 Summary:	Application library for the Xfce desktop environment
+Group:		Desktop (GNOME)/Libraries
 License:	GPLv2
 SUNW_Copyright:	libexo.copyright
 Version:	0.6.2
@@ -42,7 +44,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
@@ -74,7 +75,6 @@ export LDFLAGS="%_ldflags -lpython%{python_version}"
 	--mandir=%{_mandir}		\
 	--sysconfdir=%{_sysconfdir}	\
 	--enable-gtk-doc		\
-	--enable-xsltproc		\
 	--disable-static		\
 	--enable-python
 

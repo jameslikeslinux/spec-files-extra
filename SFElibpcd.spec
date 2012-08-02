@@ -9,8 +9,10 @@
 %define	src_url http://dl.bytesex.org/releases/libpcd
 
 Name:                SFElibpcd
+IPS_Package_Name:	image/library/libpcd
 Summary:             Library for reading PhotoCD images
 Version:             1.0.1
+Group:		System/Multimedia Libraries
 Source:              %{src_url}/%{src_name}_%{version}.tar.gz
 Patch1:		     libpcd-01-makefile.diff
 SUNW_BaseDir:        %{_basedir}

@@ -1,0 +1,10 @@
+--- cppunit-1.12.1/include/cppunit/portability/FloatingPoint.h	Mon May 14 21:24:57 2012
++++ cppunit-1.12.1/include/cppunit/portability/FloatingPoint.h	Mon May 14 21:24:13 2012
+@@ -3,6 +3,7 @@
+ 
+ #include <cppunit/Portability.h>
+ #include <math.h>
++#include <ieeefp.h>
+ 
+ CPPUNIT_NS_BEGIN
+ 

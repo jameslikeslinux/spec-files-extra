@@ -1,0 +1,12 @@
+--- miniupnpd-1.6.20120207/upnputils.c	2012-02-06 08:21:24.000000000 -0800
++++ miniupnpd-1.6.20120207-patched/upnputils.c	2012-02-28 22:36:38.373271384 -0800
+@@ -14,6 +14,9 @@
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
++#ifdef __sun
++#undef AF_LINK
++#endif
+ #ifdef AF_LINK
+ #include <net/if_dl.h>
+ #endif

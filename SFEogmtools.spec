@@ -8,6 +8,7 @@
 %define src_name ogmtools
 
 Name:                SFEogmtools
+IPS_Package_Name:	media/ogmtools
 Summary:             Tools for manipulating Ogg media streams
 Group:               Applications/Sound and Video
 Version:             1.5

@@ -70,7 +70,7 @@
 #osdistro.inc is included --- NOTE: this variable is primarily for internal use by osdistro.inc
 %define osdistro 1
 
-%define osbuild %(uname -v | sed -e 's/[A-z_]//g')
+%define osbuild %(uname -v | sed -e 's/^[A-z_]*//' -e 's/[A-z_].*//')
 #special handling for release builds: uname -v prints 11.0 or similar 
 #which might correspond to build 175 (needs refinement)
 %if %( uname -v | egrep '^11\.[0-9]' > /dev/null && echo 1 || echo 0 )
@@ -356,6 +356,9 @@
 
 
 %changelog
+* Thu Jun 21 2012 - Thomas Wagner
+- osbuild needs to work with 151a4, should print 151 and not 151a4,
+  change sed pattern
 * Mon Nov  7 2011 - Thomas Wagner
 - add Support for builds (173)(174) as osbuild=175 Oracle Solaris 11 11/11
 * Fri Jun 17 2011 - Thomas Wagner

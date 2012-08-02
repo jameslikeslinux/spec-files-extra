@@ -12,13 +12,14 @@
 %define datez 20091001
 
 Name:		SFEnexuiz
+IPS_Package_Name:	games/nexuiz
 Summary:      	Nexuiz - A fast-paced 3D first-person shooter
 Version:       	252
 License:	GPLv2
 Url: 		http://alientrap.org/nexuiz
 Source:	 	http://downloads.sourceforge.net/nexuiz/nexuiz-%{version}.zip
 Source1:	nexuiz
-Group:		Games
+Group:		Applications/Games
 Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 

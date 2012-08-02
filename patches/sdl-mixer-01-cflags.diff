@@ -1,19 +1,8 @@
---- SDL_mixer-1.2.11/Makefile.in-orig	2010-03-05 06:45:22.451925678 -0600
-+++ SLD_mixer-1.2.11/Makefile.in	2010-03-05 06:45:44.741189765 -0600
-@@ -72,13 +72,13 @@ $(objects):
- @PLAYMUS_DEPENDS@
- 
- $(objects)/$(TARGET): $(OBJECTS) $(VERSION_OBJECTS)
--	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJECTS) $(VERSION_OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
-+	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $@ $(OBJECTS) $(VERSION_OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
- 
- $(objects)/playwave$(EXE): $(objects)/playwave.lo $(objects)/$(TARGET)
+--- SDL_mixer-1.2.12/Makefile.in	Sun Jan 15 23:01:04 2012
++++ SDL_mixer-1.2.12/Makefile.in	Sun Jul 29 20:13:32 2012
+@@ -69,1 +69,1 @@
 -	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playwave.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
-+	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $@ $(objects)/playwave.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
- 
- $(objects)/playmus$(EXE): $(objects)/playmus.lo $(objects)/$(TARGET)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playwave.lo $(SDL_CFLAGS) $(SDL_LIBS) $(LDFLAGS) $(objects)/$(TARGET)
+@@ -72,1 +72,1 @@
 -	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playmus.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
-+	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $@ $(objects)/playmus.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
- 
- install: all install-hdrs install-lib #install-bin
- install-hdrs:
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playmus.lo $(SDL_CFLAGS) $(SDL_LIBS) $(LDFLAGS) $(objects)/$(TARGET)

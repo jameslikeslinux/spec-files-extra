@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:		SFEbogofilter
+IPS_Package_Name:	mail/bogofilter
 Summary:	A Bayesian spam filter
 Version:	1.2.2
 Source:		%{sf_download}/bogofilter/bogofilter-%{version}.tar.bz2

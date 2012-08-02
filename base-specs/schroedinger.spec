@@ -1,4 +1,4 @@
-Version:        1.0.10
+Version:        1.0.11
 Summary:        Library for decoding and encoding video in the Dirac format
 
 Group:          Applications/Multimedia
@@ -44,6 +44,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-0.10/*.{a,la}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 24 2012 - Milan Jurik
+- bump to 1.0.11
 * Mon Oct 17 2011 - Milan Jurik
 - bump to 1.0.10
 * Tue Jul 13 2010 - Thomas Wagner

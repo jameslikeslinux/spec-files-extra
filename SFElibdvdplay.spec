@@ -8,7 +8,9 @@
 Name:                    SFElibdvdplay
 Summary:                 libdvdplay  - a simple library designed for DVD navigation
 Version:                 1.0.1
-Source:                  http://download.videolan.org/pub/libdvdplay/%{version}/libdvdplay-%{version}.tar.bz2
+#Source:                  http://download.videolan.org/pub/libdvdplay/%{version}/libdvdplay-%{version}.tar.bz2
+#the package seems to be gone from the home server, here's a copy:
+Source:                  http://ftp.nc.debian.org/videolan/libdvdplay/%{version}/libdvdplay-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -60,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Mon Jun 12 2006 - laca@sun.com
 - renamed to SFElibdvdplay
 - changed to root:bin to follow other JDS pkgs.

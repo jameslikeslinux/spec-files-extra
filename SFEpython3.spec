@@ -3,22 +3,21 @@
 #
 #
 
-%define _name Python
-%define version 3.2.2
-%define unmangled_version 3.2.2
-%define release 1
+%define src_name Python
+%define version 3.2.3
+%define unmangled_version 3.2.3
 
 %include Solaris.inc
 
 Name: SFEpython3
+IPS_Package_Name:	runtime/python-32
 Summary: The Python interpreter, libraries and utilities
 Group: Development/Python
 Version: %{version}
-Release: %{release}
 License: PSF license
-Source: http://www.python.org/ftp/python/%{unmangled_version}/%{_name}-%{unmangled_version}.tar.bz2
-Url: http://www.python.org/download/releases/3.2.2
-Group: Development/Libraries
+Source: http://www.python.org/ftp/python/%{unmangled_version}/%{src_name}-%{unmangled_version}.tar.bz2
+URL: http://www.python.org/
+
 %include default-depend.inc
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -51,10 +50,10 @@ it. Ask around on comp.lang.python -- or just try compiling Python
 yourself.
 
 %prep
-%setup -n %{_name}-%{unmangled_version}
+%setup -n %{src_name}-%{unmangled_version}
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
 
 env CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} \
 					--mandir=%{_mandir}
@@ -63,15 +62,18 @@ make -j$CPUS
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
+# Collision with other pythons
+rm -f $RPM_BUILD_ROOT/%{_bindir}/2to3
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/idle3
 %{_bindir}/idle3.2
-%{_bindir}/2to3
+#%{_bindir}/2to3
 %{_bindir}/2to3-3.2
 %{_bindir}/python3
 %{_bindir}/python3.2
@@ -81,19 +83,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/python3.2m-config
 %{_bindir}/pydoc3
 %{_bindir}/pydoc3.2
-%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (-, root, bin) %{_libdir}
 %{_libdir}/python3.2/*
+%dir %attr (-, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/python3.pc
 %{_libdir}/pkgconfig/python-3.2m.pc
 %{_libdir}/pkgconfig/python-3.2.pc
 %{_libdir}/libpython3.2m.a
-%dir %attr(0755, root, bin) %{_mandir}
-%dir %attr(0755, root, bin) %{_mandir}/*
+%dir %attr(-,root,sys) %{_datadir}
+%dir %attr(-, root, bin) %{_mandir}
+%dir %attr(-, root, bin) %{_mandir}/*
 %{_mandir}/*/*
-%dir %attr(0755, root, bin) %{_includedir}
+%dir %attr(-, root, bin) %{_includedir}
 %{_includedir}/python3.2m/*
 
 %changelog
+* Fri Apr 27 2012 - Milan Jurik
+- bump to 3.2.3
+- fix packaging
 * Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 3.2.2
 * Wed June 29, 2011 - A Hettinger <ahettinger@prominic.net>

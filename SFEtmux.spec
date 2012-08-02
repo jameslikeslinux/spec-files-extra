@@ -54,7 +54,7 @@ to (display and accept keyboard input from) multiple clients.
 %patch2 -p1
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CFLAGS="%optflags -I/usr/gnu/include"
 # Need to supply -lcurses, because otherwise, it tries to link against ncurses,

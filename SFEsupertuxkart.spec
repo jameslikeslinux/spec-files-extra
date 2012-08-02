@@ -2,9 +2,10 @@
 # spec file for package SFEsupertuxkart.spec
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define src_name supertuxkart
-%define src_version 0.7.2
+%define src_version 0.7.3
 
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define SFEplib_gpp %(/usr/bin/pkginfo -q SFEplib-gpp && echo 1 || echo 0)
@@ -12,7 +13,7 @@
 
 
 Name:           SFEsupertuxkart
-Version:        0.7.2
+Version:        0.7.3
 Summary:        Kids 3D go-kart racing game featuring Tux
 Group:          Amusements/Games
 License:        GPLv2+ and GPLv3 and CC-BY-SA
@@ -22,7 +23,7 @@ Source2:	%{sf_download}/%{src_name}/STK_0.7_Karts_AddonsPack.7z
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %if %SFEplib_gpp
-BuildRequires:  SFEplib-gpp
+BuildRequires:  SFEplib-gpp-devel
 %define cc_is_gcc 1
 %define _gpp g++
 %include base.inc
@@ -34,8 +35,8 @@ BuildRequires:  SFEplib-devel
 
 BuildRequires:  SUNWlibsdl-devel
 Requires:	SUNWlibsdl
-BuildRequires:	SUNWlibmikmod-devel
-Requires:	SUNWlibmikmod
+BuildRequires:  %{pnm_buildrequires_SUNWlibmikmod_devel}
+Requires:       %{pnm_requires_SUNWlibmikmod}
 BuildRequires:  SUNWogg-vorbis-devel
 Requires:	SUNWogg-vorbis
 BuildRequires:	SFEfreeglut-devel
@@ -146,6 +147,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 30 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibmikmod_devel}, %include packagenamemacros.inc
+- change BuildRequires to SFEglib-gpp-devel
+Thu Dec 8 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.7.3
 Tue Oct 11 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 0.7.2
 - Removed legacy Sun Studio patch

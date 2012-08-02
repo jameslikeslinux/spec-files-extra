@@ -10,6 +10,7 @@
 %define _prefix /usr/g++
 
 Name:                    SFElibglademm-gpp
+IPS_Package_Name:	library/desktop/g++/libglademm
 Summary:                 C++ Wrapper for the glade Gnome UI designer (g++ built)
 Group:                   Desktop (GNOME)/Libraries
 Version:                 2.6.7

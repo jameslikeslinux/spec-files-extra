@@ -10,7 +10,9 @@
 %define _pkg_docdir %_docdir/fvwm
 
 Name:                   SFEfvwm
-Summary:                %{fvwm.summary}
+IPS_Package_Name:	desktop/window-manager/fvwm
+Summary:                F Virtual Window Manager
+Group:			Desktop (GNOME)/Window Managers
 License:                GPLv2
 SUNW_Copyright:         fvwm.copyright
 Version:                %{fvwm.version}

@@ -10,6 +10,7 @@
 %define	src_url	http://www.hpl.hp.com/research/linux/atomic_ops/download
 
 Name:		SFElibatomic-ops
+IPS_Package_Name:	system/library/libatomic_ops
 Summary:	library for atomic memory update operations
 Version:	%{src_ver}
 Source:		%{src_url}/%{src_name}-%{version}.tar.gz

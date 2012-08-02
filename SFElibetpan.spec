@@ -5,23 +5,24 @@
 #
 %include Solaris.inc
 
-Name:                    SFElibetpan
-Summary:                 libetpan  - mail library
-Version:                 1.0
-License:                 BSD
-SUNW_Copyright:	         libetpan.copyright
-Source:                  %{sf_download}/libetpan/libetpan-%{version}.tar.gz
-URL:                     http://libetpan.sourceforge.net/libetpan/
-SUNW_BaseDir:            %{_basedir}
-buildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibetpan
+IPS_Package_Name:	library/mail/libetpan
+Summary:	A mail library supporting IMAP, POP3, SMTP, NNTP, and Hotmail
+Group:		System/Libraries
+Version:	1.1
+License:	BSD
+SUNW_Copyright:	libetpan.copyright
+Source:		%{sf_download}/libetpan/libetpan-%{version}.tar.gz
+URL:		http://libetpan.sourceforge.net/libetpan/
+SUNW_BaseDir:	%{_basedir}
+buildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
-
 
 %prep
 %setup -q -n libetpan-%version
@@ -62,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/libetpan-config
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.1
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Thu Jun 10 2010 - pradhap (at) gmail.com

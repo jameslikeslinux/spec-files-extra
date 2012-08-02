@@ -17,6 +17,7 @@ SUNW_Copyright:	jasper.copyright
 URL:		http://www.ece.uvic.ca/~mdadams/jasper/
 Source:		http://www.ece.uvic.ca/~mdadams/jasper/software/jasper-%{version}.zip
 Source1:	http://www.ece.uvic.ca/~mdadams/jasper/LICENSE
+Patch1:		jasper-01-debian.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -31,6 +32,7 @@ BuildRequires:	SUNWunzip
 
 %prep
 %setup -q -n jasper-%version
+%patch1 -p1
 
 %build
 
@@ -86,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Dec 24 2011 - Milan Jurik
+- add several security patches from Debian
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>

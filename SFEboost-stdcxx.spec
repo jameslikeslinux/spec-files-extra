@@ -8,127 +8,80 @@
 #
 %define _basedir /usr/stdcxx
 %include Solaris.inc
+%define stl_is_stdcxx 1
+%use boost = boost.spec
 
-%define		major	1
-%define		minor	46
-%define		patchlevel 1
-%define		src_url	http://easynews.dl.sourceforge.net/sourceforge/boost
+%include packagenamemacros.inc
+
+%define	major 1
+%define	minor 48
+%define	patchlevel 0
+%define ver_boost %{major}_%{minor}_%{patchlevel}
 
 Name:		SFEboost-stdcxx
+IPS_Package_Name:	system/library/stdcxx/boost
 Summary:	Free peer-reviewed portable C++ libraries
 Version:	%major.%minor.%patchlevel
 License:	Boost Software License
 URL:		http://www.boost.org/
-Source:		%src_url/boost_%{major}_%{minor}_%patchlevel.tar.bz2
-Patch0:		boost-stdcxx-00-sun-jam.diff
-# These are from http://solaris.bionicmutton.org/hg/kde4-specs-460/raw-file/243b8041ba78/specs/patches/boost
-Patch1:		boost-stdcxx-01-solaris.diff
-Patch2:		boost-stdcxx-02-typenames.diff
-Patch3:		boost-stdcxx-03-python.diff
-#Patch4:	boost-stdcxx-04-transform-width-min.diff
-Patch5:		boost-stdcxx-05-graphviz.diff
-Patch6:		boost-stdcxx-06-stdcxx.diff
+Source:		%{sf_download}/boost/boost_%{ver_boost}.tar.bz2
 
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
-BuildRequires: SFEicu-devel
-BuildRequires: SUNWPython
-Requires: SFEicu
+BuildRequires: SFEicu-stdcxx-devel
+BuildRequires: %{pnm_buildrequires_python_default}
+Requires: SFEicu-stdcxx
 Requires: SUNWlibstdcxx4
 
 %package -n %name-devel
+IPS_package_name:	system/library/stdcxx/boost/header-boost
 Summary:        %summary - development files
 SUNW_BaseDir:   %_basedir
 %include default-depend.inc
 Requires: %name
 
+%package -n %name-doc
+IPS_package_name:       system/library/stdcxx/boost/documentation
+Summary:        %{summary} - development files
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
+Requires: %name
+
 %prep
-%setup -q -n boost_%{major}_%{minor}_%patchlevel
-%patch0 -p1
-# Don't pass --fuzz=0 to patch
-%define _patch_options --unified
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
-#%patch4	# obsolete
-%patch5
-%patch6
+rm -rf %name-%version
+mkdir %name-%version
+%boost.prep -d %name-%version
 
 %build
-
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
-
-# -library=stdcxx4 is added by feature stdlib : sun-stdcxx in sun.jam
-
-export CXXFLAGS="%cxx_optflags -features=tmplrefstatic -UBOOST_DISABLE_THREADS -DBOOST_HAS_THREADS=1 -DBOOST_HAS_PTHREADS=1 -UBOOST_NO_STD_ITERATOR_TRAITS -UBOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION -DHAVE_ICU=1 -DBOOST_HAS_ICU=1 -UBOOST_NO_STDC_NAMESPACE -DSUNPROCC_BOOST_COMPILE=1 -DSUNPROCC_BOOST_COMPILE=1 -DPy_USING_UNICODE -D_XOPEN_SOURCE=500 -D__EXTENSIONS__"
-export LDFLAGS="%_ldflags"
-
-BOOST_ROOT=`pwd`
-TOOLSET=sun
-PYTHON_VERSION=`python -c "import sys; print (\"%%d.%%d\" %% (sys.version_info[0], sys.version_info[1]))"`
-PYTHON_ROOT=`python -c "import sys; print sys.prefix"`
-
-# Overwrite user-config.jam
-cat > user-config.jam <<EOF
-# Compiler configuration
-import toolset : using ;
-using $TOOLSET : : $CXX : <cxxflags>"$CXXFLAGS" <linkflags>"$LDFLAGS" ; 
-
-# Python configuration
-using python : $PYTHON_VERSION : $PYTHON_ROOT ;
-EOF
-
-# Build bjam
-%define bjamdir tools/build/v2/engine/src
-cd "%bjamdir" && ./build.sh "$TOOLSET"
-cd $BOOST_ROOT
-
-for i in tools/**/*.jam tools/**/*.py
-do
-  sed -i -e 's,stlport,stdcxx,g' $i
-done
-sed -i -e 's,stlport,stdcxx,g' Jamroot
-
-
-# Build Boost
-BJAM=`find %bjamdir -name bjam -a -type f`
-$BJAM --v2 -j$CPUS -sBUILD="release <threading>single/multi" -sICU_PATH=/usr/stdcxx \
-  --layout=system --user-config=user-config.jam release stage
+%boost.build -d %name-%version
 
 %install
-BOOST_ROOT=`pwd`
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+%boost.install -d %name-%version
 
-mkdir -p $RPM_BUILD_ROOT%_libdir
-mkdir -p $RPM_BUILD_ROOT%_includedir
-mkdir -p $RPM_BUILD_ROOT%_docdir
-mkdir -p $RPM_BUILD_ROOT%_docdir/boost-%version
+cd %{_builddir}/%name-%version/boost_%{boost.ver_boost}
 
-for i in stage/lib/*.so; do
-  NAME=`basename $i`
-  cp $i $RPM_BUILD_ROOT%_libdir/$NAME.%version
-  ln -s $NAME.%version $RPM_BUILD_ROOT%_libdir/$NAME
-done
-
-for i in `find "boost" -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%_includedir/$i
-done
-for i in `find "boost" -type f`; do
-  cp $i $RPM_BUILD_ROOT%_includedir/$i
-done
-
+mkdir -p %{buildroot}%{_docdir}/boost-%{version}
 cd "doc/html"
 for i in `find . -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%_docdir/boost-%version/$i
+  mkdir -p %{buildroot}%{_docdir}/boost-%{version}/$i
 done
 for i in `find . -type f`; do
-  cp $i $RPM_BUILD_ROOT%_docdir/boost-%version/$i
+  cp $i %{buildroot}%{_docdir}/boost-%{version}/$i
 done
-cd $BOOST_ROOT
+
+# It's not worth figuring out how to get the Boost build system
+# to set the runpath correctly
+%define rpath 'dyn:runpath /usr/stdcxx/lib'
+pushd %{buildroot}%{_libdir}
+for i in *.so.*; do
+  elfedit -e %rpath $i
+done
+popd
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
@@ -138,13 +91,20 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %name-devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %_includedir
-%_includedir/boost
-%dir %attr (0755, root, sys) %_datadir
-%dir %attr (0755, root, other) %_docdir
-%dir %attr (0755, root, other) %_docdir/boost-%version
-%_docdir/boost-%version/*
+%{_includedir}/boost
+%{_libdir}/lib*.a
+
+%files -n %name-doc
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/boost-%{version}
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_python_default}, %include packagenamacros.inc
+* Sat Jan 14 2012 - Milan Jurik
+- bump to 1.48.0
 * Sun Apr  3 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Update to 1.46.1
 * Thu Jan 27 2011 - Alex Viskovatoff

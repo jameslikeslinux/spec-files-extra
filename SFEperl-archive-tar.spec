@@ -8,14 +8,15 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define module_version 1.52
-%define module_version_download 1.52
+%define module_version 1.84
+%define module_version_download 1.84
+%define module_package_name archive-tar
 
 Name:                    SFEperl-archive-tar
 Summary:                 Archive-Tar-%{module_version_download} PERL module
+IPS_package_name:        library/perl-5/%{module_package_name}
 Version:                 %{perl_version}.%{module_version}
-#Source:                  http://www.cpan.org/modules/by-module/Archive-Tar-%{module_version_download}.tar.gz
-Source:			 http://search.cpan.org/CPAN/authors/id/K/KA/KANE/Archive-Tar-%{module_version_download}.tar.gz
+Source:                  http://www.cpan.org/modules/by-module/Archive/Archive-Tar-%{module_version_download}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
@@ -36,10 +37,15 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 cd Archive-Tar-%{module_version_download}
 perl Makefile.PL \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-    INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
-    INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
+    INSTALLDIRS=vendor \
+    INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_site_perl_version} \
+    INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_site_perl_version}/%{perl_dir} \
     INSTALLSITEMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
     INSTALLSITEMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
+    INSTALLVENDORLIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
+    INSTALLVENDORARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
+    INSTALLVENDORMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
+    INSTALLVENDORMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
     INSTALLMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
     INSTALLMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3
 make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
@@ -50,6 +56,7 @@ cd Archive-Tar-%{module_version_download}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+find $RPM_BUILD_ROOT -name .packlist -exec %{__rm} {} \; -o -name perllocal.pod  -exec %{__rm} {} \;
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -69,11 +76,14 @@ rm -rf $RPM_BUILD_ROOT
 
 #special case because package delivers regular binary to non perl localtion  and has non-perl manpages
 %dir %attr(0755, root, bin) %{_bindir}
-%{_bindir}/ptardiff
-%{_bindir}/ptar
+%{_bindir}/ptar*
 
 
 %changelog
+* Tue May 15 2012 - Thomas Wagner
+- add missing INSTALLVENDORLIB to get path vendor_perl work on perl 5.12
+- bump version to 1.84 (1.84 on IPS)
+- add IPS_package_name library/perl-5/%{module_package_name}
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

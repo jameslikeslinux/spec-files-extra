@@ -8,11 +8,12 @@
 %define src_name libpano13
 
 Name:		SFElibpano13
+IPS_Package_Name:	image/library/libpano13
 Summary:	Library for manipulating panoramic images
-Version:	2.9.17
+Version:	2.9.18
 License:	GPLv2+
 URL:		http://panotools.sourceforge.net/
-Group:		Development/Libraries
+Group:		System/Multimedia Libraries
 Source:		%{sf_download}/panotools/%{src_name}-%{version}.tar.gz
 Patch1:		libpano13-01-sunc.diff
 SUNW_BaseDir:	%{_basedir}
@@ -71,8 +72,6 @@ make
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 rm %{buildroot}/%{_libdir}/libpano13.la
-mkdir %{buildroot}/%{_datadir}
-mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_mandir}
 
 %clean
 rm -rf %{buildroot}
@@ -104,5 +103,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 2.9.18
 * Sun Dec 19 2010 - Milan Jurik
 - initial spec based on Fedora

@@ -11,20 +11,47 @@
  
  dnl
  dnl GCC Visibility
-@@ -852,16 +848,6 @@
+--- libquicktime-1.2.3/configure	Sun Nov 20 14:24:06 2011
++++ libquicktime-1.2.3-patch/configure	Sun Nov 20 14:24:26 2011
+@@ -17747,41 +17747,8 @@
  
  
+ COMMON_CFLAGS=""
+-lqt_test_cflags="-finline-functions -Wall -Winline -Wmissing-declarations -Wdeclaration-after-statement"
+-for i in $lqt_test_cflags; do
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $CC supports $i flags" >&5
+-$as_echo_n "checking if $CC supports $i flags... " >&6; }
+-    SAVE_CFLAGS="$CFLAGS"
+-    CFLAGS="$i"
+-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
  
--if test "x${USER_CFLAGS}" = "x"; then
--
--  dnl Optimizing flags
--
--  LQT_OPT_CFLAGS($host_cpu, ["-O3 -funroll-all-loops -fomit-frame-pointer"])
--
--  CFLAGS="$OPT_CFLAGS"
--
+-int
+-main ()
+-{
+ 
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_c_try_compile "$LINENO"; then :
+-  lqt_try_cflags_ok=yes
+-else
+-  lqt_try_cflags_ok=no
 -fi
+-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-    CFLAGS="$SAVE_CFLAGS"
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $lqt_try_cflags_ok" >&5
+-$as_echo "$lqt_try_cflags_ok" >&6; }
+-    if test x"$lqt_try_cflags_ok" = x"yes"; then
+-        COMMON_CFLAGS="$COMMON_CFLAGS $i"
+-    else
+-        :
+-    fi ;
+-done
 -
- AH_TEMPLATE([NDEBUG],
-             [Causes debug code to e removed])
+-
+-
  
+ 
+ # Check whether --with-visibility was given.

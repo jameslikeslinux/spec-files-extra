@@ -1,0 +1,11 @@
+--- bitlbee-3.0.5/Makefile	2012-02-18 02:55:09.000000000 -0800
++++ bitlbee-3.0.5-patched/Makefile	2012-03-02 01:22:11.352190099 -0800
+@@ -176,7 +176,7 @@
+ 
+ $(OUTFILE): $(objects) $(subdirs)
+ 	@echo '*' Linking $(OUTFILE)
+-	@$(CC) $(objects) $(subdirobjs) -o $(OUTFILE) $(LFLAGS) $(EFLAGS)
++	@$(CC) $(objects) $(subdirobjs) -o $(OUTFILE) $(LFLAGS) $(EFLAGS) -lgcrypt
+ ifndef DEBUG
+ 	@echo '*' Stripping $(OUTFILE)
+ 	@-$(STRIP) $(OUTFILE)

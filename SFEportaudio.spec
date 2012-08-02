@@ -9,6 +9,7 @@
 %define src_url		http://www.portaudio.com/archives
 
 Name:                   SFEportaudio
+IPS_Package_Name:	library/audio/portaudio
 Summary:                Portable cross-platform Audio API
 Version:                v19_20110326
 IPS_component_version:	0.19.0.20110326

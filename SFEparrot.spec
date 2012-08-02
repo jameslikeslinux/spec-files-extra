@@ -8,11 +8,13 @@
 %define srcname parrot
 
 Name:		SFE%srcname
+IPS_Package_Name:	runtime/parrot
 Summary:	Register-based virtual machine designed to run dynamic languages efficiently
 URL:		http://www.parrot.org/
 Meta(info.upstream):	Parrot Developers <parrot-dev@lists.parrot.org>
 Version:	3.6.0
 License:	Artistic 2.0
+Group:		Development/Other Languages
 SUNW_Copyright:	parrot.copyright
 Source:		ftp://ftp.parrot.org/pub/%srcname/releases/supported/%version/%srcname-%version.tar.bz2
 SUNW_BaseDir:	%_basedir

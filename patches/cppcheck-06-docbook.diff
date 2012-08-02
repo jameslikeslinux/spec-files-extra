@@ -1,0 +1,11 @@
+--- cppcheck-1.54/Makefile	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/Makefile	2012-05-19 02:04:01.587046721 -0700
+@@ -72,7 +72,7 @@
+ BIN=$(DESTDIR)$(PREFIX)/bin
+ 
+ # For 'make man': sudo apt-get install xsltproc docbook-xsl docbook-xml on Linux
+-DB2MAN=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl
++DB2MAN=/usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl
+ XP=xsltproc -''-nonet -''-param man.charmap.use.subset "0"
+ MAN_SOURCE=man/cppcheck.1.xml
+ 

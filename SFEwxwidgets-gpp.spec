@@ -4,76 +4,52 @@
 # includes module(s): wxWidgets
 #
 
-%define _basedir /usr/g++
+#%define _basedir /usr/g++
 %include Solaris.inc
-#%include usr-gnu.inc
-
-%define pkg_src_name	wxWidgets
-%define	src_ver 2.8.12
-%define	src_name        wxwidgets-gnu
-
-%define using_gld %(gcc -v 2>&1 | /usr/xpg4/bin/grep -q with-gnu-ld && echo 1 || echo 0)
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
-
+%include packagenamemacros.inc
+%include usr-g++.inc
 %define cc_is_gcc 1
-# %ifarch amd64 sparcv9
-# %include arch64.inc
-# %define is64 1
-# %use wxwidgets_gnu_64 = wxwidgets-gnu.spec
-# %endif
 %include base.inc
-%define is64 0
-%use wxwidgets_gnu = wxwidgets-gnu.spec
+
+%ifarch amd64 sparcv9
+%include arch64.inc
+%use wxwidgets_64 = wxwidgets.spec
+%endif
+
+%include base.inc
+%use wxwidgets = wxwidgets.spec
+
+
 
 Name:                    SFEwxwidgets-gpp
-Summary:                 wxWidgets - Cross-Platform GUI Library (g++)
+IPS_Package_Name:	 library/graphics/g++/wxwidgets
+Summary:                 %{wxwidgets.summary} (g++)
 Group:                   Desktop (GNOME)/Libraries
 URL:                     http://wxwidgets.org/
 License:                 wxWidgets
 SUNW_Copyright:          wxwidgets.copyright
-Version:                 %{src_ver}
-Source:			 %{sf_download}/wxwindows/%{pkg_src_name}-%{src_ver}.tar.bz2
-#Source:                  ftp://biolpc22.york.ac.uk/pub/2.9.1/%pkg_src_name-%src_ver.tar.bz2
+Version:		 %{wxwidgets.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires:      SUNWgnome-libs
 Requires:      SUNWgnome-vfs
-%if %SUNWlibsdl
-Requires:      SUNWlibsdl
-%else
-Requires:      SFEsdl
-%endif
+Requires:      %{pnm_requires_SUNWlibsdl}
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-vfs-devel
 %ifarch i386 amd64
 BuildRequires: SUNWxorg-mesa
 %endif
-%if %SUNWlibsdl
-BuildRequires: SUNWlibsdl-devel
-%else
-BuildRequires: SFEsdl-devel
-%endif
+BuildRequires: %{pnm_buildrequires_SUNWlibsdl_devel}
 BuildRequires: SFEgcc
 Requires:      SFEgccruntime
 
-%if %{is_s10}
-# There is no gtk2 on solaris 10, hence necessary to build it from the
-# KDE4 Solaris project:
-# http://techbase.kde.org/index.php?title=Projects/KDE_on_Solaris
-# Also after noticing that there are no 64 bit gtk v1 libs on solaris 10u8,
-# I gave in on trying to make it work with gtk v1 on Solaris 10u8.
-Requires:      FOSSgtk2
-Requires:      FOSSexpat
-BuildRequires: FOSSgtk2
-BuildRequires: FOSSexpat
-%endif
 
 %package devel
 Summary:		 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
-Requires:      %name
+Requires:      %{name}
 
 %if %build_l10n
 %package l10n
@@ -86,45 +62,38 @@ Requires:                %{name}
 %prep
 rm -rf %{name}-%{version}
 mkdir %{name}-%{version}
+
 %ifarch amd64 sparcv9
 mkdir %{name}-%{version}/%{_arch64}
-%define is64 1
-%wxwidgets_gnu_64.prep -d %{name}-%{version}/%{_arch64}
+%wxwidgets_64.prep -d %{name}-%{version}/%{_arch64}
 %endif
 
 mkdir %{name}-%{version}/%{base_arch}
-%define is64 0
-%wxwidgets_gnu.prep -d %{name}-%{version}/%{base_arch}
+%wxwidgets.prep -d %{name}-%{version}/%{base_arch}
+
 
 
 %build
-# %ifarch amd64 sparcv9
-# %define is64 1
-# %wxwidgets_gnu_64.build -d %{name}-%{version}/%{_arch64}
-# %endif
+export CC=gcc
+export CXX=g++
+%ifarch amd64 sparcv9
+%wxwidgets_64.build -d %name-%version/%_arch64
+%endif
 
-%define is64 0
-%wxwidgets_gnu.build -d %{name}-%{version}/%{base_arch}
+%wxwidgets.build -d %name-%version/%{base_arch}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-# %ifarch amd64 sparcv9
-# %define is64 1
-# %wxwidgets_gnu_64.install -d %{name}-%{version}/%{_arch64}
-# %endif
+%ifarch amd64 sparcv9
+%wxwidgets_64.install -d %name-%version/%_arch64
+%endif
 
-%define is64 0
-%wxwidgets_gnu.install -d %{name}-%{version}/%{base_arch}
+%wxwidgets.install -d %name-%version/%{base_arch}
+
 
 %clean
-# %ifarch amd64 sparcv9
-# %define is64 1
-# %wxwidgets_gnu_64.clean -d %{name}-%{version}/%{_arch64}
-# %endif
-
-%define is64 0
-%wxwidgets_gnu.clean -d %{name}-%{version}/%{base_arch}
+rm -rf %{name}-%{version}
 
 %files
 %defattr (-, root, bin)
@@ -134,14 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*
 %{_libdir}/wx
 
-# %ifarch amd64 sparcv9
-# %dir %attr (0755, root, bin) %{_bindir}/%{_arch64}
-# %{_bindir}/%{_arch64}/wx*
-# %dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
-# %{_libdir}/%{_arch64}/lib*
-# %{_libdir}/%{_arch64}/wx*
-# %endif
-
+%ifarch amd64 sparcv9
+%dir %attr (0755, root, bin) %{_bindir}/%{_arch64}
+%{_bindir}/%{_arch64}/wx*
+%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
+%{_libdir}/%{_arch64}/lib*
+%{_libdir}/%{_arch64}/wx*
+%endif
+ 
 %files devel
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
@@ -160,6 +129,22 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wanger
+- add -L|-R/usr/g++/lib to LDFLAGS to get /usr/g++/bin/wxrc use the right g++ libs
+* Fri Jun 29 2012 - Thomas Wagner
+- rework 32/64-bit build system, make -gpp and -gnu spec file similar
+- Bump to 2.8.12
+- add IPS_package_name with /gnu/ to show up it lives in /usr/gnu/ prefix
+- add Group:
+- remove option to use gnu-ld, always use solaris ld
+- change to (Build)Requires to %{pnm_buildrequires_SUNWsdl_devel}, %include packagenamacros.inc
+* Thu Jun 21 2009 - brian.cameron@sun.com
+- Bump to 2.8.10.  Remove upstream ptach wxwidgets-02-fixcompile.diff.
+* Fri Jun 29 2012 - Thomas Wagner
+- bump to 2.8.12
+- %use usr-g++.inc
+* Mon Apr 16 2012 - Logan Bruns <logan@gedanken.org>
+- Enabled xml (--use-expat) and added IPS package name.
 * Mon Jul 18 2011 - Alex Viskovatoff
 - Add -fpermissive flag to enable building with gcc 4.6
 * Thu Jun 23 2011 - Alex Viskovatoff
