@@ -14,11 +14,12 @@
 %define	src_name c_icap
 
 Name:		SFEc-icap
+IPS_Package_Name:	web/proxy/c-icap
 Summary:	An implementation of an ICAP server
-Version:	0.1.6
+Version:	0.1.7
 License:	LGPLv2.1+
 SUNW_Copyright:	c-icap.copyright
-Group:		System/Utilities
+Group:		Web Services/Application and Web Servers
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
 Source1:	c-icap.xml

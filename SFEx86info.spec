@@ -2,27 +2,24 @@
 # spec file for package SFEx86info
 #
 %include Solaris.inc
-Name:                    SFEx86info
-Summary:                 x86info - tool for reading cpu cpabilities
-URL:                     http://www.codemonkey.org.uk/projects/x86info
-Group:                   System
-#Version:                 %(date +%Y.%m.%d)
-#Source:                  http://www.codemonkey.org.uk/projects/x86info/x86info-git-snapshot.tar.gz
-Version:                 1.21
-Source:                  http://codemonkey.org.uk/projects/x86info/old/x86info-%{version}.tgz
-
-
-
-SUNW_BaseDir:            %{_basedir}
-SUNW_Copyright:          %{name}.copyright
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEx86info
+IPS_Package_Name:	diagnostic/x86info
+Summary:	x86info - tool for reading cpu cpabilities
+URL:		http://www.codemonkey.org.uk/projects/x86info
+Group:		Applications/System Utilities
+Version:	1.21
+Source:		http://codemonkey.org.uk/projects/x86info/old/x86info-%{version}.tgz
+SUNW_BaseDir:	%{_basedir}
+SUNW_Copyright:	%{name}.copyright
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqirements:
 #TODO: Reqirements:
 
 %include default-depend.inc
 
-
+%description
+x86info, a CPU identification utility.
 
 %prep
 %setup -q -c -n %name-%version

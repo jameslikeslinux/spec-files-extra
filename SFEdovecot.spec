@@ -8,11 +8,22 @@
 %define src_name dovecot
 # maybe set to nullstring outside release-candidates (example: 1.1/rc  or just 1.1)
 #%define downloadversion	 1.1/rc
-%define downloadversion	 2.0
+%define downloadversion	 2.1
+
 %define  daemonuser  dovecot
 %define  daemonuid   111
 %define  daemongroup other
 %define  daemongid   1
+
+#starting with version 2.0.0
+%define  daemonloginuser  dovenull
+#inspired by http://slackbuilds.org/uid_gid.txt
+##TODO## check if this id is a good choice in Solaris
+%define  daemonloginuid   248
+##TODO## check if this should be nogroup or nobody group
+#READ! if you change from nogroup (65534) then *ENABLE* group creation below, twice
+%define  daemonlogingroup nogroup
+%define  daemonlogingid   65534
 
 %include Solaris.inc
 %include packagenamemacros.inc
@@ -22,7 +33,7 @@ IPS_Package_Name:	service/network/imap/dovecot
 Summary:	dovecot - A Maildir based pop3/imap email daemon
 URL:		http://www.dovecot.org
 #note: see downloadversion above
-Version:	2.0.15
+Version:	2.1.7
 License:	LGPLv2.1+ and MIT
 SUNW_Copyright:	dovecot.copyright
 Source:		http://dovecot.org/releases/%{downloadversion}/%{src_name}-%{version}.tar.gz
@@ -52,7 +63,6 @@ Requires: %name-root
 %package root
 Summary:	%{summary} - / filesystem
 SUNW_BaseDir:	/
-Requires:	%name
 
 %description
 Dovecot IMAP and POP3 Email Server. Also usable for SMTP_AUTH.
@@ -109,6 +119,10 @@ rm -rf $RPM_BUILD_ROOT
 %actions
 group groupname="%{daemongroup}" gid="%{daemongid}"
 user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{daemonuid} password=NP group="%{daemongroup}"
+#not needed _if_ group is nogroup  (65534)
+# group groupname="%{daemonlogingroup}" gid="%{daemonlogingid}"
+user ftpuser=false gcos-field="%src_name login user" username="%{daemonloginuser}" uid=%{daemonloginuid} password=NP group="%{daemonlogingroup}"
+
 
 #SVR4 (e.g. Solaris 10, SXCE)
 #must run immediately to create the needed userid and groupid to be assigned to the files
@@ -117,13 +131,18 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 ( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
   echo 'retval=0';
   echo 'getent group %{daemongroup} || groupadd -g %{daemongid} %{daemongroup} ';
-  echo 'getent passwd %{daemonuser} || useradd -d /etc/raddb -g %{daemongroup} -s /bin/false  -u %{daemonuid} %{daemonuser}';
+  echo 'getent passwd %{daemonuser} || useradd -d /tmp -g %{daemongroup} -s /bin/false  -u %{daemonuid} %{daemonuser}';
+  echo '#not needed _if_ group is nogroup  (65534) because the group is altready there!'
+  echo '# getent group %{daemonlogingroup} || groupadd -g %{daemonlogingid} %{daemonlogingroup} ';
+  echo 'getent passwd %{daemonloginuser} || useradd -d /tmp -g %{daemonlogingroup} -s /bin/false  -u %{daemonloginuid} %{daemonloginuser}';
   echo 'exit $retval' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
 
 #%postun root
 #( echo 'PATH=/usr/bin:/usr/sbin; export PATH' ;
 #  echo 'getent passwd %{daemonuser} && userdel %{daemonuser}';
 #  echo 'getent group %{daemongroup} && groupdel %{daemongroup}';
+#  echo 'getent passwd %{daemonloginuser} && userdel %{daemonloginuser}';
+#  echo 'getent group %{daemonlogingroup} && groupdel %{daemonlogingroup}';
 #  echo 'exit 0' ) | $PKG_INSTALL_ROOT/usr/lib/postrun -c SFE
 
 %files
@@ -159,6 +178,20 @@ user ftpuser=false gcos-field="%src_name user" username="%{daemonuser}" uid=%{da
 
 
 %changelog
+* Thu May 31 2012 - Milan Jurik
+- bump to 2.1.7
+* Sat Apr  1 2012 - Thomas Wagner
+- bump to 2.1.2
+- add user dovenull with group nogroup (needed since 2.0.0 for login process)
+- added notes to enable group creation if is it changed from nogroup (65534)
+* Sat Mar 17 2012 - Thomas Wagner
+- remove Requires: %name from the SFEdovecot-root package to get correct install order
+* Fri Feb 24 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.1.1
+* Mon Feb 6 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.0.17
+* Thu Nov 24 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.0.16
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 2.0.15
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>

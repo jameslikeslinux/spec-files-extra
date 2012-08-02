@@ -12,12 +12,14 @@
 %define src_name transfig
 
 Name:		SFEtransfig
+IPS_Package_Name:	image/transfig
 Summary:      	Tool to convert fig drawings (xfig) to other formats
 Version:       	3.2.5
+Group:		Applications/Graphics and Imaging
 Release:        a
 License:	Xfig license
 Url: 		http://xfig.org
-Source:	 	http://downloads.sourceforge.net/mcj/%{src_name}.%{version}%{release}.tar.gz
+Source:	 	%{sf_download}/mcj/%{src_name}.%{version}%{release}.tar.gz
 Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{src_name}-%{version}%{release}-build

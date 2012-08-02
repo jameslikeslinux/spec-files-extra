@@ -17,6 +17,7 @@
 %use cairomm = cairomm.spec
 
 Name:                    SFEcairomm-gpp
+IPS_Package_Name:	library/desktop/g++/cairomm
 Summary:                 C++ API for the Cairo Graphics Library (g++-built)
 Group:                   Desktop (GNOME)/Libraries
 License:                 LGPLv2

@@ -11,6 +11,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %use gdl = gdl.spec
 
@@ -22,7 +23,7 @@ IPS_package_name:   library/desktop/gdl
 SUNW_BaseDir:       %{_basedir}
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:      SUNWgtk-doc
+BuildRequires:  %{pnm_buildrequires_SUNWgtk_doc}
 BuildRequires:      SUNWgnome-common-devel
 BuildRequires:      SUNWgawk
 Requires:           SUNWgnome-base-libs
@@ -100,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Jan 28 2012 - Thomas Wagner
+- change to BuildRequires:  %{pnm_buildrequires_SUNWgtk_doc}, %include packagenamemacros.inc
 * Sat Nov 27 2010 - Milan Jurik
 - bump to 2.30.1
 * Wed Aug 20 2008 - nonsea@users.sourceforge.net

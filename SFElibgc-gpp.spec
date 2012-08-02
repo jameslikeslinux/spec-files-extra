@@ -14,6 +14,7 @@
 %define src_url http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/
 
 Name:		SFElibgc-gpp
+IPS_Package_Name:	library/g++/gc
 Summary: 	The Boehm-Demers-Weiser conservative garbage collector (g++-built)
 Version: 	7.1
 URL: 		http://www.hpl.hp.com/personal/Hans_Boehm/gc/

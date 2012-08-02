@@ -1,0 +1,10 @@
+--- mplayer2-master/libmpdemux/demux_rtp.cpp.orig	2012-04-29 18:25:31.478905162 +0200
++++ mplayer2-master/libmpdemux/demux_rtp.cpp	2012-04-29 18:26:06.584429935 +0200
+@@ -24,6 +24,7 @@
+ #ifdef __MINGW32__    // with.  they are each protected from
+ #include <windows.h>  // windows.h, but not the other way around.
+ #endif
++#define RTSPCLIENT_SYNCHRONOUS_INTERFACE 1
+ #include "demux_rtp.h"
+ #include "stream/stream.h"
+ #include "stheader.h"

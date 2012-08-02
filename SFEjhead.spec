@@ -4,10 +4,11 @@
 %include Solaris.inc
 
 Name:            SFEjhead
+IPS_Package_Name:	image/editor/jhead
 Version:         2.90
 Summary:         Tool for handling EXIF metadata in JPEG image files
 License:         Public Domain
-Group:           System Environment/Libraries
+Group:           Applications/Graphics and Imaging
 URL:             http://www.sentex.net/~mwandel/jhead/
 Source:          http://www.sentex.net/~mwandel/jhead/jhead-%{version}.tar.gz
 

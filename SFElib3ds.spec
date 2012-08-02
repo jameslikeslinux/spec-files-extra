@@ -6,12 +6,14 @@
 %include Solaris.inc
 
 %define src_name	lib3ds
-%define src_url		http://nchc.dl.sourceforge.net/sourceforge/lib3ds
+%define src_url		http://lib3ds.googlecode.com/files/
 
 Name:                   SFElib3ds
 Summary:                library to decode 3ds files
 Version:                1.2.0
-Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
+#Source:                 %{src_url}/%{src_name}-%{version}.zip
+#1.2.0 is no longer available upstream
+Source:                 http://pkgs.fedoraproject.org/repo/pkgs/lib3ds/lib3ds-1.2.0.tar.gz/3a7f891d18af0151876b98bc05d3b373/lib3ds-1.2.0.tar.gz
 Patch1:			lib3ds-01-sharedlib.spec
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- source url
 * Sun May  6 2007 - dougs@truemail.co.th
 - Initial version

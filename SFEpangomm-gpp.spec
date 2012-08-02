@@ -18,6 +18,7 @@
 %use pangomm = pangomm.spec
 
 Name:                    SFEpangomm-gpp
+IPS_Package_Name:	library/desktop/g++/pangomm
 Summary:                 C++ Wrapper for the pango Library (g++ built)
 License:                 LGPLv2+
 SUNW_Copyright:          pangomm.copyright

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-turtleconfusion
 Summary:                 Sugar TurtleConfusion
 URL:                     http://www.sugarlabs.org/
-Version:                 6 
+Version:                 8 
 Source:                  http://download.sugarlabs.org/sources/honey/TurtleConfusion/Moon-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -74,5 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 8
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Created with 6.

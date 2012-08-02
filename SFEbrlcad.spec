@@ -5,12 +5,20 @@
 #
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%include base.inc
+
 Name:                    SFEbrlcad
 Summary:                 cross-platform solid modeling system (BRL-CAD) 
-Version:                 7.20.0
+Version:                 7.20.4
 Source:                  %{sf_download}/brlcad/brlcad-%{version}.tar.bz2
+License: 		 LGPL
 URL:                     http://brlcad.org
 Group:                   Productivity/Graphics/CAD
+Patch1:                  brlcad-01-opennurbs_brep_region.diff
+Patch2:                  brlcad-02-pkg.diff
+Patch3:                  brlcad-03-if_mem.diff
+SUNW_Copyright:          %{name}.copyright
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 # Note on BRL-CAD 7.14.x for Solaris - Ken Mays 
@@ -23,9 +31,14 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SFEcmake 
 Requires: SUNWcsu
+BuildRequires:      SFEgcc
+Requires:           SFEgccruntime
 
 %prep
 %setup -q -n brlcad-%version
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 
@@ -36,32 +49,42 @@ fi
 
 bash autogen.sh
 
-LDFLAGS='-lnsl -lsocket' 
-
-#./configure --prefix=%{_prefix} \
-#            --mandir=%{_mandir} \
-#            --libdir=%{_libdir} \
-#            --libexecdir=%{_libexecdir} \
-#            --infodir=%{_infodir} \
-#            --sysconfdir=%{_sysconfdir} \
-#            --datadir=%{_datadir} \
-#	        --with-ldflags='-lnsl -lsocket'
-
-
 export PATH=$PATH:/usr/perl5/bin
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
-export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldef
-s"
+# export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
+# export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldefs"
+export CXXFLAGS="%cxx_optflags"
+#export LDFLAGS="%_ldflags -L/usr/gnu/lib -lm -lnsl -lsocket"
+export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -R%{_libdir}/brlcad/lib -lm -lnsl -lsocket"
+export CPPFLAGS="-I/usr/gnu/include"
 
 mkdir -p builds/unix
 cd builds/unix
 
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} ../..
+../../configure --prefix=%{_libdir}/brlcad \
+            --mandir=%{_mandir} \
+            --infodir=%{_infodir} \
+            --sysconfdir=%{_sysconfdir} \
+            --datadir=%{_datadir}       \
+            --disable-strict            \
+            --with-tcl=/usr/gnu/lib     \
+            --with-tk=/usr/gnu/lib      \
+            --disable-tcl-build         \
+            --disable-tk-build          \
+            --disable-documentation
+
+#cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=%{_libdir}/brlcad ../..
+
+# Note: parallel build is not reliable
 make VERBOSE=1 -j$CPUS
 
 %install
+rm -rf $RPM_BUILD_ROOT/*
+cd builds/unix
 make install DESTDIR=$RPM_BUILD_ROOT
+
 DOC="$RPM_BUILD_ROOT/usr/share"
 cp "$RPM_BUILD_ROOT/usr/share/COPYING" "$DOC/doc"
 cp "$RPM_BUILD_ROOT/usr/share/AUTHORS" "$DOC/doc"
@@ -81,6 +104,9 @@ mkdir "$DOC/brlcad"
 mv "$DOC"/doc/* "$DOC"/brlcad
 mv "$DOC"/brlcad "$DOC"/doc
 
+mkdir -p $RPM_BUILD_ROOT/usr/bin/
+ln -s %{_libdir}/brlcad/bin/mged $RPM_BUILD_ROOT/usr/bin/mged
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -89,6 +115,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
+%dir %attr (0755, root, bin) %{_libdir}/brlcad
+%dir %attr (0755, root, bin) %{_libdir}/brlcad/bin
+%{_libdir}/brlcad/bin/*
+%{_libdir}/brlcad/lib/*
+%{_libdir}/brlcad/include/*
 
 #%dir %attr (0755, root, sys) %{_datadir}
 #%{_datadir}/*
@@ -98,12 +129,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3/*
 %dir %attr(0755, root, bin) %{_mandir}/man5/*
 %dir %attr(0755, root, bin) %{_mandir}/mann/*
-
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/*
-
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/*
 
 %dir %attr(0755, root, bin) %{_datadir}/tclscripts
 %{_datadir}/tclscripts/*
@@ -117,9 +142,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_datadir}/html
 %{_datadir}/html/*
 
-%dir %attr(0755, root, bin) %{_datadir}/awf
-%{_datadir}/awf/*
-
 %dir %attr(0755, root, bin) %{_datadir}/plugins
 %{_datadir}/plugins/*
 
@@ -129,6 +151,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_datadir}/vfont
 %{_datadir}/vfont/*
 
+%dir %attr(0755, root, bin) %{_datadir}/nirt
+%{_datadir}/nirt/*
+
+%dir %attr(0755, root, bin) %{_datadir}/data
+%{_datadir}/data/*
+
 #%dir %attr(0755, root, bin) %{_datadir}/brlcad
 #%{_datadir}/brlcad/*
 
@@ -137,6 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 26 2012 - Logan Bruns <logan@gedanken.org>
+- Bumped to 7.20.4
 * Tue Jun 7 2011 - Ken Mays <kmays2000 at gmail.com>
 - Bumped to 7.20.0
 - Modified for SFEcmake build system

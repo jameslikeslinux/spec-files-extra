@@ -14,40 +14,46 @@
 %define cc_is_gcc 1
 %include base.inc
 
-Name:                    SFEinkscape
-Summary:                 Vector graphics editor
-Group:                   Applications/Graphics and Imaging
-License:                 GPLv2
-SUNW_Copyright:          inkscape.copyright
-Version:                 0.48.2
-Source:                  %{sf_download}/inkscape/inkscape-%{version}.tar.gz
-URL:                     http://www.inkscape.org
-Patch1:                  inkscape-01-combo.diff
-Patch2:                  inkscape-02-cstring.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEinkscape
+IPS_Package_Name:	image/editor/inkscape
+Summary:	Vector graphics editor
+Group:		Applications/Graphics and Imaging
+License:	GPLv2
+SUNW_Copyright:	inkscape.copyright
+Version:	0.48.2
+Source:		%{sf_download}/inkscape/inkscape-%{version}.tar.gz
+URL:		http://www.inkscape.org
+Patch1:		inkscape-01-open.diff
+Patch2:		inkscape-02-makefile.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires:      SUNWgnome-libs
-Requires:      SFEgtkmm-gpp
-Requires:      SFEglibmm-gpp
-Requires:      SFEsigcpp-gpp
-Requires:      SFEpoppler-gpp
-Requires:      SFEgsl
-Requires:      SFElibgc-gpp
-Requires:      SUNWlcms
-BuildRequires: SFEgtkmm-gpp-devel
-BuildRequires: SFEglibmm-gpp-devel
-BuildRequires: SFEsigcpp-gpp-devel
-BuildRequires: SFEpoppler-gpp-devel
-BuildRequires: SFEgsl-devel
-BuildRequires: SFElibgc-gpp-devel
-BuildRequires: SUNWgnome-libs-devel
-BuildRequires: SUNWPython
-BuildRequires: SUNWlcms-devel
-BuildRequires: SFEgtkmm-gpp-devel
-BuildRequires: SFEglibmm-gpp-devel
-BuildRequires: SFEsigcpp-gpp-devel
-BuildRequires: SFEboost-gpp-devel
+Requires:	SUNWgnome-libs
+Requires:	SFEgtkmm-gpp
+Requires:	SFEglibmm-gpp
+Requires:	SFEsigcpp-gpp
+Requires:	SFEpoppler-gpp
+Requires:	SFEgsl
+Requires:	SFElibgc-gpp
+Requires:	SUNWlcms
+Requires:	SFEboost-gpp
+Requires:	SFElibmagick-gpp
+Requires:	SFElibwpg-gpp
+BuildRequires:	SFEgtkmm-gpp-devel
+BuildRequires:	SFEglibmm-gpp-devel
+BuildRequires:	SFEsigcpp-gpp-devel
+BuildRequires:	SFEpoppler-gpp-devel
+BuildRequires:	SFEgsl-devel
+BuildRequires:	SFElibgc-gpp-devel
+BuildRequires:	SUNWgnome-libs-devel
+BuildRequires:	SUNWPython26
+BuildRequires:	SUNWlcms
+BuildRequires:	SFEgtkmm-gpp-devel
+BuildRequires:	SFEglibmm-gpp-devel
+BuildRequires:	SFEsigcpp-gpp-devel
+BuildRequires:	SFEboost-gpp-devel
+BuildRequires:	SFElibmagick-gpp-devel
+BuildRequires:	SFElibwpg-gpp-devel
 
 %if %build_l10n
 %package l10n
@@ -78,7 +84,7 @@ export CXXFLAGS="%cxx_optflags -fpermissive -I/usr/g++/include -I%{_builddir}/%n
 export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 # we need -L/usr/lib so that /usr/lib/libgc.so is picked up instead of
 # SUNWspro's own libgc.so
-export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %gnu_lib_path"
 
 # Build poppler because the inkscape build requires poppler's config.h
 %poppler.build
@@ -159,6 +165,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
+- fixed build requires SFEboost-gpp-devel instead of SFEboost-devel.
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- added %gnu_lib_path to LDFLAGS so the runpath for the gcc runtime is set
+* Fri Dec 30 2011 - Milan Jurik
+- fix 0.48.2 build, add libwpg
+* Wed Dec 28 2011 - Milan Jurik
+- reverting to 0.48.1 because previous bump was incomplete
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.48.2
 * Tue Aug  9 2011 - Alex Viskovatoff

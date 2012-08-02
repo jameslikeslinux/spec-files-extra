@@ -10,16 +10,18 @@
 
 %define SFEfreeglut  %(/usr/bin/pkginfo -q SFEfreeglut && echo 1 || echo 0)
 
-Name:                   SFEbullet
-Summary:                Bullet Physics Library
-License:                BSD3c
-SUNW_Copyright:         bullet.copyright
-Version:                2.77
-URL:			http://code.google.com/p/bullet/
-Source:                 %{src_url}/%{src_name}-%{version}.tgz
-Patch1:                 bullet-01-gcc.diff
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}b-build
+Name:		SFEbullet
+IPS_Package_Name:	library/bullet
+Summary:	Bullet Physics Library
+Group:		System/Libraries
+License:	BSD3c
+SUNW_Copyright:	bullet.copyright
+Version:	2.77
+URL:		http://code.google.com/p/bullet/
+Source:		%{src_url}/%{src_name}-%{version}.tgz
+Patch1:		bullet-01-gcc.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}b-build
 %include default-depend.inc
 BuildRequires: SFEjam
 %if %SFEfreeglut

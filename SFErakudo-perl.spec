@@ -9,11 +9,13 @@
 %define srcvers 2011.04
 
 Name:		SFErakudo-perl
+IPS_Package_Name:	runtime/rakudo-perl
 Summary:	A Perl 6 implementation built on the Parrot virtual machine
 URL:		http://www.rakudo.org/
 Vendor:		Rakudo.org
 Version:	2011.7
 License:	Artistic License 2.0
+Group:		Development/Perl
 SUNW_Copyright:	rakudo.copyright
 Source:		http://github.com/downloads/rakudo/star/%srcname-%srcvers.tar.gz
 SUNW_BaseDir:	%_basedir
@@ -21,9 +23,7 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEparrot-devel
-BuildRequires:	SFEparrot
 Requires:	SFEparrot
-
 
 %prep
 %setup -q -n %srcname-%srcvers

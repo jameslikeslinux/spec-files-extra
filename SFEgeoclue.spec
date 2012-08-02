@@ -13,7 +13,7 @@ License:                 LGPL v2
 Group:                   Libraries/Multimedia
 Version:                 0.12.0
 Summary:                 Geoinformation Server
-Source:                  http://folks.o-hand.com/jku/geoclue-releases/geoclue-%{version}.tar.gz
+Source:                  http://launchpad.net/geoclue/trunk/0.12/+download/geoclue-%{version}.tar.gz
 Patch1:                  geoclue-01-Wall.diff
 URL:                     http://www.freedesktop.org/wiki/Software/GeoClue
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix source url
 * Sat Oct 29 2011 - Milan Jurik
 - disable gpsd because it does not support new version
 * Fri Jan 07 2011 - Milan Jurik

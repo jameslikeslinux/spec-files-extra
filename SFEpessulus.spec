@@ -9,9 +9,10 @@
 %define pythonver 2.6
 
 Name:		SFEpessulus
-Summary:	Pessulus
+IPS_Package_Name:	gnome/pessulus
+Summary:	A lockdown editor for GNOME
 Version:	2.30.4
-Group:		System/GUI/GNOME
+Group:		Desktop (GNOME)
 URL:		http://live.gnome.org/Pessulus
 License:	GPLv2+
 SUNW_Copyright:	pessulus.copyright
@@ -20,9 +21,9 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+%include perl-depend.inc
 BuildRequires: SUNWgnome-common-devel
 BuildRequires: library/perl-5/xml-parser
-BuildRequires: %pnm_buildrequires_perl_default
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SUNWgnome-python26-libs-devel
 BuildRequires: SUNWPython26
@@ -31,10 +32,10 @@ Requires: SUNWgnome-python26-libs
 
 %if %build_l10n
 %package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:                %{name}
+Requires:	%{name}
 %endif
 
 %prep

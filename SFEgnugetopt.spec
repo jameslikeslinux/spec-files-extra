@@ -10,6 +10,7 @@
 %include usr-gnu.inc
  
 Name:                   SFEgnugetopt
+IPS_Package_Name:       sfe/shell/gnu-getopt
 Summary:                getopt - a GNU getopt(3) compatible getopt utility
 License:                GPLv2
 SUNW_Copyright:         gnugetopt.copyright
@@ -55,6 +56,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- added ips package name
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add SUNW_Copyright
 * Sun Sep 19 2010 - Milan Jurik

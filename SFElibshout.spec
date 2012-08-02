@@ -15,6 +15,7 @@
 %define src_url		http://downloads.xiph.org/releases/libshout
 
 Name:                   SFElibshout
+IPS_Package_Name:       library/audio/libshout
 Summary:                Library for broadcasting to an Icecast streaming media server
 License:                LGPLv2
 SUNW_Copyright:	        libshout.copyright
@@ -106,6 +107,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- added ips package name.
 * Thu Jul 21 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sun Oct  3 2010 - Alex Viskovatoff

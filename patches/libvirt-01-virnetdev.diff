@@ -1,0 +1,67 @@
+--- libvirt-0.9.10/src/util/virnetdev.c	2012-02-03 00:51:54.000000000 -0800
++++ libvirt-0.9.10-patched/src/util/virnetdev.c	2012-03-15 19:12:30.913180484 -0700
+@@ -30,6 +30,7 @@
+ #include "memory.h"
+ #include "pci.h"
+ 
++#define BSD_COMP
+ #include <sys/ioctl.h>
+ #ifdef HAVE_NET_IF_H
+ # include <net/if.h>
+@@ -133,7 +134,7 @@
+ #endif
+ 
+ 
+-#if defined(SIOCGIFHWADDR) && defined(HAVE_STRUCT_IFREQ)
++#if defined(SIOCSIFHWADDR) && defined(HAVE_STRUCT_IFREQ)
+ /**
+  * virNetDevSetMAC:
+  * @ifname: interface name to set MTU for
+@@ -216,7 +217,11 @@
+         goto cleanup;
+     }
+ 
++#ifdef ifr_enaddr
++    memcpy(macaddr, ifr.ifr_enaddr, VIR_MAC_BUFLEN);
++#else
+     memcpy(macaddr, ifr.ifr_hwaddr.sa_data, VIR_MAC_BUFLEN);
++#endif
+ 
+     ret = 0;
+ 
+@@ -482,7 +487,7 @@
+     if ((fd = virNetDevSetupControl(ifname, &ifr)) < 0)
+         return -1;
+ 
+-    if (virStrcpyStatic(ifr.ifr_newname, newifname) == NULL) {
++    if (virStrcpyStatic(ifr.ifr_name, newifname) == NULL) {
+         virReportSystemError(ERANGE,
+                              _("Network interface name '%s' is too long"),
+                              newifname);
+@@ -658,7 +663,7 @@
+         goto cleanup;
+     }
+ 
+-    *ifindex = ifreq.ifr_ifindex;
++    *ifindex = ifreq.ifr_index;
+     ret = 0;
+ 
+ cleanup:
+@@ -906,10 +911,17 @@
+             goto cleanup;
+         }
+ 
++#ifdef ifr_enaddr
++        if (memcmp(&ifr.ifr_enaddr, macaddr, VIR_MAC_BUFLEN) != 0) {
++            ret = 0;
++            goto cleanup;
++        }
++#else
+         if (memcmp(&ifr.ifr_hwaddr.sa_data, macaddr, VIR_MAC_BUFLEN) != 0) {
+             ret = 0;
+             goto cleanup;
+         }
++#endif
+     }
+ 
+     if (ifindex != -1) {

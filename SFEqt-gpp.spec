@@ -17,6 +17,7 @@
 %include packagenamemacros.inc
 
 Name:                SFEqt-gpp
+IPS_Package_Name:	library/desktop/g++/qt
 Summary:             Cross-platform development framework/toolkit
 Group:               Desktop (GNOME)/Libraries
 URL:                 http://trolltech.com/products/qt
@@ -57,7 +58,8 @@ Requires:		SFEgccruntime
 # Guarantee X/freetype environment concisely (hopefully):
 BuildRequires: SUNWgtk2
 Requires:      SUNWgtk2
-Requires: SUNWxwplt
+BuildRequires: %{pnm_buildrequires_SUNWxwplt}
+Requires: %{pnm_requires_SUNWxwplt}
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
@@ -67,13 +69,15 @@ Requires: %{pnm_requires_mysql_default}
 BuildRequires: SUNWdbus
 Requires: SUNWdbus
 
-%package -n %name-devel
+%package devel
+IPS_package_name:	library/desktop/g++/qt/header-qt
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-%package -n %name-doc
+%package doc
+IPS_package_name:	library/desktop/g++/qt/documentation
 Summary:        %{summary} - documentation files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
@@ -103,25 +107,33 @@ tar xzf %{SOURCE1}
 
 
 %build
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{standard_prefix}/%{mysql_default_includedir}
-%define extra_libs  -L%{standard_prefix}/%{mysql_default_libdir} -R%{standard_prefix}/%{mysql_default_libdir}
+%define extra_includes -I/usr/include/dbus-1.0 -I/usr/lib/dbus-1.0/include -I/usr/include/libpng14 -I%{standard_prefix}/%{mysql_default_includedir}/mysql
+%define extra_libs  -L%{standard_prefix}/%{mysql_default_libdir}/mysql -R%{standard_prefix}/%{mysql_default_libdir}/mysql
 
 export CC=gcc
 export CXX=g++
 export LD=/usr/gnu/bin/ld
-export CFLAGS="%optflags"
+#export CFLAGS="%optflags"
+export CFLAGS="%optflags -fPIC"
 export CXXFLAGS="%cxx_optflags -pthreads -fpermissive"
-export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
+
+# On some Intel CPUs, ffmpeg incorrectly applies AMD optimizations
+#%define noamd3d %(prtdiag -v | grep CPU | grep -q Intel && echo 1 || echo 0)
+# prtdiag -v doesn't work in zones but psrinfo -pv does 
+%define noamd3d %(psrinfo -pv | grep CPU | grep -q Intel && echo 1 || echo 0)
+
+#export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads"
+export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthreads -fPIC"
+
 
 # Assume i386 CPU is not higher than Pentium 4
 # This can be changed locally if your CPU is newer
-./configure -prefix %_prefix \
+./configure -prefix %{_prefix} \
            -confirm-license \
-           -no-ssse3 -no-sse4.1 -no-sse4.2 \
-           -platform solaris-g++ \
            -opensource \
+           -platform solaris-g++ \
            -docdir %_docdir/qt \
 	   -bindir %_bindir \
 	   -libdir %_libdir \
@@ -138,7 +150,14 @@ export LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib %{gnu_lib_path} -pthread
 	   -optimized-qmake \
            -reduce-relocations \
            -opengl desktop \
-          -shared \
+           -shared \
+           -plugin-sql-mysql \
+%if %noamd3d
+           -no-3dnow \
+           -no-sse4.1 -no-sse4.2 \
+%else
+           -no-ssse3 -no-sse4.1 -no-sse4.2 \
+%endif
            %extra_includes \
            %extra_libs
 
@@ -172,12 +191,7 @@ rm -rf %buildroot
 
 make install INSTALL_ROOT=$RPM_BUILD_ROOT
 
-rm %buildroot%_libdir/lib*a
-
-# Eliminate QML imports stuff for now:
-# Who is Nokia to create a new subdirectory in /usr?
-#rm -r %buildroot%_prefix/imports
-
+rm %buildroot%_libdir/lib*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -193,7 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %_datadir/qt/phrasebooks
 %_datadir/qt/translations
 
-%files -n %name-devel
+%files devel
 %defattr (-, root, bin)
 %_bindir
 %dir %attr (0755, root, bin) %_includedir
@@ -202,12 +216,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, bin) %dir %_libdir
 %dir %attr (0755, root, other) %_libdir/pkgconfig 
 %_libdir/pkgconfig/*
+%_libdir/libQtUiTools.a
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/mkspecs
 %dir %attr (0755, root, other) %_prefix/imports
 %_prefix/imports/*
 
-%files -n %name-doc
+%files doc
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
 %_datadir/qt/q3porting.xml
@@ -216,6 +231,22 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul  9 2012 - Thomas Wagner
+- fix finding a spec providing e.g. SFEqt-gpp-devel (remove %name- from %package)
+- force mysql inclusion as plugin -plugin-sql-mysql and add trailing "/mysql" to
+  -I and -L -R paths
+* Sat Jun 23 2012 - Thomas Wagner
+- add back regular sub-packages with IPS-tags for -devel and -doc
+  to get back automatic dependencys with pkgtool on build farms
+* Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
+- Use psrinfo -pv instead of prtdiag -v to detect CPU since only the
+  former works in a zone.
+* Wed Feb  2 2011 - James Choi
+- add no3dnow for Intel cpus, build fpic
+* Wed Jan  4 2011 - Alex Viskovatoff
+- do not delete libQtUiTools.a (there is no libQtUiTools.so)
+* Mon Nov  7 2011 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWxwplt}
 * Wed Nov  2 2011 - Alex Viskovatoff
 - update to 4.7.4, reworking two patches and adding another
 * Tue Aug 16 2011 - Thomas Wagner

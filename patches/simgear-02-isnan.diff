@@ -1,0 +1,31 @@
+--- simgear-2.6.0/simgear/scene/sky/cloud.cxx	Fri Feb 17 23:38:44 2012
++++ simgear-2.6.0/simgear/scene/sky/cloud.cxx	Sun Mar  4 11:23:02 2012
+@@ -735,7 +735,7 @@
+             // this happens, lets just use the last known good course.
+             // This is a hack, and it would probably be better to make
+             // calc_gc_course_dist() more robust.
+-            if ( isnan(course) ) {
++            if ( std::isnan(course) ) {
+                 course = last_course;
+             } else {
+                 last_course = course;
+--- simgear-2.6.0/simgear/sound/sample_group.cxx	Fri Feb 17 23:38:44 2012
++++ simgear-2.6.0/simgear/sound/sample_group.cxx	Sun Mar  4 11:31:46 2012
+@@ -23,7 +23,7 @@
+ #ifdef HAVE_CONFIG_H
+ #  include <simgear_config.h>
+ #endif
+-
++#include <cmath>
+ #include <simgear/compiler.h>
+ 
+ #include "soundmgr_openal.hxx"
+@@ -30,7 +30,7 @@
+ #include "sample_group.hxx"
+ 
+ bool isNaN(float *v) {
+-   return (isnan(v[0]) || isnan(v[1]) || isnan(v[2]));
++   return (std::isnan(v[0]) || std::isnan(v[1]) || std::isnan(v[2]));
+ }
+ 
+ SGSampleGroup::SGSampleGroup () :

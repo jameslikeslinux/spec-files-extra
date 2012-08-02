@@ -9,8 +9,10 @@
 %define src_url http://archive.xfce.org/src/xfce/%{src_name}/0.1/
  
 Name:           SFEtumbler
+IPS_Package_Name:	xfce/tumbler
 Summary:        Thumbnail management for Xfce
-Version:        0.1.22
+Version:        0.1.23
+Group:		Applications/Plug-ins and Run-times
 URL:            http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	LGPLv2+
@@ -37,7 +39,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		system/gui/xfce
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
@@ -114,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
  
 %changelog
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.1.23
 * Sun Sep 25 2011 - Milan Jurik
 - fix build
 * Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>

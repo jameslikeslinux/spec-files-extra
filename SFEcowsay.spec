@@ -8,6 +8,7 @@
 %define src_name cowsay
 
 Name:		SFEcowsay
+IPS_Package_Name:	text/cowsay
 Version:	3.03
 IPS_component_version: 3.0.3
 Summary:	Configurable speaking/thinking cow

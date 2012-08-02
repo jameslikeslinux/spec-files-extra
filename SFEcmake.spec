@@ -16,12 +16,12 @@
 Name:		SFEcmake
 IPS_Package_Name:	sfe/developer/build/cmake 
 Summary:	Cross platform make system
-Version:	2.8.6
+Version:	2.8.8
 License:	BSD3c
 SUNW_Copyright:	cmake.copyright
 Source:		http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 URL:		http://www.cmake.org
-Group:		Development/Tools
+Group:		Development/Distribution Tools
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -39,16 +39,15 @@ export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
 
 ./configure --prefix=%{_prefix} \
-	    --bindir=%{_bindir}	\
 	    --docdir=/share/doc/cmake \
-	    --libdir=%{_libdir}	\
-	    --mandir=/share/man
+	    --mandir=/share/man \
+            --parallel=$CPUS
 
 #If Ext2 Filesystem headers are present and found, compile errors occur
 #disable this: HAVE_EXT2FS_EXT2_FS_H:INTERNAL=1
-sed -i -e 's/^HAVE_EXT2FS_EXT2_FS_H:INTERNAL=.*/HAVE_EXT2FS_EXT2_FS_H:INTERNAL=/' CMakeCache.txt 
+gsed -i -e 's/^HAVE_EXT2FS_EXT2_FS_H:INTERNAL=.*/HAVE_EXT2FS_EXT2_FS_H:INTERNAL=/' CMakeCache.txt 
 
-make -j$CPUS
+gmake -j$CPUS
 
 %install
 rm -rf %{buildroot}
@@ -61,13 +60,24 @@ rm -rf %{buildroot}
 %defattr (-, root, bin)
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
-%{_datadir}/aclocal
+%dir %attr (0755,root,other) %{_datadir}/aclocal
+%{_datadir}/aclocal/*
 %{_datadir}/cmake-*
 %{_mandir}
 %dir %attr (0755, root, other) %{_docdir}
 %{_docdir}/cmake
 
 %changelog
+* Sun Jun 17 2012 - Thomas Wagner
+- fix permissions %dir %attr (0755,root,other) %{_datadir}/aclocal/*
+* Wed May 16 2012 - Thomas Wagner
+- fix permissions %dir %attr (0755,root,other) %{_datadir}/aclocal
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 2.8.8 and enable parallel build.
+* Sat Feb 11 2012 - Milan Jurik
+- bump to 2.8.7
+* Tue Oct 11 2011 - Thomas Wagner
+- some sed don't support -i , change to "gsed" (and gmake)
 * Tue Oct 11 2011 - Milan Jurik
 - bump to 2.8.6, add IPS package name
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>

@@ -9,7 +9,8 @@ Name:                   xmlrpc-c
 Summary:                A lightweight RPC library based on XML and HTTP
 URL:                    http://xmlrpc-c.sourceforge.net/
 Version:                1.06.32
-Source:                 http://%{sf_mirror}/%{name}/%{name}-%{version}.tgz
+IPS_component_version:	1.632
+Source:                 %{sf_download}/%{name}/Xmlrpc-c%%20Super%%20Stable/%{version}/%{name}-%{version}.tgz
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 %prep
@@ -43,6 +44,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Mar 31 2012 - tropikhajma@gmail.com
+- fix ips version and download location
 * Thu Jan 15 2009 - halton.huo@sun.com
 - Bump to 1.06.32
 * Tue Jun 24 2008 - trisk@acm.jhu.edu

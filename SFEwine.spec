@@ -5,7 +5,15 @@
 #
 # Owner: lewellyn
 #
-# Confirmed build of Wine 1.3.31 on oi_151/GCC 3.4.3 10/22/2011 - Ken Mays.
+# Confirmed build of Wine 1.3.31 on oi_151/GCC 3.4.3 10/22/2011 - Ken Mays
+# Confirmed build of Wine 1.3.34 on oi_151/GCC 3.4.3 12/02/2011 - Ken Mays
+# Confirmed build of Wine 1.3.36 on oi_151/GCC 3.4.3 01/01/12   - Ken Mays
+# Confirmed build of Wine 1.3.37 on oi_151/GCC 3.4.3 01/15/12   - Ken Mays
+# Confirmed build of Wine 1.3.38 on oi_151/GCC 3.4.3 01/27/12   - Ken Mays
+# Confirmed build of Wine 1.4rc1 on oi_151/GCC 3.4.3 01/28/12   - Ken Mays
+# Confirmed build of Wine 1.4rc2 on oi_151/GCC 3.4.3 02/03/12   - Ken Mays
+# Confirmed build of Wine 1.4 on oi_151a/GCC 3.4.3 03/07/12   - Ken Mays
+# Confirmed build of Wine 1.4.1 on oi_151a/GCC 4.6.2 06/16/12   - Ken Mays
 #
 %include Solaris.inc
 
@@ -19,7 +27,7 @@
 # In case of an unstable wine version, temporarily set this to the
 # last-known-good version. This should be reverted the next stable version.
 # %if %{!?version:1}
-# 	%define version 1.3.30
+# 	%define version 1.3.31
 # %endif
 
 #%if %{!?version:1}
@@ -30,9 +38,9 @@ Name:                   SFEwine
 Summary:                Windows API compatibility and ABI runtime
 IPS_package_name:       desktop/wine
 Group:                  Desktop (GNOME)/Sessions
-Version:                1.3.32
+Version:                1.4.1
 URL:                    http://www.winehq.org/
-Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
+Source:                 http://downloads.sourceforge.net/project/wine/Source/wine-%{version}.tar.bz2
 #
 # See: http://lists.freedesktop.org/archives/tango-artists/2009-July/001973.html
 # Also: http://www.airwebreathe.org.uk/wine-icon/
@@ -40,8 +48,8 @@ Source:                 %{src_url}/%{sname}-%{version}.tar.bz2
 # See http://wiki.winehq.org/Gecko for which version to use.
 #
 Source1:		http://winetricks.org/winetricks
-Source2:                %{src_url}/%{sname}_gecko-1.3-x86.msi
-Source3:		%{src_url}/%{sname}_gecko-1.3-x86_64.msi
+Source2:                %{src_url}/%{sname}_gecko-1.4-x86.msi
+Source3:		%{src_url}/%{sname}_gecko-1.4-x86_64.msi
 Source4:    		http://kegel.com/wine/wisotool
 Source100:              wine.directory
 Source101:              winetricks.desktop
@@ -94,15 +102,12 @@ BuildRequires:  SFElibgsm-devel
 Requires:       SFElibgsm
 Requires:       SFEmpg123
 Requires:       SFEopenal
-Requires:       system/header/header-audio
+Requires:       SUNWaudh
 
-# Following are for winetricks, not wine directly.
-Requires:       SFEcabextract
-
-#%package devel
-#Summary:                 wine - developer files, /usr
-#SUNW_BaseDir:            %{_basedir}
-#Requires: %name
+%package devel
+Summary:                 wine - developer files, /usr
+SUNW_BaseDir:            %{_basedir}
+Requires: %name
 %include default-depend.inc
 
 %prep
@@ -252,25 +257,45 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_bindir}
 %{_libdir}
-%{_mandir}
 %dir %attr (0755, root, sys) %{_datadir}
+%{_mandir}
 %{_datadir}/desktop-directories
 %{_datadir}/wine
-%defattr (-, root, other)
-%{_datadir}/applications
-%{_includedir}/wine
+%dir %attr (0755, root, other) %{_datadir}/applications
+%{_datadir}/applications/*
 
-#%files devel
-#%defattr (-, root, bin)
-#%{_includedir}
-#%{_includedir}/wine
-#%{_libdir}/wine/*.def
-#%dir %attr (0755, root, sys) %{_datadir}
-#%dir %attr (0755, root, other) %{_datadir}/aclocal
+%files devel
+%defattr (-, root, bin)
+%{_includedir}
 
 %changelog
-* Sat Nov 5 2011 - Ken Mays <kmays2000@gmail.com>
-- Bump to 1.3.32
+* Sat Jun 16 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4.1
+* Wed Mar 7 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4
+- MS Office 2010/Adobe Photoshop CS5 Extended tested
+* Sat Mar 3 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc6
+* Tue Feb 28 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc5
+* Sun Feb 19 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc4
+* Wed Feb 14 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc3
+* Sat Feb 4 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc2
+* Sat Jan 28 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4-rc1
+- Fixed link due to temp issue naming of 1.3.38/1.4rc1 release
+- Autocad 2012, Nvidia 290.10 driver tested 
+* Thu Jan 26 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.37
+* Mon Jan 02 2012 - Milan Jurik
+- fix packaging
+* Sun Jan 1 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.36
+* Fri Dec 2 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.34
 * Mon Oct 22 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 1.3.31
 * Mon Oct 11 2011 - Alex Viskovatoff

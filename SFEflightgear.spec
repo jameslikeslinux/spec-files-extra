@@ -13,20 +13,27 @@
 
 #
 # Mirror:
-# ftp://ftp.de.flightgear.org/pub/fgfs/Source/flightgear-2.4.0.tar.bz2 
-# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/flightgear-2.4.0.tar.bz2
+# ftp://ftp.kingmont.com/flightsims/flightgear/Source/flightgear-2.6.0.tar.bz2
+# http://ftp.linux.kiev.ua/pub/fgfs/Source/flightgear-2.6.0.tar.bz2
+# ftp://ftp.de.flightgear.org/pub/fgfs/Source/flightgear-2.6.0.tar.bz2 
+# ftp://ftp.is.co.za/pub/games/flightgear/ftp/Source/flightgear-2.6.0.tar.bz2
 #
 # TODO: make package with:
 # http://www.flightgear.org/Docs/getstart/getstart.html
-# http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Docs/getstart.pdf
+# http://mapserver.flightgear.org/getstart.pdf
 #
 # FlightGear Scenery package (Main Mirror)
-# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.4.0.tar.bz2
-r.bz2
-
+# ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-2.6.0.tar.bz2
+#
+# FlightGear Aircraft files (Mirror)
+# ftp://ftp.de.flightgear.org/pub/fgfs/Aircraft-2.6/
+#
+# FlightGear Scenery
+# ftp://ftp.de.flightgear.org/pub/fgfs/Scenery-v2.6.0/
+#
 Name:                   SFEFlightGear
 Summary:                The multi-platform flight simulator development project
-Version:                2.4.0
+Version:                2.6.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
 Source1:		ftp://ftp.de.flightgear.org/pub/fgfs/Shared/FlightGear-data-%{version}.tar.bz2 
 Group:			Applications/Games
@@ -35,16 +42,20 @@ SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:		SFEopenal-devel
-Requires:		SFEopenal
-BuildRequires:		SFEfreealut-devel
-Requires:		SFEfreealut
-BuildRequires:		SFEfreeglut-devel
-Requires:		SFEfreeglut
-Requires:		SFESimGear20
-Requires:		SFEplib-gpp
-Requires:		SFEboost
-Requires:		SFEosg
+BuildRequires:  SFEopenal-devel
+Requires:       SFEopenal
+BuildRequires:  SFEfreealut-devel
+Requires:       SFEfreealut
+BuildRequires:  SFEplib-gpp-devel
+Requires:       SFEplib-gpp
+BuildRequires:  SFEosg-devel
+Requires:       SFEosg
+BuildRequires:  SFEboost-gpp-devel
+Requires:       SFEboost-gpp
+BuildRequires:  SFEfreeglut-devel
+Requires:       SFEfreeglut
+BuildRequires:  SFEsimgear-devel
+Requires:       SFEsimgear
 
 %prep
 %setup -q -c -n  %{name}
@@ -62,8 +73,12 @@ export CXX=/usr/gnu/bin/g++
 export CFLAGS="-I%{_prefix}/X11/include"
 export CXXFLAGS="-I%{_prefix}/X11/include"
 export LDFLAGS="-L%{_libdir} -R%{_libdir} -L/usr/X11/lib -R/usr/X11/lib"
-#CC=cc CXX=CC ./configure --without-logging --prefix==%{_prefix}
-/bin/bash ./configure CONFIG_SHELL=/bin/bash --prefix=%{_prefix} \
+
+# FlightGear 2.6.0 uses CMake >=2.6.4
+cmake -DCMAKE_INSTALL_PREFIX=%{_prefix}
+
+# FlightGear 2.4.0 
+#/bin/bash ./configure CONFIG_SHELL=/bin/bash --prefix=%{_prefix} \
 	--with-osg=%{_prefix} \
 	--with-boost=%{_prefix} \
 	--with-boost-libdir=%{_libdir} \
@@ -95,6 +110,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 05 2012 - Ken Mays <kmays2000@gmail.com>
+- Fixed for new SFEsimgear.spec
+* Sat Mar 03 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 2.6.0
 * Wed Sep 14 2011 - Thomas Wagner
 - back to SFE default compiler location /usr/gnu/bin/gcc
   agreed with Ken on IRC

@@ -10,7 +10,7 @@
 Name:                    SFEsugar-storybuilder
 Summary:                 Sugar StoryBuilder
 URL:                     http://www.sugarlabs.org/
-Version:                 15 
+Version:                 19 
 Source:                  http://download.sugarlabs.org/sources/honey/StoryBuilder/StoryBuilder-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -88,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 19
 * Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
 - Requires Pygame & PyXPCOM
 - Created with 15.

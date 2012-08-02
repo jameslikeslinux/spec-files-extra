@@ -8,6 +8,7 @@
 %define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define cc_is_gcc 1
 %if %use_gcc4
@@ -29,10 +30,10 @@
 Name:		SFEmplayer
 IPS_Package_Name:	media/mplayer
 Summary:	mplayer - The Movie Player
-Version:	1.0.0.0.4
-%define tarball_version 1.0rc4
+Version:	1.1
+%define tarball_version 1.1
 URL:		http://www.mplayerhq.hu/
-Source:		http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{tarball_version}.tar.bz2
+Source:		http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{tarball_version}.tar.gz
 Source2:	http://www.mplayerhq.hu/MPlayer/skins/XFce4-1.0.tar.bz2
 Source3:	http://www.mplayerhq.hu/MPlayer/skins/Blue-1.8.tar.bz2
 Source4:	http://www.mplayerhq.hu/MPlayer/skins/Abyss-1.7.tar.bz2
@@ -46,6 +47,8 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{tarball_version}-build
 
 %include default-depend.inc
+BuildRequires: SUNWsmbau
+##TODO## check if it is sufficient to install "libsmb" or something on a recent build to get the smbclient features
 Requires: SUNWsmbau
 Requires: SUNWgnome-audio
 BuildRequires: SUNWgnome-audio-devel
@@ -81,6 +84,10 @@ Requires: SFEliveMedia
 Requires: SFElibcdio
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWaudh
+BuildRequires: SUNWlibmng
+Requires: SUNWlibmng
+BuildRequires: SFElzo-devel
+Requires: SFElzo
 %if %SFElibsndfile
 BuildRequires: SFElibsndfile-devel
 Requires: SFElibsndfile
@@ -182,13 +189,11 @@ bash ./configure			\
             --confdir=%{_sysconfdir}	\
             --enable-gui		\
             --enable-menu		\
-            --extra-cflags="-I%{_libdir}/live/liveMedia/include -I%{_libdir}/live/groupsock/include -I%{_libdir}/live/UsageEnvironment/include -I%{_libdir}/live/BasicUsageEnvironment/include -I%{x11}/include -I/usr/sfw/include -I%{_prefix}/X11/include" \
+            --extra-cflags="-I%{_libdir}/live/liveMedia/include -I%{_libdir}/live/groupsock/include -I%{_libdir}/live/UsageEnvironment/include -I%{_libdir}/live/BasicUsageEnvironment/include -I%{x11}/include -I/usr/sfw/include -I%{_prefix}/X11/include -I/usr/include/libmng" \
             --extra-ldflags="-L%{_libdir}/live/liveMedia -R%{_libdir}/live/liveMedia -L%{_libdir}/live/groupsock -R%{_libdir}/live/groupsock -L%{_libdir}/live/UsageEnvironment -R%{_libdir}/live/UsageEnvironment -L%{_libdir}/live/BasicUsageEnvironment -R%{_libdir}/live/BasicUsageEnvironment -L%{x11}/lib -R%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib" \
             --extra-libs='-lBasicUsageEnvironment -lUsageEnvironment -lgroupsock -lliveMedia -lstdc++ -liconv' \
             --codecsdir=%{_libdir}/mplayer/codecs \
             --enable-live		\
-            --enable-network		\
-            --enable-largefiles		\
 	    --enable-crash-debug	\
             --enable-dynamic-plugins	\
 %ifarch i386 amd64
@@ -227,21 +232,41 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/*
-%dir %attr (0755, root, bin) %{_libdir}
-%{_libdir}/*
+%{_bindir}
+%{_libdir}
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, bin) %{_mandir}
-%dir %attr (0755, root, bin) %{_mandir}/man1
-%{_mandir}/man1/*
+%{_mandir}
 %{_datadir}/mplayer
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
-%dir %attr (0755, root, other) %{_datadir}/pixmaps
-%{_datadir}/pixmaps/*
+%dir %attr (0755, root, other) %{_datadir}/icons
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16/apps/
+%{_datadir}/icons/hicolor/16x16/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22/apps/
+%{_datadir}/icons/hicolor/22x22/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24/apps/
+%{_datadir}/icons/hicolor/24x24/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/apps/
+%{_datadir}/icons/hicolor/32x32/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/apps/
+%{_datadir}/icons/hicolor/48x48/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/256x256/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/256x256/apps/
+%{_datadir}/icons/hicolor/256x256/apps/*
 
 %changelog
+* Fri Jun 22 2012 - Milan Jurik
+- bump to 1.1
+- remove pnm_XXX for now
+* Mon Dec 12 2012 - Thomas Wagner
+- change to (Build)Requires pnm_requires_SUNWsmba
+- add missing (Build)Requires pnm_(build)requires_SUNWlibmng(_devel) SFElzo(-devel)
 * Mon Oct 17 2011 - Milan Jurik
 - add IPS package name
 * Sun Feb 06 2011 - Milan Jurik

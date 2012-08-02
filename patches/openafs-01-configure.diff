@@ -1,0 +1,11 @@
+--- openafs-1.6.1pre4/configure	2012-03-04 14:17:10.000000000 -0800
++++ openafs-1.6.1pre4-patched/configure	2012-03-07 23:11:35.020028926 -0800
+@@ -6546,7 +6546,7 @@
+   ;;
+   *)
+   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+-as_dummy="/opt/SUNWspro/bin:/opt/SunStudioExpress/bin"
++as_dummy="`dirname $CC`:/opt/SUNWspro/bin:/opt/SunStudioExpress/bin"
+ for as_dir in $as_dummy
+ do
+   IFS=$as_save_IFS

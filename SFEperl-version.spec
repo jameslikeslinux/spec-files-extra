@@ -7,9 +7,10 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define version_version 0.76
+%define version_version 0.99
 
 Name:                    SFEperl-version
+IPS_package_name:        library/perl-5/version
 Summary:                 version-%{version_version} PERL module
 Version:                 %{perl_version}.%{version_version}
 Source:                  http://www.cpan.org/modules/by-module/version/version-%{version_version}.tar.gz
@@ -32,9 +33,12 @@ BuildRequires:           %{pnm_buildrequires_SUNWsfwhea}
 %build
 cd version-%{version_version}
 perl Makefile.PL \
+    UNINST=0 \
     PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+    ARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
     INSTALLSITELIB=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version} \
     INSTALLSITEARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
+    INSTALLVENDORARCH=$RPM_BUILD_ROOT%{_prefix}/%{perl_path_vendor_perl_version}/%{perl_dir} \
     INSTALLSITEMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
     INSTALLSITEMAN3DIR=$RPM_BUILD_ROOT%{_mandir}/man3 \
     INSTALLMAN1DIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
@@ -45,7 +49,9 @@ make CC=$CC CCCDLFLAGS="%picflags" OPTIMIZE="%optflags" LD=$CC
 rm -rf $RPM_BUILD_ROOT
 cd version-%{version_version}
 make install
+echo "check path $RPM_BUILD_ROOT%{_prefix}/lib for any files!"
 
+#next line remove dir including perllocal.pod
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
@@ -68,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 11 2012 - Thomas Wagner
+- add IPS_package_name library/perl-5/version
+- add ARCH to Makefile.PL to get binaries into correct directory
+- bump to 0.99
 * Fri Jun 17 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

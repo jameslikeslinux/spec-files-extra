@@ -1,0 +1,125 @@
+--- miniupnpd-1.6.20120207/ipf/ipfrdr.c	2009-10-10 12:19:41.000000000 -0700
++++ miniupnpd-1.6.20120207-patched/ipf/ipfrdr.c	2012-02-28 22:25:52.012642083 -0800
+@@ -238,16 +238,21 @@
+ 	memset(&ipnat, 0, sizeof(ipnat));
+ 
+ 	ipnat.in_redir = NAT_REDIRECT;
+-	ipnat.in_p = proto;
++	//	ipnat.in_p = proto;
++	ipnat.in_pr[0] = proto;
++	ipnat.in_pr[1] = proto;
+ 	if (proto == IPPROTO_TCP)
+ 		ipnat.in_flags = IPN_TCP;
+ 	if (proto == IPPROTO_UDP)
+ 		ipnat.in_flags = IPN_UDP;
+ 	ipnat.in_dcmp = FR_EQUAL;
+-	ipnat.in_pmin = htons(eport);
+-	ipnat.in_pmax = htons(eport);
++	/* ipnat.in_pmin = htons(eport); */
++	/* ipnat.in_pmax = htons(eport); */
++	ipnat.in_dpmin = htons(eport);
++	ipnat.in_dpmax = htons(eport);
+ 	ipnat.in_pnext = htons(iport);
+-	ipnat.in_v = 4;
++	ipnat.in_v[0] = 4;
++	ipnat.in_v[1] = 4;
+ 	strlcpy(ipnat.in_tag.ipt_tag, group_name, IPFTAG_LEN);
+ 
+ #ifdef USE_IFNAME_IN_RULES
+@@ -257,8 +262,10 @@
+ 	}
+ #endif
+ 
+-	inet_pton(AF_INET, iaddr, &ipnat.in_in[0].in4);
+-	ipnat.in_in[1].in4.s_addr = 0xffffffff;
++	//inet_pton(AF_INET, iaddr, &ipnat.in_in[0].in4);
++	//ipnat.in_in[1].in4.s_addr = 0xffffffff;
++	inet_pton(AF_INET, iaddr, &ipnat.in_ndst.na_addr[0].in4);
++	ipnat.in_ndst.na_addr[1].in4.s_addr = 0xffffffff;
+ 
+ 	obj.ipfo_rev = IPFILTER_VERSION;
+ 	obj.ipfo_size = sizeof(ipnat);
+@@ -310,10 +317,10 @@
+ 			syslog(LOG_ERR, "ioctl(dev, SIOCGENITER): %m");
+ 			break;
+ 		}
+-		if (eport == ntohs(ipn.in_pmin) &&
+-		    eport == ntohs(ipn.in_pmax) &&
++		if (eport == ntohs(ipn.in_dpmin) &&
++		    eport == ntohs(ipn.in_dpmax) &&
+ 		    strcmp(ipn.in_tag.ipt_tag, group_name) == 0 &&
+-		    ipn.in_p == proto)
++		    /* ipn.in_p */ ipn.in_pr[0] == proto)
+ 		{
+ 			strlcpy(desc, "", desclen);
+ 			if (packets != NULL)
+@@ -324,7 +331,8 @@
+ 				*iport = ntohs(ipn.in_pnext);
+ 			if (desc != NULL)
+ 				get_redirect_desc(eport, proto, desc, desclen);
+-			inet_ntop(AF_INET, &ipn.in_in[0].in4, iaddr, iaddrlen);
++			//inet_ntop(AF_INET, &ipn.in_in[0].in4, iaddr, iaddrlen);
++			inet_ntop(AF_INET, &ipn.in_ndst.na_addr[0].in4, iaddr, iaddrlen);
+ 			r = 0;
+ 		}
+ 	} while (ipn.in_next != NULL);
+@@ -377,8 +385,10 @@
+ 			continue;
+ 
+ 		if (index == n++) {
+-			*proto = ipn.in_p;
+-			*eport = ntohs(ipn.in_pmax);
++		  /*			*proto = ipn.in_p; */
++			*proto = ipn.in_pr[0];
++			//*eport = ntohs(ipn.in_pmax);
++			*eport = ntohs(ipn.in_dpmax);
+ 			*iport = ntohs(ipn.in_pnext);
+ 
+ 			if (ifname)
+@@ -389,7 +399,8 @@
+ 				*bytes = 0;
+ 			if (desc != NULL)
+ 				get_redirect_desc(*eport, *proto, desc, desclen);
+-			inet_ntop(AF_INET, &ipn.in_in[0].in4, iaddr, iaddrlen);
++			//inet_ntop(AF_INET, &ipn.in_in[0].in4, iaddr, iaddrlen);
++			inet_ntop(AF_INET, &ipn.in_ndst.na_addr[0].in4, iaddr, iaddrlen);
+ 			r = 0;
+ 		}
+ 	} while (ipn.in_next != NULL);
+@@ -428,10 +439,10 @@
+ 			    "delete_redirect_rule");
+ 			break;
+ 		}
+-		if (eport == ntohs(ipn.in_pmin) &&
+-		    eport == ntohs(ipn.in_pmax) &&
++		if (eport == ntohs(ipn.in_dpmin) &&
++		    eport == ntohs(ipn.in_dpmax) &&
+ 		    strcmp(ipn.in_tag.ipt_tag, group_name) == 0 &&
+-		    ipn.in_p == proto)
++		    /* ipn.in_p */ ipn.in_pr[0] == proto)
+ 		{
+ 			obj.ipfo_rev = IPFILTER_VERSION;
+ 			obj.ipfo_size = sizeof(ipn);
+@@ -485,7 +496,8 @@
+ 	fr.fr_flags = FR_PASS|FR_KEEPSTATE|FR_QUICK|FR_INQUE;
+ 	if (GETFLAG(LOGPACKETSMASK))
+ 		fr.fr_flags |= FR_LOG|FR_LOGFIRST;
+-	fr.fr_v = 4;
++	//fr.fr_v = 4;
++	fr.fr_family = AF_INET;
+ 
+ 	fr.fr_type = FR_T_IPF;
+ 	fr.fr_dun.fru_ipf = &ipffr;
+@@ -600,3 +612,12 @@
+ 	return r;
+ }
+ 
++/* return an (malloc'ed) array of "external" port for which there is
++ * a port mapping. number is the size of the array */
++unsigned short *
++get_portmappings_in_range(unsigned short startport, unsigned short endport,
++                          int proto, unsigned int * number) 
++{
++  // TODO: actually implement this.
++  return NULL;
++}

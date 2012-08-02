@@ -8,11 +8,12 @@
 Name:         SFEgnome-sharp
 License:      Other
 Group:        System/Libraries
-Version:      2.16.0
+Version:      2.24.1
 Summary:      gtk# - .NET bindings for the GNOME platform libraries
-Source:       http://go-mono.com/sources/gnome-sharp2/gnome-sharp-%{version}.tar.gz
+Source:       http://go-mono.com/sources/gnome-sharp2/gnome-sharp-%{version}.tar.bz2
 Patch1:       gnome-sharp-01-Wall.diff
-Patch2:       gnome-sharp-02-gtkhtml3.14.diff
+#Patch2:       gnome-sharp-02-gtkhtml3.14.diff
+Patch3:       gnome-sharp-03-getoptions.diff
 URL:          http://www.mono-project.org/
 SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
@@ -22,6 +23,8 @@ Autoreqprov:  on
 BuildRequires: SUNWgnome-base-libs
 BuildRequires: SUNWgnome-libs-devel
 BuildRequires: SFEmono-devel
+BuildRequires: SFEgtk-sharp
+Requires: SFEgtk-sharp
 Requires: SUNWgnome-base-libs
 Requires: SUNWevolution-libs
 Requires: SFEmono
@@ -29,7 +32,8 @@ Requires: SFEmono
 %prep
 %setup -q -n gnome-sharp-%version
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -39,7 +43,10 @@ fi
 export PATH=/usr/mono/bin:$PATH
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
+export MONO_LIBS=/usr/mono:/usr/lib/mono
 
+#autoconf
+aclocal-1.10
 autoconf
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
@@ -71,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gapi-2.0
 
 %changelog
+* Fri Sep 16 2011 - jchoi4@pha.jhu.edu
+- Bump to 2.24.1
 * Wed Aug 15 2007 - trisk@acm.jhu.edu
 - Add gnome-sharp-02-gtkhtml3.14.diff
 * Sat Mar 17 2007 - laca@sun.com

@@ -10,16 +10,23 @@
 %include Solaris.inc
 %include usr-gnu.inc
 
-%define cc_is_gcc 1
-%include base.inc
 %use libelf = libelf.spec
 
-Name:                SFElibelf
-Summary:             libelf - A Library to Manipulate ELf Files
-Version:             %{libelf.version}
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibelf
+IPS_Package_Name:	library/libelf
+URL:		http://www.mr511.de/software/english.html
+Summary:	libelf - A Library to Manipulate ELf Files
+Version:	%{libelf.version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+%package devel
+Summary:	%{summary} - developer files
+Group:		Development/Libraries
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
+
 
 %prep
 rm -rf %name-%version
@@ -28,19 +35,6 @@ mkdir %name-%version
 cd %{_builddir}/%name-%version
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
-
-export CC=gcc
-export CXX=g++
-export CFLAGS="%optflags"
-export CXXFLAGS="%{gcc_cxx_optflags}"
-export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
-export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir}"
-export PERL_PATH=/usr/perl5/bin/perl
-
 %libelf.build -d %name-%version
 
 %install
@@ -54,14 +48,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/*.so*
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/locale/*
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/libelf/*
 
+%files devel
+%defattr (-, root, bin)
+%{_includedir}/libelf
 
 %changelog
+* Fri Nov 25 2011 - Milan Jurik
+- fix packaging
 * Thu Feb 25 2010 - jchoi42@pha.jhu.edu
 - Initial spec

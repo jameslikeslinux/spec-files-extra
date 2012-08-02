@@ -1,0 +1,5 @@
+--- tremulous-1.1.0-src/src/tools/asm/Makefile	Wed Dec 28 21:12:51 2011
++++ tremulous-1.1.0-src/src/tools/asm/Makefile	Wed Dec 28 21:16:46 2011
+@@ -16,1 +16,1 @@
+-Q3ASM_CFLAGS=-O2 -Wall -Werror -fno-strict-aliasing
++Q3ASM_CFLAGS=-O2 -Wall -fno-strict-aliasing

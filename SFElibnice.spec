@@ -15,6 +15,7 @@
 %use libnice = libnice.spec
 
 Name:           SFElibnice
+IPS_Package_Name:	library/desktop/libnice
 Version:        %{libnice.version}
 Summary:        %{libnice.summary}
 

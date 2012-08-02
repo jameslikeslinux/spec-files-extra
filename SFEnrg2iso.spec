@@ -5,13 +5,17 @@
 
 %include Solaris.inc
 
-Name:                SFEnrg2iso
-Summary:             Convert Nero nrg files into ISO 9660 images
-Version:             0.4
-Source:              http://gregory.kokanosky.free.fr/v4/linux/nrg2iso-%{version}.tar.gz
+Name:		SFEnrg2iso
+IPS_Package_Name:	media/nrg2iso
+Summary:	Convert Nero nrg files into ISO 9660 images
+Group:		Applications/System Utilities
+URL:		http://gregory.kokanosky.free.fr/v4/linux/nrg2iso.en.html
+License:	GPLv2+
+Version:	0.4
+Source:		http://gregory.kokanosky.free.fr/v4/linux/nrg2iso-%{version}.tar.gz
 
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep

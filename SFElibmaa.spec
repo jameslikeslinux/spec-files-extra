@@ -8,17 +8,19 @@
 %define srcname libmaa
 
 Name:		SFElibmaa
+IPS_package_name:	library/libmaa
+Group:		System/Libraries
 Summary:	Library providing low-level data structures helpful for writing compilers
 URL:		https://sourceforge.net/projects/dict/
 Meta(info.upstream):	Aleksey Cheusov <vle@gmx.net>
-Version:	1.2.0
+Version:	1.3.1
 License:	LGPLv2+
 SUNW_Copyright:	libmaa.copyright
 Source:		%sf_download/project/dict/%srcname/%srcname-%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
-BuildRequires:	SUNWscp
+BuildRequires:	compatibility/ucb
 
 # Taken from doc/libmaa.tex in the distribution tarball
 %description
@@ -54,10 +56,6 @@ export LDFLAGS="%_ldflags"
 
 ./configure --prefix=%_prefix
 
-# Be modern and use libxnet instead of libsocket
-#sed 's/-lsocket -lnsl/-lxnet/' Makefile > Makefile.xnet
-#mv Makefile.xnet Makefile
-
 gmake -j$CPUS
 
 
@@ -82,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Dec 17 2011 - Alex Viskovatoff
+- Bump to 1.3.1
 * Wed Jul 20 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Sat Jun 11 2011 - Alex Viskovatoff

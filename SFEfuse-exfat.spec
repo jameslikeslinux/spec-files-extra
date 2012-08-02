@@ -13,7 +13,7 @@
 
 Name:                    SFEfuse-exfat
 Summary:                 Free exFAT file system implementation
-Version:                 0.9.5
+Version:                 0.9.6
 License:                 GPLv3
 SUNW_copyright:          fuse-exfat.copyright
 Source:			 http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
@@ -76,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man/man8/*.8
 
 %changelog
+* Mon Feb 13 2012 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 0.9.6
 * Tue Nov 1 2011 - Ken Mays <kmays2000@gmail.com>
 - Bumped to 0.9.5
 - Tested on oi_151 and libfuse 20100615

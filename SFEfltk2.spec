@@ -8,14 +8,15 @@
 %define src_name	fltk
 
 Name:		SFEfltk2
+IPS_Package_Name:	library/desktop/fltk
 Summary:	A C++ user interface toolkit
-Version:	2.0.x-alpha-r8800
-IPS_component_version: 2.0.0.0.8800
+Version:	2.0.x-alpha-r9204
+IPS_component_version: 2.0.0.0.9204
 Source:		ftp://ftp.easysw.com/pub/%{src_name}/snapshots/%{src_name}-%{version}.tar.bz2
 URL:		http://www.fltk.org/
 License:	FLTK and LGPLv2
 SUNW_Copyright:	fltk2.copyright
-Group:		Development/Libraries
+Group:		Desktop (GNOME)/Libraries
 Patch1:		fltk2-01-scandir.diff
 Patch2:		fltk2-02-sunstudio.diff
 Patch3:		fltk2-03-test.diff
@@ -97,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(0755, root, bin) %{_mandir}/man3
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to r9204
 * Sun Sep 25 2011 - Milan Jurik
 - fix Sun Studio build
 * Wed Aug 24 2011 - Ken Mays <kmays2000@gmail.com>

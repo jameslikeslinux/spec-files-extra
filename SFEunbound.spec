@@ -6,13 +6,14 @@
 %include Solaris.inc
 
 Summary:	Validating, recursive, and caching DNS resolver
+IPS_Package_Name:	service/network/dns/unbound
 Name:		SFEunbound
-Version:	1.4.13
+Version:	1.4.17
 License:	BSD
 URL:		http://www.nlnetlabs.nl/unbound/
 Source:		http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.xml
-Group: System Environment/Daemons
+Group:		System/Services
 BuildRoot:	%{_tmppath}/unbound-%{version}-build
 SUNW_Copyright:	unbound.copyright
 SUNW_BaseDir:	/
@@ -55,6 +56,7 @@ LDFLAGS="-lsocket -lnsl" \
 	--enable-sha2 \
 	--with-solaris-threads \
 	--without-pthreads \
+	--disable-ecdsa \
 	--disable-gost \
 	--with-conf-file=%{_sysconfdir}/unbound/unbound.conf \
 	--with-pidfile=%{_localstatedir}/run/unbound.pid
@@ -130,6 +132,12 @@ user ftpuser=false gcos-field="Unbound Reserved UID" username="unbound" password
 %{_libdir}/libunbound*
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 1.4.17
+* Tue May 15 2012 - Milan Jurik
+- bump to 1.4.16
+* Mon Dec 19 2011 - Milan Jurik
+- bump to 1.4.14
 * Fri Sep 16 2011 - Milan Jurik
 - bump to 1.4.13
 * Mon Jul 25 2011 - N.B.Prashanth

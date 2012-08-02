@@ -1,0 +1,50 @@
+--- cppcheck-1.54/lib/checkmemoryleak.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/checkmemoryleak.cpp	2012-05-19 01:07:00.765425105 -0700
+@@ -28,6 +28,7 @@
+ #include <sstream>
+ #include <set>
+ #include <stack>
++#include <strings.h>
+ 
+ //---------------------------------------------------------------------------
+ 
+--- cppcheck-1.54/lib/path.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/path.cpp	2012-05-19 01:14:57.709126568 -0700
+@@ -22,6 +22,7 @@
+ #include <cstring>
+ #include <cctype>
+ #include "path.h"
++#include <strings.h>
+ 
+ /** Is the filesystem case insensitive? */
+ static bool caseInsensitiveFilesystem()
+--- cppcheck-1.54/lib/tokenize.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/tokenize.cpp	2012-05-19 01:16:58.140385375 -0700
+@@ -38,6 +38,7 @@
+ #include <cctype>
+ #include <stack>
+ #include <cstdlib>
++#include <strings.h>
+ 
+ //---------------------------------------------------------------------------
+ 
+--- cppcheck-1.54/lib/token.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/token.cpp	2012-05-19 01:18:07.723280749 -0700
+@@ -27,6 +27,7 @@
+ #include <cctype>
+ #include <sstream>
+ #include <map>
++#include <strings.h>
+ 
+ Token::Token(Token **t) :
+     tokensBack(t),
+--- cppcheck-1.54/test/testtokenize.cpp	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/test/testtokenize.cpp	2012-05-19 01:30:49.122577298 -0700
+@@ -22,6 +22,7 @@
+ #include "token.h"
+ #include "settings.h"
+ #include <cstring>
++#include <strings.h>
+ 
+ extern std::ostringstream errout;
+ class TestTokenizer : public TestFixture {

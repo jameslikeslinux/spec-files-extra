@@ -1,0 +1,11 @@
+--- mplayer/configure.orig	2012-04-29 15:22:57.849822352 +0200
++++ mplayer/configure	2012-04-29 16:01:27.685539533 +0200
+@@ -5598,7 +5598,7 @@
+   _real=no
+   res_comment="dynamic loader support needed"
+   if test "$_dl" = yes || test "$_win32dll" = yes &&
+-     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32) ; then
++     (linux || freebsd || netbsd || openbsd || dragonfly || darwin || win32 || sunos) ; then
+     _real=yes
+   fi
+ fi

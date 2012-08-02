@@ -14,8 +14,10 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 Name:                    SFEperl-%{module_package_name}
+IPS_Package_Name:	library/perl-5/digest-sha1
 Summary:                 %{module_name}-%{module_version} PERL module
 License:                 GPL+ or Artistic
+Group:		Development/Perl
 SUNW_Copyright:          digest-sha1.copyright
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/GAAS/%{module_name}-%{module_version}.tar.gz
@@ -53,6 +55,8 @@ cd %{module_name}-%{module_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+find $RPM_BUILD_ROOT -name .packlist -exec %{__rm} {} \;
+
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -72,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sat May 12 2012 - Thomas Wagner
+- remove file .packlist
 * Fri Jul 29 2011 - Alex Viskovatoff
 - add SUNW_Copyright
 * Fri Jun 23 2011 - Thomas Wagner

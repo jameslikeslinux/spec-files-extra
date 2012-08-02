@@ -10,15 +10,14 @@
 %include Solaris.inc
 
 Name:		SFEaxel
+IPS_Package_Name:	web/axel
 Summary:      	HTTP/FTP download manager 
 Version:       	2.4
 License:	GPLv2+
 SUNW_Copyright: axel.copyright
 Url: 		http://axel.alioth.debian.org/
 Source:	 	http://alioth.debian.org/frs/download.php/3015/axel-2.4.tar.gz
-Group:		Applications/Accessories
-Distribution:   OpenSolaris
-Vendor:		OpenSolaris Community
+Group:		Applications/Internet
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_Basedir:   %{_basedir}
 %include default-depend.inc

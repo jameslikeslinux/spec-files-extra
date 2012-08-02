@@ -13,6 +13,7 @@
 %endif
 
 Name:		SFEenscript
+IPS_Package_Name:	text/enscript
 Summary:	Converts text to PostScript, HTML or RTF, with syntax highlighting
 Group:		Applications/Graphics and Imaging
 URL:		http://www.gnu.org/s/enscript/

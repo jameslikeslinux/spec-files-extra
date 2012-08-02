@@ -8,11 +8,12 @@
 %include Solaris.inc
 
 Name:                SFEmtr
+IPS_Package_Name:	network/mtr
 Summary:             Ping/Traceroute network diagnostic tool with GTK support
 License:             GPLv2
 SUNW_Copyright:      mtr.copyright
 URL:                 http://www.bitwizard.nl/mtr/
-Version:             0.80
+Version:             0.82
 Source:              ftp://www.BitWizard.nl/mtr/mtr-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -63,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/*
 
 %changelog
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 0.82
 * Sun Jul 24 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Wed Mar 16 2011 - Milan Jurik

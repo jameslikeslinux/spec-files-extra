@@ -1,0 +1,10 @@
+--- tools/qdoc3/cppcodemarker.cpp	Sat Jan  7 09:07:04 2012
++++ tools/qdoc3/cppcodemarker.cpp	Sat Jan  7 09:07:00 2012
+@@ -48,6 +48,7 @@
+ #include "node.h"
+ #include "text.h"
+ #include "tree.h"
++#include "ctype.h"
+ 
+ QT_BEGIN_NAMESPACE
+ 

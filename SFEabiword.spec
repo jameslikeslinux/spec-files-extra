@@ -15,13 +15,14 @@
 %use abiword = abiword.spec
 
 Name:               SFEabiword
+IPS_Package_Name:	desktop/word-processor/abiword
 Summary:            %abiword.summary
 Version:            %{default_pkg_version}
 URL:                http://www.abisource.com/
 License:            GPLv2
 SUNW_BaseDir:       %{_basedir}
 SUNW_Copyright:     %{name}.copyright
-Group:		    Office/Spreadsheet
+Group:		    Applications/Office
 BuildRoot:          %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 

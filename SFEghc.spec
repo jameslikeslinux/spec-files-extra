@@ -6,6 +6,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 %define cc_is_gcc 1
 %include base.inc
 
@@ -23,7 +24,7 @@
 
 Name:		SFEghc 
 Summary:	The Glorious Glasgow Haskell Compilation System
-Version:	7.2.1
+Version:	7.2.2
 Release:	1
 License:	GHC License
 SUNW_Copyright:	ghc.copyright
@@ -63,7 +64,7 @@ Haskell home page at http://haskell.org/.
 
 BuildRequires: 	SUNWgcc
 BuildRequires:	SUNWgsed
-#BuildRequires:	SFExz
+BuildRequires:	%{pnm_buildrequires_SFExz}
 Requires: 	SUNWgcc
 
 %if %SFEgmp
@@ -129,7 +130,7 @@ export LDFLAGS='-L/usr/gnu/lib -R/usr/gnu/lib'
 export LDFLAGS="-L%{_libdir} -R%{_libdir}"
 %endif
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 chmod +x configure
 # Note GHC conf does not support differing host/target (i.e., cross-compiling)
@@ -202,6 +203,10 @@ rm -rf /var/tmp/ghc-%bootstrap-bin
 
 
 %changelog
+* Sat Jun 23 2012 - Thomas Wagner
+- change to (Build)Requires pnm_buildrequires_SFExz (solves SFExz conflict w/ compress/xz), %include packagenamemacros.inc
+* Fri Jan 13 2012 - Alex Viskovatoff
+- Bump to 7.2.2
 * Sat Aug 20 2011 - Alex Viskovatoff
 - Bump to 7.2.1
 * Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>

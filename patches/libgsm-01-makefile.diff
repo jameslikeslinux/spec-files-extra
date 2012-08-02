@@ -93,20 +93,21 @@
  		$(GSM_INSTALL_INC)/gsm.h		\
  		$(GSM_INSTALL_MAN)/gsm.3		\
  		$(GSM_INSTALL_MAN)/gsm_explode.3	\
-@@ -301,14 +303,13 @@
+@@ -301,14 +303,14 @@
  
  $(LIBGSM):	$(LIB) $(GSM_OBJECTS)
  		-rm $(RMFLAGS) $(LIBGSM)
 -		$(AR) $(ARFLAGS) $(LIBGSM) $(GSM_OBJECTS)
 -		$(RANLIB) $(LIBGSM)
 +		$(LD) -G $(GSM_OBJECTS) -o $(LIBGSM) $(LDFLAGS)
++		ln -sf libgsm.so.$(MAJOR) $(LIB)/libgsm.so
  
  
  # Toast, Untoast and Tcat -- the compress-like frontends to gsm.
  
  $(TOAST):	$(BIN) $(TOAST_OBJECTS) $(LIBGSM)
 -		$(LD) $(LFLAGS) -o $(TOAST) $(TOAST_OBJECTS) $(LIBGSM) $(LDLIB)
-+		$(LD) $(LFLAGS) -o $(TOAST) $(TOAST_OBJECTS) -lgsm -L./lib $(LDLIB)
++		$(LD) $(LFLAGS) -o $(TOAST) $(TOAST_OBJECTS) -L./lib -lgsm $(LDLIB)
  
  $(UNTOAST):	$(BIN) $(TOAST)
  		-rm $(RMFLAGS) $(UNTOAST)
@@ -118,7 +119,7 @@
 +$(GSM_INSTALL_LIB)/libgsm.so.$(MAJOR):	$(LIBGSM)
  		-rm $@
  		cp $? $@
-+		( cd $(GSM_INSTALL_LIB) ; ln -s libgsm.so.$(MAJOR) libgsm.so )
++		( cd $(GSM_INSTALL_LIB) ; ln -sf libgsm.so.$(MAJOR) libgsm.so )
  		chmod 444 $@
- 
- 
+
+

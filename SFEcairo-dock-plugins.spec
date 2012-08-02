@@ -14,12 +14,14 @@
 
 %define	src_name	cairo-dock-plugins
 %define ver_major	2.3.0
-%define ver_minor	3
+%define ver_minor	3.1
 
 %define SUNWlibxklavier %(/usr/bin/pkginfo -q SUNWlibxklavier && echo 1 || echo 0)
 
 Name:           SFEcairo-dock-plugins
-Summary:        cairo-dock plugins
+IPS_Package_Name:	desktop/dock/cairo-dock/plugins
+Summary:        Plugins for Cairo-Dock
+Group:		Applications/Plug-ins and Run-times
 Version:        %{ver_major}.%{ver_minor}
 License:        GPLv3+ and LGPLv2+
 SUNW_Copyright: cairo-dock-plugins.copyright
@@ -66,7 +68,7 @@ Requires:	%{name}
 %endif
 
 %prep
-%setup -q -n %{src_name}-%{ver_major}~%{ver_minor}
+%setup -q -n %{src_name}-%{ver_major}~3
 %patch1 -p1
 %patch2 -p1
 

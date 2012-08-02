@@ -12,8 +12,10 @@
 %define srcname djview
 
 Name:		SFEdjview
+IPS_Package_Name:	desktop/djview
 Summary:	DjVu file viewer
 URL:		http://djvu.sourceforge
+Group:		Applications/Office
 Vendor:		Léon Bottou
 License:	GPLv2+
 SUNW_Copyright:	djview.copyright
@@ -24,11 +26,11 @@ BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
 BuildRequires:	SFEgcc
-BuildRequires:	SFEqt47-gpp-devel
+BuildRequires:	SFEqt-gpp-devel
 BuildRequires:	SFEdjvulibre-devel
 
 Requires:	SFEgccruntime
-Requires:	SFEqt47-gpp
+Requires:	SFEqt-gpp
 Requires:	SFEdjvulibre
 
 
@@ -38,7 +40,7 @@ Requires:	SFEdjvulibre
 
 %build
 
-CPUS=$(psrinfo | awk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export CC=gcc
 export CXX=g++

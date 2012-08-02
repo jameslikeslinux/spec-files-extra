@@ -17,6 +17,7 @@
 %use gtkmm = gtkmm.spec
 
 Name:                    SFEgtkmm-gpp
+IPS_Package_Name:	library/desktop/g++/gtkmm
 Summary:                 C++ Wrapper for the Gtk+ Library (g++-built)
 Group:                   Desktop (GNOME)/Libraries
 License:                 LGPLv2+    

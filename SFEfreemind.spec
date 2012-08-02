@@ -5,20 +5,21 @@
 #
 %include Solaris.inc
 
-%define src_version	0.9.0_RC_7
+%define src_version	0.9.0
 
-Name:		    SFEfreemind
-Summary:	    FreeMind - free mind-mapping software.
-Version:	    0.9.0.1.7
-License:	    GPLv2
-Group:		    Applications
-Source:         http://heanet.dl.sourceforge.net/sourceforge/freemind/freemind-src-%{src_version}.tar.gz
-Source1:        freemind.desktop
-Patch0:         freemind-01-use_bash.diff
-URL:		    http://freemind.sourceforge.net/wiki/index.php/Main_Page
+Name:		SFEfreemind
+IPS_Package_Name:	desktop/freemind
+Summary:	FreeMind - free mind-mapping software.
+Version:	0.9.0.10
+License:	GPLv2
+Group:		Applications
+Source:		%{sf_download}/freemind/freemind-src-%{src_version}.tar.gz
+Source1:	freemind.desktop
+Patch0:		freemind-01-use_bash.diff
+URL:		http://freemind.sourceforge.net/wiki/index.php/Main_Page
 SUNW_BaseDir:	%{_basedir}
 SUNW_Copyright: %{name}.copyright
-BuildRoot:	    %{_tmppath}/%{name}-%{src_version}-build
+BuildRoot:	%{_tmppath}/%{name}-%{src_version}-build
 BuildRequires:  SUNWant
 BuildRequires:  SUNWj6dev
 Requires:       SUNWj6rt
@@ -77,6 +78,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/applications/freemind.desktop
 
 %changelog
+* Sun Feb 12 2012 - Milan Jurik
+- bump to 0.9.0
 * Sun May 09 2010 - Milan Jurik
 - update to 0.9.0_RC7
 * Mon Jun 16 2008 - darren.kenny@sun.com

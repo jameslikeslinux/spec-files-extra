@@ -1,7 +1,7 @@
 #
-# spec file for package SFEsmplayer
+# spec file for package SFEarora
 #
-# includes module: smplayer
+# includes module: arora
 #
 
 %include Solaris.inc
@@ -10,9 +10,11 @@
 %define srcname arora
 
 Name:		SFEarora
+IPS_Package_Name:	web/browser/arora
 Summary:	Lightweight Web browser using QtWebKit
 URL:		http://code.google.com/p/arora
 License:	GPLv2
+Group:		Applications/Internet
 SUNW_Copyright:	arora.copyright
 Version:	0.11.0
 Source:		http://%srcname.googlecode.com/files/%srcname-%version.tar.gz

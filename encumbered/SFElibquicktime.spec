@@ -13,6 +13,7 @@
 %use libquicktime = libquicktime.spec
 
 Name:		SFElibquicktime
+IPS_Package_Name:	video/quicktime
 Summary:	%{libquicktime.summary}
 Version:	%{libquicktime.version}
 URL:		http://libquicktime.sourceforge.net/
@@ -133,6 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Nov 20 2011 - Milan Jurik
+- add IPS package name
 * Tue Jan 25 2011 - Milan Jurik
 - update to 1.2.2
 * Sun Apr 18 2010 - Milan Jurik

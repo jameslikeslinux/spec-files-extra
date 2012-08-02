@@ -11,6 +11,7 @@
 %include Solaris.inc
 
 Name:                SFEpy26goocanvas
+IPS_Package_Name:	library/python-2/python-goocanvas-26
 URL:                 http://developer.berlios.de/projects/pygoocanvas/
 Summary:             pygoocanvas - GooCanvas python 2.6 bindings
 Version:             0.14.1

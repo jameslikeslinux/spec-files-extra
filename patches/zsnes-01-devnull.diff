@@ -1,0 +1,22 @@
+--- a/src/linux/safelib.c	2012-01-01 21:58:55.419980667 -0500
++++ b/src/linux/safelib.c	2012-01-01 21:59:17.432778866 -0500
+@@ -24,7 +24,7 @@
+ #include <sys/param.h>
+ #include <sys/wait.h>
+ #include <signal.h>
+-#include <paths.h>
++#define _PATH_DEVNULL "/dev/null"
+ #include <grp.h>
+ #include <pwd.h>
+ 
+--- a/src/tools/strutil.h	2012-01-01 22:21:13.463018369 -0500
++++ b/src/tools/strutil.h	2012-01-01 22:21:39.969044045 -0500
+@@ -25,6 +25,8 @@
+ #include <string>
+ #include <vector>
+ #include <cctype>
++#include <cstring>
++#include <cstdlib>
+ 
+ struct ci_char_traits : public std::char_traits<char>
+ {

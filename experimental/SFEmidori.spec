@@ -20,7 +20,7 @@
 %define srcname midori
 
 Name:           SFEmidori
-Version:        0.4.0
+Version:        0.4.4
 Release:        1
 License:        LGPLv2.1
 SUNW_copyright: midori.copyright
@@ -152,6 +152,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif 
  
 %changelog
+* Wed Jun 6 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.4.4
+* Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.4.3
 * Mon Oct  3 2011 - Alex Viskovatoff
 - Fix file attributes
 * Sun Oct  2 2011 - Ken Mays <kmays2000@gmail.com>

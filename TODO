@@ -159,8 +159,16 @@ SFEtransmageddon.spec: use pnm_python_default  and *test* if it works
 #resolved# SFEqt-gpp.spec -> Qt*pc wrong setting mysql: Libs.private: -L/usr/gnu/lib -L/usr/g++/{mysql/5.1/lib}  ...
 
 32)
-check for identical/alias packages in SFE which have similar *new* packages in SUNW, create pnm_macro rules for them
+check in S11 and OI which packages got added with S11 Updates and with OI151a<n>
+and create pnm_macro rules to simplify (Build)Requires in the consuming spec-files
+check for identical/alias packages in SFE which have similar *new* packages in 
+SUNW, create pnm_macro rules for them. 
+Those packages below are known to have a good replacement in the distro: 
+(else: relocate ours to /usr/gnu. "not:" to collect replacements not usable for SFE)
 SFEaalib (1.4.0 1.4rc5) SUNWaalib library/aalib@1.4.5
+
+not: OI gcc 4.4  (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
+not: S11 gcc 4.x (missing LINK_LIBGCC_SPEC, not versioned package and directory layout)
 
 33)
 pkgbuild.wiki: Review lonely pages in draft status and enhance them, link them:
@@ -216,3 +224,33 @@ SFEwxwidgets: The following packages all deliver file actions to usr/include/wx-
   pkg://localhost/SFEwxwidgets@2.8.10,5.11-0.170:20110921T212701Z
   pkg://solaris/library/graphics/wxwidgets@2.8.12,5.11-0.172:20110815T100013Z
 
+42)
+need a better method for AMD/Intel specific instructions, generic binary repos can't build
+binariy with instructions specific to the local CPU used for building the package.
+Check if it is necessary/usefull to make AMD/Intel specific distinction at all (who can tell).
+SFEffmpeg.spec, SFEmplayer2.spec
+
+43)
+make css a dependency in vlc
+add "easy-rsa2 scripts to openvpn package (convenient and common way to generte certificates)
+
+44)
+verify that nvidia package does not change compile results of packages. If it doesn't,
+deprecate adding Requires: nvidia. It can be set as BuildRequires: if that changes
+the resulting package in an imporant way. Examples: ffmpeg compiles with nvidia
+package present or absend, binary compare and/or functional and/or performance comparison.
+
+45)
+check those package names SVR4 and IPS for always lowercase (and spec file filenames)
+Update new names in (Build)Requires of other spec files as well
+SFEXaw3d
+(search for more)
+
+46)
+set categories for all packages (at least for those which alread have IPS_package_names)
+search for example packages with more then one category, to have multi-purpose packages
+appear in all relevant category displays
+package name                   category
+xypackage                      xycategory-first
+xypackage                      xycategory-second
+zzpackage                      zzcategory

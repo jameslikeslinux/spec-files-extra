@@ -5,13 +5,14 @@
 %include Solaris.inc
 
 Name:		SFEenet
+IPS_Package_Name:	system/library/enet
 Summary:	Relatively thin, simple and robust network communication layer on top of UDP
-Version:	1.2.2
+Version:	1.2.5
 License:	MIT
 SUNW_Copyright:	enet.copyright
 URL:		http://enet.bespin.org/
 Source:		http://enet.bespin.org/download/enet-%{version}.tar.gz
-Group:		Development/Libraries
+Group:		System/Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -65,6 +66,8 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Tue Feb 07 2012 - Milan Jurik
+- bump to 1.2.5
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Thu Mar 17 2011 - Thomas Wagner

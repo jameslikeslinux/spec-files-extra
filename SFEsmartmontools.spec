@@ -47,7 +47,7 @@ export LDFLAGS="%_ldflags"
 	    --sysconfdir=%{_sysconfdir}			\
 	    --sbindir=%{_sbindir}			\
 	    --datadir=%{_datadir}			\
-	    --docdir=%{_docdir}				\
+	    --docdir=%{_docdir}/%{src_name}		\
 	    --mandir=%{_mandir}
 
 make -j$CPUS 
@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/*
+%{_docdir}/%{src_name}/*
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1m
 %{_mandir}/man1m/*

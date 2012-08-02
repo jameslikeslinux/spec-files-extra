@@ -10,13 +10,14 @@
 %define src_url http://archive.xfce.org/src/xfce/libxfce4util/4.8
 
 Name:		SFElibxfce4util
+IPS_Package_Name:	library/desktop/libxfceutil
 Summary:	Utility library for the Xfce desktop environment
 License:	LGPLv2+
 SUNW_Copyright:	libxfce4util.copyright
 Version:	4.8.2
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Libraries
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc

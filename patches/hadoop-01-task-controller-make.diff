@@ -1,0 +1,12 @@
+--- hadoop-1.0.2/src/c++/task-controller/Makefile.am	2012-03-24 17:01:40.000000000 -0700
++++ hadoop-1.0.2-patched/src/c++/task-controller/Makefile.am	2012-04-27 13:45:10.833377326 -0700
+@@ -14,7 +14,8 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-AM_CFLAGS=-I$(srcdir)/impl -Wall -g -Werror
++AM_CFLAGS=-I$(srcdir)/impl -I/usr/include/ast -Wall -g
++AM_LDFLAGS=/usr/lib/libast.so.1
+ 
+ # Define the programs that need to be built
+ bin_PROGRAMS = task-controller

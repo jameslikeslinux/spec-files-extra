@@ -6,13 +6,13 @@
 %include Solaris.inc
 
 %define src_name    murrine
-%define src_url     http://murrine.netsons.org/files
+%define src_url     http://www.cimitan.com/murrine/files
 
 Name:			SFEmurrine-engine
 Summary:		A GTK2 engine with a modern glassy look
 Version:		0.53.1
-Source:         %{src_url}/%{src_name}-%{version}.tar.bz2
-URL:			http://murrine.netsons.org
+Source:                 %{src_url}/%{src_name}-%{version}.tar.bz2
+URL:			http://www.cimitan.com/murrine
 BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:   %{_prefix}
 
@@ -61,5 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*
 
 %changelog
+* Sun Apr 01 2012 - Pavel Heimlich
+- fix project url
 * Sun Oct 07 2007 - Ananth Shrinivas <ananth@sun.com>
 - Initial Spec

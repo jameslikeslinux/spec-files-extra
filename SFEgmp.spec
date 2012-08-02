@@ -34,6 +34,9 @@ SUNW_BaseDir:	%{_basedir}/%{_subdir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
+BuildRequires: SUNWlibm
+Requires: SUNWlibm
+
 %package devel
 Summary:	%{summary} - development files
 SUNW_BaseDir:	%{_basedir}/%{_subdir}
@@ -107,6 +110,11 @@ rm -rf %{buildroot}
 %{_includedir}/*
 
 %changelog
+* Fri Mar 9 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 5.0.4
+- Fixed SIMD detection on legacy x86 computers
+* Sat Jan  7 2012 - Thomas Wagner
+- add (Build)Requires: SUNWlibm
 * Mon Oct 10 2011 - Milan Jurik
 - bump to 5.0.2, go with proper multiarch
 - add IPS package name with sfe prefix to avoid collision

@@ -8,6 +8,7 @@
 %define srcname sakura
 
 Name:		SFEsakura
+IPS_Package_Name:	terminal/sakura
 Summary:	Lightweight terminal emulator based on GTK and VTE
 Group:		Applications/System Utilities
 URL:		http://www.pleyades.net/david/sakura.php

@@ -31,8 +31,8 @@ Patch4: icu-04-gnu99.diff
 export CFLAGS="%optflags"
 export CPPFLAGS=""
 %if %cc_is_gcc
-export CC=/usr/gnu/bin/gcc
-export CXX=/usr/gnu/bin/g++
+export CC=gcc
+export CXX=g++
 export CXXFLAGS="%cxx_optflags"
 %if %opt_arch64
 export LDFLAGS="%_ldflags -L/usr/gnu/lib/%bld_arch -R/usr/gnu/lib/%bld_arch"
@@ -108,16 +108,22 @@ test -f Makefile || { cat config.log ; exit 1 ; }
 #%patch2 -p1
 
 %build
+[ -z "$MAKE" ] && MAKE=gmake
+
 test -f ./runConfigureICU || cd source
 # Parallelism seems to break after a while, so finish single-threaded
 ${MAKE} ${MAKE_CPUS} || ${MAKE}
 
 %install
+[ -z "$MAKE" ] && MAKE=gmake
+
 test -f ./runConfigureICU || cd source
 ${MAKE} install DESTDIR=${RPM_BUILD_ROOT}
 
 
 %changelog
+* Wed Dec 21 2011 - James Choi
+- manually specify $MAKE if none defined
 * Mon Nov 07 2011 - Milan Jurik
 - bump to 4.8.1.1
 * Mon Apr 11 2011 - Alex Viskovatoff

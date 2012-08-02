@@ -10,10 +10,11 @@
 %include Solaris.inc
 
 Name:		SFEtransmageddon
-Summary:	Transmageddon is a video transcoder using GStreamer
-Group:		AudioVideo
+IPS_Package_Name:	gnome/media/transmageddon
+Summary:	Video transcoder using GStreamer
+Group:		Applications/Sound and Video
 License:	LGPLv2.1+
-Version:	0.16
+Version:	0.20
 URL:		http://www.linuxrising.org/
 Source:		http://www.linuxrising.org/files/transmageddon-%{version}.tar.bz2
 SUNW_Copyright: transmageddon.copyright

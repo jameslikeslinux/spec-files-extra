@@ -7,7 +7,8 @@
 
 %define	src_name openjpeg
 %define	src_url	http://www.openjpeg.org
-%define src_version 1_4_sources_r697
+
+%define major_version 1.5
 
 Name:		SFEopenjpeg
 IPS_Package_Name:	image/library/openjpeg
@@ -15,8 +16,8 @@ Group:		System/Libraries
 Summary:	Open Source multimedia framework
 License:	BSD
 SUNW_Copyright:	openjpeg.copyright
-Version:	1.4
-Source:		http://openjpeg.googlecode.com/files/openjpeg_v%{src_version}.tgz
+Version:	%{major_version}.0
+Source:		http://openjpeg.googlecode.com/files/openjpeg-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -30,7 +31,7 @@ SUNW_BaseDir:    %{_basedir}
 Requires: %name
 
 %prep
-%setup -q -n %{src_name}_v%{src_version}
+%setup -q -n %{src_name}-%{version}
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -50,10 +51,10 @@ make VERBOSE=1 -j$CPUS
 %install
 rm -rf %{buildroot}
 cd builds/unix
-make install DESTDIR=%{buildroot} INSTALL="%{_bindir}/ginstall -c -p"
+make install DESTDIR=%{buildroot}
 
 rm -f %{buildroot}/%{_includedir}/openjpeg.h
-ln -s openjpeg-%{version}/openjpeg.h %{buildroot}/%{_includedir}/openjpeg.h
+ln -s openjpeg-%{major_version}/openjpeg.h %{buildroot}/%{_includedir}/openjpeg.h
 
 %clean
 rm -rf %{buildroot}
@@ -65,13 +66,18 @@ rm -rf %{buildroot}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_mandir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/openjpeg-%{version}
+%{_docdir}/*
 
 %files devel
 %defattr (-, root, bin)
 %{_includedir}
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/openjpeg-%{major_version}
+%{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Sat Feb 18 2012 - Milan Jurik
+- bump to 1.5.0
 * Tue Oct 11 2011 - Milan Jurik
 - bump to 1.4
 - add IPS package name

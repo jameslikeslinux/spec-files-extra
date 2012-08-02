@@ -10,10 +10,13 @@
 %include packagenamemacros.inc
 
 Name:                    SFEtightvnc
+IPS_Package_Name:	desktop/remote-desktop/tightvnc
 Summary:                 VNC (Virtual Network Computing) client
 Version:                 1.3.10
+Group:		Applications/Internet
 URL:                     http://www.tightvnc.com/
 Source:                  %{sf_download}/vnc-tight/tightvnc-%{version}_unixsrc.tar.bz2
+Patch1:			tightvnc-01-csw-0003-libdix.a-after-libos.a.patch 
 License:		 GPLv2
 SUNW_Copyright:		 tightvnc.copyright
 SUNW_BaseDir:            %{_basedir}
@@ -21,13 +24,14 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWjpg
 Requires: SUNWlibmsr
-Requires: %pnm_requires_perl_default
+Requires: %{pnm_requires_perl_default}
 Requires: SUNWxwplt
 Requires: SUNWzlib
-BuildRequires: SUNWxwopt
+BuildRequires: %{pnm_buildrequires_SUNWxwopt}
 
 %prep
 %setup -q -n vnc_unixsrc
+%patch1 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -75,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jul  7 2012 - Thomas Wagner
+- change to (Build)Requires to %{pnm_buildrequires_SUNWxwopt}
+* Sat Sep  3 2011 - Thomas Wagner
+- add patch1 tightvnc-01-csw-0003-libdix.a-after-libos.a.patch 
+  to avoid: ffsl os/libos.a(WaitFor.o)\n ld: fatal: symbol referencing errors.
 * Thu Sep  1 2011 - Alex Viskovatoff
 - bump to 1.3.10; install in /usr/gnu to avoid conflict with tigervnc
 * Sun Feb 22 2009 - Thomas Wagner

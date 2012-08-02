@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Name:           SFEcheck
+IPS_Package_Name:	developer/check
 Summary:        Check - An unit testing framework for C
 Version:        0.9.8
 Source:         %{sf_download}/check/check-%{version}.tar.gz

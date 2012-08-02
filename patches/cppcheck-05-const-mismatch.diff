@@ -1,0 +1,11 @@
+--- cppcheck-1.54/lib/checkuninitvar.h	2012-04-14 22:25:08.000000000 -0700
++++ cppcheck-1.54-patched/lib/checkuninitvar.h	2012-05-19 01:42:35.059891205 -0700
+@@ -70,7 +70,7 @@
+      * @param tokens [in] the token list
+      * @param func [out] names of functions that don't handle uninitialized variables well. the function names are added to the set. No clearing is made.
+      */
+-    void analyse(const Token * tokens, std::set<std::string> &func) const;
++    void analyse(const Token * const tokens, std::set<std::string> &func) const;
+ 
+     /** Save analysis results */
+     void saveAnalysisData(const std::set<std::string> &data) const;

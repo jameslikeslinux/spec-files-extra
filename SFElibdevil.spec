@@ -10,6 +10,7 @@
 %define src_name	DevIL
 
 Name:		SFElibdevil
+IPS_Package_Name:	image/library/devil
 Summary:	Cross-platform image library
 Version:	1.7.8
 Group:		Development/Libraries

@@ -7,15 +7,15 @@
 %include Solaris.inc
 
 %define src_name xfce4-panel
-#%define src_url http://archive.xfce.org/xfce/4.8/src/
 %define src_url http://archive.xfce.org/src/xfce/xfce4-panel/4.8/
 
 Name:		SFExfce4-panel
+IPS_Package_Name:	xfce/xfce-panel
 Summary:	Xfce Panel
 Version:	4.8.6
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Applications/Panels and Applets
 License:	GPLv2+
 SUNW_Copyright: xfce4-panel.copyright
 SUNW_BaseDir:	%{_basedir}
@@ -43,7 +43,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 

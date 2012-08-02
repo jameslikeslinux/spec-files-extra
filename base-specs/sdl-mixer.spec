@@ -9,7 +9,7 @@
 
 Name:			SFEsdl-mixer
 Summary: 		Sound Mixer library for SDL
-Version:		1.2.11
+Version:		1.2.12
 URL:			http://www.libsdl.org/projects/SDL_mixer/
 License:		LGPLv2.1
 Source: 		%{src_url}/%{src_name}-%{version}.tar.gz
@@ -24,6 +24,11 @@ BuildRoot:		%{_tmppath}/%{name}-%{version}-build
 export PATH=%{_bindir}:$PATH
 export CFLAGS="%optflags" 
 export LDFLAGS="%_ldflags -lm" 
+
+if $( echo "%_libdir" | /usr/xpg4/bin/grep -q %_arch64 ) ; then
+  export LDFLAGS="$LDFLAGS -m64"
+fi
+
 ./configure --prefix=%{_prefix}                 \
             --bindir=%{_bindir}                 \
             --mandir=%{_mandir}                 \
@@ -42,6 +47,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Jul 29 2012 - Milan Jurik
+- bump to 1.2.12
 * Thu Apr 08 2010 - Milan Jurik
 - cleanup
 * Fri Mar 05 2010 - brian.cameron@sun.com

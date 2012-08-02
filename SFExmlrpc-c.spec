@@ -13,6 +13,7 @@ Name:                   SFExmlrpc-c
 Summary:                A lightweight RPC library based on XML and HTTP
 Group:                  System/Libraries
 Version:                %{xmlrpc_c.version}
+IPS_component_version:	%{xmlrpc_c.ips_component_version}
 SUNW_Copyright:         %{name}.copyright
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -54,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sat Mar 31 2012 - tropikhajma@gmail.com>
+- fix ips version
 * Tue Jun 24 2008 - trisk@acm.jhu.edu
 - Rename to SFExmlrpc-c since we don't distribute C++ libs
 - Add CFLAGS_PERSONAL for Studio

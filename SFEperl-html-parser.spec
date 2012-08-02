@@ -11,9 +11,10 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define html_parser_version 3.68
+%define html_parser_version 3.69
 
 Name:                    SFEperl-html-parser
+IPS_Package_Name:	library/perl-5/html-parser
 Summary:                 HTML-%{html_parser_version} PERL module
 Version:                 %{perl_version}.%{html_parser_version}
 Source:                  http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/HTML-Parser-%{html_parser_version}.tar.gz
@@ -73,6 +74,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon May 14 2012 - Milan Jurik
+- bump to 3.69
 * Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

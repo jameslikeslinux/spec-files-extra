@@ -1,0 +1,38 @@
+--- libvirt-0.9.10/src/Makefile.in	2012-02-13 06:28:54.000000000 -0800
++++ libvirt-0.9.10-patched/src/Makefile.in	2012-03-15 20:12:33.139402824 -0700
+@@ -2492,7 +2492,6 @@
+ UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = @UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS@
+ USE_NLS = @USE_NLS@
+ VERSION = @VERSION@
+-VERSION_SCRIPT_FLAGS = @VERSION_SCRIPT_FLAGS@
+ VGCHANGE = @VGCHANGE@
+ VGCREATE = @VGCREATE@
+ VGREMOVE = @VGREMOVE@
+@@ -3396,8 +3395,7 @@
+ 
+ # Empty source list - it merely links a bunch of convenience libs together
+ libvirt_la_SOURCES = 
+-libvirt_la_LDFLAGS = $(VERSION_SCRIPT_FLAGS)$(LIBVIRT_SYMBOL_FILE) \
+-		     -version-info $(LIBVIRT_VERSION_INFO) \
++libvirt_la_LDFLAGS = -version-info $(LIBVIRT_VERSION_INFO) \
+ 		    $(LIBVIRT_NODELETE) $(AM_LDFLAGS) \
+ 		    $(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS)
+ 
+@@ -3421,7 +3419,6 @@
+ # Remove version script from convenience library
+ test_LDFLAGS = \
+   $$(echo '$(libvirt_la_LDFLAGS)'			\
+-     |sed 's!$(VERSION_SCRIPT_FLAGS)$(LIBVIRT_SYMBOL_FILE)!!'	\
+      |sed 's!-version-info $(LIBVIRT_VERSION_INFO)!!')
+ 
+ 
+@@ -3431,8 +3428,7 @@
+ libvirt_test_la_LDFLAGS = $(test_LDFLAGS) $(AM_LDFLAGS)
+ libvirt_test_la_CFLAGS = $(AM_CFLAGS)
+ libvirt_qemu_la_SOURCES = libvirt-qemu.c
+-libvirt_qemu_la_LDFLAGS = $(VERSION_SCRIPT_FLAGS)$(LIBVIRT_QEMU_SYMBOL_FILE) \
+-			  -version-info $(LIBVIRT_VERSION_INFO) \
++libvirt_qemu_la_LDFLAGS = -version-info $(LIBVIRT_VERSION_INFO) \
+ 			  $(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS) \
+ 			  $(AM_LDFLAGS)
+ 

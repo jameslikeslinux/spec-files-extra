@@ -11,13 +11,12 @@
 
 Name:		SFEopenconnect
 IPS_Package_Name:	system/network/openconnect
-Version:	3.13
+Version:	3.99
 Summary:	Open client for Cisco AnyConnect VPN
 Group:		Productivity/Networking/Security
 License:	LGPLv2+
 URL:		http://www.infradead.org/openconnect.html
 Source:		ftp://ftp.infradead.org/pub/%{src_name}/%{src_name}-%{version}.tar.gz
-Patch1:		openconnect-01-locale.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -43,14 +42,15 @@ Requires:	%{name}
 
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
 
 %build
 
 CFLAGS="%{optflags} -D__sun__" LDFLAGS="%{_ldflags}" \
 ZLIB_CFLAGS="-I/usr/include" ZLIB_LIBS=-lz \
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-	 --disable-static --enable-shared
+	--docdir=%{_docdir}/openconnect \
+	--disable-static --enable-shared \
+	--with-vpnc-script=/etc/vpnc/vpnc-script
 
 make
 
@@ -63,7 +63,7 @@ do
   mv $i.new $i
 done
 mkdir -p %{buildroot}/%{_mandir}/man1m
-mv %{buildroot}/%{_mandir}/man8/* %{buildroot}/%{_mandir}/man1m/
+mv %{buildroot}/%{_mandir}/man8/openconnect.8 %{buildroot}/%{_mandir}/man1m/openconnect.1m
 rmdir %{buildroot}/%{_mandir}/man8
 
 %if %build_l10n
@@ -72,9 +72,6 @@ rmdir %{buildroot}/%{_mandir}/man8
 rm -rf %{buildroot}/%{_datadir}/locale
 %endif
 
-mkdir -p %{buildroot}%{_docdir}
-mv %{buildroot}%{_datadir}/openconnect %{buildroot}%{_docdir}
-
 rm -f %{buildroot}%{_libdir}/libopenconnect.la
 
 %clean
@@ -82,10 +79,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-, root, bin)
-%{_bindir}/openconnect
+%{_sbindir}/openconnect
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_datadir}/doc/openconnect
+%{_docdir}/openconnect
 %{_mandir}/man1m/*
 %{_libdir}/libopenconnect.so*
 
@@ -103,6 +100,8 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Sun Jun 17 2012 - Milan Jurik
+- bump to 3.99
 * Thu Oct 06 2011 - Milan Jurik
 - bump to 3.13
 - add IPS package name

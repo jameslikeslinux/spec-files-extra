@@ -6,12 +6,17 @@
 
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%define _prefix /usr/g++
+
 %define src_url     http://ftp.gnu.org/pub/gnu/glpk
 %define src_name    glpk
 
 Name:                SFEglpk
+IPS_Package_Name:    library/desktop/g++/glpk
 Summary:             The GNU Linear Programming Kit
-Version:             4.24
+License:             BSD
+Version:             4.47
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 URL:                 http://www.gnu.org/software/glpk
 SUNW_BaseDir:        %{_basedir}
@@ -25,6 +30,14 @@ BuildRequires:      SFEgmp-devel
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
+
+
+%description
+The GLPK (GNU Linear Programming Kit) package is intended for
+solving large-scale linear programming (LP), mixed integer
+programming (MIP), and other related problems. It is a set of
+routines written in ANSI C and organized in the form of a
+callable library.
 
 %prep
 %setup -q -n %{src_name}-%{version}
@@ -72,5 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Fri Jan 13 2012 - James Choi
+- Bump to 4.47, use /usr/g++ path
 * Tue Dec 25 2007 - Ananth Shrinivas <ananth@sun.com>
 - Initial version

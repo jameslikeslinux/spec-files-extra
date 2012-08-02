@@ -8,10 +8,12 @@
 %define src_version 0.6.0-rc1
 
 Name:                SFEiodine
+IPS_Package_Name:	service/network/iodine
 Summary:             iodine - IP over DNS is now easy
 Version:             0.5.99.1
 License:             MIT
 SUNW_Copyright:      iodine.copyright
+Group:		System/Services
 URL:                 http://code.kryo.se/iodine/
 Source:              http://code.kryo.se/iodine/iodine-%{src_version}.tar.gz
 Patch1:              iodine-01-solaris.diff

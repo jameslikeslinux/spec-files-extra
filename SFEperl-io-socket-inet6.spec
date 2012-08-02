@@ -5,7 +5,7 @@
 # (needed by: Net-DNS)
 #
 
-%define module_version 2.56
+%define module_version 2.69
 %define module_name IO-Socket-INET6
 %define module_name_major IO
 %define module_package_name io-socket-inet6
@@ -16,6 +16,7 @@
 %include packagenamemacros.inc
 
 Name:                    SFEperl-%{module_package_name}
+IPS_package_name:        library/perl-5/%{module_package_name}
 Summary:                 %{module_name}-%{module_version} PERL module
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version}.tar.gz
@@ -54,6 +55,7 @@ cd %{module_name}-%{module_version}
 make install
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/lib
+find $RPM_BUILD_ROOT -name .packlist -exec %{__rm} {} \;
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -71,6 +73,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat May 12 2012 - Thomas Wagner
+- remove file .packlist
+* Sat Mar 31 2012 - Pavel Heimlich
+- version bump
+* Tue Nov 29 2011 - Thomas Wagner
+- add IPS_package_name library/perl-5/net-dns
 * Fri Jun 23 2011 - Thomas Wagner
 - change (Build)Requires to %{pnm_buildrequires_perl_default} and make module 
   paths dynamic, define fewer directories in %files

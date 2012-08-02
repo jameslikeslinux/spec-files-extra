@@ -83,6 +83,12 @@ BuildRequires: SFElibschroedinger-devel
 Requires: SFElibschroedinger
 BuildRequires: SFErtmpdump-devel
 Requires: SFErtmpdump
+BuildRequires: SFElibass-devel
+Requires: SFElibass
+BuildRequires: SFEopenal-devel
+Requires: SFEopenal
+BuildRequires: SFElibvpx-devel
+Requires: SFElibvpx
 
 %package devel
 Summary:                 %{summary} - development files
@@ -143,6 +149,7 @@ rm -rf $RPM_BUILD_ROOT
 %hard %{_bindir}/ffplay
 %hard %{_bindir}/ffmpeg
 %hard %{_bindir}/ffprobe
+#%hard %{_bindir}/avconv
 %else
 %{_bindir}/*
 %endif
@@ -153,13 +160,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{sse2_arch}/lib*.so*
 %endif
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/doc
-%{_datadir}/doc/*
-%dir %attr(0755, root, bin) %{_datadir}/ffmpeg
-%{_datadir}/ffmpeg/*.ffpreset
-%dir %attr(0755, root, bin) %{_mandir}/man1
-%{_mandir}/man1/*
-#sometimes broken %doc -d %base_arch/ffmpeg-%version doc/developer.html doc/faq.html doc/ffmpeg.html doc/ffplay.html doc/ffprobe.html doc/ffserver.html doc/general.html doc/libavfilter.html
+%{_datadir}/ffmpeg
+%{_mandir}
 
 %files devel
 %defattr (-, root, bin)
@@ -174,17 +176,18 @@ rm -rf $RPM_BUILD_ROOT
 %if %arch_sse2
 %{_libdir}/%{sse2_arch}/ffmpeg
 %endif
-%dir %attr (0755, root, bin) %{_includedir}
-%{_includedir}/libavutil
-%{_includedir}/libavcodec
-%{_includedir}/libavfilter
-%{_includedir}/libavformat
-%{_includedir}/libavdevice
-%{_includedir}/libpostproc
-%{_includedir}/libswscale
+%{_includedir}
 
 
 %changelog
+* Sun May 27 2012 - Milan Jurik
+- bump to 0.11
+* Sun Apr 29 2012 - Pavel Heimlich
+- really add vpx dependency
+* Tue Jan 24 2012 - James Choi
+- update files for 0.10
+* Mon Dec 12 2011 - Milan Jurik
+- bump to 0.9
 * Sun Nov 13 2011 - Michael Kosarev
 - add libvpx dependency
 * Sun Oct 23 2011 - Milan Jurik

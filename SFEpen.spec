@@ -8,7 +8,7 @@
 Name:                SFEpen
 Summary:             Load balancer; makes several servers appear as one
 Version:             0.17.1
-Source:              ftp://siag.nu/pub/pen/pen-%{version}.tar.gz
+Source:              http://siag.nu/pub/pen/pen-%{version}.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -53,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
-* 
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Tue Nov 14 2006 - Eric Boutilier
 - Initial spec

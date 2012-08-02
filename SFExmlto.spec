@@ -4,24 +4,37 @@
 # includes module(s): xmlto
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:                    SFExmlto
+IPS_Package_Name:	 developer/documentation-tool/xmlto
 Summary:                 xmlto - converts an XML file into a specified format
 Group:                   Utility
-Version:                 0.0.23
+Version:                 0.0.25
 URL:                     http://fedorahosted.org/xmlto/
 Source:                  http://fedorahosted.org/releases/x/m/xmlto/xmlto-%{version}.tar.bz2
 License: 		 GPLv2
 Patch1:                  xmlto-01-find.diff
-Patch2:                  xmlto-02-Makefile-disable-validation.diff
 SUNW_Copyright:          xmlto.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: SUNWlxsl
 Requires: SUNWlxml
+%if %( expr %{osbuild} '>=' 175 )
+# Note: this is temporary since tom wants to rework the package macros
+# to handle this case in a different way. I'm not sure when Sun/Oracle
+# broke data/docbook into multiple packages. On OI it is just
+# data/docbook but on S11 175 (and probably some earlier version) it is
+# split into three packages.
+Requires: data/docbook/docbook-dtds
+Requires: data/docbook/docbook-style-dsssl
+Requires: data/docbook/docbook-style-xsl
+%else
+# Note: these are equivalent to the data/docbook package on OI
 Requires: SUNWgnome-xml-share
 Requires: SUNWgnome-xml-root
+%endif
 Requires: SUNWw3m
 Requires: SFEgnugetopt
 
@@ -29,7 +42,6 @@ Requires: SFEgnugetopt
 rm -rf %name-%version
 %setup -q -n xmlto-%version
 %patch1 -p1
-%patch2 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -65,6 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jun 24 2012 - Logan Bruns <logan@gedanken.org>
+- for now, use a conditional to choose required packages based on os.
+* Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
+- replaced requires SUNWgnome-xml-* with requires
+  data/docbook/docbook-style-xsl to make s11 happy.
+* Fri Apr 20 2011 - Logan Bruns <logan@gedanken.org>
+- bump to 0.0.25, added ips name and removed now unnecessary patch.
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Tue Apr 05 2011 - Thomas Wagner

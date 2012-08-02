@@ -9,6 +9,7 @@
 %define src_url		http://connect.creativelabs.com/openal/Downloads/ALUT
 
 Name:                   SFEfreealut
+IPS_Package_Name:	library/audio/freealut
 Summary:                free implementation of OpenAL's ALUT standard
 Version:                1.1.0
 Source:                 %{src_url}/%{src_name}-%{version}.tar.gz
