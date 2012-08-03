@@ -4,6 +4,7 @@
 # includes module(s): openvpn
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 %define srcname openvpn
 
 Name:		SFEopenvpn
@@ -12,7 +13,7 @@ Group:		System/Security
 URL:		http://openvpn.net
 License:	GPLv2
 SUNW_copyright:	openvpn.copyright
-Version:	2.2.1
+Version:	2.2.2
 Source:		http://swupdate.openvpn.net/community/releases/%srcname-%version.tar.gz
 SUNW_BaseDir:   %{_basedir}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -20,8 +21,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires: SFElzo
 Requires: SFElzo
-BuildRequires: library/security/openssl
-Requires: library/security/openssl
+BuildRequires: %{pnm_buildrequires_SUNWopenssl}
+Requires: %{pnm_requires_SUNWopenssl}
+
 
 %prep
 %setup -q -n %srcname-%version
@@ -56,6 +58,10 @@ rm -rf $RPM_BUILD_ROOT
 %_docdir/%srcname
 
 %changelog
+* Tue Jul 24 2012 - Thomas Wagner
+- change to (Build)Requires to %{pnm_buildrequires_SUNWopenssl}, %include packagenamacros.inc
+* Mon Jul  2 2012 - Thomas Wagner
+- bump to 2.2.2
 * Wed Sep 28 2011 - Alex Viskovatoff
 - Update to 2.2.1, fixing %files; add SUNW_copyright
 - openssl is not in /usr/sfw
