@@ -69,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_prefix}/%{perl_path_vendor_perl_version}
 %{_prefix}/%{perl_path_vendor_perl_version}/*
-%dir %attr(0755, root, sys) %{_bindir}
+%dir %attr(0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr(0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
@@ -87,5 +87,6 @@ rm -rf $RPM_BUILD_ROOT
 - re-work build instructions
 - use %include perl-depend.inc
 - move out or perl/
+- fix group for bindir
 * Sat Mar 05 2011 - Milan Jurik
 - initial spec
