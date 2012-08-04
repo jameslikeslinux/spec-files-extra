@@ -1,0 +1,20 @@
+--- vlc-2.0.3/modules/audio_output/oss.c.orig	2011-12-08 19:00:26.000000000 +0100
++++ vlc-2.0.3/modules/audio_output/oss.c	2012-08-04 11:42:36.377977552 +0200
+@@ -34,6 +34,7 @@
+ #include <fcntl.h>                                       /* open(), O_WRONLY */
+ #include <sys/ioctl.h>                                            /* ioctl() */
+ #include <unistd.h>                                      /* write(), close() */
++#include <sys/file.h>
+ 
+ #include <vlc_common.h>
+ #include <vlc_plugin.h>
+--- vlc-2.0.3/modules/gui/skins2/x11/x11_window.cpp.orig	2011-12-08 19:00:26.000000000 +0100
++++ vlc-2.0.3/modules/gui/skins2/x11/x11_window.cpp	2012-08-04 11:57:27.220665949 +0200
+@@ -36,6 +36,7 @@
+ #include "x11_factory.hpp"
+ 
+ #include <assert.h>
++#include <limits.h>
+ 
+ X11Window::X11Window( intf_thread_t *pIntf, GenericWindow &rWindow,
+                       X11Display &rDisplay, bool dragDrop, bool playOnDrop,
