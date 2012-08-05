@@ -9,12 +9,13 @@
 %define srcname libmatroska
 
 Name:		SFElibmatroska
+IPS_Package_Name:	 library/video/stdcxx/libmatroska
 License:	LGPL
 Summary:	Matroska Video Container
 Group:		System Environment/Libraries
 URL:		http://www.matroska.org
 Vendor:		Moritz Bunkus <moritz@bunkus.org>
-Version:	1.1.0
+Version:	1.3.0
 Source:		http://dl.matroska.org/downloads/%srcname/%srcname-%version.tar.bz2
 Patch1:		libmatroska-01-makefile.diff
 
@@ -79,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 1.3.0
 * Sat Feb  5 2011 - Alex Viskovatoff
 - Bump to 1.1.0
 * Thu Jan 27 2011 - Alex Viskovatoff
