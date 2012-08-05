@@ -12,7 +12,7 @@ Name:		SFEpessulus
 IPS_Package_Name:	gnome/pessulus
 Summary:	A lockdown editor for GNOME
 Version:	2.30.4
-Group:		Desktop (GNOME)
+Group:		Desktop (GNOME)/System Utilities
 URL:		http://live.gnome.org/Pessulus
 License:	GPLv2+
 SUNW_Copyright:	pessulus.copyright
