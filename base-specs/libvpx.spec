@@ -2,18 +2,19 @@
 # spec file for package libvpx
 #
 
-%define src_version	0.9.7-p1
 Name:		libvpx
 License:	BSD
-Version:	0.9.7.1
-Source:		http://webm.googlecode.com/files/%{name}-v%{src_version}.tar.bz2
+Version:	1.1.0
+Source:		http://webm.googlecode.com/files/%{name}-v%{version}.tar.bz2
 Patch1:		libvpx-01-shared.diff
 Patch2:		libvpx-02-mapfile.diff
+Patch3:		libvpx-03-rtcd.diff
 
 %prep
-%setup -q -n %{name}-v%{src_version}
+%setup -q -n %{name}-v%{version}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -50,6 +51,8 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 1.1.0
 * Sun Oct 23 2011 - Milan Jurik
 - bump to 0.9.7-p1
 * Fri Mar 18 2011 - Milan Jurik
