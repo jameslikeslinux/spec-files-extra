@@ -20,7 +20,7 @@ Version:                 %{perl_version}.%{html_tagset_version}
 Source:                  http://www.cpan.org/modules/by-module/HTML/HTML-Tagset-%{html_tagset_version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 SUNW_Copyright:          %{name}.copyright
-Group:                   Development
+Group:                   Development/Perl
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
 Requires:                %{pnm_requires_perl_default}
