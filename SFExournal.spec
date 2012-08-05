@@ -13,7 +13,7 @@ Summary:	Note-taking and sketching application
 Group:		Applications/Office
 URL:		http://xournal.sourceforge.net
 Meta(info.upstream):	Dennis Auroux
-Version:	0.4.5
+Version:	0.4.7
 License:	GPLv2
 SUNW_Copyright:	xournal.copyright
 Source:		http://downloads.sourceforge.net/%{srcname}/%{srcname}-%{version}.tar.gz
@@ -108,6 +108,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 0.4.7
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Thu Oct 21 2010 - Alex Viskovatoff
