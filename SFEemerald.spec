@@ -10,13 +10,14 @@
 %include Solaris.inc
 
 Name:		SFEemerald
+IPS_Package_Name:	desktop/window-manager/emerald
 Summary:      	Window decorator for compiz
 Version:       	0.8.8
 License:	GPLv2+
 SUNW_Copyright:	emerald.copyright
 Url: 		http://wiki.compiz.org/Decorators/Emerald
 Source:	 	http://releases.compiz.org/0.8.8/emerald-0.8.8.tar.gz
-Group:		Applications/Accessories
+Group:		Desktop (GNOME)/Window Managers
 Distribution:   OpenSolaris
 Vendor:		OpenSolaris Community
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build

@@ -11,12 +11,14 @@
 %define src_name emerald-themes
 
 Name:                    SFEemerald-themes
+IPS_Package_Name:	desktop/window-manager/emerald/themes
 Summary:                 themes for the emerald compiz window decorator 
 Version:                 0.5.2
 #Source:			 http://releases.compiz-fusion.org/%{version}/%{src_name}-%{version}.tar.bz2	 
 #this is too old and upstream purged all stuff. Alternate location:
 Source:                  http://pkgs.fedoraproject.org/repo/pkgs/emerald-themes/emerald-themes-0.5.2.tar.bz2/4da15bdb88def2024921b31f19b64a6f/emerald-themes-0.5.2.tar.bz2
 Patch1:			 emerald-themes-01-solaris-port.diff
+Group:		Desktop (GNOME)/Window Managers
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
