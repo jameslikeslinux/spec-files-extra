@@ -33,7 +33,7 @@ Requires:	SUNWlcms
 
 BuildRequires: 	SFEcmake
 BuildRequires: 	SUNWPython26
-BuildRequires:  SUNWcups
+BuildRequires:  SUNWcupsu
 
 SUNW_BaseDir:   %_basedir
 %include default-depend.inc
