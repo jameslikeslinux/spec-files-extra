@@ -16,15 +16,11 @@ Summary:	Tools for the Matroska video container
 Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
 Meta(info.upstream):	Moritz Bunkus <moritz@bunkus.org>
-Version:	5.0.1
+Version:	5.7.0
 License:	GPLv2
 SUNW_Copyright:	mkvtoolnix.copyright
 Source:		http://www.bunkus.org/videotools/%srcname/sources/%srcname-%version.tar.bz2
-Patch3:		mkvtoolnix-03-rmff.diff
-Patch4:		mkvtoolnix-04-mpegparser.diff
 Patch5:		mkvtoolnix-05-terminal.diff
-Patch6:		mkvtoolnix-06-r_flac.diff
-Patch7:		libebml-02-headers.diff
 
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -34,10 +30,6 @@ BuildRoot:	%_tmppath/%name-%version-build
 BuildRequires: runtime/ruby-18
 %endif
 
-# Starting with 4.7.0, MKVToolnix only links statically
-# to libebml and libmatroska
-#BuildRequires: SFElibmatroska-devel
-#Requires: SFElibmatroska
 BuildRequires: SFEboost-gpp-devel
 Requires: SFEboost-gpp
 BuildRequires: SUNWlexpt
@@ -72,12 +64,7 @@ Requires:       %name
 
 %prep
 %setup -q -n %srcname-%version
-%patch3 -p1
-%patch4 -p1
 %patch5 -p1
-%patch6 -p1
-cd lib/libebml
-%patch7 -p1
 
 %build
 
@@ -87,6 +74,8 @@ export CC=gcc
 export CXX=g++
 export USER_CXXFLAGS="%cxx_optflags -fpermissive -D_POSIX_PTHREAD_SEMANTICS"
 export USER_LDFLAGS="%_ldflags -L/usr/g++/lib -R/usr/g++/lib"
+export ZLIB_CFLAGS="-I/usr/include"
+export ZLIB_LIBS=-lz
 
 CXXFLAGS=$USER_CXXFLAGS LDFLAGS=$USER_LDFLAGS ./configure --prefix=%_prefix \
 --with-extra-includes=/usr/g++/include --with-boost-libdir=/usr/g++/lib \
@@ -124,14 +113,30 @@ rm -rf %buildroot
 %_datadir/mime/packages/%srcname.xml
 %dir %attr (-, root, other) %_datadir/icons
 %dir %attr (-, root, other) %_datadir/icons/hicolor
+%dir %attr (-, root, other) %_datadir/icons/hicolor/16x16
+%dir %attr (-, root, other) %_datadir/icons/hicolor/16x16/apps
+%_datadir/icons/hicolor/16x16/apps/*.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/24x24
+%dir %attr (-, root, other) %_datadir/icons/hicolor/24x24/apps
+%_datadir/icons/hicolor/24x24/apps/*.png
 %dir %attr (-, root, other) %_datadir/icons/hicolor/32x32
 %dir %attr (-, root, other) %_datadir/icons/hicolor/32x32/apps
-%_datadir/icons/hicolor/32x32/apps/mkvinfo.png
-%_datadir/icons/hicolor/32x32/apps/mkvmergeGUI.png
+%_datadir/icons/hicolor/32x32/apps/*.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/48x48
+%dir %attr (-, root, other) %_datadir/icons/hicolor/48x48/apps
+%_datadir/icons/hicolor/48x48/apps/*.png
 %dir %attr (-, root, other) %_datadir/icons/hicolor/64x64
 %dir %attr (-, root, other) %_datadir/icons/hicolor/64x64/apps
-%_datadir/icons/hicolor/64x64/apps/mkvinfo.png
-%_datadir/icons/hicolor/64x64/apps/mkvmergeGUI.png
+%_datadir/icons/hicolor/64x64/apps/*.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/96x96
+%dir %attr (-, root, other) %_datadir/icons/hicolor/96x96/apps
+%_datadir/icons/hicolor/96x96/apps/*.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/128x128
+%dir %attr (-, root, other) %_datadir/icons/hicolor/128x128/apps
+%_datadir/icons/hicolor/128x128/apps/*.png
+%dir %attr (-, root, other) %_datadir/icons/hicolor/256x256
+%dir %attr (-, root, other) %_datadir/icons/hicolor/256x256/apps
+%_datadir/icons/hicolor/256x256/apps/*.png
 
 %if %build_l10n
 %files l10n
@@ -140,8 +145,9 @@ rm -rf %buildroot
 %attr (-, root, other) %_datadir/locale
 %endif
 
-
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 5.7.0
 * Fri Oct 14 2011 - Alex Viskovatoff <herzen@imap.cc>
 - Bump to 5.0.1
 * Tue Aug  9 2011 - Alex Viskovatoff <herzen@imap.cc>
