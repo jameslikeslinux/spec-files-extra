@@ -14,6 +14,7 @@ URL:		http://www.cs.purdue.edu/homes/trinkle/RCS/
 Vendor:		GNU Project
 Version:        5.8
 License:	GPLv2
+Group:		Development/Source Code Management
 SUNW_Copyright:	rcs.copyright
 Source:		http://www.cs.purdue.edu/homes/trinkle/RCS/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
