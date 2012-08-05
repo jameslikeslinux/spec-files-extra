@@ -2,6 +2,7 @@
 
 	* base-specs/libvpx.spec: bump to 1.1.0
 	* SFExournal.spec: bump to 0.4.7
+	* SFElyx.spec: bump to 2.0.4
 
 2012-08-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
