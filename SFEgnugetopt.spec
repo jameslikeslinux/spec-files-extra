@@ -15,7 +15,7 @@ Summary:                getopt - a GNU getopt(3) compatible getopt utility
 License:                GPLv2
 SUNW_Copyright:         gnugetopt.copyright
 Version:                1.1.4
-Group:			Utility
+Group:			Applications/System Utilities
 URL:                    http://software.frodo.looijaard.name/getopt/
 Source:			http://software.frodo.looijaard.name/getopt/files/getopt-%{version}.tar.gz
 Patch1:                 getopt-01-locale.h.diff
