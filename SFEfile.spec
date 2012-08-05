@@ -6,21 +6,22 @@
 %include Solaris.inc
 
 %define _prefix %{_basedir}/gnu
-%define srcversion      5.07
 
-Name:                SFEfile
-Summary:             determine file type
-Version:             5.6
-License:             BSD3c
-SUNW_Copyright:      file.copyright
-Source:              ftp://ftp.astron.com/pub/file/file-%srcversion.tar.gz
+Name:		SFEfile
+IPS_Package_Name:	file/file
+Summary:	determine file type
+Version:	5.11
+Group:		Applications/System Utilities
+License:	BSD3c
+SUNW_Copyright:	file.copyright
+Source:		ftp://ftp.astron.com/pub/file/file-%version.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %prep
-%setup -q -n file-%srcversion
+%setup -q -n file-%version
 
 %build
 
@@ -69,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/*.4
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 5.11
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>

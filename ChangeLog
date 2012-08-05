@@ -10,6 +10,7 @@
 	* base-specs/libwebp.spec: bump to 0.1.99
 	* SFElibtorrent-rasterbar.spec: bump to 0.16.2
 	* SFEmenu-cache.spec: bump to 0.3.3
+	* SFEfile.spec: bump to 5.11
 
 2012-08-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
