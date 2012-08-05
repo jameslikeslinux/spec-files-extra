@@ -1,30 +1,12 @@
---- menu-cache-0.2.5/menu-cache-daemon/Makefile.am-orig	2009-08-04 18:03:48.841591000 -0500
-+++ menu-cache-0.2.5/menu-cache-daemon/Makefile.am	2009-08-04 18:03:52.220917000 -0500
-@@ -7,7 +7,6 @@ INCLUDES =				\
- 	$(DEBUG_CFLAGS)			\
- 	$(WARN_CFLAGS)			\
- 	-DMENUCACHE_LIBEXECDIR="\"$(libexecdir)\"" \
+--- menu-cache-0.3.3/libmenu-cache/Makefile.in	Sun Aug  5 15:00:28 2012
++++ menu-cache-0.3.3/libmenu-cache/Makefile.in	Sun Aug  5 15:00:58 2012
+@@ -256,1 +256,0 @@
 -	-Werror-implicit-function-declaration \
- 	$(NULL)
- 
- libexec_PROGRAMS = menu-cached
---- menu-cache-0.2.5/libmenu-cache/Makefile.am-orig	2009-08-04 18:04:04.994837000 -0500
-+++ menu-cache-0.2.5/libmenu-cache/Makefile.am	2009-08-04 18:04:09.240302000 -0500
-@@ -3,7 +3,6 @@ NULL =
- INCLUDES =				\
- 	$(GLIB_CFLAGS)			\
- 	$(MONITOR_CFLAGS)		\
+--- menu-cache-0.3.3/menu-cache-gen/Makefile.in	Sun May 20 16:53:53 2012
++++ menu-cache-0.3.3/menu-cache-gen/Makefile.in	Sun Aug  5 15:02:28 2012
+@@ -231,1 +231,0 @@
 -	-Werror-implicit-function-declaration \
- 	-DMENUCACHE_LIBEXECDIR="\"$(libexecdir)\"" \
- 	$(NULL)
- 
---- menu-cache-0.2.5/menu-cache-gen/Makefile.am-orig	2009-08-04 18:06:14.744168000 -0500
-+++ menu-cache-0.2.5/menu-cache-gen/Makefile.am	2009-08-04 18:06:17.988363000 -0500
-@@ -7,7 +7,6 @@ INCLUDES =				\
- 	$(MONITOR_CFLAGS)		\
- 	$(DEBUG_CFLAGS)			\
- 	$(WARN_CFLAGS)			\
+--- menu-cache-0.3.3/menu-cache-daemon/Makefile.in	Sun May 20 16:53:53 2012
++++ menu-cache-0.3.3/menu-cache-daemon/Makefile.in	Sun Aug  5 15:04:29 2012
+@@ -224,1 +224,0 @@
 -	-Werror-implicit-function-declaration \
- 	$(NULL)
- 
- libexec_PROGRAMS = menu-cache-gen
