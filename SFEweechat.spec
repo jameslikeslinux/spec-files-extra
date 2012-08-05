@@ -19,6 +19,7 @@
 %define srcname weechat
 
 Name:		SFE%srcname
+IPS_Package_Name:	 communication/irc/weechat
 Summary:	Lightweight console IRC client
 URL:		http://www.weechat.org/
 Vendor:		Sebastien Helleu <flashcode@flashtux.org>
