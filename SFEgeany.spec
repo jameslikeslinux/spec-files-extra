@@ -12,10 +12,11 @@
 Name:		SFEgeany
 IPS_Package_Name:	developer/geany
 Summary:	A small and lightweight integrated developer environment
-Version:	0.21
+Version:	1.22
 License:	GPLv2+
 SUNW_Copyright:	geany.copyright
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
+Patch1:		geany-01-export.diff
 URL:		http://www.geany.org/
 Group:		Development/Integrated Development Environments
 SUNW_BaseDir:	%{_basedir}
@@ -42,8 +43,9 @@ Requires:	%{name}
 
 %prep 
 %setup -q -n %{src_name}-%{version}
+%patch1 -p1
 
-./autogen.sh --prefix=%{_prefix} --mandir=%{_mandir} \
+./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
             --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir}
@@ -109,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/geany/*
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 1.22
 * Sat Dec 31 2011 - Milan Jurik
 - bump to 0.21
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>

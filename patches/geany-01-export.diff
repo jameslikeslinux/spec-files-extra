@@ -1,0 +1,5 @@
+--- geany-1.22/src/Makefile.in	Sun Aug  5 12:56:49 2012
++++ geany-1.22/src/Makefile.in	Sun Aug  5 12:57:08 2012
+@@ -471,1 +471,1 @@
+-@MINGW_FALSE@geany_LDFLAGS = -Wl,--export-dynamic
++#@MINGW_FALSE@geany_LDFLAGS = -Wl,--export-dynamic
