@@ -11,7 +11,7 @@ Summary:	LXDE menu cache
 Group:		Applications/Plug-ins and Run-times
 License:	GPLv2
 SUNW_Copyright:	menu-cache.copyright
-Version:	0.3.2
+Version:	0.3.3
 Source:		%{sf_download}/lxde/menu-cache-%{version}.tar.gz
 URL:		http://sourceforge.net/projects/lxde/
 
@@ -39,11 +39,6 @@ fi
 
 export LDFLAGS="-lsocket"
 
-libtoolize --force
-aclocal $ACLOCAL_FLAGS
-autoheader
-automake -a -c -f
-autoconf
 ./configure --prefix=%{_prefix} --libdir=%{_libdir} --libexecdir=%{_libexecdir}
 make -j$CPUS 
 
@@ -68,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 0.3.3
 * Sat Jul 23 2011 - Alex Viskovatoff
 - Add SUNW_Copyright
 * Fri Mar 05 2010 - brian.cameron@sun.com
