@@ -12,6 +12,7 @@
 %define with_SUNWruby %(pkginfo -q SFEruby && echo 0 || echo 1)
 
 Name:		SFEmkvtoolnix
+IPS_Package_Name:	media/mkvtoolnix
 Summary:	Tools for the Matroska video container
 Group:		Applications/Sound and Video
 URL:		http://www.bunkus.org/videotools/mkvtoolnix
