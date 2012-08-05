@@ -8,6 +8,7 @@
 	* SFEmkvtoolnix.spec: bump to 5.7.0
 	* SFEgeany.spec: bump to 1.22
 	* base-specs/libwebp.spec: bump to 0.1.99
+	* SFElibtorrent-rasterbar.spec: bump to 0.16.2
 
 2012-08-01  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

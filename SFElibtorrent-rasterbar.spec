@@ -16,7 +16,7 @@ Summary:	Feature complete C++ bittorrent implementation focusing on efficiency a
 Group:		System/Libraries
 URL:		http://www.rasterbar.com/products/libtorrent/
 Meta(info.upstream):	Arvid Norberg <arvid@rasterbar.com>
-Version:	0.15.8
+Version:	0.16.2
 License:	BSD with advertising
 SUNW_copyright:	%srcname.copyright
 Source:		http://libtorrent.googlecode.com/files/%srcname-%version.tar.gz
@@ -77,6 +77,8 @@ rm -rf %buildroot
 
 
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- bump to 0.16.2
 * Sat Oct 29 2011 - Alex Viskovatoff
 - Fix dependencies
 * Thu Oct 27 2011 - Alex Viskovatoff
