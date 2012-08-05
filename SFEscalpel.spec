@@ -7,8 +7,9 @@
 %include Solaris.inc
 Name:		SFEscalpel
 IPS_Package_Name:	file/scalpel
-Summary:	scalpel - A Frugal, High Performance File Carver
+Summary:	A Frugal, High Performance File Carver
 URL:		http://www.digitalforensicssolutions.com/Scalpel/
+Group:		Applications/System Utilities
 Version:	1.60
 License:	GPLv2
 SUNW_Copyright:	scalpel.copyright
