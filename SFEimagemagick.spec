@@ -29,8 +29,16 @@ BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 
 BuildRequires:	SFEjasper-devel
 Requires:	SFEjasper
+BuildRequires:	SFElibwebp-devel
+Requires:	SFElibwebp
 BuildRequires:	SUNWlibrsvg-devel
 Requires:	SUNWlibrsvg
+BuildRequires:	SUNWfftw3
+Requires:	SUNWfftw3
+BuildRequires:	SUNWlcms
+Requires:	SUNWlcms
+BuildRequires:	SUNWpango-devel
+Requires:	SUNWpango
 
 %package devel
 Summary:                 %{summary} - development files
@@ -111,8 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (-, root, sys) %_sysconfdir
 %attr (-, root, root) %_sysconfdir/ImageMagick
 
-
 %changelog
+* Sun Aug 05 2012 - Milan Jurik
+- add more build dependencies
 * Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
 - update to 6.7.6-10
 * Sun Apr 29 2012 - Logan Bruns <logan@gedanken.org>
