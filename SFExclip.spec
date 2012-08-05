@@ -5,17 +5,17 @@
 #
 %include Solaris.inc
 
-Name:                    SFExclip
-Summary:                 xclip - command line interface to the X11 clipboard
-#Group:                   
-Version:                 0.12
-Source:                  %{sf_download}/xclip/xclip/%{version}/xclip-%{version}.tar.gz
-URL:			 http://sourceforge.net/projects/xclip/
-#SUNW_Copyright:          
-License:		 GPL
-SUNW_Copyright:		 xclip.copyright
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFExclip
+IPS_Package_Name:	x11/library/xclip
+Summary:	Command line interface to the X11 clipboard
+Group:		System/X11
+Version:	0.12
+Source:		%{sf_download}/xclip/xclip/%{version}/xclip-%{version}.tar.gz
+URL:		http://sourceforge.net/projects/xclip/
+License:	GPL
+SUNW_Copyright:	xclip.copyright
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 BuildRequires: SUNWxwplt 
