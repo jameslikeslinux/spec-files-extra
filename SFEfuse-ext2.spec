@@ -8,6 +8,7 @@
 %include base.inc
 
 Name:                    SFEfuse-ext2
+IPS_Package_Name:	 system/file-system/fuse-ext2 
 Summary:                 fuse ext2 filesystem (ext2fs/ext3fs) driver
 Version:                 0.0.7
 License:                 GPLv2
@@ -18,6 +19,7 @@ Patch2:			 fuse-ext2-0.0.7-02-solaris.diff
 Patch3:			 fuse-ext2-0.0.7-03-readdir.diff
 Patch4:                  fuse-ext2-0.0.7-04-ifhwaddr.diff
 Url:                     http://alperakcan.org/?open=projects&project=fuse-ext2
+Group:		System/File System
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
