@@ -31,8 +31,8 @@ BuildRequires:		SUNWdcraw
 Requires:		SUNWdcraw
 BuildRequires:		SUNWgnome-img-editor-devel
 Requires:		SUNWgnome-img-editor
-BuildRequires:		%{pnm_buildrequires_SUNWsane_backend_devel}
-Requires:		%{pnm_requires_SUNWsane_backend}
+BuildRequires:		SUNWsane-backendu
+Requires:		SUNWsane-backendu
 
 %package devel
 Summary:                 %{summary} - development files
