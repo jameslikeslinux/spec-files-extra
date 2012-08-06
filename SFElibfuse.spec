@@ -9,11 +9,12 @@
 %define tarball_version 20100615
 
 Name:		SFElibfuse
+IPS_Package_Name:	 system/file-system/libfuse 
 Summary:	Library for FUSE
 License:	LGPLv2
 SUNW_Copyright:	libfuse.copyright
 Version:	0.%{tarball_version}
-Group:		System Environment/Libraries
+Group:		System/File System
 URL:		http://hub.opensolaris.org/bin/view/Project+fuse/
 Source:		%{src_url}/%{src_name}-%{tarball_version}.tgz
 Source1:	libfuse.exec_attr
