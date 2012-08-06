@@ -12,12 +12,14 @@
 %define SUNWlibfuse      %(/usr/bin/pkginfo -q SUNWlibfuse && echo 1 || echo 0)
 
 Name:                    SFEfuse-exfat
+IPS_Package_Name:	system/file-system/fuse-exfat
 Summary:                 Free exFAT file system implementation
 Version:                 0.9.6
 License:                 GPLv3
 SUNW_copyright:          fuse-exfat.copyright
 Source:			 http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
 Url:                     http://code.google.com/p/exfat/
+Group:		System/File System
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
