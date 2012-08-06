@@ -26,9 +26,8 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 %define _execprefix %{_prefix}
 
-BuildRequires: SUNWlibfuse
-Requires: SUNWfusefs
-Requires: SUNWlibfuse
+BuildRequires: SFElibfuse-devel
+Requires: SFElibfuse
 
 %package devel
 Summary:                 %{summary} - development files
