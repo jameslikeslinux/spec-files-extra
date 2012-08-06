@@ -11,6 +11,7 @@
 
 
 Name:                    SFEntfs-3g
+IPS_Package_Name:	system/file-system/ntfs-3g
 Summary:                 NTFS-3G Stable Read/Write Driver
 Version:                 2011.1.15
 License:                 GPLv2
@@ -18,6 +19,7 @@ License:                 GPLv2
 #temporary download location (tuxera does not keep old versions):
 Source:                  http://pkgs.fedoraproject.org/repo/pkgs/ntfs-3g/ntfs-3g-2011.1.15.tgz/15a5cf5752012269fa168c24191f00e2/ntfs-3g-2011.1.15.tgz
 Url:                     http://www.tuxera.com/community/ntfs-3g-download/
+Group:		System/File System
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
