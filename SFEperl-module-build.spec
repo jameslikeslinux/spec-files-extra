@@ -15,11 +15,13 @@
 %define modulebuild_version 0.2808
 
 Name:                    SFEperl-module-build
+IPS_Package_Name:	library/perl-5/module-build
 Summary:                 Module-Build-%{modulebuild_version} PERL module
 License:                 GPL+ or Artistic
 SUNW_Copyright:          perl-module-build.copyright
 Version:                 %{perl_version}.%{modulebuild_version}
 Source:                  http://www.cpan.org/modules/by-module/Module/Module-Build-%{modulebuild_version}.tar.gz
+Group:		Development/Perl
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}

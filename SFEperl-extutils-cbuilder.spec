@@ -15,9 +15,11 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 Name:                    SFEperl-%{module_package_name}
+IPS_Package_Name:	library/perl-5/digest-sha1
 Summary:                 %{module_name}-%{module_version} PERL module
 Version:                 %{perl_version}.%{module_version}
 Source:                   http://www.cpan.org/modules/by-module/%{module_name_major}/%{module_name}-%{module_version}.tar.gz
+Group:		Development/Perl
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
