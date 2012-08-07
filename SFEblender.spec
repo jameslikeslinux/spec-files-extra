@@ -8,7 +8,8 @@
 %define src_url http://download.blender.org/source
 
 Name:           SFEblender
-Summary:        Blender - Open source 3D creation tools
+IPS_Package_Name:	image/editor/blender
+Summary:        Open source 3D creation tools
 Version:        2.49.2
 License:        GPLv2+
 SUNW_Copyright: blender.copyright
