@@ -8,8 +8,8 @@
 
 Name:                    SFExmlto
 IPS_Package_Name:	 developer/documentation-tool/xmlto
-Summary:                 xmlto - converts an XML file into a specified format
-Group:                   Utility
+Summary:                 Converts an XML file into a specified format
+Group:                   Development/Distribution Tools
 Version:                 0.0.25
 URL:                     http://fedorahosted.org/xmlto/
 Source:                  http://fedorahosted.org/releases/x/m/xmlto/xmlto-%{version}.tar.bz2
