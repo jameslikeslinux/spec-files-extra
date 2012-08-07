@@ -9,12 +9,14 @@
 %define	src_url	http://nchc.dl.sourceforge.net/sourceforge/pupnp
 
 Name:                SFElibupnp
+IPS_Package_Name:	system/library/libupnp
 Summary:             Portable C library for UPnP
 URL:                 http://sourceforge.net/projects/pupnp/
 Version:             1.6.6
 Source:              %{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		     libupnp-01-solaris.spec
 #Patch2:	     libupnp-02-inline.spec
+Group:		System/Libraries
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
