@@ -9,11 +9,13 @@
 %define	src_url	ftp://ftp.feep.net/pub/software/%{src_name}
 
 Name:                SFElibtar
+IPS_Package_Name:	library/libtar
 Summary:             C library for manipulating POSIX tar files
 URL:                 http://www.feep.net/libtar/
 Version:             1.2.11
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 Patch1:		     libtar-01-shared.diff
+Group:		System/Libraries
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
