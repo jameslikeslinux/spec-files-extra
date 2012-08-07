@@ -8,7 +8,7 @@ Name:		blas
 Summary:	BLAS - Basic Linear Algebra Subprograms
 # In fact there is no version , we give it
 Version:	1.1
-Source:		ftp://ftp.netlib.org/blas/blas.tgz
+Source:		http://www.netlib.org/blas/blas.tgz
 #Source1:	blas.Makefile
 Group:		Math
 URL:		http://www.netlib.org/blas/
