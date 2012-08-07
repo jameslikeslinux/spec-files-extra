@@ -15,6 +15,7 @@
 %use xblas = xblas.spec
 
 Name:		SFExblas
+IPS_Package_Name:	library/math/xblas
 Version:	%{xblas.version}
 Summary:	%{xblas.summary}
 Group:		%{xblas.group}
