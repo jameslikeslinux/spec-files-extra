@@ -17,7 +17,7 @@ Version:        2.2.3
 License:        GLPv2
 Source:         %{sf_download}/netatalk/netatalk-%{version}.tar.bz2
 URL:            http://netatalk.sourceforge.net/
-Group:          Network
+Group:          System/File System
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
 
