@@ -8,6 +8,7 @@
 %define srcname libconfig
 
 Name:		SFElibconfig
+IPS_Package_Name:	library/libconfig
 Summary:	Simple library for processing structured configuration files
 Group:		System/Libraries
 URL:		http://www.hyperrealm.com/libconfig/
