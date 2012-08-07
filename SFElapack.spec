@@ -17,11 +17,12 @@
 # Tag definitions
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:		SFElapack
+IPS_Package_Name:	library/lapack
 Summary:	%{lapack.summary}
 Version:	%{lapack.version}
 License:	Lapack License
 SUNW_Copyright:	lapack.copyright
-Group:		%{lapack.group}
+Group:		System/Libraries
 URL:		%{lapack.url}
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
