@@ -17,11 +17,13 @@
 %include packagenamemacros.inc
 
 Name:                    SFEperl-%{module_package_name}
+IPS_Package_Name:	library/perl-5/razor-agents
 Summary:                 %{module_name}-%{module_version} PERL module
 License:                 Artistic 2.0
 SUNW_Copyright:          perl-razor-agents.copyright
 Version:                 %{perl_version}.%{module_version}
 Source:                  http://downloads.sourceforge.net/razor/razor-agents-%{module_version}.tar.bz2
+Group:		Development/Perl
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 BuildRequires:           %{pnm_buildrequires_perl_default}
