@@ -17,6 +17,7 @@
 %use gtksourceviewmm = gtksourceviewmm.spec
 
 Name:                    SFEgtksourceviewmm-gpp
+IPS_Package_Name:	library/desktop/g++/gtksourceviewmm
 Summary:                 %{gtksourceviewmm.summary} (g++-built)
 URL:                     %{gtksourceviewmm.url}
 Group:                   Desktop (GNOME)/Libraries
