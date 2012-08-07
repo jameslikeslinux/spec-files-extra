@@ -8,10 +8,12 @@
 %include base.inc
 
 Name:                SFElibast
+IPS_Package_Name:	 library/desktop/libast 
 Summary:             Library of Assorted Spiffy Things
 Version:             0.7
 Source:              http://eterm.org/download/libast-%{version}.tar.gz
 License:             MIT
+Group:		Desktop (GNOME)/Libraries
 SUNW_Copyright:      libast.copyright
 URL:                 http://www.eterm.org/download/
 
