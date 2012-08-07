@@ -1,0 +1,254 @@
+SFE: Adapted from the Openindiana builds
+see Bug illumos-openindiana 2172 (patch samba-358.patch)
+thanks much!
+
+removed the Makefile
+
+# HG changeset patch
+# User Gordon Ross <gwr@nexenta.com>
+# Date 1308073843 14400
+# Node ID e8a5ee19828b243405802ac7eb933baa8519ef7b
+# Parent  0fee23bdd5b7ec38e370ea631bbbd788104a9bc1
+2172 Add samba 3.5.8 configured for illumos
+
+--- samba-src/source3/configure.in.orig	Sun Mar  6 13:48:05 2011
++++ samba-src/source3/configure.in	Wed May  4 00:55:55 2011
+@@ -3379,7 +3379,7 @@
+ 
+ # HPUX only has ldap_init; ok, we take care of this in smbldap.c
+ case "$host_os" in
+-	*hpux*)
++	*hpux* | *solaris* )
+     AC_CHECK_FUNC_EXT(ldap_init,$LDAP_LIBS)
+ 
+     if test x"$ac_cv_func_ext_ldap_init" != x"yes"; then
+@@ -3436,7 +3436,7 @@
+         ;;
+       yes)
+         AC_MSG_RESULT(/usr)
+-        FOUND_KRB5=yes
++        # FOUND_KRB5=yes	# Breaks later checks!
+         ;;
+       *)
+         AC_MSG_RESULT($withval)
+@@ -3525,6 +3525,21 @@
+     fi
+   fi
+ 
++  if test x$FOUND_KRB5 = x"no"; then
++    #################################################
++    # see if this box has Solaris MIT kerberos implementation
++    AC_MSG_CHECKING(for Solaris MIT kerberos)
++    if test -x "$KRB5CONFIG" && $KRB5CONFIG --version | grep -s Solaris | grep -s MIT > /dev/null ; then
++	FOUND_KRB5=yes
++	KRB5_LIBS="-lgss -lkrb5"
++	KRB5_CFLAGS="`$KRB5CONFIG --cflags`"
++	KRB5_CPPFLAGS="`$KRB5CONFIG --cflags`"
++	AC_MSG_RESULT(yes)
++    else
++      AC_MSG_RESULT(no)
++    fi
++  fi
++
+   ac_save_CFLAGS=$CFLAGS
+   ac_save_CPPFLAGS=$CPPFLAGS
+   ac_save_LDFLAGS=$LDFLAGS
+@@ -3601,7 +3616,7 @@
+ 
+   # now check for gssapi headers.  This is also done here to allow for
+   # different kerberos include paths
+-  AC_CHECK_HEADERS(gssapi.h gssapi/gssapi_generic.h gssapi/gssapi.h com_err.h)
++  AC_CHECK_HEADERS(gssapi.h gssapi/gssapi_generic.h gssapi/gssapi.h gssapi/gssapi_krb5.h com_err.h)
+ 
+   ##################################################################
+   # we might need the k5crypto and com_err libraries on some systems
+@@ -3626,6 +3641,7 @@
+   # now see if we can find the gssapi libs in standard paths
+   if test x"$have_gssapi" != x"yes"; then
+      AC_CHECK_LIB_EXT(gssapi_krb5, KRB5_LIBS,gss_display_status,[],[],have_gssapi=yes)
++     AC_CHECK_LIB_EXT(gss, KRB5_LIBS,gss_display_status,[],[],have_gssapi=yes)
+   fi
+ 
+   AC_CHECK_FUNC_EXT(krb5_set_real_time, $KRB5_LIBS)
+--- samba-src/lib/replace/libreplace.m4.~1~	Sun Mar  6 13:48:05 2011
++++ samba-src/lib/replace/libreplace.m4	Fri Jun  3 18:11:29 2011
+@@ -5,9 +5,9 @@
+ dnl find the libreplace sources. This is meant to work both for 
+ dnl libreplace standalone builds, and builds of packages using libreplace
+ libreplacedir=""
+-libreplacepaths="$srcdir $srcdir/lib/replace $srcdir/libreplace $srcdir/../libreplace $srcdir/../replace $srcdir/../lib/replace $srcdir/../../../lib/replace"
++libreplacepaths=". lib/replace libreplace ../libreplace ../replace ../lib/replace ../../lib/replace ../../../lib/replace"
+ for d in $libreplacepaths; do
+-	if test -f "$d/replace.c"; then
++	if test -f "$srcdir/$d/replace.c"; then
+ 		libreplacedir="$d"		
+ 		AC_SUBST(libreplacedir)
+ 		break;
+@@ -34,9 +34,9 @@
+ dnl find the libreplace sources. This is meant to work both for 
+ dnl libreplace standalone builds, and builds of packages using libreplace
+ libreplacedir=""
+-libreplacepaths="$srcdir $srcdir/lib/replace $srcdir/libreplace $srcdir/../libreplace $srcdir/../replace $srcdir/../lib/replace $srcdir/../../../lib/replace"
++libreplacepaths=". lib/replace libreplace ../libreplace ../replace ../lib/replace ../../lib/replace ../../../lib/replace"
+ for d in $libreplacepaths; do
+-	if test -f "$d/replace.c"; then
++	if test -f "$srcdir/$d/replace.c"; then
+ 		libreplacedir="$d"		
+ 		AC_SUBST(libreplacedir)
+ 		break;
+--- samba-src/lib/tdb/libtdb.m4.~1~	Sun Mar  6 13:48:05 2011
++++ samba-src/lib/tdb/libtdb.m4	Wed May 25 10:50:00 2011
+@@ -20,7 +20,7 @@
+ TDB_LIBS=""
+ AC_SUBST(TDB_LIBS)
+ 
+-TDB_CFLAGS="-I$tdbdir/include"
++TDB_CFLAGS="-I${srcdir-.}/$tdbdir/include"
+ AC_SUBST(TDB_CFLAGS)
+ 
+ AC_CHECK_FUNCS(mmap pread pwrite getpagesize utime)
+--- samba-src/lib/tevent/libtevent.m4.~1~	Sun Mar  6 13:48:05 2011
++++ samba-src/lib/tevent/libtevent.m4	Fri Jun  3 18:43:53 2011
+@@ -5,10 +5,11 @@
+ 
+ if test x"$teventdir" = "x"; then
+ 	teventdir=""
+-	teventpaths="$srcdir $srcdir/../lib/tevent $srcdir/tevent $srcdir/../tevent"
++	teventpaths=". ../lib/tevent tevent ../tevent"
+ 	for d in $teventpaths; do
+-		if test -f "$d/tevent.c"; then
++		if test -f "$srcdir/$d/tevent.c"; then
+ 			teventdir="$d"
++			AC_SUBST(teventdir)
+ 			break;
+ 		fi
+ 	done
+@@ -24,7 +25,7 @@
+ AC_SUBST(TEVENT_CFLAGS)
+ AC_SUBST(TEVENT_LIBS)
+ 
+-TEVENT_CFLAGS="-I$teventdir"
++TEVENT_CFLAGS="-I$srcdir/$teventdir"
+ 
+ TEVENT_OBJ="tevent.o tevent_debug.o tevent_util.o"
+ TEVENT_OBJ="$TEVENT_OBJ tevent_fd.o tevent_timed.o tevent_immediate.o tevent_signal.o"
+--- samba-src/source3/Makefile.in.orig	Sun Mar  6 13:48:05 2011
++++ samba-src/source3/Makefile.in	Thu Jun  2 21:37:51 2011
+@@ -181,7 +181,7 @@
+ 	$(ISA) \
+ 	-I$(srcdir)/lib \
+ 	-I.. \
+-	-I../source4 \
++	-I$(srcdir)/../source4 \
+ 	-D_SAMBA_BUILD_=3
+ 
+ PATH_FLAGS = -DSMB_PASSWD_FILE=\"$(SMB_PASSWD_FILE)\" \
+@@ -1885,14 +1885,14 @@
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET)` ; \
+ 	fi
+ 	-$(INSTALLLIBCMD_A) $(LIBTALLOC_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTALLOC_HEADERS) $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTALLOC_HEADERS) $(DESTDIR)$(INCLUDEDIR)
+ 
+ uninstalllibtalloc::
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_SHARED_TARGET_SONAME)`
+ 	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBTALLOC_STATIC_TARGET)`
+-	-rm -f $(DESTDIR)${prefix}/include/talloc.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/talloc.h
+ 
+ libs:: libtalloc
+ installlibs:: @INSTALL_LIBTALLOC@
+@@ -1965,14 +1965,14 @@
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET)` ; \
+ 	fi
+ 	-$(INSTALLLIBCMD_A) $(LIBTDB_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTDB_HEADERS) $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBTDB_HEADERS) $(DESTDIR)$(INCLUDEDIR)
+ 
+ uninstalllibtdb::
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_SHARED_TARGET_SONAME)`
+ 	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBTDB_STATIC_TARGET)`
+-	-rm -f $(DESTDIR)${prefix}/include/tdb.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/tdb.h
+ 
+ libs:: libtdb
+ installlibs:: @INSTALL_LIBTDB@
+@@ -2059,13 +2059,13 @@
+ 		ln -f -s `basename $(LIBWBCLIENT_SHARED_TARGET_SONAME)` \
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET)` ; \
+ 	fi
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBWBCLIENT_HEADERS) $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBWBCLIENT_HEADERS) $(DESTDIR)$(INCLUDEDIR)
+ 
+ uninstalllibwbclient::
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBWBCLIENT_SHARED_TARGET_SONAME)`
+-	-rm -f $(DESTDIR)${prefix}/include/wbclient.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/wbclient.h
+ 
+ libs:: libwbclient
+ installlibs:: @INSTALL_LIBWBCLIENT@
+@@ -2236,14 +2236,14 @@
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET)` ; \
+ 	fi
+ 	-$(INSTALLLIBCMD_A) $(LIBNETAPI_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(srcdir)/lib/netapi/netapi.h $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(srcdir)/lib/netapi/netapi.h $(DESTDIR)$(INCLUDEDIR)
+ 
+ uninstalllibnetapi::
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_SHARED_TARGET_SONAME)`
+ 	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBNETAPI_STATIC_TARGET)`
+-	-rm -f $(DESTDIR)${prefix}/include/netapi.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/netapi.h
+ 
+ libs:: libnetapi
+ installlibs:: @INSTALL_LIBNETAPI@
+@@ -2314,8 +2314,8 @@
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET)` ; \
+ 	fi
+ 	-$(INSTALLLIBCMD_A) $(LIBSMBCLIENT_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBCLIENT_HEADERS) $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBCLIENT_HEADERS) $(DESTDIR)$(INCLUDEDIR)
+ 
+ installclientlib:: installlibsmbclient
+ 
+@@ -2323,7 +2323,7 @@
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_SHARED_TARGET_SONAME)`
+ 	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBCLIENT_STATIC_TARGET)`
+-	-rm -f $(DESTDIR)${prefix}/include/libsmbclient.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/libsmbclient.h
+ 
+ uninstallclientlib:: uninstalllibsmbclient
+ 
+@@ -2399,14 +2399,14 @@
+ 			$(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET)` ; \
+ 	fi
+ 	-$(INSTALLLIBCMD_A) $(LIBSMBSHAREMODES_STATIC_TARGET) $(DESTDIR)$(LIBDIR)
+-	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) ${prefix}/include
+-	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBSHAREMODES_HEADERS) $(DESTDIR)${prefix}/include
++	@$(SHELL) $(srcdir)/script/installdirs.sh $(INSTALLPERMS_BIN) $(DESTDIR) $(INCLUDEDIR)
++	-$(INSTALLCMD) -m $(INSTALLPERMS_DATA) $(LIBSMBSHAREMODES_HEADERS) $(DESTDIR)$(INCLUDEDIR)
+ 
+ uninstalllibsmbsharemodes::
+ 	-rm -f $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET)`
+ 	-$(UNINSTALLLIBCMD_SH) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_SHARED_TARGET_SONAME)`
+ 	-$(UNINSTALLLIBCMD_A) $(DESTDIR)$(LIBDIR)/`basename $(LIBSMBSHAREMODES_STATIC_TARGET)`
+-	-rm -f $(DESTDIR)${prefix}/include/smb_share_modes.h
++	-rm -f $(DESTDIR)$(INCLUDEDIR)/smb_share_modes.h
+ 
+ libs:: libsmbsharemodes
+ installlibs:: @INSTALL_LIBSMBSHAREMODES@

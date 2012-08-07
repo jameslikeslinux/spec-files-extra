@@ -1,0 +1,13 @@
+some *curses libraries have a function attr_get and attr_set as well,
+but that doesn't look like something to get filesystem extended attributes
+
+--- samba-3.5.15/source3/configure.in.orig	2012-06-14 15:15:47.229145318 +0200
++++ samba-3.5.15/source3/configure.in	2012-06-14 23:54:28.146948846 +0200
+@@ -1395,7 +1395,6 @@
+ 	AC_CHECK_FUNCS(removeea fremoveea lremoveea setea fsetea lsetea)
+ 	AC_CHECK_FUNCS(flistxattr removexattr lremovexattr fremovexattr)
+ 	AC_CHECK_FUNCS(setxattr lsetxattr fsetxattr)
+-	AC_CHECK_FUNCS(attr_get attr_list attr_set attr_remove)
+ 	AC_CHECK_FUNCS(attr_getf attr_listf attr_setf attr_removef)
+   ;;
+ esac
