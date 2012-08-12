@@ -20,6 +20,7 @@
 #IPS_component_version: <numeric-only>
 
 Name:                SFEdrupal7
+IPS_Package_Name:	 web/service/drupal 
 Summary:             Drupal - open-source content-management platform
 Version:             7.14
 License: 	     GPLv2
@@ -27,6 +28,7 @@ Source:              http://ftp.drupal.org/files/projects/drupal-%{version}%{src
 #Source2:             %{src_name}-htaccess-protect-backend
 Source3:             %{name}.conf.example
 URL:	             http://www.drupal.org
+Group:		Web Services/Portals
 SUNW_BaseDir:        /
 SUNW_Copyright:      %{name}.copyright
 BuildRoot:           %{_tmppath}/%{name}-%{version}%{src_name_minor_extra}-build
