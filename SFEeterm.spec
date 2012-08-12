@@ -8,6 +8,7 @@
 %include base.inc
 
 Name:                SFEeterm
+IPS_Package_Name:	terminal/eterm
 Summary:             Terminal emulator intended as a replacement for xterm
 Group:               Applications/System Utilities
 Version:             0.9.6
