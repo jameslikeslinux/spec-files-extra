@@ -1,12 +1,13 @@
 #
-# spec file for package SFEimagemagick.spec
+# spec file for package SFEgraphicsmagick.spec
 #
 # GraphicsMagick is a high-performance image processing package
 # (originally based on ImageMagick) which focuses on stability,
-# reliability, and performance while using a formal release process.
-# See http://www.graphicsmagick.org/ for more information.
+# reliability, and performance while using a formal release process
+# and providing a stable ABI.  See http://www.graphicsmagick.org/ for
+# more information.
 #
-# includes module(s): imagemagick
+# includes module(s): graphicsmagick
 #
 %include Solaris.inc
 %include packagenamemacros.inc
@@ -23,16 +24,56 @@ Source:                 %{sf_download}/graphicsmagick/GraphicsMagick-%{version}.
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%include perl-depend.inc
+#%include perl-depend.inc
 
+# JPEG-2000 library
 BuildRequires:		SFEjasper-devel
 Requires:		SFEjasper
+
+# dcraw - Decoding RAW digital photos
+# Stand-alone program. Not really a compile/link requirement
 BuildRequires:		SUNWdcraw
 Requires:		SUNWdcraw
-BuildRequires:		SUNWgnome-img-editor-devel
-Requires:		SUNWgnome-img-editor
-BuildRequires:		SUNWsane-backendu
-Requires:		SUNWsane-backendu
+
+# FreeType2 font handling library and rendering engine
+BuildRequires:		SUNWfreetype2
+Requires:		SUNWfreetype2
+
+# The Zip compression library
+BuildRequires:		SUNWzlib
+Requires:		SUNWzlib
+
+# jpeg - The Independent JPEG Groups JPEG software
+BuildRequires:		SUNWjpg-devel
+Requires:		SUNWjpg
+
+# Portable Network Graphics library
+BuildRequires:		SUNWpng-devel
+Requires:		SUNWpng
+
+# libtiff - library for reading and writing TIFF
+BuildRequires:		SUNWTiff-devel
+Requires:		SUNWTiff
+
+# Little Color Management System (legacy API)
+# Or could use SFElcms2 (modern API)
+#BuildRequires:		SUNWlcms
+#Requires:		SUNWlcms
+BuildRequires:		SFElcms2
+Requires:		SFElcms2
+
+# The XML library
+BuildRequires:		SUNWlxml-devel
+Requires:		SUNWlxml
+
+# X.Org Foundation X Client Libraries
+BuildRequires:		SUNWxorg-clientlibs
+Requires:		SUNWxorg-clientlibs
+
+# Xorg server SDK headers
+BuildRequires:		SUNWxorg-headers
+Requires:		SUNWxorg-headers
+
 
 %package devel
 Summary:                 %{summary} - development files
@@ -48,9 +89,21 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
- 
-export CPPFLAGS="-I/usr/sfw/include/freetype2 -I/usr/X11/include"
+# Check Solaris 10 and Solaris 11 freetype header locations
+for dir in /usr/include/freetype2 /usr/sfw/include/freetype2 ; do
+  if [ -d $dir ] ; then
+    CPPFLAGS="$CPPFLAGS -I$dir"
+    break
+  fi
+done
+CPPFLAGS="$CPPFLAGS -I/usr/X11/include"
+export CPPFLAGS
+
 export LDFLAGS="%_ldflags -L/usr/X11/lib -R/usr/X11/lib"
+
+export CFLAGS="%optflags"
+export CXXFLAGS="%cxx_optflags"
+
 if [ "x`basename $CC`" = xgcc ]
 then
 	%error "Building this spec with GCC is not supported."
@@ -106,6 +159,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Aug 12 2012 - Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
+- Fully qualify actual dependencies.
+- Find correct freetype headers for OS version.
+- Use correct optimization options.
+- Depend on SFElcms2 rather than SUNWlcms.
 * Tue Jul 3 2012 - Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
 - bump to 1.3.16
 * Mon Apr 28 2012 - Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
@@ -119,8 +177,8 @@ rm -rf $RPM_BUILD_ROOT
 - add SUNW_copyright and IPS_package_name
 * Tue Feb  3 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWsane_backend}
-  Requires to %{pnm_requires_SUNWsane_backend}
-  %include packagenamemacros.inc
+-  Requires to %{pnm_requires_SUNWsane_backend}
+-  %include packagenamemacros.inc
 * Sun Nov 07 2010 - Milan Jurik
 - bump to 1.3.12, add Jasper to deps, disable PerlMagic because build is broken
 * Tue Nov 17 2009 - bfriesen@simple.dallas.tx.us
