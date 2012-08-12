@@ -13,11 +13,13 @@
 #IPS_component_version: <numeric-only>
 
 Name:                SFEwordpress
-Summary:             Wordpress
+IPS_Package_Name:	 web/service/wordpress 
+Summary:             Blogging software
 Version:             3.2.1
 Source:              http://wordpress.org/wordpress-3.2.1.tar.gz
 #Source:              http://wordpress.org/wordpress-%{version}%{src_name_minor_extra}.zip
 License:	     GPLv2
+Group:		Web Services/Portals
 SUNW_Copyright:	     wordpress.copyright
 SUNW_BaseDir:        /
 URL:	             http://www.wordpress.org/index.html
