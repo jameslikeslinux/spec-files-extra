@@ -38,6 +38,7 @@
 %define with_libdca %(pkginfo -q SFElibdts && echo 1 || echo 0)
 
 Name:                    SFEmplayer2
+IPS_Package_Name:	 media/mplayer2 
 Summary:                 MPlayer fork with some additional features
 License:                 GPLv3
 SUNW_Copyright:	         mplayer2.copyright
@@ -53,6 +54,7 @@ Patch5:                  mplayer2-05-cpudetect.diff
 #https://bugs.archlinux.org/task/28759
 Patch7:			 mplayer2-07-liveMedia.diff
 Patch8:			 mplayer2-08-liveMedia-config.diff
+Group:		Applications/Sound and Video
 SUNW_BaseDir:            %_basedir
 BuildRoot:               %_tmppath/%name-build
 
