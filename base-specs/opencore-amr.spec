@@ -8,7 +8,7 @@
 
 Name:		SFEopencore-amr
 Summary:	OpenCORE AMR speech codec library
-Version:	0.1.2
+Version:	0.1.3
 URL:		http://opencore-amr.sourceforge.net/
 License:	Apache License 2.0
 Source:		%{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
@@ -59,5 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 14 2012 - Milan Jurik
+- bump to 0.1.3
 * Sun Oct 16 2009 - Milan Jurik
 - Initial spec
