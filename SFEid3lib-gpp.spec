@@ -17,6 +17,7 @@ Source:                  %{sf_download}/id3lib/id3lib-%{version}.tar.gz
 Patch1:                  id3lib-01-wall.diff
 Patch2:                  id3lib-02-uchar.diff
 Patch3:                  id3lib-03-gcc4.diff
+Patch4:		id3lib-04-iconv.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -35,6 +36,7 @@ Requires: %name
 %patch1  -p1
 %patch2  -p1
 %patch3  -p1
+%patch4  -p1
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
