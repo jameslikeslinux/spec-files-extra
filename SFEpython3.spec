@@ -52,6 +52,8 @@ yourself.
 %prep
 %setup -n %{src_name}-%{unmangled_version}
 
+sed -i -e 's,#! */bin/sh,#! /usr/bin/bash,' configure 
+
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
 
@@ -98,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/python3.2m/*
 
 %changelog
+* Thu Jul 19 2012 - Thomas Wagner
+- use bash in configure
 * Fri Apr 27 2012 - Milan Jurik
 - bump to 3.2.3
 - fix packaging
