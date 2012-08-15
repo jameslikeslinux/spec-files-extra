@@ -47,9 +47,10 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{tarball_version}-build
 
 %include default-depend.inc
-BuildRequires: SUNWsmbau
+BuildRequires: SFEyasm
+BuildRequires: %{pnm_buildrequires_SUNWsmba}
 ##TODO## check if it is sufficient to install "libsmb" or something on a recent build to get the smbclient features
-Requires: SUNWsmbau
+Requires: %{pnm_requires_SUNWsmba}
 Requires: SUNWgnome-audio
 BuildRequires: SUNWgnome-audio-devel
 Requires: SUNWxorg-clientlibs
@@ -261,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/256x256/apps/*
 
 %changelog
+* Tue Aug  8 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWsmba}
+- add missing BuildRequires: SFEyasm
 * Fri Jun 22 2012 - Milan Jurik
 - bump to 1.1
 - remove pnm_XXX for now
