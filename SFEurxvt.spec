@@ -5,6 +5,9 @@
 %define src_version 9.11
 %define version 9.11
 
+#include perl
+%define with_perl 1
+
 ##TODO## needs rework for IPS: %{version} is not truly numeric: 9.06 .. needs workaround for IPS
 #TODO# urxvt does not set terminal-size. have to use: stty rows 50; stty columns 132; export LINES=50 COLUMNS=132
 ##DONE## #TODO# cleanup environment setting CFLAGS/CXXFLAGS/LDFLAGS...
@@ -58,6 +61,10 @@ To add the terminal controls to /etc/termcap run this command after package inst
 grep "^rxvt-unicode" /etc/termcap || \
  TERMINFO=/usr/share/lib/terminfo infocmp -C rxvt-unicode >> /etc/termcap 
 
+infos about perl to use several helpers in urxvt:
+e.g. http://www.jukie.net/bart/blog/urxvt-url-yank
+
+
 %prep
 %setup -q -n rxvt-unicode-%{src_version}
 %patch10 -p1
@@ -91,7 +98,11 @@ export CXXFLAGS="%cxx_optflags"
             --enable-transparency \
             --enable-24bits \
             --enable-xft  \
-            --disable-perl \
+%if %with_perl
+--enable-perl \
+%else
+--disable-perl \
+%endif
             --enable-xgetdefault \
             --enable-mousewheel \
             --disable-menubar \
@@ -165,6 +176,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.FAQ README.configure Changes COPYING INSTALL MANIFEST
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
+%if %with_perl
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/*
+%endif
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr(-, root, sys) %{_datadir}/[l|t]*
 %{_datadir}/[l|t]*/*
@@ -183,6 +198,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Aug 16 2012 - Thomas Wagner
+- enable perl helper
 * Sat Mar 31 2012 - Pavel Heimlich
 - fix download location
 * Thu Jun 09 2011 - Thomas Wagner
