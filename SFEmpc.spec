@@ -11,7 +11,7 @@ License:             GPLv2
 SUNW_Copyright:	     mpc.copyright
 Meta(info.upstream): Max Kellermann <max@duempel.org>
 Version:             0.22
-Source:              http://downloads.sourceforge.net/project/musicpd/mpc/0.20/mpc-%version.tar.bz2
+Source:              http://downloads.sourceforge.net/project/musicpd/mpc/%{version}/mpc-%version.tar.bz2
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -73,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Fri Aug 10 2012 - Thomas Wagner
+- fix download URL
 * Thu Jul  5 2012 - Thomas Wagner
 - bump to 0.22
 * Sat Jul 23 2011 - Alex Viskovatoff
