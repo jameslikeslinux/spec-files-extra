@@ -7,10 +7,11 @@
 
 Name:                    SFEmtools
 Summary:                 mtools - utilities to access MS-DOS disks from Unix
-Version:                 3.9.11
+Version:                 4.0.17
 #Source:			 http://mtools.linux.lu/mtools-%{version}.tar.bz2
 #temporary download location (they do not keep <4.0 files)
-Source:                  http://pkgs.fedoraproject.org/repo/pkgs/mtools/mtools-3.9.11.tar.bz2/8508a3ea9b612a926f3ed0f229e6c21a/mtools-3.9.11.tar.bz2
+#Source:                  http://pkgs.fedoraproject.org/repo/pkgs/mtools/mtools-3.9.11.tar.bz2/8508a3ea9b612a926f3ed0f229e6c21a/mtools-3.9.11.tar.bz2
+Source:			ftp://ftp.gnu.org/gnu/mtools/mtools-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -25,7 +26,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CFLAGS="%optflags"
-export LDFLAGS="%_ldflags"
+export LDFLAGS="%_ldflags -lnsl"
 
 ./configure --prefix=%{_prefix}			\
 	    --mandir=%{_mandir}                 \
@@ -77,6 +78,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/*
 
 %changelog
+* Tue Jul 24 2012 - Thomas Wagner
+- bump to 4.0.17
 * Sun Apr 01 2012 - Pavel Heimlich
 - download location
 * Wed Oct 10 2007 - trisk@acm.jhu.edu
