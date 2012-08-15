@@ -16,6 +16,7 @@
 %define build_encumbered %{?_without_encumbered:0}%{?!_without_encumbered:1}
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define srcname mpd
 
@@ -25,8 +26,8 @@ Summary:             Daemon for remote access music playing & managing playlists
 License:             GPLv2
 SUNW_Copyright:	     mpd.copyright
 Meta(info.upstream): Max Kellermann <max@duempel.org>
-Version:             0.16.5
-Source:              http://downloads.sourceforge.net/musicpd/%srcname-%version.tar.bz2
+Version:             0.17.1
+Source:              http://downloads.sourceforge.net/musicpd/%version/%srcname-%version.tar.bz2
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -39,7 +40,7 @@ BuildRequires: SUNWgnome-audio-devel
 BuildRequires: SUNWflac-devel
 BuildRequires: SFElibshout
 BuildRequires: SFElibcdio
-BuildRequires: database/sqlite-3
+BuildRequires: %{pnm_buildrequires_SUNWsqlite3}
 BuildRequires: SUNWglib2
 BuildRequires: SUNWlibsndfile
 BuildRequires: SUNWcurl
@@ -54,7 +55,7 @@ Requires: SUNWgnome-audio
 Requires: SUNWflac
 Requires: SFElibshout
 Requires: SFElibcdio
-Requires: database/sqlite-3
+Requires: %{pnm_requires_SUNWsqlite3}
 Requires: SUNWglib2
 Requires: SUNWlibsndfile
 Requires: SUNWcurl
@@ -98,6 +99,8 @@ fi
 
 export CFLAGS="%optflags -D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1 -D__EXTENSIONS__"
 export LDFLAGS="%_ldflags"
+
+sed -i -e 's,#! */bin/sh,#! /usr/bin/bash,' configure 
 
 ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}  \
@@ -155,6 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Thu Aug 19 2012 - Thomas Wagner
+- bump to 0.17.1
+- make configure use bash
+* Thu Jul  5 2012 - Thomas Wagner
+- bump to 0.17, changed download URL
+- change to (Build)Requires to %{pnm_buildrequires_SUNWsqlite3}, %include packagenamacros.inc
 * Fri Jun 22 2012 - Logan Bruns <logan@gedanken.org>
 - added ips package name.
 * Wed Oct 19 2011 - Alex Viskovotoff
