@@ -506,6 +506,23 @@
 %define pnm_buildrequires_x11_optional_clients		SUNWxwopt
 %define pnm_requires_x11_optional_clients		SUNWxwopt
 
+#SUNWntp SUNWntpu SUNWntpr ntp ...
+%define pnm_buildrequires_service_network_ntp		SUNWntpu
+%define pnm_requires_service_network_ntp		SUNWntpu
+%define pnm_buildrequires_SUNWntp_devel			SUNWntpu
+%define pnm_buildrequires_SUNWntp			SUNWntpu
+%define pnm_requires_SUNWntp				SUNWntpu
+%define pnm_buildrequires_ntp				SUNWntpu
+%define pnm_requires_ntp				SUNWntpu
+
+#sendmail SUNWsndm SUNWsndmu ...
+%define pnm_buildrequires_SUNWsndm_devel		SUNWsndmu
+%define pnm_buildrequires_SUNWsndm			SUNWsndmu
+%define pnm_requires_SUNWsndm				SUNWsndmu
+%define pnm_buildrequires_sndm				SUNWsndmu
+%define pnm_requires_sndm				SUNWsndmu
+
+
 ##TODO## Add your packages here in case you specify an old
 # package name now with the pnm_buildrequires_SUNWoldname makro
 
@@ -944,6 +961,15 @@
 %endif
 #END solaris11express
 
+#pulseaudio, we currently have this in SFE
+%define pnm_buildrequires_SFEpulseaudio				SFEpulseaudio
+%define pnm_requires_SFEpulseaudio				SFEpulseaudio
+%define pnm_buildrequires_pulseaudio				SFEpulseaudio
+%define pnm_requires_pulseaudio				SFEpulseaudio
+
+#Solaris 11 Update 1
+#
+
 #START setting perl5, defaults  - Part 1 of 3
 #define perl defaults, primarily shared settings and default version, paths
 #for older osbuilds/osdistros like OpenSolaris 134, SXCE/Nevada, Solaris 10
@@ -1047,6 +1073,23 @@
 
 # echo %{_prefix}/%{perl_path_site_perl_version}   -> prints /usr/perl5/site_perl/5.8.4 (or 5.10.0)
 %define perl_path_site_perl_version perl%{perl_major_version}/site_perl/%{perl_version}
+
+%if %{?perl_dir:1}
+#skip this, the perl_dir variable is already defined
+%else
+%ifarch sparc
+%define perl_dir sun4-solaris-64int
+%else
+%define perl_dir i86pc-solaris-64int 
+%endif
+#END sparc else i86pc
+%endif
+#END ?perl_dir
+
+#find include files if you compile against perl
+#the EXTERN.h file would be found with CFLAGS="-I%{_prefix}/%{perl_default_includedir}"
+#next line help to find /usr/perl5/5.8.4/lib/i86pc-solaris-64int/CORE/EXTERN.h
+%define perl_default_includedir	perl%{perl_major_version}/%{perl_version}/lib/%{perl_dir}/CORE
 
 #END setting perl5, all builds, evaluated paths  - Part 3 of 3
 
@@ -1377,6 +1420,14 @@
 # 
 
 %changelog
+* Thu Aug 16 2012 - Thomas Wagner
+- fix %if {?$perl_dir} for case when already present, use {?$perl_dir:1}. perl_dir is a string
+* Thu Aug  9 2012 - Thomas Wagner
+- handle SUNWntp SUNWntpu SUNWntpr ntp ... for (S10, SXCE)
+- handle SUNWsndm SUNWsndmu for (S10, SXCE)
+- define %{perl_default_includedir} to help finding e.g. EXTERN.h from default perl
+* Sat Aug  4 2012 - Thomas Wagner
+- initial support for handling SFEpulseaudio / pulseaudio
 * Mon Jul 30 2012 - Thomas Wagner
 - make SFElibmikmod include -devel packages
 * Mon Jul  9 2012 - Thomas Wagner
