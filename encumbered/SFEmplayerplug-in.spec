@@ -4,6 +4,9 @@
 #
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%include base.inc
+
 Name:                    SFEmplayerplug-in
 Summary:                 MPlayer plugin for Firefox
 Version:                 3.55
@@ -44,12 +47,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
-export CFLAGS="%gcc_optflags" 
+export CC=gcc
+export CXX=g++
+export CFLAGS="%{optflags} -I/usr/include/firefox -I/usr/include/firefox/plugin"
+export CXXFLAGS="%{cxx_optflags} -I/usr/include/firefox -I/usr/include/firefox/plugin"
 export LDFLAGS="%_ldflags -L/usr/lib/firefox -R/usr/lib/firefox"
-export CXXFLAGS="%gcc_cxx_optflags"
-export CPPFLAGS="-I/usr/include/firefox"
 
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
             --libdir=%{_libdir}              \
@@ -97,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Aug 16 2012 - Thomas Wagner
+- set CC=gcc / CXX=g++
+* Mon Jul 28 2010 - Thomas Wagner
+- normalized CFLAGS/CXXFLAGS/LDFLAGS section, added cc_is_gcc
 * Fri Oct 31 2008 - Andras Barna (andras.barna@gmail.com)
 - restore, cleanup
 * Sat Sep 29 2007 - dick@nagual.nl
