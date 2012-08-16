@@ -18,7 +18,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n faac-%{version}
-%patch1 -p1
+#%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 
@@ -28,15 +28,16 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
-export CFLAGS="%{optflags} -I/usr/include/mp4v2"
-export CXXFLAGS="%{cxx_optflags} -I/usr/include/mp4v2"
-export LDFLAGS="-lmp4v2 -lm"
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{cxx_optflags}"
+export LDFLAGS="%{_ldflags} -lm"
 
 sh bootstrap
 
 ./configure --prefix=%{_prefix} \
     --libdir=%{_libdir} \
     --disable-static \
+    --enable-drm \
     --with-mp4v2
 
 make -j$CPUS
@@ -51,6 +52,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 16 2012 - Milan Jurik
+- build with internal mp4v2
 * Mon Oct 17 2011 - Milan Jurik
 - revert previous change to unbreak build
 * Sat Aug 13 2011 - Thomas Wagner

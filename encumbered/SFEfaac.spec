@@ -25,8 +25,9 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:	SFElibmp4v2-devel
-Requires:	SFElibmp4v2
+# No support for the latest mp4v2 API
+#BuildRequires:	SFElibmp4v2-devel
+#Requires:	SFElibmp4v2
 
 %description
 FAAC is an AAC audio encoder. It currently supports MPEG-4 LTP, MAIN and LOW
@@ -93,6 +94,8 @@ rm -rf %{buildroot}
 %{_includedir}/*.h
 
 %changelog
+* Wed Aug 16 2012 - Milan Jurik
+- build with internal mp4v2
 * Mon Oct 17 2011 - Milan Jurik
 - revert previous change to unbreak build
 - add IPS package name
