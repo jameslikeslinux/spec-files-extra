@@ -1,5 +1,5 @@
 #
-# spec file for package: SFEperl-test-simple
+# spec file for package: SFEperl-test-script
 #
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
@@ -9,32 +9,32 @@
 %include Solaris.inc
 %include packagenamemacros.inc
 
-%define tarball_version 0.98
-%define tarball_name    Test-Simple
+%define tarball_version 1.07
+%define tarball_name    Test-Script
 
-Name:		SFEperl-test-simple
-IPS_package_name: library/perl-5/test-simple
-Version:	0.98
-IPS_component_version: 0.98
-Summary:	Basic utilities for writing tests
+Name:		SFEperl-test-script
+IPS_package_name: library/perl-5/test-script
+Version:	1.07
+IPS_component_version: 1.7
+Summary:	
 License:	Artistic
 Distribution:   OpenSolaris
 Vendor:         OpenSolaris Community
-Url:		http://search.cpan.org/~mschwern/%{tarball_name}-%{tarball_version}
+Url:		http://search.cpan.org/~adamk/%{tarball_name}-%{tarball_version}
 SUNW_Basedir:	%{_basedir}
 SUNW_Copyright: %{name}.copyright
-Source0:	http://search.cpan.org/CPAN/authors/id/M/MS/MSCHWERN/Test-Simple-%{tarball_version}.tar.gz
+Source0:	http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-Script-%{tarball_version}.tar.gz
 
 BuildRequires:	%{pnm_buildrequires_perl_default}
 Requires:	%{pnm_requires_perl_default}
 
 Meta(info.maintainer):          roboporter by pkglabo.justplayer.com <pkgadmin@justplayer.com>
-Meta(info.upstream):            Michael G Schwern <mschwern@cpan.org>
-Meta(info.upstream_url):        http://search.cpan.org/~mschwern/%{tarball_name}-%{tarball_version}
+Meta(info.upstream):            Adam Kennedy <adamk@cpan.org>
+Meta(info.upstream_url):        http://search.cpan.org/~adamk/%{tarball_name}-%{tarball_version}
 Meta(info.classification):	org.opensolaris.category.2008:Development/Perl
 
 %description
-Basic utilities for writing tests
+
 %prep
 %setup -q -n %{tarball_name}-%{tarball_version}
 
@@ -66,8 +66,8 @@ rm -rf $RPM_BUILD_ROOT
 #%{_bindir}/*
 %dir %attr(0755,root,sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
-#%dir %attr(0755, root, bin) %{_mandir}/man1
-#%{_mandir}/man1/*
+%dir %attr(0755, root, bin) %{_mandir}/man1
+%{_mandir}/man1/*
 %dir %attr(0755, root, bin) %{_mandir}/man3
 %{_mandir}/man3/*
 
