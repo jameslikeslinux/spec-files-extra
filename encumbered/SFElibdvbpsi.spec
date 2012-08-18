@@ -7,9 +7,11 @@
 %define srcname libdvbpsi
 
 Name:                    SFElibdvbpsi
+IPS_Package_Name:	 library/video/libdvbpsi 
 Summary:                 A simple library designed for decoding and generation of MPEG TS and DVB PSI tables
 URL:                     http://www.videolan.org/developers/libdvbpsi.html
-Version:                 0.1.7
+Version:                 0.2.2
+License:	LGPL2.1
 Source:                  http://download.videolan.org/pub/%srcname/%version/%srcname-%version.tar.bz2
 Patch1:			 libdvbpsi-01-configure.diff
 SUNW_BaseDir:            %{_basedir}
@@ -68,6 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 18 2012 - Milan Jurik
+- bump to 0.2.2
 * Wed Feb 02 2011 - Alex Viskovatoff
 - update to 0.1.7; use configure --enable-release
 * Mon Jun 12 2006 - laca@sun.com

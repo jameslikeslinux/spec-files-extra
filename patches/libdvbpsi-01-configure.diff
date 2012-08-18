@@ -1,24 +1,9 @@
---- libdvbpsi-0.1.7/configure.orig	Fri Apr 23 04:15:47 2010
-+++ libdvbpsi-0.1.7/configure	Wed Feb  2 13:34:11 2011
-@@ -11182,8 +11182,7 @@
- 
- 
- 
--CFLAGS="${CFLAGS} -Wall -DDVBPSI_DIST"
+--- libdvbpsi-0.2.2/configure	Thu Nov  3 16:55:01 2011
++++ libdvbpsi-0.2.2/configure	Sat Aug 18 22:27:54 2012
+@@ -11588,2 +11588,1 @@
+-CFLAGS="${CFLAGS} -Wall -DDVBPSI_DIST --std=gnu99"
 -CFLAGS="${CFLAGS} -Wpointer-arith -Wcast-align -Wcast-qual -Wstrict-prototypes -Wshadow -Waggregate-return -Wmissing-prototypes -Wnested-externs -Wsign-compare"
 +CFLAGS="${CFLAGS} -DDVBPSI_DIST"
- 
- case x"${target_os}" in
-   xdarwin*)
-@@ -11225,9 +11224,9 @@
- 
- if test "$release" = "true"
- then
+@@ -11658,1 +11657,1 @@
 -  CFLAGS="${CFLAGS} -O6"
-+  CFLAGS="${CFLAGS}"
- else
--  CFLAGS="${CFLAGS} -O2"
-+  CFLAGS="${CFLAGS}"
- fi
- 
- 
++  CFLAGS="${CFLAGS} -O3"
