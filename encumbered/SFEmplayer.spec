@@ -4,18 +4,11 @@
 # includes module(s): mplayer
 #
 
-# want this? compile with: pkgtool --with-gcc4 build <specfile>
-%define use_gcc4 %{?_with_gcc4:1}%{?!_with_gcc4:0}
-
 %include Solaris.inc
 %include packagenamemacros.inc
 
 %define cc_is_gcc 1
-%if %use_gcc4
 %define _gpp /usr/gnu/bin/g++
-%else
-%define _gpp /usr/sfw/bin/g++
-%endif
 %include base.inc
 
 
@@ -61,15 +54,8 @@ Requires: SUNWjpg
 Requires: SUNWpng
 Requires: SUNWogg-vorbis
 Requires: SUNWlibtheora
-%if %use_gcc4
 BuildRequires: SFEgcc
 Requires: SFEgccruntime
-#also required for libs still compiled with gcc3?
-Requires: SUNWgccruntime
-%else
-BuildRequires: SUNWgcc
-Requires: SUNWgccruntime
-%endif
 Requires: SUNWgnome-base-libs
 BuildRequires: SUNWxwrtl
 Requires: SUNWxwrtl
@@ -82,6 +68,7 @@ Requires: SUNWlibsdl
 BuildRequires: SUNWlibm
 Requires: SUNWlibm
 Requires: SFEliveMedia
+BuildRequires: SFEliveMedia
 Requires: SFElibcdio
 BuildRequires: SFElibcdio-devel
 BuildRequires: SUNWaudh
