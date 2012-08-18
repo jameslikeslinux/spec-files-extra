@@ -181,7 +181,6 @@ bash ./configure				\
             --enable-faad			\
             --disable-mad			\
             --disable-gl			\
-            --disable-esd			\
             --enable-3dnow			\
             --enable-3dnowext			\
             --enable-live			\
