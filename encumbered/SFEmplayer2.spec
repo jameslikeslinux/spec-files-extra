@@ -72,6 +72,7 @@ Requires: %{pnm_requires_SUNWsmba}
 BuildRequires: SFEffmpeg-devel
 Requires: SFEffmpeg
 Requires: SFEliveMedia
+BuildRequires: SFEliveMedia
 Requires: SFElibcdio
 Requires: SFElibdvdnav
 BuildRequires: SFEfaad2-devel
@@ -130,6 +131,7 @@ Requires: SUNWttf-dejavu
 BuildRequires: SFElibdts-devel
 Requires: SFElibdts
 %endif
+BuildRequires: SFEpython3
 
 %define x11	/usr/openwin
 %ifarch i386 amd64
