@@ -162,13 +162,8 @@ export CFLAGS="-O3 -fomit-frame-pointer -D__hidden=\"\" -std=gnu99"
 %endif
 
 export LDFLAGS="-L%{x11}/lib -L/usr/gnu/lib -R/usr/gnu/lib -L/usr/sfw/lib -R/usr/sfw/lib -L%{_libdir} -R%{_libdir} -liconv"
-%if %use_gcc4
 export CC=/usr/gnu/bin/gcc
 export CXX=/usr/gnu/bin/g++
-%else
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
-%endif
 
 bash ./configure			\
 	    --prefix=%{_prefix}		\
