@@ -8,8 +8,9 @@
 %define	src_url	ftp://mirrors.kernel.org/gnu/vcdimager
 
 Name:                SFEvcdimager
+IPS_Package_Name:	 media/vcdimager 
 Summary:             VCD mastering suite
-Version:             0.7.23
+Version:             0.7.24
 Source:              %{src_url}/vcdimager-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -116,6 +117,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Aug 18 2012 - Milan Jurik
+- bump to 0.7.24
 * Wed Auf 19 2009 - Thomas Wagner
 - add BuildRequires: SFElibcdio-devel
 - add (Build)Requires: SUNWlibms,SUNWlibpopt-devel,SUNWlibpopt,SUNWlxml-devel,SUNWlxml,SUNWzlib
