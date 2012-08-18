@@ -8,6 +8,7 @@
 %define src_name	 libdca 
 
 Name:                    SFElibdts
+IPS_Package_Name:	 library/audio/libdca 
 Summary:                 A free library for decoding DTS Coherent Acoustics streams
 URL:                     http://www.videolan.org/developers/libdca.html
 Version:                 0.0.5
