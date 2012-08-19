@@ -1,4 +1,4 @@
-#
+##
 # spec file for package PostgreSQL 9.0
 #
 # This file and all modifications and additions to the pristine
@@ -85,8 +85,8 @@ Requires: %{pnm_requires_SUNWcsl}
 Requires: %{pnm_requires_SUNWTcl}
 Requires: SFEpostgres-91-client
 Requires: SFEpostgres-91-libs
-BuildRequires: SFEpython3
-Requires: SFEpython3
+#BuildRequires: SFEpython3
+#Requires: SFEpython3
 
 %package -n SFEpostgres-91-devel
 IPS_package_name: database/postgres-91/developer
@@ -167,7 +167,7 @@ export CFLAGS="%optflags"
 #export CFLAGS="-i -xO4 -xspace -xstrconst -Kpic -xregs=no%frameptr -xCC"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib -lncurses"
 export LD_OPTIONS="-R/usr/sfw/lib:/usr/gnu/lib -L/usr/sfw/lib:/usr/gnu/lib"
-export PYTHON=/usr/bin/python3
+#export PYTHON=/usr/bin/python3
 
 ./configure --prefix=%{_prefix}/%{major_version} \
             --exec-prefix=%{_prefix}/%{major_version} \
