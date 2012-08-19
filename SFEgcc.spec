@@ -151,6 +151,7 @@ IPS_package_name:	sfe/developer/gcc
 Summary:	GNU gcc compiler - metapackage with symbolic links to version %{major_minor} compiler files available in %{gccsymlinks}
 #Version:	see above, %{version} is set elsewhere
 License:             GPLv3+
+Group:		Development/C
 SUNW_Copyright:      gcc.copyright
 Source:              ftp://ftp.gnu.org/pub/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.bz2
 Patch1:              gcc-01-libtool-rpath.diff

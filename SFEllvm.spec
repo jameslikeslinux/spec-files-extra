@@ -27,7 +27,7 @@ Source1:	http://llvm.org/releases/%{version}/clang-%{version}.src.tar.gz
 # TODO: This needs proper fix
 Patch1:		llvm-01-gccpath.diff
 
-Group:          Development
+Group:          Development/C
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:   %{_basedir}
 
