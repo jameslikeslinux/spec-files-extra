@@ -8,6 +8,7 @@
 %define srcname openvpn
 
 Name:		SFEopenvpn
+IPS_Package_Name:	system/network/openvpn
 Summary:	Open source, full-featured SSL VPN package
 Group:		System/Security
 URL:		http://openvpn.net
