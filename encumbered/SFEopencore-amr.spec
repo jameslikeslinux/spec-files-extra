@@ -4,6 +4,7 @@
 # includes module(s): opencore-amr
 #
 %include Solaris.inc
+%define cc_is_gcc 1
 
 %ifarch amd64 sparcv9
 %include arch64.inc
@@ -31,6 +32,8 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 
 %description
 Library of OpenCORE Framework implementation of Adaptive Multi Rate Narrowband and Wideband speech codec.
@@ -115,6 +118,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- use GCC
 * Mon Oct 10 2011 - Milan Jurik
 - add IPS package name
 * Sun Jul 24 2011 - Alex Viskovatoff

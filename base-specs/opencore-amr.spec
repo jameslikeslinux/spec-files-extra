@@ -33,6 +33,8 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
 export LDFLAGS="%_ldflags"
@@ -59,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- use GCC
 * Tue Aug 14 2012 - Milan Jurik
 - bump to 0.1.3
 * Sun Oct 16 2009 - Milan Jurik
