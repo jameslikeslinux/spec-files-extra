@@ -24,6 +24,8 @@ CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
+export CC=gcc
+export CXX=g++
 export CFLAGS="%optflags"
 export CXXFLAGS="%cxx_optflags"
 export LDFLAGS="%_ldflags" 
@@ -54,6 +56,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- use GCC
 * Sun Jul 29 2012 - Milan Jurik
 - bump to 2.0.0
 * Sun Oct 16 2011 - Milan Jurik

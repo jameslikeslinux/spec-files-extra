@@ -5,6 +5,7 @@
 	* SFEvpnc.spec: add newer vpnc-script
 	* SFEpython26-django.spec: bump to 1.4.1
 	* encumbered/SFEopencore-amr.spec: use GCC
+	* SFElibmp4v2.spec: use GCC
 
 2012-08-18 Milan Jurik <sfnet@xylab.cz>
 

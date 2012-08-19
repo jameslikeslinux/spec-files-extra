@@ -4,6 +4,8 @@
 # includes module(s): libmp4v2
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+
 %ifarch amd64 sparcv9
 %include arch64.inc
 %use libmp4v2_64 = libmp4v2.spec
@@ -21,6 +23,8 @@ Version:                 %{libmp4v2.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires:	SFEgcc
+Requires:	SFEgccruntime
 
 %package devel
 Summary:                 %{summary} - development files
@@ -80,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- use GCC
 * Sun Oct 16 2011 - Milan Jurik
 - add IPS package name
 * Fri Aug 21 2009 - Milan Jurik
