@@ -8,7 +8,7 @@
 Name:		SFEviking
 IPS_Package_Name:	desktop/map/viking
 License:	GPL v2
-Group:		Applications
+Group:		Applications/Internet
 Summary:	GPS Viewer
 Version:	1.2.2
 URL:		http://viking.sf.net
