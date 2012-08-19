@@ -9,12 +9,12 @@
 
 Name:		SFEpython26-django
 IPS_Package_Name:	web/python/django
-Version:	1.3.1
+Version:	1.4.1
 Summary:	A high-level Python Web framework that enables Rapid Development
 License:	BSD
 Group:		Development/Languages/Python
 URL:		http://www.djangoproject.com/
-Source:		http://media.djangoproject.com/releases/1.3/Django-%{version}.tar.gz
+Source:		http://www.djangoproject.com/m/releases/1.4/Django-%{version}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -46,6 +46,8 @@ rm -rf %{buildroot}
 %{_libdir}/python%{python_version}/vendor-packages
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- bump to 1.4.1
 * Fri Sep 30 2011 - Milan Jurik
 - bump to 1.3.1
 * Fri Mar 25 2011 - Milan Jurik
