@@ -1,3 +1,7 @@
+2012-08-19 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEpostgres-91.spec: fix packaging, bump to 9.1.5
+
 2012-08-18 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEvcdimager.spec: bump to 0.7.24
