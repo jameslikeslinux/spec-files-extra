@@ -4,10 +4,12 @@
 # Owner: trisk
 %include Solaris.inc
 Name:                    SFEvpnc
-Summary:                 vpnc - client for Cisco VPN concentrator
+IPS_Package_Name:	system/network/vpnc
+Summary:                 Client for Cisco VPN concentrator
 URL:                     http://www.unix-ag.uni-kl.de/~massar/vpnc/
 Version:                 0.5.3
 License:		 GPL
+Group:		Applications/Internet
 Source:                  http://www.unix-ag.uni-kl.de/~massar/vpnc/vpnc-%{version}.tar.gz
 Source1:	vpnc-script
 Patch1:                  vpnc-01-nogcc.diff
