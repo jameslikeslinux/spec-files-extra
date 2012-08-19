@@ -6,6 +6,8 @@
 # of me must work or not needed. Gilles Dauphin
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 %define src_name	openal-soft
 #%define src_url		http://connect.creativelabs.com/openal/Downloads
@@ -16,7 +18,7 @@
 Name:		SFEopenal
 IPS_Package_Name:	library/audio/openal
 Summary:	OpenAL is a cross-platform 3D audio API
-Version:	1.13
+Version:	1.14
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 URL:		http://connect.creativelabs.com/openal/
 Patch1:		openal-01-cmake.diff
@@ -58,9 +60,11 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
+export CC=gcc
+
 cd %{src_name}-%{version}
 cd build
-cmake -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%_prefix -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 ..
+cmake -DHAVE_GCC_VISIBILITY:INTERNAL=0 -DCMAKE_INSTALL_PREFIX:PATH=%_prefix -DHAVE_VISIBILITY_SWITCH:INTERNAL=0 -DEXAMPLES:INTERNAL=OFF ..
 make
 
 %install
@@ -87,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- bump to 1.14
+- use gcc because atomicity support
 * Tue Oct 11 2011 - Milan Jurik
 - bump to 1.13
 - add IPS package name
