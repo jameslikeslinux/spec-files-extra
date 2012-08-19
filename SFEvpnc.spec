@@ -9,6 +9,7 @@ URL:                     http://www.unix-ag.uni-kl.de/~massar/vpnc/
 Version:                 0.5.3
 License:		 GPL
 Source:                  http://www.unix-ag.uni-kl.de/~massar/vpnc/vpnc-%{version}.tar.gz
+Source1:	vpnc-script
 Patch1:                  vpnc-01-nogcc.diff
 Patch2:                  vpnc-02-solaris.diff
 SUNW_Copyright:		 vpnc.copyright
@@ -57,6 +58,7 @@ do
   mv $i.new $i
 done
 
+cp %SOURCE1 %{buildroot}%{_sysconfdir}/vpnc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/vpnc
 
 %changelog
+* Sun Aug 19 2012 - Milan Jurik
+- add newer vpnc-script
 * Mon Jul 25 2011 - N.B.Prashanth
 - add SUNW_Copyright
 * Thu Dec 02 2010 - Milan Jurik
