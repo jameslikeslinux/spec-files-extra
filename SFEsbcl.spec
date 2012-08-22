@@ -27,6 +27,7 @@
 %use sbcl = sbcl.spec
 
 Name:		SFEsbcl
+IPS_Package_Name:	 runtime/sbcl 
 Version:	%{sbcl.version}
 Summary:	Steel Bank Common Lisp
 Group:		Development/Other Languages
