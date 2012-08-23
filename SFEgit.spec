@@ -89,7 +89,7 @@ for f in "
     git-send-email
     git-shortlog
     git-svn"; do
-  perl -pi -e 's,"/usr/lib/site_perl","/usr/gnu/perl5/vendor_perl/%{perl_version}",' $f
+  perl -pi -e 's,"/usr/gnu/lib/site_perl","/usr/gnu/perl5/vendor_perl/%{perl_version}",' $f
 done
 
 %install
