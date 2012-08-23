@@ -3,13 +3,12 @@
 #
 # includes module(s): kqemu
 #
-
 %define src_url http://www.opensolaris.org/os/project/qemu/downloads
 
 Name:		kqemu
 Summary:	QEMU CPU Emulator Kernel module
-Version:	1.0.3pre11-20070520
-Source:		%{src_url}/%{name}_%{version}.tar.bz2
+Version:	1.4.0pre1-07032008
+Source:		%{src_url}/%{name}_%{version}-sol.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %prep
@@ -46,5 +45,8 @@ fi
 
 
 %changelog
+* Tue Jun 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.4.0pre1-07032008
+
 * Mon Oct  8 2007 - dougs@truemail.co.th
 - Initial version

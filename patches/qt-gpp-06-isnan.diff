@@ -1,0 +1,43 @@
+Attention! There is a fix circling which seems to be wrong. 
+(using __GXX_EXPERIMENTAL_CXX0X__ and editing std:: into the calls)
+
+This is the (template)source for the fix we use here:
+https://bug-41953-attachments.webkit.org/attachment.cgi?id=87253
+https://bugs.webkit.org/show_bug.cgi?id=41953
+
+A fix is already in webkit-trunk, but this would need to be
+updated in this bundled webkit in QT
+
+Tested with SFEgcc 4.5.3 on OI147/OI148
+Tested with SFEgcc 4.6.1 on Solaris 11 (Express) Build 170
+
+--- src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h	Mi. Mär 30 07:18:55 2011
++++ src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h.orig	Fr. Aug  5 16:33:25 2011
+@@ -26,9 +26,13 @@
+ #ifndef WTF_MathExtras_h
+ #define WTF_MathExtras_h
+ 
++#include <algorithm>
+ #include <cmath>
+ #include <float.h>
++#include <limits>
++#include <stdint.h>
+ #include <stdlib.h>
++#include <wtf/StdLibExtras.h>
+ 
+ #if OS(SOLARIS)
+ #include <ieeefp.h>
+--- src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h.orig	2011-08-06 01:00:30.146198980 +0200
++++ src/3rdparty/webkit/JavaScriptCore/wtf/MathExtras.h	2011-08-05 23:06:06.154424000 +0200
+@@ -201,4 +201,11 @@
+ using std::signbit;
+ #endif
+ 
++#if ( GCC_VERSION >= 40600 )
++using std::isfinite;
++using std::isinf;
++using std::isnan;
++using std::signbit;
++#endif
++
+ #endif // #ifndef WTF_MathExtras_h

@@ -6,6 +6,7 @@
 %include Solaris.inc
 
 Name:                    SFEfortune
+IPS_Package_Name:	text/fortune
 Summary:                 Fortunes contained in the fortune database.
 Version:                 1.99.1
 Source:                  http://ftp.de.debian.org/debian/pool/main/f/fortune-mod/fortune-mod_%{version}.orig.tar.gz
@@ -16,8 +17,8 @@ patch0:                  fortune.01.diff
 patch1:                  fortune.02.diff
 
 %include default-depend.inc
-
 Requires: SUNWcsu
+BuildRequires: SFErecode-devel
 Requires: SFErecode
 
 %prep

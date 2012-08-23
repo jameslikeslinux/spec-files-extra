@@ -3,18 +3,21 @@
 # Copyright (c) 2006 Sun Microsystems, Inc.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
-# works: snv104 / pkgbuild 1.3.91
-# works: snv104 / pkgbuild 1.2.0
-# works: snv103 / pkgbuild 1.3.0
-# works: snv96  / pkgbuild 1.3.1
 
 
 # IMPORTANT NOTE: compile with "gcc" - the code uses unnamed unions/structs
 
 %include Solaris.inc
 
+%define cc_is_gcc 1
+%include base.inc
+
+
 Name:                SFElibmpd
 Summary:             libmpd for gmpc
+URL:                 http://mpd.wikia.com/wiki/Music_Player_Daemon_Wiki
+License:             GPLv2
+SUNW_Copyright:	     libmpd.copyright
 Version:             0.20.0
 #needed for download-URL:
 %define gmpc_version 0.20.0
@@ -43,13 +46,14 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
-export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointers"
+#export CFLAGS="-O4 -fPIC -DPIC -Xlinker -i -fno-omit-frame-pointers"
+export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags -lnsl -lsocket -lresolv"
  
-export CC=/usr/sfw/bin/gcc
-export CXX=/usr/sfw/bin/g++
+export CC=gcc
+export CXX=g++
 
-CC=/usr/sfw/bin/gcc CXX=/usr/sfw/bin/g++ ./configure --prefix=%{_prefix} \
+CC=gcc CXX=g++ ./configure --prefix=%{_prefix} \
             --mandir=%{_mandir} \
             --enable-static=no
 
@@ -83,6 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 10 2012 - Thomas Wagner
+- set CC=gcc CXX=g++ instead of full specified path to /usr/sfw/
+- cc_is_gcc 1  or it fails with bad compiler switches
+- standardize CFLAGS, avoids gcc4 stumbling over -fno-omit-frame-pointers
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Sat Oct  2 2010 - Alex Viskovatoff
 - bump to 0.20.0; use gmake
 * Sat Dec 20 2008 - Thomas Wagner

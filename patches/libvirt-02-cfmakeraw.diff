@@ -1,0 +1,15 @@
+--- libvirt-0.9.10/src/util/util.c	2012-02-05 18:50:50.000000000 -0800
++++ libvirt-0.9.10-patched/src/util/util.c	2012-03-15 19:38:20.935927848 -0700
+@@ -1343,7 +1343,11 @@
+         if (tcgetattr(slave, &ttyAttr) < 0)
+             goto cleanup;
+ 
+-        cfmakeraw(&ttyAttr);
++	ttyAttr.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL | IXON);
++	ttyAttr.c_oflag &= ~OPOST;
++	ttyAttr.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
++	ttyAttr.c_cflag &= ~(CSIZE | PARENB);
++	ttyAttr.c_cflag |= CS8;
+ 
+         if (tcsetattr(slave, TCSADRAIN, &ttyAttr) < 0)
+             goto cleanup;

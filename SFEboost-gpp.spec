@@ -6,77 +6,76 @@
 %define _basedir /usr/g++
 %include Solaris.inc
 %define cc_is_gcc 1
-%define _gpp /usr/gnu/bin/g++
 %include base.inc
 # Build multithreaded libs: no need for non-multithreaded libs
 %define boost_with_mt 1
 
+%include packagenamemacros.inc
+
 %use boost = boost.spec
 
 Name:                SFEboost-gpp
-Summary:             Boost - free peer-reviewed portable C++ source libraries (g++-built)
+IPS_Package_Name:	system/library/g++/boost
+Summary:             Free peer-reviewed portable C++ libraries (g++-built)
+License:             Boost License Version
+SUNW_Copyright:      boost.copyright
 Version:             %{boost.version}
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
-BuildRequires: SUNWPython
+BuildRequires: %{pnm_buildrequires_python_default}
+BuildRequires:	SFEicu-gpp-devel
+Requires:	SFEicu-gpp
 
 %package -n %name-devel
+IPS_package_name:	system/library/g++/boost/header-boost
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
 
 %package -n %name-doc
+IPS_package_name:	system/library/g++/boost/documentation
 Summary:        %{summary} - development files
 SUNW_BaseDir:   %{_basedir}
 %include default-depend.inc
 Requires: %name
-
 
 %prep
 rm -rf %name-%version
 mkdir %name-%version
 %boost.prep -d %name-%version
 
-
 %build
 %boost.build -d %name-%version
 
-
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+%boost.install -d %name-%version
+
 cd %{_builddir}/%name-%version/boost_%{boost.ver_boost}
 
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
-
-for i in stage/lib/*.so; do
-  NAME=`basename $i`
-  cp $i $RPM_BUILD_ROOT%{_libdir}/$NAME.%{version}
-  ln -s $NAME.%{version} $RPM_BUILD_ROOT%{_libdir}/$NAME
-done
-
-for i in `find "boost" -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_includedir}/$i
-done
-for i in `find "boost" -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_includedir}/$i
-done
-
+mkdir -p %{buildroot}%{_docdir}/boost-%{version}
 cd "doc/html"
 for i in `find . -type d`; do
-  mkdir -p $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
+  mkdir -p %{buildroot}%{_docdir}/boost-%{version}/$i
 done
 for i in `find . -type f`; do
-  cp $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i
+  cp $i %{buildroot}%{_docdir}/boost-%{version}/$i
 done
 
+# It's not worth figuring out how to get the Boost build system
+# to set the runpath correctly
+%define rpath 'dyn:runpath /usr/g++/lib:/usr/gnu/lib'
+pushd %{buildroot}%{_libdir}
+for i in *.so.*; do
+  elfedit -e %rpath $i
+done
+popd
+
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-, root, bin)
@@ -87,6 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/boost
+%{_libdir}/lib*.a
 
 %files -n %name-doc
 %defattr (-, root, bin)
@@ -95,6 +95,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/boost-%{version}
 
 %changelog
+* Sun Apr 29 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_python_default}, %include packagenamacros.inc
+* Thu Jan 12 2012 - Milan Jurik
+- package restructuralization, static libs re-added
+* Sun Jun 31 2011 - Alex Viskovatoff
+- set correct runpath for some more shared libraries
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add License and SUNW_Copyright tags
+* Thu Jun 23 2011 - Alex Viskovatoff
+- set correct runpath for libboost_regex, so it finds ICU libraries
 * Sun Apr  3 2011 - Alex Viskovatoff
 - use new g++ libs pathname; build multithreaded libs
 * Fri Jan 11 2011 - Milan Jurik

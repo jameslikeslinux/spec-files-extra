@@ -1,0 +1,12 @@
+--- miniupnpd-1.6.20120207/testgetifstats.c	2007-02-07 14:16:38.000000000 -0800
++++ miniupnpd-1.6.20120207-patched/testgetifstats.c	2012-02-28 20:25:54.656825515 -0800
+@@ -21,7 +21,8 @@
+ 		fprintf(stderr, "usage : %s <ifname>\n", argv[0]);
+ 		return 1;
+ 	}
+-	openlog("testgetifstats", LOG_CONS|LOG_PERROR, LOG_USER);
++	/* openlog("testgetifstats", LOG_CONS|LOG_PERROR, LOG_USER); */
++	openlog("testgetifstats", LOG_CONS, LOG_USER);
+ 	memset(&data, 0, sizeof(data));
+ 	r = getifstats(argv[1], &data);
+ 	printf("getifstats() returned %d\n", r);

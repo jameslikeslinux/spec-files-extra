@@ -5,17 +5,22 @@
 #
 %include Solaris.inc
 
-Name:                    SFElibdvdcss
-Summary:                 libdvdcss  - a simple library designed for accessing DVDs like a block device without having to bother about the decryption.
-Version:                 1.2.10
-Source:                  http://download.videolan.org/pub/libdvdcss/%{version}/libdvdcss-%{version}.tar.bz2
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibdvdcss
+IPS_Package_Name:	library/video/libdvdcss 
+Summary:	A simple library designed for accessing DVDs like a block device without having to bother about decryption
+Group:		System/Multimedia Libraries
+URL:		http://www.videolan.org/developers/libdvdcss.html
+License:	GPLv2
+SUNW_copyright:	libdvdcss.copyright
+Version:	1.2.11
+Source:		http://download.videolan.org/pub/libdvdcss/%{version}/libdvdcss-%{version}.tar.bz2
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 
@@ -60,6 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Nov 20 2011 - Milan Jurik
+- bump to 1.2.11
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
 * Sat Jun 13 2009 - Milan Jurik
 - upgrade to 1.2.10
 * Mon Jun 12 2006 - laca@sun.com

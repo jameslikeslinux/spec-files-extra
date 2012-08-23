@@ -14,9 +14,12 @@
 %define	src_name c_icap
 
 Name:		SFEc-icap
+IPS_Package_Name:	web/proxy/c-icap
 Summary:	An implementation of an ICAP server
-Version:	0.1.5
-Group:		System/Utilities
+Version:	0.1.7
+License:	LGPLv2.1+
+SUNW_Copyright:	c-icap.copyright
+Group:		Web Services/Application and Web Servers
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
 Source1:	c-icap.xml
@@ -112,6 +115,10 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/system/filesystem/c-icap.xml
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
+* Tue Jul 12 2011 - Milan Jurik
+- bump to 0.1.6
 * Tue Mar 29 2011 - Milan Jurik
 - bump to 0.1.5
 * Wed Feb 02 2011 - Milan Jurik

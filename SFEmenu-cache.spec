@@ -5,22 +5,26 @@
 #
 %include Solaris.inc
 
-Name:                    SFEmenu-cache
-Summary:                 LXDE menu cache
-Version:                 0.3.2
-Source:                  http://downloads.sourceforge.net/lxde/menu-cache-%{version}.tar.gz
-URL:                     http://sourceforge.net/projects/lxde/
+Name:		SFEmenu-cache
+IPS_Package_Name:	lxde/menu-cache
+Summary:	LXDE menu cache
+Group:		Applications/Plug-ins and Run-times
+License:	GPLv2
+SUNW_Copyright:	menu-cache.copyright
+Version:	0.3.2
+Source:		%{sf_download}/lxde/menu-cache-%{version}.tar.gz
+URL:		http://sourceforge.net/projects/lxde/
 
 # owner:alfred date:2009-03-13 type:bug
-Patch1:                  menu-cache-01-Werror.diff
-Patch2:                  menu-cache-02-fixcrash.diff
+Patch1:		menu-cache-01-Werror.diff
+Patch2:		menu-cache-02-fixcrash.diff
 
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-BuildRequires:           SUNWglib2-devel
-Requires:                SUNWglib2
-BuildRequires:           SUNWgnome-common-devel
+BuildRequires:	SUNWglib2-devel
+Requires:	SUNWglib2
+BuildRequires:	SUNWgnome-common-devel
 
 %prep
 %setup -q -n menu-cache-%version
@@ -64,6 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 
 %changelog
+* Sat Jul 23 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Mar 05 2010 - brian.cameron@sun.com
 - Bump to 0.3.2.
 * Mon Feb 15 2010 - brian.cameron@sun.com

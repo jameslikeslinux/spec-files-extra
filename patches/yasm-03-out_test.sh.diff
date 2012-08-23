@@ -1,8 +1,0 @@
---- yasm-1.1.0/out_test.sh.orig	Thu Nov  4 15:53:39 2010
-+++ yasm-1.1.0/out_test.sh	Thu Nov  4 15:55:40 2010
-@@ -1,4 +1,4 @@
--#! /bin/sh
-+#! /bin/bash
- # $Id: out_test.sh 2226 2009-07-30 02:19:38Z peter $
- 
- YASM_TEST_SUITE=1

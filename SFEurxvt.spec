@@ -31,7 +31,7 @@ Name:                    SFEurxvt
 Summary:                 urxvt - X Terminal Client (+multiscreen Server) with unicode support, derived from rxvt
 URL:                     http://software.schmorp.de
 Version:                 %{version}
-Source:                  http://dist.schmorp.de/rxvt-unicode/rxvt-unicode-%{src_version}.tar.bz2
+Source:                  http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-%{src_version}.tar.bz2
 Patch10:		 urxvt-10-terminfo_enacs.diff
 Patch11:		 urxvt-11-remove-tic.diff
 Patch12:		 urxvt-12-configure-bash.diff
@@ -183,6 +183,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Thu Jun 09 2011 - Thomas Wagner
 - bump to 9.11
 - add Patch16 (already in svn code) to fix initial window not initialized with rows/columns

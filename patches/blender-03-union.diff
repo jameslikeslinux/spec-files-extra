@@ -1,5 +1,5 @@
---- blender-2.48a/source/blender/imbuf/intern/dds/BlockDXT.cpp	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/BlockDXT.cpp	2008-11-17 15:29:32.292266873 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/BlockDXT.cpp	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/BlockDXT.cpp	2008-11-17 15:29:32.292266873 +0800
 @@ -64,10 +64,10 @@
  uint BlockDXT1::evaluatePalette(Color32 color_array[4]) const
  {
@@ -327,8 +327,8 @@
  }
  
  void mem_read(Stream & mem, BlockDXT3 & block)
---- blender-2.48a/source/blender/imbuf/intern/dds/BlockDXT.h	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/BlockDXT.h	2008-11-17 15:31:43.209082564 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/BlockDXT.h	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/BlockDXT.h	2008-11-17 15:31:43.209082564 +0800
 @@ -88,7 +88,7 @@ struct BlockDXT1
  /// Return true if the block uses four color mode, false otherwise.
  inline bool BlockDXT1::isFourColorMode() const
@@ -350,8 +350,8 @@
  	
  	void decodeBlock(ColorBlock * block) const;
  	
---- blender-2.48a/source/blender/imbuf/intern/dds/Color.h	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/Color.h	2008-11-17 15:34:55.686388248 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/Color.h	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/Color.h	2008-11-17 15:34:55.686388248 +0800
 @@ -38,41 +38,41 @@
  class Color32
  {
@@ -433,8 +433,8 @@
  };
  
  #endif // _DDS_COLOR_H
---- blender-2.48a/source/blender/imbuf/intern/dds/ColorBlock.cpp	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/ColorBlock.cpp	2008-11-17 16:52:56.233641643 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/ColorBlock.cpp	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/ColorBlock.cpp	2008-11-17 16:52:56.233641643 +0800
 @@ -38,13 +38,13 @@
  	// Get approximate luminance.
  	inline static uint colorLuminance(Color32 c)
@@ -644,8 +644,8 @@
  				max = b;
  				cmax = cb;
  			}
---- blender-2.48a/source/blender/imbuf/intern/dds/DirectDrawSurface.cpp	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/DirectDrawSurface.cpp	2008-11-17 15:48:14.040411570 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/DirectDrawSurface.cpp	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/DirectDrawSurface.cpp	2008-11-17 15:48:14.040411570 +0800
 @@ -921,10 +921,10 @@ void DirectDrawSurface::readLinearImage(
  			mem_read(stream, (unsigned char *)(&c), byteCount);
  
@@ -692,8 +692,8 @@
  			}
  		}
  	}
---- blender-2.48a/source/blender/imbuf/intern/dds/Image.h	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/Image.h	2008-11-17 15:48:48.610272569 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/Image.h	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/Image.h	2008-11-17 15:48:48.610272569 +0800
 @@ -45,8 +45,8 @@ public:
  	enum Format 
  	{
@@ -705,8 +705,8 @@
  	
  	Image();
  	~Image();
---- blender-2.48a/source/blender/imbuf/intern/dds/dds_api.cpp	2008-10-23 00:36:49.000000000 +0800
-+++ blender-2.48a.mod/source/blender/imbuf/intern/dds/dds_api.cpp	2008-11-17 15:49:47.271917474 +0800
+--- blender-2.49b/source/blender/imbuf/intern/dds/dds_api.cpp	2008-10-23 00:36:49.000000000 +0800
++++ blender-2.49b.mod/source/blender/imbuf/intern/dds/dds_api.cpp	2008-11-17 15:49:47.271917474 +0800
 @@ -114,11 +114,11 @@ struct ImBuf *imb_load_dds(unsigned char
  
  		for (unsigned int i = 0; i < numpixels; i++) {

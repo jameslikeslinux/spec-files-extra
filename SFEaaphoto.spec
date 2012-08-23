@@ -8,13 +8,15 @@
 %include Solaris.inc
 
 Name:		SFEaaphoto
+IPS_Package_Name:	image/editor/aaphoto
 Summary:	Auto Adjust Photo, automatic color correction of photos
 Version:	0.41
-Group:		Graphics
+Group:		Applications/Graphics and Imaging
 URL:		http://log69.com/aaphoto.html
 License:	GPLv3
 Source:		http://log69.com/downloads/aaphoto_sources_v%{version}.tar.gz
 Patch1:		aaphoto-01-ccopenmp.diff
+SUNW_Copyright:	%{name}.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -58,6 +60,10 @@ rm -rf %{buildroot}
 %{_bindir}
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Mon Jul 11 2011 - Guido Berhoerster
+- added copyright file
 * Fri Feb 04 2011 - Milan Jurik
 - bump to 0.41
 * Sun Dec 26 2010 - Milan Jurik

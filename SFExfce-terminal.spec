@@ -10,8 +10,12 @@
 %define src_url http://archive.xfce.org/src/apps/terminal/0.4/
 
 Name:		SFExfce-terminal
+IPS_Package_Name:	terminal/xfce-terminal
 Summary:	Xfce terminal
-Version:	0.4.7
+Group:		Applications/System Utilities
+License:	GPLv2
+SUNW_Copyright:	xfce-terminal.copyright
+Version:	0.4.8
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -130,6 +134,10 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Sat Sep 24 2011 - Ken Mays <kmays2000@gmail.com>
+- Backed to 0.4.8
+* Fri Jul 29 2011 - Alex Viskovatoff
+- add SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Sat Apr 9 2011 - kmays2000@gmail.com

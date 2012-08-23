@@ -14,8 +14,8 @@
 
 Name:         libogg
 Summary:      Ogg Bitstream Library
-Version:      1.1.3
-Release:      92
+Version:      1.2.2
+Release:      1
 Group:        System/Libraries
 License:      BSD
 URL:          http://downloads.xiph.org/
@@ -92,6 +92,9 @@ sed -e s/XIPH_PATH_OGG/AM_PATH_OGG/g < $RPM_BUILD_ROOT%{_datadir}/aclocal/ogg.m4
 %{_datadir}/gtk-doc
 
 %changelog -n libogg
+* Tue June 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.2.2
+* Sun Aug 12 2007 - dougs@truemail.co.th
 * Mon Oct  1 2007 - Thomas Wagner
 - base-spec/libogg.spec vorbis.spec
   removed Source1 l10* and in %prep removed calling l10*

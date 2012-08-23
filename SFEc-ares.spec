@@ -5,22 +5,22 @@
 #
 
 %include Solaris.inc
-Name:                    SFEc-ares
-Group:                   System/Libraries
-Version:                 1.7.4
-Vendor:                  Sun Microsystems, Inc.
-Summary:                 Library to perform DNS requests and name resolves asynchronously
-Group:                   Libraries
-License:                 MIT
-Source:                  http://c-ares.haxx.se/c-ares-%{version}.tar.gz
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-SUNW_BaseDir:            %{_basedir}
+Name:		SFEc-ares
+IPS_Package_Name:	library/c-ares
+Group:		System/Libraries
+Version:	1.7.5
+Summary:	Library to perform DNS requests and name resolves asynchronously
+License:	MIT
+URL:		http://c-ares.haxx.se/
+Source:		http://c-ares.haxx.se/download/c-ares-%{version}.tar.gz
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
 
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 
 %prep
@@ -67,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Nov 05 2011 - Milan Jurik
+- bump to 1.7.5
 * Wed Jan 05 2011 - Milan Jurik
 - bump to 1.7.4
 * Tue Sep 07 2010 - Milan Jurik

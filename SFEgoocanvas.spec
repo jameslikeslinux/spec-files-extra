@@ -13,6 +13,7 @@
 %use goocanvas = goocanvas.spec
 
 Name:           SFEgoocanvas
+IPS_Package_Name:	library/desktop/goocanvas
 Summary:        %{goocanvas.summary}
 Version:        %{default_pkg_version}
 License:	LGPL

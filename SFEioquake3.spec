@@ -7,13 +7,11 @@
 
 %define cc_is_gcc       1
 
-%define SFEopenal       %(/usr/bin/pkg info openal-soft >/dev/null 2>&1 && echo 0 || echo 1)
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
-
 %define src_name        ioquake3
 %define src_url         http://www.ioquake3.org/files/
 
 Name:                   SFEioquake3
+IPS_Package_Name:	games/ioquake3
 Summary:                ioquake3 - icculus.org Quake3
 Version:                1.36
 URL:                    http://www.ioquake3.org/
@@ -22,22 +20,15 @@ Patch1:                 ioquake3-01-solaris.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SUNWlibsdl
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%else
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%endif
 %ifarch i386 amd64
 BuildRequires: SUNWxorg-mesa
 %endif
 BuildRequires: SUNWogg-vorbis-devel
 # SUNWspeex is missing speex_preprocess_*
 #BuildRequires: SUNWspeex-devel
-%if %SFEopenal
 BuildRequires: SFEopenal-devel
-%endif
 Requires: SUNWogg-vorbis
 # SUNWspeex is missing speex_preprocess_*
 #Requires: SUNWspeex

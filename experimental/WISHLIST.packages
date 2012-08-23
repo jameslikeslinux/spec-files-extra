@@ -1,0 +1,16 @@
+#please add your package names here, if you add a sourceforge userid or complete
+#email-address we might drop you a note once we have an update on a specific 
+#package. Note: This file is highly experimental and might die unexpectedly at
+#any time :)
+#please keep the format and comments intact to enable us to make automatic 
+#includes on a future website
+#in case of a re-use of this information here we cut out everything after the
+#first "#" sign
+#first example is "*" meaning cange on all package names please inform
+# * # nametag_or_emailaddress nametag_or_emailaddress1 nametag_or_emailaddress2 ... # free-form-comment1 comment2
+# SFEmayacalendar.spec # # this is an example without an emailaddress or a nametag
+#
+#
+* # tom68 # pls inform about all changes in that wishlist file
+SFEphpmyadmin.spec # tom68
+SFEhxbt.spec # tom68

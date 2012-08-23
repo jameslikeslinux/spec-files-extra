@@ -11,6 +11,7 @@
 Name:                SFEwordcut
 Summary:             Word Segmentation Utility for Thai Language
 Version:             0.5.1b2
+IPS_component_version: 0.5.1.2
 Source:              %{src_url}/%{src_name}-%{version}.tar.gz
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -75,5 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix ips version
 * Thu Jul 26 2007 - dougs@truemail.co.th
 - Initial spec

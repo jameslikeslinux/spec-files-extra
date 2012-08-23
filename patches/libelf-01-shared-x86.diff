@@ -1,0 +1,11 @@
+--- libelf-0.8.13/aclocal.m4	2008-05-23 10:17:56.000000000 +0200
++++ libelf-0.8.13/aclocal.m4	2011-11-25 20:28:22.708129504 +0100
+@@ -288,7 +288,7 @@
+ 	  mr_enable_shared=no
+ 	fi
+ 	;;
+-      sparc-sun-solaris2*)
++      sparc-sun-solaris2*|i386-pc-solaris2*)
+ 	if test "$GCC" = yes; then
+ 	  PICFLAGS='-fPIC -DPIC'
+ 	else

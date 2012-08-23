@@ -5,21 +5,26 @@
 #
 
 %include Solaris.inc
-Name:                    SFEsoundtouch
-Summary:                 Audio Processing Library
-URL:                     http://www.surina.net/soundtouch
-Version:                 1.5.0
-Source:                  http://www.surina.net/soundtouch/soundtouch-%{version}.tar.gz
-Patch1:                  soundtouch-01-nomsse.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEsoundtouch
+IPS_Package_Name:	library/audio/soundtouch
+Summary:	Audio Processing Library
+Group:		System/Multimedia Libraries
+URL:		http://www.surina.net/soundtouch
+Version:	1.6.0
+Source:		http://www.surina.net/soundtouch/soundtouch-%{version}.tar.gz
+License:	LGPLv2.1+
+Patch1:		soundtouch-01-nomsse.diff
+SUNW_BaseDir:	%{_basedir}
+SUNW_Copyright:	soundtouch.copyright
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir: %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
+Requires: %name
 
 %prep
 %setup -q -n soundtouch
@@ -82,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- bump to 1.6.0
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Thu Jan 21 2010 - Milan Jurik
 - update to 1.5.0, remove upstream fixes
 * Tue Feb 24 2009 - brian.cameron@sun.com

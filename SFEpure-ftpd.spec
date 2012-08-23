@@ -10,6 +10,7 @@ Summary:	Lightweight, fast and secure FTP server
 Group:		System Environment/Daemons
 License:	BSD
 URL:		http://www.pureftpd.org
+SUNW_Copyright:	pure-ftpd.copyright
 Source:		http://download.pureftpd.org/pub/%{src_name}/releases/%{src_name}-%{version}.tar.bz2
 Source1:	pure-ftpd.xml
 Patch1:		pure-ftpd-01-openldap.diff
@@ -168,6 +169,8 @@ user ftpuser=false gcos-field="pure-ftpd Reserved UID" username="pure-ftpd" pass
 
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Jun 7 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 1.0.32
 * Sun Apr 24 2011 - Milan Jurik

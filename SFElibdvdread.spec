@@ -4,16 +4,25 @@
 # includes module(s): libdvdread
 #
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 
 Name:                    SFElibdvdread
-Summary:                 libdvdread - Library for reading DVD video disks
-Version:                 4.1.3
-Source:                  http://www.mplayerhq.hu/MPlayer/releases/dvdnav/libdvdread-%{version}.tar.bz2
+IPS_Package_Name:	 library/video/libdvdread 
+Summary:                 Library for reading DVD video disks
+Version:                 4.2.0
+License:                 GPLv2+
+SUNW_Copyright:	         libdvdread.copyright
+URL:                     http://dvdnav.mplayerhq.hu
+Source:                  http://dvdnav.mplayerhq.hu/releases/libdvdread-%{version}.tar.bz2
 Patch1:			 libdvdread-01-dvdfilestat.diff
 Patch2:			 libdvdread-02-wall.diff
 SUNW_BaseDir:            %{_basedir}
 buildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+
+#BuildRequires:           SFEgcc
+#Requires:                SFEgccruntime
 
 %package devel
 Summary:                 %{summary} - development files
@@ -23,14 +32,12 @@ Requires: %name
 
 %prep
 %setup -q -n libdvdread-%version
-%patch1 -p1
-%patch2 -p1
+#%patch1 -p1
+#%patch2 -p1
 
 %build
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-    CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
+export CC=gcc
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 export ACLOCAL_FLAGS="-I %{_datadir}/aclocal"
@@ -74,6 +81,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 20 2011 - Ken Mays <kmays2000@gmail.com>
+- Bumped to 4.2.0
+* Mon Oct 10 2011 - Milan Jurik
+- add IPS package name
+* Fri Jul 22 2011 - Alex Viskovatoff
+- Build with gcc, so that mplayer2 can play DVDs
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Fri Apr 15 2011 - Alex Viskovatoff
 - Update source URL
 * Mon Mar 15 2010 - Albert Lee <trisk@opensolaris.org>

@@ -6,25 +6,26 @@
 %include Solaris.inc
 
 Name:         SFEgecko-sharp
+IPS_Package_Name:	library/mono/gecko-sharp-2
 License:      Other
 Group:        System/Libraries
-Version:      0.12
+Version:      2.0-0.13
+IPS_Component_Version:	0.13
 Summary:      gtk# - .NET bindings for gecko
-Source:       http://go-mono.com/sources/gecko-sharp-2.0/gecko-sharp-2.0-%{version}.tar.gz
+Source:       http://go-mono.com/sources/gecko-sharp2/gecko-sharp-%{version}.tar.bz2
 URL:          http://www.mono-project.org/
 SUNW_BaseDir: %{_basedir}
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 Docdir:	      %{_defaultdocdir}/doc
-Autoreqprov:  on
 
 BuildRequires: SUNWgnome-base-libs
 BuildRequires: SFEmono-devel
-BuildRequires: SFEmonodoc
+#BuildRequires: SFEmonodoc
 Requires: SUNWgnome-base-libs
 Requires: SFEmono
 
 %prep
-%setup -q -n gecko-sharp-2.0-%version
+%setup -q -n gecko-sharp-%version
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -59,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Sep 16 2011 - jchoi42@pha.jhu.edu
+- Bump to 2.0-0.13
 * Sun Sep 02 2007 - trisk@acm.jhu.edu
 - Update dependencies
 * Sat Mar 17 2007 - laca@sun.com

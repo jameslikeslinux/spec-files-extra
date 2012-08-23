@@ -20,10 +20,13 @@
 %use libvpx = libvpx.spec
 
 Name:		SFElibvpx
+IPS_Package_Name:	library/video/libvpx
 Summary:	The VP8 Codec SDK
-Group:		Libraries/Multimedia
+Group:		System/Multimedia Libraries
 Version:	%{libvpx.version}
 URL:		http://www.webmproject.org/
+License:        BSD
+SUNW_Copyright:	libvpx.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -49,7 +52,7 @@ mkdir %name-%version/%{base_arch}
 %libvpx.prep -d %name-%version/%{base_arch}
 
 %build
-export CC=/usr/gcc/4.5/bin/gcc
+export CC=gcc
 
 %ifarch amd64
 %libvpx_64.build -d %name-%version/%_arch64
@@ -70,12 +73,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%{_libdir}
+%_libdir/libvpx.so*
+%ifarch amd64
+%_libdir/%_arch64/libvpx.so*
+%endif
 
 %files devel
 %defattr (-, root, bin)
-%{_includedir}
+%_includedir
+%dir %attr (0755, root, other) %_libdir/pkgconfig
+%_libdir/pkgconfig/vpx.pc
+%ifarch amd64
+%dir %attr (0755, root, other) %_libdir/%_arch64/pkgconfig
+%_libdir/%_arch64/pkgconfig/vpx.pc
+%endif
 
 %changelog
+* Tue Nov  1 2011 - Alex Viskovatoff
+- Fix directory attributes
+* Thu Jul 21 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Thu Mar 17 2011 - Milan Jurik
 - initial spec

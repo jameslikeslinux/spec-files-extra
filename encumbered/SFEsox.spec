@@ -12,7 +12,7 @@
 
 %define src_name sox
 %define src_ver 14.3.0
-%define src_url http://%{sf_mirror}/sox
+%define src_url %sf_download/project/%src_name/%src_name/%src_ver
 
 
 %define SFElibsndfile   %(/usr/bin/pkginfo -q SFElibsndfile && echo 1 || echo 0)
@@ -20,6 +20,7 @@
 
 Name:                    SFEsox
 Summary:                 The swiss army knife of sound processing programs
+URL:                     http://sox.sourceforge.net/
 Version:                 %{src_ver}
 Source:                  %{src_url}/%{src_name}-%{src_ver}.tar.gz
 SUNW_BaseDir:            %{_basedir}
@@ -95,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/sox.pc
 
 %changelog
+* Sun Jul 17 2011 - Alex Viskovatoff
+- update source URL
 * Fri Aug 21 2009 - Milan Jurik
 - update to 14.3.0
 * Tue Feb 17 2009 - Thomas Wagner

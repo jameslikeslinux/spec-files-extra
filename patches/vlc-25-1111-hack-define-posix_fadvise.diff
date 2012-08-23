@@ -1,0 +1,39 @@
+--- vlc-1.1.11.orig/modules/access/file.c	2010-07-18 18:21:06.000000000 +0200
++++ vlc-1.1.11/modules/access/file.c	2011-08-15 17:31:47.443339047 +0200
+@@ -124,9 +124,9 @@
+ }
+ #endif
+ 
+-#ifndef HAVE_POSIX_FADVISE
++//#ifndef HAVE_POSIX_FADVISE
+ # define posix_fadvise(fd, off, len, adv)
+-#endif
++//#endif
+ 
+ /*****************************************************************************
+  * Open: open the file
+--- vlc-1.1.11.orig/modules/access/mmap.c	2011-03-19 13:17:47.000000000 +0100
++++ vlc-1.1.11/modules/access/mmap.c	2011-08-15 17:31:46.268247497 +0200
+@@ -46,6 +46,10 @@
+ /*# define MMAP_DEBUG 1*/
+ #endif
+ 
++//#ifndef HAVE_POSIX_FADVISE
++# define posix_fadvise(fd, off, len, adv)
++//#endif
++
+ static int Open (vlc_object_t *);
+ static void Close (vlc_object_t *);
+ 
+@@ -142,9 +146,9 @@
+     p_sys->fd = fd;
+ 
+     p_access->info.i_size = st.st_size;
+-#ifdef HAVE_POSIX_FADVISE    
++//#ifdef HAVE_POSIX_FADVISE    
+     posix_fadvise (fd, 0, 0, POSIX_FADV_SEQUENTIAL);
+-#endif 
++//#endif 
+ 
+     return VLC_SUCCESS;
+ 

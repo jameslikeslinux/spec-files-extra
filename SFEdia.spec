@@ -7,9 +7,10 @@
 %include Solaris.inc
 
 Name:                    SFEdia
-Summary:                 Dia
-Version:                 0.96.1
-Source:                  http://ftp.gnome.org/pub/GNOME/sources/dia/0.96/dia-%{version}.tar.bz2
+Summary:                 GTK+ based diagram creation program
+Version:                 0.97.1
+URL:			 http://live.gnome.org/Dia
+Source:                  http://ftp.gnome.org/pub/GNOME/sources/dia/0.97/dia-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
@@ -106,5 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 13 2011 - N.B.Prashanth <nbprash.mit@gmail.com>
+- Bump to 0.97.1; Updated tags
 * Mon Jun 23 2008 - matt.keenan@sun.com
 - Initial spec file

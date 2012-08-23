@@ -10,6 +10,7 @@
 %define src_name plib
 
 Name:           SFEplib
+IPS_Package_Name:	library/plib
 Summary:        plib
 Version:        1.8.5
 Source:		http://plib.sourceforge.net/dist/%{src_name}-%{version}.tar.gz
@@ -36,44 +37,30 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires:		 %name
 
-%if %build_l10n
-%package l10n
-Summary:                 %{summary} - l10n files
-SUNW_BaseDir:            %{_basedir}
-%include default-depend.inc
-Requires:        %{name}
-%endif
-
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 
 %build
-#PROTO_LIB=$RPM_BUILD_DIR/%{name}/usr/X11/lib
-#PROTO_INC=$RPM_BUILD_DIR/%{name}/usr/X11/include
-#PROTO_PKG=$RPM_BUILD_DIR/%{name}/usr/X11/lib/pkgconfig
-#export PKG_CONFIG_PATH="$PROTO_PKG"
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+     CPUS=1
+fi
 
 export CFLAGS="%optflags"
 export LDFLAGS="%_ldflags"
 
 libtoolize --copy --force
 ./autogen.sh
-./configure --prefix=%_basedir
-gmake
+./configure --prefix=%_prefix
+make -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#gmake install DESTDIR=$RPM_BUILD_ROOT/%_basedir
-gmake install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
-
-#%if %build_l10n
-#%else
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-#%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -86,14 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_includedir}/plib
 
-#%if %build_l10n
-#%files l10n
-#%defattr (-, root, bin)
-#%dir %attr (0755, root, sys) %{_datadir}
-#%attr (-, root, other) %{_datadir}/locale
-#%endif
-
 %changelog
+* Mon Dec 05 2011 - Milan Jurik
+- small clean up, add IPS package name
 * May 18 2010 - Gilles Dauphin
 - fork to SFEplib-gpp, reverse change for compilation with ss12
 * Mon May 03 2010 - Milan Jurik

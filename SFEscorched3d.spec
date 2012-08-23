@@ -7,52 +7,40 @@
 #
 %include Solaris.inc
 
-%define SFEfreetype %(/usr/bin/pkginfo -q SFEfreetype && echo 1 || echo 0)
-%define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 %define SFEwxwidgets %(/usr/bin/pkginfo -q SFEwxwidgets && echo 1 || echo 0)
 %define SFEfftw     %(/usr/bin/pkginfo -q SFEfftw && echo 1 || echo 0)
 
-%define src_version 43.1c
+%define src_version 43.2a
 
-Name:                    SFEscorched3d
-Summary:                 A 3D game based on the classic DOS game, Scorched Earth
-Version:                 43.1.0.3
-Source:                  %{sf_download}/scorched3d/Scorched3D-%{src_version}-src.tar.gz
-Source1:                 scorched3d.png
-Source2:                 scorched3d.desktop
-URL:                     http://www.scorched3d.co.uk/
-License:                 GPL
-Group:                   Amusements/Games
-Patch1:                  scorched3d-01-securid.diff
-Patch2:                  scorched3d-02-sunpro.diff
-Patch3:                  scorched3d-03-const.diff
-Patch4:                  scorched3d-04-prototype.diff
-Patch5:                  scorched3d-05-openal.diff
+Name:		SFEscorched3d
+IPS_Package_Name:	games/scorched3d
+Summary:	A 3D game based on the classic DOS game, Scorched Earth
+Version:	43.2.0.1
+Source:		%{sf_download}/scorched3d/Scorched3D-%{src_version}-src.tar.gz
+Source1:	scorched3d.png
+Source2:	scorched3d.desktop
+URL:		http://www.scorched3d.co.uk/
+License:	GPL
+Group:		Amusements/Games
+Patch1:		scorched3d-01-securid.diff
+Patch2:		scorched3d-02-sunpro.diff
+Patch3:		scorched3d-03-const.diff
+Patch5:		scorched3d-05-openal.diff
 
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-%if %SFEsdl
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%else
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%endif
 BuildRequires:	SFEsdl-mixer-devel
 Requires:	SFEsdl-mixer
 Requires: SUNWogg-vorbis
 BuildRequires: SUNWogg-vorbis-devel
 Requires: SFEopenal
 BuildRequires: SFEopenal-devel
-%if %SFEfreetype
-BuildRequires: SFEfreetype-devel
-Requires: SFEfreetype
-%else
 BuildRequires: SUNWfreetype2
 Requires: SUNWfreetype2
-%endif
 %if %SFEfftw
 Requires: SFEfftw
 BuildRequires: SFEfftw-devel
@@ -81,7 +69,6 @@ Requires: SUNWxorg-mesa
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p1
 %patch5 -p1
 
 %build
@@ -135,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/*
 
 %changelog
+* Fri Dec 30 2011 - Milan Jurik
+- bump to 43.2a
 * Mon May 10 2010 - Milan Jurik
 - use SUNWfftwX if possible
 * Sun May 09 2010 - Milan Jurik

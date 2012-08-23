@@ -10,7 +10,7 @@
 Name:                    SFEsugar-pippy
 Summary:                 Sugar Pippy
 URL:                     http://www.sugarlabs.org/
-Version:                 37 
+Version:                 43 
 Source:                  http://download.sugarlabs.org/sources/sucrose/fructose/Pippy/Pippy-%{version}.tar.bz2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -78,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Nov 19 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 43
+* Tue Sep 27 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 41.
 * Sat Aug 07 2010 - Brian Cameron  <brian.cameron@oracle.com>
 - Bump to 37.
 * Tue Feb 02 2010 - Brian Cameron  <brian.cameron@sun.com>

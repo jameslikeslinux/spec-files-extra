@@ -1,0 +1,10 @@
+--- faac-1.28/common/mp4v2/Makefile.am	Sun Jan 25 02:14:34 2009
++++ faac-1.28/common/mp4v2/Makefile.am	Mon Oct 17 09:40:14 2011
+@@ -1,7 +1,5 @@
+ INCLUDES = -I$(top_srcdir)/include
+ 
+-AM_CXXFLAGS = -Wall
+-
+ noinst_LIBRARIES = libmp4v2.a 
+ 
+ noinst_HEADERS = mp4.h mpeg4ip.h mpeg4ip_version.h mpeg4ip_config.h

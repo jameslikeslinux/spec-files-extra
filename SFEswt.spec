@@ -8,9 +8,8 @@
 Name:                SFEswt
 Summary:             Standard Widget Toolkit
 Version:             3.4.2
-Source:              http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/eclipse/downloads/drops/R-3.4.2-200902111700/swt-%{version}-gtk-solaris-sparc.zip
+Source:              http://archive.eclipse.org/eclipse/downloads/drops/R-3.4.2-200902111700/swt-%{version}-gtk-solaris-sparc.zip
 
-#http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/eclipse/downloads/drops/R-3.3.2-200802211800/swt-3.3.2-gtk-solaris-sparc.zip
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -55,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/swt/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- fix download location
 * Mon May 18 2009 - pradhap <at> gmail.com
 - Bump up the version, fix URL and if condition
 * Sun Oct 12 2008 - sobotkap@gmail.com

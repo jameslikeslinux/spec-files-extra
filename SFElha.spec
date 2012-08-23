@@ -10,9 +10,9 @@
 %define src_version 1.14i-ac20040929
 
 Name:		SFElha
+IPS_Package_Name:	compress/lha
 Version:	1.14.9.1
 Summary:	LHA/LZH archiver
-
 Group:		Applications/Archiving
 URL:		http://www2m.biglobe.ne.jp/~dolphin/%{src_name}/lha-unix.htm
 Source:		http://dl.sourceforge.jp/%{src_name}/11617/%{src_name}-%{src_version}.tar.gz

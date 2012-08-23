@@ -9,16 +9,18 @@
 %define src_name TiMidity++
 
 Name:		SFEtimidity
+IPS_Package_Name:	media/timidity
 Summary:	Software sound renderer (MIDI sequencer, MOD player)
-Group:		Audio
+Group:		Applications/Sound and Video
 Version:	2.13.2
 License:	GPLv2
 Source:		%{sf_download}/timidity/%{src_name}/%{src_name}-2.13.2/%{src_name}-%{version}.tar.gz
 Patch1:		timidity-01-sunstudio.diff
 Patch2:		timidity-02-inttypes.diff
-Patch3:		timidity-10-freeinst.diff
+Patch10:	timidity-10-freeinst.diff
 URL:		http://timidity.sourceforge.net/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_Copyright: timidity.copyright
 SUNW_Basedir:	%{_prefix}
 
 %include default-depend.inc
@@ -79,26 +81,34 @@ SUNW_Basedir:	/
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+%patch10 -p1
+
+# Fix broken file
+echo >> timidity/tables.c
 
 %build
+CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
+if test "x$CPUS" = "x" -o $CPUS = 0; then
+     CPUS=1
+fi
+
 ./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} \
 	--with-default-path=%{_sysconfdir}/timidity \
 	--mandir=%{_mandir} \
 	--enable-audio=oss,sun,vorbis --enable-network \
 	--enable-gtk --enable-spectrogram --with-x
-make
+make -j$CPUS
 
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 # Add documentation
-mkdir -p %{buildroot}/%{_docdir}
-install -m 0644 doc/C/FAQ %{buildroot}/%{_docdir}
-install -m 0644 doc/C/README* %{buildroot}/%{_docdir}
-install -m 0644 INSTALL %{buildroot}/%{_docdir}
-install -m 0644 README %{buildroot}/%{_docdir}
-install -m 0644 NEWS %{buildroot}/%{_docdir}
+mkdir -p %{buildroot}/%{_docdir}/timidity
+install -m 0644 doc/C/FAQ %{buildroot}/%{_docdir}/timidity
+install -m 0644 doc/C/README* %{buildroot}/%{_docdir}/timidity
+install -m 0644 INSTALL %{buildroot}/%{_docdir}/timidity
+install -m 0644 README %{buildroot}/%{_docdir}/timidity
+install -m 0644 NEWS %{buildroot}/%{_docdir}/timidity
 
 mkdir -p %{buildroot}/%{_datadir}/pixmaps
 install -m 0644 interface/pixmaps/timidity.xpm \
@@ -131,7 +141,7 @@ rm -rf %{buildroot}
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
-%{_docdir}/*
+%{_docdir}/timidity/*
 %{_mandir}
 %dir %attr (0755, root, other) %{_datadir}/applications
 %{_datadir}/applications/*
@@ -144,6 +154,8 @@ rm -rf %{buildroot}
 %config %{_sysconfdir}/timidity/timidity.cfg
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Sun Dec 26 2010 - Milan Jurik
 - from jucr to SFE
 * Fri Jul 31 2009 - milan.cermak@sun.com

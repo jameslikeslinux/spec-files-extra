@@ -6,7 +6,7 @@
 # NOTE: If you want to build Qt against stdcxx, use SFEqt47.spec
 
 %include Solaris.inc
-%include osdistro.inc
+%include packagenamemacros.inc
 %define srcname qt-everywhere-opensource-src
 
 Name:                SFEqt4
@@ -23,8 +23,11 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 
 #FIXME: Requires: SUNWxorg-mesa
 # Guarantee X/freetype environment concisely (hopefully):
-Requires: SUNWGtku
-Requires: SUNWxwplt
+#Requires: %{pnm_requires_SUNWGtk} 
+BuildRequires: SUNWgtk2
+Requires:      SUNWgtk2
+BuildRequires: %{pnm_buildrequires_SUNWxwplt}
+Requires: %{pnm_requires_SUNWxwplt}
 # The above bring in many things, including SUNWxwice and SUNWzlib
 Requires: SUNWxwxft
 # The above also pulls in SUNWfreetype2
@@ -106,6 +109,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/doc/*
 
 %changelog
+* Sat Apr 28 2012 - Thomas Wagner
+- change BuildRequires to %{pnm_buildrequires_SUNWxwplt} and SUNWgtk2
+- add (Build)Requires: SUNWxwxft
 * Thu Mar  3 2011 - Alex Viskovatoff
 - Since Milan Jurik indicates in a comment that this spec currently does not
   build using stdcxx, remove the option to build using stdcxx: if you want that,

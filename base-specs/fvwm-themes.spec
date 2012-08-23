@@ -43,11 +43,9 @@ autoconf --force
             --libdir=%{_libdir}			\
             --datadir=%{_datadir}		\
             --libexecdir=%{_libexecdir} 	\
-            --sysconfdir=%{_sysconfdir} 	\
-            --enable-shared			\
-	    --disable-static		
+            --sysconfdir=%{_sysconfdir}
 
-make -j$CPUS 
+gmake -j$CPUS 
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT

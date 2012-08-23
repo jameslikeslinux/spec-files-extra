@@ -11,6 +11,7 @@
 %define src_url http://archive.xfce.org/src/xfce/gtk-xfce-engine/2.8/
 
 Name:		SFEgtk-xfce-engine
+IPS_Package_Name:	gnome/theme/gtk2-xfce-engine
 Summary:	Port of xfce engine to GTK+-2.0
 Version:	2.8.1
 URL:		http://www.xfce.org/

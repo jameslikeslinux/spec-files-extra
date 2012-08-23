@@ -7,6 +7,7 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
 
 Name:               SFEanjuta
 Version:            2.30.1.0
@@ -39,7 +40,7 @@ Requires: SUNWlibC
 Requires: SUNWlibms
 Requires: SUNWlxml
 Requires: SUNWlxsl
-Requires: SUNWperl584core
+Requires: %{pnm_buildrequires_perl_default}
 Requires: SUNWpcre
 Requires: SUNWapch22u
 Requires: SUNWsvn
@@ -225,6 +226,7 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %{_datadir}/omf/anjuta*
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/anjuta*
+%defattr (-, root, other)
 %dir %attr (-, root, other) %{_datadir}/icons
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor
 %dir %attr (-, root, other) %{_datadir}/icons/gnome
@@ -232,14 +234,18 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/48x48/apps
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 %dir %attr (-, root, other) %{_datadir}/icons/gnome/48x48
-%dir %attr (-, root, other) %{_datadir}/icons/gnome/48x48/mimetypes
+%dir %attr (-, root, bin) %{_datadir}/icons/gnome/48x48/mimetypes
 %{_datadir}/icons/gnome/48x48/mimetypes/*.png
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable
 %dir %attr (-, root, other) %{_datadir}/icons/hicolor/scalable/apps
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %dir %attr (-, root, other) %{_datadir}/icons/gnome/scalable
-%dir %attr (-, root, other) %{_datadir}/icons/gnome/scalable/mimetypes
+# might need a switch for other distributions' defaults:
+# pkg://solaris/gnome/theme/gnome-icon-theme@2.30.3,5.11-0.175.0.0.0.0.0:20110927T092937Z
+# delivers this directory as root:bin and not root:other
+%dir %attr (-, root, bin) %{_datadir}/icons/gnome/scalable/mimetypes
 %{_datadir}/icons/gnome/scalable/mimetypes/*.svg
+%defattr (-, root, bin)
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/*
 %{_mandir}/*/*
@@ -269,6 +275,9 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %endif
 
 %changelog
+* Sun Jan 29 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_perl_default}, %include packagenamemacros.inc
+- fix various permissions on S11+OI, incl. path=usr/share/icons/gnome/48x48/mimetypes (now root:bin, before root:other)
 * Thu Apr 29 2010 - halton.huo@sun.com
 - Bump to 2.30.1.0
 - Add patch1 01-FIONREAD.diff to fix bugzilla #614949

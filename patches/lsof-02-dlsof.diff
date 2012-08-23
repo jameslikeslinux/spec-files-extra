@@ -1,0 +1,20 @@
+--- lsof_4.83_src/dialects/sun/dlsof.h	2010-01-18 11:03:57.000000000 -0800
++++ lsof_4.83_src-patched/dialects/sun/dlsof.h	2012-03-11 00:49:01.693878113 -0800
+@@ -124,6 +124,7 @@
+ #define	vsprintf	__kernel_vsprintf
+ #define	vsnprintf	__kernel_vsnprintf
+ #  endif	/* solaris>=110000 */
++#include <sys/mutex.h>
+ #include <inet/ipclassifier.h>
+ #undef	ffs
+ #undef	inet_ntop
+@@ -196,8 +197,8 @@
+ #include <rpc/auth.h>
+ #include <rpc/clnt.h>
+ #include <rpc/clnt_soc.h>
+-#include <rpc/pmap_prot.h>
+ #define	_KERNEL
++#include <rpc/pmap_prot.h>
+ #include <sys/fs/autofs.h>
+ 
+ #  if	solaris>=100000

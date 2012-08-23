@@ -73,6 +73,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-, root, bin)
 %{_bindir}
 %dir %attr (0755, root, sys) %{_datadir}
+%dir %attr (0755, root, other) %{_datadir}/locale
+%{_datadir}/locale/*
 %{_datadir}/m17n
 
 %files devel
@@ -82,5 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Mar 31 2012 - Pavel Heimlich
+- update file list
 * Thu Jul 26 2007 - dougs@truemail.co.th
 - Initial spec

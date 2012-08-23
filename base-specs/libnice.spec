@@ -1,4 +1,4 @@
-Version:        0.1.0
+Version:        0.1.1
 Summary:        Implementation of the IETF's Interactive Connectivity Establishment (ICE) standard
 
 Group:          System/Libraries
@@ -52,6 +52,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-0.10/*.{a,la}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Feb 12 2012 - Milan Jurik
+- bump to 0.1.1
 * Sun Feb 13 2011 - Milan Jurik
 - bump to 0.1.0
 * Tue Sep 21 2010 - Albert Lee <trisk@opensolaris.org.

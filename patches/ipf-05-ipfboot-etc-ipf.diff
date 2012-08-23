@@ -1,0 +1,10 @@
+--- ip_fil5.1.1/SunOS5/ipfboot	2009-05-01 10:52:04.000000000 -0700
++++ ip_fil5.1.1-patched/SunOS5/ipfboot	2012-03-06 08:30:18.622705542 -0800
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ #
+-IPFBASE=/etc/opt/ipf
++IPFBASE=/etc/ipf
+ 
+ PATH=/bin:/sbin:/usr/sbin:${PATH}:/opt/ipf/bin
+ IPFILCONF=${IPFBASE}/ipf.conf

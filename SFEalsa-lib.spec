@@ -12,18 +12,20 @@
 %include base.inc
 %use alsalib = alsa-lib.spec
 
-Name:                    SFEalsa-lib
-Summary:                 %{alsalib.summary}
-Version:                 %{alsalib.version}
-SUNW_BaseDir:            %{_basedir}
-SUNW_Copyright:          %{name}.copyright
-Group:			 Audio
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEalsa-lib
+IPS_Package_Name:	library/audio/alsa
+URL:		http://www.alsa-project.org/
+Summary:	%{alsalib.summary}
+Version:	%{alsalib.version}
+SUNW_BaseDir:	%{_basedir}
+SUNW_Copyright:	%{name}.copyright
+Group:		Audio
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 

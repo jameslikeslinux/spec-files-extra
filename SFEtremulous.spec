@@ -8,14 +8,14 @@
 %define cc_is_gcc       1
 
 %define SFEopenal       %(/usr/bin/pkg info openal-soft >/dev/null 2>&1 && echo 0 || echo 1)
-%define SUNWlibsdl      %(/usr/bin/pkginfo -q SUNWlibsdl && echo 1 || echo 0)
 
 %define src_name        tremulous
-%define src_url         http://%{sf_mirror}/sourceforge/tremulous
+%define src_url         %{sf_download}/tremulous
 %define patch_url       http://gentoo.osuosl.org/distfiles
 %define src_version     1.1.0
 
 Name:                   SFEtremulous
+IPS_Package_Name:	games/tremulous
 Summary:                Tremulous - Team-based first-person shooter game with RTS elements
 #Version:                1.1.0-r971
 Version:                1.1.0.971
@@ -27,29 +27,21 @@ Source1:                %{patch_url}/tremulous-gentoopatches-1.1.0-r5.zip
 # TO FIND : an official site for this file
 Source2:                %{patch_url}/vms-1.1.t971.pk3
 Patch1:                 tremulous-01-solaris.diff
+Patch2:			tremulous-02-werror.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-%if %SUNWlibsdl
 BuildRequires: SUNWlibsdl-devel
 Requires: SUNWlibsdl
-%else
-BuildRequires: SFEsdl-devel
-Requires: SFEsdl
-%endif
 %ifarch i386 amd64
 BuildRequires: SUNWxorg-mesa
 %endif
 BuildRequires: SUNWogg-vorbis-devel
 #BuildRequires: SUNWcurl-devel
-%if %SFEopenal
 BuildRequires: SFEopenal-devel
-%endif
 Requires: SUNWogg-vorbis
 Requires: SUNWcurl
-%if %SFEopenal
 Requires: SFEopenal
-%endif
 
 %prep
 %setup -q -n %{src_name}
@@ -59,6 +51,7 @@ cd %{src_name}-%{src_version}-src
 gpatch -p0 -f < tremulous-svn755-upto-971.patch
 gpatch -p0 -f < tremulous-t971-client.patch
 %patch1 -p1
+%patch2 -p1
 cd ..
 cp %{SOURCE2} base
 
@@ -127,6 +120,8 @@ rm -rf $RPM_BUILD_ROOT
 #%{_datadir}/pixmaps/*
 
 %changelog
+* Wed Dec 28 2011 - Milan Jurik
+- cleanup
 * Mon May 03 2010 - Albert Lee <trisk@opensolaris.org>
 - Try openal-soft and make OpenAL optional
 - Update URLs

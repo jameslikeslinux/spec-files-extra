@@ -11,23 +11,23 @@
 Name:         pangomm
 License:      LGPL
 Group:        System/Libraries
-Version:      2.24.0
+Version:      2.26.3
 Release:      1
 Distribution: Java Desktop System
 Vendor:       Sun Microsystems, Inc.
 Summary:      pangomm - C++ Interfaces for pango 
-Source:       http://download.gnome.org/sources/pangomm/2.24/pangomm-%{version}.tar.bz2
+Source:       http://download.gnome.org/sources/pangomm/2.26/pangomm-%{version}.tar.bz2
 # date:2008-07-24 owner:gheet type:feature
-Patch1:      pangomm-01-ignore-defs.diff
+#Patch1:      pangomm-01-ignore-defs.diff
 URL:          http://www.gtkmm.org/
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 %prep
 %setup -q -n pangomm-%version
-%patch1 -p1
+#%patch1 -p1
 
 %build
-export CXXFLAGS="%gcc_cxx_optflags -D_XPG4_2 -D_RWSTD_NO_WSTR -D__EXTENSIONS__"
+export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D_RWSTD_NO_WSTR -D__EXTENSIONS__"
 
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -37,27 +37,27 @@ fi
 %else
 export CXX="${CXX} -norunpath"
 %endif
-export CXXFLAGS="%gcc_cxx_optflags -D_XPG4_2 -D_RWSTD_NO_WSTR -D__EXTENSIONS__"
+export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D_RWSTD_NO_WSTR -D__EXTENSIONS__"
 
-aclocal -Iscripts
-automake --add-missing
-autoconf
+#aclocal -Iscripts
+#automake --add-missing
+#autoconf
 ./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_cxx_libdir}              \
-            --libexecdir=%{_libexecdir}      \
             --sysconfdir=%{_sysconfdir}
 make -j$CPUS 
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_cxx_libdir}/lib*a
+rm -f $RPM_BUILD_ROOT%{_libdir}/lib*a
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- Bump to 2.26.3
 * Fri Sep 25 2009 - jchoi42@pha.jhu.edu
 - Update libsdir locations for gcc build
 * Fri Jun 26 2009 - chris.wang@sun.com

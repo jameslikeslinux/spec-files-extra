@@ -1,0 +1,61 @@
+--- fuse-ext2-0.0.7/fuse-ext2/op_readdir.c.orig	2011-11-09 23:11:51.899546974 +0000
++++ fuse-ext2-0.0.7/fuse-ext2/op_readdir.c	2011-11-09 23:32:02.615079901 +0000
+@@ -26,40 +26,7 @@
+ };
+ 
+ #define _USE_DIR_ITERATE2
+-#ifdef _USE_DIR_ITERATE2
+-static int walk_dir2 (ext2_ino_t dir, int   entry, struct ext2_dir_entry *dirent, int offset, int blocksize, char *buf, void *vpsid)
+-{
+-	if (dirent->name_len > 0) {
+-		int res;
+-		unsigned char type;
+-		int len;
+-		struct dir_walk_data *psid=(struct dir_walk_data *)vpsid;
+-		struct stat st;
+-		memset(&st, 0, sizeof(st));
+-
+-		len=dirent->name_len & 0xff;
+-		dirent->name[len]=0; // bug wraparound
+-
+-		switch  (dirent->name_len >> 8) {
+-			case EXT2_FT_UNKNOWN: type=DT_UNKNOWN;break;
+-			case EXT2_FT_REG_FILE:  type=DT_REG;break;
+-			case EXT2_FT_DIR: type=DT_DIR;break;
+-			case EXT2_FT_CHRDEV:  type=DT_CHR;break;
+-			case EXT2_FT_BLKDEV:  type=DT_BLK;break;
+-			case EXT2_FT_FIFO:  type=DT_FIFO;break;
+-			case EXT2_FT_SOCK:  type=DT_SOCK;break;
+-			case EXT2_FT_SYMLINK: type=DT_LNK;break;
+-			default:    type=DT_UNKNOWN;break;
+-		}
+-		st.st_ino=dirent->inode;
+-		st.st_mode=type<<12;
+-		debugf("%s %d %d %d",dirent->name,dirent->name_len &0xff, dirent->name_len >> 8,type);
+-		res = psid->filler(psid->buf, dirent->name, &st, 0);
+-	}
+-	return 0;
+-}
+-#else
+-static int walk_dir (struct ext2_dir_entry *de, int offset, int blocksize, char *buf, void *priv_data)
++static int walk_dir2 (struct ext2_dir_entry *de, int offset, int blocksize, char *buf, void *priv_data)
+ {
+ 	int ret;
+ 	size_t flen;
+@@ -82,7 +49,6 @@
+ 	debugf("leave");
+ 	return ret;
+ }
+-#endif
+ 
+ int op_readdir (const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi)
+ {
+@@ -107,7 +73,7 @@
+ #ifdef _USE_DIR_ITERATE2
+ 	rc = ext2fs_dir_iterate2(e2fs,ino, DIRENT_FLAG_INCLUDE_EMPTY, NULL, walk_dir2, &dwd);
+ #else
+-	rc = ext2fs_dir_iterate(e2fs, ino, 0, NULL, walk_dir, &dwd);
++	rc = ext2fs_dir_iterate(e2fs, ino, 0, NULL, walk_dir2, &dwd);
+ #endif
+ 
+ 	if (rc) {

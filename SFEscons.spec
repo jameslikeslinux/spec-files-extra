@@ -5,15 +5,21 @@
 #
 
 %include Solaris.inc
+%include packagenamemacros.inc
+
 Name:                    SFEscons
-Summary:                 SCons - a software construction tool
-Version:                 2.0.1
+IPS_Package_Name:	developer/build/scons
+Summary:                 SCons - a software construction tool (make replacement)
+Group:		Development/Distribution Tools
+Version:                 2.1.0
 URL:                     http://www.scons.org/
+License:                 MIT
+SUNW_copyright:          scons.copyright
 Source:                  %{sf_download}/scons/scons-%{version}.tar.gz
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
-Requires:                SUNWPython26
-BuildRequires:           SUNWPython26-devel
+Requires: 	         %{pnm_requires_python_default}
+BuildRequires: 	         %{pnm_buildrequires_python_default}
 
 %include default-depend.inc
 
@@ -48,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*/*
 
 %changelog
+* Tue Sep 27 2011 - Alex Viskovatoff
+- bump to 2.1.0; add SUNW_copyright
 * Thu Nov 04 2010 - Milan Jurik
 - bump to 2.0.1
 * Thu Apr 22 2010 - Milan Jurik

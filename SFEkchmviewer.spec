@@ -5,6 +5,8 @@
 #
 
 %include Solaris.inc
+%define cc_is_gcc 1
+%include base.inc
 %define srcname kchmviewer
 
 Name:		SFEkchmviewer
@@ -12,16 +14,17 @@ Summary:	CHM help file viewer based on Qt
 URL:		http://www.kchmviewer.net
 Vendor:		George Yunaev
 Version:	5.2
-License:	GPL
+License:	GPLv3+
+SUNW_Copyright:	kchmviewer.copyright
 Source:		http://downloads.sourceforge.net/%srcname/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
 
-BuildRequires: SFEqt47-devel
+BuildRequires: SFEqt-gpp-devel
 BuildRequires: SFEchmlib
 
-Requires: SFEqt47
+Requires: SFEqt-gpp
 Requires: SFEchmlib
 Requires: SUNWzlib
 
@@ -34,17 +37,15 @@ mv build-%version %srcname-%version
 %build
 cd %srcname-%version
 
-CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
-if test "x$CPUS" = "x" -o $CPUS = 0; then
-     CPUS=1
-fi
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
-export PATH=/usr/stdcxx/bin:$PATH
-export QMAKESPEC=solaris-cc-stdcxx
-export QTDIR=/usr/stdcxx
+export PATH=/usr/g++/bin:$PATH
+export QMAKESPEC=solaris-g++
+export QTDIR=/usr/g++
 
 qmake
-gmake -j2 PREFIX=%_basedir
+# Parallelism breaks with 16 cpus, so don't use more than 4
+gmake -j$(test $CPUS -ge 4 && echo 4 || echo $CPUS) PREFIX=%_basedir
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -62,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 24 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Wed Apr 13 2011 - Alex Viskovatoff
 - Use only 2 cpus: using 16 cpus breaks build
 * Sat Mar 12 2011 - Alex Viskovatoff

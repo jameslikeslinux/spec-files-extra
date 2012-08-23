@@ -10,29 +10,49 @@
 %define src_name	openconnect
 
 Name:		SFEopenconnect
-Version:	3.02
-IPS_component_version: 3.2
+IPS_Package_Name:	system/network/openconnect
+Version:	3.99
 Summary:	Open client for Cisco AnyConnect VPN
 Group:		Productivity/Networking/Security
 License:	LGPLv2+
 URL:		http://www.infradead.org/openconnect.html
 Source:		ftp://ftp.infradead.org/pub/%{src_name}/%{src_name}-%{version}.tar.gz
-Patch1:		openconnect-01-openssl.diff
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
-Requires:	SFEvpnc
+BuildRequires:	SFEtun
+Requires:	SFEtun
 
 %description
 This package provides a client for Cisco's "AnyConnect" VPN, which uses
 HTTPS and DTLS protocols.
 
+%package devel
+Summary:	%{summary} - developer files
+Group:	Development/Libraries
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
+
+%if %build_l10n
+%package l10n
+Summary:	 %{summary} - l10n files
+SUNW_BaseDir:	%{_basedir}
+Requires:	%{name}
+%endif
+
 %prep
 %setup -q -n %{src_name}-%{version}
-%patch1 -p1
 
 %build
-make CC="$CC" RPM_OPT_FLAGS="%{optflags}" EXTRA_CFLAGS=-D__sun__
+
+CFLAGS="%{optflags} -D__sun__" LDFLAGS="%{_ldflags}" \
+ZLIB_CFLAGS="-I/usr/include" ZLIB_LIBS=-lz \
+./configure --prefix=%{_prefix} --mandir=%{_mandir} \
+	--docdir=%{_docdir}/openconnect \
+	--disable-static --enable-shared \
+	--with-vpnc-script=/etc/vpnc/vpnc-script
+
+make
 
 %install
 rm -rf %{buildroot}
@@ -43,21 +63,48 @@ do
   mv $i.new $i
 done
 mkdir -p %{buildroot}/%{_mandir}/man1m
-mv %{buildroot}/%{_mandir}/man8/* %{buildroot}/%{_mandir}/man1m/
+mv %{buildroot}/%{_mandir}/man8/openconnect.8 %{buildroot}/%{_mandir}/man1m/openconnect.1m
 rmdir %{buildroot}/%{_mandir}/man8
+
+%if %build_l10n
+%else
+# REMOVE l10n FILES
+rm -rf %{buildroot}/%{_datadir}/locale
+%endif
+
+rm -f %{buildroot}%{_libdir}/libopenconnect.la
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-, root, bin)
-%doc README.DTLS README.SecurID TODO COPYING.LGPL
-%{_bindir}/openconnect
+%{_sbindir}/openconnect
 %dir %attr (0755, root, sys) %{_datadir}
-%dir %attr (0755, root, other) %{_datadir}/doc
+%dir %attr (0755, root, other) %{_docdir}
+%{_docdir}/openconnect
 %{_mandir}/man1m/*
+%{_libdir}/libopenconnect.so*
+
+%files devel
+%defattr(-,root,bin)
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
+%{_includedir}
+
+%if %build_l10n
+%files l10n
+%defattr (-, root, bin)
+%dir %attr (0755, root, sys) %{_datadir}
+%attr (-, root, other) %{_datadir}/locale
+%endif
 
 %changelog
+* Sun Jun 17 2012 - Milan Jurik
+- bump to 3.99
+* Thu Oct 06 2011 - Milan Jurik
+- bump to 3.13
+- add IPS package name
 * Thu May 05 2011 - Knut Anders Hatlen
 - Do not require gcc
 * Mon May 02 2011 - Milan Jurik

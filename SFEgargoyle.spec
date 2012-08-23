@@ -6,19 +6,20 @@
 %include Solaris.inc
 
 %define src_name	gargoyle
-%define src_version     2009-08-25
+%define src_version	2009-08-25
 
-Name:                   SFEgargoyle
-URL:                    http://ccxvii.net/gargoyle/
-Summary:                Interactive Fiction Player
-Version:                2009.08.25
-IPS_component_version:  2009.8.25
-Source:                 http://garglk.googlecode.com/files/gargoyle-%{src_version}-sources.zip
-Patch1:                 gargoyle-01-solaris.diff
-Patch2:                 gargoyle-02-libexec.diff
-Patch3:                 gargoyle-03-tads.diff
-SUNW_BaseDir:           %{_basedir}
-BuildRoot:              %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgargoyle
+IPS_Package_Name:	desktop/gargoyle
+URL:		http://ccxvii.net/gargoyle/
+Summary:	Interactive Fiction Player
+Version:	2009.08.25
+IPS_component_version:	2009.8.25
+Source:		http://garglk.googlecode.com/files/gargoyle-%{src_version}-sources.zip
+Patch1:		gargoyle-01-solaris.diff
+Patch2:		gargoyle-02-libexec.diff
+Patch3:		gargoyle-03-tads.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 BuildRequires: SFEjam
 BuildRequires: SUNWgnome-common-devel

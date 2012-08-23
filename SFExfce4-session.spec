@@ -7,19 +7,51 @@
 %include Solaris.inc
 
 %define src_name xfce4-session
-#%define src_url http://archive.xfce.org/xfce/4.8/src/
 %define src_url http://archive.xfce.org/src/xfce/xfce4-session/4.8/
 
 Name:		SFExfce4-session
+IPS_Package_Name:	xfce/xfce-session
 Summary:	Xfce Session manager
-Version:	4.8.1
+Version:	4.8.2
 URL:		http://www.xfce.org/
+License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		xfce4-session-01-rbac.diff
-Group:		User Interface/Desktops
+Group:		Desktop (GNOME)/Sessions
+SUNW_Copyright:	xfce4-session.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
+BuildRequires: SUNWgnome-config 
+BuildRequires: SUNWgnome-panel 
+BuildRequires: SUNWlibatk 
+BuildRequires: SUNWcairo 
+BuildRequires: SUNWgtk2 
+BuildRequires: SFElibxfce4util 
+BuildRequires: SUNWpango 
+BuildRequires: SUNWglib2 
+BuildRequires: SUNWlibgnome-keyring 
+BuildRequires: SUNWfontconfig
+BuildRequires: SUNWfreetype2 
+BuildRequires: SUNWdbus-libs
+BuildRequires: SUNWdbus-glib 
+BuildRequires: SUNWlibms 
+BuildRequires: SUNWxwice 
+Requires: SUNWgnome-config 
+Requires: SUNWgnome-panel 
+Requires: SUNWlibatk 
+Requires: SUNWcairo 
+Requires: SUNWgtk2 
+Requires: SFElibxfce4util 
+Requires: SUNWpango 
+Requires: SUNWglib2 
+Requires: SUNWlibgnome-keyring 
+Requires: SUNWfontconfig
+Requires: SUNWfreetype2 
+Requires: SUNWdbus-libs
+Requires: SUNWdbus-glib 
+Requires: SUNWlibms 
+Requires: SUNWxwice 
 BuildRequires:	SFExfce4-dev-tools
 BuildRequires:	SFElibxfcegui4-devel
 Requires:	SFElibxfcegui4
@@ -37,7 +69,6 @@ SUNW_BaseDir:	/
 
 %package devel
 Summary:	%{summary} - developer files
-Group:		Development/Libraries
 SUNW_BaseDir:	%{_basedir}
 Requires:	%{name}
 
@@ -52,7 +83,6 @@ Requires:	%{name}
 %prep
 %setup -q -n %{src_name}-%{version}
 %patch1 -p1
-
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
 if test "x$CPUS" = "x" -o $CPUS = 0; then
@@ -70,6 +100,7 @@ export PATH=/usr/gnu/bin:$PATH
 	--datadir=%{_datadir}		\
 	--mandir=%{_mandir}		\
 	--sysconfdir=%{_sysconfdir}	\
+	--enable-session-screenshots    \
 	--enable-gnome			\
 	--enable-libgnome-keyring	\
 	--disable-static
@@ -159,6 +190,14 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Fri Sep 30 2011 - Ken Mays <kmays2000@gmail.com>
+- Made splash patch optional
+* Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.2
+* Tue Aug 23 2011 - Ken Mays <kmays2000@gmail.com>
+- Added required dependencies for other build systemss
+* Tue Jul 26 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Mon Apr 11 2011 - Milan Jurik
 - GNU xgettext needed
 * Thu Apr 9 2011 - kmays2000@gmail.com

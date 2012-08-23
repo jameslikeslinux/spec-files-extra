@@ -9,7 +9,11 @@
 %use themes = fvwm-themes.spec
 
 Name:                   SFEfvwm-themes
-Summary:                %{themes.summary}
+IPS_Package_Name:	desktop/window-manager/fvwm/themes
+License:                GPLv2
+SUNW_Copyright:         fvwm-themes.copyright
+Summary:                F Virtual Window Manager themes
+Group:			Desktop (GNOME)/Window Managers
 Version:                %{themes.version}
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -46,10 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}
 %{_mandir}
 %dir %attr (0755, root, sys) %{_datadir}
-%defattr (-, root, other)
 %{_datadir}/fvwm
 
 %changelog
+* Jul 28 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Mar 16 2010 - Gilles Dauphin
 - maybe install in /opt/SFE
 * Aug 2009 - Gilles Dauphin

@@ -1,0 +1,12 @@
+--- configure.orig	2012-04-30 18:31:55.405628042 +0200
++++ configure	2012-04-30 18:32:23.220740844 +0200
+@@ -35174,8 +35174,7 @@
+ #if defined (HAVE_PCRE_H)
+ #include <pcre.h>
+ #elif defined (HAVE_PCRE_PCRE_H)
+-#include <pcre.h>
+-#error "NO PCRE HEADER"
++#include <pcre/pcre.h>
+ #endif
+ #if defined (PCRE_INFO_NAMECOUNT) \
+   && defined (PCRE_INFO_NAMEENTRYSIZE) \

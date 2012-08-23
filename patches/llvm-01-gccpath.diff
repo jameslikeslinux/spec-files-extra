@@ -1,0 +1,11 @@
+--- llvm-3.1.src/tools/clang/lib/Driver/Tools.cpp	Wed May 23 21:01:04 2012
++++ llvm-3.1.src/tools/clang/lib/Driver/Tools.cpp	Wed May 23 21:01:26 2012
+@@ -4360,1 +4360,1 @@
+-  std::string GCCLibPath = "/usr/gcc/4.5/lib/gcc/";
++  std::string GCCLibPath = "/usr/gcc/4.6/lib/gcc/";
+@@ -4367,1 +4367,1 @@
+-              T.getOSName()).str() + "/4.5.2/";
++              T.getOSName()).str() + "/4.6.3/";
+@@ -4372,1 +4372,1 @@
+-          GCCLibPath += "/4.5.2/amd64/";
++          GCCLibPath += "/4.6.3/amd64/";

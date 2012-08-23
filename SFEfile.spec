@@ -11,6 +11,8 @@
 Name:                SFEfile
 Summary:             determine file type
 Version:             5.6
+License:             BSD3c
+SUNW_Copyright:      file.copyright
 Source:              ftp://ftp.astron.com/pub/file/file-%srcversion.tar.gz
 
 SUNW_BaseDir:        %{_basedir}
@@ -67,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/*.4
 
 %changelog
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Mon Jun 6 2011 - Ken Mays <kmays2000@gmail.com>
 - Bump to 5.07
 * Fri Apr 15 2011 - Alex Viskovatoff

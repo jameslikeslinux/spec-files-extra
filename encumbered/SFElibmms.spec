@@ -14,23 +14,28 @@
 
 %use libmms = libmms.spec
 
-Name:               SFElibmms
-Summary:            libmms - mms stream protocol library
-Version:            %{libmms.version}
-SUNW_BaseDir:       %{_basedir}
-BuildRoot:          %{_tmppath}/%{name}-%{version}-build
+Name:		SFElibmms
+IPS_Package_Name:	library/video/libmms
+Summary:	mms stream protocol library
+Group:		System/Multimedia Libraries
+License:	LGPLv2
+SUNW_Copyright:	libmms.copyright
+URL:		http://libmms.sourceforge.net/
+Version:	%{libmms.version}
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires:           SUNWgnome-base-libs
-Requires:           SUNWlibm
-BuildRequires:      SUNWgnome-base-libs-devel
-Conflicts:          SUNWmmsu
-BuildRequires:      SUNWgnome-common-devel
+Requires:	SUNWgnome-base-libs
+Requires:	SUNWlibm
+BuildRequires:	SUNWgnome-base-libs-devel
+Conflicts:	SUNWmmsu
+BuildRequires:	SUNWgnome-common-devel
 
 %package devel
-Summary:       %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
-Requires:      %{name}
+Requires:	%{name}
 
 %prep
 rm -rf %name-%version
@@ -63,5 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jul 20 2011 - Alex Viskovatoff
+- Add SUNW_Copyright
 * Tue Sep 02 2008 - halton.huo@sun.com
 - Initial version

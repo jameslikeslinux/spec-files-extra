@@ -1,0 +1,6 @@
+--- swfdec-0.9.2/configure.ac	Tue Nov 11 11:09:56 2008
++++ configure.ac	Mon Nov 21 21:30:52 2011
+@@ -59,3 +59,0 @@
+-dnl C99 is only required to get definitions for NAN and INFINITY.
+-AS_COMPILER_FLAGS(GLOBAL_CFLAGS, "-std=gnu99")
+-

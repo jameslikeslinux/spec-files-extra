@@ -13,8 +13,11 @@
 %use freeglut = freeglut.spec
 
 Name:                   SFEfreeglut
+IPS_Package_Name:	x11/library/freeglut 
 Summary:                %{freeglut.summary}
 Version:                %{freeglut.version}
+License:                MIT
+SUNW_Copyright:         freeglut.copyright
 Patch1:                 freeglut-01-sun.diff
 SUNW_BaseDir:           %{_basedir}
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
@@ -77,6 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/include/GL
 
 %changelog
+* Sun Oct 16 2011 - Milan Jurik
+- add IPS package name
 * Sun May 02 2010 - Milan Jurik
 - fix for new builds, new place for header files
 * Sun Apr 11 2010 - Milan Jurik

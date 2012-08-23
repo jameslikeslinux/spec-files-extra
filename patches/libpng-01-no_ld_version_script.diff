@@ -1,0 +1,26 @@
+--- libpng-1.5.10-patched/configure	2012-03-28 22:07:03.000000000 -0700
++++ libpng-1.5.10/configure	2012-04-29 12:10:36.028433906 -0700
+@@ -12757,17 +12757,17 @@
+     GLD=`$LD --help < /dev/null 2>/dev/null | grep version-script`
+ fi
+ 
+-if test "$GLD"; then
+-    have_ld_version_script=yes
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-else
++# if test "$GLD"; then
++#     have_ld_version_script=yes
++#     { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++# $as_echo "yes" >&6; }
++# else
+     have_ld_version_script=no
+     { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: *** You have not enabled versioned symbols." >&5
+ $as_echo "$as_me: WARNING: *** You have not enabled versioned symbols." >&2;}
+-fi
++# fi
+ ;;
+ esac
+ 

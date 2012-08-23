@@ -10,8 +10,10 @@
 %include Solaris.inc
 
 Name:		SFElibosip2
+IPS_Package_Name:	library/libosip2
 Summary:	oSIP is an implementation of SIP
-Version:	3.5.0
+Version:	3.6.0
+Group:		System/Libraries
 Source:		http://ftp.gnu.org/gnu/osip/libosip2-%{version}.tar.gz
 URL:		http://www.gnu.org/software/osip/
 SUNW_BaseDir:	%{_basedir}
@@ -64,5 +66,7 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Wed Feb 08 2012 - Milan Jurik
+- bump to 3.6.0
 * Thu Feb 10 2011 - Milan Jurik
 - initial spec

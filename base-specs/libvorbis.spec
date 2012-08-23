@@ -14,8 +14,8 @@
 
 Name:         libvorbis
 Summary:      The Vorbis General Audio Compression Codec
-Version:      1.2.0
-Release:      95
+Version:      1.3.2
+Release:      1
 Group:        System/Libraries
 License:      BSD
 URL:          http://downloads.xiph.org/
@@ -97,6 +97,8 @@ sed -e s/XIPH_PATH_VORBIS/AM_PATH_VORBIS/g < $RPM_BUILD_ROOT%{_datadir}/aclocal/
 %{_datadir}/gtk-doc
 
 %changelog -n libvorbis
+* Tue June 21 2011 - Ken Mays <kmays2000@gmail.com>
+- Bump to 1.3.2
 * Mon Oct  1 2007 - Thomas Wagner
 - base-spec/libogg.spec vorbis.spec
   removed Source1 l10* and in %prep removed calling l10*

@@ -5,6 +5,7 @@
 %include Solaris.inc
 
 Name:		SFEtxt2pdbdoc
+IPS_Package_Name:	text/txt2pdbdoc
 Version:	1.4.4
 Summary:	txt2pdbdoc is a Text-to-PalmDoc file conversion program
 URL:		http://homepage.mac.com/pauljlucas/software/txt2pdbdoc/

@@ -2,15 +2,15 @@
 # spec file for package SFEnicstat
 #
 %include Solaris.inc
-Name:                    SFEnicstat
-Summary:                 nicstat - tool for displaying network load similar to iostat/prstat
-URL:                     http://blogs.sun.com/timc/entry/nicstat_the_solaris_network_monitoring
-Version:                 %(date +%Y.%m.%d)
-Source:                  http://blogs.sun.com/timc/resource/nicstat/nicstat.c
-
-
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEnicstat
+IPS_Package_Name:	system/network/nicstat
+Summary:	tool for displaying network load similar to iostat/prstat
+Group:		Applications/System Utilities
+URL:		http://blogs.oracle.com/timc/entry/nicstat_the_solaris_network_monitoring
+Version:	1.90
+Source:         %{sf_download}/nicstat/nicstat-%{version}.tar.gz
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
 #TODO: BuildReqirements:
 #TODO: Reqirements:
@@ -19,24 +19,22 @@ BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
 
 %prep
-rm -rf %name-%version
-mkdir %name-%version
-cd %name-%version
-cp -p $RPM_SOURCE_DIR/nicstat.c .
+%setup  -q -n nicstat-%version
+cp -p Makefile.Solaris Makefile
 
 %build
-cd %name-%version
 
-#nothing to configure, just "compile" it with this command: (see comments in source code)
-cc -lgen -lkstat -lrt -lsocket -o nicstat nicstat.c
+#nothing to configure, just "compile" it with make
+make
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-cd %name-%version
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-cp -p nicstat $RPM_BUILD_ROOT/%{_bindir}
+cp -p .nicstat.`uname -o`_`uname -r | sed -e 's/5\.//'`_`uname -p` $RPM_BUILD_ROOT/%{_bindir}/nicstat
+
+##TODO## install Man pages, ...
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -48,6 +46,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 12 2011 - Thomas Wagner
+- merge with svn
+- IPS_package_name by jurikm 2011-12-11
+* Tue Nov  8 2011 - Thomas Wagner
+- bump to 1.90
+- change to new build style, update to new source tarball
+* Thu Apr 29 2011 - Thomas Wagner
+- bump to 1.90, rework handling of new tarball, install only binary no scripts
 * Mon Jul 20 2009 - matt@greenviolet.net
 - Update Source URL
 * Sun Jun 01 2008 - trisk@acm.jhu.edu

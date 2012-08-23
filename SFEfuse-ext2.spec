@@ -8,11 +8,15 @@
 %include base.inc
 
 Name:                    SFEfuse-ext2
-Summary:                 fuse-ext2 ext2 filesystem (ext2fs/ext3fs) driver
-Version:                 0.0.5
+Summary:                 fuse ext2 filesystem (ext2fs/ext3fs) driver
+Version:                 0.0.7
+License:                 GPLv2
+SUNW_copyright:          fuse-ext2.copyright
 Source:			 %{sf_download}/fuse-ext2/fuse-ext2-%{version}.tar.gz
-Patch1:			 fuse-ext2-01-sunpro.diff
-Patch2:			 fuse-ext2-02-solaris.diff
+Patch1:			 fuse-ext2-0.0.7-01-sunpro.diff
+Patch2:			 fuse-ext2-0.0.7-02-solaris.diff
+Patch3:			 fuse-ext2-0.0.7-03-readdir.diff
+Patch4:                  fuse-ext2-0.0.7-04-ifhwaddr.diff
 Url:                     http://alperakcan.org/?open=projects&project=fuse-ext2
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -35,6 +39,8 @@ Requires: SUNWlibfuse
 %setup -q -n fuse-ext2-%version
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1 
+%patch4 -p0
 
 %build
 
@@ -78,5 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Mon Feb 13 2012 - Ken Mays <kmays2000@gmail.com> 
+- Bump to 0.0.7
+* Tue Sep 27 2011 - Alex Viskovatoff
+- Add SUNW_copyright
 * Sun Jun 21 2009 - trisk@forkgnu.org
 - Initial spec

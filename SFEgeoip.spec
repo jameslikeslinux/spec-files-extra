@@ -4,24 +4,27 @@
 #
 %include Solaris.inc
 
-Name:                SFEgeoip
-Summary:             The GeoIP library and cli tools
-Version:             1.4.6
-Source:              http://www.maxmind.com/download/geoip/api/c/GeoIP-%{version}.tar.gz
-Patch1:              geoip-01-solaris.diff
-SUNW_BaseDir:        %{_basedir}
-BuildRoot:           %{_tmppath}/%{name}-%{version}-build
+Name:		SFEgeoip
+IPS_Package_Name:	library/geoip
+Summary:	The GeoIP library and cli tools
+Version:	1.4.8
+Group:		System/Libraries
+License:	LGPLv2.1+
+SUNW_Copyright:	geoip.copyright
+Source:		http://www.maxmind.com/download/geoip/api/c/GeoIP-%{version}.tar.gz
+Patch1:		geoip-01-solaris.diff
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
 %package root
-Summary:                 %{summary} - / filesystem
-SUNW_BaseDir:            /
+Summary:	%{summary} - / filesystem
+SUNW_BaseDir:	/
 %include default-depend.inc
 
-
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_prefix}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_prefix}
 %include default-depend.inc
 Requires: %name
 
@@ -35,6 +38,7 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+libtoolize --copy --force
 aclocal
 automake -a -f
 autoconf -f
@@ -77,6 +81,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Dec 11 2011 - Milan Jurik
+- bump to 1.4.8
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Sat May 30 2009 - Andras Barna (andras.barna@gmail.com)
 - bump to 1.4.6
 * Tue Oct 28 2008 - Andras Barna (andras.barna@gmail.com)

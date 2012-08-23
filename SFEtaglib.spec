@@ -5,21 +5,27 @@
 #
 #
 %include Solaris.inc
+%include stdcxx.inc
 
-Name:                    SFEtaglib
-Summary:                 TagLib  - a library for reading and editing the meta-data of several popular audio formats
-Version:                 1.6.3
-Source:                  http://developer.kde.org/~wheeler/files/src/taglib-%{version}.tar.gz
-Patch1:                  taglib-01-map.diff
-SUNW_BaseDir:            %{_basedir}
-BuildRoot:               %{_tmppath}/%{name}-%{version}-build
+Name:		SFEtaglib
+IPS_Package_Name:	library/audio/taglib
+Summary:	TagLib  - a library for reading and editing the meta-data of several popular audio formats
+Group:		System/Multimedia Libraries
+Version:	1.7
+Source:		http://developer.kde.org/~wheeler/files/src/taglib-%{version}.tar.gz
+License:	LGPLv2.1
+Patch1:		taglib-01-map.diff
+SUNW_Copyright:	taglib.copyright
+SUNW_BaseDir:	%{_basedir}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: SUNWzlib
-Requires: SUNWlibC
+BuildRequires:	SFEcmake
+BuildRequires: SUNWlibstdcxx4
+Requires: SUNWlibstdcxx4
 
 %package devel
-Summary:                 %{summary} - development files
-SUNW_BaseDir:            %{_basedir}
+Summary:	%{summary} - development files
+SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
 Requires: %name
 
@@ -34,22 +40,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CFLAGS="%optflags"
-export CXXFLAGS="%cxx_optflags"
+export CXXFLAGS="%cxx_optflags -library=no%Cstd -I%{stdcxx_include}"
+export LDFLAGS="%_ldflags -L%{stdcxx_lib} -R%{stdcxx_lib} -lstdcxx4 -Wl,-zmuldefs"
 
-if [ "x`basename $CC`" = xgcc ]
-then
-	export LDFLAGS="%_ldflags -lc -lstdc++"
-else
-	export LDFLAGS="%_ldflags -lc -lCrun -lCstd"
-fi
-
-./configure --prefix=%{_prefix} --mandir=%{_mandir} \
-            --libdir=%{_libdir}              \
-            --libexecdir=%{_libexecdir}      \
-            --sysconfdir=%{_sysconfdir}      \
-            --enable-shared		     \
-	    --disable-static
-
+cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_RELEASE_TYPE=Release -DWITH_MP4=ON -DWITH_ASF=ON  .
 make -j$CPUS 
 
 %install
@@ -77,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Oct 23 2011 - Milan Jurik
+- bump top 1.7
+* Mon Jul 25 2011 - N.B.Prashanth
+- Add SUNW_Copyright
 * Tue Apr 27 2010 - brian.cameron@sun.com
 - Bump to 1.6.3.
 * Tue Dec 22 2009 - brian.cameron@sun.com

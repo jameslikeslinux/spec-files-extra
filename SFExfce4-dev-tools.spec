@@ -10,11 +10,14 @@
 %define src_url http://archive.xfce.org/xfce/4.8/src/
 
 Name:		SFExfce4-dev-tools
+IPS_Package_Name:	developer/xfce/xfce-dev-tools
 Summary:	Xfce Development Tools
 Version:	4.8.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
-Group:		User Interface/Desktops
+Group:		Development/Distribution Tools
+License:	GPLv2
+SUNW_Copyright: xfce4-dev-tools.copyright
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
@@ -52,6 +55,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xfce4*
 
 %changelog
+* Mon Jul 25 2011 - N.B.Prashanth
+- Added SUNW_Copyright
 * Sun Mar 20 2011 - Milan Jurik
 - bump to 4.8.0, move to SFE from osol xfce
 * Tue Aug 03 2010 - brian.cameron@oracle.com

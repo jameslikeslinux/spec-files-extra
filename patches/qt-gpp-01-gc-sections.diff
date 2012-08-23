@@ -1,0 +1,11 @@
+--- src/3rdparty/webkit/WebCore/WebCore.pro.orig	Tue May  3 20:58:26 2011
++++ src/3rdparty/webkit/WebCore/WebCore.pro	Tue May  3 20:40:41 2011
+@@ -90,7 +90,7 @@
+ }
+ 
+ unix:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
+-unix:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
++unix:!mac:!solaris-*:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
+ linux*-g++*:QMAKE_LFLAGS += $$QMAKE_LFLAGS_NOUNDEF
+ 
+ CONFIG(release):!CONFIG(standalone_package) {

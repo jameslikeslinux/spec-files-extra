@@ -13,11 +13,15 @@
 
 %define cc_is_gcc 1
 %include base.inc
+%define _prefix /usr/g++
 
 %use pangomm = pangomm.spec
 
 Name:                    SFEpangomm-gpp
-Summary:                 pangomm - C++ Wrapper for the pango Library (g++ built)
+IPS_Package_Name:	library/desktop/g++/pangomm
+Summary:                 C++ Wrapper for the pango Library (g++ built)
+License:                 LGPLv2+
+SUNW_Copyright:          pangomm.copyright
 Version:                 %{pangomm.version}
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
@@ -52,13 +56,11 @@ mkdir %name-%version
 %build
 export CC=gcc
 export CXX=g++
-#export CC=/usr/sfw/bin/gcc
-#export CXX=/usr/sfw/bin/g++
 export CFLAGS="%optflags"
 export RPM_OPT_FLAGS="$CFLAGS"
-export LDFLAGS="-L%{_cxx_libdir} -R%{_cxx_libdir}"
-export CXXFLAGS="%gcc_cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
-export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
+export LDFLAGS="-L/usr/g++/lib -L/usr/gnu/lib -R/usr/g++/lib:/usr/gnu/lib"
+export CXXFLAGS="%cxx_optflags -D_XPG4_2 -D__EXTENSIONS__"
+export PKG_CONFIG_PATH="/usr/g++/lib/pkgconfig"
 
 #libtoolize --f
 %pangomm.build -d %name-%version
@@ -67,12 +69,12 @@ export PKG_CONFIG_PATH="%{_cxx_libdir}/pkgconfig"
 %pangomm.install -d %name-%version
 
 # delete files already included in SUNWpangomm-devel:
-rm -r $RPM_BUILD_ROOT%{_datadir}
-rm -r $RPM_BUILD_ROOT%{_includedir}
+#rm -r $RPM_BUILD_ROOT%{_datadir}
+#rm -r $RPM_BUILD_ROOT%{_includedir}
 
 # Remove useless m4, pm and extra_gen_defs files 
-rm -rf $RPM_BUILD_ROOT%{_cxx_libdir}/pangomm-1.4/proc/m4*
-rm -rf $RPM_BUILD_ROOT%{_cxx_libdir}/g++//pangomm-1.4/proc/m4*
+rm -rf $RPM_BUILD_ROOT%{_libdir}/pangomm-1.4/proc/m4*
+rm -rf $RPM_BUILD_ROOT%{_libdir}/g++//pangomm-1.4/proc/m4*
 
 #rm -rf $RPM_BUILD_ROOT%{_libdir}/*
 
@@ -81,19 +83,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%{_cxx_libdir}/lib*
+%dir %attr (0755, root, bin) %{_libdir}
+%{_libdir}/lib*
 #%dir %attr(0755, root, bin) %{_mandir}
 #%{_mandir}/*
 
 %files devel
 %defattr (-, root, bin)
-%dir %attr (0755, root, bin) %{_cxx_libdir}
-%dir %attr (0755, root, other) %{_cxx_libdir}/pkgconfig
-%{_cxx_libdir}/pkgconfig/*
-%{_cxx_libdir}/pangomm*
+%dir %attr (0755, root, bin) %{_libdir}
+%dir %attr (0755, root, other) %{_libdir}/pkgconfig
+%{_libdir}/pkgconfig/*
+%{_libdir}/pangomm*
+%_includedir
+%dir %attr (0755, root, sys) %_datadir
+%dir %attr (0755, root, other) %dir %_docdir
+%_datadir/doc/pangomm-1.4
+%_datadir/devhelp
 
 %changelog
+* Fri Aug  5 2011 - Alex Viskovatoff
+- use new g++ path layout; add SUNW_Copyright
 * Wed Sep 23 2009 - jchoi42@pha.jhu.edu
 - Intially reworked from SUNWpangomm to build w gcc
-

@@ -12,9 +12,11 @@
 
 
 Name:                SFEe2fsprogs
-License:             GPL
+IPS_Package_Name:	system/file-system/e2fsprogs
+License:             GPLv2+
 Summary:             Ext2 Filesystems Utilities
 Version:             1.41.14
+SUNW_Copyright:      e2fsprogs.copyright
 URL:                 http://e2fsprogs.sourceforge.net/
 Source:              %{sf_download}/e2fsprogs/e2fsprogs-%{version}.tar.gz
 Group:               System/Utilities
@@ -196,6 +198,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 17 2011 - Milan Jurik
+- add IPS package name
+* Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
+- added License and SUNW_Copyright tags
 * Tue Feb 08 2011 - Milan Jurik
 - bump to 1.41.14, replace O_DIRECT with Solaris specific code
 * Sun Aug 08 2010 - Milan Jurik
