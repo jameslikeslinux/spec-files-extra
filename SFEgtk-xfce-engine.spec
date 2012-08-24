@@ -8,12 +8,12 @@
 
 %define src_name gtk-xfce-engine
 #%define src_url http://archive.xfce.org/xfce/4.8/src/
-%define src_url http://archive.xfce.org/src/xfce/gtk-xfce-engine/2.8/
+%define src_url http://archive.xfce.org/src/xfce/gtk-xfce-engine/3.0/
 
 Name:		SFEgtk-xfce-engine
 IPS_Package_Name:	gnome/theme/gtk2-xfce-engine
 Summary:	Port of xfce engine to GTK+-2.0
-Version:	2.8.1
+Version:	3.0.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Group:		User Interface/Desktops
@@ -62,6 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/themes*
 
 %changelog
+* Thu Aug 23 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.0.0
 * Thu Apr 9 2011 - kmays2000@gmail.com
 - bump to 2.8.1
 * Sat Mar 26 2011 - Milan Jurik

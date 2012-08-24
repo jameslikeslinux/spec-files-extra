@@ -11,7 +11,7 @@
 Name:           SFEtumbler
 IPS_Package_Name:	xfce/tumbler
 Summary:        Thumbnail management for Xfce
-Version:        0.1.23
+Version:        0.1.25
 Group:		Applications/Plug-ins and Run-times
 URL:            http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -25,6 +25,10 @@ Requires:	SUNWgnome-base-libs
 BuildRequires: 	SUNWdbus
 BuildRequires:	SUNWgtk-doc
 BuildRequires:	SUNWgnome-xml-share
+BuildRequires:	SFEffmpeg-devel
+Requires: 	SFEffmpeg
+BuildRequires:  SFEpoppler-gpp-devel
+Requires:       SFEpoppler-gpp
 Requires:	%{name}-root
  
 %description
@@ -115,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
  
 %changelog
+* Thu Aug 23 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 0.1.25
+- Adding FFMPEG, Poppler, OpenRAW (wip)
 * Tue Jan 17 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.1.23
 * Sun Sep 25 2011 - Milan Jurik

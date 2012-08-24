@@ -12,7 +12,7 @@
 Name:		SFExfce4-session
 IPS_Package_Name:	xfce/xfce-session
 Summary:	Xfce Session manager
-Version:	4.8.2
+Version:	4.8.3
 URL:		http://www.xfce.org/
 License:	GPLv2
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -190,6 +190,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Thu Aug 23 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.8.3
 * Fri Sep 30 2011 - Ken Mays <kmays2000@gmail.com>
 - Made splash patch optional
 * Wed Sep 14 2011 - Ken Mays <kmays2000@gmail.com>

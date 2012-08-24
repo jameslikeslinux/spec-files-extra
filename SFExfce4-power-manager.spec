@@ -7,12 +7,12 @@
 %include Solaris.inc
 
 %define src_name xfce4-power-manager
-%define src_url http://archive.xfce.org/src/xfce/xfce4-power-manager/1.0/
+%define src_url http://archive.xfce.org/src/xfce/xfce4-power-manager/1.2/
 
 Name:		SFExfce4-power-manager
 IPS_Package_Name:	xfce/xfce-power-manager
 Summary:	Xfce Power management utilities
-Version:	1.0.10
+Version:	1.2.0
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 License:	GPLv2
@@ -144,6 +144,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Aug 23 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 1.2.0
+- Revised patch xfce4-power-manager-01-solaris-diff 
 * Tue Jul 26 2011 - N.B.Prashanth
 - Added SUNW_Copyright
 * Thu Apr 21 2011 - Ken Mays <kmays2000@gmail.com
