@@ -116,7 +116,7 @@ IPS_Package_Name:	service/network/smtp/postfix
 Summary:                 Mailer System
 Group:		System/Services
 URL:                     http://postfix.org/
-Version:                 2.9.2
+Version:                 2.9.4
 Source:                  ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-%{version}.tar.gz
 #Source2:                 http://ftp.wl0.org/official/%{major_version}.%{minor_version}/SRPMS/postfix-%{version}-1.src.rpm
 License:		 IBM Public License v1.0
@@ -905,6 +905,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 
 
 %changelog
+* Fri Aug 24 2012 Ken Mays <kmays2000@gmail.com>
+- Bump to 2.9.4
 * Tue May  9 2012 - Thomas Wagner
 - bump to 2.9.2
 - rename some manpages to *.postfix.* to avoid conflicts with sendmail package
