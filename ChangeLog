@@ -1,3 +1,12 @@
+2012-08-23 Ken Mays  <kmays2000@gmail.com>
+
+	* SFExfce4-session: bump to 4.8.3
+	* SFExfce4-power-manager: bump to 1.2.0
+	* SFEtumbler: bump to 0.1.25
+	* SFEgarcon.spec: bump to 0.1.12
+	* SFEgtk-xfce-engine.spec: bump to 3.0.0
+	* patches/xfce4-power-manager-01-solaris-diff: updated for 1.2.0
+
 2012-08-19 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEpostgres-91.spec: fix packaging, bump to 9.1.5
