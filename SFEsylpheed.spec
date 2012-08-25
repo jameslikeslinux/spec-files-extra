@@ -12,7 +12,7 @@
 Name:                     SFEsylpheed
 IPS_Package_Name:	mail/sylpheed
 Summary:                  A GTK+ based, lightweight, and fast e-mail client
-Version:                  3.1.2
+Version:                  3.2.0
 Group:		Applications/Internet
 Source:                   %{src_url}/%{src_name}-%{version}.tar.bz2
 License:                  GPLv2+ with openSSL exception
@@ -123,6 +123,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Aug 25 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.2.0
 * Tue Sep 14 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 3.1.2
 * Mon Jul 25 2011 - N.B.Prashanth
