@@ -6,7 +6,7 @@
 
 %define src_name        sylpheed
 #note: download path changes with beta versions
-%define src_url         http://sylpheed.sraoss.jp/sylpheed/v3.1
+%define src_url         http://sylpheed.sraoss.jp/sylpheed/v3.2
 
 
 Name:                     SFEsylpheed
