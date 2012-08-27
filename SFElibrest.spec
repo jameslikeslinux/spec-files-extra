@@ -9,7 +9,7 @@ Name:		SFElibrest
 IPS_Package_Name:	system/library/librest
 License:	LGPL v2
 Group:		Libraries/Multimedia
-Version:	0.7.11
+Version:	0.7.12
 Summary:	Interface to access RESTful web services.
 Source:		http://ftp.gnome.org/pub/GNOME/sources/rest/0.7/rest-%{version}.tar.bz2
 Patch1:		librest-01-wall.diff
@@ -42,7 +42,9 @@ SUNW_BaseDir:	%{_basedir}
 	--bindir=%{_bindir}	\
 	--libexecdir=%{_libexecdir} \
 	--mandir=%{_mandir}	\
-	--enable-introspection=no
+	--enable-introspection=no \
+	--with-ca-certificates=/etc/certs/CA
+
 make
 
 %install
@@ -74,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc
 
 %changelog
+* Mon Aug 27 2012 - Milan Jurik
+- bump to 0.7.12
 * Sat Oct 29 2011 - Milan Jurik
 - bump to 0.7.11
 * Sun Oct 11 2009 - Brian Cameron  <brian.cameron@sun.com>
