@@ -19,7 +19,7 @@ Group:		Applications/Office
 Vendor:		Léon Bottou
 License:	GPLv2+
 SUNW_Copyright:	djview.copyright
-Version:	4.7
+Version:	4.9
 Source:		%sf_download/project/djvu/DjView/%version/%srcname-%version.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
@@ -35,8 +35,7 @@ Requires:	SFEdjvulibre
 
 
 %prep
-%setup -q -n %srcname-%version
-
+%setup -q -n %{srcname}4-%version
 
 %build
 
@@ -80,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 27 2012 - Milan Jurik
+- bump to 4.9
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>
 - added License and SUNW_Copyright tags
 * Sun Jun 12 2011 - Alex Viskovatoff
