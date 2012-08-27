@@ -103,10 +103,10 @@ rm -rf $RPM_BUILD_ROOT
 %files l10n
 %defattr (-, root, bin)
 %dir %attr (0755, root, sys) %_datadir
-%_mandir/cs
-%_mandir/de
-%_mandir/fr
-%_mandir/ja
+#%_mandir/cs
+#%_mandir/de
+#%_mandir/fr
+#%_mandir/ja
 %endif
 
 
