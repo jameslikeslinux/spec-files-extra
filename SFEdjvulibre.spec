@@ -20,9 +20,8 @@ Vendor:		The original inventors of DjVu
 License:	GPLv2+
 Group:		Desktop (GNOME)/Libraries
 SUNW_Copyright:	djvulibre.copyright
-Version:	3.5.24
-Source:		%sf_download/project/djvu/DjVuLibre/%version/%srcname-%version.tar.gz
-Patch1:		djvulibre-01-sizet.diff
+Version:	3.5.25
+Source:		%sf_download/project/djvu/DjVuLibre/%version/%srcname-%version.3.tar.gz
 SUNW_BaseDir:	%_basedir
 BuildRoot:	%_tmppath/%name-%version-build
 %include default-depend.inc
@@ -48,7 +47,6 @@ Requires:       %name
 
 %prep
 %setup -q -n %srcname-%version
-%patch1 -p1
 
 %build
 
@@ -77,7 +75,7 @@ rm $RPM_BUILD_ROOT%_cxx_libdir/*.la
 %if %build_l10n
 %else
 cd $RPM_BUILD_ROOT%_mandir
-rm -r cs de fr ja
+#rm -r cs de fr ja
 %endif
 
 %clean
@@ -113,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 27 2012 - Milan Jurik
+- bump to 3.5.25
 * Sat Feb 04 2012 - Milan Jurik
 - fix build with the latest GCC
 * Sat Jul 23 2011 - Guido Berhoerster <gber@openindiana.org>

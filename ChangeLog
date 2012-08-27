@@ -1,3 +1,7 @@
+2012-08-27 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEdjvulibre.spec: bump to 3.5.25
+
 2012-08-25 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEsylpheed.spec: bump to 3.2.0
