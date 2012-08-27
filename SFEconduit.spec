@@ -24,7 +24,9 @@ Requires:       SUNWgnome-base-libs
 Requires:       SUNWPython26
 Requires:       SUNWsqlite3
 Requires:       SUNWpysqlite
+BuildRequires:	SFEpython26-dateutil
 Requires:       SFEpython26-dateutil
+BuildRequires:	SFEpython26-vobject
 Requires:       SFEpython26-vobject
 Requires:       SFEpy26goocanvas
 BuildRequires:  SUNWgnome-base-libs-devel
