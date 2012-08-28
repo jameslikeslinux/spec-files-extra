@@ -7,6 +7,7 @@
 
 %define src_name tumbler
 %define src_url http://archive.xfce.org/src/xfce/%{src_name}/0.1/
+%define with_ffmpeg %(pkginfo -q SFEffmpeg && echo 1 || echo 0)
  
 Name:           SFEtumbler
 IPS_Package_Name:	xfce/tumbler
@@ -25,8 +26,10 @@ Requires:	SUNWgnome-base-libs
 BuildRequires: 	SUNWdbus
 BuildRequires:	SUNWgtk-doc
 BuildRequires:	SUNWgnome-xml-share
+%if %with_ffmpeg 
 BuildRequires:	SFEffmpeg-devel
 Requires: 	SFEffmpeg
+%endif
 BuildRequires:  SFEpoppler-gpp-devel
 Requires:       SFEpoppler-gpp
 Requires:	%{name}-root
@@ -119,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
  
 %changelog
+* Tue Aug 28 2012 - Ken Mays <kmays2000@gmail.com>
+- Improved pkg check for SFEffmpeg
 * Thu Aug 23 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 0.1.25
 - Adding FFMPEG, Poppler, OpenRAW (wip)
