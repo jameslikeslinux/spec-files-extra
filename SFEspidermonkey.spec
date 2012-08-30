@@ -7,6 +7,7 @@
 %include Solaris.inc
 
 Name:                    SFEspidermonkey
+IPS_Package_Name:	runtime/javascript/spidermonkey
 Summary:                 Mozilla SpiderMonkey JavaScript Engine.
 Version:                 1.8.5
 Source:                  http://ftp.mozilla.org/pub/mozilla.org/js/js185-1.0.0.tar.gz
