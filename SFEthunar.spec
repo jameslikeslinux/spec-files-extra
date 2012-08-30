@@ -7,12 +7,12 @@
 %include Solaris.inc
 
 %define src_name Thunar
-%define src_url http://archive.xfce.org/src/xfce/thunar/1.2/
+%define src_url http://archive.xfce.org/src/xfce/thunar/1.3/
 
 Name:		SFEthunar
 IPS_Package_Name:	xfce/file-manager/thunar
 Summary:	Thunar File Manager
-Version:	1.2.3
+Version:	1.3.1
 Group:		Desktop (GNOME)/File Managers
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
@@ -172,6 +172,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Thu Aug 30 2012 - Milan Jurik
+- revert to 1.3.0
 * Sat Oct 8 2011 - Ken Mays <kmays2000@gmail.com>
 - bump to 1.2.3
 * Mon Jul 25 2011 - N.B.Prashanth
