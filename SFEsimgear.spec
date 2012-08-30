@@ -15,7 +15,7 @@
 Name:		SFEsimgear
 IPS_Package_Name:	library/simgear
 Summary:	Simulator Construction Tools
-Version:	2.6.0
+Version:	2.8.0
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
 Patch1:		simgear-01-stdlib.diff
 Patch2:		simgear-02-isnan.diff
@@ -77,6 +77,8 @@ rm -rf %{buildroot}
 %{_includedir}
 
 %changelog
+* Thu Aug 30 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 2.8.0
 * Sat Jun 23 2012 - Thomas Wagner
 - rename package name to lower case
 * Sun Mar 04 2012 - Milan Jurik

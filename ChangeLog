@@ -1,3 +1,8 @@
+2012-08-30 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEflightgear.spec: bump to 2.8.0
+	* SFEsimgear.spec: bump to 2.8.0
+
 2012-08-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEnodejs.spec: bump to 0.8.8
