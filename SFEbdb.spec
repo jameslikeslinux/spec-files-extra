@@ -63,7 +63,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_bindir}/%{base_isa}
 for i in `ls -1 %{buildroot}%{_bindir}/db_*`; do
   mv $i %{buildroot}%{_bindir}/%{base_isa}/
-  cd %{buildroot}%{_bindir} && ln -s ../lib/isaexec `basename $i`
+  cd %{buildroot}%{_bindir} && ln -s ../../lib/isaexec `basename $i`
 done
 
 %clean
