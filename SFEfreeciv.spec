@@ -15,7 +15,6 @@ Version:	2.3.0
 Group:		Amusements/Games
 Source:		%{sf_download}/freeciv/freeciv-%{version}.tar.bz2
 # date:2008-12-23 type:bug owner:halton bugid:40661
-Patch3:		freeciv-03-strlcpy.diff
 Patch4:		freeciv-04-nothing.diff
 Patch5:		freeciv-05-return.diff
 SUNW_BaseDir:	%{_basedir}
@@ -37,7 +36,6 @@ Requires: SUNWpostrun-root
 
 %prep
 %setup -q -n freeciv-%version
-#%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
