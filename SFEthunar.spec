@@ -12,7 +12,7 @@
 Name:		SFEthunar
 IPS_Package_Name:	xfce/file-manager/thunar
 Summary:	Thunar File Manager
-Version:	1.3.1
+Version:	1.3.0
 Group:		Desktop (GNOME)/File Managers
 URL:		http://www.xfce.org/
 Source:		%{src_url}/%{src_name}-%{version}.tar.bz2
