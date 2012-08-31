@@ -15,7 +15,7 @@
 Name:		SFEocrfeeder
 IPS_Package_Name:	image/ocrfeeder
 Summary:	OCRFeeder - Optical Character Recognition program
-Version:	0.7.8
+Version:	0.7.9
 Group:		Graphical desktop/GNOME/OCR
 URL:		http://live.gnome.org/OCRFeeder
 Source:		%{src_url}/%{src_name}-%{version}.tar.xz
@@ -100,6 +100,8 @@ rm -rf %buildroot
 %endif
 
 %changelog
+* Fri Aug 31 2012 - Milan Jurik
+- bump to 0.7.9
 * Sun Mar 25 2012 - Milan Jurik
 - bump to 0.7.8
 * Sat Mar 26 2011 - Milan Jurik
