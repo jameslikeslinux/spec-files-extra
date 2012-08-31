@@ -11,7 +11,7 @@ Name:		SFEguake
 IPS_Package_Name:	terminal/guake
 URL:		http://guake.org/
 Summary:	Guake is a top-down terminal for Gnome
-Version:	0.4.2
+Version:	0.4.4
 Group:		Applications/System 
 License:	GPLv2+ 
 URL:		http://guake.org/
@@ -126,7 +126,7 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %files
 %defattr (-, root, bin)
 %{_bindir}
-%{_libdir}/%{src_name}
+%{_libdir}
 %dir %attr (0755, root, sys) %{_datadir}
 %{_datadir}/%{src_name}
 %{_mandir}/man1/*
@@ -136,12 +136,31 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %{_datadir}/dbus-1/services/org.guake.Guake.service
 %dir %attr (0755, root, other) %{_datadir}/pixmaps
 %{_datadir}/pixmaps/%{src_name} 
+%dir %attr (0755, root, other) %{_datadir}/icons
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/16x16/apps/
+%{_datadir}/icons/hicolor/16x16/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/22x22/apps/
+%{_datadir}/icons/hicolor/22x22/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/24x24/apps/
+%{_datadir}/icons/hicolor/24x24/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/32x32/apps/
+%{_datadir}/icons/hicolor/32x32/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/48x48/apps/
+%{_datadir}/icons/hicolor/48x48/apps/*
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/256x256/
+%dir %attr (0755, root, other) %{_datadir}/icons/hicolor/256x256/apps/
+%{_datadir}/icons/hicolor/256x256/apps/*
 
 %files root
 %defattr (0755, root, sys)
 %attr (0755, root, sys) %dir %{_sysconfdir}
 %{_sysconfdir}/gconf/schemas/%{src_name}.schemas
-%{_sysconfdir}/xdg/autostart/%{src_name}.desktop
 
 %if %build_l10n
 %files l10n
@@ -151,6 +170,8 @@ test -x $PKG_INSTALL_ROOT/usr/lib/postrun || exit 0
 %endif
 
 %changelog
+* Fri Aug 31 2012 - Milan Jurik
+- bump to 0.4.4
 * Sun Jan 01 2012 - Milan Jurik
 - add IPS restart services
 * Wed Dec 01 2010 - Milan Jurik

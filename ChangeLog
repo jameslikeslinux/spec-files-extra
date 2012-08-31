@@ -1,3 +1,7 @@
+2012-08-31 Milan Jurik <sfnet@xylab.cz>
+
+	* SFEguake.spec: bump to 0.4.4
+
 2012-08-30 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEflightgear.spec: bump to 2.8.0
