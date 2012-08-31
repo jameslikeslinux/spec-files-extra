@@ -16,7 +16,7 @@
 Name:		SFEfusefs
 IPS_Package_Name:	system/file-system/fusefs
 Summary:	File system in User Space
-Version:	0.%{tarball_version}.1
+Version:	0.%{tarball_version}.2
 License:	CDDL and BSD
 Group:		System/File System
 SUNW_Copyright:	fusefs.copyright
@@ -83,6 +83,8 @@ driver name=fuse devlink=type=ddi_pseudo;name=fuse\t\D perms="* 0666 root sys"
 %endif
 
 %changelog
+* Fri Aug 31 2012 - Milan Jurik
+- bump version with new patch from Jean-Pierre Andre 
 * Sat Jan 28 2012 - Milan Jurik
 - add patches from Jean-Pierre Andre 
 * Fri Nov 04 2011 - Guido Berhoerster <gber@openindiana.org>
