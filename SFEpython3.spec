@@ -24,13 +24,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 SUNW_Basedir:	%{_basedir}
 SUNW_Copyright:	Python3.copyright
 
-# OpenSolaris IPS Manifest Fields
-Meta(info.maintainer): A Hettinger <ahettinger@prominic.net>
-Meta(info.upstream):  Guido van Rossum and the Python community <python-dev@python.org>
-Meta(info.repository_url): http://svn.python.org/projects/python/branches/release32-maint
-Meta(info.classification): org.opensolaris.category.2008:Development/Python
-
-
 %description
 Python is an interpreted, interactive, object-oriented programming
 language. It is often compared to Tcl, Perl, Scheme or Java.
@@ -57,12 +50,20 @@ sed -i -e 's,#! */bin/sh,#! /usr/bin/bash,' configure
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{if(cpus==0){print 1}else{print cpus }}')
 
-env CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%{_prefix} \
-					--mandir=%{_mandir}
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{_ldflags} -lresolv"
+./configure --prefix=%{_prefix} \
+	--mandir=%{_mandir} \
+	--enable-shared \
+	--with-signal-module \
+	--enable-ipv6
+
 make -j$CPUS
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.*a
 
 # Collision with other pythons
 rm -f $RPM_BUILD_ROOT/%{_bindir}/2to3
@@ -72,34 +73,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,bin)
-%dir %attr (0755, root, bin) %{_bindir}
-%{_bindir}/idle3
-%{_bindir}/idle3.2
-#%{_bindir}/2to3
-%{_bindir}/2to3-3.2
-%{_bindir}/python3
-%{_bindir}/python3.2
-%{_bindir}/python3.2m
-%{_bindir}/python3-config
-%{_bindir}/python3.2-config
-%{_bindir}/python3.2m-config
-%{_bindir}/pydoc3
-%{_bindir}/pydoc3.2
+%{_bindir}
 %dir %attr (-, root, bin) %{_libdir}
 %{_libdir}/python3.2/*
 %dir %attr (-, root, other) %{_libdir}/pkgconfig
-%{_libdir}/pkgconfig/python3.pc
-%{_libdir}/pkgconfig/python-3.2m.pc
-%{_libdir}/pkgconfig/python-3.2.pc
-%{_libdir}/libpython3.2m.a
+%{_libdir}/pkgconfig/*
+%{_libdir}/*.so*
 %dir %attr(-,root,sys) %{_datadir}
-%dir %attr(-, root, bin) %{_mandir}
-%dir %attr(-, root, bin) %{_mandir}/*
-%{_mandir}/*/*
-%dir %attr(-, root, bin) %{_includedir}
-%{_includedir}/python3.2m/*
+%{_mandir}
+%{_includedir}
 
 %changelog
+* Fri Aug 31 2012 - Milan Jurik
+- more packaging fixes, shared library added
 * Thu Jul 19 2012 - Thomas Wagner
 - use bash in configure
 * Fri Apr 27 2012 - Milan Jurik
