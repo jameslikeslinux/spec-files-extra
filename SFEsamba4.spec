@@ -4,7 +4,7 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-%define source_name samba-4.0.0alpha11
+%define source_name samba-4.0.0beta8
 
 Name:                SFEsamba4
 Summary:             samba - CIFS Server and Domain Controller v4
@@ -111,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0775, root, sys) /var/log/samba
 
 %changelog
+* Wed Sep 5 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.0.0beta8
 * Tue Mar 16 2010 - brian.lu@sun.com
 - Add patches: samba4-01-create-symbol-link.diff
   and samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff 
