@@ -20,7 +20,7 @@ Name:                    SFEjenkins
 IPS_Package_Name:	 developer/build/jenkins
 Summary:                 Jenkins - Extensible continuous integration server
 Group:                   Utility
-Version:                 1.475
+Version:                 1.480
 URL:		         http://jenkins-ci.org
 Source:		         http://mirrors.jenkins-ci.org/war/%{version}/jenkins.war
 Source2:                 jenkins.xml
@@ -114,6 +114,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/jenkins.xml
 
 %changelog
+* Fri Sep 7 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 1.480.
 * Mon Jul 30 2012 - Logan Bruns <logan@gedanken.org>
 - bump to 1.475.
 * Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>

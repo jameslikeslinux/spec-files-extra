@@ -1,5 +1,7 @@
 2012-09-07  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEjenkins.spec: bump to 1.480
+
 	* SFEasterisk.spec: bump to 1.8.15.1
 
 	* SFEgit.spec: bump to 1.7.12
