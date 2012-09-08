@@ -19,7 +19,7 @@
 Name:                    SFEsamba
 Summary:                 samba - CIFS Server and Domain Controller
 URL:                     http://samba.org/
-Version:                 3.5.8
+Version:                 3.5.17
 Copyright:               GPL
 Url:                     http://www.samba.org
 #Source:                  http://samba.org/samba/ftp/stable/samba-%{version}.tar.gz
@@ -294,6 +294,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Sep 8 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.5.17
 * Tue Apr 19 2011 - Thomas Wagner
 - bump to 3.5.8
 - new Download-URL
