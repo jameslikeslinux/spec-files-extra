@@ -85,6 +85,9 @@
 ##TODO## use pnm_macros to determine which osdistro/osbuild needs SFE or SUNW libsdl
 %define SFEsdl      %(/usr/bin/pkginfo -q SFEsdl && echo 1 || echo 0)
 
+#new with 2.x.x source comes compressed in xz
+BuildRequires:	%{pnm_buildrequires_SFExz}
+
 #we have new X-org with x11-xcb CR 6667057
 ##TODO## check if other solarish OS do have same x11-xcb integrated with build 153
 %if %( expr %{osbuild} '>=' 153 )
@@ -117,7 +120,7 @@ Requires: x11/library/libxcb
 Name:                   SFEvlc
 Summary:                vlc - multimedia player and streaming server
 Version:                2.0.3
-Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar
+Source:                 %{src_url}/%{version}/%{src_name}-%{version}.tar.xz
 Patch3:                 vlc-03-1141-oss.diff
 
 ## reminder: review if patches 4 .. 18 still valid/needed,
@@ -267,7 +270,10 @@ SUNW_BaseDir:            %{_basedir}
 Requires:                %{name}
 
 %prep
-%setup -q -n vlc-%version
+#don't unpack please
+%setup -q -c -T -n vlc-%version
+xz -dc %SOURCE0 | (cd ${RPM_BUILD_DIR}; tar xf -)
+
 #%patch3 -p1
 #%patch21 -p1
 #%patch22 -p1
@@ -563,6 +569,8 @@ test -x $BASEDIR/lib/postrun || exit 0
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Aug  6 2012 - Thomas Wagner
+- make vlc work with xz compressed source tarball, tested with pkgbuild 1.3.103 + 1.3.104
 * Sat Aug  4 2012 - Thomas Wagner
 - bump to 2.0.3 (build works with ffmpeg 0.11.1)
 - add patch28 vlc-28-203-missing-system-include.diff, add -DO_DIRECTORY=0x1000000 missing only on OI open(2)
