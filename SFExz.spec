@@ -5,16 +5,27 @@
 #
 
 %include Solaris.inc
+%ifarch amd64 sparcv9
+%include arch64.inc
+%use xz_64 = xz.spec
+%endif
+
+%include base.inc
+%use xz = xz.spec
+
 
 Name:		SFExz
+Name:                    %{xz.name}
 IPS_Package_Name:	compress/xz
-Version:	5.0.4
-Summary:	LZMA utils
-URL:		http://tukaani.org/xz
+Summary:    	         %{xz.summary}
+Version:                 %{xz.version}
+URL:			 %{xz.url}
 Source:		http://tukaani.org/xz/xz-%{version}.tar.bz2
 SUNW_Copyright: xz-utils.copyright
 Group:		Applications/Archivers
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
+SUNW_BaseDir:   %{_basedir}
+%include default-depend.inc
 
 #%define cc_is_gcc 0
 
@@ -28,44 +39,55 @@ are the successor to LZMA Utils.
 %package l10n
 Summary:        %{summary} - l10n files
 SUNW_BaseDir:   %{_basedir}
-%include default-depend.inc
 Requires:       %{name}
 %endif
 
 %prep
-%setup -q -c -n %{name}-%{version}
+rm -rf %{name}-%{version}
+%ifarch amd64 sparcv9
+mkdir -p %{name}-%{version}/%_arch64
+%xz_64.prep -d %{name}-%{version}/%_arch64
+%endif
+
+mkdir -p %{name}-%{version}/%base_isa
+%xz.prep -d %{name}-%{version}/%base_isa
+
 
 %build
-cd xz-%{version}
-CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64"
-CXXFLAGS="$CXXFLAGS -D_FILE_OFFSET_BITS=64"
-export CFLAGS CXXFLAGS
-./configure --prefix=%{_prefix}                 \
-            --libexecdir=%{_libexecdir}         \
-            --mandir=%{_mandir}                 \
-            --datadir=%{_datadir}               \
-            --infodir=%{_datadir}/info          \
-	    --disable-static			\
-	    --disable-assembler
-make
+%ifarch amd64 sparcv9
+%xz_64.build -d %{name}-%{version}/%_arch64
+%endif
+
+%xz.build -d %{name}-%{version}/%{base_isa}
 
 %install
-cd xz-%{version}
-rm -rf ${RPM_BUILD_ROOT}
-gmake install DESTDIR=${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
+%ifarch amd64 sparcv9
+%xz_64.install -d %{name}-%{version}/%_arch64
+%endif
+
+%xz.install -d %{name}-%{version}/%{base_isa}
+
+mkdir -p %{buildroot}/%{_bindir}/%{base_isa}
+cp -d %{buildroot}/%{_bindir}/lz[a-z]* %{buildroot}/%{_bindir}/%{base_isa}/
+cp -d %{buildroot}/%{_bindir}/un[a-z]* %{buildroot}/%{_bindir}/%{base_isa}/
+cp -d %{buildroot}/%{_bindir}/xz[a-z]* %{buildroot}/%{_bindir}/%{base_isa}/
+for binary in lzmadec lzmainfo xz xzdec xzdiff xzgrep xzless xzmore
+  do
+  #move real i386/sparc 32 bit binaries to %{_bindir}/%{base_isa}
+  mv %{buildroot}/%{_bindir}/$binary %{buildroot}/%{_bindir}/%{base_isa}/
+  ln -f -s ../lib/isaexec %{buildroot}/%{_bindir}/$binary
+done #for binary
+#symbolic links remain in place, they are copied instead
 
 find $RPM_BUILD_ROOT%{_libdir} -type f -name "*.la" -exec rm -f {} ';'
 
-%if %build_l10n
-%else
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
-%endif
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
 %files
-%defattr(0755, root, sys)
+%defattr(0755, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
@@ -76,6 +98,14 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/lib*.so*
 %dir %attr (0755, root, other) %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/*
+
+%ifarch amd64 sparcv9
+%dir %attr (0755, root, bin) %{_libdir}/%{_arch64}
+%{_libdir}/%{_arch64}/lib*.so*
+%dir %attr (0755, root, other) %{_libdir}/%{_arch64}/pkgconfig
+%{_libdir}/%{_arch64}/pkgconfig/*
+%endif
+
 %dir %attr (0755, root, bin) %{_includedir}
 %{_includedir}/*
 %dir %attr (0755, root, other) %{_datadir}/doc
@@ -89,6 +119,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Sun Sep  9 2012 - Thomas Wagner
+- add 32/64-bit multiarch
 * Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
 - Added ips name and bumped to 5.0.4
 * Tue Jul 26 2011 - N.B.Prashanth
