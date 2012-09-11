@@ -18,7 +18,7 @@
 
 Name:                SFEfreeradius
 Summary:             FreeRADIUS - modular, high performance and feature-rich RADIUS suite
-Version:             2.1.10
+Version:             2.2.0
 Source:              ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-%{version}.tar.bz2
 Source2:	     freeradius.xml
 Source3:             svc-freeradius
@@ -49,18 +49,19 @@ BuildRoot:           %{_tmppath}/%{name}-%{version}-build
 #      /usr/lib/libpython2.4.so.1.0 which is found in SUNWPython, but that is
 #      not listed as a package dependency.
 
-BuildRequires: SUNWkrbu
-BuildRequires: SUNWopenssl-include
+BuildRequires: %{pnm_buildrequires_SUNWkrb}
+BuildRequires: %{pnm_buildrequires_SUNWopenssl_include}
 BuildRequires: %{pnm_buildrequires_SUNWgnu_dbm}
 #BuildRequires: %{pnm_buildrequires_SUNWmysql_base_devel}
-%define PERLpath /usr/perl5/bin/perl
-BuildRequires: SUNWperl584core
+%define PERLpath /usr/perl%{perl_major_version}/bin/perl
+
+BuildRequires: %{pnm_buildrequires_perl_default}
 BuildRequires: SUNWltdl
-Requires: SUNWkrbu
-Requires: SUNWopenssl-libraries
+Requires: %{pnm_requires_SUNWkrb}
+Requires: %{pnm_requires_SUNWopenssl_libraries}
 Requires: %{pnm_requires_SUNWgnu_dbm}
 #Requires: %{pnm_requires_SUNWmysql_base}
-Requires: SUNWperl584core
+Requires: %{pnm_buildrequires_perl_default}
 Requires: SUNWltdl
 
 Requires: %name-root
@@ -82,7 +83,14 @@ cp %{SOURCE3} svc-freeradius
 #error message tells errors while loading "eap" 
 #run command below with "-pi.bak" if you want backup files be created, otherwise only "-pi"
 #perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec egrep -q "^#\! */bin/sh" {} \; -print| egrep -v "/configure|/config.status|CONFIG_SHELL|>conf.*.sh"`
+
+#rewrite shell interpreter
+#*only* for configure step
+##TODO## check other shell scripts in this pacakge on the shell interpreter used
 perl -w -pi -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec egrep -q "^#\! */bin/sh" {} \; -print| egrep -v "/configure|/config.status|CONFIG_SHELL|>conf.*.sh"`
+
+#rewrite perl interpreter
+perl -w -pi -e "s,^#\!\s*/usr/bin/perl,#\!/usr/perl%{perl_major_version}/bin/perl," `find . -type f -exec grep -q "^#\!.*/usr/bin/perl" {} \; -print`
 
 perl -w -pi -e "s,^#user = radius,user = %{radiususer},; s,^#group = radius,group = %{radiusgroup},;" raddb/radiusd.conf.in
 
@@ -257,6 +265,12 @@ user ftpuser=false gcos-field="freeradius" username="%{radiususer}" uid="%{radiu
 
 
 %changelog
+* Tue Sep 11 2011 - Thomas Wagner
+- bump to 2.2.0 - needs testing
+* Mon Aug  1 2011 - Thomas Wagner
+- bump to 2.1.10
+- add (Build)Requires as pnm_macros: SUNWkrbu/SUNWkrb/SUNWopenssl_include/%{pnm_buildrequires_perl_default}
+- rewrite perl interpreter to be /usr/perl%{perl_major_version}/bin/perl
 * Tue Mar 17 2011 - Thomas Wagner
 - change BuildRequires to %{pnm_buildrequires_SUNWgnu_dbm}
 * Tue Mar 15 2011 - Thomas Wagner
