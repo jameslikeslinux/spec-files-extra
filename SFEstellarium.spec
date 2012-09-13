@@ -30,6 +30,8 @@ BuildRequires: SUNWimagick
 BuildRequires: SFEcmake
 BuildRequires: SFEqt-stdcxx-devel
 Requires: SFEqt-stdcxx
+BuildRequires: SUNWgnome-config-devel
+Requires: SUNWgnome-config
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
