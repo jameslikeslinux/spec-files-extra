@@ -4,15 +4,15 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-%define source_name samba-4.0.0beta8
+%define source_name 	samba-4.0.0rc1 
 
 Name:                SFEsamba4
 Summary:             samba - CIFS Server and Domain Controller v4
 Version:             4.0.0
-Source:              http://us5.samba.org/samba/ftp/samba4/%{source_name}.tar.gz
+Source:              http://ftp.samba.org/pub/samba/rc/%{source_name}.tar.gz
 
-Patch1: samba4-01-create-symbol-link.diff
-Patch2: samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff
+#Patch1: samba4-01-create-symbol-link.diff
+#Patch2: samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -28,8 +28,8 @@ SUNW_BaseDir:            /
 %prep
 rm -rf %name-%version
 %setup -q -c -n %name-%version
-%patch1 -p0
-%patch2 -p0
+#%patch1 -p0
+#%patch2 -p0
 
 
 %build
@@ -111,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0775, root, sys) /var/log/samba
 
 %changelog
+* Thu Sep 13 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 4.0.0rc1
 * Wed Sep 5 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 4.0.0beta8
 * Tue Mar 16 2010 - brian.lu@sun.com

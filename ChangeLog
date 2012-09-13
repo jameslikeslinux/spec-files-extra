@@ -1,3 +1,7 @@
+2012-09-13 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEsamba4.spec: bump to 4.0.0rc1
+
 2012-09-08 Ken Mays  <kmays2000@gmail.com>
 
 	* experimental/SFEsamba.spec: bump to 3.5.17
