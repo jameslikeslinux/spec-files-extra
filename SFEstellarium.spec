@@ -14,7 +14,7 @@ Name:		SFEstellarium
 IPS_Package_Name:	image/stellarium
 Version:	0.11.4a
 Summary:	Photo-realistic nightsky renderer
-Group:		Amusements/Graphics
+Group:		Scientific/Astronomy
 License:	GPLv2+
 URL:		http://stellarium.free.fr/
 Source:		%{sf_download}/stellarium/stellarium-%{version}.tar.gz
