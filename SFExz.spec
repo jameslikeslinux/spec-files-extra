@@ -76,7 +76,7 @@ for binary in lzmadec lzmainfo xz xzdec xzdiff xzgrep xzless xzmore
   do
   #move real i386/sparc 32 bit binaries to %{_bindir}/%{base_isa}
   mv %{buildroot}/%{_bindir}/$binary %{buildroot}/%{_bindir}/%{base_isa}/
-  ln -f -s ../lib/isaexec %{buildroot}/%{_bindir}/$binary
+  ln -f ../lib/isaexec %{buildroot}/%{_bindir}/$binary
 done #for binary
 #symbolic links remain in place, they are copied instead
 
@@ -119,6 +119,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Tue Sep 18 2012 - Thomas Wagner
+- fix multiarch with hardlink
 * Sun Sep  9 2012 - Thomas Wagner
 - add 32/64-bit multiarch
 * Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
