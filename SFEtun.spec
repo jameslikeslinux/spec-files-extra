@@ -18,7 +18,7 @@ URL:		http://www.whiteboard.ne.jp/~admin2/tuntap/
 License:        GPLv2
 SUNW_Copyright:	tuntap.copyright
 Meta(info.upstream): Kazuyoshi Aizawa <admin2@whiteboard.ne.jp>
-Version:	1.1
+Version:	1.3.0
 Source:		%{src_url}/%{src_name}.tar.gz
 SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
