@@ -17,7 +17,7 @@ Name:                    SFEmaxima
 IPS_Package_Name:	 math/maxima
 Summary:                 Maxima - a Computer Algebra System
 Group:                   Utility
-Version:                 5.27.0
+Version:                 5.28.0
 URL:		         http://maxima.sourceforge.net
 Source:		         %{sf_download}/project/maxima/Maxima-source/%{version}-source/%{srcname}-%{version}.tar.gz
 License: 		 GPL
@@ -88,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/info/*
 
 %changelog
+* Wed Sep 19 2012 - Logan Bruns <logan@gedanken.org>
+- Bumped to 5.28.0
 * Mon Apr 30 2012 - Logan Bruns <logan@gedanken.org>
 - Bumped to 5.27.0
 - Removed a no longer needed patch
