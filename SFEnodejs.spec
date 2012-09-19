@@ -21,6 +21,8 @@ Source:		http://nodejs.org/dist/v%{version}/node-v%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
+BuildRequires: SFEgcc
+Requires: SFEgccruntime
 
 %description  
 Node's goal is to provide an easy way to build scalable network  
