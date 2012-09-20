@@ -31,6 +31,7 @@ SUNW_BaseDir:            /var
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 Requires: %pnm_requires_java_runtime_default
+Requires: SFEgit
 
 Requires: %name-root
 

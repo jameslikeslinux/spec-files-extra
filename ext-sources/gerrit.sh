@@ -22,6 +22,9 @@ if [ ! -d /var/lib/gerrit/bin ]; then
     echo "Gerrit initialization failed." 
     exit $SMF_EXIT_ERR 
   fi
+
+  rm -rf /var/lib/gerrit/logs
+  ln -s /var/log/gerrit /var/lib/gerrit/logs
 fi
 
 export GERRIT_SITE=/var/lib/gerrit
