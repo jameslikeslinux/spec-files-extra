@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='gerrit'>
+  <service name='developer/versioning/gerrit' type='service' version='0'>
+    <single_instance/>
+    <dependency name='fs' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='network' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/multi-user-server'/>
+    </dependency>
+    <instance name='default' enabled='false'>
+      <exec_method type='method'
+                   name='start'
+                   exec='/var/lib/gerrit/gerrit.sh start'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='gerrit' group='other' />
+	</method_context>
+      </exec_method>
+      <exec_method type='method'
+                   name='stop'
+                   exec=':kill'
+                   timeout_seconds='60'>
+	<method_context>
+          <method_credential user='gerrit' group='other'/>
+	</method_context>
+      </exec_method>
+      <property_group name='process' type='application'>
+        <propval name='max_heap' type='astring' value='768m'/>
+      </property_group>
+      <template>
+	<common_name>
+          <loctext xml:lang='C'>Gerrit - Web based code review and project management</loctext>
+	</common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>

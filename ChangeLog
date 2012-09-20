@@ -1,3 +1,10 @@
+2012-09-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
+
+	* SFEgerrit.spec: initial spec.
+	* ext-sources/gerrit.sh
+	* ext-sources/gerrit.xml
+	* copyright/SFEgerrit.copyright
+
 2012-09-19  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEmaxima.spec: bumped to 5.28.0
