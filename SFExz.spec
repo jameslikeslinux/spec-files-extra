@@ -76,7 +76,7 @@ for binary in lzmadec lzmainfo xz xzdec xzdiff xzgrep xzless xzmore
   do
   #move real i386/sparc 32 bit binaries to %{_bindir}/%{base_isa}
   mv %{buildroot}/%{_bindir}/$binary %{buildroot}/%{_bindir}/%{base_isa}/
-  ln -f ../lib/isaexec %{buildroot}/%{_bindir}/$binary
+  ln -s -f ../lib/isaexec %{buildroot}/%{_bindir}/$binary
 done #for binary
 #symbolic links remain in place, they are copied instead
 
@@ -88,8 +88,36 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(0755, root, bin)
-%dir %attr (0755, root, bin) %{_bindir}
+%ifarch amd64 sparcv9
+%{_bindir}/%{base_isa}/*
+%{_bindir}/%{_arch64}/*
+%{_bindir}/unxz
+%{_bindir}/xzcat
+%{_bindir}/lzegrep
+%{_bindir}/lzmore
+%{_bindir}/lzgrep
+%{_bindir}/xzegrep
+%{_bindir}/lzcat
+%{_bindir}/unlzma
+%{_bindir}/xzcmp
+%{_bindir}/lzdiff
+%{_bindir}/lzfgrep
+%{_bindir}/xzfgrep
+%{_bindir}/lzcmp
+%{_bindir}/lzma
+%{_bindir}/lzless
+%hard %{_bindir}/lzmadec
+%hard %{_bindir}/lzmainfo
+%hard %{_bindir}/xz
+%hard %{_bindir}/xzdec
+%hard %{_bindir}/xzdiff
+%hard %{_bindir}/xzgrep
+%hard %{_bindir}/xzless
+%hard %{_bindir}/xzmore
+#those are symlinks to the binaries above
+%else
 %{_bindir}/*
+%endif
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr(0755, root, bin) %{_mandir}
 %dir %attr(0755, root, bin) %{_mandir}/man1
@@ -119,6 +147,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Thu Sep 20 2012 - Thomas Wagner
+- now really fix multiarch with %hard keyword
 * Tue Sep 18 2012 - Thomas Wagner
 - fix multiarch with hardlink
 * Sun Sep  9 2012 - Thomas Wagner
