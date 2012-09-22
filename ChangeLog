@@ -1,8 +1,9 @@
 2012-09-08 Ken Mays  <kmays2000@gmail.com>
 
-	* Added patches/conky-1.7.2-opensolaris.diff
 	* experimental/SFEconky-1.7.2.spec
 	* experimental/SFEconky-1.9.0.spec
+	* patches/conky-1.9.0-opensolaris.diff
+	* patches/conky-1.7.2-opensolaris.diff
 
 2012-09-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

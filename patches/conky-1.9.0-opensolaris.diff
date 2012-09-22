@@ -1,0 +1,375 @@
+--- conky-1.9.0/src/solaris.c.old	2012-09-22 13:37:31.309875000 -0400
++++ conky-1.9.0/src/solaris.c	2012-09-22 14:29:57.950500000 -0400
+@@ -27,60 +27,334 @@
+  *
+  */
+ 
+-/* doesn't work, feel free to finish this */
++/* Added initial Solaris support -  Alexander Eremin http://www.milax.org 16 May 2008/
++*  Updated update_net_stats - Alexander Eremin http://www.milax.org 05 August 2009
++*  Updated for 1.7.2 version - Alexander Eremin http://www.milax.org 04 December 2009
++*  Updated for 1.9.0 version - Ken Mays <kmays2000 at gmail.com> 22 September 2012
++*/ 
++
++/* Modified for OpenSolaris-based distros */
+ #include "conky.h"
+-#include "common.h"
+ #include <kstat.h>
+-
+-static kstat_ctl_t *kstat;
++i#include <errno.h>
++#include <utmp.h>   
++#include <net/if.h>
++#include <sys/sockio.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <sys/stat.h>
++#include <sys/swap.h>
++#include <stdio.h>
++#include <sys/sysinfo.h>
++#include <string.h>
++#include <sys/loadavg.h>
++#include <sys/types.h>                                                        
++#include <sys/socket.h>                                                      
++#include <sys/ioctl.h>                                                         
++#include <sys/dlpi.h>                                                       
++#include <net/if.h>                                                       
++#include <sys/sockio.h>                                                         
++#include <strings.h>   
++#include <netinet/in.h> 
++
++#define ONE_KB (1024) 
++
++static kstat_ctl_t *kc;
++static kstat_named_t *data_lookup; 
++static kstat_t *ksp;
+ static int kstat_updated;
++unsigned int mem, memmax, swap, swapmax, swapfree, bufmem, buffers, cached;
++static unsigned int cpu_user, cpu_idle, cpu_system, cpu_nice;  
++static double last_cpu_sum;                                                  
++static double last_cpu_calc_time;
++
+ 
+-static void update_kstat()
++static void update_kstat(void)
+ {
+-	if (kstat == NULL) {
+-		kstat = kstat_open();
+-		if (kstat == NULL) {
+-			NORM_ERR("can't open kstat: %s", strerror(errno));
+-		}
++	if (kc == NULL) {
++	    kc = kstat_open();
++	    if (kc == NULL) {
++		    printf("can't open kstat");	
++                }
+ 	}
+ 
+-	if (kstat_chain_update(kstat) == -1) {
++	if (kstat_chain_update(kc) == -1) {
+ 		perror("kstat_chain_update");
+ 		return;
+ 	}
+ }
+ 
+-void prepare_update()
+-{
+-	kstat_updated = 0;
++void prepare_update(void) {
++    kstat_updated = 0; 
+ }
+ 
+-double get_uptime()
+-{
+-	kstat_t *ksp;
++void update_uptime(void) {
+ 
+-	update_kstat();
++    double t = 0;
+ 
+-	ksp = kstat_lookup(kstat, "unix", -1, "system_misc");
+-	if (ksp != NULL) {
+-		if (kstat_read(kstat, ksp, NULL) >= 0) {
+-			kstat_named_t *knp;
+-
+-			knp = (kstat_named_t *) kstat_data_lookup(ksp, "boot_time");
+-			if (knp != NULL) {
+-				return get_time() - (double) knp->value.ui32;
+-			}
+-		}
+-	}
+-}
++    update_kstat();
+ 
+-void update_meminfo()
+-{
+-	/* TODO */
++    ksp = kstat_lookup(kc, "unix", -1, "system_misc");
++    if (kstat_read(kc, ksp, NULL) >= 0) {
++	    data_lookup = (kstat_named_t *) kstat_data_lookup(ksp, "boot_time");
++    	    if (data_lookup != NULL) 
++    		    t = get_time() - (double) data_lookup->value.ui32;
++    }
++    info.uptime = t;
++ }
++
++void update_meminfo(void) {
++
++    static int meminfo_updated;                                              
++    if (meminfo_updated) return;                                             
++	    meminfo_updated = 1;                                                                                                                                
++    struct anoninfo ai;
++    
++    long swapalloc, swapresv, swapavail, swaptotal;
++    long page_size;                                                         
++    long num_pages;                                                         
++    long free_pages;                                                       
++    longlong_t fmem;                                                        
++    longlong_t free_mem;                                                    
++    page_size = sysconf (_SC_PAGESIZE);                                     
++    num_pages = sysconf (_SC_PHYS_PAGES);                                   
++    free_pages = sysconf (_SC_AVPHYS_PAGES);                                 
++    fmem = (longlong_t) ((longlong_t) num_pages * (longlong_t) page_size);  
++    free_mem = (longlong_t) free_pages * (longlong_t) page_size;           
++    
++    fmem /= ONE_KB; 
++    free_mem /= ONE_KB;
++    memmax = fmem;
++    info.memmax = fmem;
++    info.mem = memmax - free_mem;
++    info.memeasyfree = info.memfree = info.memmax - info.mem; 
++    
++    swapctl( SC_AINFO, &ai);
++    swapalloc  = ai.ani_max - ai.ani_free;
++    swapalloc *= page_size;
++    swapresv   = ai.ani_resv + ai.ani_free - ai.ani_max;
++    swapresv  *= page_size;
++    swapavail  = ai.ani_max - ai.ani_resv;
++    swapavail *= page_size;
++    swaptotal = ai.ani_max;
++    swaptotal *= page_size;
++
++    info.swap = swapalloc + swapresv;
++    info.swapmax = swaptotal;
++    info.swapfree = swapavail;
++    
++    info.swapfree /= ONE_KB;						
++    info.swap /= ONE_KB;
++    info.swapmax /= ONE_KB;
++    
++ }
++
++void get_cpu_count(void)                                                                                      
++{                                                                                                             
++       info.cpu_count = 1;                                                                                   
++       info.cpu_usage = malloc(info.cpu_count * sizeof(float));                                              
++       if (info.cpu_usage == NULL) {                                                                         
++                   fprintf(stderr, "malloc");                                                               
++       }                                                                                                     
++}                                   
++
++                                                                                                                                                             
++void update_cpu_usage(void) {                                                                                                                                    
++
++    double t, delta;                                                                                                                                           
++
++    t = get_time();                                                                                                                                            
++    
++    delta = t - last_cpu_calc_time;                                                                                                                            
++                                                                                                                                                   
++    if(delta <= 0.05) return;                                                                                                                                  
++                                                                                                                                                             
++    last_cpu_calc_time = t;                                                                                                                                    
++
++    cpu_stat_t *cpu_stat;
++
++    update_kstat();
++    
++    ksp = kstat_lookup(kc, "cpu_stat", 0, "cpu_stat0");                                                       
++    
++    if (kstat_read(kc, ksp, NULL) != -1) {                                                                 
++	    cpu_stat = (cpu_stat_t *)ksp->ks_data;
++    cpu_idle =cpu_stat->cpu_sysinfo.cpu[CPU_IDLE];
++
++	    cpu_user=cpu_stat->cpu_sysinfo.cpu[CPU_USER];
++	    cpu_nice=cpu_stat->cpu_sysinfo.cpu[CPU_WAIT]; 
++	    cpu_system = cpu_stat->cpu_sysinfo.cpu[CPU_KERNEL] ;
++    }
++    
++    info.cpu_count = 1;
++    info.cpu_usage = malloc(info.cpu_count * sizeof(float));                                              
++    info.cpu_usage[0] = (cpu_user + cpu_nice + cpu_system - last_cpu_sum) / delta / 100.0;                                                                                 
++    last_cpu_sum = cpu_user + cpu_nice + cpu_system;                                                                                                               
++}      
++		
++	
++		
++		
++void update_total_processes(void) {                                                                                                                                  
++    int nproc=0;                                                                                                                                                   
++    update_kstat();
++                                                                                                                                                         
++    ksp = kstat_lookup(kc, "unix", 0, "system_misc");                                                                                                      
++    if (kstat_read(kc, ksp, 0) != -1) {                                                                                                                      
++	    data_lookup = kstat_data_lookup(ksp, "nproc");                                                                                                            
++	    if (data_lookup) 
++		    nproc = data_lookup->value.ui32;                                                                                                            
++    }
++    
++    info.procs = nproc;                                                                                                                                       
+ }
+ 
+-int check_mount(char *s)
+-{
+-	/* stub */
+-	return 0;
+-}
++void update_running_processes(void) {
++    static struct utmp *utmpp;        
++    int  uproc = 0;                                                                                                                                          
++    setutent();                                                                                                                                              
++    while ((utmpp = getutent()) != NULL) {                                                                                                                   
++	if (utmpp->ut_type == USER_PROCESS && utmpp->ut_name[0] != '\0')                                                                                     
++		uproc++;                                                                                                                                         
++        }                                                                                                                                                        
++   info.run_procs = uproc;                             
++}    
++						
++
++
++void update_net_stats(void)
++ {
++	struct net_stat *ns;
++ 
++	double delta;
++	long long r, t, last_recv, last_trans;
++ 
++	/* get delta */
++	delta = current_update_time - last_update_time;
++	if (delta <= 0.0001) {
++		return;
++ 	}
++
++
++	char          buf[1024];
++ 	struct ifconf ifc;
++ 	struct ifreq *ifr;
++	int           sock;
++ 	int           nInterfaces;
++ 	int           i;
++ 
++ 
++ 	sock = socket(AF_INET, SOCK_DGRAM, 0);
++ 	if(sock < 0)
++ 	{
++ 		fprintf(stderr,"socket");
++ 		return;
++ 	}
++
++ 	/* Query available interfaces. */
++	ifc.ifc_len = sizeof(buf);
++ 	ifc.ifc_buf = buf;
++ 	if(ioctl(sock, SIOCGIFCONF, &ifc) < 0)
++ 	{
++		fprintf(stderr,"ioctl(SIOCGIFCONF)");
++ 		close(sock);
++ 		return;
++ 	}
++
++	/* Iterate through the list of interfaces. */
++	ifr         = ifc.ifc_req;
++ 	nInterfaces = ifc.ifc_len / sizeof(struct ifreq);
++ 	for(i = 0; i < nInterfaces; i++) {
++	
++ 		struct ifreq *item = &ifr[i];
++ 		if (strcmp(item->ifr_name,"lo0") == 0)
++			continue;
++
++		ns = get_net_stat((const char *) item->ifr_name, NULL, NULL);
++ 
++			                                                                                                                
++		ns->up = 1;                                                                           
++		last_recv = ns->recv;                                                                 
++		last_trans = ns->trans;                                                               
++ 		
++		if (item->ifr_flags & IFF_LOOPBACK)
++			continue;
++
++		memcpy(&(ns->addr), &item->ifr_addr, sizeof(item->ifr_addr));               
++	        
++
++		ksp = kstat_lookup(kc, NULL, -1, item->ifr_name);                                                                                                      
++		if (kstat_read(kc, ksp, 0) == -1)                                                                                                                      
++			fprintf(stderr,"kstat read");                                                                                                                                
++		data_lookup = kstat_data_lookup(ksp, "rbytes");              
++		if (data_lookup)
++			r = (long long) data_lookup->value.ui32;
++		data_lookup = kstat_data_lookup(ksp, "obytes");              
++		if (data_lookup)
++			t =(long long) data_lookup->value.ui32;
++
++
++		if (r < ns->last_read_recv) {
++			ns->recv += ((long long) 4294967295U - ns->last_read_recv) + r;
++		} else {
++			ns->recv += (r - ns->last_read_recv);
++		}
++
++		ns->last_read_recv = r;
++		if (t < ns->last_read_trans) {
++			ns->trans += ((long long) 4294967295U - ns->last_read_trans) + t;
++		} else {
++			ns->trans += (t - ns->last_read_trans);
++		}
++
++		ns->last_read_trans = t;
++
++		ns->recv_speed = (ns->recv - last_recv) / delta;
++		ns->trans_speed = (ns->trans - last_trans) / delta;
++
++ 	}
++	
++	close(sock);
++																				    
++ }
++ 
++double get_load_average1()
++ {
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++	    fload = avenrun[LOADAVG_1MIN];
++    return fload;
++ }
++
++double get_load_average5()
++ {
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++    	    fload = avenrun[LOADAVG_5MIN];
++    return fload;
++ }
++
++double get_load_average15()
++ {
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++    	    fload = avenrun[LOADAVG_15MIN];
++    return fload;
++ }
++
++void update_load_average(void) {
++    
++    info.loadavg[0] = get_load_average1();       
++    info.loadavg[1] = get_load_average5();       
++    info.loadavg[2] = get_load_average15();       
++ }
++
++int check_mount(char *s)                                                    
++ {                                                                               
++        /* stub */                                                                                            
++        return 0;                                                                                             
++ }
++
++void free_all_processes(void)                                                                                 
++{                                                                                                             
++}  
