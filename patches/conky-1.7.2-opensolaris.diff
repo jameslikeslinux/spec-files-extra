@@ -1,0 +1,898 @@
+diff -ur conky-1.7.2/configure conky-1.7.2.solaris/configure
+--- conky-1.7.2/configure	2009-08-25 03:01:58.000000000 +0400
++++ conky-1.7.2.solaris/configure	2009-12-04 16:15:09.000000000 +0300
+@@ -11713,9 +11713,9 @@
+     ;;
+ 
+ # Solaris doesn't work at all right now
+-#  SunOS*)
+-#    WANT_KSTAT=yes
+-#    ;;
++  SunOS*)
++    WANT_KSTAT=yes
++    ;;
+ 
+   *)
+     echo "Your operating system $uname isn't supported"
+@@ -15978,7 +15978,9 @@
+ $as_echo "$as_me: error: tolua++ or tolua++5.1 is required for Lua extras." >&2;}
+    { (exit 1); exit 1; }; }
+ 		else
+-			{ $as_echo "$as_me:$LINENO: checking for library containing tolua_error" >&5
++			{ 
++conky_LIBS="$conky_LIBS -ltolua++"
++$as_echo "$as_me:$LINENO: checking for library containing tolua_error" >&5
+ $as_echo_n "checking for library containing tolua_error... " >&6; }
+ if test "${ac_cv_search_tolua_error+set}" = set; then
+   $as_echo_n "(cached) " >&6
+@@ -16071,7 +16073,7 @@
+ else
+   { { $as_echo "$as_me:$LINENO: error: tolua_error not found" >&5
+ $as_echo "$as_me: error: tolua_error not found" >&2;}
+-   { (exit 1); exit 1; }; }
++   }
+ fi
+ 
+ 		fi
+@@ -20444,7 +20446,7 @@
+   fi
+ fi
+ 
+-
++conky_LIBS="$conky_LIBS -lkstat -lnsl -lsocket"
+ 
+ 
+ { $as_echo "$as_me:$LINENO: checking if $LD accepts -O1" >&5
+diff -ur conky-1.7.2/src/common.c conky-1.7.2.solaris/src/common.c
+--- conky-1.7.2/src/common.c	2009-08-09 00:05:55.000000000 +0400
++++ conky-1.7.2.solaris/src/common.c	2009-12-07 10:51:57.509706950 +0300
+@@ -43,7 +43,9 @@
+ #include <fcntl.h>
+ 
+ /* check for OS and include appropriate headers */
+-#if defined(__linux__)
++#if defined(SOLARISX86)
++#include <sys/sockio.h>
++#elif defined(__linux__)
+ #include "linux.h"
+ #elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+ #include "freebsd.h"
+@@ -434,11 +436,11 @@
+ 	if (NEED(INFO_NET)) {
+ 		update_net_stats();
+ 	}
+-
++#if !defined(SOLARISX86)
+ 	if (NEED(INFO_DISKIO)) {
+ 		update_diskio();
+ 	}
+-
++#endif /* Solaris */
+ #if defined(__linux__)
+ 	if (NEED(INFO_I8K)) {
+ 		update_i8k();
+@@ -494,11 +496,11 @@
+ 		update_x11info();
+ 	}
+ #endif
+-
++#if !defined(SOLARISX86)
+ 	if (NEED(INFO_TOP)) {
+ 		update_top();
+ 	}
+-
++#endif /* Solaris */
+ 	/* update_fs_stat() won't do anything if there aren't fs -things */
+ 	if (NEED(INFO_FS) && current_update_time - last_fs_update > 12.9) {
+ 		update_fs_stats();
+@@ -509,9 +511,11 @@
+ 		tcp_portmon_update();
+ 	}
+ #endif
++#if !defined(SOLARISX86)
+ 	if (NEED(INFO_ENTROPY)) {
+ 		update_entropy();
+ 	}
++#endif	/* Solaris */
+ #if defined(__linux__)
+ 	if (NEED(INFO_USERS)) {
+ 		update_users();
+diff -ur conky-1.7.2/src/config.h.in conky-1.7.2.solaris/src/config.h.in
+--- conky-1.7.2/src/config.h.in	2009-08-25 03:02:05.000000000 +0400
++++ conky-1.7.2.solaris/src/config.h.in	2009-12-04 15:17:14.000000000 +0300
+@@ -1,5 +1,7 @@
+ /* src/config.h.in.  Generated from configure.ac by autoheader.  */
+ 
++
++#define SOLARISX86
+ /* Define if you want apcupsd support */
+ #undef APCUPSD
+ 
+diff -ur conky-1.7.2/src/conky.c conky-1.7.2.solaris/src/conky.c
+--- conky-1.7.2/src/conky.c	2009-08-11 03:44:18.000000000 +0400
++++ conky-1.7.2.solaris/src/conky.c	2009-12-07 10:54:02.586098418 +0300
+@@ -95,6 +95,8 @@
+ #include <bsd/bsd.h>
+ #endif
+ 
++#define MIN(a,b) (a>b ? b : a)
++
+ /* FIXME: apm_getinfo is unused here. maybe it's meant for common.c */
+ #if (defined(__FreeBSD__) || defined(__FreeBSD_kernel__) \
+ 		|| defined(__OpenBSD__)) && (defined(i386) || defined(__i386__))
+@@ -377,6 +379,26 @@
+ /* maximum size of individual text buffers, ie $exec buffer size */
+ unsigned int text_buffer_size = DEFAULT_TEXT_BUFFER_SIZE;
+ 
++char*
++strcasestr (char *haystack, char *needle)                                                                     
++{                                                                                                             
++        char *p, *startn = 0, *np = 0;                                                                        
++        for (p = haystack; *p; p++) {                                                                         
++    	    if (np) {                                                                                     
++		    if (toupper(*p) == toupper(*np)) {                                                    
++			if (!*++np)                                                                   
++				return startn;                                                        
++		    } else                                                                                
++            		    np = 0;                                                                       
++	    } else if (toupper(*p) == toupper(*needle)) {                                                 
++		    np = needle + 1;                                                                      
++		    startn = p;                                                                           
++	    }                                                                                             
++	}                                                                                                     
++	
++	return 0;                                                                                             
++}                 
++
+ #ifdef HAVE_ICONV
+ #define CODEPAGE_LENGTH 20
+ long iconv_selected;
+@@ -1116,6 +1138,7 @@
+ }
+ 
+ #ifdef X11
++#if !defined(SOLARISX86)
+ void scan_mixer_bar(const char *arg, int *a, int *w, int *h)
+ {
+ 	char buf1[64];
+@@ -1129,6 +1152,7 @@
+ 		scan_bar(arg, w, h);
+ 	}
+ }
++#endif /* Solaris */
+ #endif /* X11 */
+ 
+ /* strip a leading /dev/ if any, following symlinks first
+@@ -1274,10 +1298,13 @@
+ 	} else
+ #endif /* X11 */
+ #ifdef __OpenBSD__
++
+ 	OBJ(freq, INFO_FREQ)
+ #else
+ 	OBJ(acpitemp, 0)
++#if !defined(SOLARISX86)
+ 		obj->data.i = open_acpi_temperature(arg);
++#endif /* Solaris */
+ 	END OBJ(acpiacadapter, 0)
+ 	END OBJ(freq, INFO_FREQ)
+ #endif /* !__OpenBSD__ */
+@@ -1341,7 +1368,6 @@
+ 			obj->data.cpu_index = atoi(&arg[0]);
+ 		}
+ 		obj->a = 1;
+-
+ #ifdef HAVE_IWLIB
+ 	END OBJ(wireless_essid, INFO_NET)
+ 		if (arg) {
+@@ -1620,6 +1646,7 @@
+ 			free(buf);
+ 		}
+ #endif /* X11 */
++#if !defined(SOLARISX86)
+ 	END OBJ(diskio, INFO_DISKIO)
+ 		obj->data.diskio = prepare_diskio_stat(dev_name(arg));
+ 	END OBJ(diskio_read, INFO_DISKIO)
+@@ -1651,6 +1678,7 @@
+ 
+ 		obj->data.diskio = prepare_diskio_stat(dev_name(buf));
+ 		if (buf) free(buf);
++#endif /* Solaris */
+ #endif /* X11 */
+ 	END OBJ(color, 0)
+ #ifdef X11
+@@ -2397,6 +2425,7 @@
+ 
+ 		if (buf) free(buf);
+ #endif /* X11*/
++#if !defined(SOLARISX86)
+ 	END OBJ(mixer, INFO_MIXER)
+ 		obj->data.l = mixer_init(arg);
+ 	END OBJ(mixerl, INFO_MIXER)
+@@ -2419,6 +2448,7 @@
+ #endif
+ 	END OBJ_IF(if_mixer_mute, INFO_MIXER)
+ 		obj->data.ifblock.i = mixer_init(arg);
++#endif /* Solaris */
+ #ifdef X11
+ 	END OBJ(monitor, INFO_X11)
+ 	END OBJ(monitor_number, INFO_X11)
+@@ -3795,10 +3825,13 @@
+ 				}
+ 			}
+ #ifndef __OpenBSD__
++#if !defined(SOLARISX86)
+ 			OBJ(acpitemp) {
+ 				temp_print(p, p_max_size, get_acpi_temperature(obj->data.i), TEMP_CELSIUS);
+ 			}
++#endif /* Solaris */
+ #endif /* !__OpenBSD__ */
++#if !defined(SOLARISX86)
+ 			OBJ(freq) {
+ 				if (obj->a) {
+ 					obj->a = get_freq(p, p_max_size, "%.0f", 1,
+@@ -3807,6 +3840,8 @@
+ 			}
+ 			OBJ(freq_g) {
+ 				if (obj->a) {
++#endif /* Solaris */
++#if !defined(SOLARISX86)
+ #ifndef __OpenBSD__
+ 					obj->a = get_freq(p, p_max_size, "%'.2f", 1000,
+ 							obj->data.cpu_index);
+@@ -3815,6 +3850,7 @@
+ 					obj->a = get_freq(p, p_max_size, "%.2f", 1000,
+ 							obj->data.cpu_index);
+ #endif /* __OpenBSD */
++
+ 				}
+ 			}
+ #if defined(__linux__)
+@@ -3830,7 +3866,7 @@
+ 							obj->data.cpu_index);
+ 				}
+ 			}
+-
++#endif /* Solaris */
+ #ifdef HAVE_IWLIB
+ 			OBJ(wireless_essid) {
+ 				snprintf(p, p_max_size, "%s", obj->data.net->essid);
+@@ -3879,6 +3915,7 @@
+ 
+ #endif /* __linux__ */
+ 
++#if !defined(SOLARISX86)
+ #ifndef __OpenBSD__
+ 			OBJ(adt746xcpu) {
+ 				get_adt746x_cpu(p, p_max_size);
+@@ -3917,7 +3954,7 @@
+ 				get_battery_short_status(p, p_max_size, obj->data.s);
+ 			}
+ #endif /* __OpenBSD__ */
+-
++#endif /* Solaris */
+ 			OBJ(buffers) {
+ 				human_readable(cur->buffers * 1024, p, 255);
+ 			}
+@@ -4901,6 +4938,7 @@
+ 					100, 1, obj->char_a, obj->char_b);
+ 			}
+ #endif /* X11 */
++#if !defined(SOLARISX86)
+ 			/* mixer stuff */
+ 			OBJ(mixer) {
+ 				percent_print(p, p_max_size, mixer_get_avg(obj->data.l));
+@@ -4930,6 +4968,7 @@
+ 					DO_JUMP;
+ 				}
+ 			}
++#endif	/* Solaris */		
+ #ifdef X11
+ #define NOT_IN_X "Not running in X"
+ 			OBJ(monitor) {
+@@ -7633,7 +7672,9 @@
+ 	}
+ 
+ 	clear_net_stats();
++#if !defined(SOLARISX86)
+ 	clear_diskio_stats();
++#endif	/* Solaris */
+ 	if(global_cpu != NULL) {
+ 		free(global_cpu);
+ 		global_cpu = NULL;
+diff -ur conky-1.7.2/src/fs.c conky-1.7.2.solaris/src/fs.c
+--- conky-1.7.2/src/fs.c	2009-08-09 00:05:55.000000000 +0400
++++ conky-1.7.2.solaris/src/fs.c	2009-12-07 10:50:41.541313443 +0300
+@@ -34,6 +34,8 @@
+ #include <errno.h>
+ #include <sys/types.h>
+ #include <fcntl.h>
++/* Solaris */
++#include <sys/statvfs.h>
+ 
+ /* linux */
+ #ifdef HAVE_SYS_STATFS_H
+@@ -48,7 +50,7 @@
+ #include <sys/mount.h>
+ #endif
+ 
+-#if !defined(HAVE_STRUCT_STATFS_F_FSTYPENAME) && !defined (__OpenBSD__) && !defined(__FreeBSD__)
++#if !defined(SOLARISX86) && (HAVE_STRUCT_STATFS_F_FSTYPENAME) && !defined (__OpenBSD__) && !defined(__FreeBSD__)
+ #include <mntent.h>
+ #endif
+ 
+@@ -108,33 +110,33 @@
+ 
+ static void update_fs_stat(struct fs_stat *fs)
+ {
+-	struct statfs s;
++	struct statvfs s;
+ 
+-	if (statfs(fs->path, &s) == 0) {
+-		fs->size = (long long)s.f_blocks * s.f_bsize;
++	if (statvfs(fs->path, &s) == 0) {
++		fs->size = (long long)s.f_blocks * s.f_frsize;
+ 		/* bfree (root) or bavail (non-roots) ? */
+-		fs->avail = (long long)s.f_bavail * s.f_bsize;
+-		fs->free = (long long)s.f_bfree * s.f_bsize;
++		fs->avail = (long long)s.f_bavail * s.f_frsize;
++		fs->free = (long long)s.f_bfree * s.f_frsize;
+ 		get_fs_type(fs->path, fs->type);
+ 	} else {
+ 		fs->size = 0;
+ 		fs->avail = 0;
+ 		fs->free = 0;
+ 		strncpy(fs->type, "unknown", DEFAULT_TEXT_BUFFER_SIZE);
+-		ERR("statfs '%s': %s", fs->path, strerror(errno));
++		ERR("statvfs '%s': %s", fs->path, strerror(errno));
+ 	}
+ }
+ 
+ void get_fs_type(const char *path, char *result)
+ {
+ 
+-#if defined(HAVE_STRUCT_STATFS_F_FSTYPENAME) || defined(__FreeBSD__) || defined (__OpenBSD__)
++#if defined(SOLARISX86) || (HAVE_STRUCT_STATFS_F_FSTYPENAME) || defined(__FreeBSD__) || defined (__OpenBSD__)
+ 
+-	struct statfs s;
+-	if (statfs(path, &s) == 0) {
+-		strncpy(result, s.f_fstypename, DEFAULT_TEXT_BUFFER_SIZE);
++	struct statvfs s;
++	if (statvfs(path, &s) == 0) {
++		strncpy(result, s.f_basetype, DEFAULT_TEXT_BUFFER_SIZE);
+ 	} else {
+-		ERR("statfs '%s': %s", path, strerror(errno));
++		ERR("statvfs '%s': %s", path, strerror(errno));
+ 	}
+ 	return;
+ 
+diff -ur conky-1.7.2/src/mail.c conky-1.7.2.solaris/src/mail.c
+--- conky-1.7.2/src/mail.c	2009-08-09 00:05:55.000000000 +0400
++++ conky-1.7.2.solaris/src/mail.c	2009-12-04 15:43:42.000000000 +0300
+@@ -56,6 +56,8 @@
+  * #define MAX(a, b)  ((a > b) ? a : b)
+  */
+ 
++#define MAX(a, b)  ((a > b) ? a : b)
++
+ char *current_mail_spool;
+ 
+ void update_mail_count(struct local_mail_s *mail)
+@@ -464,7 +466,7 @@
+ 	}
+ #else /* HAVE_GETHOSTBYNAME_R */
+ 	if ((he_res = gethostbyname(mail->host)) == NULL) {	// get the host info
+-		herror("gethostbyname");
++		fprintf(stderr,"gethostbyname");
+ 		exit(EXIT_FAILURE);
+ 	}
+ #endif /* HAVE_GETHOSTBYNAME_R */
+@@ -773,7 +775,7 @@
+ 	}
+ #else /* HAVE_GETHOSTBYNAME_R */
+ 	if ((he_res = gethostbyname(mail->host)) == NULL) {	// get the host info
+-		herror("gethostbyname");
++		fprintf(stderr,"gethostbyname");
+ 		exit(EXIT_FAILURE);
+ 	}
+ #endif /* HAVE_GETHOSTBYNAME_R */
+diff -ur conky-1.7.2/src/Makefile.am conky-1.7.2.solaris/src/Makefile.am
+--- conky-1.7.2/src/Makefile.am	2009-08-09 00:05:55.000000000 +0400
++++ conky-1.7.2.solaris/src/Makefile.am	2009-12-04 16:08:22.000000000 +0300
+@@ -156,7 +156,7 @@
+ 	logging.h               \
+ 	$(nvidia)               \
+ 	mail.c                  \
+-	mixer.c                 \
++	solaris.c                 \
+ 	$(mpd)                  \
+ 	$(moc)                  \
+ 	$(netbsd)               \
+@@ -220,7 +220,6 @@
+ 	weather.h               \
+ 	llua.h                  \
+ 	mail.h                  \
+-	mixer.h                 \
+ 	moc.h                   \
+ 	moc.c                   \
+ 	mpd.c                   \
+diff -ur conky-1.7.2/src/Makefile.in conky-1.7.2.solaris/src/Makefile.in
+--- conky-1.7.2/src/Makefile.in	2009-08-25 03:01:57.000000000 +0400
++++ conky-1.7.2.solaris/src/Makefile.in	2009-12-04 16:09:07.000000000 +0300
+@@ -78,7 +78,7 @@
+ 	audacious.c audacious.h bmpx.c colours.c colours.h common.c \
+ 	conky.c conky.h freebsd.c diskio.c fs.c hddtemp.c apcupsd.c \
+ 	apcupsd.h linux.c top.c users.c sony.c logging.h nvidia.c \
+-	nvidia.h mail.c mixer.c mpd.c libmpdclient.c moc.c openbsd.c \
++	nvidia.h mail.c solaris.c mpd.c libmpdclient.c moc.c openbsd.c \
+ 	libtcp-portmon.h libtcp-portmon.c tcp-portmon.h tcp-portmon.c \
+ 	eve.c eve.h rss.c prss.c prss.h weather.c weather.h llua.c \
+ 	llua.h timed_thread.c timed_thread.h mboxscan.c mboxscan.h \
+@@ -122,7 +122,7 @@
+ 	conky-common.$(OBJEXT) conky-conky.$(OBJEXT) $(am__objects_5) \
+ 	conky-fs.$(OBJEXT) $(am__objects_6) $(am__objects_7) \
+ 	$(am__objects_8) $(am__objects_9) conky-mail.$(OBJEXT) \
+-	conky-mixer.$(OBJEXT) $(am__objects_10) $(am__objects_11) \
++	conky-solaris.$(OBJEXT) $(am__objects_10) $(am__objects_11) \
+ 	$(am__objects_12) $(am__objects_13) $(am__objects_14) \
+ 	$(am__objects_15) $(am__objects_16) $(am__objects_17) \
+ 	conky-timed_thread.$(OBJEXT) conky-mboxscan.$(OBJEXT) \
+@@ -370,7 +370,7 @@
+ 	logging.h               \
+ 	$(nvidia)               \
+ 	mail.c                  \
+-	mixer.c                 \
++	solaris.c                 \
+ 	$(mpd)                  \
+ 	$(moc)                  \
+ 	$(netbsd)               \
+@@ -434,7 +434,6 @@
+ 	weather.h               \
+ 	llua.h                  \
+ 	mail.h                  \
+-	mixer.h                 \
+ 	moc.h                   \
+ 	moc.c                   \
+ 	mpd.c                   \
+@@ -579,7 +578,7 @@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-llua.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-mail.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-mboxscan.Po@am__quote@
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-mixer.Po@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-solaris.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-moc.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-mpd.Po@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conky-nvidia.Po@am__quote@
+@@ -859,19 +858,19 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -c -o conky-mail.obj `if test -f 'mail.c'; then $(CYGPATH_W) 'mail.c'; else $(CYGPATH_W) '$(srcdir)/mail.c'; fi`
+ 
+-conky-mixer.o: mixer.c
+-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -MT conky-mixer.o -MD -MP -MF $(DEPDIR)/conky-mixer.Tpo -c -o conky-mixer.o `test -f 'mixer.c' || echo '$(srcdir)/'`mixer.c
+-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/conky-mixer.Tpo $(DEPDIR)/conky-mixer.Po
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mixer.c' object='conky-mixer.o' libtool=no @AMDEPBACKSLASH@
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -c -o conky-mixer.o `test -f 'mixer.c' || echo '$(srcdir)/'`mixer.c
+-
+-conky-mixer.obj: mixer.c
+-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -MT conky-mixer.obj -MD -MP -MF $(DEPDIR)/conky-mixer.Tpo -c -o conky-mixer.obj `if test -f 'mixer.c'; then $(CYGPATH_W) 'mixer.c'; else $(CYGPATH_W) '$(srcdir)/mixer.c'; fi`
+-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/conky-mixer.Tpo $(DEPDIR)/conky-mixer.Po
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mixer.c' object='conky-mixer.obj' libtool=no @AMDEPBACKSLASH@
++conky-solaris.o: solaris.c
++@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -MT conky-solaris.o -MD -MP -MF $(DEPDIR)/conky-solaris.Tpo -c -o conky-solaris.o `test -f 'solaris.c' || echo '$(srcdir)/'`solaris.c
++@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/conky-solaris.Tpo $(DEPDIR)/conky-solaris.Po
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='solaris.c' object='conky-solaris.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -c -o conky-solaris.o `test -f 'solaris.c' || echo '$(srcdir)/'`solaris.c
++
++conky-solaris.obj: solaris.c
++@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -MT conky-solaris.obj -MD -MP -MF $(DEPDIR)/conky-solaris.Tpo -c -o conky-solaris.obj `if test -f 'solaris.c'; then $(CYGPATH_W) 'solaris.c'; else $(CYGPATH_W) '$(srcdir)/solaris.c'; fi`
++@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/conky-solaris.Tpo $(DEPDIR)/conky-solaris.Po
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='solaris.c' object='conky-solaris.obj' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -c -o conky-mixer.obj `if test -f 'mixer.c'; then $(CYGPATH_W) 'mixer.c'; else $(CYGPATH_W) '$(srcdir)/mixer.c'; fi`
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -c -o conky-solaris.obj `if test -f 'solaris.c'; then $(CYGPATH_W) 'solaris.c'; else $(CYGPATH_W) '$(srcdir)/solaris.c'; fi`
+ 
+ conky-mpd.o: mpd.c
+ @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(conky_CFLAGS) $(CFLAGS) -MT conky-mpd.o -MD -MP -MF $(DEPDIR)/conky-mpd.Tpo -c -o conky-mpd.o `test -f 'mpd.c' || echo '$(srcdir)/'`mpd.c
+diff -ur conky-1.7.2/src/solaris.c conky-1.7.2.solaris/src/solaris.c
+--- conky-1.7.2/src/solaris.c	2009-08-09 00:05:55.000000000 +0400
++++ conky-1.7.2.solaris/src/solaris.c	2009-12-04 16:58:58.456362489 +0300
+@@ -1,85 +1,331 @@
+-/* Conky, a system monitor, based on torsmo
+- *
+- * Any original torsmo code is licensed under the BSD license
+- *
+- * All code written since the fork of torsmo is licensed under the GPL
+- *
+- * Please see COPYING for details
+- *
+- * Copyright (c) 2005-2009 Brenden Matthews, Philip Kovacs, et. al.
+- *	(see AUTHORS)
+- * All rights reserved.
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, either version 3 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- *
+- * vim: ts=4 sw=4 noet ai cindent syntax=c
+- *
+- */
++/* Added initial Solaris support -  Alexander Eremin http://www.milax.org 16 May 2008/
++*  Updated update_net_stats - Alexander Eremin http://www.milax.org 05 August 2009
++*  Updated for 1.7.2 version - Alexander Eremin http://www.milax.org 04 December 2009
++*/ 
+ 
+-/* doesn't work, feel free to finish this */
+ #include "conky.h"
+-#include "common.h"
+ #include <kstat.h>
+-
+-static kstat_ctl_t *kstat;
++#include <errno.h>
++#include <utmp.h>   
++#include <net/if.h>
++#include <sys/sockio.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <sys/stat.h>
++#include <sys/swap.h>
++#include <stdio.h>
++#include <sys/sysinfo.h>
++#include <string.h>
++#include <sys/loadavg.h>
++#include <sys/types.h>                                                                                        
++#include <sys/socket.h>                                                                                       
++#include <sys/ioctl.h>                                                                                        
++#include <sys/dlpi.h>                                                                                         
++#include <net/if.h>                                                                                           
++#include <sys/sockio.h>                                                                                       
++#include <strings.h>   
++#include <netinet/in.h>                                                                                       
++                                                                                                              
++
++#define ONE_KB (1024)     
++
++
++static kstat_ctl_t *kc;
++static kstat_named_t *data_lookup;                                                                                                                                  
++static kstat_t *ksp;
+ static int kstat_updated;
++unsigned int mem, memmax, swap, swapmax, swapfree, bufmem, buffers, cached;
++static unsigned int cpu_user, cpu_idle, cpu_system, cpu_nice;  
++static double last_cpu_sum;                                                                                                                                  
++static double last_cpu_calc_time;                                                                                                                            
++
++static void update_kstat(void) {
++    if (kc == NULL) {
++	    kc = kstat_open();
++	    if (kc == NULL) {
++		    printf("can't open kstat");
++	    }
++    }
++
++    if (kstat_chain_update(kc) == -1) {
++	    perror("kstat_chain_update");
++	    return;
++    }
++}
+ 
+-static void update_kstat()
+-{
+-	if (kstat == NULL) {
+-		kstat = kstat_open();
+-		if (kstat == NULL) {
+-			ERR("can't open kstat: %s", strerror(errno));
+-		}
+-	}
++void prepare_update(void) {
++    kstat_updated = 0; 
++}
+ 
+-	if (kstat_chain_update(kstat) == -1) {
+-		perror("kstat_chain_update");
+-		return;
+-	}
++void update_uptime(void) {
++
++    double t = 0;
++
++    update_kstat();
++
++    ksp = kstat_lookup(kc, "unix", -1, "system_misc");
++    if (kstat_read(kc, ksp, NULL) >= 0) {
++	    data_lookup = (kstat_named_t *) kstat_data_lookup(ksp, "boot_time");
++    	    if (data_lookup != NULL) 
++    		    t = get_time() - (double) data_lookup->value.ui32;
++    }
++    info.uptime = t;
+ }
+ 
+-void prepare_update()
+-{
+-	kstat_updated = 0;
++                                                                                                                                                             
++void update_meminfo(void) {
++
++    static int meminfo_updated;                                                                                                                                  
++    if (meminfo_updated) return;                                                                                                                               
++	    meminfo_updated = 1;                                                                                                                                       
++    
++    struct anoninfo ai;
++    
++    long swapalloc, swapresv, swapavail, swaptotal;
++    long page_size;                                                                                                                                      
++    long num_pages;                                                                                                                                      
++    long free_pages;                                                                                                                                     
++    longlong_t fmem;                                                                                                                                      
++    longlong_t free_mem;                                                                                                                                 
++    page_size = sysconf (_SC_PAGESIZE);                                                                                                                  
++    num_pages = sysconf (_SC_PHYS_PAGES);                                                                                                                
++    free_pages = sysconf (_SC_AVPHYS_PAGES);                                                                                                             
++    fmem = (longlong_t) ((longlong_t) num_pages * (longlong_t) page_size);                                                                                
++    free_mem = (longlong_t) free_pages * (longlong_t) page_size;                                                                                         
++
++    fmem /= ONE_KB; 
++    free_mem /= ONE_KB;
++    memmax = fmem;
++    info.memmax = fmem;
++    info.mem = memmax - free_mem;
++    info.memeasyfree = info.memfree = info.memmax - info.mem; 
++
++    swapctl( SC_AINFO, &ai);
++    swapalloc  = ai.ani_max - ai.ani_free;
++    swapalloc *= page_size;
++    swapresv   = ai.ani_resv + ai.ani_free - ai.ani_max;
++    swapresv  *= page_size;
++    swapavail  = ai.ani_max - ai.ani_resv;
++    swapavail *= page_size;
++    swaptotal = ai.ani_max;
++    swaptotal *= page_size;
++
++    info.swap = swapalloc + swapresv;
++    info.swapmax = swaptotal;
++    info.swapfree = swapavail;
++    
++    info.swapfree /= ONE_KB; 									
++    info.swap /= ONE_KB;
++    info.swapmax /= ONE_KB;
++    
+ }
+ 
+-double get_uptime()
++void get_cpu_count(void)                                                                                      
++{                                                                                                             
++       info.cpu_count = 1;                                                                                   
++       info.cpu_usage = malloc(info.cpu_count * sizeof(float));                                              
++       if (info.cpu_usage == NULL) {                                                                         
++                   fprintf(stderr, "malloc");                                                               
++       }                                                                                                     
++}                                   
++
++                                                                                                                                                             
++void update_cpu_usage(void) {                                                                                                                                    
++
++    double t, delta;                                                                                                                                           
++
++    t = get_time();                                                                                                                                            
++    
++    delta = t - last_cpu_calc_time;                                                                                                                            
++                                                                                                                                                   
++    if(delta <= 0.05) return;                                                                                                                                  
++                                                                                                                                                             
++    last_cpu_calc_time = t;                                                                                                                                    
++
++    cpu_stat_t *cpu_stat;
++
++    update_kstat();
++    
++    ksp = kstat_lookup(kc, "cpu_stat", 0, "cpu_stat0");                                                       
++    
++    if (kstat_read(kc, ksp, NULL) != -1) {                                                                 
++	    cpu_stat = (cpu_stat_t *)ksp->ks_data;
++	    cpu_idle =cpu_stat->cpu_sysinfo.cpu[CPU_IDLE];
++
++	    cpu_user=cpu_stat->cpu_sysinfo.cpu[CPU_USER];
++	    cpu_nice=cpu_stat->cpu_sysinfo.cpu[CPU_WAIT]; 
++	    cpu_system = cpu_stat->cpu_sysinfo.cpu[CPU_KERNEL] ;
++    }
++    
++    info.cpu_count = 1;
++    info.cpu_usage = malloc(info.cpu_count * sizeof(float));                                              
++    info.cpu_usage[0] = (cpu_user + cpu_nice + cpu_system - last_cpu_sum) / delta / 100.0;                                                                                 
++    last_cpu_sum = cpu_user + cpu_nice + cpu_system;                                                                                                               
++}      
++		
++		
++		
++		
++void update_total_processes(void) {                                                                                                                                  
++
++    int nproc=0;                                                                                                                                                   
++                                                                                                                                   
++    update_kstat();
++                                                                                                                                                         
++    ksp = kstat_lookup(kc, "unix", 0, "system_misc");                                                                                                      
++    if (kstat_read(kc, ksp, 0) != -1) {                                                                                                                      
++	    data_lookup = kstat_data_lookup(ksp, "nproc");                                                                                                            
++	    if (data_lookup) 
++		    nproc = data_lookup->value.ui32;                                                                                                            
++    }
++    
++    info.procs = nproc;                                                                                                                                       
++}
++
++void update_running_processes(void) {
++    static struct utmp *utmpp;        
++    int  uproc = 0;                                                                                                                                               
++    setutent();                                                                                                                                              
++    while ((utmpp = getutent()) != NULL) {                                                                                                                   
++	if (utmpp->ut_type == USER_PROCESS && utmpp->ut_name[0] != '\0')                                                                                     
++		uproc++;                                                                                                                                         
++        }                                                                                                                                                        
++   info.run_procs = uproc;                             
++}    
++						
++
++
++void update_net_stats(void)
+ {
+-	kstat_t *ksp;
++	struct net_stat *ns;
+ 
+-	update_kstat();
++	double delta;
++	long long r, t, last_recv, last_trans;
+ 
+-	ksp = kstat_lookup(kstat, "unix", -1, "system_misc");
+-	if (ksp != NULL) {
+-		if (kstat_read(kstat, ksp, NULL) >= 0) {
+-			kstat_named_t *knp;
+-
+-			knp = (kstat_named_t *) kstat_data_lookup(ksp, "boot_time");
+-			if (knp != NULL) {
+-				return get_time() - (double) knp->value.ui32;
+-			}
+-		}
++	/* get delta */
++	delta = current_update_time - last_update_time;
++	if (delta <= 0.0001) {
++		return;
+ 	}
++
++
++	char          buf[1024];
++ 	struct ifconf ifc;
++ 	struct ifreq *ifr;
++	int           sock;
++ 	int           nInterfaces;
++ 	int           i;
++ 
++ 
++ 	sock = socket(AF_INET, SOCK_DGRAM, 0);
++ 	if(sock < 0)
++ 	{
++ 		fprintf(stderr,"socket");
++ 		return;
++ 	}
++
++ 	/* Query available interfaces. */
++	ifc.ifc_len = sizeof(buf);
++ 	ifc.ifc_buf = buf;
++ 	if(ioctl(sock, SIOCGIFCONF, &ifc) < 0)
++ 	{
++		fprintf(stderr,"ioctl(SIOCGIFCONF)");
++ 		close(sock);
++ 		return;
++ 	}
++
++	/* Iterate through the list of interfaces. */
++	ifr         = ifc.ifc_req;
++ 	nInterfaces = ifc.ifc_len / sizeof(struct ifreq);
++ 	for(i = 0; i < nInterfaces; i++) {
++	
++ 		struct ifreq *item = &ifr[i];
++ 		if (strcmp(item->ifr_name,"lo0") == 0)
++			continue;
++
++		ns = get_net_stat((const char *) item->ifr_name, NULL, NULL);
++  
++			                                                                                                                
++		ns->up = 1;                                                                           
++		last_recv = ns->recv;                                                                 
++		last_trans = ns->trans;                                                               
++ 		
++		if (item->ifr_flags & IFF_LOOPBACK)
++			continue;
++
++		memcpy(&(ns->addr), &item->ifr_addr, sizeof(item->ifr_addr));               
++	        
++
++		ksp = kstat_lookup(kc, NULL, -1, item->ifr_name);                                                                                                      
++		if (kstat_read(kc, ksp, 0) == -1)                                                                                                                      
++			fprintf(stderr,"kstat read");                                                                                                                                
++		data_lookup = kstat_data_lookup(ksp, "rbytes");              
++		if (data_lookup)
++			r = (long long) data_lookup->value.ui32;
++		data_lookup = kstat_data_lookup(ksp, "obytes");              
++		if (data_lookup)
++			t =(long long) data_lookup->value.ui32;
++
++
++		if (r < ns->last_read_recv) {
++			ns->recv += ((long long) 4294967295U - ns->last_read_recv) + r;
++		} else {
++			ns->recv += (r - ns->last_read_recv);
++		}
++
++		ns->last_read_recv = r;
++		if (t < ns->last_read_trans) {
++			ns->trans += ((long long) 4294967295U - ns->last_read_trans) + t;
++		} else {
++			ns->trans += (t - ns->last_read_trans);
++		}
++
++		ns->last_read_trans = t;
++
++		ns->recv_speed = (ns->recv - last_recv) / delta;
++		ns->trans_speed = (ns->trans - last_trans) / delta;
++
++ 	}
++	
++	close(sock);
++																				    
+ }
+ 
+-void update_meminfo()
++double get_load_average1()
+ {
+-	/* TODO */
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++	    fload = avenrun[LOADAVG_1MIN];
++    return fload;
+ }
+-
+-int check_mount(char *s)
++double get_load_average5()
++{
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++    	    fload = avenrun[LOADAVG_5MIN];
++    return fload;
++}
++double get_load_average15()
+ {
+-	/* stub */
+-	return 0;
++    double avenrun[LOADAVG_NSTATS], fload = 0;
++    if (getloadavg(avenrun, LOADAVG_NSTATS) > 0)
++    	    fload = avenrun[LOADAVG_15MIN];
++    return fload;
++}
++
++void update_load_average(void) {
++    
++    info.loadavg[0] = get_load_average1();       
++    info.loadavg[1] = get_load_average5();       
++    info.loadavg[2] = get_load_average15();       
++}
++
++int check_mount(char *s)                                                                                      
++{                                                                                                             
++        /* stub */                                                                                            
++        return 0;                                                                                             
+ }
++
++void free_all_processes(void)                                                                                 
++{                                                                                                             
++}  
+
