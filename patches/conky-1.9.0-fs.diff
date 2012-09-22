@@ -1,5 +1,5 @@
 --- conky-1.9.0/src/fs.c.old	2012-09-22 15:02:14.059875000 -0400
-+++ conky-1.9.0/src/fs.c	2012-09-22 15:14:50.372375000 -0400
++++ conky-1.9.0/src/fs.c	2012-09-22 15:35:52.528625000 -0400
 @@ -39,6 +39,9 @@
  #include <sys/types.h>
  #include <fcntl.h>
@@ -24,11 +24,11 @@
  static void update_fs_stat(struct fs_stat *fs)
  {
 -	struct statfs64 s;
-+	struct statvfs64 s;
++	struct statvfs s;
  
 -	if (statfs64(fs->path, &s) == 0) {
 -		fs->size = (long long)s.f_blocks * s.f_bsize;
-+	if (statvfs64(fs->path, &s) == 0) {
++	if (statvfs(fs->path, &s) == 0) {
 +		fs->size = (long long)s.f_blocks * s.f_frsize;
  		/* bfree (root) or bavail (non-roots) ? */
 -		fs->avail = (long long)s.f_bavail * s.f_bsize;
@@ -38,7 +38,7 @@
  		get_fs_type(fs->path, fs->type);
  	} else {
 -		NORM_ERR("statfs64 '%s': %s", fs->path, strerror(errno));
-+		NORM_ERR("statvfs64 '%s': %s", fs->path, strerror(errno));
++		NORM_ERR("statvfs '%s': %s", fs->path, strerror(errno));
  		fs->size = 0;
  		fs->avail = 0;
  		fs->free = 0;
