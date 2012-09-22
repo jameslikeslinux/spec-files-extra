@@ -2,8 +2,10 @@
 
 	* experimental/SFEconky-1.7.2.spec
 	* experimental/SFEconky-1.9.0.spec
-	* patches/conky-1.9.0-opensolaris.diff
 	* patches/conky-1.7.2-opensolaris.diff
+	* patches/conky-1.9.0-opensolaris.diff	
+	* patches/conky-1.9.0-mail.diff
+	* patches/conky-1.9.0-fs.diff
 
 2012-09-20  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

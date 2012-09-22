@@ -1,0 +1,63 @@
+--- conky-1.9.0/src/fs.c.old	2012-09-22 15:02:14.059875000 -0400
++++ conky-1.9.0/src/fs.c	2012-09-22 15:14:50.372375000 -0400
+@@ -39,6 +39,9 @@
+ #include <sys/types.h>
+ #include <fcntl.h>
+ 
++/* Solaris */
++#include <sys/statvfs.h>
++
+ /* linux */
+ #ifdef HAVE_SYS_STATFS_H
+ #include <sys/statfs.h>
+@@ -52,7 +55,7 @@
+ #include <sys/mount.h>
+ #endif
+ 
+-#if !defined(HAVE_STRUCT_STATFS_F_FSTYPENAME) && !defined (__OpenBSD__) && !defined(__FreeBSD__)
++#if !defined(SOLARISX86) && !defined(HAVE_STRUCT_STATFS_F_FSTYPENAME) && !defined (__OpenBSD__) && !defined(__FreeBSD__)
+ #include <mntent.h>
+ #endif
+ 
+@@ -118,16 +121,16 @@ struct fs_stat *prepare_fs_stat(const ch
+ 
+ static void update_fs_stat(struct fs_stat *fs)
+ {
+-	struct statfs64 s;
++	struct statvfs64 s;
+ 
+-	if (statfs64(fs->path, &s) == 0) {
+-		fs->size = (long long)s.f_blocks * s.f_bsize;
++	if (statvfs64(fs->path, &s) == 0) {
++		fs->size = (long long)s.f_blocks * s.f_frsize;
+ 		/* bfree (root) or bavail (non-roots) ? */
+-		fs->avail = (long long)s.f_bavail * s.f_bsize;
+-		fs->free = (long long)s.f_bfree * s.f_bsize;
++		fs->avail = (long long)s.f_bavail * s.f_frsize;
++		fs->free = (long long)s.f_bfree * s.f_frsize;
+ 		get_fs_type(fs->path, fs->type);
+ 	} else {
+-		NORM_ERR("statfs64 '%s': %s", fs->path, strerror(errno));
++		NORM_ERR("statvfs64 '%s': %s", fs->path, strerror(errno));
+ 		fs->size = 0;
+ 		fs->avail = 0;
+ 		fs->free = 0;
+@@ -138,13 +141,13 @@ static void update_fs_stat(struct fs_sta
+ void get_fs_type(const char *path, char *result)
+ {
+ 
+-#if defined(HAVE_STRUCT_STATFS_F_FSTYPENAME) || defined(__FreeBSD__) || defined (__OpenBSD__)
++#if defined(SOLARISX86) || HAVE_STRUCT_STATFS_F_FSTYPENAME) || defined(__FreeBSD__) || defined (__OpenBSD__)
+ 
+-	struct statfs s;
+-	if (statfs(path, &s) == 0) {
+-		strncpy(result, s.f_fstypename, DEFAULT_TEXT_BUFFER_SIZE);
++	struct statvfs s;
++	if (statvfs(path, &s) == 0) {
++		strncpy(result, s.f_basetype, DEFAULT_TEXT_BUFFER_SIZE);
+ 	} else {
+-		NORM_ERR("statfs '%s': %s", path, strerror(errno));
++		NORM_ERR("statvfs '%s': %s", path, strerror(errno));
+ 	}
+ 	return;
+ 
