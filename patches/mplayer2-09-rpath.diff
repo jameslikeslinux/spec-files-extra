@@ -1,0 +1,33 @@
+--- mplayer2-master/configure	Sun Sep 30 23:59:10 2012
++++ mplayer2-master/configure	Mon Oct  1 00:06:49 2012
+@@ -2761,14 +2761,6 @@
+ fi
+ echores "$_builtin_expect"
+ 
+-echocheck "rpath"
+-if test "$_rpath" = yes ; then
+-  for I in $(echo $extra_ldflags | sed 's/-L//g') ; do
+-    tmp="$tmp $(echo $I | sed 's/.*/ -L& -Wl,-R&/')"
+-  done
+-extra_ldflags=$tmp
+-fi
+-echores "$_rpath"
+ 
+ echocheck "kstat"
+ _kstat=no
+@@ -3144,6 +3136,15 @@
+ test "$_w32threads" = yes && def_threads='#define HAVE_THREADS 1'
+ echores "$_w32threads"
+ 
++echocheck "rpath"
++if test "$_rpath" = yes ; then
++  for I in $(echo $extra_ldflags | sed 's/-L//g') ; do
++    tmp="$tmp $(echo $I | sed 's/.*/ -L& -Wl,-R&/')"
++  done
++extra_ldflags=$tmp
++fi
++echores "$_rpath"
++
+ echocheck "iconv"
+ if test "$_iconv" = auto ; then
+   cat > $TMPC << EOF

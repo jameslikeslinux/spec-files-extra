@@ -52,8 +52,9 @@ Patch3:                  mplayer-snap-03-ldflags.diff
 Patch4:                  mplayer2-04-realplayer.diff
 Patch5:                  mplayer2-05-cpudetect.diff
 #https://bugs.archlinux.org/task/28759
-Patch7:			 mplayer2-07-liveMedia.diff
-Patch8:			 mplayer2-08-liveMedia-config.diff
+Patch7:			mplayer2-07-liveMedia.diff
+Patch8:			mplayer2-08-liveMedia-config.diff
+Patch9:			mplayer2-09-rpath.diff
 Group:		Applications/Sound and Video
 SUNW_BaseDir:            %_basedir
 BuildRoot:               %_tmppath/%name-build
@@ -146,6 +147,7 @@ BuildRequires: SFEpython3
 %patch5 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
