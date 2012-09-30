@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='zookeeper'>
+  <service name='developer/distributed/zookeeper' type='service' version='0'>
+    <single_instance/>
+    <dependency name='fs' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='network' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/multi-user-server'/>
+    </dependency>
+    <instance name='default' enabled='false'>
+      <exec_method type='method'
+                   name='start'
+                   exec='/usr/share/zookeeper/bin/zkServer.sh start'
+                   timeout_seconds='300'>
+	<method_context>
+          <method_credential user='zkuser' group='other' />
+	</method_context>
+      </exec_method>
+      <exec_method type='method'
+                   name='stop'
+                   exec='/usr/share/zookeeper/bin/zkServer.sh stop'
+                   timeout_seconds='300'>
+	<method_context>
+          <method_credential user='zkuser' group='other'/>
+	</method_context>
+      </exec_method>
+      <template>
+	<common_name>
+          <loctext xml:lang='C'>Zookeeper - coordinating distributed systems</loctext>
+	</common_name>
+      </template>
+    </instance>
+  </service>
+</service_bundle>
