@@ -65,6 +65,8 @@ BuildRequires: SFEgpac-devel
 Requires: SFEgpac
 %endif
 
+BuildRequires: SUNWgawk
+
 %description
 x264 is a free software library and application for encoding video streams into
 the H.264/MPEG-4 AVC format.
