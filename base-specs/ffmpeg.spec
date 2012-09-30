@@ -5,11 +5,12 @@
 #
 
 Summary:                 A very fast video and audio converter
-Version:                 0.11.1
+Version:                 1.0
 Source:                  http://www.ffmpeg.org/releases/ffmpeg-%version.tar.bz2
 URL:                     http://www.ffmpeg.org/index.html
 Patch10:		 ffmpeg-10-Makefile-quick-texi2html-fix.diff
 Patch11:		 ffmpeg-11-add-sys_videodev2_h.diff
+Patch13:	ffmpeg-13-rpath-link.diff
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 Autoreqprov:             on
@@ -18,9 +19,8 @@ Autoreqprov:             on
 %setup -q -n ffmpeg-%version
 %patch10 -p1
 %patch11 -p1
+%patch13 -p1
 perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find . -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
-
-
 
 %build
 CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
@@ -104,6 +104,8 @@ EOM
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Sep 30 2012 - Milan Jurik
+- bump to 1.0
 * Sun Jun 17 2012 - Milan Jurik
 - bump to 0.11.1
 * Sun May 27 2012 - Milan Jurik

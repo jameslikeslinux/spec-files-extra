@@ -1,6 +1,7 @@
 2012-09-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEproftpd.spec: bump to 1.3.3g
+	* encumbered/SFEffmpeg.spec: bump to 1.0
 
 2012-09-30  Logan O'Sullivan Bruns  <logan@gedanken.org>
 

@@ -10,8 +10,7 @@
 %include packagenamemacros.inc
 
 %if %arch_sse2
-#%define arch_opt --cpu=i686 --enable-mmx --enable-mmx2 --enable-sse --enable-sse
-%define arch_opt --cpu=prescott --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3
+%define arch_opt --cpu=prescott --enable-mmx --enable-sse --enable-ssse3
 #make this empty
 %define extra_gcc_flags
 %include x86_sse2.inc
@@ -26,7 +25,7 @@
 #with -msse (gcc) you can have asm XMM_CLOBBERS accepted
 #read line 00079 in http://www.libav.org/doxygen/master/x86__cpu_8h_source.html 
 %define extra_gcc_flags -msse
-%define arch_opt --enable-runtime-cpudetect --enable-mmx --enable-mmx2 --enable-sse --enable-ssse3 
+%define arch_opt --enable-runtime-cpudetect --enable-mmx --enable-sse --enable-ssse3 
 %endif
 
 %include base.inc
@@ -180,6 +179,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Sep 30 2012 - Milan Jurik
+- bump to 1.0
 * Sun May 27 2012 - Milan Jurik
 - bump to 0.11
 * Sun Apr 29 2012 - Pavel Heimlich

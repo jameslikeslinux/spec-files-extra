@@ -1,0 +1,4 @@
+--- ffmpeg-1.0/configure	Sun Sep 30 21:57:05 2012
++++ ffmpeg-1.0/configure	Sun Sep 30 22:28:27 2012
+@@ -3816,1 +3816,0 @@
+-check_ldflags -Wl,-rpath-link=libpostproc:libswresample:libswscale:libavfilter:libavdevice:libavformat:libavcodec:libavutil:libavresample
