@@ -12,7 +12,7 @@ Summary:	Jabber client written in PyGTK
 Group:		Applications/Internet
 License:	GPLv3
 SUNW_Copyright:	gajim.copyright
-Version:	0.15
+Version:	0.15.1
 URL:		http://www.gajim.org/
 Source:		http://www.gajim.org/downloads/0.15/gajim-%{version}.tar.bz2
 SUNW_BaseDir:	%{_basedir}
@@ -101,6 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 01 2012 - Milan Jurik
+- bump to 0.15.1
 * Sat Jul 28 2012 - Milan Jurik
 - bump to 0.15
 * Thu Jul 28 2011 - Alex Viskovatoff
