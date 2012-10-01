@@ -13,7 +13,7 @@ IPS_Package_Name:	antivirus/clamav
 Summary:             Unix anti-virus scanner
 License:             GPLv2
 SUNW_Copyright:      clamav.copyright
-Version:             0.97.5
+Version:             0.97.6
 URL:                 http://www.clamav.net/
 Source:              %{sf_download}/%{src_name}/%{src_name}-%{version}.tar.gz
 Group:               Applications/System Utilities
@@ -125,6 +125,8 @@ user ftpuser=false gcos-field="ClamAV Reserved UID" username="clamav" password=N
 %dir %attr (0755, root, other) %{_docdir}
 
 %changelog
+* Mon Oct 01 2012 - Milan Jurik
+- bump to 0.97.6
 * Sun Jul 29 2012 - Milan Jurik
 - bump to 0.97.5
 * Sat Jun 02 2012 - Milan Jurik
