@@ -81,7 +81,7 @@ rm $RPM_BUILD_ROOT/usr/share/hive/bin/hive-config.sh-new
 echo "export JAVA_HOME=/usr/java" >> $RPM_BUILD_ROOT/etc/hive/hive-env.sh
 echo "export HIVE_LOG_DIR=/var/log/hive" >> $RPM_BUILD_ROOT/etc/hive/hive-env.sh
 echo "export HADOOP_HOME=/usr/share/hadoop" >> $RPM_BUILD_ROOT/etc/hive/hive-env.sh
-echo "export HIVE_AUX_JARS_PATH=/usr/share/hbase/hbase-0.94.0.jar" >> $RPM_BUILD_ROOT/etc/hive/hive-env.sh
+echo "export HIVE_AUX_JARS_PATH=/usr/share/hbase/hbase-0.94.1.jar" >> $RPM_BUILD_ROOT/etc/hive/hive-env.sh
 
 %{?pkgbuild_postprocess: %pkgbuild_postprocess -v -c "%{version}:%{jds_version}:%{name}:$RPM_ARCH:%(date +%%Y-%%m-%%d):%{support_level}" $RPM_BUILD_ROOT}
 
@@ -127,6 +127,8 @@ test -x $BASEDIR/var/lib/postrun/postrun || exit 0
 %class(manifest) %attr(0444, root, sys) %{_localstatedir}/svc/manifest/site/hive.xml
 
 %changelog
+* Sat Oct 6 2012 - Logan Bruns <logan@gedanken.org>
+- updated for hbase 0.94.1 compatibility.
 * Mon Jun 25 2012 - Logan Bruns <logan@gedanken.org>
 - Fixed a classpath, a minor mistake in the smf and moved out of experimental.
 * Sun Jun 24 2012 - Logan Bruns <logan@gedanken.org>
