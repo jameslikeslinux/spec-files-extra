@@ -288,6 +288,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct  7 2012 - Thomas Wagner
+- use separate names f/e daemon in SMF dependent group
 * Fri Jun 15 2012 - Thomas Wagner
 - reworked, usw old sfw gcc-3, changed *FLAGS
 - add -ln curses to LDFLAGS to solve libreadline not finding symbol tgetent (*curses)
