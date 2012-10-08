@@ -4,12 +4,12 @@
 # package are under the same license as the package itself.
 
 %include Solaris.inc
-%define source_name 	samba-4.0.0rc1 
+%define source_name 	samba-4.0.0rc2 
 
 Name:                SFEsamba4
 Summary:             samba - CIFS Server and Domain Controller v4
 Version:             4.0.0
-Source:              http://ftp.samba.org/pub/samba/rc/%{source_name}.tar.gz
+Source:              ftp://ftp.samba.org/pub/samba/rc/%{source_name}.tar.gz
 
 #Patch1: samba4-01-create-symbol-link.diff
 #Patch2: samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff
@@ -111,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0775, root, sys) /var/log/samba
 
 %changelog
+* Mon Oct 8 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 4.0.0rc2
 * Thu Sep 13 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 4.0.0rc1
 * Wed Sep 5 2012 - Ken Mays <kmays2000@gmail.com>

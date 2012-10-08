@@ -19,29 +19,24 @@
 Name:                    SFEsamba
 Summary:                 samba - CIFS Server and Domain Controller
 URL:                     http://samba.org/
-Version:                 3.5.17
+Version:                 3.5.18
 Copyright:               GPL
 Url:                     http://www.samba.org
-#Source:                  http://samba.org/samba/ftp/stable/samba-%{version}.tar.gz
-Source:                  http://ftp.samba.org/pub/samba/stable/samba-%{version}.tar.gz
+Source:                  ftp://ftp.samba.org/pub/samba/stable/samba-%{version}.tar.gz
 Source2:		sambagnu-smbd.xml
 Source3:		sambagnu-nmbd.xml
 Source4:		sambagnu-winbindd.xml
 Source5:		addmachinescript-samba3
 Source6:		domain-samba3.reg
-#Patch2:                  samba-02-eliminate-selftest-bcs-buildroot-not-recognized.diff
-#Patch3:                  samba-03-Makefile-add-DESTDIR_RPM_BUILD_ROOT.diff
-#Patch4:                  samba-04-ext-sources-manifest-gnu-names.diff
-#Patch5:                  samba-05-smb.conf.default-add-machine-script-useradd.diff
-
+Patch1:                 samba-01-oi-2172.diff
+Patch6:                 samba-06-remove-attr_get-configure.in.diff
 
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 
-#TODO: BuildReqires:
+#TODO: Requirements 
 BuildRequires: SUNWbash
 BuildRequires: SFEgcc
-#TODO: Reqires:
 Requires: SUNWbash
 Requires: SFEgccruntime
 
@@ -59,26 +54,23 @@ SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-
-
 %package devel
 Summary:                 %{summary} - development files
 SUNW_BaseDir:            %{_basedir}
 %include default-depend.inc
 Requires: %name
 
-
 %package root
 Summary:                 %{summary} - / filesystem
 SUNW_BaseDir:            /
 %include default-depend.inc
+
 
 %description
 
 
 %prep
 %setup -q -n samba-%version
-#%patch2 -p1
 
 perl -w -pi.bak -e "s,^SHELL=/bin/sh,SHELL=/usr/bin/bash," source*/Makefile.in source*/Makefile
 perl -w -pi.bak -e "s,^#\!\s*/bin/sh,#\!/usr/bin/bash," `find source* -type f -exec grep -q "^#\!.*/bin/sh" {} \; -print`
@@ -89,31 +81,31 @@ cp -p %{SOURCE3} sambagnu-nmbd.xml
 cp -p %{SOURCE4} sambagnu-winbindd.xml
 cp -p %{SOURCE5} addmachinescript
 cp -p %{SOURCE6} domain.reg
-#%patch4 -p0
 
 #solaris useradd smb.conf.default
-#%patch5 -p1
+%patch6 -p1
 
 %build
+CPUS=$(psrinfo | gawk '$2=="on-line"{cpus++}END{print (cpus==0)?1:cpus}')
 
 export SHELL=/usr/bin/bash
 
-#export CC="/usr/gnu/bin/gcc"
-#export CXX="/usr/gnu/bin/g++"
+export CC="/usr/sfw/bin/gcc"
+export CXX="/usr/sfw/bin/g++"
 
+#compile time might have much never samba libs then the installed one on the disk
+LIBSCOMPILETIME=`pwd`/nsswitch:`pwd`/source3/bin
+export LD_LIBRARY_PATH=$LIBSCOMPILETIME
 
-
-
-
-#export CFLAGS="%optflags -DNO_PROTO_H"
-export CFLAGS="-g -mt %optflags -L /usr/gnu/lib/samba -R /usr/gnu/lib/samba"
-export CXXFLAGS="%cxx_optflags -L /usr/gnu/lib/samba -R /usr/gnu/lib/samba"
-export LDFLAGS="-z ignore %_ldflags -L /usr/gnu/lib/samba -R /usr/gnu/lib/samba"
+export CFLAGS="%optflags -L$LIBSCOMPILETIME -L/usr/gnu/lib/samba -L/usr/gnu/lib -R /usr/gnu/lib/samba -R/usr/gnu/lib -lncurses -ltermcap"
+export CXXFLAGS="%cxx_optflags -L$LIBSCOMPILETIME -L/usr/gnu/lib/samba -L/usr/gnu/lib -R /usr/gnu/lib/samba -R/usr/gnu/lib"
+export LDFLAGS="%_ldflags -L$LIBSCOMPILETIME -L/usr/gnu/lib/samba -L/usr/gnu/lib -R /usr/gnu/lib/samba -R/usr/gnu/lib"
+export LDFLAGS="$LDFLAGS -lncurses -ltermcap"
 
 
 cd source3
 ./autogen.sh
-./configure --prefix=%{_prefix}  \
+bash ./configure --prefix=%{_prefix}  \
             --mandir=%{_mandir}   \
             --bindir=%{_bindir}         \
             --sbindir=%{_sbindir}         \
@@ -126,30 +118,32 @@ cd source3
 	    --localstatedir=%{_localstatedir}/samba \
 	    --datadir=%{_datadir} \
 	    --with-swatdir=%{_datadir}/samba/swat \
-            --disable-static        \
-            --enable-static=no \
+            --enable-shared         \
+            --enable-static=no      \
             --enable-fhs \
+            --with-shared-modules=vfs_zfsacl,vfs_prealloc,vfs_cacheprime,vfs_commit,idmap_ldap,idmap_tdb2,idmap_rid,idmap_ad,idmap_hash,idmap_adex \
+--with-aio-support \
+--with-acl-support \
+--with-ads \
+--with-krb5 \
+--with-ldap \
+--with-automount \
+--with-dnsupdate \
+--with-pam \
             SHELL=/usr/bin/bash     \
-            LDFLAGS="-L /usr/gnu/lib/samba -R /usr/gnu/lib/samba "
+            CFLAGS="$CFLAGS"        \
+            CXXFLAGS="$CXXFLAGS"    \
+            LDFLAGS="$LDFLAGS"      \
+            CC="$CC"                \
+            CXX="$CXX"              
 
-#            LDFLAGS=${LDFLAGS}      \
-#            CFLAGS=${CFLAGS}        \
-#            CXXFLAGS=${CXXFLAGS}
-
-  # --datarootdir=DIR      read-only arch.-independent data root [PREFIX/share]
-  #--localedir=DIR        locale-dependent data [DATAROOTDIR/locale]
-
-#%patch3 -p2
-
-
-#no parallel build please :-)
 #make
-gmake idl_full && gmake
+gmake -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd source3
-SHELL=/usr/bin/bash make install DESTDIR=$RPM_BUILD_ROOT
+SHELL=/usr/bin/bash gmake install DESTDIR=$RPM_BUILD_ROOT
   	
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/samba/private
 cp -p ../examples/smb.conf.default $RPM_BUILD_ROOT%{_sysconfdir}/samba/
@@ -178,7 +172,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, bin)
-%doc COPYING MAINTAINERS README README.Coding Read-Manifest-Now WHATSNEW.txt WHATSNEW4.txt domain.reg
+%doc COPYING README README.Coding Read-Manifest-Now WHATSNEW.txt domain.reg
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_sbindir}
@@ -193,68 +187,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr (0755, root, other) %{_datadir}/locale
 %{_datadir}/locale/*
 %dir %attr (0755, root, other) %{_docdir}
-#%dir %attr (0755, root, other) %{_docdir}/%{src_name}
-
-#error: Installed (but unpackaged) file(s) found:
-#        /usr/gnu/share/locale
-#        /usr/gnu/share/locale/ar
-#        /usr/gnu/share/locale/ar/LC_MESSAGES
-#        /usr/gnu/share/locale/ar/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/zh_TW
-#        /usr/gnu/share/locale/zh_TW/LC_MESSAGES
-#        /usr/gnu/share/locale/zh_TW/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/cs
-#        /usr/gnu/share/locale/cs/LC_MESSAGES
-#        /usr/gnu/share/locale/cs/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/nl
-#        /usr/gnu/share/locale/nl/LC_MESSAGES
-#        /usr/gnu/share/locale/nl/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/zh_CN
-#        /usr/gnu/share/locale/zh_CN/LC_MESSAGES
-#        /usr/gnu/share/locale/zh_CN/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/fr
-#        /usr/gnu/share/locale/fr/LC_MESSAGES
-#        /usr/gnu/share/locale/fr/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/nb
-#        /usr/gnu/share/locale/nb/LC_MESSAGES
-#        /usr/gnu/share/locale/nb/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/hu
-#        /usr/gnu/share/locale/hu/LC_MESSAGES
-#        /usr/gnu/share/locale/hu/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/pl
-#        /usr/gnu/share/locale/pl/LC_MESSAGES
-#        /usr/gnu/share/locale/pl/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/es
-#        /usr/gnu/share/locale/es/LC_MESSAGES
-#        /usr/gnu/share/locale/es/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/it
-#        /usr/gnu/share/locale/it/LC_MESSAGES
-#        /usr/gnu/share/locale/it/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/da
-#        /usr/gnu/share/locale/da/LC_MESSAGES
-#        /usr/gnu/share/locale/da/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/pt_BR
-#        /usr/gnu/share/locale/pt_BR/LC_MESSAGES
-#        /usr/gnu/share/locale/pt_BR/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/de
-#        /usr/gnu/share/locale/de/LC_MESSAGES
-#        /usr/gnu/share/locale/de/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/ja
-#        /usr/gnu/share/locale/ja/LC_MESSAGES
-#        /usr/gnu/share/locale/ja/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/ru
-#        /usr/gnu/share/locale/ru/LC_MESSAGES
-#        /usr/gnu/share/locale/ru/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/ko
-#        /usr/gnu/share/locale/ko/LC_MESSAGES
-#        /usr/gnu/share/locale/ko/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/fi
-#        /usr/gnu/share/locale/fi/LC_MESSAGES
-#        /usr/gnu/share/locale/fi/LC_MESSAGES/pam_winbind.mo
-#        /usr/gnu/share/locale/sv
-#        /usr/gnu/share/locale/sv/LC_MESSAGES
-#        /usr/gnu/share/locale/sv/LC_MESSAGES/pam_winbind.mo
-#pkgbuild: SFEsamba3.4.spec(237): Installed (b
 
 #note manpage(s) swat included
 %files doc
@@ -292,8 +224,9 @@ rm -rf $RPM_BUILD_ROOT
 %class(manifest) %attr(0444, root, sys)/var/svc/manifest/site/sambagnu-winbindd.xml
 
 
-
 %changelog
+* Mon Oct 8 2012 - Ken Mays <kmays2000@gmail.com>
+- bump to 3.5.18
 * Sat Sep 8 2012 - Ken Mays <kmays2000@gmail.com>
 - bump to 3.5.17
 * Tue Apr 19 2011 - Thomas Wagner

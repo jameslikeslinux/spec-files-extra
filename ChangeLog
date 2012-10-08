@@ -1,7 +1,11 @@
+2012-10-08 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEsamba4.spec: bump to 4.0.0rc2
+	* experimental/SFEsamba.spec: bump to 3.5.18
+
 2012-10-06  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
 	* SFEhive.spec: updated for hbase 0.94.1 compatibility.
-
 	* SFEhbase.spec: bumped to 0.94.1 and removed a no longer needed patch.
 
 2012-09-30 Milan Jurik <sfnet@xylab.cz>
