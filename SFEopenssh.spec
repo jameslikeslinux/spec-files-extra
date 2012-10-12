@@ -136,7 +136,7 @@ legacy desc="Secure Shell protocol common Utilities" name="SSH Common, (Usr)" pk
 %defattr(-, root, bin)
 %dir %attr (0755, root, sys) %{_sysconfdir}
 %dir %attr (0755, root, sys) %{_sysconfdir}/ssh
-%class(preserve) %config %ips_tag(original_name=SUNWsshd:%{@} preserve=true) %attr (0755, root, sys) %{_sysconfdir}/ssh/sshd_config
+%class(preserve) %config %ips_tag(original_name=SUNWsshd:%{@}) %attr (0755, root, sys) %{_sysconfdir}/ssh/sshd_config
 %dir %attr (0755, root, sys) /lib/svc/manifest
 %dir %attr (0755, root, sys) /lib/svc/manifest/network
 %class(manifest) %attr (0444, root, sys) /lib/svc/manifest/network/ssh.xml
@@ -156,7 +156,7 @@ legacy desc="Secure Shell protocol common Utilities" name="SSH Common, (Usr)" pk
 %dir %attr (0755, root, sys) %{_sysconfdir}
 %dir %attr (0755, root, sys) %{_sysconfdir}/ssh
 %attr (0755, root, sys) %{_sysconfdir}/ssh/moduli
-%class(preserve) %config %ips_tag(original_name=SUNWssh:%{@} preserve=true) %attr (0755, root, sys) %{_sysconfdir}/ssh/ssh_config
+%class(preserve) %config %ips_tag(original_name=SUNWssh:%{@}) %attr (0755, root, sys) %{_sysconfdir}/ssh/ssh_config
 %dir %attr (0755, root, sys) %{_prefix}
 %{_bindir}/scp
 %{_bindir}/sftp
