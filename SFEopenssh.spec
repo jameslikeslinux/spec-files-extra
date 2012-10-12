@@ -12,13 +12,11 @@
 
 %define	src_name	openssh
 
-%define with_editline	%(/usr/bin/pkginfo -q SFEeditline && echo 1 || echo 0)
-
 Name:		SFEopenssh-server
-IPS_Package_Name:	service/network/ssh
+IPS_Package_Name:	service/network/openssh
 Summary:	Secure Shell protocol Server
-Version:	6.0p1
-IPS_Component_Version:	6.0.1
+Version:	6.1p1
+IPS_Component_Version:	6.1.1
 URL:		http://www.openssh.org/
 Source:		http://ftp5.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable/%{src_name}-%{version}.tar.gz
 Source1:	ssh.xml
@@ -33,17 +31,14 @@ BuildRequires:	SFEldns-devel
 Requires:	SFEldns
 BuildRequires:	SUNWopenssl-include
 Requires:	SUNWopenssl-libraries
-
-%if %with_editline
 BuildRequires:	SFEeditline-devel
 Requires:	SFEeditline
-%endif
 
 %description
 OpenSSH is a FREE version of the SSH connectivity tools that technical users of the Internet rely on. Users of telnet, rlogin, and ftp may not realize that their password is transmitted across the Internet unencrypted, but it is. OpenSSH encrypts all traffic (including passwords) to effectively eliminate eavesdropping, connection hijacking, and other attacks. Additionally, OpenSSH provides secure tunneling capabilities and several authentication methods, and supports all SSH protocol versions.
 
 %package -n SFEopenssh-client
-IPS_package_name:	network/ssh
+IPS_package_name:	network/openssh
 Summary:	SSH Client and utilities
 SUNW_BaseDir:	/
 %include default-depend.inc
@@ -53,7 +48,7 @@ BuildRequires:	SUNWopenssl-include
 Requires:	SUNWopenssl-libraries
 
 %package -n SFEopenssh-common
-IPS_package_name:	network/ssh/ssh-key
+IPS_package_name:	network/openssh/ssh-key
 Summary:	Secure Shell protocol common Utilities
 SUNW_BaseDir:	%{_basedir}
 %include default-depend.inc
@@ -76,9 +71,7 @@ fi
 	--with-solaris-contracts	\
 	--with-solaris-projects	\
 	--with-xauth=/usr/bin/xauth	\
-%if %with_editline
 	--with-libedit		\
-%endif
 	--with-ldns
 
 make -j$CPUS
@@ -195,6 +188,9 @@ legacy desc="Secure Shell protocol common Utilities" name="SSH Common, (Usr)" pk
 %{_mandir}/man1m/ssh-keysign.1m
 
 %changelog
+* Fri Oct 12 2012 - Milan Jurik
+- bump to 6.1p1
+- force use of editline
 * Fri Jun 8 2012 - Logan Bruns <logan@gedanken.org>
 - Added a missing with_editline conditional which prevented compilation without editline
 * Sat Jun 02 2012 - Milan Jurik
