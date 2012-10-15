@@ -87,7 +87,8 @@ export CFLAGS="%optflags -xCC"
             --libexecdir=%{_libexecdir} \
             --sysconfdir=%{_sysconfdir} \
 	    --with-perl=yes		\
-            --enable-shared		\
+            --with-gs-font-dir=/usr/share/ghostscript/fonts \ 
+	    --enable-shared		\
 	    --disable-static
 
 make -j$CPUS 
@@ -133,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.8-10
 - Added more graphic dependencies for better usage
+- added fix for fonts dir in GNU Ghostscript Fonts
 * Sun Aug 05 2012 - Milan Jurik
 - add more build dependencies
 * Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
