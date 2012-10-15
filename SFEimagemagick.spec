@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-%define major		6.7.6
+%define major		6.7.8
 %define minor		10
 
 # Note: we purposely take the latest version from legacy since these
@@ -39,6 +39,8 @@ BuildRequires:	SUNWlcms
 Requires:	SUNWlcms
 BuildRequires:	SUNWpango-devel
 Requires:	SUNWpango
+BuildRequires:  SUNWpng-devel
+Requires:       SUNWpng
 
 %package devel
 Summary:                 %{summary} - development files
@@ -120,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, root) %_sysconfdir/ImageMagick
 
 %changelog
+* Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.8-10
 * Sun Aug 05 2012 - Milan Jurik
 - add more build dependencies
 * Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
