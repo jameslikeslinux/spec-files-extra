@@ -33,14 +33,22 @@ BuildRequires:	SFElibwebp-devel
 Requires:	SFElibwebp
 BuildRequires:	SUNWlibrsvg-devel
 Requires:	SUNWlibrsvg
-BuildRequires:	SUNWfftw3
+BuildRequires:	SUNWfftw3-devel
 Requires:	SUNWfftw3
-BuildRequires:	SUNWlcms
-Requires:	SUNWlcms
 BuildRequires:	SUNWpango-devel
 Requires:	SUNWpango
 BuildRequires:  SUNWpng-devel
 Requires:       SUNWpng
+BuildRequires:  SUNWTiff-devel
+Requires:       SUNWTiff
+BuildRequires:  SUNWlcms-devel
+Requires:       SUNWlcms
+BuildRequires:  SUNWjpg-devel
+Requires:       SUNWjpg
+BuildRequires:  SUNWzlib-devel
+Requires:       SUNWzlib
+BuildRequires:  SUNWopenexr-devel
+Requires:       SUNWopenexr
 
 %package devel
 Summary:                 %{summary} - development files
@@ -124,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.8-10
+- Added more graphic dependencies for better usage
 * Sun Aug 05 2012 - Milan Jurik
 - add more build dependencies
 * Sun May 20 2012 - Logan Bruns <logan@gedanken.org>
