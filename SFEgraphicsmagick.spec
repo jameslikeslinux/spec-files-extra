@@ -18,7 +18,7 @@ IPS_Package_Name:       image/editor/graphicsmagick
 Group:                  Applications/Graphics and Imaging
 License:                MIT
 SUNW_copyright:         graphicsmagick.copyright
-Version:                1.3.16
+Version:                1.3.17
 URL:			http://www.graphicsmagick.org/
 Source:                 %{sf_download}/graphicsmagick/GraphicsMagick-%{version}.tar.bz2
 SUNW_BaseDir:           %{_basedir}
@@ -159,6 +159,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
+- update to 1.3.17
 * Sun Aug 12 2012 - Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
 - Fully qualify actual dependencies.
 - Find correct freetype headers for OS version.

@@ -1,6 +1,7 @@
 2012-10-15 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEimagemagick.spec: bump to 6.7.8-10
+	* SFEgraphicsmagick.spec: bump to 1.3.17
 
 2012-10-08 Ken Mays  <kmays2000@gmail.com>
 
