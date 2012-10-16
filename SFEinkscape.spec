@@ -37,7 +37,7 @@ Requires:	SFEgsl
 Requires:	SFElibgc-gpp
 Requires:	SUNWlcms
 Requires:	SFEboost-gpp
-Requires:	SFElibmagick-gpp
+#Requires:	SFElibmagick-gpp
 Requires:	SFElibwpg-gpp
 BuildRequires:	SFEgtkmm-gpp-devel
 BuildRequires:	SFEglibmm-gpp-devel
@@ -52,8 +52,10 @@ BuildRequires:	SFEgtkmm-gpp-devel
 BuildRequires:	SFEglibmm-gpp-devel
 BuildRequires:	SFEsigcpp-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
-BuildRequires:	SFElibmagick-gpp-devel
+#BuildRequires:	SFElibmagick-gpp-devel
 BuildRequires:	SFElibwpg-gpp-devel
+BuildRequires:  SUNWimagick-devel 
+Requires:       SUNWimagick 
 
 %if %build_l10n
 %package l10n
@@ -167,6 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
 - Bump to 0.48.3.1
+- Migrated to SUNW vs SFE ImageMagick
 * Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
 - fixed build requires SFEboost-gpp-devel instead of SFEboost-devel.
 * Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
