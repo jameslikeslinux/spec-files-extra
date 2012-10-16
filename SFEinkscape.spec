@@ -20,7 +20,7 @@ Summary:	Vector graphics editor
 Group:		Applications/Graphics and Imaging
 License:	GPLv2
 SUNW_Copyright:	inkscape.copyright
-Version:	0.48.2
+Version:	0.48.3.1
 Source:		%{sf_download}/inkscape/inkscape-%{version}.tar.gz
 URL:		http://www.inkscape.org
 Patch1:		inkscape-01-open.diff
@@ -165,6 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
+- Bump to 0.48.3.1
 * Sun Jul 1 2012 - Logan Bruns <logan@gedanken.org>
 - fixed build requires SFEboost-gpp-devel instead of SFEboost-devel.
 * Sat Jun 23 2012 - Logan Bruns <logan@gedanken.org>
