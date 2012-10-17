@@ -22,7 +22,7 @@
 Name:                SFEdrupal7
 IPS_Package_Name:	 web/service/drupal 
 Summary:             Drupal - open-source content-management platform
-Version:             7.15
+Version:             7.16
 License: 	     GPLv2
 Source:              http://ftp.drupal.org/files/projects/drupal-%{version}%{src_name_minor_extra}.tar.gz
 #Source2:             %{src_name}-htaccess-protect-backend
@@ -104,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 18 2012 - Thomas Wagner
+- bump to 7.16 - DRUPAL-SA-CORE-2012-003 Security risk: Highly critical Exploitable from: Remote Vulnerability: Information Disclosure, Arbitrary PHP code execution
 * Tue Sep 18 2012 - Thomas Wagner
 - bump to 7.15 - bug fixes (no security fixes since 7.14)
 * Sun May 06 2012 - Thomas Wagner
