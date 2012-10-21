@@ -33,7 +33,7 @@ BuildRequires:	SFElibwebp-devel
 Requires:	SFElibwebp
 BuildRequires:	SUNWlibrsvg-devel
 Requires:	SUNWlibrsvg
-BuildRequires:	SUNWfftw3-devel
+BuildRequires:	SUNWfftw3
 Requires:	SUNWfftw3
 BuildRequires:	SUNWpango-devel
 Requires:	SUNWpango
