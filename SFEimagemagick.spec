@@ -41,13 +41,13 @@ BuildRequires:  SUNWpng-devel
 Requires:       SUNWpng
 BuildRequires:  SUNWTiff-devel
 Requires:       SUNWTiff
-BuildRequires:  SUNWlcms-devel
+BuildRequires:  SUNWlcms
 Requires:       SUNWlcms
 BuildRequires:  SUNWjpg-devel
 Requires:       SUNWjpg
-BuildRequires:  SUNWzlib-devel
+BuildRequires:  SUNWzlib
 Requires:       SUNWzlib
-BuildRequires:  SUNWopenexr-devel
+BuildRequires:  SUNWopenexr
 Requires:       SUNWopenexr
 
 %package devel
