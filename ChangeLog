@@ -1,3 +1,14 @@
+2012-10-25 Ken Mays  <kmays2000@gmail.com>
+
+	* SFEimagemagick.spec: bump to 6.7.9-10
+	* SFEsamba4.spec: bump to 4.0.0rc3
+
+2012-10-25  Thomas Wagner  <tom68@users.sourceforge.net>
+
+	* SFEperl-timedate.spec: bump to 1.20
+	* SFEpyirclib.spec: initial spec
+	* SFEdrupal7.spec: bump to 3.16
+
 2012-10-15 Ken Mays  <kmays2000@gmail.com>
 
 	* SFEimagemagick.spec: bump to 6.7.8-10
