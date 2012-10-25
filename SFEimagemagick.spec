@@ -6,7 +6,7 @@
 %include Solaris.inc
 
 %define src_name	ImageMagick
-%define major		6.7.8
+%define major		6.7.9
 %define minor		10
 
 # Note: we purposely take the latest version from legacy since these
@@ -71,7 +71,6 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
     CPUS=1
 fi
 
- 
 export CPPFLAGS="-I/usr/include/freetype2 -I/usr/X11/include"
 export LDFLAGS="%_ldflags -L/usr/X11/lib -R/usr/X11/lib"
 if [ "x`basename $CC`" = xgcc ]
@@ -131,6 +130,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, root) %_sysconfdir/ImageMagick
 
 %changelog
+* Thu Oct 25 2012 - Ken Mays <kmays2000@gmail.com>
+- update to 6.7.9-10
 * Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.8-10
 - Added more graphic dependencies for better usage
