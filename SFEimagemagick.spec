@@ -4,6 +4,7 @@
 # includes module(s): imagemagick
 #
 %include Solaris.inc
+%include packagenamemacros.inc
 
 %define src_name	ImageMagick
 %define major		6.7.9
@@ -33,8 +34,8 @@ BuildRequires:	SFElibwebp-devel
 Requires:	SFElibwebp
 BuildRequires:	SUNWlibrsvg-devel
 Requires:	SUNWlibrsvg
-BuildRequires:	SUNWfftw3
-Requires:	SUNWfftw3
+BuildRequires:	%{pnm_buildrequires_SUNWfftw3}
+Requires:	%{pnm_requires_SUNWfftw3}
 BuildRequires:	SUNWpango-devel
 Requires:	SUNWpango
 BuildRequires:  SUNWpng-devel
@@ -86,7 +87,7 @@ export CFLAGS="%optflags -xCC"
             --libexecdir=%{_libexecdir} \
             --sysconfdir=%{_sysconfdir} \
 	    --with-perl=yes		\
-            --with-gs-font-dir=/usr/share/ghostscript/fonts \ 
+            --with-gs-font-dir=/usr/share/ghostscript/fonts \
 	    --enable-shared		\
 	    --disable-static
 
@@ -130,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, root) %_sysconfdir/ImageMagick
 
 %changelog
+* Sun Oct 26 2012 - Thomas Wagner
+- change (BuildRequires) to %{pnm_buildrequires_SUNWfftw3}, %include packagenamemacros.inc
+- fix code error at configure, trailing space at end of line: "   \ $"
 * Thu Oct 25 2012 - Ken Mays <kmays2000@gmail.com>
 - update to 6.7.9-10
 * Mon Oct 15 2012 - Ken Mays <kmays2000@gmail.com>
