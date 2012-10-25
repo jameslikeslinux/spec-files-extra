@@ -6,6 +6,7 @@
 
 %define _basedir /usr/stdcxx
 %include Solaris.inc
+%include packagenamemacros.inc
 %define srcname libmatroska
 
 Name:		SFElibmatroska
@@ -23,8 +24,8 @@ SUNW_BaseDir:	%{_basedir}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
 
-BuildRequires:	SUNWlibstdcxx4
-Requires:	SUNWlibstdcxx4
+BuildRequires: %{pnm_buildrequires_SUNWlibstdcxx4}
+Requires:      %{pnm_requires_SUNWlibstdcxx4}
 BuildRequires:	SFElibebml-devel
 Requires:	SFElibebml
 
@@ -80,6 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}
 
 %changelog
+* Sun Jun 24 2012 - Thomas Wagner
+- change (Build)Requires to %{pnm_buildrequires_SUNWlibstdcxx4}, %include packagenamacros.inc
 * Sun Aug 05 2012 - Milan Jurik
 - bump to 1.3.0
 * Sat Feb  5 2011 - Alex Viskovatoff
