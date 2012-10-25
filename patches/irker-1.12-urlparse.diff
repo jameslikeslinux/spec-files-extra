@@ -1,0 +1,19 @@
+--- irker-1.12/irkerd	2012-10-25 21:55:40.132059315 +0200
++++ irker-1.12_manuell/irkerd	2012-10-25 21:59:04.791390940 +0200
+@@ -280,6 +280,7 @@
+ class Target():
+     "Represent a transmission target."
+     def __init__(self, url):
++        url = url.replace('irc://', 'http://', 1)
+         parsed = urlparse.urlparse(url)
+         irchost, _, ircport = parsed.netloc.partition(':')
+         if not ircport:
+@@ -291,6 +292,8 @@
+         # got kicked, and irkerd crashed because the server returned
+         # "#channel" in the notification that our kick handler saw.
+         self.channel = parsed.path.lstrip('/').lower()
++        if self.channel == '':
++            self.channel = parsed.fragment.lower()
+         isnick = self.channel.endswith(",isnick")
+         if isnick:
+             self.channel = self.channel[:-7]
