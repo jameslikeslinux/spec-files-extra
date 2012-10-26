@@ -1,9 +1,9 @@
---- git-1.7.10/Documentation/Makefile	2012-04-06 11:42:50.000000000 -0700
-+++ git-1.7.10-patched/Documentation/Makefile	2012-04-20 00:21:42.670447380 -0700
-@@ -47,7 +47,7 @@
- ASCIIDOC=asciidoc
+--- git-1.8.0/Documentation/Makefile	2012-10-21 14:32:15.000000000 -0700
++++ git-1.8.0-patched/Documentation/Makefile	2012-10-25 17:41:00.860090708 -0700
+@@ -48,7 +48,7 @@
  ASCIIDOC_EXTRA =
  MANPAGE_XSL = manpage-normal.xsl
+ XMLTO = xmlto
 -XMLTO_EXTRA =
 +XMLTO_EXTRA = --skip-validation
  INSTALL?=install
