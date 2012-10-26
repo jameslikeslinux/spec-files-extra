@@ -37,7 +37,7 @@ Requires:	SFEgsl
 Requires:	SFElibgc-gpp
 Requires:	SUNWlcms
 Requires:	SFEboost-gpp
-#Requires:	SFElibmagick-gpp
+Requires:	SFElibmagick-gpp
 Requires:	SFElibwpg-gpp
 BuildRequires:	SFEgtkmm-gpp-devel
 BuildRequires:	SFEglibmm-gpp-devel
@@ -52,10 +52,8 @@ BuildRequires:	SFEgtkmm-gpp-devel
 BuildRequires:	SFEglibmm-gpp-devel
 BuildRequires:	SFEsigcpp-gpp-devel
 BuildRequires:	SFEboost-gpp-devel
-#BuildRequires:	SFElibmagick-gpp-devel
+BuildRequires:	SFElibmagick-gpp-devel
 BuildRequires:	SFElibwpg-gpp-devel
-BuildRequires:  SUNWimagick-devel 
-Requires:       SUNWimagick 
 
 %if %build_l10n
 %package l10n
