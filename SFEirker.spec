@@ -15,10 +15,11 @@ Name:                    SFEirker
 Summary:		 An IRC client that runs as a daemon accepting notification requests as JSON objects presented to a listening socket
 Version:                 1.12
 Source:                  http://www.catb.org/~esr/irker/irker-%{version}.tar.gz
+Source2:                 irker.xml
 ##TODO## temporary patch
 Patch1:			 irker-1.12-urlparse.diff
 URL:                     http://www.catb.org/esr/irker
-SUNW_BaseDir:            %{_basedir}
+SUNW_BaseDir:            /
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 License:		BSD
 
@@ -31,6 +32,7 @@ BuildRequires:             %{pnm_buildrequires_python_default}
 
 %prep
 %setup -q -n irker-%{version}
+cp %{SOURCE2} irker.xml
 
 #replace with explicit python version from %{python_major_minor_version}
 perl -pi -e 's:^#! */usr/bin/python.*:#!/usr/bin/python%{python_major_minor_version}:' `find . -type f -print`
@@ -44,8 +46,9 @@ perl -pi -e 's:^#! */usr/bin/env *python:#!/usr/bin/python%{python_major_minor_v
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d -m 0755              $RPM_BUILD_ROOT/%{_sbindir}
+install -m    0755 irkerd       $RPM_BUILD_ROOT/%{_sbindir}/irkerd
 install -d -m 0755              $RPM_BUILD_ROOT/%{_bindir}
-install -m    0755 irkerd       $RPM_BUILD_ROOT/%{_bindir}/irkerd
 install -m    0755 irk          $RPM_BUILD_ROOT/%{_bindir}/irk
 install -m    0755 irkerhook.py $RPM_BUILD_ROOT/%{_bindir}/irkerhook.py
 
@@ -58,23 +61,36 @@ for file in COPYING Makefile NEWS README filter-example.py filter-test.py hackin
  install            $file $RPM_BUILD_ROOT/%{_docdir}/irker/$file
  done
 
+mkdir -p ${RPM_BUILD_ROOT}/var/svc/manifest/network
+cp irker.xml ${RPM_BUILD_ROOT}/var/svc/manifest/network/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %files
 %defattr (-, root, bin)
 %dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
+%dir %attr (0755, root, bin) %{_sbindir}
+%{_sbindir}/*
 %dir %attr (0755, root, sys) %{_datadir}
 %dir %attr (0755, root, other) %{_docdir}
 %dir %attr (0755, root, bin) %{_docdir}/irker
 %{_docdir}/irker/*
 
+%defattr (-, root, sys)
+%dir %attr (0755, root, sys) /var/svc/manifest
+%dir %attr (0755, root, sys) /var/svc/manifest/network
+%class(manifest) %attr(0444, root, sys) /var/svc/manifest/network/irker.xml
+
 
 
 
 %changelog
+* Sat Oct 27 2012 - Thomas Wagner
+- relocate irkerd to /usr/sbin/
+- add SMF manifest (run irkerd as user nobody:nogroup)
 * Thu Oct 25 2012 - Thomas Wagner
 - initial spec
 - use patch1 until code base includes fix for lazy urlparse
