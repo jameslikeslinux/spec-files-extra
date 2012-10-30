@@ -9,7 +9,7 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 Name:		lapack
 Summary:	LAPACK - Linear Algebra PACKage
-Version:	3.4.1
+Version:	3.4.2
 Source:		http://www.netlib.org/lapack/lapack-%{version}.tgz
 Group:		Math
 URL:		http://www.netlib.org/lapack/
@@ -86,6 +86,8 @@ install -m 0755 libblas.a $RPM_BUILD_ROOT%{_libdir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Oct 26 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 3.4.2
 * Sun Jun 10 2012 - Pavel Heimlich
 - update source url
 * Mon Apr 30 2012 - Pavel Heimlich
