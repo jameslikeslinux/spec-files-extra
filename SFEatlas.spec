@@ -12,20 +12,21 @@
 %include base.inc
 
 %define srcname atlas
+%define lapack_version 3.4.2
 
 Name:                    SFEatlas
 IPS_Package_Name:	 math/atlas
 Summary:                 ATLAS - Automatically Tuned Linear Algebra Software
 Group:                   Utility
-Version:                 3.8.4
+Version:                 3.10.0
 URL:		         http://math-atlas.sourceforge.net
 Source:		         %{sf_download}/project/math-atlas/Stable/%{version}/%{srcname}%{version}.tar.bz2
+Source1:                 http://www.netlib.org/lapack/lapack-%{lapack_version}.tgz
 License: 		 BSD
 SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: library/lapack
 
 %description
 The ATLAS (Automatically Tuned Linear Algebra Software) project is an
@@ -37,6 +38,7 @@ well as a few routines from LAPACK.
 %prep
 rm -rf %name-%version
 %setup -q -c -n %srcname-%version
+cp %SOURCE1 .
 
 %build
 CPUS=`/usr/sbin/psrinfo | grep on-line | wc -l | tr -d ' '`
@@ -54,7 +56,8 @@ export LDFLAGS="%_ldflags"
 ../ATLAS/configure --prefix=%{_prefix}			\
                    --incdir=%{_includedir}              \
                    --libdir=%{_libdir}/atlas            \
-                   --with-netlib-lapack=/usr/lib/liblapack.a \
+                   --with-netlib-lapack-tarfile=../lapack-%{lapack_version}.tgz \
+                   --shared \
                    -b 32
 
 # Don't use a top level parallel build. Atlas will invoke a parallel
@@ -81,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atlas/*
 
 %changelog
+* Mon Oct 29 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 3.10.0, include lapack at build time only and add shared libraries.
 * Fri Apr 13 2012 - Logan Bruns <logan@gedanken.org>
 - Force 32 bit build to match lapack sfe build.
 * Thu Apr 12 2012 - Logan Bruns <logan@gedanken.org>
