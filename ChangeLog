@@ -1,5 +1,8 @@
 2012-10-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
+	* SFEr-atlas.spec: bump to 2.15.1, update depends, permissions and
+	use shared atlas.
+
 	* SFEatlas.spec: bump to 3.10.0, include lapack at build time only
 	and add shared libraries.
 

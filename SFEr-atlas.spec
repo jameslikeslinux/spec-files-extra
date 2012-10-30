@@ -18,7 +18,7 @@ Name:                    SFEr-atlas
 IPS_Package_Name:	 math/r-atlas
 Summary:                 R - GNU S
 Group:                   Utility
-Version:                 2.15.0
+Version:                 2.15.1
 URL:		         http://www.r-project.org
 Source:		         http://cran.cnr.berkeley.edu/src/base/R-2/%{srcname}-%{version}.tar.gz
 License: 		 GPL
@@ -26,7 +26,10 @@ SUNW_Copyright:          %{name}.copyright
 SUNW_BaseDir:            %{_basedir}
 BuildRoot:               %{_tmppath}/%{name}-%{version}-build
 %include default-depend.inc
-Requires: math/atlas
+BuildRequires: SFEatlas
+Requires: SFEatlas
+BuildRequires: SUNWicud
+Requires: SUNWicu
 Requires: %pnm_requires_java_runtime_default
 
 %description
@@ -59,8 +62,8 @@ export CFLAGS="%optflags"
 export LIBS="-lncurses"
 export LDFLAGS="-L/usr/gnu/lib -R/usr/gnu/lib -L/usr/lib/atlas"
 export JAVA_HOME=/usr/java
-export BLAS_LIBS="-L/usr/lib/atlas -lcblas -latlas"
-export LAPACK_LIBS="-L/usr/lib/atlas -llapack -lcblas -latlas"
+export BLAS_LIBS="-L/usr/lib/atlas -lcblas -ltatlas"
+export LAPACK_LIBS="-L/usr/lib/atlas -llapack -lcblas -ltatlas"
 export CPPFLAGS="-I/usr/gnu/include"
 ./configure --prefix=%{_prefix}			\
             --with-lapack                       \
@@ -77,12 +80,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%dir %attr (0755, root, bin) %{_bindir}
 %{_bindir}/*
 %dir %attr (0755, root, bin) %{_libdir}/R
 %{_libdir}/R/*
+%dir %attr(0755, root, sys) %{_datadir}
+%dir %attr(0755, root, bin) %{_mandir}
+%dir %attr(0755, root, bin) %{_mandir}/man1
 %{_mandir}/man1/*
 
 %changelog
+* Mon Oct 29 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 2.15.1, update depends, permissions and use shared atlas.
 * Sat Apr 14 2012 - Logan Bruns <logan@gedanken.org>
 - Rename to SFEr-atlas to keep atlas version separate. Maybe merge or
   replace old one if we change SFEatlas to be multiarch to better
