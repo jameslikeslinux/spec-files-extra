@@ -98,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/lib*.*a
 find $RPM_BUILD_ROOT%{_libdir} -name lib\*.\*a -exec rm {} \;
+find $RPM_BUILD_ROOT -name .packlist -exec %{__rm} {} \; -o -name perllocal.pod  -exec %{__rm} {} \;
 site_perl=$RPM_BUILD_ROOT/usr/perl5/site_perl
 vendor_perl=$RPM_BUILD_ROOT/usr/perl5/vendor_perl
 mv $site_perl $vendor_perl
@@ -131,6 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr (-, root, root) %_sysconfdir/ImageMagick
 
 %changelog
+* Tue Oct 30 2012 - Thomas Wagner
+- remove perllocal.pod
 * Sun Oct 26 2012 - Thomas Wagner
 - change (BuildRequires) to %{pnm_buildrequires_SUNWfftw3}, %include packagenamemacros.inc
 - fix code error at configure, trailing space at end of line: "   \ $"
