@@ -3,18 +3,18 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
-# Compiled on oi_151a/GCCi 4.6.2 successfully on 10/30/2012 - Ken Mays
-#
+# Tested on oi_151a/SS 12.1 - 10/30/2012 - Ken Mays
+
 %include Solaris.inc
-%define source_name samba-4.0.0alpha11
+%define source_name 	samba-4.0.0rc4 
 
 Name:                SFEsamba4
 Summary:             samba - CIFS Server and Domain Controller v4
 Version:             4.0.0
-Source:              http://us5.samba.org/samba/ftp/samba4/%{source_name}.tar.gz
+Source:              ftp://ftp.samba.org/pub/samba/rc/%{source_name}.tar.gz
 
-Patch1: samba4-01-create-symbol-link.diff
-Patch2: samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff
+#Patch1: samba4-01-create-symbol-link.diff
+#Patch2: samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff
 
 SUNW_BaseDir:        %{_basedir}
 BuildRoot:           %{_tmppath}/%{name}-%{version}-build
@@ -30,8 +30,8 @@ SUNW_BaseDir:            /
 %prep
 rm -rf %name-%version
 %setup -q -c -n %name-%version
-%patch1 -p0
-%patch2 -p0
+#%patch1 -p0
+#%patch2 -p0
 
 
 %build
@@ -41,12 +41,13 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
      CPUS=1
 fi
 
+export SHELL=/usr/bin/bash
+
 export CFLAGS="-g -mt %optflags"
 export LDFLAGS="-z ignore %_ldflags"
 
-cd %{source_name}/source4
-./autogen.sh
-./configure.developer \
+cd %{source_name}
+./configure \
             --prefix=%{_prefix}  \
             --sysconfdir=%{_sysconfdir} \
             --localstatedir=%{_localstatedir} \
@@ -54,14 +55,14 @@ cd %{source_name}/source4
             --mandir=%{_mandir}	\
             --enable-debug \
             --enable-fhs \
-            --enable-nss-wrapper 
+	    --enable-nss-wrapper
 
-gmake idl_full && gmake
+gmake -j$CPUS
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-cd %{source_name}/source4
+cd %{source_name}
 
 gmake install DESTDIR=$RPM_BUILD_ROOT
 
@@ -114,9 +115,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Oct 30 2012 - Ken Mays <kmays2000@gmail.com>
-- Added --enable-nss-wrapper to fix native build
-- Tested native samba4a11 build on oi_151a/GCC 4.6.2 successfully
- Tue Mar 16 2010 - brian.lu@sun.com
+- updating to 4.0.0rc4
+- Tested on oi_151a
+* Tue Mar 16 2010 - brian.lu@sun.com
 - Add patches: samba4-01-create-symbol-link.diff
   and samba4-02-remove-HAVE_IMMEDIATE_STRUCT.diff 
 * Sat Mar 13 2010 - brian.lu@sun.com

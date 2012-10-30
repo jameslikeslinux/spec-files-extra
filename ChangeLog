@@ -1,3 +1,7 @@
+2012-10-30 Ken Mays  <kmays2000@gmail.com>
+
+	* experimental/SFEsamba4.spec: bump to 4.0.0rc4
+
 2012-10-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEc-icap.spec: bump to 0.2.2
