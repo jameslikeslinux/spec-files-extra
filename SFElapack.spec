@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 #%endif
 
 %changelog
+* Fri Oct 26 2012 - Logan Bruns <logan@gedanken.org>
+- bump to 3.4.2
 * Sun Jun 17 2012 - Thomas Wagner
 - add missing (Build)Requires
 * Mon Apr 30 2012 - Pavel Heimlich
