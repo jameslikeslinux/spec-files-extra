@@ -18,7 +18,7 @@ IPS_Package_Name:	web/proxy/c-icap/c-icap-modules
 Summary:	Modules for the C-ICAP server
 License:	GPLv2
 SUNW_Copyright:	c-icap-modules.copyright
-Version:	0.1.6
+Version:	0.2.2
 Group:		Web Services/Application and Web Servers
 URL:		http://c-icap.sourceforge.net/
 Source:		%{sf_download}/c-icap/%{src_name}-%{version}.tar.gz
@@ -47,10 +47,10 @@ if test "x$CPUS" = "x" -o $CPUS = 0; then
 fi
 
 export CC=gcc
-export CFLAGS="%optflags -I/usr/gnu/include"
+export CFLAGS="%optflags -I/usr/gnu/include -DHAVE_STRNSTR"
 export LDFLAGS="%_ldflags -L/usr/gnu/lib -R/usr/gnu/lib"
 
-./configure --prefix=%{_prefix}			\
+bash ./configure --prefix=%{_prefix}			\
             --bindir=%{_bindir}			\
             --libdir=%{_libdir}			\
             --sysconfdir=%{_sysconfdir}		\
@@ -72,13 +72,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-, root, bin)
+%{_bindir}
 %{_libdir}/c_icap/*.so*
+%dir %attr (0755, root, sys) %{_datadir}
+%{_datadir}/c_icap
+%{_mandir}
 
 %files root
 %defattr (-, root, sys)
 %{_sysconfdir}
 
 %changelog
+* Tue Oct 30 2012 - Milan Jurik
+- bump to 0.2.2
 * Tue Jul 12 2011 - Milan Jurik
 - bump to 0.1.6
 * Tue Mar 29 2011 - Milan Jurik

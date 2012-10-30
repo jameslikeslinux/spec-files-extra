@@ -1,6 +1,7 @@
 2012-10-30 Milan Jurik <sfnet@xylab.cz>
 
 	* SFEc-icap.spec: bump to 0.2.2
+	* SFEc-icap-modules.spec: bump to 0.2.2
 
 2012-10-29  Logan O'Sullivan Bruns  <logan@gedanken.org>
 
